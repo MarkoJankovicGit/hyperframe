@@ -1,0 +1,180 @@
+<template>
+  <div id="beat4" class="scene"
+       data-composition-id="bloom-etfs-explained-beat-4"
+       data-width="1080" data-height="1920"
+       data-start="0" data-duration="5.20">
+    <style>
+      #beat4 {
+        position: absolute; inset: 0;
+        width: 1080px; height: 1920px;
+        overflow: hidden;
+        background: #FFFFFF;
+        font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        gap: 32px;
+      }
+      #beat4-eyebrow {
+        font-family: "Inter", system-ui, sans-serif;
+        font-weight: 700; font-size: 32px;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        color: #4A4F54;
+        opacity: 0;
+        margin-bottom: 8px;
+      }
+      .b4-card {
+        width: 880px; height: 220px;
+        background: #1C2329;
+        border-radius: 32px;
+        box-shadow: 0 24px 60px rgba(6,10,30,0.28);
+        display: flex; align-items: center;
+        padding: 32px 48px;
+        gap: 36px;
+        opacity: 0;
+      }
+      .b4-icon {
+        width: 160px; height: 160px;
+        flex-shrink: 0;
+        display: flex; align-items: center; justify-content: center;
+      }
+      .b4-text {
+        display: flex; flex-direction: column;
+        gap: 8px; color: #fff;
+      }
+      .b4-eyebrow {
+        font-family: "Inter", system-ui, sans-serif;
+        font-weight: 600; font-size: 26px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        opacity: 0.65;
+      }
+      .b4-headline {
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800; font-style: italic;
+        text-transform: uppercase;
+        letter-spacing: -0.018em;
+        line-height: 0.92;
+      }
+      #beat4-c1 .b4-headline { font-size: 100px; }
+      #beat4-c2 .b4-headline { font-size: 100px; }
+      #beat4-c3 .b4-headline { font-size: 76px; }
+    </style>
+
+    <div id="beat4-eyebrow">Group By</div>
+
+    <div class="b4-card" id="beat4-c1">
+      <div class="b4-icon">
+        <svg width="140" height="140" viewBox="0 0 140 140">
+          <g fill="#1658FF">
+            <rect x="10" y="10" width="36" height="36" rx="8"/>
+            <rect x="52" y="10" width="36" height="36" rx="8"/>
+            <rect x="94" y="10" width="36" height="36" rx="8"/>
+            <rect x="10" y="52" width="36" height="36" rx="8"/>
+            <rect x="52" y="52" width="36" height="36" rx="8"/>
+            <rect x="94" y="52" width="36" height="36" rx="8"/>
+            <rect x="10" y="94" width="36" height="36" rx="8"/>
+            <rect x="52" y="94" width="36" height="36" rx="8"/>
+            <rect x="94" y="94" width="36" height="36" rx="8"/>
+          </g>
+        </svg>
+      </div>
+      <div class="b4-text">
+        <div class="b4-eyebrow">1. Sort By</div>
+        <div class="b4-headline">Industry</div>
+      </div>
+    </div>
+
+    <div class="b4-card" id="beat4-c2">
+      <div class="b4-icon">
+        <svg width="140" height="140" viewBox="0 0 140 140" fill="none" stroke="#01CD74" stroke-width="6" stroke-linecap="round">
+          <circle cx="70" cy="70" r="55" />
+          <ellipse cx="70" cy="70" rx="22" ry="55" />
+          <line x1="15" y1="70" x2="125" y2="70" />
+          <path d="M 18 45 Q 70 30 122 45" />
+          <path d="M 18 95 Q 70 110 122 95" />
+        </svg>
+      </div>
+      <div class="b4-text">
+        <div class="b4-eyebrow">2. Sort By</div>
+        <div class="b4-headline">Location</div>
+      </div>
+    </div>
+
+    <div class="b4-card" id="beat4-c3">
+      <div class="b4-icon">
+        <svg width="140" height="140" viewBox="0 0 140 140">
+          <g fill="#EFC42C">
+            <rect x="14" y="80" width="32" height="46" rx="6"/>
+            <rect x="54" y="56" width="32" height="70" rx="6"/>
+            <rect x="94" y="28" width="32" height="98" rx="6"/>
+          </g>
+        </svg>
+      </div>
+      <div class="b4-text">
+        <div class="b4-eyebrow">3. Sort By</div>
+        <div class="b4-headline">Company Size</div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        const W = [{"w":"ETFs","s":0.086,"e":1.006},{"w":"group","s":1.059,"e":1.324},{"w":"stocks","s":1.381,"e":1.723},{"w":"by","s":1.776,"e":1.882},{"w":"industry,","s":1.944,"e":2.52},{"w":"by","s":2.627,"e":2.841},{"w":"location,","s":2.912,"e":3.56},{"w":"or","s":3.613,"e":3.719},{"w":"by","s":3.799,"e":3.959},{"w":"company","s":4.009,"e":4.359},{"w":"size.","s":4.439,"e":4.919},{"w":"Some","s":5.047,"e":5.559}];
+        function _norm(s){return s.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu,"");}
+        function _findPhrase(phrase){
+          const tokens=phrase.toLowerCase().split(/\s+/).map(_norm).filter(Boolean);
+          if(!tokens.length) throw new Error("landOn: empty phrase");
+          const hits=[];
+          for(let i=0;i<=W.length-tokens.length;i++){
+            let ok=true;
+            for(let j=0;j<tokens.length;j++){
+              if(_norm(W[i+j].w)!==tokens[j]){ok=false;break;}
+            }
+            if(ok) hits.push(i);
+          }
+          if(hits.length===0) throw new Error('landOn: phrase "'+phrase+'" not found');
+          if(hits.length>1) throw new Error('landOn: phrase "'+phrase+'" matches '+hits.length+' positions');
+          return {startIdx:hits[0], endIdx:hits[0]+tokens.length-1};
+        }
+        function at(p){return W[_findPhrase(p).startIdx].s;}
+        function landOn(p,d=0){return at(p)-d;}
+
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        tl.fromTo("#beat4-eyebrow",
+          { opacity: 0, y: -10 },
+          { opacity: 1, y: 0, duration: 0.4, ease: "power2.out", overwrite: "auto" },
+          0.05);
+
+        const cards = [
+          { sel: "#beat4-c1", anchor: "by industry" },
+          { sel: "#beat4-c2", anchor: "by location" },
+          { sel: "#beat4-c3", anchor: "company size" }
+        ];
+
+        cards.forEach(c => {
+          tl.fromTo(c.sel,
+            { opacity: 0, x: 160, scale: 0.92 },
+            { opacity: 1, x: 0, scale: 1, duration: 0.5, ease: "back.out(1.6)", overwrite: "auto" },
+            landOn(c.anchor, 0.5));
+          tl.fromTo(c.sel + " .b4-icon svg",
+            { rotation: -180 },
+            { rotation: 0, duration: 0.6, ease: "power2.inOut", transformOrigin: "50% 50%", overwrite: "auto" },
+            landOn(c.anchor, 0.4));
+          tl.fromTo(c.sel,
+            { scale: 1 },
+            { scale: 1.04, duration: 0.16, yoyo: true, repeat: 1, ease: "power2.out", overwrite: "auto" },
+            landOn(c.anchor, 0));
+          tl.to(c.sel,
+            { y: -6, duration: 1.4, yoyo: true, repeat: 1, ease: "sine.inOut", overwrite: "auto" },
+            landOn(c.anchor, 0) + 0.5);
+        });
+
+        tl.set("#beat4", { visibility: "hidden" }, 5.20);
+
+        window.__timelines["bloom-etfs-explained-beat-4"] = tl;
+      })();
+    </script>
+  </div>
+</template>

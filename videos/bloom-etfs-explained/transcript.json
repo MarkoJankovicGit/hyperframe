@@ -1,0 +1,771 @@
+{
+  "sceneId": "scene-01",
+  "text": "Picking individual stocks? It can be confusing, and seriously time consuming. But ETFs make investing easy. An ETF is a bundle of stocks you can buy as one. Think of it like grabbing a carton of eggs, instead of picking twelve, one at a time. ETFs group stocks by industry, by location, or by company size. Some ETFs even track the entire stock market, like SPY and VOO, which both follow the S and P 500. One purchase. Hundreds of stocks. Instant diversification. And many ETFs also pay dividends, quarterly payouts, just for holding the shares. Next, we'll break down how ETFs work, and what to watch out for.",
+  "words": [
+    {
+      "word": "Picking",
+      "start": 0,
+      "end": 0.32,
+      "startFrame": 0,
+      "endFrame": 10
+    },
+    {
+      "word": "individual",
+      "start": 0.364,
+      "end": 0.804,
+      "startFrame": 11,
+      "endFrame": 24
+    },
+    {
+      "word": "stocks?",
+      "start": 0.907,
+      "end": 1.725,
+      "startFrame": 27,
+      "endFrame": 52
+    },
+    {
+      "word": "It",
+      "start": 1.792,
+      "end": 1.926,
+      "startFrame": 54,
+      "endFrame": 58
+    },
+    {
+      "word": "can",
+      "start": 1.966,
+      "end": 2.086,
+      "startFrame": 59,
+      "endFrame": 63
+    },
+    {
+      "word": "be",
+      "start": 2.113,
+      "end": 2.167,
+      "startFrame": 63,
+      "endFrame": 65
+    },
+    {
+      "word": "confusing,",
+      "start": 2.223,
+      "end": 3.047,
+      "startFrame": 67,
+      "endFrame": 91
+    },
+    {
+      "word": "and",
+      "start": 3.107,
+      "end": 3.287,
+      "startFrame": 93,
+      "endFrame": 99
+    },
+    {
+      "word": "seriously",
+      "start": 3.351,
+      "end": 3.927,
+      "startFrame": 101,
+      "endFrame": 118
+    },
+    {
+      "word": "time",
+      "start": 3.991,
+      "end": 4.247,
+      "startFrame": 120,
+      "endFrame": 127
+    },
+    {
+      "word": "consuming.",
+      "start": 4.295,
+      "end": 4.807,
+      "startFrame": 129,
+      "endFrame": 144
+    },
+    {
+      "word": "But",
+      "start": 4.947,
+      "end": 5.367,
+      "startFrame": 148,
+      "endFrame": 161
+    },
+    {
+      "word": "ETFs",
+      "start": 5.507,
+      "end": 6.007,
+      "startFrame": 165,
+      "endFrame": 180
+    },
+    {
+      "word": "make",
+      "start": 6.071,
+      "end": 6.327,
+      "startFrame": 182,
+      "endFrame": 190
+    },
+    {
+      "word": "investing",
+      "start": 6.383,
+      "end": 6.887,
+      "startFrame": 191,
+      "endFrame": 207
+    },
+    {
+      "word": "easy.",
+      "start": 6.967,
+      "end": 7.367,
+      "startFrame": 209,
+      "endFrame": 221
+    },
+    {
+      "word": "An",
+      "start": 7.58,
+      "end": 8.006,
+      "startFrame": 227,
+      "endFrame": 240
+    },
+    {
+      "word": "ETF",
+      "start": 8.166,
+      "end": 8.646,
+      "startFrame": 245,
+      "endFrame": 259
+    },
+    {
+      "word": "is",
+      "start": 8.699,
+      "end": 8.805,
+      "startFrame": 261,
+      "endFrame": 264
+    },
+    {
+      "word": "a",
+      "start": 8.885,
+      "end": 8.965,
+      "startFrame": 267,
+      "endFrame": 269
+    },
+    {
+      "word": "bundle",
+      "start": 9.011,
+      "end": 9.287,
+      "startFrame": 270,
+      "endFrame": 279
+    },
+    {
+      "word": "of",
+      "start": 9.34,
+      "end": 9.446,
+      "startFrame": 280,
+      "endFrame": 283
+    },
+    {
+      "word": "stocks",
+      "start": 9.503,
+      "end": 9.845,
+      "startFrame": 285,
+      "endFrame": 295
+    },
+    {
+      "word": "you",
+      "start": 9.865,
+      "end": 9.925,
+      "startFrame": 296,
+      "endFrame": 298
+    },
+    {
+      "word": "can",
+      "start": 9.965,
+      "end": 10.085,
+      "startFrame": 299,
+      "endFrame": 303
+    },
+    {
+      "word": "buy",
+      "start": 10.125,
+      "end": 10.245,
+      "startFrame": 304,
+      "endFrame": 307
+    },
+    {
+      "word": "as",
+      "start": 10.298,
+      "end": 10.404,
+      "startFrame": 309,
+      "endFrame": 312
+    },
+    {
+      "word": "one.",
+      "start": 10.504,
+      "end": 10.884,
+      "startFrame": 315,
+      "endFrame": 327
+    },
+    {
+      "word": "Think",
+      "start": 10.991,
+      "end": 11.526,
+      "startFrame": 330,
+      "endFrame": 346
+    },
+    {
+      "word": "of",
+      "start": 11.553,
+      "end": 11.607,
+      "startFrame": 347,
+      "endFrame": 348
+    },
+    {
+      "word": "it",
+      "start": 11.66,
+      "end": 11.766,
+      "startFrame": 350,
+      "endFrame": 353
+    },
+    {
+      "word": "like",
+      "start": 11.798,
+      "end": 11.926,
+      "startFrame": 354,
+      "endFrame": 358
+    },
+    {
+      "word": "grabbing",
+      "start": 11.97,
+      "end": 12.322,
+      "startFrame": 359,
+      "endFrame": 370
+    },
+    {
+      "word": "a",
+      "start": 12.362,
+      "end": 12.402,
+      "startFrame": 371,
+      "endFrame": 372
+    },
+    {
+      "word": "carton",
+      "start": 12.45,
+      "end": 12.722,
+      "startFrame": 374,
+      "endFrame": 382
+    },
+    {
+      "word": "of",
+      "start": 12.749,
+      "end": 12.803,
+      "startFrame": 382,
+      "endFrame": 384
+    },
+    {
+      "word": "eggs,",
+      "start": 12.883,
+      "end": 13.283,
+      "startFrame": 386,
+      "endFrame": 398
+    },
+    {
+      "word": "instead",
+      "start": 13.323,
+      "end": 13.603,
+      "startFrame": 400,
+      "endFrame": 408
+    },
+    {
+      "word": "of",
+      "start": 13.63,
+      "end": 13.684,
+      "startFrame": 409,
+      "endFrame": 411
+    },
+    {
+      "word": "picking",
+      "start": 13.734,
+      "end": 14.084,
+      "startFrame": 412,
+      "endFrame": 423
+    },
+    {
+      "word": "twelve,",
+      "start": 14.153,
+      "end": 14.727,
+      "startFrame": 425,
+      "endFrame": 442
+    },
+    {
+      "word": "one",
+      "start": 14.767,
+      "end": 14.887,
+      "startFrame": 443,
+      "endFrame": 447
+    },
+    {
+      "word": "at",
+      "start": 14.94,
+      "end": 15.046,
+      "startFrame": 448,
+      "endFrame": 451
+    },
+    {
+      "word": "a",
+      "start": 15.086,
+      "end": 15.126,
+      "startFrame": 453,
+      "endFrame": 454
+    },
+    {
+      "word": "time.",
+      "start": 15.206,
+      "end": 15.606,
+      "startFrame": 456,
+      "endFrame": 468
+    },
+    {
+      "word": "ETFs",
+      "start": 15.886,
+      "end": 16.806,
+      "startFrame": 477,
+      "endFrame": 504
+    },
+    {
+      "word": "group",
+      "start": 16.859,
+      "end": 17.124,
+      "startFrame": 506,
+      "endFrame": 514
+    },
+    {
+      "word": "stocks",
+      "start": 17.181,
+      "end": 17.523,
+      "startFrame": 515,
+      "endFrame": 526
+    },
+    {
+      "word": "by",
+      "start": 17.576,
+      "end": 17.682,
+      "startFrame": 527,
+      "endFrame": 530
+    },
+    {
+      "word": "industry,",
+      "start": 17.744,
+      "end": 18.32,
+      "startFrame": 532,
+      "endFrame": 550
+    },
+    {
+      "word": "by",
+      "start": 18.427,
+      "end": 18.641,
+      "startFrame": 553,
+      "endFrame": 559
+    },
+    {
+      "word": "location,",
+      "start": 18.712,
+      "end": 19.36,
+      "startFrame": 561,
+      "endFrame": 581
+    },
+    {
+      "word": "or",
+      "start": 19.413,
+      "end": 19.519,
+      "startFrame": 582,
+      "endFrame": 586
+    },
+    {
+      "word": "by",
+      "start": 19.599,
+      "end": 19.759,
+      "startFrame": 588,
+      "endFrame": 593
+    },
+    {
+      "word": "company",
+      "start": 19.809,
+      "end": 20.159,
+      "startFrame": 594,
+      "endFrame": 605
+    },
+    {
+      "word": "size.",
+      "start": 20.239,
+      "end": 20.719,
+      "startFrame": 607,
+      "endFrame": 622
+    },
+    {
+      "word": "Some",
+      "start": 20.847,
+      "end": 21.359,
+      "startFrame": 625,
+      "endFrame": 641
+    },
+    {
+      "word": "ETFs",
+      "start": 21.479,
+      "end": 21.919,
+      "startFrame": 644,
+      "endFrame": 658
+    },
+    {
+      "word": "even",
+      "start": 21.967,
+      "end": 22.159,
+      "startFrame": 659,
+      "endFrame": 665
+    },
+    {
+      "word": "track",
+      "start": 22.226,
+      "end": 22.561,
+      "startFrame": 667,
+      "endFrame": 677
+    },
+    {
+      "word": "the",
+      "start": 22.601,
+      "end": 22.721,
+      "startFrame": 678,
+      "endFrame": 682
+    },
+    {
+      "word": "entire",
+      "start": 22.801,
+      "end": 23.281,
+      "startFrame": 684,
+      "endFrame": 698
+    },
+    {
+      "word": "stock",
+      "start": 23.348,
+      "end": 23.683,
+      "startFrame": 700,
+      "endFrame": 710
+    },
+    {
+      "word": "market,",
+      "start": 23.729,
+      "end": 24.165,
+      "startFrame": 712,
+      "endFrame": 725
+    },
+    {
+      "word": "like",
+      "start": 24.213,
+      "end": 24.405,
+      "startFrame": 726,
+      "endFrame": 732
+    },
+    {
+      "word": "SPY",
+      "start": 24.592,
+      "end": 25.206,
+      "startFrame": 738,
+      "endFrame": 756
+    },
+    {
+      "word": "and",
+      "start": 25.266,
+      "end": 25.446,
+      "startFrame": 758,
+      "endFrame": 763
+    },
+    {
+      "word": "VOO,",
+      "start": 25.646,
+      "end": 26.406,
+      "startFrame": 769,
+      "endFrame": 792
+    },
+    {
+      "word": "which",
+      "start": 26.433,
+      "end": 26.568,
+      "startFrame": 793,
+      "endFrame": 797
+    },
+    {
+      "word": "both",
+      "start": 26.632,
+      "end": 26.888,
+      "startFrame": 799,
+      "endFrame": 807
+    },
+    {
+      "word": "follow",
+      "start": 26.934,
+      "end": 27.21,
+      "startFrame": 808,
+      "endFrame": 816
+    },
+    {
+      "word": "the",
+      "start": 27.25,
+      "end": 27.37,
+      "startFrame": 818,
+      "endFrame": 821
+    },
+    {
+      "word": "S",
+      "start": 27.49,
+      "end": 27.61,
+      "startFrame": 825,
+      "endFrame": 828
+    },
+    {
+      "word": "and",
+      "start": 27.65,
+      "end": 27.77,
+      "startFrame": 830,
+      "endFrame": 833
+    },
+    {
+      "word": "P",
+      "start": 27.85,
+      "end": 27.93,
+      "startFrame": 836,
+      "endFrame": 838
+    },
+    {
+      "word": "500.",
+      "start": 28.09,
+      "end": 28.811,
+      "startFrame": 843,
+      "endFrame": 864
+    },
+    {
+      "word": "One",
+      "start": 29.011,
+      "end": 29.611,
+      "startFrame": 870,
+      "endFrame": 888
+    },
+    {
+      "word": "purchase.",
+      "start": 29.673,
+      "end": 30.249,
+      "startFrame": 890,
+      "endFrame": 907
+    },
+    {
+      "word": "Hundreds",
+      "start": 30.329,
+      "end": 30.969,
+      "startFrame": 910,
+      "endFrame": 929
+    },
+    {
+      "word": "of",
+      "start": 30.996,
+      "end": 31.05,
+      "startFrame": 930,
+      "endFrame": 932
+    },
+    {
+      "word": "stocks.",
+      "start": 31.141,
+      "end": 31.767,
+      "startFrame": 934,
+      "endFrame": 953
+    },
+    {
+      "word": "Instant",
+      "start": 31.867,
+      "end": 32.567,
+      "startFrame": 956,
+      "endFrame": 977
+    },
+    {
+      "word": "diversification.",
+      "start": 32.624,
+      "end": 33.604,
+      "startFrame": 979,
+      "endFrame": 1008
+    },
+    {
+      "word": "And",
+      "start": 33.784,
+      "end": 34.324,
+      "startFrame": 1014,
+      "endFrame": 1030
+    },
+    {
+      "word": "many",
+      "start": 34.372,
+      "end": 34.564,
+      "startFrame": 1031,
+      "endFrame": 1037
+    },
+    {
+      "word": "ETFs",
+      "start": 34.704,
+      "end": 35.204,
+      "startFrame": 1041,
+      "endFrame": 1056
+    },
+    {
+      "word": "also",
+      "start": 35.284,
+      "end": 35.604,
+      "startFrame": 1059,
+      "endFrame": 1068
+    },
+    {
+      "word": "pay",
+      "start": 35.664,
+      "end": 35.844,
+      "startFrame": 1070,
+      "endFrame": 1075
+    },
+    {
+      "word": "dividends,",
+      "start": 35.908,
+      "end": 36.644,
+      "startFrame": 1077,
+      "endFrame": 1099
+    },
+    {
+      "word": "quarterly",
+      "start": 36.708,
+      "end": 37.284,
+      "startFrame": 1101,
+      "endFrame": 1119
+    },
+    {
+      "word": "payouts,",
+      "start": 37.354,
+      "end": 38.004,
+      "startFrame": 1121,
+      "endFrame": 1140
+    },
+    {
+      "word": "just",
+      "start": 38.068,
+      "end": 38.324,
+      "startFrame": 1142,
+      "endFrame": 1150
+    },
+    {
+      "word": "for",
+      "start": 38.344,
+      "end": 38.404,
+      "startFrame": 1150,
+      "endFrame": 1152
+    },
+    {
+      "word": "holding",
+      "start": 38.454,
+      "end": 38.804,
+      "startFrame": 1154,
+      "endFrame": 1164
+    },
+    {
+      "word": "the",
+      "start": 38.824,
+      "end": 38.884,
+      "startFrame": 1165,
+      "endFrame": 1167
+    },
+    {
+      "word": "shares.",
+      "start": 38.953,
+      "end": 39.527,
+      "startFrame": 1169,
+      "endFrame": 1186
+    },
+    {
+      "word": "Next,",
+      "start": 39.735,
+      "end": 40.727,
+      "startFrame": 1192,
+      "endFrame": 1222
+    },
+    {
+      "word": "we'll",
+      "start": 40.754,
+      "end": 40.889,
+      "startFrame": 1223,
+      "endFrame": 1227
+    },
+    {
+      "word": "break",
+      "start": 40.942,
+      "end": 41.207,
+      "startFrame": 1228,
+      "endFrame": 1236
+    },
+    {
+      "word": "down",
+      "start": 41.255,
+      "end": 41.447,
+      "startFrame": 1238,
+      "endFrame": 1243
+    },
+    {
+      "word": "how",
+      "start": 41.487,
+      "end": 41.607,
+      "startFrame": 1245,
+      "endFrame": 1248
+    },
+    {
+      "word": "ETFs",
+      "start": 41.727,
+      "end": 42.247,
+      "startFrame": 1252,
+      "endFrame": 1267
+    },
+    {
+      "word": "work,",
+      "start": 42.311,
+      "end": 42.727,
+      "startFrame": 1269,
+      "endFrame": 1282
+    },
+    {
+      "word": "and",
+      "start": 42.767,
+      "end": 42.887,
+      "startFrame": 1283,
+      "endFrame": 1287
+    },
+    {
+      "word": "what",
+      "start": 42.919,
+      "end": 43.047,
+      "startFrame": 1288,
+      "endFrame": 1291
+    },
+    {
+      "word": "to",
+      "start": 43.074,
+      "end": 43.128,
+      "startFrame": 1292,
+      "endFrame": 1294
+    },
+    {
+      "word": "watch",
+      "start": 43.181,
+      "end": 43.446,
+      "startFrame": 1295,
+      "endFrame": 1303
+    },
+    {
+      "word": "out",
+      "start": 43.506,
+      "end": 43.686,
+      "startFrame": 1305,
+      "endFrame": 1311
+    },
+    {
+      "word": "for.",
+      "start": 43.726,
+      "end": 44.006,
+      "startFrame": 1312,
+      "endFrame": 1320
+    }
+  ],
+  "durationSeconds": 44.506,
+  "durationFrames": 1335
+}

@@ -1,0 +1,102 @@
+<template>
+  <div data-composition-id="bloom-risk-reward-beat-9" data-width="1080" data-height="1920" data-start="0" data-duration="5.40">
+    <style>
+      [data-composition-id="bloom-risk-reward-beat-9"] {
+        position: absolute; inset: 0;
+        background: #1658FF;
+        font-family: "Inter Tight", system-ui, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      #b9-star {
+        position: absolute;
+        width: 1000px; height: 1000px;
+        opacity: 0.15;
+        z-index: 0;
+      }
+      #b9-eyebrow {
+        color: #fff;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 36px;
+        letter-spacing: 0.15em;
+        margin-bottom: 40px;
+        opacity: 0;
+        z-index: 1;
+      }
+      .b9-badge {
+        background: #1C2329;
+        padding: 32px 64px;
+        border-radius: 24px;
+        box-shadow: 0 24px 60px rgba(0,0,0,0.3);
+        margin: 20px 0;
+        opacity: 0;
+        z-index: 1;
+        width: 900px;
+        text-align: center;
+      }
+      .b9-badge-text {
+        color: #fff;
+        font-weight: 800;
+        font-style: italic;
+        text-transform: uppercase;
+        font-size: 70px;
+        line-height: 1;
+        letter-spacing: -0.01em;
+      }
+    </style>
+
+    <img id="b9-star" src="../bloom-star.png" />
+    <div id="b9-eyebrow">YOUR INSIGHT</div>
+    
+    <div id="b9-badge-1" class="b9-badge">
+      <span class="b9-badge-text">HIGH RISK = HIGH REWARD</span>
+    </div>
+    <div id="b9-badge-2" class="b9-badge">
+      <span class="b9-badge-text">LOW RISK = SAFER RETURNS</span>
+    </div>
+
+    <script>
+      (function() {
+        const W = [
+          { word: "higher", t: 37.6, e: 37.8 },
+          { word: "reward.", t: 37.9, e: 38.3 },
+          { word: "safer", t: 40.0, e: 40.3 },
+          { word: "returns.", t: 40.4, e: 41.0 }
+        ];
+        const offset = 35.90;
+        const _norm = s => s.toLowerCase().replace(/[^\p{L}\p{N}\s]/gu, "").trim();
+        function landOn(phrase, dur) {
+          const ws = _norm(phrase).split(/\s+/);
+          for (let i = 0; i <= W.length - ws.length; i++) {
+            let ok = true;
+            for (let j = 0; j < ws.length; j++) {
+              if (_norm(W[i + j].word) !== ws[j]) { ok = false; break; }
+            }
+            if (ok) return (W[i].t - offset) - dur;
+          }
+          return 0;
+        }
+
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        // Star spin
+        tl.to("#b9-star", { rotation: 360, duration: 20, ease: "none", repeat: 1 }, 0);
+        tl.fromTo("#b9-star", { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 0.15, duration: 1.0, ease: "power2.out" }, 0);
+
+        // Eyebrow
+        tl.fromTo("#b9-eyebrow", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" }, 0.3);
+
+        // Badges
+        tl.fromTo("#b9-badge-1", { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.7)" }, landOn("higher reward", 0.4));
+        tl.fromTo("#b9-badge-2", { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.7)" }, landOn("safer returns", 0.4));
+
+        window.__timelines["bloom-risk-reward-beat-9"] = tl;
+      })();
+    </script>
+  </div>
+</template>

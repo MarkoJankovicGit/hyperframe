@@ -1,0 +1,165 @@
+<template>
+  <div id="beat3" class="scene"
+       data-composition-id="bloom-etfs-explained-beat-3"
+       data-width="1080" data-height="1920"
+       data-start="0" data-duration="5.10">
+    <style>
+      #beat3 {
+        position: absolute; inset: 0;
+        width: 1080px; height: 1920px;
+        overflow: hidden;
+        background: #1658FF;
+        font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+      }
+      #beat3-eyebrow {
+        position: absolute; top: 220px; left: 0; right: 0;
+        display: flex; align-items: center; justify-content: center;
+      }
+      #beat3-eyebrow .pill {
+        background: rgba(255,255,255,0.14);
+        color: #fff;
+        font-family: "Inter", system-ui, sans-serif;
+        font-weight: 600;
+        font-size: 26px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        padding: 14px 30px;
+        border-radius: 999px;
+        opacity: 0;
+      }
+      #beat3-stage {
+        position: absolute; top: 360px; left: 0; right: 0; bottom: 200px;
+        display: flex; align-items: center; justify-content: center;
+        gap: 48px;
+      }
+      #beat3-carton {
+        width: 460px; height: 460px;
+        display: flex; align-items: center; justify-content: center;
+        opacity: 0;
+      }
+      #beat3-carton img {
+        width: 460px; height: auto;
+        object-fit: contain;
+        filter: drop-shadow(0 30px 50px rgba(0,0,0,0.28));
+      }
+      #beat3-vs {
+        background: #1C2329;
+        color: #fff;
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800; font-style: italic;
+        font-size: 56px;
+        padding: 16px 28px;
+        border-radius: 999px;
+        opacity: 0;
+        box-shadow: 0 16px 40px rgba(6,10,30,0.32);
+      }
+      #beat3-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        width: 460px;
+      }
+      #beat3-grid .egg {
+        width: 100px; height: 130px;
+        display: flex; align-items: center; justify-content: center;
+        opacity: 0;
+      }
+      #beat3-grid .egg img {
+        width: 100%; height: 100%;
+        object-fit: contain;
+        filter: drop-shadow(0 8px 14px rgba(0,0,0,0.18));
+      }
+    </style>
+
+    <div id="beat3-eyebrow"><div class="pill">ETF vs Picking One by One</div></div>
+
+    <div id="beat3-stage">
+      <div id="beat3-carton">
+        <img src="../generated-assets/egg-carton.png" />
+      </div>
+      <div id="beat3-vs">VS</div>
+      <div id="beat3-grid">
+        <div class="egg"><img src="../generated-assets/single-egg.png" /></div>
+        <div class="egg"><img src="../generated-assets/single-egg.png" /></div>
+        <div class="egg"><img src="../generated-assets/single-egg.png" /></div>
+        <div class="egg"><img src="../generated-assets/single-egg.png" /></div>
+        <div class="egg"><img src="../generated-assets/single-egg.png" /></div>
+        <div class="egg"><img src="../generated-assets/single-egg.png" /></div>
+        <div class="egg"><img src="../generated-assets/single-egg.png" /></div>
+        <div class="egg"><img src="../generated-assets/single-egg.png" /></div>
+        <div class="egg"><img src="../generated-assets/single-egg.png" /></div>
+        <div class="egg"><img src="../generated-assets/single-egg.png" /></div>
+        <div class="egg"><img src="../generated-assets/single-egg.png" /></div>
+        <div class="egg"><img src="../generated-assets/single-egg.png" /></div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        const W = [{"w":"Think","s":0.091,"e":0.626},{"w":"of","s":0.653,"e":0.707},{"w":"it","s":0.76,"e":0.866},{"w":"like","s":0.898,"e":1.026},{"w":"grabbing","s":1.07,"e":1.422},{"w":"a","s":1.462,"e":1.502},{"w":"carton","s":1.55,"e":1.822},{"w":"of","s":1.849,"e":1.903},{"w":"eggs,","s":1.983,"e":2.383},{"w":"instead","s":2.423,"e":2.703},{"w":"of","s":2.73,"e":2.784},{"w":"picking","s":2.834,"e":3.184},{"w":"twelve,","s":3.253,"e":3.827},{"w":"one","s":3.867,"e":3.987},{"w":"at","s":4.04,"e":4.146},{"w":"a","s":4.186,"e":4.226},{"w":"time.","s":4.306,"e":4.706},{"w":"ETFs","s":4.986,"e":5.906}];
+        function _norm(s){return s.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu,"");}
+        function _findPhrase(phrase){
+          const tokens=phrase.toLowerCase().split(/\s+/).map(_norm).filter(Boolean);
+          if(!tokens.length) throw new Error("landOn: empty phrase");
+          const hits=[];
+          for(let i=0;i<=W.length-tokens.length;i++){
+            let ok=true;
+            for(let j=0;j<tokens.length;j++){
+              if(_norm(W[i+j].w)!==tokens[j]){ok=false;break;}
+            }
+            if(ok) hits.push(i);
+          }
+          if(hits.length===0) throw new Error('landOn: phrase "'+phrase+'" not found');
+          if(hits.length>1) throw new Error('landOn: phrase "'+phrase+'" matches '+hits.length+' positions');
+          return {startIdx:hits[0], endIdx:hits[0]+tokens.length-1};
+        }
+        function at(p){return W[_findPhrase(p).startIdx].s;}
+        function landOn(p,d=0){return at(p)-d;}
+
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        tl.fromTo("#beat3-eyebrow .pill",
+          { opacity: 0, y: -16 },
+          { opacity: 0.85, y: 0, duration: 0.4, ease: "power2.out", overwrite: "auto" },
+          0.1);
+
+        // Carton enters landing on "carton of eggs"
+        tl.fromTo("#beat3-carton",
+          { opacity: 0, x: -260, rotation: -8, scale: 0.85 },
+          { opacity: 1, x: 0, rotation: 0, scale: 1, duration: 0.55, ease: "back.out(1.7)", overwrite: "auto" },
+          landOn("carton of eggs", 0.55));
+
+        // Carton idle rocking
+        tl.to("#beat3-carton",
+          { rotation: 2, duration: 1.4, yoyo: true, repeat: 1, ease: "sine.inOut", overwrite: "auto" },
+          landOn("carton of eggs", 0) + 0.6);
+
+        // VS appears between
+        tl.fromTo("#beat3-vs",
+          { opacity: 0, scale: 0.4 },
+          { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.8)", overwrite: "auto" },
+          landOn("instead of", 0.35));
+
+        // Egg grid staggers in landing on "picking twelve"
+        const eggLand = landOn("picking twelve", 0.35);
+        for (let i=0;i<12;i++) {
+          tl.fromTo("#beat3-grid .egg:nth-child(" + (i+1) + ")",
+            { opacity: 0, y: 24, scale: 0.6 },
+            { opacity: 1, y: 0, scale: 1, duration: 0.32, ease: "back.out(1.6)", overwrite: "auto" },
+            eggLand + i*0.07);
+        }
+
+        // Reaction pulse on carton on "at a time"
+        tl.fromTo("#beat3-carton",
+          { scale: 1 },
+          { scale: 1.06, duration: 0.18, yoyo: true, repeat: 1, ease: "power2.out", overwrite: "auto" },
+          landOn("at a time", 0));
+
+        tl.set("#beat3", { visibility: "hidden" }, 5.10);
+
+        window.__timelines["bloom-etfs-explained-beat-3"] = tl;
+      })();
+    </script>
+  </div>
+</template>

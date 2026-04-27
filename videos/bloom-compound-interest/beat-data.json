@@ -1,0 +1,992 @@
+{
+ "1": {
+  "file": "compositions/beat-1-hook.html",
+  "name": "hook",
+  "start": 0,
+  "end": 2.4,
+  "dur": 2.4,
+  "text": "You just won the lottery.",
+  "W": [
+   {
+    "word": "You",
+    "t": 0,
+    "e": 0.159
+   },
+   {
+    "word": "just",
+    "t": 0.207,
+    "e": 0.399
+   },
+   {
+    "word": "won",
+    "t": 0.459,
+    "e": 0.639
+   },
+   {
+    "word": "the",
+    "t": 0.659,
+    "e": 0.719
+   },
+   {
+    "word": "lottery.",
+    "t": 0.789,
+    "e": 1.639
+   }
+  ]
+ },
+ "2": {
+  "file": "compositions/beat-2-choice-a.html",
+  "name": "choice-a",
+  "start": 2.4,
+  "end": 6.1,
+  "dur": 3.7,
+  "text": "And here's your choice: one million dollars right now —",
+  "W": [
+   {
+    "word": "And",
+    "t": -0.671,
+    "e": -0.401
+   },
+   {
+    "word": "here's",
+    "t": -0.353,
+    "e": -0.081
+   },
+   {
+    "word": "your",
+    "t": -0.049,
+    "e": 0.079
+   },
+   {
+    "word": "choice:",
+    "t": 0.136,
+    "e": 1.198
+   },
+   {
+    "word": "one",
+    "t": 1.238,
+    "e": 1.358
+   },
+   {
+    "word": "million",
+    "t": 1.408,
+    "e": 1.758
+   },
+   {
+    "word": "dollars",
+    "t": 1.828,
+    "e": 2.318
+   },
+   {
+    "word": "right",
+    "t": 2.398,
+    "e": 2.798
+   },
+   {
+    "word": "now",
+    "t": 2.918,
+    "e": 3.278
+   },
+   {
+    "word": "—",
+    "t": 3.558,
+    "e": 3.838
+   }
+  ]
+ },
+ "3": {
+  "file": "compositions/beat-3-choice-b.html",
+  "name": "choice-b",
+  "start": 6.1,
+  "end": 12,
+  "dur": 5.9,
+  "text": "or a penny that doubles every single day for thirty days. Which would you take?",
+  "W": [
+   {
+    "word": "or",
+    "t": 0.245,
+    "e": 0.459
+   },
+   {
+    "word": "a",
+    "t": 0.539,
+    "e": 0.619
+   },
+   {
+    "word": "penny",
+    "t": 0.699,
+    "e": 1.099
+   },
+   {
+    "word": "that",
+    "t": 1.179,
+    "e": 1.499
+   },
+   {
+    "word": "doubles",
+    "t": 1.559,
+    "e": 1.979
+   },
+   {
+    "word": "every",
+    "t": 2.046,
+    "e": 2.381
+   },
+   {
+    "word": "single",
+    "t": 2.438,
+    "e": 2.78
+   },
+   {
+    "word": "day",
+    "t": 2.86,
+    "e": 3.1
+   },
+   {
+    "word": "for",
+    "t": 3.16,
+    "e": 3.34
+   },
+   {
+    "word": "thirty",
+    "t": 3.386,
+    "e": 3.662
+   },
+   {
+    "word": "days.",
+    "t": 3.742,
+    "e": 4.222
+   },
+   {
+    "word": "Which",
+    "t": 4.369,
+    "e": 5.104
+   },
+   {
+    "word": "would",
+    "t": 5.131,
+    "e": 5.266
+   },
+   {
+    "word": "you",
+    "t": 5.286,
+    "e": 5.346
+   },
+   {
+    "word": "take?",
+    "t": 5.41,
+    "e": 5.746
+   }
+  ]
+ },
+ "4": {
+  "file": "compositions/beat-4-stat-a.html",
+  "name": "stat-a",
+  "start": 12,
+  "end": 17.7,
+  "dur": 5.7,
+  "text": "After thirty days, the one million dollars is still just one million dollars.",
+  "W": [
+   {
+    "word": "After",
+    "t": 0.033,
+    "e": 0.968
+   },
+   {
+    "word": "thirty",
+    "t": 1.025,
+    "e": 1.367
+   },
+   {
+    "word": "days,",
+    "t": 1.463,
+    "e": 2.007
+   },
+   {
+    "word": "the",
+    "t": 2.047,
+    "e": 2.167
+   },
+   {
+    "word": "one",
+    "t": 2.207,
+    "e": 2.327
+   },
+   {
+    "word": "million",
+    "t": 2.377,
+    "e": 2.727
+   },
+   {
+    "word": "dollars",
+    "t": 2.787,
+    "e": 3.207
+   },
+   {
+    "word": "is",
+    "t": 3.314,
+    "e": 3.528
+   },
+   {
+    "word": "still",
+    "t": 3.595,
+    "e": 3.93
+   },
+   {
+    "word": "just",
+    "t": 4.01,
+    "e": 4.33
+   },
+   {
+    "word": "one",
+    "t": 4.39,
+    "e": 4.57
+   },
+   {
+    "word": "million",
+    "t": 4.61,
+    "e": 4.89
+   },
+   {
+    "word": "dollars.",
+    "t": 4.95,
+    "e": 5.53
+   }
+  ]
+ },
+ "5": {
+  "file": "compositions/beat-5-stat-b.html",
+  "name": "stat-b",
+  "start": 17.7,
+  "end": 22.95,
+  "dur": 5.25,
+  "text": "But the doubling penny? It becomes five point three million dollars.",
+  "W": [
+   {
+    "word": "But",
+    "t": 0.01,
+    "e": 0.55
+   },
+   {
+    "word": "the",
+    "t": 0.57,
+    "e": 0.63
+   },
+   {
+    "word": "doubling",
+    "t": 0.674,
+    "e": 1.026
+   },
+   {
+    "word": "penny?",
+    "t": 1.093,
+    "e": 1.868
+   },
+   {
+    "word": "It",
+    "t": 2.015,
+    "e": 2.309
+   },
+   {
+    "word": "becomes",
+    "t": 2.379,
+    "e": 2.869
+   },
+   {
+    "word": "five",
+    "t": 2.949,
+    "e": 3.269
+   },
+   {
+    "word": "point",
+    "t": 3.362,
+    "e": 3.827
+   },
+   {
+    "word": "three",
+    "t": 3.867,
+    "e": 4.067
+   },
+   {
+    "word": "million",
+    "t": 4.127,
+    "e": 4.547
+   },
+   {
+    "word": "dollars.",
+    "t": 4.607,
+    "e": 5.187
+   }
+  ]
+ },
+ "6": {
+  "file": "compositions/beat-6-concept-name.html",
+  "name": "concept-name",
+  "start": 22.95,
+  "end": 25.75,
+  "dur": 2.8,
+  "text": "This is compound interest.",
+  "W": [
+   {
+    "word": "This",
+    "t": 0.161,
+    "e": 1.057
+   },
+   {
+    "word": "is",
+    "t": 1.137,
+    "e": 1.297
+   },
+   {
+    "word": "compound",
+    "t": 1.377,
+    "e": 2.017
+   },
+   {
+    "word": "interest.",
+    "t": 2.079,
+    "e": 2.655
+   }
+  ]
+ },
+ "7": {
+  "file": "compositions/beat-7-concept-stack.html",
+  "name": "concept-stack",
+  "start": 25.75,
+  "end": 33.75,
+  "dur": 8,
+  "text": "It's when your returns start earning returns of their own — your growth grows on top of itself, over and over.",
+  "W": [
+   {
+    "word": "It's",
+    "t": 0.122,
+    "e": 0.776
+   },
+   {
+    "word": "when",
+    "t": 0.8,
+    "e": 0.896
+   },
+   {
+    "word": "your",
+    "t": 0.928,
+    "e": 1.056
+   },
+   {
+    "word": "returns",
+    "t": 1.136,
+    "e": 1.696
+   },
+   {
+    "word": "start",
+    "t": 1.776,
+    "e": 2.176
+   },
+   {
+    "word": "earning",
+    "t": 2.216,
+    "e": 2.496
+   },
+   {
+    "word": "returns",
+    "t": 2.566,
+    "e": 3.056
+   },
+   {
+    "word": "of",
+    "t": 3.083,
+    "e": 3.137
+   },
+   {
+    "word": "their",
+    "t": 3.164,
+    "e": 3.299
+   },
+   {
+    "word": "own",
+    "t": 3.379,
+    "e": 3.619
+   },
+   {
+    "word": "—",
+    "t": 3.939,
+    "e": 4.259
+   },
+   {
+    "word": "your",
+    "t": 4.291,
+    "e": 4.419
+   },
+   {
+    "word": "growth",
+    "t": 4.488,
+    "e": 4.902
+   },
+   {
+    "word": "grows",
+    "t": 4.982,
+    "e": 5.382
+   },
+   {
+    "word": "on",
+    "t": 5.435,
+    "e": 5.541
+   },
+   {
+    "word": "top",
+    "t": 5.601,
+    "e": 5.781
+   },
+   {
+    "word": "of",
+    "t": 5.834,
+    "e": 5.94
+   },
+   {
+    "word": "itself,",
+    "t": 6.02,
+    "e": 6.74
+   },
+   {
+    "word": "over",
+    "t": 6.82,
+    "e": 7.14
+   },
+   {
+    "word": "and",
+    "t": 7.22,
+    "e": 7.46
+   },
+   {
+    "word": "over.",
+    "t": 7.524,
+    "e": 7.86
+   }
+  ]
+ },
+ "8": {
+  "file": "compositions/beat-8-superpower.html",
+  "name": "superpower",
+  "start": 33.75,
+  "end": 39.95,
+  "dur": 6.2,
+  "text": "Compound interest is a superpower that makes your money grow faster and faster over time.",
+  "W": [
+   {
+    "word": "Compound",
+    "t": 0.002,
+    "e": 1.138
+   },
+   {
+    "word": "interest",
+    "t": 1.191,
+    "e": 1.615
+   },
+   {
+    "word": "is",
+    "t": 1.668,
+    "e": 1.774
+   },
+   {
+    "word": "a",
+    "t": 1.814,
+    "e": 1.854
+   },
+   {
+    "word": "superpower",
+    "t": 1.947,
+    "e": 2.652
+   },
+   {
+    "word": "that",
+    "t": 2.716,
+    "e": 2.972
+   },
+   {
+    "word": "makes",
+    "t": 3.012,
+    "e": 3.212
+   },
+   {
+    "word": "your",
+    "t": 3.244,
+    "e": 3.372
+   },
+   {
+    "word": "money",
+    "t": 3.412,
+    "e": 3.612
+   },
+   {
+    "word": "grow",
+    "t": 3.676,
+    "e": 3.932
+   },
+   {
+    "word": "faster",
+    "t": 4.023,
+    "e": 4.569
+   },
+   {
+    "word": "and",
+    "t": 4.629,
+    "e": 4.809
+   },
+   {
+    "word": "faster",
+    "t": 4.889,
+    "e": 5.369
+   },
+   {
+    "word": "over",
+    "t": 5.417,
+    "e": 5.609
+   },
+   {
+    "word": "time.",
+    "t": 5.689,
+    "e": 6.089
+   }
+  ]
+ },
+ "9": {
+  "file": "compositions/beat-9-earlier.html",
+  "name": "earlier",
+  "start": 39.95,
+  "end": 46.3,
+  "dur": 6.35,
+  "text": "And here's what's really powerful: the earlier you start, the more it works in your favor.",
+  "W": [
+   {
+    "word": "And",
+    "t": 0.089,
+    "e": 0.689
+   },
+   {
+    "word": "here's",
+    "t": 0.737,
+    "e": 1.009
+   },
+   {
+    "word": "what's",
+    "t": 1.057,
+    "e": 1.329
+   },
+   {
+    "word": "really",
+    "t": 1.398,
+    "e": 1.812
+   },
+   {
+    "word": "powerful:",
+    "t": 1.865,
+    "e": 2.929
+   },
+   {
+    "word": "the",
+    "t": 2.969,
+    "e": 3.089
+   },
+   {
+    "word": "earlier",
+    "t": 3.149,
+    "e": 3.569
+   },
+   {
+    "word": "you",
+    "t": 3.609,
+    "e": 3.729
+   },
+   {
+    "word": "start,",
+    "t": 3.796,
+    "e": 4.451
+   },
+   {
+    "word": "the",
+    "t": 4.471,
+    "e": 4.531
+   },
+   {
+    "word": "more",
+    "t": 4.595,
+    "e": 4.851
+   },
+   {
+    "word": "it",
+    "t": 4.904,
+    "e": 5.01
+   },
+   {
+    "word": "works",
+    "t": 5.063,
+    "e": 5.328
+   },
+   {
+    "word": "in",
+    "t": 5.355,
+    "e": 5.409
+   },
+   {
+    "word": "your",
+    "t": 5.457,
+    "e": 5.649
+   },
+   {
+    "word": "favor.",
+    "t": 5.716,
+    "e": 6.131
+   }
+  ]
+ },
+ "10": {
+  "file": "compositions/beat-10-mega-build.html",
+  "name": "mega-build",
+  "start": 46.3,
+  "end": 52.75,
+  "dur": 6.45,
+  "text": "If that penny had started doubling just five days earlier, it would not be five million dollars.",
+  "W": [
+   {
+    "word": "If",
+    "t": 0.101,
+    "e": 0.741
+   },
+   {
+    "word": "that",
+    "t": 0.789,
+    "e": 0.981
+   },
+   {
+    "word": "penny",
+    "t": 1.048,
+    "e": 1.383
+   },
+   {
+    "word": "had",
+    "t": 1.403,
+    "e": 1.463
+   },
+   {
+    "word": "started",
+    "t": 1.513,
+    "e": 1.863
+   },
+   {
+    "word": "doubling",
+    "t": 1.916,
+    "e": 2.34
+   },
+   {
+    "word": "just",
+    "t": 2.404,
+    "e": 2.66
+   },
+   {
+    "word": "five",
+    "t": 2.74,
+    "e": 3.06
+   },
+   {
+    "word": "days",
+    "t": 3.124,
+    "e": 3.38
+   },
+   {
+    "word": "earlier,",
+    "t": 3.43,
+    "e": 4.26
+   },
+   {
+    "word": "it",
+    "t": 4.313,
+    "e": 4.419
+   },
+   {
+    "word": "would",
+    "t": 4.446,
+    "e": 4.581
+   },
+   {
+    "word": "not",
+    "t": 4.641,
+    "e": 4.821
+   },
+   {
+    "word": "be",
+    "t": 4.874,
+    "e": 4.98
+   },
+   {
+    "word": "five",
+    "t": 5.06,
+    "e": 5.38
+   },
+   {
+    "word": "million",
+    "t": 5.43,
+    "e": 5.78
+   },
+   {
+    "word": "dollars.",
+    "t": 5.84,
+    "e": 6.34
+   }
+  ]
+ },
+ "11": {
+  "file": "compositions/beat-11-mega-slam.html",
+  "name": "mega-slam",
+  "start": 52.75,
+  "end": 56.3,
+  "dur": 3.55,
+  "text": "It would be one hundred and seventy-two million dollars.",
+  "W": [
+   {
+    "word": "It",
+    "t": 0.077,
+    "e": 0.451
+   },
+   {
+    "word": "would",
+    "t": 0.478,
+    "e": 0.613
+   },
+   {
+    "word": "be",
+    "t": 0.666,
+    "e": 0.772
+   },
+   {
+    "word": "one",
+    "t": 0.852,
+    "e": 1.092
+   },
+   {
+    "word": "hundred",
+    "t": 1.142,
+    "e": 1.492
+   },
+   {
+    "word": "and",
+    "t": 1.572,
+    "e": 1.812
+   },
+   {
+    "word": "seventy-two",
+    "t": 1.882,
+    "e": 2.532
+   },
+   {
+    "word": "million",
+    "t": 2.582,
+    "e": 2.932
+   },
+   {
+    "word": "dollars.",
+    "t": 2.992,
+    "e": 3.492
+   }
+  ]
+ },
+ "12": {
+  "file": "compositions/beat-12-stocks.html",
+  "name": "stocks",
+  "start": 56.3,
+  "end": 65,
+  "dur": 8.7,
+  "text": "Stocks build wealth through compound interest. Small amounts, started early, can become truly massive over time.",
+  "W": [
+   {
+    "word": "Stocks",
+    "t": 0.148,
+    "e": 1.384
+   },
+   {
+    "word": "build",
+    "t": 1.437,
+    "e": 1.702
+   },
+   {
+    "word": "wealth",
+    "t": 1.759,
+    "e": 2.101
+   },
+   {
+    "word": "through",
+    "t": 2.141,
+    "e": 2.421
+   },
+   {
+    "word": "compound",
+    "t": 2.483,
+    "e": 2.979
+   },
+   {
+    "word": "interest.",
+    "t": 3.032,
+    "e": 3.616
+   },
+   {
+    "word": "Small",
+    "t": 3.789,
+    "e": 4.654
+   },
+   {
+    "word": "amounts,",
+    "t": 4.714,
+    "e": 5.294
+   },
+   {
+    "word": "started",
+    "t": 5.344,
+    "e": 5.694
+   },
+   {
+    "word": "early,",
+    "t": 5.761,
+    "e": 6.336
+   },
+   {
+    "word": "can",
+    "t": 6.356,
+    "e": 6.416
+   },
+   {
+    "word": "become",
+    "t": 6.473,
+    "e": 6.815
+   },
+   {
+    "word": "truly",
+    "t": 6.895,
+    "e": 7.295
+   },
+   {
+    "word": "massive",
+    "t": 7.365,
+    "e": 7.855
+   },
+   {
+    "word": "over",
+    "t": 7.919,
+    "e": 8.175
+   },
+   {
+    "word": "time.",
+    "t": 8.239,
+    "e": 8.575
+   }
+  ]
+ },
+ "13": {
+  "file": "compositions/beat-13-cta.html",
+  "name": "cta",
+  "start": 65,
+  "end": 73.3,
+  "dur": 8.3,
+  "text": "Bloom has a tool called Potential Return that shows you exactly how much your money could grow. Try it out.",
+  "W": [
+   {
+    "word": "Bloom",
+    "t": 0.088,
+    "e": 1.153
+   },
+   {
+    "word": "has",
+    "t": 1.193,
+    "e": 1.313
+   },
+   {
+    "word": "a",
+    "t": 1.393,
+    "e": 1.473
+   },
+   {
+    "word": "tool",
+    "t": 1.537,
+    "e": 1.793
+   },
+   {
+    "word": "called",
+    "t": 1.85,
+    "e": 2.192
+   },
+   {
+    "word": "Potential",
+    "t": 2.248,
+    "e": 2.752
+   },
+   {
+    "word": "Return",
+    "t": 2.832,
+    "e": 3.312
+   },
+   {
+    "word": "that",
+    "t": 3.408,
+    "e": 3.792
+   },
+   {
+    "word": "shows",
+    "t": 3.845,
+    "e": 4.11
+   },
+   {
+    "word": "you",
+    "t": 4.15,
+    "e": 4.27
+   },
+   {
+    "word": "exactly",
+    "t": 4.36,
+    "e": 4.99
+   },
+   {
+    "word": "how",
+    "t": 5.03,
+    "e": 5.15
+   },
+   {
+    "word": "much",
+    "t": 5.198,
+    "e": 5.39
+   },
+   {
+    "word": "your",
+    "t": 5.422,
+    "e": 5.55
+   },
+   {
+    "word": "money",
+    "t": 5.603,
+    "e": 5.868
+   },
+   {
+    "word": "could",
+    "t": 5.895,
+    "e": 6.03
+   },
+   {
+    "word": "grow.",
+    "t": 6.11,
+    "e": 6.51
+   },
+   {
+    "word": "Try",
+    "t": 6.71,
+    "e": 7.31
+   },
+   {
+    "word": "it",
+    "t": 7.337,
+    "e": 7.391
+   },
+   {
+    "word": "out.",
+    "t": 7.471,
+    "e": 7.791
+   }
+  ]
+ }
+}

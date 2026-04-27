@@ -1,0 +1,157 @@
+[div] Learn with Bloom
+[div] Research
+[div] Quick learn
+[div] Custom course
+[div] Tournaments
+[div] Your type
+[div] Invest America
+[div] Parents
+[div] Parents
+[h1] Learn. Invest. Automate - Investing made easy, not complicated
+[p] Invest in Real stocks, ETFs and crypto.
+[p] Mirror Wall Street and Politicians' Portfolio
+[p] Learn investing fast, fun, and easy
+[p] Turn your ideas into portfolios
+[p] Ask Bloomie anything about investing
+[p] Play games and earn real rewards
+[h3] Not Sure Where to Invest? Follow and Mirror Wall Street’s top bets.
+[p] You don't need to be a financial genius to invest well. Simply mirror the exact moves of Wall Street's most successful investors, automatically. No confusing charts, no risky guesses, just proven strategies from people who do this for a living.
+[div] Get Started
+[div] Get Started
+[h3] Finally, Stock Market Education That Actually Makes Sense
+[p] No confusing jargon. No boring textbooks. Just clear, bite-sized lessons that teach you what you actually need to know—whether you're starting from zero or want to level up your investing game. Over 300 modules and 5,000+ lessons that adapt to YOUR experience level.
+[h3] Master investing with 300+ beginner-friendly lessons
+[p] Learn investing through bite-sized lessons and quizzes updated every week. Stay sharp, level up, and keep your money game strong.
+[div] Text me the App
+[div] Text me the App
+[h3] Ask Anything. Learn Everything.
+[p] Stocks, industries, trends, whatever you’re curious about. Bloomie breaks it down into short lessons you’ll actually get. Infinite learning. Zero gatekeeping.
+[h3] Learn, Play, and Earn
+[p] Master investing through fun stock games and challenges. Compete, earn rewards, and grow your skills. All while having fun.
+[div] Define your investment idea
+[p] Start with any theme or belief about the market. From AI to clean energy, invest in ideas you really believe in.
+[div] Bloomie creates your own portfolio
+[p] Bloomie instantly turns your idea into a ready-to-invest portfolio, built and analyzed by Bloom’s scoring system.
+[div] Validate with backtesting
+[p] View historical performance, stability, and diversification compared to the S&P 500.
+[div] Customize and invest
+[p] Modify stocks and weightings, then add it to your holdings like a personal index fund.
+[div] Co-invest with others
+[p] Coming soon. Create shared portfolios and invest together with friends and family.
+[div] Text me the App
+[div] Text me the App
+[h3] Meet Bloomie, Your AI Investing Buddy
+[p] Ask anything about stocks, market trends, or portfolio strategy and get clear answers in seconds.
+[h3] Learn Without the Jargon
+[p] Bloomie breaksdown  complex stock market into everyday language.
+[h3] Your 24/7 Pocket Wealth Manager
+[p] Ask questions, learn strategies, and invest confidently—all with AI guidance that adapts to your goals
+[div] Get Started
+[div] Get Started
+[h2] Trusted by real investors and experts
+[p] Bloom isn’t just another app — it’s a community built by financial specialists and trusted by thousands of users who are learning, investing, and winning together. SIPC insured up to $500K, so your money’s always protected.
+[div] Get Started
+[div] Get Started
+[h2] Play games and earn real rewards
+[h3] Compete in tournaments
+[p] Use Oinks, Bloom’s in-app rewards, to enter tournaments and challenge other players. Test your investing strategy, make smart picks, and win more Oinks as you climb the leaderboard.
+[h3] Play the market risk-free
+[p] Practice trading with Oinks, not real money. Try new strategies, follow trends, and see how your picks perform in real-time market simulations. Learn from every match without losing a dollar.
+[h3] Unlock stock rewards
+[p] Spend the Oinks you’ve earned to open lootboxes, collect stock rewards, and grow your portfolio over time. The better you play, the more real investing power you gain!
+[div] Text me the App
+[div] Text me the App
+[h2] Your journey starts here
+[p] We’re helping the next generation of investors grow their wealth — one lesson at a time.
+[div] Text me the App
+[div] Text me the App
+[div] 2 Million+
+[div] Downloads
+[div] 80K
+[div] Monthly active investors
+[h2] What our users say
+[p] Bloomers are proving that investing can be fun and approachable. Our community learns, earns rewards, and builds real financial confidence together.
+[h1] I love everything about this app
+[p] Bloom helped me start my first investing portfolio and taught me all I know.
+[p] WatarBottle
+[h1] I’ve learned so much
+[p] Bloom made investing finally make sense, super clear, safe, and perfect for beginners.
+[p] Emilie B.
+[h1] Great app, perfect start!
+[p] Simple, fun, and full of useful lessons. The best way to start learning about stocks.
+[p] Ben A. M.
+[h1] AMAZING!!
+[p] Easy to use, super organized, and packed with rewards. A 10/10 experience.
+[p] OreoCookies1
+[h1] I love everything about this app
+[p] Bloom helped me start my first investing portfolio and taught me all I know.
+[p] WatarBottle
+[h1] I’ve learned so much
+[p] Bloom made investing finally make sense, super clear, safe, and perfect for beginners.
+[p] Emilie B.
+[h1] Great app, perfect start!
+[p] Simple, fun, and full of useful lessons. The best way to start learning about stocks.
+[p] Ben A. M.
+[h1] AMAZING!!
+[p] Easy to use, super organized, and packed with rewards. A 10/10 experience.
+[p] OreoCookies1
+[h1] I love everything about this app
+[p] Bloom helped me start my first investing portfolio and taught me all I know.
+[p] WatarBottle
+[h1] I’ve learned so much
+[p] Bloom made investing finally make sense, super clear, safe, and perfect for beginners.
+[p] Emilie B.
+[h1] Great app, perfect start!
+[p] Simple, fun, and full of useful lessons. The best way to start learning about stocks.
+[p] Ben A. M.
+[h1] AMAZING!!
+[p] Easy to use, super organized, and packed with rewards. A 10/10 experience.
+[p] OreoCookies1
+[h1] Great educational tool
+[p] Sparked my teen’s interest in investing, he’s now passionate about financial literacy.
+[p] Mountaineermac
+[h1] 14-year-old really learning!
+[p] My son loves the app and is actually learning how to invest. Highly recommend!
+[p] alromag
+[h1] Finally an app that teaches and invests
+[p] Bloom made investing feel simple and actually boosted my confidence as a beginner.
+[p] Jay P.
+[h1] Perfect for beginners like me
+[p] I knew nothing before Bloom, the AI help and lessons make everything easy to understand.
+[p] Samantha R.
+[h1] Great educational tool
+[p] Sparked my teen’s interest in investing, he’s now passionate about financial literacy.
+[p] Mountaineermac
+[h1] 14-year-old really learning!
+[p] My son loves the app and is actually learning how to invest. Highly recommend!
+[p] alromag
+[h1] Finally an app that teaches and invests
+[p] Bloom made investing feel simple and actually boosted my confidence as a beginner.
+[p] Jay P.
+[h1] Perfect for beginners like me
+[p] I knew nothing before Bloom, the AI help and lessons make everything easy to understand.
+[p] Samantha R.
+[h1] Great educational tool
+[p] Sparked my teen’s interest in investing, he’s now passionate about financial literacy.
+[p] Mountaineermac
+[h1] 14-year-old really learning!
+[p] My son loves the app and is actually learning how to invest. Highly recommend!
+[p] alromag
+[h1] Finally an app that teaches and invests
+[p] Bloom made investing feel simple and actually boosted my confidence as a beginner.
+[p] Jay P.
+[h1] Perfect for beginners like me
+[p] I knew nothing before Bloom, the AI help and lessons make everything easy to understand.
+[p] Samantha R.
+[div] Text me the App
+[div] Text me the App
+[p] Copyright © Bloom | Offered by Bloom Investment Advisers, LLC
+[a] See Disclosures
+[a] FAQ
+[div] hello@bloomapp.com
+[div] Learn. Invest. Automate.
+[p] Advisory services are offered through Bloom Investment Advisers, LLC ("Bloom"), an SEC registered investment adviser. Bloom's investment advisory services are available only to residents of the United States. Brokerage accounts for Bloom clients are established at Alpaca Securities, LLC (“Alpaca”), a wholly-owned subsidiary of AlpacaDB, Inc. Technology and a third-party SEC registered broker-dealer that is a member of the Financial Industry Regulatory Authority (www.finra.org) and the Securities Investor Protection Corporation (www.sipc.org).
+[p] Bloom Investment Advisors LLC and Alpaca Securities LLC are not affiliated and none are responsible for the liabilities of the other. Alpaca provides clearing and execution services and serves as qualified custodian for advisory assets of Bloom clients. All accounts and trade executions are powered by Alpaca's technology. View Alpaca's disclosures at: https://alpaca.markets/disclosures.Alpaca does not make recommendations with regard to fractional share trading, whether to use fractional shares at all, or whether to invest in any specific security. A security’s eligibility on the list of fractional shares available for trading is not an endorsement of any of the securities, nor is it intended to convey that such stocks have low risk. Fractional share transactions are executed either on a principal or risks principal basis, and can only be bought or sold with market orders during normal market hours.
+[p] This is not an offer, solicitation of an offer, or advice to buy or sell securities, or open a brokerage account in any jurisdiction where Alpaca is not registered (Alpaca is registered only in the United States). Any projections or forecasts are hypothetical in nature and may not reflect actual future performance. By using this website, you accept our Terms of Use and Privacy Policy. We do not provide or offer any financial planning or tax advice. You should consult with a tax advisor. You acknowledge that you are responsible for your own financial decisions.The content on this website is for informational purposes only and does not constitute a comprehensive description of Bloom Investment Advisor's services. Certain investments are not suitable for all investors. Before investing, consider your investment objectives. The rate of return on investments can vary widely over time, especially for long term investments. Investment losses are possible, including the potential loss of all amounts invested. Factual statements provided through Bloom’s products or services, are made as of the date stated and are subject to change without notice. It should not be assumed that the methods, techniques, or indicators presented in these products or services will be profitable, or that they will not result in losses. Past performance is not indicative of future results.
+[h1] Text me the app
+[button] Send link

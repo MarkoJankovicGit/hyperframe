@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"mkdir -p \\\"C:\\\\Users\\\\User\\\\.claude\\\\skills\\\\bloom-educational-video\\\\references\\\\style-references\\\" && cp \\\"C:\\\\Users\\\\User\\\\git\\\\video-creator\\\\hyperframes\\\\videos\\\\bloom-investing-myths...",
+  "error": "Exit code 1\ncp: target 'C:\\Users\\User\\.claude\\skills\\bloom-educational-video\\references\\style-references\" && ls C:UsersUser.claudeskillsbloom-educational-videoreferencesstyle-references\"' is not a directory",
+  "timestamp": "2026-04-25T14:42:11.194Z",
+  "retry_count": 1
+}

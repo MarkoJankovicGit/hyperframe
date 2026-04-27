@@ -1,0 +1,125 @@
+<template>
+  <div id="beat2" class="scene"
+       data-composition-id="bloom-etfs-explained-beat-2"
+       data-width="1080" data-height="1920"
+       data-start="0" data-duration="6.20">
+    <style>
+      #beat2 {
+        position: absolute; inset: 0;
+        width: 1080px; height: 1920px;
+        overflow: hidden;
+        background: #FFFFFF;
+        font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+      }
+      #beat2-headline {
+        position: absolute; top: 380px; left: 0; right: 0;
+        display: flex; flex-direction: column; align-items: center;
+        gap: 16px;
+      }
+      #beat2-line1, #beat2-line2 {
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800; font-style: italic;
+        text-transform: uppercase;
+        letter-spacing: -0.02em;
+        line-height: 0.95;
+        clip-path: inset(0 100% 0 0);
+      }
+      #beat2-line1 { color: #1C2329; font-size: 130px; }
+      #beat2-line2 { color: #1658FF; font-size: 170px; }
+      #beat2-orbs {
+        position: absolute; top: 1080px; left: 0; right: 0;
+        display: flex; align-items: center; justify-content: center;
+        gap: 36px;
+        flex-wrap: wrap;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+      #beat2-orbs .orb {
+        width: 200px; height: 200px;
+        background: #1C2329;
+        border-radius: 50%;
+        box-shadow: 0 24px 50px rgba(6,10,30,0.22);
+        display: flex; align-items: center; justify-content: center;
+        opacity: 0;
+      }
+      #beat2-orbs .orb img {
+        width: 130px; height: 130px;
+        object-fit: contain;
+      }
+    </style>
+
+    <div id="beat2-headline">
+      <div id="beat2-line1">ETFs ARE A</div>
+      <div id="beat2-line2">BUNDLE OF STOCKS</div>
+    </div>
+
+    <div id="beat2-orbs">
+      <div class="orb" id="beat2-o1"><img src="../logos/AAPL.png" /></div>
+      <div class="orb" id="beat2-o2"><img src="../logos/MSFT.png" /></div>
+      <div class="orb" id="beat2-o3"><img src="../logos/NVDA.png" /></div>
+      <div class="orb" id="beat2-o4"><img src="../logos/AMZN.png" /></div>
+    </div>
+
+    <script>
+      (function () {
+        const W = [{"w":"But","s":0.047,"e":0.467},{"w":"ETFs","s":0.607,"e":1.107},{"w":"make","s":1.171,"e":1.427},{"w":"investing","s":1.483,"e":1.987},{"w":"easy.","s":2.067,"e":2.467},{"w":"An","s":2.68,"e":3.106},{"w":"ETF","s":3.266,"e":3.746},{"w":"is","s":3.799,"e":3.905},{"w":"a","s":3.985,"e":4.065},{"w":"bundle","s":4.111,"e":4.387},{"w":"of","s":4.44,"e":4.546},{"w":"stocks","s":4.603,"e":4.945},{"w":"you","s":4.965,"e":5.025},{"w":"can","s":5.065,"e":5.185},{"w":"buy","s":5.225,"e":5.345},{"w":"as","s":5.398,"e":5.504},{"w":"one.","s":5.604,"e":5.984},{"w":"Think","s":6.091,"e":6.626}];
+        function _norm(s){return s.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu,"");}
+        function _findPhrase(phrase){
+          const tokens=phrase.toLowerCase().split(/\s+/).map(_norm).filter(Boolean);
+          if(!tokens.length) throw new Error("landOn: empty phrase");
+          const hits=[];
+          for(let i=0;i<=W.length-tokens.length;i++){
+            let ok=true;
+            for(let j=0;j<tokens.length;j++){
+              if(_norm(W[i+j].w)!==tokens[j]){ok=false;break;}
+            }
+            if(ok) hits.push(i);
+          }
+          if(hits.length===0) throw new Error('landOn: phrase "'+phrase+'" not found');
+          if(hits.length>1) throw new Error('landOn: phrase "'+phrase+'" matches '+hits.length+' positions');
+          return {startIdx:hits[0], endIdx:hits[0]+tokens.length-1};
+        }
+        function at(p){return W[_findPhrase(p).startIdx].s;}
+        function landOn(p,d=0){return at(p)-d;}
+
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        // Line 1 wipes in landing on "make investing easy"
+        tl.to("#beat2-line1",
+          { clipPath: "inset(0 0% 0 0)", duration: 0.55, ease: "power3.out", overwrite: "auto" },
+          landOn("make investing easy", 0.55));
+
+        // Line 2 wipes in landing on "bundle of stocks"
+        tl.to("#beat2-line2",
+          { clipPath: "inset(0 0% 0 0)", duration: 0.55, ease: "power3.out", overwrite: "auto" },
+          landOn("bundle of stocks", 0.55));
+
+        // Orbs converge landing on "buy as one"
+        const land = landOn("buy as one", 0.55);
+        const xs = [-380, -120, 140, 380];
+        ["#beat2-o1","#beat2-o2","#beat2-o3","#beat2-o4"].forEach((sel, i) => {
+          tl.fromTo(sel,
+            { opacity: 0, x: xs[i], y: 80, scale: 0.6 },
+            { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.55, ease: "back.out(1.7)", overwrite: "auto" },
+            land + i*0.06);
+        });
+
+        // Cluster idle breathe
+        tl.to("#beat2-orbs",
+          { scale: 1.03, duration: 1.4, yoyo: true, repeat: 1, ease: "sine.inOut", transformOrigin: "50% 50%", overwrite: "auto" },
+          landOn("buy as one", 0) + 0.6);
+
+        // Reaction pulse on "buy as one"
+        tl.fromTo("#beat2-orbs",
+          { scale: 1 },
+          { scale: 1.06, duration: 0.18, yoyo: true, repeat: 1, ease: "power2.out", transformOrigin: "50% 50%", overwrite: "auto" },
+          landOn("buy as one", 0));
+
+        tl.set("#beat2", { visibility: "hidden" }, 6.20);
+
+        window.__timelines["bloom-etfs-explained-beat-2"] = tl;
+      })();
+    </script>
+  </div>
+</template>

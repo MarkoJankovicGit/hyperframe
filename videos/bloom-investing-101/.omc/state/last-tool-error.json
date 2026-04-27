@@ -1,0 +1,7 @@
+{
+  "tool_name": "Read",
+  "tool_input_preview": "{\"file_path\":\"\\\\tmp\\\\vo-compact.json\"}",
+  "error": "File does not exist. Note: your current working directory is C:\\Users\\User\\git\\video-creator\\hyperframes\\videos\\bloom-investing-101.",
+  "timestamp": "2026-04-25T08:59:49.586Z",
+  "retry_count": 1
+}

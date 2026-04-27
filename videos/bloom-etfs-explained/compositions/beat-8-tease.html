@@ -1,0 +1,130 @@
+<template>
+  <div id="beat8" class="scene"
+       data-composition-id="bloom-etfs-explained-beat-8"
+       data-width="1080" data-height="1920"
+       data-start="0" data-duration="4.90">
+    <style>
+      #beat8 {
+        position: absolute; inset: 0;
+        width: 1080px; height: 1920px;
+        overflow: hidden;
+        background: #1658FF;
+        font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        gap: 36px;
+      }
+      #beat8-eyebrow {
+        font-family: "Inter", system-ui, sans-serif;
+        font-weight: 700; font-size: 30px;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.9);
+        opacity: 0;
+      }
+      #beat8-logo {
+        width: 240px; height: 240px;
+        display: flex; align-items: center; justify-content: center;
+        opacity: 0;
+      }
+      #beat8-logo img {
+        width: 100%; height: 100%;
+        object-fit: contain;
+        filter: drop-shadow(0 20px 50px rgba(0,0,0,0.25));
+      }
+      #beat8-badge {
+        background: #1C2329;
+        color: #fff;
+        border-radius: 32px;
+        padding: 28px 52px;
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800; font-style: italic;
+        text-transform: uppercase;
+        letter-spacing: -0.018em;
+        line-height: 0.92;
+        font-size: 130px;
+        box-shadow: 0 24px 60px rgba(6,10,30,0.32);
+        opacity: 0;
+      }
+      #beat8-arrow {
+        width: 540px; height: 90px;
+      }
+      #beat8-arrow path {
+        stroke: #FFFFFF;
+        stroke-width: 8;
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-dasharray: 700;
+        stroke-dashoffset: 700;
+      }
+    </style>
+
+    <div id="beat8-eyebrow">Next Lesson</div>
+    <div id="beat8-logo"><img src="../bloom-logo.png" /></div>
+    <div id="beat8-badge">How ETFs Work</div>
+    <svg id="beat8-arrow" viewBox="0 0 540 90" preserveAspectRatio="none">
+      <path d="M 20 45 L 460 45 M 420 18 L 480 45 L 420 72" />
+    </svg>
+
+    <script>
+      (function () {
+        const W = [{"w":"Next,","s":0.135,"e":1.127},{"w":"we'll","s":1.154,"e":1.289},{"w":"break","s":1.342,"e":1.607},{"w":"down","s":1.655,"e":1.847},{"w":"how","s":1.887,"e":2.007},{"w":"ETFs","s":2.127,"e":2.647},{"w":"work,","s":2.711,"e":3.127},{"w":"and","s":3.167,"e":3.287},{"w":"what","s":3.319,"e":3.447},{"w":"to","s":3.474,"e":3.528},{"w":"watch","s":3.581,"e":3.846},{"w":"out","s":3.906,"e":4.086},{"w":"for.","s":4.126,"e":4.406}];
+        function _norm(s){return s.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu,"");}
+        function _findPhrase(phrase){
+          const tokens=phrase.toLowerCase().split(/\s+/).map(_norm).filter(Boolean);
+          if(!tokens.length) throw new Error("landOn: empty phrase");
+          const hits=[];
+          for(let i=0;i<=W.length-tokens.length;i++){
+            let ok=true;
+            for(let j=0;j<tokens.length;j++){
+              if(_norm(W[i+j].w)!==tokens[j]){ok=false;break;}
+            }
+            if(ok) hits.push(i);
+          }
+          if(hits.length===0) throw new Error('landOn: phrase "'+phrase+'" not found');
+          if(hits.length>1) throw new Error('landOn: phrase "'+phrase+'" matches '+hits.length+' positions');
+          return {startIdx:hits[0], endIdx:hits[0]+tokens.length-1};
+        }
+        function at(p){return W[_findPhrase(p).startIdx].s;}
+        function landOn(p,d=0){return at(p)-d;}
+
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        tl.fromTo("#beat8-eyebrow",
+          { opacity: 0, y: -16 },
+          { opacity: 1, y: 0, duration: 0.4, ease: "power2.out", overwrite: "auto" },
+          0.05);
+
+        tl.fromTo("#beat8-logo",
+          { opacity: 0, scale: 0.5 },
+          { opacity: 1, scale: 1, duration: 0.55, ease: "back.out(1.8)", overwrite: "auto" },
+          landOn("Next we'll", 0.55));
+
+        tl.to("#beat8-logo",
+          { scale: 1.05, duration: 1.2, yoyo: true, repeat: 2, ease: "sine.inOut", transformOrigin: "50% 50%", overwrite: "auto" },
+          landOn("Next we'll", 0) + 0.6);
+
+        tl.fromTo("#beat8-badge",
+          { opacity: 0, scale: 0.7, y: 30 },
+          { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "back.out(1.7)", overwrite: "auto" },
+          landOn("how ETFs work", 0.5));
+
+        tl.to("#beat8-arrow path",
+          { strokeDashoffset: 0, duration: 0.6, ease: "power2.out", overwrite: "auto" },
+          landOn("watch out", 0.5));
+
+        // Reaction pulse on "for"
+        tl.fromTo("#beat8-logo",
+          { scale: 1 },
+          { scale: 1.08, duration: 0.18, yoyo: true, repeat: 1, ease: "power2.out", transformOrigin: "50% 50%", overwrite: "auto" },
+          landOn("for", 0));
+
+        tl.set("#beat8", { visibility: "hidden" }, 4.90);
+
+        window.__timelines["bloom-etfs-explained-beat-8"] = tl;
+      })();
+    </script>
+  </div>
+</template>

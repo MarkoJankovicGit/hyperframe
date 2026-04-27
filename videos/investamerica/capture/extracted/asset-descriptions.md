@@ -1,0 +1,44 @@
+# Asset Descriptions
+
+One line per file. Read this instead of opening every image individually.
+
+- bloom-logo.svg — 18KB, "Bloom", section: "GiveyourchildaheadstartontheAmericanDream.", above fold
+- copy-trading-mockup.png — 1973KB, copy trading mockup
+- favicon.ico — 15KB, favicon
+- invest-america-card-bloomie.png — 401KB, invest america card bloomie
+- invest-america-card-copy-trading.png — 265KB, invest america card copy trading
+- invest-america-card-games.png — 363KB, invest america card games
+- invest-america-card-invest.png — 506KB, invest america card invest
+- invest-america-card-learning.png — 443KB, invest america card learning
+- invest-america-card-parents.png — 129KB, invest america card parents
+- pink-stickers-coin.png — 129KB, pink stickers coin
+- pink-stickers-house.png — 115KB, pink stickers house
+- pink-stickers-money-wings.png — 89KB, pink stickers money wings
+- pink-stickers-rocket.png — 116KB, pink stickers rocket
+- svgs/0.svg — icon: 0
+- svgs/15.svg — icon: 15
+- svgs/bottom-2.svg — icon: bottom 2
+- svgs/icon-12.svg — icon: icon 12
+- svgs/icon-13.svg — icon: icon 13
+- svgs/icon-15.svg — icon: 15
+- svgs/icon-16.svg — icon: icon 16
+- svgs/icon-17.svg — icon: icon 17
+- svgs/icon-18.svg — icon: icon 18
+- svgs/icon-19.svg — icon: icon 19
+- svgs/icon-20.svg — icon: icon 20
+- svgs/icon-21.svg — icon: icon 21
+- svgs/icon-6.svg — icon: icon 6
+- svgs/ml-4.svg — icon: ml-4
+- svgs/mt-05.svg — icon: $0
+- svgs/overflow-visible.svg — icon: overflow-visible
+- svgs/recharts-surface.svg — icon: recharts-surface
+- fonts/jizBRFtNs2ka5fXjeivQ4LroWlx-6zsTjnTLgNuZ5w.woff2 — font file
+- fonts/jizBRFtNs2ka5fXjeivQ4LroWlx-6zUTjnTLgNs.woff2 — font file
+- fonts/jizHRFtNs2ka5fXjeivQ4LroWlx-6zAjgn7Motmp5r61.woff2 — font file
+- fonts/jizHRFtNs2ka5fXjeivQ4LroWlx-6zAjjH7Motmp5g.woff2 — font file
+- fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa0ZL7W0Q5n-wU.woff2 — font file
+- fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1pL7W0Q5n-wU.woff2 — font file
+- fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2 — font file
+- fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2JL7W0Q5n-wU.woff2 — font file
+- fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2pL7W0Q5n-wU.woff2 — font file
+- fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2ZL7W0Q5n-wU.woff2 — font file

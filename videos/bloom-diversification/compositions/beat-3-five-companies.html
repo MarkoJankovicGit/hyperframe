@@ -1,0 +1,216 @@
+<template>
+  <div class="scene-root" data-composition-id="bloom-diversification-beat-3" data-width="1080" data-height="1920" data-start="0" data-duration="10.78">
+    <style>
+
+      .scene-root {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        font-family: "Inter", system-ui, sans-serif;
+        box-sizing: border-box;
+      }
+      .scene-content {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        height: 100%;
+        padding: 118px 82px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 36px;
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        padding: 16px 32px;
+        background: rgba(28,35,41,0.18);
+        color: #fff;
+        font-size: 32px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .eyebrow.dark { background: #1C2329; color: #fff; }
+      .eyebrow.blue { background: #1658FF; color: #fff; }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: #1C2329;
+        color: #fff;
+        border-radius: 26px;
+        padding: 34px 50px 42px;
+        box-shadow: 0 24px 60px rgba(6,10,30,0.28);
+        max-width: 930px;
+      }
+      .badge-text {
+        font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        text-transform: uppercase;
+        letter-spacing: -0.012em;
+        line-height: 0.92;
+        color: #fff;
+        text-align: center;
+      }
+      .title-dark {
+        font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        text-transform: uppercase;
+        letter-spacing: -0.012em;
+        line-height: 0.93;
+        color: #1C2329;
+        text-align: center;
+      }
+      .subcopy {
+        color: #4A4F54;
+        font-size: 42px;
+        font-weight: 700;
+        line-height: 1.12;
+        text-align: center;
+        max-width: 860px;
+      }
+      .white-text { color: #fff; }
+      .green { color: #01CD74; }
+      .blue { color: #1658FF; }
+      .logo-orb {
+        width: 142px;
+        height: 142px;
+        border-radius: 50%;
+        background: #1C2329;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 22px 50px rgba(6,10,30,0.24);
+      }
+      .logo-orb img {
+        max-width: 82px;
+        max-height: 82px;
+        object-fit: contain;
+      }
+      .bloom-logo {
+        width: 190px;
+        height: 190px;
+        object-fit: contain;
+      }
+      .star-bg {
+        position: absolute;
+        width: 820px;
+        height: 820px;
+        opacity: 0.16;
+        object-fit: contain;
+        z-index: 0;
+      }
+      .card {
+        background: #fff;
+        border: 2px solid #E8E9EA;
+        border-radius: 34px;
+        box-shadow: 0 20px 60px rgba(6,10,30,0.12);
+      }
+      .dark-card {
+        background: #1C2329;
+        color: #fff;
+        border-radius: 34px;
+        box-shadow: 0 24px 64px rgba(6,10,30,0.26);
+      }
+      .sparkline {
+        width: 760px;
+        height: 220px;
+      }
+      .sparkline path {
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 18;
+      }
+
+      [data-composition-id="bloom-diversification-beat-3"] { background: #1658FF; }
+      #b3-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px; width: 840px; }
+      .split-slot { min-height: 220px; border-radius: 34px; background: rgba(255,255,255,0.12); display:flex; align-items:center; justify-content:center; gap: 28px; padding: 26px; box-sizing: border-box; }
+      .slot-amount { color: #fff; font: italic 800 76px "Inter Tight", sans-serif; }
+      #b3-slot-4 { grid-column: 1 / span 2; }
+      #b3-four { opacity: 0; }
+    </style>
+    <div class="scene-content">
+      <div id="b3-badge" class="badge"><span class="badge-text" style="font-size:112px">SPREAD IT OUT</span></div>
+      <div id="b3-grid">
+        <div id="b3-slot-0" class="split-slot"><div class="logo-orb"><img src="../logos/TSLA.png" /></div><div class="slot-amount">$200</div></div>
+        <div id="b3-slot-1" class="split-slot"><div class="logo-orb"><img src="../logos/AAPL.png" /></div><div class="slot-amount">$200</div></div>
+        <div id="b3-slot-2" class="split-slot"><div class="logo-orb"><img src="../logos/META.png" /></div><div class="slot-amount">$200</div></div>
+        <div id="b3-slot-3" class="split-slot"><div class="logo-orb"><img src="../logos/MRNA.png" /></div><div class="slot-amount">$200</div></div>
+        <div id="b3-slot-4" class="split-slot"><div class="logo-orb"><img src="../logos/JPM.png" /></div><div class="slot-amount">$200</div></div>
+      </div>
+      <div id="b3-four" class="subcopy white-text">Four others can keep working.</div>
+    </div>
+    <script>
+      (function () {
+        const W = [{"word":"better","t":0.443,"e":0.719},
+        {"word":"move","t":0.783,"e":1.039},
+        {"word":"is","t":1.092,"e":1.198},
+        {"word":"spreading","t":1.238,"e":1.598},
+        {"word":"that","t":1.63,"e":1.758},
+        {"word":"money","t":1.798,"e":1.998},
+        {"word":"across","t":2.067,"e":2.481},
+        {"word":"five","t":2.561,"e":2.881},
+        {"word":"companies:","t":2.945,"e":3.841},
+        {"word":"two","t":3.861,"e":3.921},
+        {"word":"hundred","t":3.961,"e":4.241},
+        {"word":"dollars","t":4.301,"e":4.721},
+        {"word":"in","t":4.774,"e":4.88},
+        {"word":"each","t":4.928,"e":5.12},
+        {"word":"one.","t":5.22,"e":5.6},
+        {"word":"Now,","t":5.86,"e":6.72},
+        {"word":"if","t":6.773,"e":6.879},
+        {"word":"one","t":6.959,"e":7.199},
+        {"word":"company","t":7.249,"e":7.599},
+        {"word":"struggles,","t":7.655,"e":8.319},
+        {"word":"you","t":8.379,"e":8.559},
+        {"word":"still","t":8.599,"e":8.799},
+        {"word":"have","t":8.847,"e":9.039},
+        {"word":"four","t":9.103,"e":9.359},
+        {"word":"others","t":9.428,"e":9.842},
+        {"word":"working","t":9.882,"e":10.162},
+        {"word":"for","t":10.222,"e":10.402},
+        {"word":"you.","t":10.442,"e":10.642}];
+
+        const _norm = (s) => s.toLowerCase().replace(/[^\p{L}\p{N}\s]/gu, "").trim();
+        function _findPhrase(phrase) {
+          const ws = _norm(phrase).split(/\s+/);
+          const out = [];
+          for (let i = 0; i <= W.length - ws.length; i++) {
+            let ok = true;
+            for (let j = 0; j < ws.length; j++) {
+              if (_norm(W[i + j].word) !== ws[j]) { ok = false; break; }
+            }
+            if (ok) out.push({ start: W[i].t, end: W[i + ws.length - 1].e });
+          }
+          if (out.length === 0) throw new Error('landOn: phrase "' + phrase + '" not found in beat W');
+          if (out.length > 1) throw new Error('landOn: phrase "' + phrase + '" matched ' + out.length + ' positions');
+          return out[0];
+        }
+        function landOn(phrase, dur) { return Math.max(0, _findPhrase(phrase).start - dur); }
+        function landAfter(phrase, dur) { return Math.max(0, _findPhrase(phrase).end - dur); }
+        function at(phrase) { return _findPhrase(phrase).start; }
+
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+        tl.set('[data-composition-id="bloom-diversification-beat-3"]', { opacity: 1 }, 0);
+        tl.fromTo("#b3-badge", { y: 70, opacity: 0, scale: 0.8 }, { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.7)", overwrite: "auto" }, landOn("better move", 0.5));
+        tl.fromTo(".split-slot", { x: 120, opacity: 0, scale: 0.88 }, { x: 0, opacity: 1, scale: 1, duration: 0.45, stagger: 0.12, ease: "power3.out", overwrite: "auto" }, landOn("five companies", 0.45));
+        tl.fromTo(".slot-amount", { scale: 0.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.32, stagger: 0.08, ease: "back.out(2)", overwrite: "auto" }, landOn("two hundred dollars", 0.32));
+        tl.fromTo("#b3-four", { y: 36, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power2.out", overwrite: "auto" }, landOn("four others", 0.45));
+        tl.to(".split-slot", { y: -8, duration: 1.2, yoyo: true, repeat: 4, stagger: 0.08, ease: "sine.inOut", overwrite: "auto" }, 5.7);
+        tl.to('[data-composition-id="bloom-diversification-beat-3"]', { opacity: 0, duration: 0.2, ease: "none", overwrite: "auto" }, 10.58);
+        window.__timelines["bloom-diversification-beat-3"] = tl;
+      })();
+    </script>
+  </div>
+</template>

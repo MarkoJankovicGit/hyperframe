@@ -1,0 +1,850 @@
+[
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/68f124cab6613d51f70f079b_013cd7c3892d235791f0bf43bc24a18a_cardpay-logo-white-webflow-template.svg",
+    "type": "Image",
+    "contexts": [
+      "img[src]"
+    ],
+    "notes": null,
+    "aboveFold": true,
+    "sectionClasses": "footer-container"
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690a5d50046fca9601089a29_insured.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]"
+    ],
+    "notes": "SIPC",
+    "description": "SIPC",
+    "nearestHeading": "Learn. Invest. Automate - Investing made easy, not complicated",
+    "sectionClasses": "section-light-surface hero-v1",
+    "aboveFold": true
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/6969b3780052c896a2457a34_title-hero-2.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]",
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Learn. Invest. Automate - Investing made easy, not complicated",
+    "sectionClasses": "section-light-surface hero-v1",
+    "aboveFold": true
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/6969b3780052c896a2457a34_title-hero-2-p-500.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Learn. Invest. Automate - Investing made easy, not complicated",
+    "sectionClasses": "section-light-surface hero-v1",
+    "aboveFold": true
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/6969b3780052c896a2457a34_title-hero-2-p-800.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Learn. Invest. Automate - Investing made easy, not complicated",
+    "sectionClasses": "section-light-surface hero-v1",
+    "aboveFold": true
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690a5f5b108485997a8246d0_appstore.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]"
+    ],
+    "notes": "App Store",
+    "description": "App Store",
+    "nearestHeading": "Learn. Invest. Automate - Investing made easy, not complicated",
+    "sectionClasses": "section-light-surface hero-v1",
+    "aboveFold": true
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690a5f5b8d33232fbc36a7c2_googleplay.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]",
+      "css url()"
+    ],
+    "notes": "Google Play",
+    "description": "Google Play",
+    "nearestHeading": "Learn. Invest. Automate - Investing made easy, not complicated",
+    "sectionClasses": "section-light-surface hero-v1",
+    "aboveFold": true
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/695f5099208b94c9b420571c_bloom-star.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]",
+      "img[srcset]"
+    ],
+    "notes": "Bloom Hero Image",
+    "description": "Bloom Hero Image",
+    "sectionClasses": "home-v1-hero-image spinning-cards-animation",
+    "aboveFold": true
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/695f5099208b94c9b420571c_bloom-star-p-500.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": "Bloom Hero Image",
+    "description": "Bloom Hero Image",
+    "sectionClasses": "home-v1-hero-image spinning-cards-animation",
+    "aboveFold": true
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/695f5099208b94c9b420571c_bloom-star-p-800.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": "Bloom Hero Image",
+    "description": "Bloom Hero Image",
+    "sectionClasses": "home-v1-hero-image spinning-cards-animation",
+    "aboveFold": true
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/695f5099208b94c9b420571c_bloom-star-p-1080.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": "Bloom Hero Image",
+    "description": "Bloom Hero Image",
+    "sectionClasses": "home-v1-hero-image spinning-cards-animation",
+    "aboveFold": true
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690a77bcaae12cb8f0f747e8_forbes.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]"
+    ],
+    "notes": null,
+    "sectionClasses": "logos",
+    "aboveFold": true
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690a77bc29978ab74789bd19_yahoo.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]"
+    ],
+    "notes": null,
+    "sectionClasses": "logos",
+    "aboveFold": true
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690a77bcbc1881c48666127d_fox.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]"
+    ],
+    "notes": null,
+    "sectionClasses": "logos",
+    "aboveFold": true
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690a77bcc32ea0f529b35d50_benzinga.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]"
+    ],
+    "notes": null,
+    "sectionClasses": "logos",
+    "aboveFold": true
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690aa926d975398e15dedf6d_icon-invest.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]"
+    ],
+    "notes": "invest",
+    "description": "invest",
+    "sectionClasses": "w-layout-blockcontainer container-features w-container",
+    "aboveFold": true
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/69658da19de625338f11dcab_icon-mirror.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]"
+    ],
+    "notes": "Auto Portfolio\n",
+    "description": "Auto Portfolio\n",
+    "sectionClasses": "w-layout-blockcontainer container-features w-container",
+    "aboveFold": true
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690aa9265138c157b753d52a_icon-learning.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]"
+    ],
+    "notes": "learning",
+    "description": "learning",
+    "sectionClasses": "w-layout-blockcontainer container-features w-container",
+    "aboveFold": true
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690aa9267867c0ea4d30499a_icon-portfolio.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]"
+    ],
+    "notes": "portfolio",
+    "description": "portfolio",
+    "sectionClasses": "w-layout-blockcontainer container-features w-container",
+    "aboveFold": true
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690aa926b5cc368f45089fb8_icon-bloomie.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]"
+    ],
+    "notes": "bloomie",
+    "description": "bloomie",
+    "sectionClasses": "w-layout-blockcontainer container-features w-container",
+    "aboveFold": true
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690aa9265836f6c34bcd783b_icon-games.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]"
+    ],
+    "notes": "games",
+    "description": "games",
+    "sectionClasses": "w-layout-blockcontainer container-features w-container",
+    "aboveFold": true
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/6969b3782178536196122be5_title-mirror.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]",
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Not Sure Where to Invest? Follow and Mirror Wall Street’s top bets.",
+    "sectionClasses": "section",
+    "aboveFold": true
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/6969b3782178536196122be5_title-mirror-p-500.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Not Sure Where to Invest? Follow and Mirror Wall Street’s top bets.",
+    "sectionClasses": "section",
+    "aboveFold": true
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/696180035651e2acc5db8b03_de74ef14c54f1a11eadda1528303786a_bloom-mega-funds.jpg",
+    "type": "Image",
+    "contexts": [
+      "img[src]",
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Not Sure Where to Invest? Follow and Mirror Wall Street’s top bets.",
+    "sectionClasses": "section",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/696180035651e2acc5db8b03_de74ef14c54f1a11eadda1528303786a_bloom-mega-funds-p-500.jpg",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Not Sure Where to Invest? Follow and Mirror Wall Street’s top bets.",
+    "sectionClasses": "section",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/696180035651e2acc5db8b03_de74ef14c54f1a11eadda1528303786a_bloom-mega-funds-p-800.jpg",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Not Sure Where to Invest? Follow and Mirror Wall Street’s top bets.",
+    "sectionClasses": "section",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/6969b378690a2eadcc04b6b0_title-learn.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]"
+    ],
+    "notes": null,
+    "nearestHeading": "Finally, Stock Market Education That Actually Makes Sense",
+    "sectionClasses": "section background-divider",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690abdf36629486dfb606b59_learn-screen-1.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]",
+      "img[srcset]"
+    ],
+    "notes": "screenshot",
+    "description": "screenshot",
+    "nearestHeading": "Finally, Stock Market Education That Actually Makes Sense",
+    "sectionClasses": "section background-divider",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690abdf36629486dfb606b59_learn-screen-1-p-500.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": "screenshot",
+    "description": "screenshot",
+    "nearestHeading": "Finally, Stock Market Education That Actually Makes Sense",
+    "sectionClasses": "section background-divider",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690abdf3ee744516a1c5726f_learn-screen-2.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]",
+      "img[srcset]"
+    ],
+    "notes": "screenshot",
+    "description": "screenshot",
+    "nearestHeading": "Finally, Stock Market Education That Actually Makes Sense",
+    "sectionClasses": "section background-divider",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690abdf3ee744516a1c5726f_learn-screen-2-p-500.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": "screenshot",
+    "description": "screenshot",
+    "nearestHeading": "Finally, Stock Market Education That Actually Makes Sense",
+    "sectionClasses": "section background-divider",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690abdf36efd4181177a2cd5_learn-screen-3.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]",
+      "img[srcset]"
+    ],
+    "notes": "screenshot",
+    "description": "screenshot",
+    "nearestHeading": "Finally, Stock Market Education That Actually Makes Sense",
+    "sectionClasses": "section background-divider",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690abdf36efd4181177a2cd5_learn-screen-3-p-500.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": "screenshot",
+    "description": "screenshot",
+    "nearestHeading": "Finally, Stock Market Education That Actually Makes Sense",
+    "sectionClasses": "section background-divider",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/696a7e695246a97f09462277_title-portfolio.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]"
+    ],
+    "notes": null,
+    "sectionClasses": "section",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/696a7e6ab8f6d1bd044b17cd_title-bloomie-v1.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]"
+    ],
+    "notes": null,
+    "nearestHeading": "Meet Bloomie, Your AI Investing Buddy",
+    "sectionClasses": "section",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690acfe6dcc7de5c86148956_ask-screen-1.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]",
+      "img[srcset]"
+    ],
+    "notes": "screenshot",
+    "description": "screenshot",
+    "nearestHeading": "Meet Bloomie, Your AI Investing Buddy",
+    "sectionClasses": "section",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690acfe6dcc7de5c86148956_ask-screen-1-p-500.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": "screenshot",
+    "description": "screenshot",
+    "nearestHeading": "Meet Bloomie, Your AI Investing Buddy",
+    "sectionClasses": "section",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690acfe66824cf87fd07cdc5_ask-screen-3.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]",
+      "img[srcset]"
+    ],
+    "notes": "screenshot",
+    "description": "screenshot",
+    "nearestHeading": "Meet Bloomie, Your AI Investing Buddy",
+    "sectionClasses": "section",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690acfe66824cf87fd07cdc5_ask-screen-3-p-500.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": "screenshot",
+    "description": "screenshot",
+    "nearestHeading": "Meet Bloomie, Your AI Investing Buddy",
+    "sectionClasses": "section",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690acfe644f168f9ed224242_ask-screen-2.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]",
+      "img[srcset]"
+    ],
+    "notes": "screenshot",
+    "description": "screenshot",
+    "nearestHeading": "Meet Bloomie, Your AI Investing Buddy",
+    "sectionClasses": "section",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690acfe644f168f9ed224242_ask-screen-2-p-500.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": "screenshot",
+    "description": "screenshot",
+    "nearestHeading": "Meet Bloomie, Your AI Investing Buddy",
+    "sectionClasses": "section",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690ad285c2e9d81397a85ab8_sipc.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]"
+    ],
+    "notes": "sipc",
+    "description": "sipc",
+    "nearestHeading": "Trusted by real investors and experts",
+    "sectionClasses": "section-light-surface pd-2x-extra-large",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690ba188fa21cc9a599feb66_mockup-safe.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]",
+      "img[srcset]"
+    ],
+    "notes": "Trusted App",
+    "description": "Trusted App",
+    "nearestHeading": "Trusted by real investors and experts",
+    "sectionClasses": "section-light-surface pd-2x-extra-large",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690ba188fa21cc9a599feb66_mockup-safe-p-500.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": "Trusted App",
+    "description": "Trusted App",
+    "nearestHeading": "Trusted by real investors and experts",
+    "sectionClasses": "section-light-surface pd-2x-extra-large",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690ba188fa21cc9a599feb66_mockup-safe-p-800.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": "Trusted App",
+    "description": "Trusted App",
+    "nearestHeading": "Trusted by real investors and experts",
+    "sectionClasses": "section-light-surface pd-2x-extra-large",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/68f124cab6613d51f70f084f_we-go-the-extra-mile-bg-cardpay-webflow-template.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]",
+      "img[srcset]"
+    ],
+    "notes": "We Go The Extra Mile To Financially Assist You - Cardpay Webflow Template",
+    "description": "We Go The Extra Mile To Financially Assist You - Cardpay Webflow Template",
+    "nearestHeading": "Trusted by real investors and experts",
+    "sectionClasses": "section-light-surface pd-2x-extra-large",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/68f124cab6613d51f70f084f_we-go-the-extra-mile-bg-cardpay-webflow-template-p-500.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": "We Go The Extra Mile To Financially Assist You - Cardpay Webflow Template",
+    "description": "We Go The Extra Mile To Financially Assist You - Cardpay Webflow Template",
+    "nearestHeading": "Trusted by real investors and experts",
+    "sectionClasses": "section-light-surface pd-2x-extra-large",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/68f124cab6613d51f70f084f_we-go-the-extra-mile-bg-cardpay-webflow-template-p-800.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": "We Go The Extra Mile To Financially Assist You - Cardpay Webflow Template",
+    "description": "We Go The Extra Mile To Financially Assist You - Cardpay Webflow Template",
+    "nearestHeading": "Trusted by real investors and experts",
+    "sectionClasses": "section-light-surface pd-2x-extra-large",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/68f124cab6613d51f70f084f_we-go-the-extra-mile-bg-cardpay-webflow-template-p-1080.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": "We Go The Extra Mile To Financially Assist You - Cardpay Webflow Template",
+    "description": "We Go The Extra Mile To Financially Assist You - Cardpay Webflow Template",
+    "nearestHeading": "Trusted by real investors and experts",
+    "sectionClasses": "section-light-surface pd-2x-extra-large",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690d0ddc03bc85b76cd1cee6_icon-tournament.svg",
+    "type": "Image",
+    "contexts": [
+      "img[src]"
+    ],
+    "notes": "tournament",
+    "description": "tournament",
+    "nearestHeading": "Play games and earn real rewards",
+    "sectionClasses": "section",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690d0e72e0953cff5794b897_icon-oink.svg",
+    "type": "Image",
+    "contexts": [
+      "img[src]"
+    ],
+    "notes": "oink",
+    "description": "oink",
+    "nearestHeading": "Play games and earn real rewards",
+    "sectionClasses": "section",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690d0e92c1c5befbd2b995cd_icon-chest.svg",
+    "type": "Image",
+    "contexts": [
+      "img[src]"
+    ],
+    "notes": "chest",
+    "description": "chest",
+    "nearestHeading": "Play games and earn real rewards",
+    "sectionClasses": "section",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690ba8a8c56264654608fd99_mock-cta.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]",
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Your journey starts here",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690ba8a8c56264654608fd99_mock-cta-p-500.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Your journey starts here",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690ba8a8c56264654608fd99_mock-cta-p-800.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Your journey starts here",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690ba8a8c56264654608fd99_mock-cta-p-1080.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Your journey starts here",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690ba8a8c56264654608fd99_mock-cta-p-1600.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Your journey starts here",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690ba8a8c56264654608fd99_mock-cta-p-2000.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Your journey starts here",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/69168d6da707162284db151f_star.svg",
+    "type": "Image",
+    "contexts": [
+      "img[src]"
+    ],
+    "notes": null,
+    "nearestHeading": "What our users say",
+    "sectionClasses": "section",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/696822256205908aed48cd52_background-divider.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null,
+    "nearestHeading": "Finally, Stock Market Education That Actually Makes Sense",
+    "sectionClasses": "section background-divider",
+    "aboveFold": false
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220%2F690ac5d65281142167412f46_mock-portfolio-transcode.mp4",
+    "type": "Video",
+    "contexts": [
+      "video source[src]"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220%2F690ac5d65281142167412f46_mock-portfolio-transcode.webm",
+    "type": "Video",
+    "contexts": [
+      "video source[src]"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220%2F690cfb99eeb731ae44326be4_mock-tournaments-transcode.mp4",
+    "type": "Video",
+    "contexts": [
+      "video source[src]"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220%2F690cfb99eeb731ae44326be4_mock-tournaments-transcode.webm",
+    "type": "Video",
+    "contexts": [
+      "video source[src]"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690a4957b7eccf77424a1c35_bloom-32.png",
+    "type": "Icon",
+    "contexts": [
+      "link[rel=\"shortcut icon\"]"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/690a49d029c5fc583495bb24_bloom-256.png",
+    "type": "Icon",
+    "contexts": [
+      "link[rel=\"apple-touch-icon\"]"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/698cc99e4e15a0922e5e5135_bloominvest.png",
+    "type": "Image",
+    "contexts": [
+      "meta[og:image]"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/68f124cab6613d51f70f035d_line-rounded-icon-font-brix.woff",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/68f124cab6613d51f70f0450_fontello.woff",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/68f124cab6613d51f70f03f1_fontello.woff",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/68f124cab6613d51f70f04db_Social-Media-Icon-Font-Brix.woff",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/68f124cab6613d51f70f05e1_techpay-icon.woff",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://d3e54v103j8qbb.cloudfront.net/static/custom-checkbox-checkmark.589d534424.svg",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/68f124cab6613d51f70f02ba_check-icon.svg",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/68f124cab6613d51f70f0658_cellphone-background-techpay-webflow-template.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/68f124cab6613d51f70f0676_crystal-search-icon-techpay-webflow-template.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/68f124cab6613d51f70f0673_dark-abstract-background-techpay-webflow-template.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220/68f124cab6613d51f70f0809_home-v2-hero-images-bg-cardpay-webflow-template.jpg",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220%2F690ac5d65281142167412f46_mock-portfolio-poster-00001.jpg",
+    "type": "Other",
+    "contexts": [
+      "html inline style url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220%2F690cfb99eeb731ae44326be4_mock-tournaments-poster-00001.jpg",
+    "type": "Other",
+    "contexts": [
+      "html inline style url()"
+    ],
+    "notes": null
+  }
+]

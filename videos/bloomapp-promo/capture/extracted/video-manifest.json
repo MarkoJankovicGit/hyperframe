@@ -1,0 +1,24 @@
+[
+  {
+    "index": 0,
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220%2F690ac5d65281142167412f46_mock-portfolio-transcode.mp4",
+    "filename": "68f124c8b6613d51f70f0220%2F690ac5d65281142167412f46_mock-portfolio-transcode.mp4",
+    "width": 556,
+    "height": 556,
+    "heading": "Learn. Invest. Automate - Investing made easy, not complicated",
+    "caption": "Start with any theme or belief about the market. From AI to clean energy, invest in ideas you really believe in.",
+    "ariaLabel": "",
+    "preview": "assets/videos/previews/video-0-preview.png"
+  },
+  {
+    "index": 1,
+    "url": "https://cdn.prod.website-files.com/68f124c8b6613d51f70f0220%2F690cfb99eeb731ae44326be4_mock-tournaments-transcode.mp4",
+    "filename": "68f124c8b6613d51f70f0220%2F690cfb99eeb731ae44326be4_mock-tournaments-transcode.mp4",
+    "width": 736,
+    "height": 700,
+    "heading": "Play games and earn real rewards",
+    "caption": "Use Oinks, Bloom’s in-app rewards, to enter tournaments and challenge other players. Test your investing strategy, make smart picks, and win more Oinks as you climb the leaderboard.",
+    "ariaLabel": "",
+    "preview": "assets/videos/previews/video-1-preview.png"
+  }
+]

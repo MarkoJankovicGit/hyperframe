@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Bloom Lesson — Risk vs. Reward</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      body { margin: 0; background: #1C2329; }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="bloom-risk-reward"
+      data-width="1080" data-height="1920"
+      data-start="0" data-duration="52.90"
+    >
+      <!-- Narration on track 0 -->
+      <audio id="narration" class="clip"
+             data-start="0" data-duration="52.90" data-track-index="0" data-volume="1"
+             src="narration.mp3"></audio>
+
+      <!-- Per-beat sub-compositions. 
+           Alternating tracks 1 and 2 to allow for 0.2s crossfade overlap. -->
+      
+      <div class="clip" data-composition-src="compositions/beat-1-hook.html"
+           data-composition-id="bloom-risk-reward-beat-1"
+           data-start="0.00" data-duration="2.50" data-track-index="1"></div>
+      
+      <div class="clip" data-composition-src="compositions/beat-2-reframe.html"
+           data-composition-id="bloom-risk-reward-beat-2"
+           data-start="2.30" data-duration="3.20" data-track-index="2"></div>
+      
+      <div class="clip" data-composition-src="compositions/beat-3-concept.html"
+           data-composition-id="bloom-risk-reward-beat-3"
+           data-start="5.30" data-duration="7.90" data-track-index="1"></div>
+      
+      <div class="clip" data-composition-src="compositions/beat-4-examples.html"
+           data-composition-id="bloom-risk-reward-beat-4"
+           data-start="13.00" data-duration="5.10" data-track-index="2"></div>
+      
+      <!-- BEAT 5: Try-it + Reveal (Combined) -->
+      <div class="clip" data-composition-src="compositions/beat-5-tryit-reveal.html"
+           data-composition-id="bloom-risk-reward-beat-5"
+           data-start="17.90" data-duration="6.90" data-track-index="1"></div>
+      
+      <div class="clip" data-composition-src="compositions/beat-7-stat-b.html"
+           data-composition-id="bloom-risk-reward-beat-7"
+           data-start="24.60" data-duration="6.90" data-track-index="2"></div>
+      
+      <div class="clip" data-composition-src="compositions/beat-8-breakdown.html"
+           data-composition-id="bloom-risk-reward-beat-8"
+           data-start="31.30" data-duration="4.80" data-track-index="1"></div>
+      
+      <div class="clip" data-composition-src="compositions/beat-9-insight.html"
+           data-composition-id="bloom-risk-reward-beat-9"
+           data-start="35.90" data-duration="5.40" data-track-index="2"></div>
+      
+      <div class="clip" data-composition-src="compositions/beat-10-bridge.html"
+           data-composition-id="bloom-risk-reward-beat-10"
+           data-start="41.10" data-duration="5.60" data-track-index="1"></div>
+      
+      <div class="clip" data-composition-src="compositions/beat-11-tease.html"
+           data-composition-id="bloom-risk-reward-beat-11"
+           data-start="46.50" data-duration="6.40" data-track-index="2"></div>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+    </script>
+  </body>
+</html>

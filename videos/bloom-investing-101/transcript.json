@@ -1,0 +1,1016 @@
+{
+  "sceneId": "scene-01",
+  "text": "Did you know you can make money while you're sleeping? Well, say hi to investing. Investing means buying anything that can increase in value over time. Like sneakers, houses, or stocks. It's hard to get rich by saving alone, because you only grow your money by working more or spending less. But by investing, your money can work for you and grow on its own. For example, if you save thirty dollars a month from age eighteen, you would have sixteen thousand dollars by age sixty-five. But invest that same thirty dollars a month into stocks from age eighteen, and it could become three hundred and eighty thousand dollars by age sixty-five. Assuming a ten percent annual return. Investing takes time, patience, and discipline. But it's the best way to build long-term wealth, and Bloom will teach you how to invest like a pro.",
+  "words": [
+    {
+      "word": "Did",
+      "start": 0,
+      "end": 0.159,
+      "startFrame": 0,
+      "endFrame": 5
+    },
+    {
+      "word": "you",
+      "start": 0.179,
+      "end": 0.239,
+      "startFrame": 5,
+      "endFrame": 7
+    },
+    {
+      "word": "know",
+      "start": 0.287,
+      "end": 0.479,
+      "startFrame": 9,
+      "endFrame": 14
+    },
+    {
+      "word": "you",
+      "start": 0.519,
+      "end": 0.639,
+      "startFrame": 16,
+      "endFrame": 19
+    },
+    {
+      "word": "can",
+      "start": 0.679,
+      "end": 0.799,
+      "startFrame": 20,
+      "endFrame": 24
+    },
+    {
+      "word": "make",
+      "start": 0.847,
+      "end": 1.039,
+      "startFrame": 25,
+      "endFrame": 31
+    },
+    {
+      "word": "money",
+      "start": 1.092,
+      "end": 1.357,
+      "startFrame": 33,
+      "endFrame": 41
+    },
+    {
+      "word": "while",
+      "start": 1.41,
+      "end": 1.675,
+      "startFrame": 42,
+      "endFrame": 50
+    },
+    {
+      "word": "you're",
+      "start": 1.695,
+      "end": 1.836,
+      "startFrame": 51,
+      "endFrame": 55
+    },
+    {
+      "word": "sleeping?",
+      "start": 1.889,
+      "end": 2.393,
+      "startFrame": 57,
+      "endFrame": 72
+    },
+    {
+      "word": "Well,",
+      "start": 2.537,
+      "end": 3.193,
+      "startFrame": 76,
+      "endFrame": 96
+    },
+    {
+      "word": "say",
+      "start": 3.293,
+      "end": 3.593,
+      "startFrame": 99,
+      "endFrame": 108
+    },
+    {
+      "word": "hi",
+      "start": 3.673,
+      "end": 3.833,
+      "startFrame": 110,
+      "endFrame": 115
+    },
+    {
+      "word": "to",
+      "start": 3.86,
+      "end": 3.914,
+      "startFrame": 116,
+      "endFrame": 117
+    },
+    {
+      "word": "investing.",
+      "start": 3.978,
+      "end": 4.634,
+      "startFrame": 119,
+      "endFrame": 139
+    },
+    {
+      "word": "Investing",
+      "start": 4.746,
+      "end": 5.754,
+      "startFrame": 142,
+      "endFrame": 173
+    },
+    {
+      "word": "means",
+      "start": 5.807,
+      "end": 6.072,
+      "startFrame": 174,
+      "endFrame": 182
+    },
+    {
+      "word": "buying",
+      "start": 6.118,
+      "end": 6.394,
+      "startFrame": 184,
+      "endFrame": 192
+    },
+    {
+      "word": "anything",
+      "start": 6.456,
+      "end": 6.952,
+      "startFrame": 194,
+      "endFrame": 209
+    },
+    {
+      "word": "that",
+      "start": 6.984,
+      "end": 7.112,
+      "startFrame": 210,
+      "endFrame": 213
+    },
+    {
+      "word": "can",
+      "start": 7.172,
+      "end": 7.352,
+      "startFrame": 215,
+      "endFrame": 221
+    },
+    {
+      "word": "increase",
+      "start": 7.405,
+      "end": 7.829,
+      "startFrame": 222,
+      "endFrame": 235
+    },
+    {
+      "word": "in",
+      "start": 7.882,
+      "end": 7.988,
+      "startFrame": 236,
+      "endFrame": 240
+    },
+    {
+      "word": "value",
+      "start": 8.068,
+      "end": 8.468,
+      "startFrame": 242,
+      "endFrame": 254
+    },
+    {
+      "word": "over",
+      "start": 8.548,
+      "end": 8.868,
+      "startFrame": 256,
+      "endFrame": 266
+    },
+    {
+      "word": "time.",
+      "start": 8.948,
+      "end": 9.588,
+      "startFrame": 268,
+      "endFrame": 288
+    },
+    {
+      "word": "Like",
+      "start": 9.652,
+      "end": 9.908,
+      "startFrame": 290,
+      "endFrame": 297
+    },
+    {
+      "word": "sneakers,",
+      "start": 9.979,
+      "end": 10.947,
+      "startFrame": 299,
+      "endFrame": 328
+    },
+    {
+      "word": "houses,",
+      "start": 11.004,
+      "end": 11.506,
+      "startFrame": 330,
+      "endFrame": 345
+    },
+    {
+      "word": "or",
+      "start": 11.559,
+      "end": 11.665,
+      "startFrame": 347,
+      "endFrame": 350
+    },
+    {
+      "word": "stocks.",
+      "start": 11.745,
+      "end": 12.305,
+      "startFrame": 352,
+      "endFrame": 369
+    },
+    {
+      "word": "It's",
+      "start": 12.572,
+      "end": 13.186,
+      "startFrame": 377,
+      "endFrame": 396
+    },
+    {
+      "word": "hard",
+      "start": 13.218,
+      "end": 13.346,
+      "startFrame": 397,
+      "endFrame": 400
+    },
+    {
+      "word": "to",
+      "start": 13.399,
+      "end": 13.505,
+      "startFrame": 402,
+      "endFrame": 405
+    },
+    {
+      "word": "get",
+      "start": 13.545,
+      "end": 13.665,
+      "startFrame": 406,
+      "endFrame": 410
+    },
+    {
+      "word": "rich",
+      "start": 13.729,
+      "end": 13.985,
+      "startFrame": 412,
+      "endFrame": 420
+    },
+    {
+      "word": "by",
+      "start": 14.038,
+      "end": 14.144,
+      "startFrame": 421,
+      "endFrame": 424
+    },
+    {
+      "word": "saving",
+      "start": 14.201,
+      "end": 14.543,
+      "startFrame": 426,
+      "endFrame": 436
+    },
+    {
+      "word": "alone,",
+      "start": 14.61,
+      "end": 15.105,
+      "startFrame": 438,
+      "endFrame": 453
+    },
+    {
+      "word": "because",
+      "start": 15.145,
+      "end": 15.425,
+      "startFrame": 454,
+      "endFrame": 463
+    },
+    {
+      "word": "you",
+      "start": 15.465,
+      "end": 15.585,
+      "startFrame": 464,
+      "endFrame": 468
+    },
+    {
+      "word": "only",
+      "start": 15.649,
+      "end": 15.905,
+      "startFrame": 469,
+      "endFrame": 477
+    },
+    {
+      "word": "grow",
+      "start": 15.953,
+      "end": 16.145,
+      "startFrame": 479,
+      "endFrame": 484
+    },
+    {
+      "word": "your",
+      "start": 16.177,
+      "end": 16.305,
+      "startFrame": 485,
+      "endFrame": 489
+    },
+    {
+      "word": "money",
+      "start": 16.358,
+      "end": 16.623,
+      "startFrame": 491,
+      "endFrame": 499
+    },
+    {
+      "word": "by",
+      "start": 16.703,
+      "end": 16.863,
+      "startFrame": 501,
+      "endFrame": 506
+    },
+    {
+      "word": "working",
+      "start": 16.923,
+      "end": 17.343,
+      "startFrame": 508,
+      "endFrame": 520
+    },
+    {
+      "word": "more",
+      "start": 17.423,
+      "end": 17.743,
+      "startFrame": 523,
+      "endFrame": 532
+    },
+    {
+      "word": "or",
+      "start": 17.823,
+      "end": 17.983,
+      "startFrame": 535,
+      "endFrame": 539
+    },
+    {
+      "word": "spending",
+      "start": 18.045,
+      "end": 18.541,
+      "startFrame": 541,
+      "endFrame": 556
+    },
+    {
+      "word": "less.",
+      "start": 18.621,
+      "end": 19.101,
+      "startFrame": 559,
+      "endFrame": 573
+    },
+    {
+      "word": "But",
+      "start": 19.281,
+      "end": 19.821,
+      "startFrame": 578,
+      "endFrame": 595
+    },
+    {
+      "word": "by",
+      "start": 19.901,
+      "end": 20.061,
+      "startFrame": 597,
+      "endFrame": 602
+    },
+    {
+      "word": "investing,",
+      "start": 20.125,
+      "end": 20.941,
+      "startFrame": 604,
+      "endFrame": 628
+    },
+    {
+      "word": "your",
+      "start": 20.973,
+      "end": 21.101,
+      "startFrame": 629,
+      "endFrame": 633
+    },
+    {
+      "word": "money",
+      "start": 21.141,
+      "end": 21.341,
+      "startFrame": 634,
+      "endFrame": 640
+    },
+    {
+      "word": "can",
+      "start": 21.381,
+      "end": 21.501,
+      "startFrame": 641,
+      "endFrame": 645
+    },
+    {
+      "word": "work",
+      "start": 21.565,
+      "end": 21.821,
+      "startFrame": 647,
+      "endFrame": 655
+    },
+    {
+      "word": "for",
+      "start": 21.901,
+      "end": 22.141,
+      "startFrame": 657,
+      "endFrame": 664
+    },
+    {
+      "word": "you",
+      "start": 22.201,
+      "end": 22.381,
+      "startFrame": 666,
+      "endFrame": 671
+    },
+    {
+      "word": "and",
+      "start": 22.441,
+      "end": 22.621,
+      "startFrame": 673,
+      "endFrame": 679
+    },
+    {
+      "word": "grow",
+      "start": 22.717,
+      "end": 23.101,
+      "startFrame": 682,
+      "endFrame": 693
+    },
+    {
+      "word": "on",
+      "start": 23.154,
+      "end": 23.26,
+      "startFrame": 695,
+      "endFrame": 698
+    },
+    {
+      "word": "its",
+      "start": 23.32,
+      "end": 23.5,
+      "startFrame": 700,
+      "endFrame": 705
+    },
+    {
+      "word": "own.",
+      "start": 23.58,
+      "end": 23.9,
+      "startFrame": 707,
+      "endFrame": 717
+    },
+    {
+      "word": "For",
+      "start": 24.12,
+      "end": 24.78,
+      "startFrame": 724,
+      "endFrame": 743
+    },
+    {
+      "word": "example,",
+      "start": 24.84,
+      "end": 25.5,
+      "startFrame": 745,
+      "endFrame": 765
+    },
+    {
+      "word": "if",
+      "start": 25.553,
+      "end": 25.659,
+      "startFrame": 767,
+      "endFrame": 770
+    },
+    {
+      "word": "you",
+      "start": 25.699,
+      "end": 25.819,
+      "startFrame": 771,
+      "endFrame": 775
+    },
+    {
+      "word": "save",
+      "start": 25.899,
+      "end": 26.219,
+      "startFrame": 777,
+      "endFrame": 787
+    },
+    {
+      "word": "thirty",
+      "start": 26.265,
+      "end": 26.541,
+      "startFrame": 788,
+      "endFrame": 796
+    },
+    {
+      "word": "dollars",
+      "start": 26.581,
+      "end": 26.861,
+      "startFrame": 797,
+      "endFrame": 806
+    },
+    {
+      "word": "a",
+      "start": 26.941,
+      "end": 27.021,
+      "startFrame": 808,
+      "endFrame": 811
+    },
+    {
+      "word": "month",
+      "start": 27.074,
+      "end": 27.339,
+      "startFrame": 812,
+      "endFrame": 820
+    },
+    {
+      "word": "from",
+      "start": 27.371,
+      "end": 27.499,
+      "startFrame": 821,
+      "endFrame": 825
+    },
+    {
+      "word": "age",
+      "start": 27.599,
+      "end": 27.899,
+      "startFrame": 828,
+      "endFrame": 837
+    },
+    {
+      "word": "eighteen,",
+      "start": 27.97,
+      "end": 28.778,
+      "startFrame": 839,
+      "endFrame": 863
+    },
+    {
+      "word": "you",
+      "start": 28.818,
+      "end": 28.938,
+      "startFrame": 865,
+      "endFrame": 868
+    },
+    {
+      "word": "would",
+      "start": 28.951,
+      "end": 29.016,
+      "startFrame": 869,
+      "endFrame": 870
+    },
+    {
+      "word": "have",
+      "start": 29.08,
+      "end": 29.336,
+      "startFrame": 872,
+      "endFrame": 880
+    },
+    {
+      "word": "sixteen",
+      "start": 29.406,
+      "end": 29.896,
+      "startFrame": 882,
+      "endFrame": 897
+    },
+    {
+      "word": "thousand",
+      "start": 29.94,
+      "end": 30.292,
+      "startFrame": 898,
+      "endFrame": 909
+    },
+    {
+      "word": "dollars",
+      "start": 30.372,
+      "end": 30.932,
+      "startFrame": 911,
+      "endFrame": 928
+    },
+    {
+      "word": "by",
+      "start": 30.959,
+      "end": 31.013,
+      "startFrame": 929,
+      "endFrame": 930
+    },
+    {
+      "word": "age",
+      "start": 31.113,
+      "end": 31.413,
+      "startFrame": 933,
+      "endFrame": 942
+    },
+    {
+      "word": "sixty-five.",
+      "start": 31.48,
+      "end": 32.375,
+      "startFrame": 944,
+      "endFrame": 971
+    },
+    {
+      "word": "But",
+      "start": 32.555,
+      "end": 33.095,
+      "startFrame": 977,
+      "endFrame": 993
+    },
+    {
+      "word": "invest",
+      "start": 33.152,
+      "end": 33.494,
+      "startFrame": 995,
+      "endFrame": 1005
+    },
+    {
+      "word": "that",
+      "start": 33.542,
+      "end": 33.734,
+      "startFrame": 1006,
+      "endFrame": 1012
+    },
+    {
+      "word": "same",
+      "start": 33.814,
+      "end": 34.134,
+      "startFrame": 1014,
+      "endFrame": 1024
+    },
+    {
+      "word": "thirty",
+      "start": 34.18,
+      "end": 34.456,
+      "startFrame": 1025,
+      "endFrame": 1034
+    },
+    {
+      "word": "dollars",
+      "start": 34.506,
+      "end": 34.856,
+      "startFrame": 1035,
+      "endFrame": 1046
+    },
+    {
+      "word": "a",
+      "start": 34.936,
+      "end": 35.016,
+      "startFrame": 1048,
+      "endFrame": 1050
+    },
+    {
+      "word": "month",
+      "start": 35.056,
+      "end": 35.256,
+      "startFrame": 1052,
+      "endFrame": 1058
+    },
+    {
+      "word": "into",
+      "start": 35.32,
+      "end": 35.576,
+      "startFrame": 1060,
+      "endFrame": 1067
+    },
+    {
+      "word": "stocks",
+      "start": 35.656,
+      "end": 36.136,
+      "startFrame": 1070,
+      "endFrame": 1084
+    },
+    {
+      "word": "from",
+      "start": 36.168,
+      "end": 36.296,
+      "startFrame": 1085,
+      "endFrame": 1089
+    },
+    {
+      "word": "age",
+      "start": 36.396,
+      "end": 36.696,
+      "startFrame": 1092,
+      "endFrame": 1101
+    },
+    {
+      "word": "eighteen,",
+      "start": 36.749,
+      "end": 37.333,
+      "startFrame": 1102,
+      "endFrame": 1120
+    },
+    {
+      "word": "and",
+      "start": 37.373,
+      "end": 37.493,
+      "startFrame": 1121,
+      "endFrame": 1125
+    },
+    {
+      "word": "it",
+      "start": 37.573,
+      "end": 37.733,
+      "startFrame": 1127,
+      "endFrame": 1132
+    },
+    {
+      "word": "could",
+      "start": 37.76,
+      "end": 37.895,
+      "startFrame": 1133,
+      "endFrame": 1137
+    },
+    {
+      "word": "become",
+      "start": 37.964,
+      "end": 38.378,
+      "startFrame": 1139,
+      "endFrame": 1151
+    },
+    {
+      "word": "three",
+      "start": 38.445,
+      "end": 38.78,
+      "startFrame": 1153,
+      "endFrame": 1163
+    },
+    {
+      "word": "hundred",
+      "start": 38.82,
+      "end": 39.1,
+      "startFrame": 1165,
+      "endFrame": 1173
+    },
+    {
+      "word": "and",
+      "start": 39.2,
+      "end": 39.5,
+      "startFrame": 1176,
+      "endFrame": 1185
+    },
+    {
+      "word": "eighty",
+      "start": 39.534,
+      "end": 39.738,
+      "startFrame": 1186,
+      "endFrame": 1192
+    },
+    {
+      "word": "thousand",
+      "start": 39.791,
+      "end": 40.215,
+      "startFrame": 1194,
+      "endFrame": 1206
+    },
+    {
+      "word": "dollars",
+      "start": 40.275,
+      "end": 40.695,
+      "startFrame": 1208,
+      "endFrame": 1221
+    },
+    {
+      "word": "by",
+      "start": 40.775,
+      "end": 40.935,
+      "startFrame": 1223,
+      "endFrame": 1228
+    },
+    {
+      "word": "age",
+      "start": 41.035,
+      "end": 41.335,
+      "startFrame": 1231,
+      "endFrame": 1240
+    },
+    {
+      "word": "sixty-five.",
+      "start": 41.415,
+      "end": 42.295,
+      "startFrame": 1242,
+      "endFrame": 1269
+    },
+    {
+      "word": "Assuming",
+      "start": 42.375,
+      "end": 43.015,
+      "startFrame": 1271,
+      "endFrame": 1290
+    },
+    {
+      "word": "a",
+      "start": 43.055,
+      "end": 43.095,
+      "startFrame": 1292,
+      "endFrame": 1293
+    },
+    {
+      "word": "ten",
+      "start": 43.155,
+      "end": 43.335,
+      "startFrame": 1295,
+      "endFrame": 1300
+    },
+    {
+      "word": "percent",
+      "start": 43.385,
+      "end": 43.735,
+      "startFrame": 1302,
+      "endFrame": 1312
+    },
+    {
+      "word": "annual",
+      "start": 43.804,
+      "end": 44.218,
+      "startFrame": 1314,
+      "endFrame": 1327
+    },
+    {
+      "word": "return.",
+      "start": 44.298,
+      "end": 44.858,
+      "startFrame": 1329,
+      "endFrame": 1346
+    },
+    {
+      "word": "Investing",
+      "start": 45.002,
+      "end": 46.298,
+      "startFrame": 1350,
+      "endFrame": 1389
+    },
+    {
+      "word": "takes",
+      "start": 46.365,
+      "end": 46.7,
+      "startFrame": 1391,
+      "endFrame": 1401
+    },
+    {
+      "word": "time,",
+      "start": 46.764,
+      "end": 47.42,
+      "startFrame": 1403,
+      "endFrame": 1423
+    },
+    {
+      "word": "patience,",
+      "start": 47.491,
+      "end": 48.219,
+      "startFrame": 1425,
+      "endFrame": 1447
+    },
+    {
+      "word": "and",
+      "start": 48.279,
+      "end": 48.459,
+      "startFrame": 1448,
+      "endFrame": 1454
+    },
+    {
+      "word": "discipline.",
+      "start": 48.51,
+      "end": 49.1,
+      "startFrame": 1455,
+      "endFrame": 1473
+    },
+    {
+      "word": "But",
+      "start": 49.22,
+      "end": 49.58,
+      "startFrame": 1477,
+      "endFrame": 1487
+    },
+    {
+      "word": "it's",
+      "start": 49.633,
+      "end": 49.819,
+      "startFrame": 1489,
+      "endFrame": 1495
+    },
+    {
+      "word": "the",
+      "start": 49.859,
+      "end": 49.979,
+      "startFrame": 1496,
+      "endFrame": 1499
+    },
+    {
+      "word": "best",
+      "start": 50.043,
+      "end": 50.299,
+      "startFrame": 1501,
+      "endFrame": 1509
+    },
+    {
+      "word": "way",
+      "start": 50.359,
+      "end": 50.539,
+      "startFrame": 1511,
+      "endFrame": 1516
+    },
+    {
+      "word": "to",
+      "start": 50.619,
+      "end": 50.779,
+      "startFrame": 1519,
+      "endFrame": 1523
+    },
+    {
+      "word": "build",
+      "start": 50.846,
+      "end": 51.181,
+      "startFrame": 1525,
+      "endFrame": 1535
+    },
+    {
+      "word": "long-term",
+      "start": 51.229,
+      "end": 51.741,
+      "startFrame": 1537,
+      "endFrame": 1552
+    },
+    {
+      "word": "wealth,",
+      "start": 51.798,
+      "end": 52.46,
+      "startFrame": 1554,
+      "endFrame": 1574
+    },
+    {
+      "word": "and",
+      "start": 52.5,
+      "end": 52.62,
+      "startFrame": 1575,
+      "endFrame": 1579
+    },
+    {
+      "word": "Bloom",
+      "start": 52.7,
+      "end": 53.1,
+      "startFrame": 1581,
+      "endFrame": 1593
+    },
+    {
+      "word": "will",
+      "start": 53.132,
+      "end": 53.26,
+      "startFrame": 1594,
+      "endFrame": 1598
+    },
+    {
+      "word": "teach",
+      "start": 53.313,
+      "end": 53.578,
+      "startFrame": 1599,
+      "endFrame": 1607
+    },
+    {
+      "word": "you",
+      "start": 53.598,
+      "end": 53.658,
+      "startFrame": 1608,
+      "endFrame": 1610
+    },
+    {
+      "word": "how",
+      "start": 53.738,
+      "end": 53.978,
+      "startFrame": 1612,
+      "endFrame": 1619
+    },
+    {
+      "word": "to",
+      "start": 54.031,
+      "end": 54.137,
+      "startFrame": 1621,
+      "endFrame": 1624
+    },
+    {
+      "word": "invest",
+      "start": 54.206,
+      "end": 54.62,
+      "startFrame": 1626,
+      "endFrame": 1639
+    },
+    {
+      "word": "like",
+      "start": 54.652,
+      "end": 54.78,
+      "startFrame": 1640,
+      "endFrame": 1643
+    },
+    {
+      "word": "a",
+      "start": 54.82,
+      "end": 54.86,
+      "startFrame": 1645,
+      "endFrame": 1646
+    },
+    {
+      "word": "pro.",
+      "start": 54.96,
+      "end": 55.34,
+      "startFrame": 1649,
+      "endFrame": 1660
+    }
+  ],
+  "durationSeconds": 55.84,
+  "durationFrames": 1675
+}

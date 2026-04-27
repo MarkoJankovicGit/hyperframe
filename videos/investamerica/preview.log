@@ -1,0 +1,14 @@
+T  hyperframes preview
+[?25l|
+o  Studio running
+[?25h
+  Port 3002 is in use, using 3003 instead
+
+  Project   investamerica
+  Studio    http://localhost:3003
+
+  Edit with your AI agent — it has HyperFrames skills installed.
+  Changes reload automatically in the studio.
+
+  Press Ctrl+C to stop
+

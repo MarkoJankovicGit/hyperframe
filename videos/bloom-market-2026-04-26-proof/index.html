@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Bloom Daily Market Update — Cinematic Gold Proof</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.137.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.137.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.137.0/examples/js/loaders/RGBELoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.137.0/examples/js/postprocessing/EffectComposer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.137.0/examples/js/postprocessing/RenderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.137.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.137.0/examples/js/postprocessing/ShaderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.137.0/examples/js/shaders/CopyShader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.137.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+    <style>
+      body { margin: 0; background: #0a0d12; }
+
+      #commodities-reel {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background:
+          radial-gradient(ellipse 50% 35% at 50% 55%, #1a0f04 0%, #050505 60%),
+          #000000;
+        font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+      }
+      #commodities-reel #cr-canvas {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        z-index: 1;
+        pointer-events: none;
+      }
+      #commodities-reel .cr-vignette {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        background:
+          radial-gradient(ellipse 55% 32% at 50% 53%, rgba(255, 180, 70, 0.18) 0%, rgba(0,0,0,0) 70%),
+          radial-gradient(ellipse 90% 75% at 50% 55%, rgba(0,0,0,0) 45%, rgba(0,0,0,0.45) 80%, rgba(0,0,0,0.7) 100%);
+        pointer-events: none;
+      }
+      #commodities-reel .cr-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 3;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding-top: 220px;
+      }
+      #commodities-reel .cr-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        font-family: "Inter", system-ui, sans-serif;
+        font-weight: 600;
+        font-size: 30px;
+        letter-spacing: 0.32em;
+        color: rgba(255,255,255,0.85);
+        text-transform: uppercase;
+        opacity: 0;
+      }
+      #commodities-reel .cr-eyebrow::before,
+      #commodities-reel .cr-eyebrow::after {
+        content: "";
+        width: 36px;
+        height: 2px;
+        background: rgba(255,255,255,0.6);
+      }
+      #commodities-reel .cr-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: #1C2329;
+        color: #fff;
+        border-radius: 32px;
+        padding: 28px 80px;
+        margin-top: 32px;
+        box-shadow: 0 32px 80px rgba(0,0,0,0.45);
+        opacity: 0;
+        transform: scale(0.6);
+      }
+      #commodities-reel .cr-badge-text {
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        font-size: 200px;
+        text-transform: uppercase;
+        letter-spacing: -0.022em;
+        line-height: 0.95;
+        color: #fff;
+      }
+      #commodities-reel .cr-counter-block {
+        position: absolute;
+        bottom: 320px;
+        left: 0;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        opacity: 0;
+        z-index: 3;
+      }
+      #commodities-reel .cr-counter-row {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 14px;
+      }
+      #commodities-reel .cr-counter-currency {
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 700;
+        font-style: italic;
+        font-size: 84px;
+        color: #FFD668;
+        letter-spacing: -0.02em;
+        line-height: 1;
+      }
+      #commodities-reel .cr-counter-value {
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        font-size: 220px;
+        color: #fff;
+        letter-spacing: -0.025em;
+        line-height: 0.95;
+        text-shadow: 0 6px 28px rgba(255, 200, 80, 0.35);
+      }
+      #commodities-reel .cr-counter-label {
+        margin-top: 16px;
+        font-family: "Inter", system-ui, sans-serif;
+        font-weight: 700;
+        font-size: 34px;
+        letter-spacing: 0.36em;
+        color: rgba(255, 220, 140, 0.9);
+        text-transform: uppercase;
+      }
+      #commodities-reel .cr-bottom-bar {
+        position: absolute;
+        bottom: 120px;
+        left: 60px;
+        right: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 3;
+        opacity: 0;
+      }
+      #commodities-reel .cr-bottom-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        background: rgba(255,255,255,0.10);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255,255,255,0.18);
+        border-radius: 999px;
+        padding: 18px 28px;
+        font-family: "Inter", system-ui, sans-serif;
+        font-weight: 700;
+        font-size: 26px;
+        letter-spacing: 0.18em;
+        color: rgba(255,255,255,0.95);
+        text-transform: uppercase;
+      }
+      #commodities-reel .cr-tag-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #FFC847;
+        box-shadow: 0 0 14px rgba(255, 200, 71, 0.85);
+      }
+      #commodities-reel .cr-bottom-arrow {
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        font-size: 32px;
+        color: #FFC847;
+        letter-spacing: 0.04em;
+        text-shadow: 0 0 18px rgba(255, 200, 71, 0.35);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"
+      data-composition-id="bloom-market-proof"
+      data-width="1080"
+      data-height="1920"
+      data-start="0"
+      data-duration="6.5">
+
+      <audio id="narration" class="clip"
+        data-start="0" data-duration="6.5" data-track-index="0"
+        src="narration.mp3" data-volume="1"></audio>
+
+      <div id="commodities-reel" class="clip scene"
+        data-start="0" data-duration="6.5" data-track-index="1">
+
+        <canvas id="cr-canvas" width="1080" height="1920"></canvas>
+        <div class="cr-vignette"></div>
+
+        <div class="cr-overlay">
+          <div class="cr-eyebrow" id="cr-eyebrow">FORECAST RAISED</div>
+          <div class="cr-badge" id="cr-badge">
+            <span class="cr-badge-text">GOLD</span>
+          </div>
+        </div>
+
+        <div class="cr-counter-block" id="cr-counter-block">
+          <div class="cr-counter-row">
+            <span class="cr-counter-currency">$</span>
+            <span class="cr-counter-value" id="cr-counter-value">0</span>
+          </div>
+          <div class="cr-counter-label">PER OUNCE</div>
+        </div>
+
+        <div class="cr-bottom-bar" id="cr-bottom-bar">
+          <div class="cr-bottom-tag">
+            <span class="cr-tag-dot"></span>
+            <span>COMMODITIES</span>
+          </div>
+          <div class="cr-bottom-arrow">&uarr; FORECAST</div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+
+      // ===================================================================
+      // Cinema3DReveal — Three.js scene with HDRi, PBR gold, 3-point lights,
+      // UnrealBloom postprocessing, GSAP-driven camera dolly.
+      // ===================================================================
+      (function () {
+        const canvas = document.getElementById("cr-canvas");
+        if (!canvas) return;
+
+        const renderer = new THREE.WebGLRenderer({
+          canvas,
+          alpha: false,
+          antialias: true,
+          powerPreference: "high-performance"
+        });
+        renderer.setPixelRatio(2);
+        renderer.setSize(1080, 1920, false);
+        // Pure black clear — full Robinhood-Gold register. No brand color
+        // in the canvas; the gold bar is the only color in the frame.
+        renderer.setClearColor(0x050505, 1.0);
+        renderer.outputEncoding = THREE.sRGBEncoding;
+        // Cineon mimics film negative response — gentler highlight roll-off
+        // than ACES. Exposure dialed down to keep gold from washing out.
+        renderer.toneMapping = THREE.CineonToneMapping;
+        renderer.toneMappingExposure = 1.0;
+        renderer.physicallyCorrectLights = false;
+
+        const scene = new THREE.Scene();
+        scene.background = null;
+        // Linear black fog — fades the floor's far edge to black so we lose
+        // the visible horizon line. Also gives subtle atmospheric depth.
+        scene.fog = new THREE.Fog(0x000000, 5.5, 13.0);
+
+        // ----- Camera (longer focal length, low angle for floor reflection) -----
+        const camera = new THREE.PerspectiveCamera(22, 1080 / 1920, 0.05, 100);
+        camera.position.set(0, 0.15, 9.0);
+        camera.lookAt(0, 0.05, 0);
+
+        // ----- HDRi environment for reflections + IBL -----
+        const pmrem = new THREE.PMREMGenerator(renderer);
+        pmrem.compileEquirectangularShader();
+
+        new THREE.RGBELoader().load(
+          "assets/studio.hdr",
+          function (hdr) {
+            hdr.mapping = THREE.EquirectangularReflectionMapping;
+            const envMap = pmrem.fromEquirectangular(hdr).texture;
+            scene.environment = envMap;
+            hdr.dispose();
+            pmrem.dispose();
+          },
+          undefined,
+          function (err) { console.error("HDRi load failed:", err); }
+        );
+
+        // ----- Minimalist 2-light setup (HDRi does the heavy lifting) -----
+        // Research-backed: reflective metals get their look from HDRi
+        // reflections, not direct lights. We add only one KEY + one RIM
+        // for specular punch and edge separation. Three.js Journey uses
+        // DirectionalLight intensity ~6 for "realistic" — we're in that band.
+
+        // KEY — strong warm directional, the "sun" defining form.
+        const key = new THREE.DirectionalLight(0xfff0d4, 4.0);
+        key.position.set(2.8, 3.6, 3.4);
+        scene.add(key);
+
+        // RIM — backlight grazing the bar's far edge, separating it from BG.
+        const rim = new THREE.SpotLight(0xffe1a8, 2.5, 16, Math.PI / 5.0, 0.5, 1.2);
+        rim.position.set(-2.4, 4.6, -3.0);
+        rim.target.position.set(0, 0, 0);
+        scene.add(rim);
+        scene.add(rim.target);
+
+        // ----- Polished mirror floor (Robinhood-Gold signature) -----
+        // Large dark plane, semi-mirror finish so the bar reflects cleanly
+        // beneath itself. The reflection is the hero element — not the bar
+        // alone, but the bar PLUS its mirror twin in the floor.
+        const groundMat = new THREE.MeshStandardMaterial({
+          color: 0x000000,        // pure black base
+          metalness: 0.70,        // reflective, but not chrome-mirror
+          roughness: 0.30,        // soft blurred reflection
+          envMapIntensity: 0.05   // near-zero so the floor itself stays dark;
+                                  // only the bar's reflection in it is visible
+        });
+        const groundGeo = new THREE.PlaneGeometry(20, 20);
+        const ground = new THREE.Mesh(groundGeo, groundMat);
+        ground.rotation.x = -Math.PI / 2;
+        ground.position.y = -0.28;  // right at bar's bottom for tight contact
+        ground.visible = false;     // hidden — bar floats cleanly without floor
+        scene.add(ground);
+
+        // (Retextured GLB now ships with its own gold base-color texture.
+        // We don't override the material; we tune metalness/roughness on
+        // the loaded material so the texture reads as actual gold metal
+        // instead of the diffuse painted surface Meshy returns by default.)
+
+        // ----- Load and place the bar inside a pivot group -----
+        // The pivot lets us orient the bar mesh once (longest axis -> X,
+        // shortest -> Y) and then animate pivot rotation freely without
+        // fighting the orientation correction.
+        const barPivot = new THREE.Group();
+        scene.add(barPivot);
+
+        let bar = null;
+        new THREE.GLTFLoader().load(
+          "assets/gold-bar.glb",
+          function (gltf) {
+            bar = gltf.scene;
+            bar.traverse(function (child) {
+              if (child.isMesh) {
+                child.castShadow = false;
+                child.receiveShadow = false;
+                if (!child.geometry.attributes.normal) {
+                  child.geometry.computeVertexNormals();
+                }
+                // Keep the loaded gold base-color texture but make it
+                // behave as actual metal (Meshy ships matte by default).
+                // GLB ships with full PBR maps (basecolor, metallic,
+                // roughness, normal, emission). Maps drive everything
+                // per-pixel — but we tune two render-time multipliers:
+                //   envMapIntensity → how strongly HDRi reflects
+                //   emissiveIntensity → Meshy's emission map ships at full
+                //                       intensity which blows out edges
+                if (child.material && child.material.isMeshStandardMaterial) {
+                  // New HDRi has stronger softboxes — drop intensity so the
+                  // top doesn't blow to white reflecting the overhead light.
+                  child.material.envMapIntensity = 1.0;
+                  child.material.emissiveIntensity = 0.0;
+                  child.material.needsUpdate = true;
+                }
+              }
+            });
+
+            // Center geometry at origin
+            let box = new THREE.Box3().setFromObject(bar);
+            const center = box.getCenter(new THREE.Vector3());
+            bar.position.sub(center);
+
+            // Re-measure to find dimensions (post-centering)
+            box = new THREE.Box3().setFromObject(bar);
+            const size = box.getSize(new THREE.Vector3());
+            const dims = [size.x, size.y, size.z];
+
+            // Orient: longest axis → X (horizontal across camera),
+            //         shortest axis → Y (vertical/height),
+            //         middle axis → Z (depth)
+            const sortedIdx = dims
+              .map(function (v, i) { return { v: v, i: i }; })
+              .sort(function (a, b) { return b.v - a.v; });
+            const longest = sortedIdx[0].i;
+            const shortest = sortedIdx[2].i;
+            // axis indexing: 0=x, 1=y, 2=z
+            // Apply rotations to remap axes (Euler ZYX)
+            if (longest === 2) {
+              // longest is Z → rotate Y by 90° to bring it onto X
+              bar.rotation.y = Math.PI / 2;
+            } else if (longest === 1) {
+              // longest is Y → rotate Z by 90° to bring it onto X
+              bar.rotation.z = Math.PI / 2;
+            }
+            if (shortest === 0 && longest !== 0) {
+              // already handled above; X is now longest
+            } else if (shortest === 2 && longest === 0) {
+              // X longest, Z shortest → rotate X by 90° to swap Y and Z
+              bar.rotation.x = Math.PI / 2;
+            }
+
+            // Update pivot bounds AFTER rotation
+            const orientedBox = new THREE.Box3().setFromObject(bar);
+            const orientedSize = orientedBox.getSize(new THREE.Vector3());
+            // Smaller target width so the bar stays inside the frame even
+            // when its diagonal extent grows during the orbit rotation.
+            const targetWidth = 1.55;
+            const scale = targetWidth / orientedSize.x;
+            bar.scale.setScalar(scale);
+
+            // Re-center after rotation+scale
+            const finalBox = new THREE.Box3().setFromObject(bar);
+            const finalCenter = finalBox.getCenter(new THREE.Vector3());
+            bar.position.sub(finalCenter);
+
+            barPivot.add(bar);
+          },
+          undefined,
+          function (err) { console.error("Gold bar load failed:", err); }
+        );
+
+        // ----- Postprocessing: bloom for cinematic highlights -----
+        const composer = new THREE.EffectComposer(renderer);
+        composer.setPixelRatio(2);
+        composer.setSize(1080, 1920);
+        composer.addPass(new THREE.RenderPass(scene, camera));
+
+        const bloom = new THREE.UnrealBloomPass(
+          new THREE.Vector2(1080, 1920),
+          0.25,   // strength — moderate gleam on bright reflections
+          0.50,   // radius — soft falloff
+          0.88    // threshold — bright softbox reflections catch bloom
+        );
+        bloom.enabled = false;   // disabled — let the bar's PBR speak for itself
+        composer.addPass(bloom);
+
+        // ----- Animation state, driven by GSAP clock proxy -----
+        const state = {
+          camZ: 9.0,
+          camY: 0.15,
+          barRotY: -0.45,
+          barRotX: 0.30,
+          barRotZ: 0.02,
+          barY: 0.0,
+          barOpacity: 0,
+          exposure: 1.0
+        };
+
+        function renderFrame() {
+          camera.position.z = state.camZ;
+          camera.position.y = state.camY;
+          // Look slightly up at the bar's center so the floor reflection
+          // sits comfortably below it in frame.
+          camera.lookAt(0, 0.05, 0);
+
+          // Drive the pivot, not the bar — the bar carries the
+          // orientation correction we don't want to overwrite.
+          barPivot.rotation.x = state.barRotX;
+          barPivot.rotation.y = state.barRotY;
+          barPivot.rotation.z = state.barRotZ;
+          barPivot.position.y = state.barY;
+          if (bar) {
+            bar.traverse(function (child) {
+              if (child.isMesh) {
+                child.material.opacity = state.barOpacity;
+                child.material.transparent = state.barOpacity < 1;
+              }
+            });
+          }
+
+          renderer.toneMappingExposure = state.exposure;
+          composer.render();
+        }
+
+        renderFrame();
+
+        // ===================================================================
+        // GSAP Timeline — beat duration 6.5s, all selectors scoped.
+        // Word timing (beat-relative seconds, from transcript.json):
+        //  Forecasts  0.000 - 0.720
+        //  moved      0.787 - 1.122
+        //  higher.    1.168 - 2.044
+        //  Gold       2.164 - 2.644
+        //  raised     2.713 - 3.127
+        //  five       3.415 - 3.607
+        //  thousand   3.660 - 4.084
+        //  six        4.184 - 4.484
+        //  hundred    4.514 - 4.724
+        //  per        5.244 - 5.364
+        //  ounce.     5.444 - 5.924
+        // ===================================================================
+        const W = {
+          gold:         2.164,
+          raised:       2.713,
+          fiveThousand: 3.415,
+          sixHundred:   4.484,
+          per:          5.244,
+          ounceEnd:     5.924
+        };
+
+        const tl = gsap.timeline({ paused: true });
+
+        // Phase A (0 - 2.0s): bar fades in while camera dollies forward.
+        // Camera stays low for floor reflection visibility.
+        tl.to(state, {
+          camZ: 8.4, camY: 0.18,
+          barRotY: 0.40, barRotX: 0.30, barRotZ: 0.0,
+          barY: 0.0,
+          barOpacity: 1,
+          duration: 2.0, ease: "power2.out", overwrite: "auto",
+          onUpdate: renderFrame
+        }, 0);
+
+        // Slow continuous orbit — subtle, keeps bar inside frame
+        tl.to(state, {
+          barRotY: 0.50,
+          duration: 4.5, ease: "none", overwrite: "auto",
+          onUpdate: renderFrame
+        }, 2.0);
+
+        // "GOLD" badge SLAMS in landing on the word "Gold"
+        tl.fromTo("#cr-badge",
+          { opacity: 0, scale: 0.45, y: -40 },
+          { opacity: 1, scale: 1, y: 0,
+            duration: 0.45, ease: "back.out(2.0)", overwrite: "auto" },
+          W.gold - 0.45);
+
+        tl.to("#cr-badge",
+          { scale: 1.04, duration: 0.6, yoyo: true, repeat: 1, ease: "sine.inOut" },
+          W.fiveThousand);
+
+        // "FORECAST RAISED" eyebrow slides in landing on "raised"
+        tl.fromTo("#cr-eyebrow",
+          { opacity: 0, y: -16 },
+          { opacity: 1, y: 0,
+            duration: 0.45, ease: "power2.out", overwrite: "auto" },
+          W.raised - 0.45);
+
+        // Counter block fades up just before counting starts
+        tl.fromTo("#cr-counter-block",
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0,
+            duration: 0.4, ease: "power2.out", overwrite: "auto" },
+          W.fiveThousand - 0.25);
+
+        // $0 → $5,600 counter, lands on "six hundred"
+        const counterEl = document.getElementById("cr-counter-value");
+        const counterProxy = { v: 0 };
+        const fmt = new Intl.NumberFormat("en-US");
+        tl.to(counterProxy, {
+          v: 5600,
+          duration: W.sixHundred - W.fiveThousand,
+          ease: "power2.out",
+          overwrite: "auto",
+          onUpdate: function () {
+            if (counterEl) counterEl.textContent = fmt.format(Math.floor(counterProxy.v));
+          }
+        }, W.fiveThousand);
+
+        tl.fromTo("#cr-counter-value",
+          { scale: 1 },
+          { scale: 1.06, duration: 0.18, yoyo: true, repeat: 1, ease: "power2.out", overwrite: "auto" },
+          W.sixHundred);
+
+        // Bottom commodities bar fades in on "per"
+        tl.fromTo("#cr-bottom-bar",
+          { opacity: 0, y: 24 },
+          { opacity: 1, y: 0,
+            duration: 0.45, ease: "power2.out", overwrite: "auto" },
+          W.per - 0.25);
+
+        // (removed exposure ramp — keep a constant cinematic exposure)
+
+        // (clip visibility is managed by the framework — no manual kill needed)
+
+        window.__timelines["bloom-market-proof"] = tl;
+      })();
+    </script>
+  </body>
+</html>

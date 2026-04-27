@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beat 5: Reframe</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,700;0,800;1,700;1,800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; }
+
+    #beat5 {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      background: #1658FF;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .beat5-headline {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 880px;
+      line-height: 1.2;
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 800;
+      font-style: italic;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      letter-spacing: -0.02em;
+      font-size: 120px;
+      margin-bottom: 60px;
+    }
+
+    .beat5-icon-container {
+      position: relative;
+      z-index: 2;
+      width: 200px;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+    }
+
+    .beat5-question-mark {
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-size: 180px;
+      font-weight: 800;
+      color: #FFFFFF;
+      font-style: italic;
+      line-height: 1;
+    }
+
+    #beat5-particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1080px;
+      height: 1920px;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+  <template data-start="0" data-duration="1.72" data-composition-id="bloom-stock-ownership-beat-5" data-width="1080" data-height="1920">
+    <div id="beat5" class="scene" data-composition-id="bloom-stock-ownership-beat-5" data-width="1080" data-height="1920" data-start="0" data-duration="1.72">
+      <canvas id="beat5-particles"></canvas>
+      <div class="beat5-headline">But how does your money actually grow?</div>
+      <div class="beat5-icon-container"><div class="beat5-question-mark">?</div></div>
+    </div>
+  </template>
+
+  <script>
+    // ── TIMELINE REGISTRATION ────────────────────────────────────────────
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["bloom-stock-ownership-beat-5"] = tl;
+
+    const W = [
+      { w: "But", s: 0.000, e: 0.181 },
+      { w: "how", s: 0.261, e: 0.481 },
+      { w: "does", s: 0.541, e: 0.761 },
+      { w: "your", s: 0.801, e: 0.981 },
+      { w: "money", s: 1.011, e: 1.321 },
+      { w: "actually", s: 1.371, e: 1.721 }
+    ];
+
+    function _norm(s) { return s.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu, ""); }
+    function _findPhrase(phrase) {
+      const tokens = phrase.toLowerCase().split(/\s+/).map(_norm).filter(Boolean);
+      if (!tokens.length) throw new Error(`landOn: empty phrase`);
+      const hits = [];
+      for (let i = 0; i <= W.length - tokens.length; i++) {
+        let ok = true;
+        for (let j = 0; j < tokens.length; j++) {
+          if (_norm(W[i + j].w) !== tokens[j]) { ok = false; break; }
+        }
+        if (ok) hits.push(i);
+      }
+      if (hits.length === 0) throw new Error(`landOn: phrase "${phrase}" not found`);
+      if (hits.length > 1) {
+        const times = hits.map(i => W[i].s.toFixed(3) + "s").join(", ");
+        throw new Error(`landOn: phrase "${phrase}" matches ${hits.length} at [${times}]`);
+      }
+      return { startIdx: hits[0], endIdx: hits[0] + tokens.length - 1 };
+    }
+    function at(phrase) { return W[_findPhrase(phrase).startIdx].s; }
+    function landOn(phrase, duration = 0) { return at(phrase) - duration; }
+    function landAfter(phrase, duration = 0) { return W[_findPhrase(phrase).endIdx].e - duration; }
+
+    function mulberry32(seed) {
+      return function () {
+        let t = (seed += 0x6d2b79f5);
+        t = Math.imul(t ^ (t >>> 15), t | 1);
+        t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+    }
+
+    const canvas = document.getElementById("beat5-particles");
+    const ctx = canvas.getContext("2d");
+    canvas.width = 1080;
+    canvas.height = 1920;
+
+    const rand = mulberry32(2024);
+    const particles = [];
+    const particleBurstTime = at("how");
+    const burstDuration = 0.3;
+
+    for (let i = 0; i < 12; i++) {
+      const angle = (i / 12) * Math.PI * 2;
+      particles.push({
+        x: 540, y: 960,
+        vx: Math.cos(angle) * 200,
+        vy: Math.sin(angle) * 200,
+        age: 0, lifetime: burstDuration, opacity: 1
+      });
+    }
+
+    function drawParticles(t) {
+      ctx.clearRect(0, 0, 1080, 1920);
+      ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+
+      particles.forEach(p => {
+        const elapsed = t - particleBurstTime;
+        if (elapsed >= 0 && elapsed < p.lifetime) {
+          const progress = elapsed / p.lifetime;
+          const x = p.x + p.vx * progress;
+          const y = p.y + p.vy * progress;
+          const fade = 1 - progress;
+          const size = Math.max(2, 6 - progress * 4);
+
+          ctx.save();
+          ctx.globalAlpha = fade * 0.6;
+          ctx.beginPath();
+          ctx.arc(x, y, size, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        }
+      });
+    }
+
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines = window.__timelines || {};
+    window.__timelines["bloom-stock-ownership-beat-5"] = tl;
+
+    tl.from(".beat5-headline", { opacity: 0, scale: 0.9, duration: 0.35, ease: "power2.out" }, 0);
+    tl.from(".beat5-icon-container", { scale: 0, rotation: -45, opacity: 0, duration: 0.4, ease: "elastic.out(1, 0.55)" }, landOn("how", 0.4));
+    const particleProxy = { time: 0 };
+    tl.to(particleProxy, { time: 1.72, duration: 1.72, ease: "none", onUpdate: () => drawParticles(particleProxy.time) }, 0);
+    if (landOn("how", 0.4) + 0.4 < 1.52) {
+      tl.to(".beat5-question-mark", { rotation: 2, duration: 0.5, ease: "sine.inOut", yoyo: true, repeat: 1, overwrite: "auto" }, landOn("how", 0.4) + 0.4);
+    }
+    tl.to("#beat5", { opacity: 0, duration: 0.15, ease: "power1.in" }, 1.52);
+    tl.set("#beat5", { visibility: "hidden" }, 1.72);
+  </script>
+</body>
+</html>

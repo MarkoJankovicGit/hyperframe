@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/User/git/video-creator/**)",
+      "Bash(npx hyperframes *)",
+      "Bash(mv C:/Users/User/.claude/skills/bloom-educational-video/references/beat-template.md C:/Users/User/.claude/skills/bloom-educational-video/references/beat-library.md)",
+      "Read(//c/Users/User/.claude/skills/bloom-educational-video/references/**)",
+      "Bash(cp C:/Users/User/.claude/skills/bloom-educational-video/references/split-sheet.py C:/Users/User/git/video-creator/hyperframes/videos/bloom-investing-myths/generated-assets/split-sheet.py)",
+      "Bash(cp C:/Users/User/.claude/skills/bloom-educational-video/references/chroma-key.py C:/Users/User/git/video-creator/hyperframes/videos/bloom-investing-myths/generated-assets/chroma_key.py)",
+      "Bash(mkdir -p \"C:\\\\Users\\\\User\\\\.claude\\\\skills\\\\bloom-educational-video\\\\references\\\\style-references\")",
+      "Bash(cp \"C:\\\\Users\\\\User\\\\git\\\\video-creator\\\\hyperframes\\\\videos\\\\bloom-investing-myths\\\\generated-assets\\\\podium.png\" \"C:\\\\Users\\\\User\\\\git\\\\video-creator\\\\hyperframes\\\\videos\\\\bloom-investing-myths\\\\generated-assets\\\\grad-cap-book.png\" \"C:\\\\Users\\\\User\\\\git\\\\video-creator\\\\hyperframes\\\\videos\\\\bloom-investing-myths\\\\generated-assets\\\\wallet-chart.png\" \"C:\\\\Users\\\\User\\\\git\\\\video-creator\\\\hyperframes\\\\videos\\\\bloom-investing-myths\\\\generated-assets\\\\piggy-bank.png\" \"C:\\\\Users\\\\User\\\\git\\\\video-creator\\\\hyperframes\\\\videos\\\\bloom-investing-myths\\\\generated-assets\\\\shield.png\" \"C:\\\\Users\\\\User\\\\git\\\\video-creator\\\\hyperframes\\\\videos\\\\bloom-investing-myths\\\\generated-assets\\\\vault.png\" \"C:\\\\Users\\\\User\\\\git\\\\video-creator\\\\hyperframes\\\\videos\\\\bloom-investing-myths\\\\generated-assets\\\\safe-chart.png\" \"C:\\\\Users\\\\User\\\\.claude\\\\skills\\\\bloom-educational-video\\\\references\\\\style-references\\\\\" && ls \"C:\\\\Users\\\\User\\\\.claude\\\\skills\\\\bloom-educational-video\\\\references\\\\style-references\\\\\")"
+    ]
+  },
+  "claudeMdExcludes": [
+    "../CLAUDE.md"
+  ]
+}

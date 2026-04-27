@@ -1,0 +1,187 @@
+<template>
+  <div id="beat1" class="scene"
+       data-composition-id="bloom-etfs-explained-beat-1"
+       data-width="1080" data-height="1920"
+       data-start="0" data-duration="5.10">
+    <style>
+      #beat1 {
+        position: absolute; inset: 0;
+        width: 1080px; height: 1920px;
+        overflow: hidden;
+        background: #1658FF;
+        font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+      }
+      #beat1-ticker {
+        position: absolute; inset: 0;
+        width: 1080px; height: 1920px;
+        opacity: 1;
+        pointer-events: none;
+      }
+      #beat1-eyebrow {
+        position: absolute; top: 360px; left: 50%; transform: translateX(-50%);
+        background: rgba(255,255,255,0.16);
+        backdrop-filter: blur(6px);
+        color: #fff;
+        font-family: "Inter", system-ui, sans-serif;
+        font-weight: 600;
+        font-size: 30px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        padding: 16px 36px;
+        border-radius: 999px;
+        opacity: 0;
+      }
+      #beat1-badge {
+        background: #1C2329;
+        color: #fff;
+        border-radius: 36px;
+        box-shadow: 0 24px 60px rgba(6,10,30,0.32);
+        padding: 60px 96px;
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        text-transform: uppercase;
+        letter-spacing: -0.018em;
+        line-height: 0.92;
+        font-size: 150px;
+        opacity: 0;
+      }
+      #beat1-underline {
+        position: absolute;
+        bottom: 600px;
+        left: 50%; transform: translateX(-50%);
+        width: 720px; height: 60px;
+      }
+      #beat1-underline path {
+        stroke: #fe566b;
+        stroke-width: 8;
+        fill: none;
+        stroke-linecap: round;
+      }
+    </style>
+
+    <canvas id="beat1-ticker" width="1080" height="1920"></canvas>
+
+    <div id="beat1-eyebrow">Stock Picking?</div>
+
+    <div id="beat1-badge">CONFUSING</div>
+
+    <svg id="beat1-underline" viewBox="0 0 720 60" preserveAspectRatio="none">
+      <path d="M 10 30 Q 70 5, 130 30 T 250 30 T 370 30 T 490 30 T 610 30 T 710 30"
+            stroke-dasharray="900" stroke-dashoffset="900"/>
+    </svg>
+
+    <script>
+      (function () {
+        const W = [{"w":"Picking","s":0,"e":0.32},{"w":"individual","s":0.364,"e":0.804},{"w":"stocks?","s":0.907,"e":1.725},{"w":"It","s":1.792,"e":1.926},{"w":"can","s":1.966,"e":2.086},{"w":"be","s":2.113,"e":2.167},{"w":"confusing,","s":2.223,"e":3.047},{"w":"and","s":3.107,"e":3.287},{"w":"seriously","s":3.351,"e":3.927},{"w":"time","s":3.991,"e":4.247},{"w":"consuming.","s":4.295,"e":4.807},{"w":"But","s":4.947,"e":5.367}];
+
+        function _norm(s){return s.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu,"");}
+        function _findPhrase(phrase){
+          const tokens=phrase.toLowerCase().split(/\s+/).map(_norm).filter(Boolean);
+          if(!tokens.length) throw new Error("landOn: empty phrase");
+          const hits=[];
+          for(let i=0;i<=W.length-tokens.length;i++){
+            let ok=true;
+            for(let j=0;j<tokens.length;j++){
+              if(_norm(W[i+j].w)!==tokens[j]){ok=false;break;}
+            }
+            if(ok) hits.push(i);
+          }
+          if(hits.length===0) throw new Error('landOn: phrase "'+phrase+'" not found');
+          if(hits.length>1) throw new Error('landOn: phrase "'+phrase+'" matches '+hits.length+' positions');
+          return {startIdx:hits[0], endIdx:hits[0]+tokens.length-1};
+        }
+        function at(p){return W[_findPhrase(p).startIdx].s;}
+        function landOn(p,d=0){return at(p)-d;}
+        function landAfter(p,d=0){return W[_findPhrase(p).endIdx].e-d;}
+
+        // Mulberry32 deterministic PRNG
+        function mulberry32(seed){
+          return function(){
+            let t=(seed+=0x6D2B79F5);
+            t=Math.imul(t^(t>>>15),t|1);
+            t^=t+Math.imul(t^(t>>>7),t|61);
+            return ((t^(t>>>14))>>>0)/4294967296;
+          };
+        }
+
+        // Canvas ticker tape
+        const canvas = document.getElementById("beat1-ticker");
+        const ctx = canvas.getContext("2d");
+        const TICKERS = ["AAPL","MSFT","NVDA","AMZN","TSLA","SPY","VOO","META","GOOGL","JPM","NFLX","KO","DIS","NKE"];
+        const rand = mulberry32(2026);
+        const COLS = 4;
+        const colData = [];
+        for (let c=0;c<COLS;c++){
+          const items=[];
+          for(let i=0;i<14;i++){
+            items.push({
+              t: TICKERS[Math.floor(rand()*TICKERS.length)],
+              v: (rand()*10-5).toFixed(2),
+              up: rand()>0.5,
+              y: i*180
+            });
+          }
+          colData.push({x: 80 + c*260, items, speed: 18+rand()*8});
+        }
+        function drawTicker(time){
+          ctx.clearRect(0,0,1080,1920);
+          ctx.font = "700 28px Inter Tight, system-ui, sans-serif";
+          ctx.textAlign = "left";
+          for(const col of colData){
+            for(const it of col.items){
+              const yy = Math.round(((it.y - time*col.speed) % (14*180) + (14*180)) % (14*180));
+              ctx.fillStyle = "rgba(255,255,255,0.14)";
+              ctx.fillText(it.t, col.x, yy);
+              ctx.fillStyle = it.up ? "rgba(1,205,116,0.18)" : "rgba(254,86,107,0.18)";
+              ctx.fillText((it.up?"+":"")+it.v+"%", col.x, yy+34);
+            }
+          }
+        }
+        drawTicker(0);
+
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        // Canvas drives off proxy
+        const proxy = { t: 0 };
+        tl.to(proxy, { t: 5.1, duration: 5.1, ease: "none",
+          onUpdate: () => drawTicker(proxy.t), overwrite: "auto" }, 0);
+
+        // Eyebrow fade in early
+        tl.fromTo("#beat1-eyebrow",
+          { opacity: 0, y: -20 },
+          { opacity: 1, y: 0, duration: 0.4, ease: "power2.out", overwrite: "auto" },
+          0.1);
+
+        // Badge SLAMS in landing on "confusing"
+        tl.fromTo("#beat1-badge",
+          { opacity: 0, scale: 0.6, rotation: -6 },
+          { opacity: 1, scale: 1, rotation: 0, duration: 0.45, ease: "back.out(1.7)", overwrite: "auto" },
+          landOn("confusing", 0.45));
+
+        // Idle gentle rotation
+        tl.to("#beat1-badge",
+          { rotation: 1.5, duration: 1.4, yoyo: true, repeat: 1, ease: "sine.inOut", overwrite: "auto" },
+          landOn("confusing", 0) + 0.5);
+
+        // Underline draws on "consuming"
+        tl.to("#beat1-underline path",
+          { strokeDashoffset: 0, duration: 0.5, ease: "power2.out", overwrite: "auto" },
+          landOn("time consuming", 0.5));
+
+        // Reaction wobble on "time consuming"
+        tl.to("#beat1-badge",
+          { rotation: 2.5, duration: 0.08, yoyo: true, repeat: 5, ease: "power1.inOut", overwrite: "auto" },
+          landOn("time consuming", 0));
+
+        // Visibility kill
+        tl.set("#beat1", { visibility: "hidden" }, 5.10);
+
+        window.__timelines["bloom-etfs-explained-beat-1"] = tl;
+      })();
+    </script>
+  </div>
+</template>

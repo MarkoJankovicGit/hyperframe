@@ -1,0 +1,4741 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1080, height=1920" />
+  <title>Bloom Lesson — Compound Interest</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,700;0,800;1,700;1,800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: #000;
+      font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+    }
+    #root {
+      position: relative;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+    }
+    .scene {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+    }
+    #beat1 { background: #1658FF; opacity: 0; }
+#beat2 { background: #FFFFFF; opacity: 0; }
+#beat3 { background: #F8F8F9; opacity: 0; }
+#beat4 { background: #FFFFFF; opacity: 0; }
+#beat5 { background: #1658FF; opacity: 0; }
+#beat6 { background: #FFFFFF; opacity: 0; }
+#beat7 { background: #1658FF; opacity: 0; }
+#beat8 { background: #FFFFFF; opacity: 0; }
+#beat9 { background: #1658FF; opacity: 0; }
+#beat10 { background: #FFFFFF; opacity: 0; }
+#beat11 { background: #1658FF; opacity: 0; }
+#beat12 { background: #FFFFFF; opacity: 0; }
+#beat13 { background: #1658FF; opacity: 0; }
+#beat1 { opacity: 1; }
+
+    
+/* ====== BEAT 1 (hook) ====== */
+#beat1 {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      background: #1658FF;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    #beat1-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1080px;
+      height: 1920px;
+      /* opacity:0 stripped — handled by GSAP from() */
+      z-index: 1;
+    }
+
+    #beat1-confetti {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1080px;
+      height: 1920px;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    #beat1 .b1-eyebrow {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 800;
+      font-style: italic;
+      font-size: 80px;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      margin-bottom: 32px;
+    }
+
+    #beat1 .b1-word {
+      display: inline-block;
+      /* opacity:0 stripped — handled by GSAP from() */
+      margin: 0 0.08em;
+    }
+
+    #beat1 .b1-badge {
+      position: relative;
+      z-index: 3;
+      background: #1C2329;
+      border-radius: 26px;
+      padding: 28px 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* opacity:0 stripped — handled by GSAP from() */
+      transform-origin: center center;
+    }
+
+    #beat1 .b1-badge-text {
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 800;
+      font-style: italic;
+      font-size: 210px;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      letter-spacing: -0.04em;
+      line-height: 1.0;
+      white-space: nowrap;
+    }
+
+/* ====== BEAT 2 (choice-a) ====== */
+#beat2 {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      background: #FFFFFF;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Dotted grid background */
+    #beat2-grid {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Eyebrow */
+    #beat2 .b2-eyebrow {
+      position: relative;
+      z-index: 2;
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 800;
+      font-style: italic;
+      font-size: 70px;
+      text-transform: uppercase;
+      color: #1C2329;
+      letter-spacing: -0.02em;
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    /* Card */
+    #beat2 .b2-card {
+      position: relative;
+      z-index: 2;
+      width: 760px;
+      background: #FFFFFF;
+      border-radius: 32px;
+      box-shadow: 0 24px 80px rgba(22, 88, 255, 0.12), 0 4px 20px rgba(0, 0, 0, 0.06);
+      border-top: 6px solid #01CD74;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 64px 56px 72px;
+      gap: 0;
+    }
+
+    /* OPTION A pill */
+    #beat2 .b2-pill {
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 26px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #01CD74;
+      background: rgba(1, 205, 116, 0.10);
+      border-radius: 100px;
+      padding: 10px 28px;
+      margin-bottom: 40px;
+    }
+
+    /* Giant counter */
+    #beat2 .b2-counter {
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 800;
+      font-style: italic;
+      font-size: 148px;
+      color: #1658FF;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+      margin-bottom: 32px;
+    }
+
+    /* RIGHT NOW subtitle */
+    #beat2 .b2-subtitle {
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 800;
+      font-size: 48px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #1C2329;
+      text-align: center;
+    }
+
+    /* Coin SVG cutout */
+    #beat2 .b2-coin {
+      position: absolute;
+      z-index: 3;
+      right: 64px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 120px;
+      height: 140px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #beat2 .b2-coin-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+/* ====== BEAT 3 (choice-b) ====== */
+#beat3 {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      background: #F8F8F9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Dotted grid background */
+    #beat3-grid {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      background-image: radial-gradient(circle, rgba(22, 88, 255, 0.04) 1.5px, transparent 1.5px);
+      background-size: 48px 48px;
+      z-index: 0;
+    }
+
+    /* Option B badge */
+    #beat3-badge {
+      position: relative;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #1C2329;
+      color: #F8F8F9;
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 800;
+      font-style: italic;
+      font-size: 42px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 18px 56px;
+      border-radius: 100px;
+      margin-bottom: 80px;
+    }
+
+    /* Penny coin */
+    #beat3-coin-wrap {
+      position: relative;
+      z-index: 2;
+      width: 200px;
+      height: 200px;
+      margin-bottom: 72px;
+    }
+
+    #beat3-coin {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 38% 35%, #D4905C 0%, #B87333 55%, #8B5B24 100%);
+      box-shadow:
+        0 0 0 6px rgba(140, 90, 36, 0.25),
+        0 20px 60px rgba(120, 70, 20, 0.45),
+        inset 0 4px 12px rgba(255, 210, 160, 0.35),
+        inset 0 -6px 18px rgba(60, 30, 0, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Inner emboss ring */
+    #beat3-coin::before {
+      content: "";
+      position: absolute;
+      inset: 10px;
+      border-radius: 50%;
+      border: 2.5px solid rgba(255, 220, 170, 0.22);
+    }
+
+    /* 1¢ text */
+    #beat3-coin-label {
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 800;
+      font-style: italic;
+      font-size: 62px;
+      color: rgba(255, 230, 185, 0.88);
+      text-shadow: 0 2px 8px rgba(80, 40, 0, 0.55);
+      letter-spacing: -0.02em;
+      position: relative;
+      z-index: 1;
+      line-height: 1;
+      user-select: none;
+    }
+
+    /* 30 penny dots row */
+    #beat3-dots-row {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: nowrap;
+      gap: 10px;
+      width: 960px;
+      margin-bottom: 40px;
+    }
+
+    .beat3-dot {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #CACDD2;
+      flex-shrink: 0;
+      transition: none;
+    }
+
+    /* Doubles label */
+    #beat3-doubles-label {
+      position: relative;
+      z-index: 2;
+      font-family: "Inter", system-ui, sans-serif;
+      font-weight: 600;
+      font-size: 36px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: #1C2329;
+      margin-bottom: 0;
+    }
+
+    /* "Which would you take?" headline */
+    #beat3-headline {
+      position: relative;
+      z-index: 3;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #1C2329;
+      color: #F8F8F9;
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 800;
+      font-style: italic;
+      font-size: 90px;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      text-align: center;
+      padding: 36px 64px;
+      margin-top: 100px;
+      max-width: 940px;
+    }
+
+/* ====== BEAT 4 (stat-a) ====== */
+#beat4 {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      background: #FFFFFF;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Eyebrow */
+    #beat4-eyebrow {
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 800;
+      font-style: italic;
+      font-size: 64px;
+      text-transform: uppercase;
+      color: #4A4F54;
+      letter-spacing: 0.04em;
+      text-align: center;
+      line-height: 1.1;
+      margin-bottom: 64px;
+    }
+
+    /* Counter */
+    #beat4-counter {
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 800;
+      font-style: italic;
+      font-size: 200px;
+      color: #1C2329;
+      letter-spacing: -0.03em;
+      text-align: center;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+      transform-box: fill-box;
+      transform-origin: 50% 50%;
+    }
+
+    /* Flat sparkline container */
+    #beat4-sparkline-wrap {
+      margin-top: 56px;
+      width: 600px;
+      height: 48px;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    #beat4-sparkline-track {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 600px;
+      height: 4px;
+      background: #E8EAEC;
+      border-radius: 2px;
+    }
+
+    #beat4-sparkline-fill {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0px;
+      height: 4px;
+      background: #C0C4C8;
+      border-radius: 2px;
+      transform-origin: left center;
+    }
+
+    /* FLAT label */
+    #beat4-flat-label {
+      margin-top: 24px;
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: 36px;
+      text-transform: uppercase;
+      color: #C0C4C8;
+      letter-spacing: 0.1em;
+      text-align: center;
+    }
+
+    /* Still-just badge */
+    #beat4-badge {
+      margin-top: 96px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #1C2329;
+      border-radius: 12px;
+      padding: 20px 48px;
+      /* opacity:0 stripped — handled by GSAP from() */
+    }
+
+    #beat4-badge-text {
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 800;
+      font-style: italic;
+      font-size: 56px;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+
+/* ====== BEAT 5 (stat-b) ====== */
+#beat5 {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      background: #1658FF;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Glow filter for curve */
+    #beat5-svg-filters {
+      position: absolute;
+      width: 0;
+      height: 0;
+    }
+
+    /* Exponential curve SVG */
+    #beat5-curve-svg {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 1080px;
+      height: 960px;
+      z-index: 1;
+    }
+
+    #beat5-curve-path {
+      fill: none;
+      stroke: #01CD74;
+      stroke-width: 8;
+      stroke-linecap: round;
+      filter: url(#beat5-glow);
+    }
+
+    /* Penny dot that rides the curve */
+    #beat5-penny-dot {
+      position: absolute;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 36% 36%, #FFE066 0%, #EFC42C 55%, #B8860B 100%);
+      box-shadow: 0 0 24px 8px rgba(239, 196, 44, 0.7), 0 0 6px 2px rgba(255,224,102,0.9);
+      z-index: 3;
+      transform: translate(-50%, -50%);
+    }
+
+    /* Spark trail canvas */
+    #beat5-spark-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1080px;
+      height: 1920px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* Particle burst canvas */
+    #beat5-particle-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1080px;
+      height: 1920px;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    /* Top eyebrow */
+    #beat5-eyebrow {
+      position: absolute;
+      top: 160px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 800;
+      font-style: italic;
+      font-size: 64px;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      letter-spacing: 0.01em;
+      line-height: 1.1;
+      z-index: 4;
+    }
+
+    /* Hero counter */
+    #beat5-counter {
+      position: relative;
+      z-index: 4;
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 800;
+      font-style: italic;
+      font-size: 220px;
+      color: #FFFFFF;
+      letter-spacing: -0.04em;
+      line-height: 1.0;
+      text-shadow: 0 8px 40px rgba(239, 196, 44, 0.55), 0 2px 8px rgba(239,196,44,0.35);
+      font-variant-numeric: tabular-nums;
+      margin-top: -40px;
+    }
+
+    /* Subtitle below counter */
+    #beat5-subtitle {
+      position: relative;
+      z-index: 4;
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 36px;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: #FFFFFF;
+      opacity: 0.88;
+      margin-top: 20px;
+    }
+
+/* ====== BEAT 6 (concept-name) ====== */
+#beat6 {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      background: #FFFFFF;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    #beat6-grid {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      background-image: radial-gradient(circle, rgba(22, 88, 255, 0.04) 1.5px, transparent 1.5px);
+      background-size: 60px 60px;
+      z-index: 0;
+    }
+
+    #beat6-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #beat6-eyebrow {
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 800;
+      font-style: italic;
+      font-size: 56px;
+      color: #4A4F54;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+      text-align: center;
+      margin-bottom: 24px;
+      /* opacity:0 stripped — handled by GSAP from() */
+    }
+
+    #beat6-compound-wrap {
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+
+    #beat6-compound {
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 800;
+      font-style: italic;
+      font-size: 160px;
+      color: #1C2329;
+      text-transform: uppercase;
+      letter-spacing: -0.04em;
+      line-height: 0.92;
+      text-align: center;
+      white-space: nowrap;
+      clip-path: inset(0 0 100% 0);
+    }
+
+    #beat6-interest {
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 800;
+      font-style: italic;
+      font-size: 180px;
+      color: #1658FF;
+      text-transform: uppercase;
+      letter-spacing: -0.04em;
+      line-height: 0.92;
+      text-align: center;
+      white-space: nowrap;
+      /* opacity:0 stripped — handled by GSAP from() */
+      margin-bottom: 20px;
+    }
+
+    #beat6-underline {
+      width: 340px;
+      height: 12px;
+      background: #1658FF;
+      transform-origin: left center;
+      transform: scaleX(0);
+    }
+
+/* ====== BEAT 7 (concept-stack) ====== */
+#beat7 {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      background: #1658FF;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Canvas background */
+    #beat7-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1080px;
+      height: 1920px;
+      /* opacity:0 stripped — handled by GSAP from() */
+      z-index: 1;
+    }
+
+    /* Eyebrow label top */
+    #beat7-eyebrow {
+      position: absolute;
+      top: 160px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 800;
+      font-style: italic;
+      font-size: 56px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #FFFFFF;
+      /* opacity:0 stripped — handled by GSAP from() */
+      z-index: 4;
+    }
+
+    /* Bottom label */
+    #beat7-label {
+      position: absolute;
+      bottom: 200px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 40px;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: #FFFFFF;
+      /* opacity:0 stripped — handled by GSAP from() */
+      z-index: 4;
+    }
+
+    /* Ring stack container — flex-centered absolute */
+    #beat7-stack {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3;
+    }
+
+    /* Individual rings — all absolutely centered within stack */
+    .beat7-ring {
+      position: absolute;
+      border-radius: 50%;
+      transform-origin: center center;
+      /* opacity:0 stripped — handled by GSAP from() */
+    }
+
+    /* Ring 1 — core coin 60px gold */
+    #beat7-ring-1 {
+      width: 60px;
+      height: 60px;
+      background: radial-gradient(circle at 38% 38%, #EFC42C, #D4A017 70%);
+      box-shadow: 0 0 18px rgba(239, 196, 44, 0.7);
+    }
+
+    /* Ring 2 — 110px gold with green halo */
+    #beat7-ring-2 {
+      width: 110px;
+      height: 110px;
+      background: radial-gradient(circle at 38% 38%, rgba(239, 196, 44, 0.55), rgba(212, 160, 23, 0.35) 70%);
+      border: 2px solid rgba(1, 205, 116, 0.55);
+      box-shadow: 0 0 24px rgba(1, 205, 116, 0.3);
+    }
+
+    /* Ring 3 — 170px warm gold */
+    #beat7-ring-3 {
+      width: 170px;
+      height: 170px;
+      background: radial-gradient(circle at 40% 40%, rgba(239, 196, 44, 0.45), rgba(212, 160, 23, 0.25) 70%);
+      border: 2px solid rgba(239, 196, 44, 0.4);
+    }
+
+    /* Ring 4 — 240px pale gold */
+    #beat7-ring-4 {
+      width: 240px;
+      height: 240px;
+      background: radial-gradient(circle at 40% 40%, rgba(239, 196, 44, 0.32), rgba(212, 160, 23, 0.15) 70%);
+      border: 2px solid rgba(239, 196, 44, 0.3);
+    }
+
+    /* Ring 5 — 320px green */
+    #beat7-ring-5 {
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle at 40% 40%, rgba(1, 205, 116, 0.35), rgba(1, 205, 116, 0.12) 70%);
+      border: 2px solid rgba(1, 205, 116, 0.5);
+      box-shadow: 0 0 32px rgba(1, 205, 116, 0.2);
+    }
+
+    /* Ring 6 — 410px white */
+    #beat7-ring-6 {
+      width: 410px;
+      height: 410px;
+      background: radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.06) 70%);
+      border: 2px solid rgba(255, 255, 255, 0.45);
+    }
+
+    /* Ring 7 — 510px pale yellow */
+    #beat7-ring-7 {
+      width: 510px;
+      height: 510px;
+      background: radial-gradient(circle at 40% 40%, rgba(255, 245, 190, 0.2), rgba(255, 245, 190, 0.05) 70%);
+      border: 2px solid rgba(255, 245, 190, 0.4);
+    }
+
+    /* Ring 8 — 620px pale green */
+    #beat7-ring-8 {
+      width: 620px;
+      height: 620px;
+      background: radial-gradient(circle at 40% 40%, rgba(180, 255, 220, 0.15), rgba(180, 255, 220, 0.04) 70%);
+      border: 2px solid rgba(180, 255, 220, 0.35);
+    }
+
+    /* Ring 9 — 740px white outermost with strong glow */
+    #beat7-ring-9 {
+      width: 740px;
+      height: 740px;
+      background: radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.03) 70%);
+      border: 3px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 0 60px rgba(255, 255, 255, 0.25), inset 0 0 40px rgba(255, 255, 255, 0.06);
+    }
+
+/* ====== BEAT 8 (superpower) ====== */
+#beat8 {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      background: #FFFFFF;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Bloom star background layer */
+    #beat8-star {
+      position: absolute;
+      width: 620px;
+      height: 620px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0.18;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Particle canvas */
+    #beat8-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1080px;
+      height: 1920px;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Main content stack */
+    #beat8-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 52px;
+      width: 100%;
+      padding: 0 60px;
+    }
+
+    /* Eyebrow */
+    #beat8-eyebrow {
+      font-family: "Inter", system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 60px;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: #4A4F54;
+      text-align: center;
+      /* opacity:0 stripped — handled by GSAP from() */
+    }
+
+    /* Badge */
+    #beat8-badge {
+      background: #1C2329;
+      border-radius: 26px;
+      padding: 50px 80px;
+      box-shadow: 0 24px 60px rgba(6, 10, 30, 0.28);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform-origin: center center;
+    }
+
+    #beat8-badge-text {
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 800;
+      font-style: italic;
+      font-size: 130px;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    /* Subline */
+    #beat8-subline {
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: 64px;
+      text-transform: uppercase;
+      color: #1658FF;
+      letter-spacing: 0.04em;
+      text-align: center;
+      clip-path: inset(0 100% 0 0);
+    }
+
+/* ====== BEAT 9 (earlier) ====== */
+#beat9 {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      background: #1658FF;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* ── EYEBROW ─────────────────────────────────────────────── */
+    #beat9-eyebrow-wrap {
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 64px;
+    }
+
+    #beat9-eyebrow {
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 800;
+      font-style: italic;
+      text-transform: uppercase;
+      font-size: 64px;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      /* clip-mask reveal: start clipped */
+      clip-path: inset(0 100% 0 0);
+    }
+
+    /* ── TIME AXIS SVG ───────────────────────────────────────── */
+    #beat9-axis-svg {
+      width: 840px;
+      height: 320px;
+      overflow: visible;
+      margin-bottom: 60px;
+    }
+
+    /* ── HEADLINES ───────────────────────────────────────────── */
+    #beat9-headline {
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 800;
+      font-style: italic;
+      text-transform: uppercase;
+      font-size: 130px;
+      color: #FFFFFF;
+      letter-spacing: -0.03em;
+      line-height: 1.0;
+      text-align: center;
+      max-width: 960px;
+    }
+
+    #beat9-subline {
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 800;
+      font-style: italic;
+      text-transform: uppercase;
+      font-size: 80px;
+      color: #01CD74;
+      letter-spacing: -0.02em;
+      line-height: 1.0;
+      text-align: center;
+      max-width: 960px;
+      margin-top: 24px;
+    }
+
+/* ====== BEAT 10 (mega-build) ====== */
+#beat10 {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      background: #FFFFFF;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* ── EYEBROW ─────────────────────────────────────────── */
+    #beat10-eyebrow {
+      position: absolute;
+      top: 200px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 800;
+      font-style: italic;
+      font-size: 64px;
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+      color: #1C2329;
+      line-height: 1.1;
+      padding: 0 80px;
+    }
+
+    /* ── CALENDAR STRIP ──────────────────────────────────── */
+    #beat10-calendar {
+      position: absolute;
+      top: 820px;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+    }
+
+    .beat10-day-cell {
+      width: 140px;
+      height: 140px;
+      border: 3px solid #C8CBD0;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #F5F6F7;
+      /* opacity:0 stripped — handled by GSAP from() */
+    }
+
+    .beat10-day-label {
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 38px;
+      color: #4A4F54;
+      line-height: 1;
+    }
+
+    .beat10-day-sub {
+      font-family: "Inter", system-ui, sans-serif;
+      font-weight: 500;
+      font-size: 22px;
+      color: #9CA3AF;
+      margin-top: 6px;
+    }
+
+    /* ── STAT CALLOUT ────────────────────────────────────── */
+    #beat10-stat-wrap {
+      position: absolute;
+      top: 1040px;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #beat10-stat {
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 800;
+      font-style: italic;
+      font-size: 180px;
+      color: #1C2329;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      /* opacity:0 stripped — handled by GSAP from() */
+      position: relative;
+      display: inline-block;
+    }
+
+    /* SVG strikethrough overlay */
+    #beat10-strikethrough-svg {
+      position: absolute;
+      top: 50%;
+      left: -20px;
+      right: -20px;
+      width: calc(100% + 40px);
+      height: 28px;
+      transform: translateY(-50%);
+      overflow: visible;
+      pointer-events: none;
+    }
+
+    #beat10-strike-line {
+      stroke: #D63B3B;
+      stroke-width: 14;
+      stroke-linecap: round;
+      fill: none;
+    }
+
+    /* ── NOT EVEN CLOSE ──────────────────────────────────── */
+    #beat10-not-close {
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: 56px;
+      color: #4A4F54;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      /* opacity:0 stripped — handled by GSAP from() */
+      margin-top: 32px;
+    }
+
+/* ====== BEAT 11 (mega-slam) ====== */
+#beat11 {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      background: #1658FF;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Confetti canvas — full bleed, below content */
+    #beat11-confetti {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1080px;
+      height: 1920px;
+      z-index: 1;
+      /* opacity:0 stripped — handled by GSAP from() */
+    }
+
+    /* Content stack — centered column */
+    #beat11-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      text-align: center;
+    }
+
+    /* Eyebrow: "JUST 5 DAYS EARLIER" */
+    #beat11-eyebrow {
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-size: 70px;
+      font-weight: 800;
+      font-style: italic;
+      text-transform: uppercase;
+      color: #EFC42C;
+      letter-spacing: -0.012em;
+      line-height: 1;
+      /* opacity:0 stripped — handled by GSAP from() */
+    }
+
+    /* Hero counter: $172,000,000 */
+    #beat11-counter {
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-size: 240px;
+      font-weight: 800;
+      font-style: italic;
+      color: #FFFFFF;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+      filter: drop-shadow(0 0 48px rgba(239, 196, 44, 0.45)) drop-shadow(0 16px 40px rgba(0, 0, 0, 0.35));
+      /* opacity:0 stripped — handled by GSAP from() */
+      white-space: nowrap;
+      transform-box: fill-box;
+      transform-origin: 50% 50%;
+    }
+
+    /* Sub-label: "WITH COMPOUND INTEREST" */
+    #beat11-label {
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      /* opacity:0 stripped — handled by GSAP from() */
+    }
+
+/* ====== BEAT 12 (stocks) ====== */
+#beat12 {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      background: #FFFFFF;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Headline */
+    #beat12-headline {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 940px;
+      line-height: 1.05;
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 800;
+      font-style: italic;
+      font-size: 140px;
+      text-transform: uppercase;
+      color: #1C2329;
+      letter-spacing: -0.03em;
+      margin-bottom: 80px;
+    }
+
+    #beat12-headline .beat12-hw {
+      display: inline-block;
+      /* opacity:0 stripped — handled by GSAP from() */
+      margin: 0 0.06em;
+    }
+
+    /* Sparkline wrapper */
+    #beat12-sparkline-wrap {
+      position: relative;
+      z-index: 2;
+      width: 700px;
+      height: 300px;
+      margin-bottom: 80px;
+      flex-shrink: 0;
+    }
+
+    #beat12-sparkline-svg {
+      width: 700px;
+      height: 300px;
+      overflow: visible;
+    }
+
+    #beat12-sparkline-path {
+      fill: none;
+      stroke: #01CD74;
+      stroke-width: 14;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    #beat12-dot {
+      fill: #01CD74;
+      r: 18;
+      /* opacity:0 stripped — handled by GSAP from() */
+    }
+
+    /* Chip row */
+    #beat12-chips {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 60px;
+      margin-bottom: 80px;
+    }
+
+    .beat12-chip {
+      width: 180px;
+      height: 180px;
+      background: #1C2329;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 20px 50px rgba(28, 35, 41, 0.22);
+      flex-shrink: 0;
+      /* opacity:0 stripped — handled by GSAP from() */
+      scale: 0;
+    }
+
+    .beat12-chip img {
+      width: 110px;
+      height: 110px;
+      object-fit: contain;
+    }
+
+    /* Subtitle */
+    #beat12-subtitle {
+      position: relative;
+      z-index: 2;
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 800;
+      font-style: italic;
+      font-size: 60px;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      color: #1658FF;
+      text-align: center;
+      /* opacity:0 stripped — handled by GSAP from() */
+    }
+
+/* ====== BEAT 13 (cta) ====== */
+#beat13 {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      background: #1658FF;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Radial glow behind logo */
+    #beat13-glow {
+      position: absolute;
+      top: 120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 70%);
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Canvas ticker tape */
+    #beat13-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1080px;
+      height: 1920px;
+      /* opacity:0 stripped — handled by GSAP from() */
+      z-index: 0;
+    }
+
+    /* Main content column */
+    #beat13-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      padding: 0 80px;
+      gap: 52px;
+    }
+
+    /* Bloom logo */
+    #beat13-logo {
+      width: 220px;
+      height: auto;
+      display: block;
+    }
+
+    /* Hero badge */
+    #beat13-badge {
+      background: #1C2329;
+      border-radius: 26px;
+      padding: 60px 80px;
+      box-shadow: 0 24px 60px rgba(6, 10, 30, 0.28);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    #beat13-badge-line1 {
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 800;
+      font-style: italic;
+      font-size: 130px;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      line-height: 1.0;
+    }
+
+    #beat13-badge-line2 {
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 800;
+      font-style: italic;
+      font-size: 170px;
+      color: #01CD74;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      line-height: 1.0;
+    }
+
+    /* Subline */
+    #beat13-subline {
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 800;
+      font-style: italic;
+      font-size: 60px;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      letter-spacing: -0.012em;
+      text-align: center;
+      clip-path: inset(0 100% 0 0);
+    }
+
+    /* Sparkline pill / mini preview */
+    #beat13-pill {
+      width: 540px;
+      height: 200px;
+      background: #FFFFFF;
+      border-radius: 60px;
+      box-shadow: 0 16px 48px rgba(6, 10, 30, 0.22);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      overflow: hidden;
+    }
+
+    #beat13-sparkline-wrap {
+      width: 420px;
+      height: 80px;
+      flex-shrink: 0;
+    }
+
+    #beat13-sparkline-wrap svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    #beat13-pill-label {
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 36px;
+      color: #1C2329;
+      letter-spacing: -0.012em;
+    }
+
+    /* CTA pill */
+    #beat13-cta {
+      background: #1C2329;
+      border-radius: 300px;
+      padding: 36px 64px;
+      box-shadow: 0 20px 50px rgba(6, 10, 30, 0.30);
+    }
+
+    #beat13-cta-text {
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 800;
+      font-style: italic;
+      font-size: 80px;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      letter-spacing: -0.018em;
+      white-space: nowrap;
+    }
+
+  </style>
+</head>
+<body>
+  <div id="root" data-composition-id="bloom-compound-interest" data-width="1080" data-height="1920" data-start="0" data-duration="73.3">
+    <audio id="narration" class="clip" data-start="0" data-duration="73.3" data-track-index="0" data-volume="1" src="narration.mp3" muted style="z-index: 6"></audio>
+    
+<!-- ====== BEAT 1 (hook) 0.00s -> 2.40s ====== -->
+<div id="beat1" class="scene" style="z-index: 1">
+      <canvas id="beat1-canvas"></canvas>
+      <canvas id="beat1-confetti"></canvas>
+
+      <div class="b1-eyebrow">
+        <span class="b1-word" id="b1w-you">You</span>
+        <span class="b1-word" id="b1w-just">just</span>
+        <span class="b1-word" id="b1w-won">won</span>
+      </div>
+
+      <div class="b1-badge">
+        <span class="b1-badge-text">LOTTERY</span>
+      </div>
+    </div>
+
+<!-- ====== BEAT 2 (choice-a) 2.40s -> 6.10s ====== -->
+<div id="beat2" class="scene" style="z-index: 1">
+
+      <!-- Dotted grid canvas -->
+      <canvas id="beat2-grid"></canvas>
+
+      <!-- Eyebrow headline -->
+      <div class="b2-eyebrow">Your Choice</div>
+
+      <!-- Option A card -->
+      <div class="b2-card">
+        <div class="b2-pill">Option A</div>
+        <div class="b2-counter" id="b2-counter-display">$0</div>
+        <div class="b2-subtitle" id="b2-rightnow">Right Now</div>
+      </div>
+
+      <!-- Coin stack SVG (decorative, right of card) -->
+      <div class="b2-coin" id="b2-coin">
+        <svg class="b2-coin-svg" viewBox="0 0 120 140" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- Stack of 3 coins -->
+          <ellipse cx="60" cy="120" rx="50" ry="14" fill="#01CD74" opacity="0.22"/>
+          <rect x="10" y="98" width="100" height="22" rx="11" fill="#01CD74" opacity="0.55"/>
+          <ellipse cx="60" cy="98" rx="50" ry="14" fill="#01CD74" opacity="0.80"/>
+
+          <ellipse cx="60" cy="82" rx="50" ry="14" fill="#01CD74" opacity="0.22"/>
+          <rect x="10" y="60" width="100" height="22" rx="11" fill="#01CD74" opacity="0.60"/>
+          <ellipse cx="60" cy="60" rx="50" ry="14" fill="#01CD74" opacity="0.85"/>
+
+          <ellipse cx="60" cy="44" rx="50" ry="14" fill="#01CD74" opacity="0.22"/>
+          <rect x="10" y="22" width="100" height="22" rx="11" fill="#01CD74" opacity="0.68"/>
+          <ellipse cx="60" cy="22" rx="50" ry="14" fill="#01CD74"/>
+
+          <!-- $ glyph on top coin -->
+          <text x="60" y="30" text-anchor="middle" dominant-baseline="middle"
+            font-family="Inter Tight, system-ui, sans-serif" font-weight="800"
+            font-size="22" fill="#FFFFFF" letter-spacing="-1">$</text>
+        </svg>
+      </div>
+
+    </div>
+
+<!-- ====== BEAT 3 (choice-b) 6.10s -> 12.00s ====== -->
+<div id="beat3" class="scene" style="z-index: 1">
+
+      <div id="beat3-grid"></div>
+
+      <div id="beat3-badge">OPTION B</div>
+
+      <div id="beat3-coin-wrap">
+        <div id="beat3-coin">
+          <span id="beat3-coin-label">1¢</span>
+        </div>
+      </div>
+
+      <div id="beat3-dots-row">
+        <!-- 30 dots injected by script -->
+      </div>
+
+      <div id="beat3-doubles-label">DOUBLES DAILY &times; 30 DAYS</div>
+
+      <div id="beat3-headline">WHICH WOULD<br>YOU TAKE?</div>
+
+    </div>
+
+<!-- ====== BEAT 4 (stat-a) 12.00s -> 17.70s ====== -->
+<div id="beat4" class="scene" style="z-index: 1">
+
+      <div id="beat4-eyebrow">After 30 Days</div>
+
+      <svg id="beat4-counter" viewBox="0 0 960 220" width="960" height="220" style="overflow:visible">
+        <text id="beat4-counter-text" x="480" y="180" text-anchor="middle" textLength="900" lengthAdjust="spacingAndGlyphs"
+              fill="#1C2329" font-family="Inter Tight, system-ui, sans-serif" font-weight="800" font-style="italic"
+              font-size="200" letter-spacing="-0.03em" font-variant-numeric="tabular-nums">$0</text>
+      </svg>
+
+      <div id="beat4-sparkline-wrap">
+        <div id="beat4-sparkline-track"></div>
+        <div id="beat4-sparkline-fill"></div>
+      </div>
+
+      <div id="beat4-flat-label">Flat</div>
+
+      <div id="beat4-badge">
+        <span id="beat4-badge-text">Still Just $1M</span>
+      </div>
+
+    </div>
+
+<!-- ====== BEAT 5 (stat-b) 17.70s -> 22.95s ====== -->
+<div id="beat5" class="scene" style="z-index: 1">
+
+      <!-- SVG glow filter -->
+      <svg id="beat5-svg-filters" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="beat5-glow" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+      </svg>
+
+      <!-- Exponential growth curve -->
+      <svg id="beat5-curve-svg" viewBox="0 0 1080 960" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <defs>
+          <filter id="beat5-curve-glow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+        <!-- Exponential curve: bottom-left (80,940) sweeping to top-right (1000,40) -->
+        <path id="beat5-curve-path"
+          d="M80,940 C200,920 320,880 420,800 C520,720 580,600 660,460 C720,360 780,240 860,140 C920,70 970,42 1000,40"
+          filter="url(#beat5-curve-glow)"
+        />
+      </svg>
+
+      <!-- Penny dot -->
+      <div id="beat5-penny-dot"></div>
+
+      <!-- Spark trail canvas -->
+      <canvas id="beat5-spark-canvas" width="1080" height="1920"></canvas>
+
+      <!-- Particle burst canvas -->
+      <canvas id="beat5-particle-canvas" width="1080" height="1920"></canvas>
+
+      <!-- Eyebrow -->
+      <div id="beat5-eyebrow">But the doubling penny?</div>
+
+      <!-- Hero counter -->
+      <div id="beat5-counter">$0</div>
+
+      <!-- Subtitle -->
+      <div id="beat5-subtitle">After 30 Days</div>
+
+    </div>
+
+<!-- ====== BEAT 6 (concept-name) 22.95s -> 25.75s ====== -->
+<div id="beat6" class="scene" style="z-index: 1">
+
+      <div id="beat6-grid"></div>
+
+      <div id="beat6-content">
+        <div id="beat6-eyebrow">This is</div>
+
+        <div id="beat6-compound-wrap">
+          <div id="beat6-compound">COMPOUND</div>
+        </div>
+
+        <div id="beat6-interest">INTEREST</div>
+
+        <div id="beat6-underline"></div>
+      </div>
+
+    </div>
+
+<!-- ====== BEAT 7 (concept-stack) 25.75s -> 33.75s ====== -->
+<div id="beat7" class="scene" style="z-index: 1">
+
+      <canvas id="beat7-canvas"></canvas>
+
+      <div id="beat7-eyebrow">RETURNS EARN RETURNS</div>
+
+      <div id="beat7-stack">
+        <div id="beat7-ring-9" class="beat7-ring"></div>
+        <div id="beat7-ring-8" class="beat7-ring"></div>
+        <div id="beat7-ring-7" class="beat7-ring"></div>
+        <div id="beat7-ring-6" class="beat7-ring"></div>
+        <div id="beat7-ring-5" class="beat7-ring"></div>
+        <div id="beat7-ring-4" class="beat7-ring"></div>
+        <div id="beat7-ring-3" class="beat7-ring"></div>
+        <div id="beat7-ring-2" class="beat7-ring"></div>
+        <div id="beat7-ring-1" class="beat7-ring"></div>
+      </div>
+
+      <div id="beat7-label">GROWTH ON GROWTH</div>
+
+    </div>
+
+<!-- ====== BEAT 8 (superpower) 33.75s -> 39.95s ====== -->
+<div id="beat8" class="scene" style="z-index: 1">
+
+      <!-- Bloom star bg -->
+      <img id="beat8-star" src="bloom-star.png" alt="" / style="z-index: 5">
+
+      <!-- Particle canvas -->
+      <canvas id="beat8-canvas" width="1080" height="1920"></canvas>
+
+      <!-- Content -->
+      <div id="beat8-content">
+        <div id="beat8-eyebrow">YOUR INSIGHT</div>
+        <div id="beat8-badge">
+          <span id="beat8-badge-text">SUPERPOWER</span>
+        </div>
+        <div id="beat8-subline">GROWS FASTER &amp; FASTER</div>
+      </div>
+
+    </div>
+
+<!-- ====== BEAT 9 (earlier) 39.95s -> 46.30s ====== -->
+<div id="beat9" class="scene" style="z-index: 1">
+
+      <!-- Eyebrow -->
+      <div id="beat9-eyebrow-wrap">
+        <div id="beat9-eyebrow">REALLY POWERFUL:</div>
+      </div>
+
+      <!-- Time-axis arrow + pegs -->
+      <svg id="beat9-axis-svg" viewBox="0 0 840 320" xmlns="http://www.w3.org/2000/svg">
+        <!-- Main horizontal arrow line -->
+        <line id="beat9-axis-line"
+          x1="20" y1="80" x2="780" y2="80"
+          stroke="#FFFFFF" stroke-width="10"
+          stroke-linecap="round"
+          stroke-dasharray="760" stroke-dashoffset="760" />
+        <!-- Arrow chevron tip -->
+        <polyline id="beat9-axis-tip"
+          points="760,56 800,80 760,104"
+          fill="none" stroke="#FFFFFF" stroke-width="10"
+          stroke-linecap="round" stroke-linejoin="round"
+          opacity="0" />
+
+        <!-- EARLY peg — vertical line -->
+        <line id="beat9-early-peg"
+          x1="100" y1="80" x2="100" y2="130"
+          stroke="#01CD74" stroke-width="8"
+          stroke-linecap="round"
+          opacity="0" />
+        <!-- EARLY label -->
+        <text id="beat9-early-label"
+          x="100" y="166"
+          text-anchor="middle"
+          font-family="Inter Tight, system-ui, sans-serif"
+          font-weight="800"
+          font-style="italic"
+          font-size="42"
+          text-transform="uppercase"
+          fill="#01CD74"
+          opacity="0">EARLY</text>
+        <!-- EARLY upward arrow -->
+        <polyline id="beat9-early-arrow"
+          points="100,130 100,80"
+          fill="none" stroke="#01CD74" stroke-width="6"
+          stroke-linecap="round"
+          opacity="0" />
+        <!-- EARLY arrowhead -->
+        <polyline id="beat9-early-arrowhead"
+          points="84,98 100,68 116,98"
+          fill="none" stroke="#01CD74" stroke-width="6"
+          stroke-linecap="round" stroke-linejoin="round"
+          opacity="0" />
+        <!-- EARLY exponential growth curve (upward from peg) -->
+        <path id="beat9-early-curve"
+          d="M 60,130 Q 80,115 100,90 Q 120,60 150,20"
+          fill="none" stroke="#01CD74" stroke-width="8"
+          stroke-linecap="round"
+          stroke-dasharray="200" stroke-dashoffset="200"
+          opacity="0" />
+
+        <!-- LATER peg — vertical line -->
+        <line id="beat9-later-peg"
+          x1="620" y1="80" x2="620" y2="120"
+          stroke="rgba(255,255,255,0.45)" stroke-width="8"
+          stroke-linecap="round"
+          opacity="0" />
+        <!-- LATER label -->
+        <text id="beat9-later-label"
+          x="620" y="156"
+          text-anchor="middle"
+          font-family="Inter Tight, system-ui, sans-serif"
+          font-weight="800"
+          font-style="italic"
+          font-size="42"
+          fill="rgba(255,255,255,0.45)"
+          opacity="0">LATER</text>
+        <!-- LATER small flat curve -->
+        <path id="beat9-later-curve"
+          d="M 580,120 Q 598,110 620,100 Q 642,92 665,86"
+          fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="6"
+          stroke-linecap="round"
+          stroke-dasharray="100" stroke-dashoffset="100"
+          opacity="0" />
+      </svg>
+
+      <!-- Main headline -->
+      <div id="beat9-headline">THE EARLIER<br>YOU START</div>
+
+      <!-- Subline -->
+      <div id="beat9-subline">THE MORE IT GROWS</div>
+
+    </div>
+
+<!-- ====== BEAT 10 (mega-build) 46.30s -> 52.75s ====== -->
+<div id="beat10" class="scene" style="z-index: 1">
+
+      <!-- Eyebrow -->
+      <div id="beat10-eyebrow">What if&hellip; 5 days earlier?</div>
+
+      <!-- Calendar strip: 5 day cells, −5 through −1 left to right -->
+      <div id="beat10-calendar">
+        <div class="beat10-day-cell" id="beat10-day5"><span class="beat10-day-label">−5</span><span class="beat10-day-sub">day</span></div>
+        <div class="beat10-day-cell" id="beat10-day4"><span class="beat10-day-label">−4</span><span class="beat10-day-sub">day</span></div>
+        <div class="beat10-day-cell" id="beat10-day3"><span class="beat10-day-label">−3</span><span class="beat10-day-sub">day</span></div>
+        <div class="beat10-day-cell" id="beat10-day2"><span class="beat10-day-label">−2</span><span class="beat10-day-sub">day</span></div>
+        <div class="beat10-day-cell" id="beat10-day1"><span class="beat10-day-label">−1</span><span class="beat10-day-sub">day</span></div>
+      </div>
+
+      <!-- Stat + strikethrough -->
+      <div id="beat10-stat-wrap">
+        <div id="beat10-stat">
+          $5,000,000
+          <svg id="beat10-strikethrough-svg" viewBox="0 0 600 28" preserveAspectRatio="none">
+            <line id="beat10-strike-line" x1="0" y1="14" x2="600" y2="14" />
+          </svg>
+        </div>
+        <div id="beat10-not-close">Not even close</div>
+      </div>
+
+    </div>
+
+<!-- ====== BEAT 11 (mega-slam) 52.75s -> 56.30s ====== -->
+<div id="beat11" class="scene" style="z-index: 1">
+      <canvas id="beat11-confetti"></canvas>
+
+      <div id="beat11-content">
+        <div id="beat11-eyebrow">Just 5 Days Earlier</div>
+        <svg id="beat11-counter" viewBox="0 0 960 280" width="960" height="280" style="overflow:visible">
+          <text id="beat11-counter-text" x="480" y="220" text-anchor="middle" textLength="900" lengthAdjust="spacingAndGlyphs"
+                fill="#FFFFFF" font-family="Inter Tight, system-ui, sans-serif" font-weight="800" font-style="italic"
+                font-size="240" letter-spacing="-0.03em" font-variant-numeric="tabular-nums">$0</text>
+        </svg>
+        <div id="beat11-label">With Compound Interest</div>
+      </div>
+    </div>
+
+<!-- ====== BEAT 12 (stocks) 56.30s -> 65.00s ====== -->
+<div id="beat12" class="scene" style="z-index: 1">
+
+      <!-- Headline -->
+      <div id="beat12-headline">
+        <span class="beat12-hw">Stocks</span>
+        <span class="beat12-hw">Build</span>
+        <span class="beat12-hw">Wealth</span>
+      </div>
+
+      <!-- Sparkline SVG -->
+      <div id="beat12-sparkline-wrap">
+        <svg id="beat12-sparkline-svg" viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg">
+          <!-- Ascending sparkline path: starts low-left, curves upward to upper-right -->
+          <path id="beat12-sparkline-path"
+            d="M 10,270 C 60,265 90,250 130,240 C 170,230 200,235 240,215 C 280,195 310,190 350,165 C 390,140 410,145 450,115 C 490,85 520,90 560,60 C 600,30 640,25 690,10"
+          />
+          <circle id="beat12-dot" cx="690" cy="10" />
+        </svg>
+      </div>
+
+      <!-- Chip row -->
+      <div id="beat12-chips">
+        <div class="beat12-chip" id="beat12-chip-aapl">
+          <img src="logos/AAPL.png" alt="Apple" />
+        </div>
+        <div class="beat12-chip" id="beat12-chip-nke">
+          <img src="logos/NKE.png" alt="Nike" />
+        </div>
+        <div class="beat12-chip" id="beat12-chip-sbux">
+          <img src="logos/SBUX.png" alt="Starbucks" />
+        </div>
+      </div>
+
+      <!-- Subtitle -->
+      <div id="beat12-subtitle">Small &rarr; Massive Over Time</div>
+
+    </div>
+
+<!-- ====== BEAT 13 (cta) 65.00s -> 73.30s ====== -->
+<div id="beat13" class="scene" style="z-index: 1">
+
+      <canvas id="beat13-canvas"></canvas>
+      <div id="beat13-glow"></div>
+
+      <div id="beat13-content">
+        <img id="beat13-logo" src="bloom-logo.png" alt="Bloom" / data-start="0" data-track-index="3" style="z-index: 4">
+
+        <div id="beat13-badge">
+          <div id="beat13-badge-line1">POTENTIAL</div>
+          <div id="beat13-badge-line2">RETURN</div>
+        </div>
+
+        <div id="beat13-subline">SEE YOUR MONEY GROW</div>
+
+        <div id="beat13-pill">
+          <div id="beat13-sparkline-wrap">
+            <svg viewBox="0 0 420 80" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+              <polyline
+                id="beat13-sparkline-path"
+                points="0,72 40,68 80,60 120,50 160,38 200,28 240,20 280,14 320,8 360,4 420,2"
+                stroke="#01CD74"
+                stroke-width="4"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <defs>
+                <linearGradient id="beat13-sparkfill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#01CD74" stop-opacity="0.18"/>
+                  <stop offset="100%" stop-color="#01CD74" stop-opacity="0.00"/>
+                </linearGradient>
+              </defs>
+              <polygon
+                points="0,72 40,68 80,60 120,50 160,38 200,28 240,20 280,14 320,8 360,4 420,2 420,80 0,80"
+                fill="url(#beat13-sparkfill)"
+              />
+            </svg>
+          </div>
+          <div id="beat13-pill-label">$10 &#8594; $1,000+</div>
+        </div>
+
+        <div id="beat13-cta">
+          <div id="beat13-cta-text">TRY IT ON BLOOM</div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const masterTl = gsap.timeline({ paused: true });
+    window.__timelines["bloom-compound-interest"] = masterTl;
+    window.__masterTl = masterTl;
+
+    // Master scene fades — show scene at its start, hide at end
+    const beatBoundaries = [{"n":1,"s":0,"e":2.4},{"n":2,"s":2.4,"e":6.1},{"n":3,"s":6.1,"e":12},{"n":4,"s":12,"e":17.7},{"n":5,"s":17.7,"e":22.95},{"n":6,"s":22.95,"e":25.75},{"n":7,"s":25.75,"e":33.75},{"n":8,"s":33.75,"e":39.95},{"n":9,"s":39.95,"e":46.3},{"n":10,"s":46.3,"e":52.75},{"n":11,"s":52.75,"e":56.3},{"n":12,"s":56.3,"e":65},{"n":13,"s":65,"e":73.3}];
+    for (let i = 0; i < beatBoundaries.length; i++) {
+      const b = beatBoundaries[i];
+      const sel = "#beat" + b.n;
+      // Fade in
+      if (b.n > 1) {
+        masterTl.to(sel, { opacity: 1, duration: 0.18, ease: "power2.out" }, b.s);
+      }
+      // Fade out previous
+      if (b.n > 1) {
+        const prev = beatBoundaries[i - 1];
+        masterTl.to("#beat" + prev.n, { opacity: 0, duration: 0.18, ease: "power2.in" }, b.s);
+      }
+    }
+    // Final fade-out of last beat
+    masterTl.to("#beat13", { opacity: 0, duration: 0.18, ease: "power2.in" }, 73.3 - 0.2);
+  </script>
+<script>
+
+
+// ====== BEAT 1 (hook) start=0.00 dur=2.40 ======
+(function(){
+const W = [
+      { word: "You",      t: 0.000, e: 0.159 },
+      { word: "just",     t: 0.207, e: 0.399 },
+      { word: "won",      t: 0.459, e: 0.639 },
+      { word: "the",      t: 0.659, e: 0.719 },
+      { word: "lottery.", t: 0.789, e: 1.639 }
+    ];
+
+    function _norm(s) { return s.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu, ""); }
+    function _findPhrase(phrase) {
+      const tokens = phrase.toLowerCase().split(/\s+/).map(_norm).filter(Boolean);
+      if (!tokens.length) throw new Error("landOn: empty phrase");
+      const hits = [];
+      for (let i = 0; i <= W.length - tokens.length; i++) {
+        let ok = true;
+        for (let j = 0; j < tokens.length; j++) {
+          if (_norm(W[i + j].word) !== tokens[j]) { ok = false; break; }
+        }
+        if (ok) hits.push(i);
+      }
+      if (hits.length === 0) throw new Error(`landOn: phrase "${phrase}" not found in transcript`);
+      if (hits.length > 1) {
+        const times = hits.map(i => W[i].t.toFixed(3) + "s").join(", ");
+        throw new Error(`landOn: phrase "${phrase}" matches ${hits.length} occurrences at [${times}]. Use a longer phrase to disambiguate.`);
+      }
+      return { startIdx: hits[0], endIdx: hits[0] + tokens.length - 1 };
+    }
+    function at(phrase) { return W[_findPhrase(phrase).startIdx].t; }
+    function landOn(phrase, duration) { return at(phrase) - (duration || 0); }
+    function landAfter(phrase, duration) { return W[_findPhrase(phrase).endIdx].e - (duration || 0); }
+
+    function mulberry32(seed) {
+      return function() {
+        let t = (seed += 0x6d2b79f5);
+        t = Math.imul(t ^ (t >>> 15), t | 1);
+        t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+    }
+
+    const tickerCanvas = document.getElementById("beat1-canvas");
+    const tCtx = tickerCanvas.getContext("2d");
+    tickerCanvas.width = 1080;
+    tickerCanvas.height = 1920;
+
+    const tRand = mulberry32(7331);
+    const dollarItems = [];
+    for (let i = 0; i < 28; i++) {
+      dollarItems.push({
+        x: tRand() * 1080,
+        y: tRand() * 1920,
+        size: 28 + Math.floor(tRand() * 24)
+      });
+    }
+
+    function drawTicker(elapsed) {
+      tCtx.clearRect(0, 0, 1080, 1920);
+      tCtx.fillStyle = "rgba(255, 255, 255, 0.12)";
+      tCtx.textAlign = "center";
+      dollarItems.forEach(item => {
+        tCtx.font = `bold ${item.size}px Inter`;
+        const y = Math.round((item.y + elapsed * 20) % 2000);
+        tCtx.fillText("$", item.x, y);
+      });
+    }
+
+    const confettiCanvas = document.getElementById("beat1-confetti");
+    const cCtx = confettiCanvas.getContext("2d");
+    confettiCanvas.width = 1080;
+    confettiCanvas.height = 1920;
+
+    const cRand = mulberry32(9421);
+    const COLORS = ["#FFD700", "#FFB300", "#00C853", "#FFEE58", "#76FF03", "#FFF176"];
+    const particles = [];
+    const PARTICLE_COUNT = 80;
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      const angle = (cRand() * Math.PI * 2);
+      const speed = 400 + cRand() * 600;
+      particles.push({
+        x: 540,
+        y: 980,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed - 200,
+        color: COLORS[Math.floor(cRand() * COLORS.length)],
+        size: 8 + Math.floor(cRand() * 10),
+        rotation: cRand() * Math.PI * 2,
+        rotSpeed: (cRand() - 0.5) * 10
+      });
+    }
+
+    function drawConfetti(elapsed) {
+      cCtx.clearRect(0, 0, 1080, 1920);
+      const gravity = 980;
+      particles.forEach(p => {
+        const t = elapsed;
+        const cx = p.x + p.vx * t;
+        const cy = p.y + p.vy * t + 0.5 * gravity * t * t;
+        const rot = p.rotation + p.rotSpeed * t;
+        const alpha = Math.max(0, 1 - t * 1.2);
+        if (alpha <= 0) return;
+        cCtx.save();
+        cCtx.globalAlpha = alpha;
+        cCtx.translate(Math.round(cx), Math.round(cy));
+        cCtx.rotate(rot);
+        cCtx.fillStyle = p.color;
+        cCtx.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2);
+        cCtx.restore();
+      });
+    }
+
+    
+    
+const _BASE = 0;
+const _M = window.__masterTl;
+function _shift(a) {
+  if (a.length > 0 && typeof a[a.length - 1] === 'number') {
+    const copy = a.slice();
+    copy[copy.length - 1] = copy[copy.length - 1] + _BASE;
+    return copy;
+  }
+  return a;
+}
+const tl = {
+  from:    function() { return _M.from.apply(_M, _shift(Array.from(arguments))); },
+  to:      function() { return _M.to.apply(_M, _shift(Array.from(arguments))); },
+  fromTo:  function() { return _M.fromTo.apply(_M, _shift(Array.from(arguments))); },
+  set:     function() { return _M.set.apply(_M, _shift(Array.from(arguments))); },
+  call:    function() { return _M.call.apply(_M, _shift(Array.from(arguments))); },
+  add:     function() { return _M.add.apply(_M, _shift(Array.from(arguments))); },
+  totalDuration: function() { return _M.totalDuration(); },
+  duration: function() { return _M.duration(); }
+};
+
+
+    const tickerProxy = { time: 0 };
+    tl.to("#beat1-canvas", { opacity: 0.5, duration: 0.25, ease: "power2.out" }, 0);
+    tl.to(tickerProxy, {
+      time: 2.4,
+      duration: 2.4,
+      ease: "none",
+      onUpdate: () => drawTicker(tickerProxy.time)
+    }, 0);
+
+    tl.from("#b1w-you", {
+      y: 20,
+      opacity: 0,
+      duration: 0.22,
+      ease: "power3.out",
+      overwrite: "auto"
+    }, landOn("You", 0.22));
+
+    tl.from("#b1w-just", {
+      y: 20,
+      opacity: 0,
+      duration: 0.22,
+      ease: "expo.out",
+      overwrite: "auto"
+    }, landOn("just", 0.22));
+
+    tl.from("#b1w-won", {
+      scale: 0.6,
+      opacity: 0,
+      duration: 0.25,
+      ease: "back.out(2)",
+      overwrite: "auto"
+    }, landOn("won", 0.25));
+
+    tl.from(".b1-badge", {
+      scale: 0.4,
+      opacity: 0,
+      duration: 0.32,
+      ease: "back.out(2.2)",
+      overwrite: "auto"
+    }, landOn("lottery", 0.32));
+    tl.to(".b1-badge", {
+      opacity: 1,
+      duration: 0,
+      overwrite: "auto"
+    }, landOn("lottery", 0.32));
+
+    const confettiProxy = { time: 0 };
+    tl.to(confettiProxy, {
+      time: 1.5,
+      duration: 1.5,
+      ease: "none",
+      onUpdate: () => drawConfetti(confettiProxy.time)
+    }, at("lottery"));
+
+    tl.set("#beat1", { visibility: "hidden" }, 2.40);
+
+    
+  // Add this beat's timeline to master at its start offset
+  
+})();
+
+// ====== BEAT 2 (choice-a) start=2.40 dur=3.70 ======
+(function(){
+// ── TIMELINE REGISTRATION ────────────────────────────────────────────────
+    
+    
+const _BASE = 2.4;
+const _M = window.__masterTl;
+function _shift(a) {
+  if (a.length > 0 && typeof a[a.length - 1] === 'number') {
+    const copy = a.slice();
+    copy[copy.length - 1] = copy[copy.length - 1] + _BASE;
+    return copy;
+  }
+  return a;
+}
+const tl = {
+  from:    function() { return _M.from.apply(_M, _shift(Array.from(arguments))); },
+  to:      function() { return _M.to.apply(_M, _shift(Array.from(arguments))); },
+  fromTo:  function() { return _M.fromTo.apply(_M, _shift(Array.from(arguments))); },
+  set:     function() { return _M.set.apply(_M, _shift(Array.from(arguments))); },
+  call:    function() { return _M.call.apply(_M, _shift(Array.from(arguments))); },
+  add:     function() { return _M.add.apply(_M, _shift(Array.from(arguments))); },
+  totalDuration: function() { return _M.totalDuration(); },
+  duration: function() { return _M.duration(); }
+};
+
+    
+
+    // ── VO WORD TIMING (beat-relative; negative t words are pre-beat) ────────
+    const W = [
+      { word: "And",      t: -0.671, e: -0.401 },
+      { word: "here's",   t: -0.353, e: -0.081 },
+      { word: "your",     t: -0.049, e: 0.079 },
+      { word: "choice:",  t: 0.136,  e: 1.198 },
+      { word: "one",      t: 1.238,  e: 1.358 },
+      { word: "million",  t: 1.408,  e: 1.758 },
+      { word: "dollars",  t: 1.828,  e: 2.318 },
+      { word: "right",    t: 2.398,  e: 2.798 },
+      { word: "now",      t: 2.918,  e: 3.278 }
+    ];
+
+    // ── PHRASE-ANCHORED TIMING HELPERS ───────────────────────────────────────
+    function _norm(s) { return s.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu, ""); }
+    function _findPhrase(phrase) {
+      const tokens = phrase.toLowerCase().split(/\s+/).map(_norm).filter(Boolean);
+      if (!tokens.length) throw new Error("landOn: empty phrase");
+      const hits = [];
+      for (let i = 0; i <= W.length - tokens.length; i++) {
+        let ok = true;
+        for (let j = 0; j < tokens.length; j++) {
+          if (_norm(W[i + j].word) !== tokens[j]) { ok = false; break; }
+        }
+        if (ok) hits.push(i);
+      }
+      if (hits.length === 0) throw new Error(`landOn: phrase "${phrase}" not found in transcript`);
+      if (hits.length > 1) {
+        const times = hits.map(i => W[i].t.toFixed(3) + "s").join(", ");
+        throw new Error(`landOn: phrase "${phrase}" matches ${hits.length} occurrences at [${times}]. Use a longer phrase.`);
+      }
+      return { startIdx: hits[0], endIdx: hits[0] + tokens.length - 1 };
+    }
+    function at(phrase)                  { return W[_findPhrase(phrase).startIdx].t; }
+    function landOn(phrase, duration)    { return at(phrase) - (duration || 0); }
+    function landAfter(phrase, duration) { return W[_findPhrase(phrase).endIdx].e - (duration || 0); }
+
+    // ── DOTTED GRID (deterministic) ──────────────────────────────────────────
+    const gridCanvas = document.getElementById("beat2-grid");
+    const gctx = gridCanvas.getContext("2d");
+    gridCanvas.width  = 1080;
+    gridCanvas.height = 1920;
+    gctx.fillStyle = "rgba(22, 88, 255, 0.06)";
+    const SPACING = 60;
+    for (let cx = SPACING / 2; cx < 1080; cx += SPACING) {
+      for (let cy = SPACING / 2; cy < 1920; cy += SPACING) {
+        gctx.beginPath();
+        gctx.arc(cx, cy, 3, 0, Math.PI * 2);
+        gctx.fill();
+      }
+    }
+
+    // ── COUNTER (number roll 0 → 1,000,000) ─────────────────────────────────
+    const counterEl   = document.getElementById("b2-counter-display");
+    const counterProxy = { val: 0 };
+
+    function formatCounter(n) {
+      const rounded = Math.round(n);
+      if (rounded <= 0) return "$0";
+      return "$" + rounded.toLocaleString("en-US");
+    }
+
+    // Counter entrance duration: from card entrance to landAfter("one million dollars")
+    // Card entrance fires at landOn("one million", 0.45)
+    // landAfter("one million dollars") = W["dollars"].e = 2.318
+    // Card entrance start = landOn("one million", 0.45) = W["one"].t - 0.45 = 1.238 - 0.45 = 0.788
+    // Counter ramp starts shortly after card arrives (~0.45s entrance duration) => ~0.788 + 0.45 = 1.238
+    // Counter end = landAfter("one million dollars", 1.0) = W["dollars"].e - 1.0 = 2.318 - 1.0 = 1.318
+    // That gives only 0.08s which is too short — use landAfter("one million dollars", 0) = 2.318
+    // and start counting from card entrance + 0.45s
+    const counterStart = landOn("one million", 0.45) + 0.45;  // ~1.238
+    const counterEnd   = landAfter("one million dollars", 0);  // 2.318
+    const counterDur   = counterEnd - counterStart;             // ~1.08s
+
+    tl.to(counterProxy, {
+      val: 1000000,
+      duration: counterDur,
+      ease: "power3.out",
+      onUpdate: function() {
+        counterEl.textContent = formatCounter(counterProxy.val);
+      }
+    }, counterStart);
+
+    // ── EYEBROW ENTRANCE ─────────────────────────────────────────────────────
+    // Clamp negative-t words: eyebrow enters at t=0.1 (composition start)
+    tl.from(".b2-eyebrow", {
+      y: -40,
+      opacity: 0,
+      duration: 0.55,
+      ease: "expo.out"
+    }, 0.1);
+
+    // ── CARD ENTRANCE ────────────────────────────────────────────────────────
+    // landOn("one million", 0.45): at("one million") - 0.45 = 1.238 - 0.45 = 0.788
+    const cardEntranceTime = landOn("one million", 0.45);
+    tl.from(".b2-card", {
+      y: 80,
+      opacity: 0,
+      scale: 0.95,
+      duration: 0.45,
+      ease: "back.out(1.7)"
+    }, cardEntranceTime);
+
+    // ── COIN ENTRANCE ─────────────────────────────────────────────────────────
+    tl.from("#b2-coin", {
+      x: 60,
+      opacity: 0,
+      duration: 0.40,
+      ease: "power2.out"
+    }, cardEntranceTime + 0.15);
+
+    // ── COIN IDLE BOB ─────────────────────────────────────────────────────────
+    // Duration from coin visible to end: 3.90 - (cardEntranceTime + 0.15 + 0.40)
+    // = 3.90 - 1.33 = 2.57s  → ~2 full yoyo cycles of 0.8s each (repeat: 3 gives 3.2s, cap at 2)
+    tl.to("#b2-coin", {
+      y: -8,
+      duration: 0.8,
+      ease: "sine.inOut",
+      yoyo: true,
+      repeat: 3,
+      overwrite: "auto"
+    }, cardEntranceTime + 0.55);
+
+    // ── "RIGHT NOW" PULSE ─────────────────────────────────────────────────────
+    // landOn("right now", 0.2) = W["right"].t - 0.2 = 2.398 - 0.2 = 2.198
+    const rightNowTime = landOn("right now", 0.2);
+    tl.to("#b2-rightnow", {
+      scale: 1.06,
+      duration: 0.18,
+      ease: "power2.out",
+      yoyo: true,
+      repeat: 1,
+      overwrite: "auto"
+    }, rightNowTime);
+
+    // ── VISIBILITY KILL ───────────────────────────────────────────────────────
+    tl.set("#beat2", { visibility: "hidden" }, 3.90);
+  // Add this beat's timeline to master at its start offset
+  
+})();
+
+// ====== BEAT 3 (choice-b) start=6.10 dur=5.90 ======
+(function(){
+// ── TIMELINE REGISTRATION ────────────────────────────────────────────
+    
+    
+const _BASE = 6.1;
+const _M = window.__masterTl;
+function _shift(a) {
+  if (a.length > 0 && typeof a[a.length - 1] === 'number') {
+    const copy = a.slice();
+    copy[copy.length - 1] = copy[copy.length - 1] + _BASE;
+    return copy;
+  }
+  return a;
+}
+const tl = {
+  from:    function() { return _M.from.apply(_M, _shift(Array.from(arguments))); },
+  to:      function() { return _M.to.apply(_M, _shift(Array.from(arguments))); },
+  fromTo:  function() { return _M.fromTo.apply(_M, _shift(Array.from(arguments))); },
+  set:     function() { return _M.set.apply(_M, _shift(Array.from(arguments))); },
+  call:    function() { return _M.call.apply(_M, _shift(Array.from(arguments))); },
+  add:     function() { return _M.add.apply(_M, _shift(Array.from(arguments))); },
+  totalDuration: function() { return _M.totalDuration(); },
+  duration: function() { return _M.duration(); }
+};
+
+    
+
+    // ── VO WORD TIMING (beat-relative) ───────────────────────────────────
+    const W = [
+      { word: "or",       t: 0.245, e: 0.459 },
+      { word: "a",        t: 0.539, e: 0.619 },
+      { word: "penny",    t: 0.699, e: 1.099 },
+      { word: "that",     t: 1.179, e: 1.499 },
+      { word: "doubles",  t: 1.559, e: 1.979 },
+      { word: "every",    t: 2.046, e: 2.381 },
+      { word: "single",   t: 2.438, e: 2.78  },
+      { word: "day",      t: 2.86,  e: 3.1   },
+      { word: "for",      t: 3.16,  e: 3.34  },
+      { word: "thirty",   t: 3.386, e: 3.662 },
+      { word: "days.",    t: 3.742, e: 4.222 },
+      { word: "Which",    t: 4.369, e: 5.104 },
+      { word: "would",    t: 5.131, e: 5.266 },
+      { word: "you",      t: 5.286, e: 5.346 },
+      { word: "take?",    t: 5.41,  e: 5.746 }
+    ];
+
+    // ── PHRASE-ANCHORED TIMING HELPERS ────────────────────────────────────
+    function _norm(s) { return s.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu, ""); }
+    function _findPhrase(phrase) {
+      const tokens = phrase.toLowerCase().split(/\s+/).map(_norm).filter(Boolean);
+      if (!tokens.length) throw new Error("landOn: empty phrase");
+      const hits = [];
+      for (let i = 0; i <= W.length - tokens.length; i++) {
+        let ok = true;
+        for (let j = 0; j < tokens.length; j++) {
+          if (_norm(W[i + j].word) !== tokens[j]) { ok = false; break; }
+        }
+        if (ok) hits.push(i);
+      }
+      if (hits.length === 0) throw new Error(`landOn: phrase "${phrase}" not found`);
+      if (hits.length > 1) throw new Error(`landOn: phrase "${phrase}" ambiguous`);
+      return { startIdx: hits[0], endIdx: hits[0] + tokens.length - 1 };
+    }
+    function at(phrase)            { return W[_findPhrase(phrase).startIdx].t; }
+    function landOn(phrase, dur)   { return at(phrase) - (dur || 0); }
+    function landAfter(phrase, dur){ return W[_findPhrase(phrase).endIdx].e - (dur || 0); }
+
+    // ── BUILD 30 PENNY DOTS ───────────────────────────────────────────────
+    const dotsRow = document.getElementById("beat3-dots-row");
+    for (let i = 0; i < 30; i++) {
+      const d = document.createElement("div");
+      d.className = "beat3-dot";
+      d.id = "beat3-dot-" + i;
+      dotsRow.appendChild(d);
+    }
+
+    // ── ANIMATION ────────────────────────────────────────────────────────
+
+    // 1. Background grid fade-in
+    tl.from("#beat3-grid", { opacity: 0, duration: 0.5, ease: "power2.out" }, 0.1);
+
+    // 2. OPTION B badge slides down from above
+    tl.from("#beat3-badge", {
+      y: -80,
+      opacity: 0,
+      duration: 0.5,
+      ease: "expo.out"
+    }, 0.15);
+
+    // 3. PENNY coin SLAMS in on "penny" — scale + spin + back bounce
+    const pennyHit = landOn("penny", 0.45);
+    tl.from("#beat3-coin-wrap", {
+      scale: 0,
+      rotation: -180,
+      opacity: 0,
+      duration: 0.45,
+      ease: "back.out(1.7)"
+    }, pennyHit);
+
+    // Coin label fades in slightly after coin lands
+    tl.from("#beat3-coin-label", {
+      opacity: 0,
+      scale: 0.6,
+      duration: 0.25,
+      ease: "power3.out"
+    }, pennyHit + 0.25);
+
+    // 4. Penny idle wobble: rotation yoyo (2 cycles, covering "doubles" through "thirty")
+    const idleStart = at("doubles");
+    tl.to("#beat3-coin-wrap", {
+      rotation: 4,
+      duration: 0.8,
+      ease: "sine.inOut",
+      yoyo: true,
+      repeat: 3
+    }, idleStart);
+
+    // 5. Doubles label enters on "doubles"
+    tl.from("#beat3-doubles-label", {
+      y: 30,
+      opacity: 0,
+      duration: 0.4,
+      ease: "power3.out"
+    }, landOn("doubles", 0.4));
+
+    // 6. Dots row container enters on "every"
+    tl.from("#beat3-dots-row", {
+      opacity: 0,
+      y: 20,
+      duration: 0.35,
+      ease: "power2.out"
+    }, landOn("every", 0.35));
+
+    // 7. Dots light up as a wave — from "doubles" through "days."
+    // Stagger 30 dots across the window from "doubles" → end of "days."
+    const waveStart = at("doubles");
+    const waveEnd   = W[_findPhrase("days.").endIdx].e;  // 4.222
+    const waveDur   = waveEnd - waveStart;               // ~2.663s
+    const staggerInterval = waveDur / 30;
+
+    for (let i = 0; i < 30; i++) {
+      const dotHit = waveStart + i * staggerInterval;
+      tl.to("#beat3-dot-" + i, {
+        backgroundColor: i < 15 ? "#C8A951" : "#2DB87A",
+        scale: 1.35,
+        duration: 0.22,
+        ease: "back.out(2)"
+      }, dotHit);
+      tl.to("#beat3-dot-" + i, {
+        scale: 1,
+        duration: 0.18,
+        ease: "power2.out"
+      }, dotHit + 0.22);
+    }
+
+    // 8. "WHICH WOULD YOU TAKE?" headline slams in on "Which would you"
+    const headlineHit = landOn("Which would you", 0.5);
+    tl.from("#beat3-headline", {
+      y: 120,
+      opacity: 0,
+      scale: 0.85,
+      duration: 0.5,
+      ease: "back.out(1.4)"
+    }, headlineHit);
+
+    // Headline pulse on "take?"
+    const takePulse = at("take?");
+    tl.to("#beat3-headline", {
+      scale: 1.04,
+      duration: 0.12,
+      ease: "power2.out"
+    }, takePulse);
+    tl.to("#beat3-headline", {
+      scale: 1,
+      duration: 0.22,
+      ease: "power2.inOut"
+    }, takePulse + 0.12);
+
+    // 9. Kill visibility at end
+    tl.set("#beat3", { visibility: "hidden" }, 5.90);
+  // Add this beat's timeline to master at its start offset
+  
+})();
+
+// ====== BEAT 4 (stat-a) start=12.00 dur=5.70 ======
+(function(){
+// ── TIMELINE REGISTRATION ────────────────────────────────────────────
+    
+    
+const _BASE = 12;
+const _M = window.__masterTl;
+function _shift(a) {
+  if (a.length > 0 && typeof a[a.length - 1] === 'number') {
+    const copy = a.slice();
+    copy[copy.length - 1] = copy[copy.length - 1] + _BASE;
+    return copy;
+  }
+  return a;
+}
+const tl = {
+  from:    function() { return _M.from.apply(_M, _shift(Array.from(arguments))); },
+  to:      function() { return _M.to.apply(_M, _shift(Array.from(arguments))); },
+  fromTo:  function() { return _M.fromTo.apply(_M, _shift(Array.from(arguments))); },
+  set:     function() { return _M.set.apply(_M, _shift(Array.from(arguments))); },
+  call:    function() { return _M.call.apply(_M, _shift(Array.from(arguments))); },
+  add:     function() { return _M.add.apply(_M, _shift(Array.from(arguments))); },
+  totalDuration: function() { return _M.totalDuration(); },
+  duration: function() { return _M.duration(); }
+};
+
+    
+
+    // ── VO WORD TIMING (beat-relative) ───────────────────────────────────
+    const W = [
+      { word: "After",    t: 0.033, e: 0.968 },
+      { word: "thirty",   t: 1.025, e: 1.367 },
+      { word: "days,",    t: 1.463, e: 2.007 },
+      { word: "the",      t: 2.047, e: 2.167 },
+      { word: "one",      t: 2.207, e: 2.327 },
+      { word: "million",  t: 2.377, e: 2.727 },
+      { word: "dollars",  t: 2.787, e: 3.207 },
+      { word: "is",       t: 3.314, e: 3.528 },
+      { word: "still",    t: 3.595, e: 3.93  },
+      { word: "just",     t: 4.01,  e: 4.33  },
+      { word: "one",      t: 4.39,  e: 4.57  },
+      { word: "million",  t: 4.61,  e: 4.89  },
+      { word: "dollars.", t: 4.95,  e: 5.53  }
+    ];
+
+    // ── PHRASE-ANCHORED TIMING HELPERS ────────────────────────────────────
+    function _norm(s) { return s.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu, ""); }
+    function _findPhrase(phrase) {
+      const tokens = phrase.toLowerCase().split(/\s+/).map(_norm).filter(Boolean);
+      if (!tokens.length) throw new Error("landOn: empty phrase");
+      const hits = [];
+      for (let i = 0; i <= W.length - tokens.length; i++) {
+        let ok = true;
+        for (let j = 0; j < tokens.length; j++) {
+          if (_norm(W[i + j].word) !== tokens[j]) { ok = false; break; }
+        }
+        if (ok) hits.push(i);
+      }
+      if (hits.length === 0) throw new Error(`landOn: phrase "${phrase}" not found in transcript`);
+      if (hits.length > 1) {
+        const times = hits.map(i => W[i].t.toFixed(3) + "s").join(", ");
+        throw new Error(`landOn: phrase "${phrase}" matches ${hits.length} occurrences at [${times}]. Use a longer phrase.`);
+      }
+      return { startIdx: hits[0], endIdx: hits[0] + tokens.length - 1 };
+    }
+    function at(phrase) { return W[_findPhrase(phrase).startIdx].t; }
+    function landOn(phrase, duration) { return at(phrase) - (duration || 0); }
+    function landAfter(phrase, duration) { return W[_findPhrase(phrase).endIdx].e - (duration || 0); }
+
+    // ── COUNTER HELPER ────────────────────────────────────────────────────
+    function formatCounter(val) {
+      return "$" + Math.round(val).toLocaleString("en-US");
+    }
+
+    // ── ANIMATIONS ────────────────────────────────────────────────────────
+
+    // 1. Eyebrow slides in from top — entrance on "After thirty"
+    tl.from("#beat4-eyebrow", {
+      y: -60,
+      opacity: 0,
+      duration: 0.55,
+      ease: "power3.out"
+    }, landOn("After thirty", 0.45));
+
+    // 2. Counter: count up from 0 to 1,000,000
+    //    Begins at "After" (t=0.033), lands by the time narrator says "dollars" ends (~3.207)
+    const counterProxy = { val: 0 };
+    const counterEl = document.getElementById("beat4-counter-text");
+    const counterStart = at("After thirty") - 0.2;
+    const counterEnd = at("is") - 0.10; // end of first "dollars" (~3.21s)
+
+    tl.fromTo(counterProxy,
+      { val: 0 },
+      {
+        val: 1000000,
+        duration: counterEnd - counterStart,
+        ease: "power2.out",
+        onUpdate: () => {
+          counterEl.textContent = formatCounter(counterProxy.val);
+        },
+        onComplete: () => {
+          counterEl.textContent = "$1,000,000";
+        }
+      },
+      counterStart
+    );
+
+    // Counter entrance: slide up
+    tl.from("#beat4-counter", {
+      y: 50,
+      opacity: 0,
+      duration: 0.5,
+      ease: "expo.out"
+    }, counterStart);
+
+    // 3. Sparkline draws left-to-right after counter lands (~3.2s)
+    const sparklineStart = counterEnd + 0.1;
+    tl.fromTo("#beat4-sparkline-fill",
+      { width: "0px" },
+      { width: "600px", duration: 0.6, ease: "power2.out" },
+      sparklineStart
+    );
+
+    // Sparkline track fades in just before fill draws
+    tl.from("#beat4-sparkline-track", {
+      opacity: 0,
+      duration: 0.3,
+      ease: "power1.out"
+    }, sparklineStart - 0.1);
+
+    // 4. "Flat" label fades in after sparkline
+    tl.from("#beat4-flat-label", {
+      opacity: 0,
+      duration: 0.35,
+      ease: "power1.out"
+    }, sparklineStart + 0.5);
+
+    // 5. Badge slams in on "still just"
+    tl.fromTo("#beat4-badge",
+      { scale: 1.3, opacity: 0, y: 24 },
+      { scale: 1, opacity: 1, y: 0, duration: 0.3, ease: "back.out(2)" },
+      landOn("still just", 0.1)
+    );
+
+    // 6. Counter pulse reaction on "just one million dollars."
+    tl.to("#beat4-counter", {
+      scale: 1.04,
+      duration: 0.18,
+      ease: "power2.out",
+      yoyo: true,
+      repeat: 1
+    }, landOn("just one million dollars.", 0));
+
+    // 7. Kill visibility at beat end
+    tl.set("#beat4", { visibility: "hidden" }, 5.70);
+  // Add this beat's timeline to master at its start offset
+  
+})();
+
+// ====== BEAT 5 (stat-b) start=17.70 dur=5.25 ======
+(function(){
+// ── TIMELINE REGISTRATION ─────────────────────────────────────────────
+    
+    
+const _BASE = 17.7;
+const _M = window.__masterTl;
+function _shift(a) {
+  if (a.length > 0 && typeof a[a.length - 1] === 'number') {
+    const copy = a.slice();
+    copy[copy.length - 1] = copy[copy.length - 1] + _BASE;
+    return copy;
+  }
+  return a;
+}
+const tl = {
+  from:    function() { return _M.from.apply(_M, _shift(Array.from(arguments))); },
+  to:      function() { return _M.to.apply(_M, _shift(Array.from(arguments))); },
+  fromTo:  function() { return _M.fromTo.apply(_M, _shift(Array.from(arguments))); },
+  set:     function() { return _M.set.apply(_M, _shift(Array.from(arguments))); },
+  call:    function() { return _M.call.apply(_M, _shift(Array.from(arguments))); },
+  add:     function() { return _M.add.apply(_M, _shift(Array.from(arguments))); },
+  totalDuration: function() { return _M.totalDuration(); },
+  duration: function() { return _M.duration(); }
+};
+
+    
+
+    // ── VO WORD TIMING (beat-relative) ───────────────────────────────────
+    const W = [
+      { word: "But",      t: 0.01,  e: 0.55 },
+      { word: "the",      t: 0.57,  e: 0.63 },
+      { word: "doubling", t: 0.674, e: 1.026 },
+      { word: "penny?",   t: 1.093, e: 1.868 },
+      { word: "It",       t: 2.015, e: 2.309 },
+      { word: "becomes",  t: 2.379, e: 2.869 },
+      { word: "five",     t: 2.949, e: 3.269 },
+      { word: "point",    t: 3.362, e: 3.827 },
+      { word: "three",    t: 3.867, e: 4.067 },
+      { word: "million",  t: 4.127, e: 4.547 },
+      { word: "dollars.", t: 4.607, e: 5.187 }
+    ];
+
+    // ── PHRASE-ANCHORED TIMING HELPERS ────────────────────────────────────
+    function _norm(s) { return s.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu, ""); }
+    function _findPhrase(phrase) {
+      const tokens = phrase.toLowerCase().split(/\s+/).map(_norm).filter(Boolean);
+      if (!tokens.length) throw new Error("landOn: empty phrase");
+      const hits = [];
+      for (let i = 0; i <= W.length - tokens.length; i++) {
+        let ok = true;
+        for (let j = 0; j < tokens.length; j++) {
+          if (_norm(W[i + j].word) !== tokens[j]) { ok = false; break; }
+        }
+        if (ok) hits.push(i);
+      }
+      if (hits.length === 0) throw new Error(`landOn: phrase "${phrase}" not found`);
+      if (hits.length > 1) {
+        const times = hits.map(i => W[i].t.toFixed(3) + "s").join(", ");
+        throw new Error(`landOn: "${phrase}" ambiguous at [${times}]`);
+      }
+      return { startIdx: hits[0], endIdx: hits[0] + tokens.length - 1 };
+    }
+    function at(phrase) { return W[_findPhrase(phrase).startIdx].t; }
+    function landOn(phrase, duration) { return at(phrase) - (duration || 0); }
+    function landAfter(phrase, duration) { return W[_findPhrase(phrase).endIdx].e + (duration || 0); }
+
+    // ── DETERMINISTIC PRNG (mulberry32, seed=7) ───────────────────────────
+    function mulberry32(seed) {
+      return function () {
+        let t = (seed += 0x6d2b79f5);
+        t = Math.imul(t ^ (t >>> 15), t | 1);
+        t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+    }
+
+    // ── CURVE PATH SETUP ──────────────────────────────────────────────────
+    // Points along the SVG path for penny animation (normalized 0-1)
+    // The SVG viewBox is 0 0 1080 960; curve maps to 1920px canvas via transform
+    // We'll sample the curve points manually matching the bezier
+    function getCurvePoint(progress) {
+      // Cubic bezier segments matching the path:
+      // M80,940 C200,920 320,880 420,800 C520,720 580,600 660,460 C720,360 780,240 860,140 C920,70 970,42 1000,40
+      // 4 segments, each 25% of progress
+      const segments = [
+        { p0:[80,940], p1:[200,920], p2:[320,880], p3:[420,800] },
+        { p0:[420,800], p1:[520,720], p2:[580,600], p3:[660,460] },
+        { p0:[660,460], p1:[720,360], p2:[780,240], p3:[860,140] },
+        { p0:[860,140], p1:[920,70],  p2:[970,42],  p3:[1000,40] }
+      ];
+      const segIdx = Math.min(Math.floor(progress * 4), 3);
+      const t = (progress * 4) - segIdx;
+      const seg = segments[segIdx];
+      const mt = 1 - t;
+      const x = mt*mt*mt*seg.p0[0] + 3*mt*mt*t*seg.p1[0] + 3*mt*t*t*seg.p2[0] + t*t*t*seg.p3[0];
+      const y = mt*mt*mt*seg.p0[1] + 3*mt*mt*t*seg.p1[1] + 3*mt*t*t*seg.p2[1] + t*t*t*seg.p3[1];
+      // SVG viewBox 1080x960 maps to actual element 1080x960 positioned at bottom of 1920px canvas
+      // beat5-curve-svg is bottom:0, so actual canvas Y = 960px offset from top
+      return { x: x, y: y + 960 };
+    }
+
+    // ── SPARK TRAIL CANVAS ────────────────────────────────────────────────
+    const sparkCanvas = document.getElementById("beat5-spark-canvas");
+    const sparkCtx = sparkCanvas.getContext("2d");
+    const sparkTrail = [];
+
+    function drawSparks() {
+      sparkCtx.clearRect(0, 0, 1080, 1920);
+      for (let i = 0; i < sparkTrail.length; i++) {
+        const s = sparkTrail[i];
+        const alpha = s.life;
+        sparkCtx.beginPath();
+        sparkCtx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        sparkCtx.fillStyle = `rgba(1, 205, 116, ${alpha * 0.7})`;
+        sparkCtx.fill();
+      }
+    }
+
+    // ── STROKE DASHOFFSET ANIMATION + PENNY TRACKING ─────────────────────
+    const curvePath = document.getElementById("beat5-curve-path");
+    const pathLength = 1600; // approximate stroke length
+    curvePath.style.strokeDasharray = pathLength;
+    curvePath.style.strokeDashoffset = pathLength;
+
+    const pennyDot = document.getElementById("beat5-penny-dot");
+    const curveProxy = { progress: 0 };
+
+    // Curve draws in from "It becomes" to "million dollars."
+    const curveStart = landOn("It becomes", 0);
+    const curveDuration = landAfter("million dollars.", 0) - curveStart;
+
+    tl.to(curveProxy, {
+      progress: 1,
+      duration: curveDuration,
+      ease: "power2.inOut",
+      overwrite: "auto",
+      onUpdate: function () {
+        const p = curveProxy.progress;
+        // Update stroke dashoffset
+        curvePath.style.strokeDashoffset = pathLength * (1 - p);
+
+        // Move penny along curve
+        const pt = getCurvePoint(p);
+        pennyDot.style.left = Math.round(pt.x) + "px";
+        pennyDot.style.top = Math.round(pt.y) + "px";
+
+        // Add spark trail point
+        sparkTrail.push({ x: Math.round(pt.x), y: Math.round(pt.y), r: 6 + Math.round(p * 10), life: 0.9 });
+        if (sparkTrail.length > 28) sparkTrail.shift();
+        // Decay existing sparks
+        for (let i = 0; i < sparkTrail.length - 1; i++) {
+          sparkTrail[i].life = Math.max(0, sparkTrail[i].life - 0.04);
+        }
+        drawSparks();
+      }
+    }, curveStart);
+
+    // ── PENNY DOT ENTRANCE ────────────────────────────────────────────────
+    tl.from("#beat5-penny-dot", {
+      scale: 0,
+      opacity: 0,
+      duration: 0.3,
+      ease: "back.out(2)",
+      overwrite: "auto"
+    }, curveStart);
+
+    // Position penny at curve start before animation
+    tl.set("#beat5-penny-dot", {
+      left: "80px",
+      top: Math.round(960 + 940) + "px",
+      opacity: 1
+    }, curveStart - 0.01);
+
+    // ── PENNY IDLE DRIFT (before curve draw) ─────────────────────────────
+    // Before the curve draws, penny gently bobs at start position
+    tl.to("#beat5-penny-dot", {
+      y: -12,
+      duration: 0.6,
+      ease: "sine.inOut",
+      yoyo: true,
+      repeat: Math.ceil(curveStart / 1.2),
+      overwrite: "auto"
+    }, 0.3);
+
+    // ── EYEBROW: slides in on "doubling penny" ────────────────────────────
+    tl.from("#beat5-eyebrow", {
+      x: -120,
+      opacity: 0,
+      duration: 0.45,
+      ease: "expo.out",
+      overwrite: "auto"
+    }, landOn("doubling penny", 0.45));
+
+    // Eyebrow idle gentle sway
+    tl.to("#beat5-eyebrow", {
+      y: -6,
+      duration: 1.8,
+      ease: "sine.inOut",
+      yoyo: true,
+      repeat: 2,
+      overwrite: "auto"
+    }, landOn("doubling penny", 0.45) + 0.5);
+
+    // ── COUNTER: count from 0 → 5,368,709 on "million dollars." ─────────
+    const FINAL_VALUE = 5368709;
+    const counterEl = document.getElementById("beat5-counter");
+    const counterProxy = { value: 0 };
+
+    const counterLandTime = landAfter("million dollars.", 1.4);
+    const counterStartTime = landOn("five point three", 0);
+    const counterDuration = counterLandTime - counterStartTime;
+
+    tl.from("#beat5-counter", {
+      opacity: 0,
+      y: 40,
+      duration: 0.35,
+      ease: "power3.out",
+      overwrite: "auto"
+    }, counterStartTime);
+
+    tl.to(counterProxy, {
+      value: FINAL_VALUE,
+      duration: counterDuration,
+      ease: "power3.out",
+      overwrite: "auto",
+      onUpdate: function () {
+        const v = Math.round(counterProxy.value);
+        counterEl.textContent = "$" + v.toLocaleString("en-US");
+      },
+      onComplete: function () {
+        counterEl.textContent = "$5,368,709";
+      }
+    }, counterStartTime);
+
+    // ── COUNTER POST-LAND REACTION: scale yoyo ───────────────────────────
+    tl.to("#beat5-counter", {
+      scale: 1.05,
+      duration: 0.18,
+      ease: "power2.out",
+      yoyo: true,
+      repeat: 1,
+      overwrite: "auto"
+    }, counterLandTime);
+
+    // ── SUBTITLE: "AFTER 30 DAYS" fades in just after counter lands ──────
+    tl.from("#beat5-subtitle", {
+      opacity: 0,
+      y: 20,
+      duration: 0.3,
+      ease: "power2.out",
+      overwrite: "auto"
+    }, counterLandTime + 0.05);
+
+    // ── PARTICLE BURST on counter land ───────────────────────────────────
+    const particleCanvas = document.getElementById("beat5-particle-canvas");
+    const pCtx = particleCanvas.getContext("2d");
+    const rand = mulberry32(7);
+
+    // Pre-generate 80 deterministic particles
+    const PARTICLE_COUNT = 80;
+    const PARTICLE_COLORS = ["#FFFFFF", "#FFFFFF", "#EFC42C", "#EFC42C", "#01CD74"];
+    const particles = [];
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      const angle = rand() * Math.PI * 2;
+      const speed = 180 + rand() * 340;
+      const colorIdx = Math.floor(rand() * PARTICLE_COLORS.length);
+      particles.push({
+        angle,
+        speed,
+        color: PARTICLE_COLORS[colorIdx],
+        size: Math.round(3 + rand() * 7),
+        delay: rand() * 0.12
+      });
+    }
+
+    // Counter approximate center position in px (counter is centered at ~540, ~960 + offset)
+    // The counter sits centered in beat5 at flex center, roughly y=900 in 1920px layout
+    const BURST_X = 540;
+    const BURST_Y = 920;
+    const BURST_DURATION = 1.4;
+
+    const burstProxy = { t: 0 };
+    tl.to(burstProxy, {
+      t: BURST_DURATION,
+      duration: BURST_DURATION,
+      ease: "none",
+      overwrite: "auto",
+      onUpdate: function () {
+        pCtx.clearRect(0, 0, 1080, 1920);
+        const now = burstProxy.t;
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+          const p = particles[i];
+          const elapsed = now - p.delay;
+          if (elapsed <= 0) continue;
+          const life = Math.max(0, 1 - elapsed / BURST_DURATION);
+          if (life <= 0) continue;
+          const dist = p.speed * elapsed * (1 - elapsed / BURST_DURATION);
+          const px = Math.round(BURST_X + Math.cos(p.angle) * dist);
+          const py = Math.round(BURST_Y + Math.sin(p.angle) * dist);
+          pCtx.globalAlpha = life * 0.92;
+          pCtx.fillStyle = p.color;
+          pCtx.beginPath();
+          pCtx.arc(px, py, p.size, 0, Math.PI * 2);
+          pCtx.fill();
+        }
+        pCtx.globalAlpha = 1;
+      },
+      onComplete: function () {
+        pCtx.clearRect(0, 0, 1080, 1920);
+      }
+    }, counterLandTime);
+
+    // ── CURVE IDLE VERTICAL DRIFT (after draw completes) ─────────────────
+    const curveEndTime = curveStart + curveDuration;
+    tl.to("#beat5-curve-svg", {
+      y: -14,
+      duration: 1.6,
+      ease: "sine.inOut",
+      yoyo: true,
+      repeat: Math.ceil((5.25 - curveEndTime) / 3.2),
+      overwrite: "auto"
+    }, curveEndTime + 0.1);
+
+    // ── VISIBILITY KILL at 5.25s ──────────────────────────────────────────
+    tl.set("#beat5", { visibility: "hidden" }, 5.25);
+  // Add this beat's timeline to master at its start offset
+  
+})();
+
+// ====== BEAT 6 (concept-name) start=22.95 dur=2.80 ======
+(function(){
+const W = [
+      { word: "This",      t: 0.161, e: 1.057 },
+      { word: "is",        t: 1.137, e: 1.297 },
+      { word: "compound",  t: 1.377, e: 2.017 },
+      { word: "interest.", t: 2.079, e: 2.655 }
+    ];
+
+    function _norm(s) { return s.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu, ""); }
+    function _findPhrase(phrase) {
+      const tokens = phrase.toLowerCase().split(/\s+/).map(_norm).filter(Boolean);
+      if (!tokens.length) throw new Error("landOn: empty phrase");
+      const hits = [];
+      for (let i = 0; i <= W.length - tokens.length; i++) {
+        let ok = true;
+        for (let j = 0; j < tokens.length; j++) {
+          if (_norm(W[i + j].word) !== tokens[j]) { ok = false; break; }
+        }
+        if (ok) hits.push(i);
+      }
+      if (hits.length === 0) throw new Error(`landOn: phrase "${phrase}" not found in transcript`);
+      if (hits.length > 1) {
+        const times = hits.map(i => W[i].t.toFixed(3) + "s").join(", ");
+        throw new Error(`landOn: phrase "${phrase}" matches ${hits.length} occurrences at [${times}]. Use a longer phrase to disambiguate.`);
+      }
+      return { startIdx: hits[0], endIdx: hits[0] + tokens.length - 1 };
+    }
+    function at(phrase) { return W[_findPhrase(phrase).startIdx].t; }
+    function landOn(phrase, duration) { return at(phrase) - (duration || 0); }
+    function landAfter(phrase, duration) { return W[_findPhrase(phrase).endIdx].e - (duration || 0); }
+
+    
+    
+const _BASE = 22.95;
+const _M = window.__masterTl;
+function _shift(a) {
+  if (a.length > 0 && typeof a[a.length - 1] === 'number') {
+    const copy = a.slice();
+    copy[copy.length - 1] = copy[copy.length - 1] + _BASE;
+    return copy;
+  }
+  return a;
+}
+const tl = {
+  from:    function() { return _M.from.apply(_M, _shift(Array.from(arguments))); },
+  to:      function() { return _M.to.apply(_M, _shift(Array.from(arguments))); },
+  fromTo:  function() { return _M.fromTo.apply(_M, _shift(Array.from(arguments))); },
+  set:     function() { return _M.set.apply(_M, _shift(Array.from(arguments))); },
+  call:    function() { return _M.call.apply(_M, _shift(Array.from(arguments))); },
+  add:     function() { return _M.add.apply(_M, _shift(Array.from(arguments))); },
+  totalDuration: function() { return _M.totalDuration(); },
+  duration: function() { return _M.duration(); }
+};
+
+
+    // Eyebrow "THIS IS" fades in early anchored to "This is" phrase start
+    tl.to("#beat6-eyebrow", {
+      opacity: 1,
+      duration: 0.30,
+      ease: "power2.out"
+    }, landOn("This is", 0.30));
+
+    // "COMPOUND" mask wipe: clip-path inset 0 0 100% 0 -> 0 0 0 0
+    tl.to("#beat6-compound", {
+      clipPath: "inset(0 0 0% 0)",
+      duration: 0.40,
+      ease: "power3.out"
+    }, landOn("compound", 0.40));
+
+    // "INTEREST" slides in from y=80
+    tl.fromTo("#beat6-interest", {
+      y: 80,
+      opacity: 0
+    }, {
+      y: 0,
+      opacity: 1,
+      duration: 0.45,
+      ease: "power3.out"
+    }, landOn("interest.", 0.45));
+
+    // Blue accent underline draws left to right
+    tl.to("#beat6-underline", {
+      scaleX: 1,
+      duration: 0.35,
+      ease: "power2.out"
+    }, landOn("interest.", 0.50) + 0.10);
+
+    // Reaction on "interest." word: scale pulse on INTEREST headline
+    tl.to("#beat6-interest", {
+      scale: 1.03,
+      duration: 0.12,
+      ease: "power2.out",
+      yoyo: true,
+      repeat: 1
+    }, at("interest."));
+
+    tl.set("#beat6", { visibility: "hidden" }, 2.80);
+
+    
+  // Add this beat's timeline to master at its start offset
+  
+})();
+
+// ====== BEAT 7 (concept-stack) start=25.75 dur=8.00 ======
+(function(){
+// ── TIMELINE REGISTRATION ────────────────────────────────────────────
+    
+    
+const _BASE = 25.75;
+const _M = window.__masterTl;
+function _shift(a) {
+  if (a.length > 0 && typeof a[a.length - 1] === 'number') {
+    const copy = a.slice();
+    copy[copy.length - 1] = copy[copy.length - 1] + _BASE;
+    return copy;
+  }
+  return a;
+}
+const tl = {
+  from:    function() { return _M.from.apply(_M, _shift(Array.from(arguments))); },
+  to:      function() { return _M.to.apply(_M, _shift(Array.from(arguments))); },
+  fromTo:  function() { return _M.fromTo.apply(_M, _shift(Array.from(arguments))); },
+  set:     function() { return _M.set.apply(_M, _shift(Array.from(arguments))); },
+  call:    function() { return _M.call.apply(_M, _shift(Array.from(arguments))); },
+  add:     function() { return _M.add.apply(_M, _shift(Array.from(arguments))); },
+  totalDuration: function() { return _M.totalDuration(); },
+  duration: function() { return _M.duration(); }
+};
+
+    
+
+    // ── VO WORD TIMING (beat-relative) ───────────────────────────────────
+    const W = [
+      { word: "It's",     t: 0.122, e: 0.776 },
+      { word: "when",     t: 0.8,   e: 0.896 },
+      { word: "your",     t: 0.928, e: 1.056 },
+      { word: "returns",  t: 1.136, e: 1.696 },
+      { word: "start",    t: 1.776, e: 2.176 },
+      { word: "earning",  t: 2.216, e: 2.496 },
+      { word: "returns",  t: 2.566, e: 3.056 },
+      { word: "of",       t: 3.083, e: 3.137 },
+      { word: "their",    t: 3.164, e: 3.299 },
+      { word: "own",      t: 3.379, e: 3.619 },
+      { word: "—",        t: 3.939, e: 4.259 },
+      { word: "your",     t: 4.291, e: 4.419 },
+      { word: "growth",   t: 4.488, e: 4.902 },
+      { word: "grows",    t: 4.982, e: 5.382 },
+      { word: "on",       t: 5.435, e: 5.541 },
+      { word: "top",      t: 5.601, e: 5.781 },
+      { word: "of",       t: 5.834, e: 5.94  },
+      { word: "itself,",  t: 6.02,  e: 6.74  },
+      { word: "over",     t: 6.82,  e: 7.14  },
+      { word: "and",      t: 7.22,  e: 7.46  },
+      { word: "over.",    t: 7.524, e: 7.86  }
+    ];
+
+    // ── PHRASE-ANCHORED TIMING HELPERS ────────────────────────────────────
+    function _norm(s) { return s.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu, ""); }
+    function _findPhrase(phrase) {
+      const tokens = phrase.toLowerCase().split(/\s+/).map(_norm).filter(Boolean);
+      if (!tokens.length) throw new Error("landOn: empty phrase");
+      const hits = [];
+      for (let i = 0; i <= W.length - tokens.length; i++) {
+        let ok = true;
+        for (let j = 0; j < tokens.length; j++) {
+          if (_norm(W[i + j].word) !== tokens[j]) { ok = false; break; }
+        }
+        if (ok) hits.push(i);
+      }
+      if (hits.length === 0) throw new Error(`landOn: phrase "${phrase}" not found`);
+      if (hits.length > 1) {
+        const times = hits.map(i => W[i].t.toFixed(3) + "s").join(", ");
+        throw new Error(`landOn: phrase "${phrase}" ambiguous at [${times}]. Use longer phrase.`);
+      }
+      return { startIdx: hits[0], endIdx: hits[0] + tokens.length - 1 };
+    }
+    function at(phrase) { return W[_findPhrase(phrase).startIdx].t; }
+    function landOn(phrase, duration) { return at(phrase) - (duration || 0); }
+
+    // ── DETERMINISTIC PRNG (mulberry32, seed=11) ──────────────────────────
+    function mulberry32(seed) {
+      return function () {
+        let t = (seed += 0x6d2b79f5);
+        t = Math.imul(t ^ (t >>> 15), t | 1);
+        t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+    }
+
+    // ── CANVAS: $ TICKER DRIFT UPWARD ────────────────────────────────────
+    const canvas = document.getElementById("beat7-canvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = 1080;
+    canvas.height = 1920;
+
+    const rand = mulberry32(11);
+    const NUM_TICKERS = 28;
+    const tickerItems = [];
+    for (let i = 0; i < NUM_TICKERS; i++) {
+      tickerItems.push({
+        x: Math.round(rand() * 1080),
+        y: Math.round(rand() * 2100),
+        size: Math.round(24 + rand() * 22),
+        speed: Math.round((8 + rand() * 14) * 100) / 100
+      });
+    }
+
+    function drawTickers(t) {
+      ctx.clearRect(0, 0, 1080, 1920);
+      ctx.fillStyle = "rgba(255, 255, 255, 0.55)";
+      ctx.textAlign = "center";
+      tickerItems.forEach(item => {
+        ctx.font = `bold ${item.size}px Inter, system-ui, sans-serif`;
+        const y = ((item.y - t * item.speed * 30) % 2100 + 2100) % 2100;
+        ctx.fillText("$", item.x, y);
+      });
+    }
+
+    const canvasProxy = { time: 0 };
+    tl.to(
+      "#beat7-canvas",
+      { opacity: 0.3, duration: 0.5, ease: "power2.out" },
+      0.1
+    );
+    tl.to(
+      canvasProxy,
+      {
+        time: 8.0,
+        duration: 8.0,
+        ease: "none",
+        onUpdate: () => drawTickers(canvasProxy.time)
+      },
+      0
+    );
+
+    // ── EYEBROW: "RETURNS EARN RETURNS" — fade in on "It's when" ─────────
+    tl.from(
+      "#beat7-eyebrow",
+      { opacity: 0, y: -20, duration: 0.4, ease: "power2.out" },
+      landOn("It's when", 0.4)
+    );
+
+    // ── RING 1: core coin — entrance on "It's when" ───────────────────────
+    tl.from(
+      "#beat7-ring-1",
+      { scale: 0, opacity: 0, duration: 0.45, ease: "back.out(1.6)" },
+      landOn("It's when", 0.45)
+    );
+    tl.to(
+      "#beat7-ring-1",
+      { opacity: 0.85, duration: 0.01 },
+      landOn("It's when", 0.45) + 0.01
+    );
+
+    // ── RING 2: 110px — entrance on "your returns" ────────────────────────
+    tl.from(
+      "#beat7-ring-2",
+      { scale: 0, opacity: 0, duration: 0.45, ease: "back.out(1.6)" },
+      landOn("your returns", 0.45)
+    );
+    tl.to(
+      "#beat7-ring-2",
+      { opacity: 0.85, duration: 0.01 },
+      landOn("your returns", 0.45) + 0.01
+    );
+
+    // ── RING 3: 170px — entrance on "earning returns" ─────────────────────
+    tl.from(
+      "#beat7-ring-3",
+      { scale: 0, opacity: 0, duration: 0.45, ease: "back.out(1.6)" },
+      landOn("earning returns", 0.45)
+    );
+    tl.to(
+      "#beat7-ring-3",
+      { opacity: 0.85, duration: 0.01 },
+      landOn("earning returns", 0.45) + 0.01
+    );
+
+    // ── RING 4: 240px — entrance on "their own" ───────────────────────────
+    tl.from(
+      "#beat7-ring-4",
+      { scale: 0, opacity: 0, duration: 0.45, ease: "back.out(1.6)" },
+      landOn("their own", 0.45)
+    );
+    tl.to(
+      "#beat7-ring-4",
+      { opacity: 0.85, duration: 0.01 },
+      landOn("their own", 0.45) + 0.01
+    );
+
+    // ── RING 5: 320px green — entrance on "growth grows" ─────────────────
+    tl.from(
+      "#beat7-ring-5",
+      { scale: 0, opacity: 0, duration: 0.45, ease: "back.out(1.6)" },
+      landOn("growth grows", 0.45)
+    );
+    tl.to(
+      "#beat7-ring-5",
+      { opacity: 0.85, duration: 0.01 },
+      landOn("growth grows", 0.45) + 0.01
+    );
+
+    // ── RING 6: 410px white — entrance on "on top" ───────────────────────
+    tl.from(
+      "#beat7-ring-6",
+      { scale: 0, opacity: 0, duration: 0.45, ease: "back.out(1.6)" },
+      landOn("on top", 0.45)
+    );
+    tl.to(
+      "#beat7-ring-6",
+      { opacity: 0.85, duration: 0.01 },
+      landOn("on top", 0.45) + 0.01
+    );
+
+    // ── RING 7: 510px pale yellow — entrance on "itself," ─────────────────
+    tl.from(
+      "#beat7-ring-7",
+      { scale: 0, opacity: 0, duration: 0.45, ease: "back.out(1.6)" },
+      landOn("itself,", 0.45)
+    );
+    tl.to(
+      "#beat7-ring-7",
+      { opacity: 0.85, duration: 0.01 },
+      landOn("itself,", 0.45) + 0.01
+    );
+
+    // ── RING 8: 620px pale green — entrance on "over and" ────────────────
+    tl.from(
+      "#beat7-ring-8",
+      { scale: 0, opacity: 0, duration: 0.45, ease: "back.out(1.6)" },
+      landOn("over and", 0.45)
+    );
+    tl.to(
+      "#beat7-ring-8",
+      { opacity: 0.85, duration: 0.01 },
+      landOn("over and", 0.45) + 0.01
+    );
+
+    // ── RING 9: 740px outermost — entrance on "over." + scale pulse ───────
+    tl.from(
+      "#beat7-ring-9",
+      { scale: 0, opacity: 0, duration: 0.45, ease: "back.out(1.6)" },
+      landOn("and over.", 0.45)
+    );
+    tl.to(
+      "#beat7-ring-9",
+      { opacity: 0.85, duration: 0.01 },
+      landOn("and over.", 0.45) + 0.01
+    );
+
+    // Whole stack scale pulse on "over." — yoyo 1→1.04
+    tl.to(
+      "#beat7-stack",
+      {
+        scale: 1.04,
+        duration: 0.25,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: 1,
+        overwrite: "auto"
+      },
+      landOn("and over.", 0.45) + 0.45
+    );
+
+    // ── BOTTOM LABEL: "GROWTH ON GROWTH" — fade in on "growth grows" ─────
+    tl.from(
+      "#beat7-label",
+      { opacity: 0, y: 16, duration: 0.4, ease: "expo.out" },
+      landOn("growth grows", 0.4)
+    );
+
+    // ── IDLE: whole stack gentle scale yoyo mid-beat ──────────────────────
+    // Begins after ring 5 appears (~4.5s), 1.8s sine yoyo, repeat 2 times
+    tl.to(
+      "#beat7-stack",
+      {
+        scale: 1.02,
+        duration: 1.8,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: 2,
+        overwrite: "auto"
+      },
+      landOn("growth grows", 0.45) + 0.5
+    );
+
+    // ── VISIBILITY KILL AT 8.00 ───────────────────────────────────────────
+    tl.set("#beat7", { visibility: "hidden" }, 8.00);
+  // Add this beat's timeline to master at its start offset
+  
+})();
+
+// ====== BEAT 8 (superpower) start=33.75 dur=6.20 ======
+(function(){
+// ── TIMELINE REGISTRATION ────────────────────────────────────────────
+    
+    
+const _BASE = 33.75;
+const _M = window.__masterTl;
+function _shift(a) {
+  if (a.length > 0 && typeof a[a.length - 1] === 'number') {
+    const copy = a.slice();
+    copy[copy.length - 1] = copy[copy.length - 1] + _BASE;
+    return copy;
+  }
+  return a;
+}
+const tl = {
+  from:    function() { return _M.from.apply(_M, _shift(Array.from(arguments))); },
+  to:      function() { return _M.to.apply(_M, _shift(Array.from(arguments))); },
+  fromTo:  function() { return _M.fromTo.apply(_M, _shift(Array.from(arguments))); },
+  set:     function() { return _M.set.apply(_M, _shift(Array.from(arguments))); },
+  call:    function() { return _M.call.apply(_M, _shift(Array.from(arguments))); },
+  add:     function() { return _M.add.apply(_M, _shift(Array.from(arguments))); },
+  totalDuration: function() { return _M.totalDuration(); },
+  duration: function() { return _M.duration(); }
+};
+
+    
+
+    // ── VO WORD TIMING (beat-relative) ────────────────────────────────────
+    const W = [
+      { word: "Compound",   t: 0.002, e: 1.138 },
+      { word: "interest",   t: 1.191, e: 1.615 },
+      { word: "is",         t: 1.668, e: 1.774 },
+      { word: "a",          t: 1.814, e: 1.854 },
+      { word: "superpower", t: 1.947, e: 2.652 },
+      { word: "that",       t: 2.716, e: 2.972 },
+      { word: "makes",      t: 3.012, e: 3.212 },
+      { word: "your",       t: 3.244, e: 3.372 },
+      { word: "money",      t: 3.412, e: 3.612 },
+      { word: "grow",       t: 3.676, e: 3.932 },
+      { word: "faster",     t: 4.023, e: 4.569 },
+      { word: "and",        t: 4.629, e: 4.809 },
+      { word: "faster",     t: 4.889, e: 5.369 },
+      { word: "over",       t: 5.417, e: 5.609 },
+      { word: "time.",      t: 5.689, e: 6.089 }
+    ];
+
+    // ── PHRASE-ANCHORED TIMING HELPERS ────────────────────────────────────
+    function _norm(s) { return s.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu, ""); }
+    function _findPhrase(phrase) {
+      const tokens = phrase.toLowerCase().split(/\s+/).map(_norm).filter(Boolean);
+      if (!tokens.length) throw new Error("landOn: empty phrase");
+      const hits = [];
+      for (let i = 0; i <= W.length - tokens.length; i++) {
+        let ok = true;
+        for (let j = 0; j < tokens.length; j++) {
+          if (_norm(W[i + j].word) !== tokens[j]) { ok = false; break; }
+        }
+        if (ok) hits.push(i);
+      }
+      if (hits.length === 0) throw new Error(`landOn: phrase "${phrase}" not found`);
+      if (hits.length > 1) {
+        const times = hits.map(i => W[i].t.toFixed(3) + "s").join(", ");
+        throw new Error(`landOn: phrase "${phrase}" matches ${hits.length} occurrences at [${times}]. Use a longer phrase.`);
+      }
+      return { startIdx: hits[0], endIdx: hits[0] + tokens.length - 1 };
+    }
+    function at(phrase) { return W[_findPhrase(phrase).startIdx].t; }
+    function landOn(phrase, duration) { return at(phrase) - (duration || 0); }
+
+    // ── SEEDED PRNG ───────────────────────────────────────────────────────
+    function mulberry32(seed) {
+      return function () {
+        let t = (seed += 0x6d2b79f5);
+        t = Math.imul(t ^ (t >>> 15), t | 1);
+        t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+    }
+
+    // ── CANVAS PARTICLES ─────────────────────────────────────────────────
+    const canvas = document.getElementById("beat8-canvas");
+    const ctx = canvas.getContext("2d");
+    // Badge center in the 1080x1920 canvas (approximately vertical center)
+    const BADGE_CX = 540;
+    const BADGE_CY = 960;
+
+    const rand = mulberry32(42);
+    const PARTICLE_COUNT = 60;
+    const particles = [];
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      const angle = rand() * Math.PI * 2;
+      const speed = 180 + rand() * 320;
+      const isYellow = i < 30;
+      particles.push({
+        angle: angle,
+        speed: speed,
+        radius: 4 + Math.floor(rand() * 7),
+        color: isYellow ? "#FFD700" : "#FFFFFF",
+        life: 0.55 + rand() * 0.45
+      });
+    }
+
+    // Particle proxy: t goes from 0 to 1 during burst window
+    const particleProxy = { t: 0, active: false };
+
+    function drawParticles(progress) {
+      ctx.clearRect(0, 0, 1080, 1920);
+      if (!particleProxy.active || progress <= 0) return;
+      const t = Math.min(progress, 1);
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        const age = t / p.life;
+        if (age > 1) continue;
+        const dist = p.speed * t;
+        const x = BADGE_CX + Math.cos(p.angle) * dist;
+        const y = BADGE_CY + Math.sin(p.angle) * dist;
+        const alpha = 1 - age;
+        ctx.globalAlpha = alpha;
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(Math.round(x), Math.round(y), p.radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    // ── STAR ROTATION ─────────────────────────────────────────────────────
+    // 6.20s duration: we want continuous 0->360 over 12s, so 1 repeat is enough
+    // repeat count = ceil(6.20 / 12) - 1 = 0, so single forward tween covers it
+    tl.to(
+      "#beat8-star",
+      {
+        rotation: 185,   // 360 * (6.20/12) ~= 185.6
+        duration: 6.20,
+        ease: "none",
+        transformOrigin: "50% 50%",
+        overwrite: "auto"
+      },
+      0
+    );
+
+    // ── EYEBROW: fade in on "Compound interest" ───────────────────────────
+    tl.from(
+      "#beat8-eyebrow",
+      {
+        opacity: 0,
+        y: -24,
+        duration: 0.4,
+        ease: "power2.out",
+        overwrite: "auto"
+      },
+      landOn("Compound interest", 0.4)
+    );
+
+    // ── BADGE: slam in on "superpower" ────────────────────────────────────
+    tl.from(
+      "#beat8-badge",
+      {
+        scale: 0.7,
+        opacity: 0,
+        duration: 0.5,
+        ease: "back.out(1.7)",
+        overwrite: "auto"
+      },
+      landOn("superpower", 0.5)
+    );
+
+    // Particle burst fires when badge lands
+    tl.to(
+      particleProxy,
+      {
+        t: 1,
+        duration: 0.9,
+        ease: "none",
+        onStart: () => { particleProxy.active = true; },
+        onUpdate: () => drawParticles(particleProxy.t),
+        onComplete: () => { ctx.clearRect(0, 0, 1080, 1920); }
+      },
+      at("superpower")
+    );
+
+    // ── SUBLINE: mask-wipe in on "faster and" ────────────────────────────
+    tl.to(
+      "#beat8-subline",
+      {
+        clipPath: "inset(0 0% 0 0)",
+        duration: 0.55,
+        ease: "power3.out",
+        overwrite: "auto"
+      },
+      landOn("faster and", 0)
+    );
+
+    // ── BADGE REACTION on "time." ─────────────────────────────────────────
+    tl.to(
+      "#beat8-badge",
+      {
+        scale: 1.04,
+        duration: 0.18,
+        ease: "power2.out",
+        overwrite: "auto"
+      },
+      at("time.")
+    );
+    tl.to(
+      "#beat8-badge",
+      {
+        scale: 1,
+        duration: 0.22,
+        ease: "power2.in",
+        overwrite: "auto"
+      },
+      at("time.") + 0.18
+    );
+
+    // ── VISIBILITY KILL ───────────────────────────────────────────────────
+    tl.set("#beat8", { visibility: "hidden" }, 6.20);
+  // Add this beat's timeline to master at its start offset
+  
+})();
+
+// ====== BEAT 9 (earlier) start=39.95 dur=6.35 ======
+(function(){
+// ── TIMELINE REGISTRATION ────────────────────────────────────────────
+    
+    
+const _BASE = 39.95;
+const _M = window.__masterTl;
+function _shift(a) {
+  if (a.length > 0 && typeof a[a.length - 1] === 'number') {
+    const copy = a.slice();
+    copy[copy.length - 1] = copy[copy.length - 1] + _BASE;
+    return copy;
+  }
+  return a;
+}
+const tl = {
+  from:    function() { return _M.from.apply(_M, _shift(Array.from(arguments))); },
+  to:      function() { return _M.to.apply(_M, _shift(Array.from(arguments))); },
+  fromTo:  function() { return _M.fromTo.apply(_M, _shift(Array.from(arguments))); },
+  set:     function() { return _M.set.apply(_M, _shift(Array.from(arguments))); },
+  call:    function() { return _M.call.apply(_M, _shift(Array.from(arguments))); },
+  add:     function() { return _M.add.apply(_M, _shift(Array.from(arguments))); },
+  totalDuration: function() { return _M.totalDuration(); },
+  duration: function() { return _M.duration(); }
+};
+
+    
+
+    // ── VO WORD TIMING (beat-relative, starting at t=0) ──────────────────
+    const W = [
+      { word: "And",       t: 0.089, e: 0.689 },
+      { word: "here's",    t: 0.737, e: 1.009 },
+      { word: "what's",    t: 1.057, e: 1.329 },
+      { word: "really",    t: 1.398, e: 1.812 },
+      { word: "powerful:", t: 1.865, e: 2.929 },
+      { word: "the",       t: 2.969, e: 3.089 },
+      { word: "earlier",   t: 3.149, e: 3.569 },
+      { word: "you",       t: 3.609, e: 3.729 },
+      { word: "start,",    t: 3.796, e: 4.451 },
+      { word: "the",       t: 4.471, e: 4.531 },
+      { word: "more",      t: 4.595, e: 4.851 },
+      { word: "it",        t: 4.904, e: 5.01  },
+      { word: "works",     t: 5.063, e: 5.328 },
+      { word: "in",        t: 5.355, e: 5.409 },
+      { word: "your",      t: 5.457, e: 5.649 },
+      { word: "favor.",    t: 5.716, e: 6.131 }
+    ];
+
+    // ── PHRASE-ANCHORED TIMING HELPERS ────────────────────────────────────
+    function _norm(s) { return s.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu, ""); }
+    function _findPhrase(phrase) {
+      const tokens = phrase.toLowerCase().split(/\s+/).map(_norm).filter(Boolean);
+      if (!tokens.length) throw new Error(`landOn: empty phrase`);
+      const hits = [];
+      for (let i = 0; i <= W.length - tokens.length; i++) {
+        let ok = true;
+        for (let j = 0; j < tokens.length; j++) {
+          if (_norm(W[i + j].word) !== tokens[j]) { ok = false; break; }
+        }
+        if (ok) hits.push(i);
+      }
+      if (hits.length === 0) {
+        throw new Error(`landOn: phrase "${phrase}" not found in transcript`);
+      }
+      if (hits.length > 1) {
+        const times = hits.map(i => W[i].t.toFixed(3) + "s").join(", ");
+        throw new Error(`landOn: phrase "${phrase}" matches ${hits.length} occurrences at [${times}]. Use a longer phrase to disambiguate.`);
+      }
+      return { startIdx: hits[0], endIdx: hits[0] + tokens.length - 1 };
+    }
+    function at(phrase) { return W[_findPhrase(phrase).startIdx].t; }
+    function landOn(phrase, duration) { return at(phrase) - (duration || 0); }
+    function landAfter(phrase, duration) { return W[_findPhrase(phrase).endIdx].e - (duration || 0); }
+
+    // ── ANIMATION ────────────────────────────────────────────────────────
+
+    // t=0: headline + subline invisible initially (set via GSAP)
+    tl.set("#beat9-headline", { opacity: 0, y: 40 }, 0);
+    tl.set("#beat9-subline",  { opacity: 0, x: -50 }, 0);
+
+    // ── Eyebrow mask-wipe in on "really powerful:" ─────────────────────
+    // clip-path reveal left→right when "really" hits
+    tl.to("#beat9-eyebrow",
+      {
+        clipPath: "inset(0 0% 0 0)",
+        duration: 0.55,
+        ease: "power3.out",
+        overwrite: "auto"
+      },
+      landOn("really powerful:", 0.3)
+    );
+
+    // ── Arrow draws in from "earlier you" through "start," ─────────────
+    const axisStart = landOn("earlier you", 0.05);
+    const axisEnd   = landAfter("start,", 0);
+
+    tl.to("#beat9-axis-line",
+      {
+        strokeDashoffset: 0,
+        duration: axisEnd - axisStart,
+        ease: "power2.inOut",
+        overwrite: "auto"
+      },
+      axisStart
+    );
+    // arrowhead tip pops in when line finishes
+    tl.to("#beat9-axis-tip",
+      {
+        opacity: 1,
+        duration: 0.18,
+        ease: "power2.out",
+        overwrite: "auto"
+      },
+      axisEnd - 0.15
+    );
+
+    // ── EARLY peg + curve — appear on "earlier you" ────────────────────
+    const earlyT = landOn("earlier you", 0);
+
+    tl.to(
+      ["#beat9-early-peg", "#beat9-early-label", "#beat9-early-arrow", "#beat9-early-arrowhead"],
+      {
+        opacity: 1,
+        duration: 0.25,
+        ease: "power2.out",
+        stagger: 0.06,
+        overwrite: "auto"
+      },
+      earlyT
+    );
+
+    // early group scales from 0 with spring
+    tl.from(
+      "#beat9-early-peg",
+      { scaleY: 0, transformOrigin: "top center", duration: 0.3, ease: "back.out(1.7)", overwrite: "auto" },
+      earlyT
+    );
+
+    tl.from(
+      "#beat9-early-label",
+      { y: 16, opacity: 0, duration: 0.28, ease: "power3.out", overwrite: "auto" },
+      earlyT + 0.1
+    );
+
+    // early exponential curve draws upward via stroke-dashoffset
+    tl.to("#beat9-early-curve",
+      {
+        opacity: 1,
+        strokeDashoffset: 0,
+        duration: 0.5,
+        ease: "power2.out",
+        overwrite: "auto"
+      },
+      earlyT + 0.12
+    );
+
+    // ── Headline slams in on "earlier you" ────────────────────────────
+    tl.to("#beat9-headline",
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.38,
+        ease: "expo.out",
+        overwrite: "auto"
+      },
+      earlyT + 0.05
+    );
+
+    // ── LATER peg + curve — appear on "you start," (smaller, dimmer) ──
+    const laterT = landOn("you start,", 0);
+
+    tl.to(
+      ["#beat9-later-peg", "#beat9-later-label"],
+      {
+        opacity: 1,
+        duration: 0.22,
+        ease: "power2.out",
+        stagger: 0.07,
+        overwrite: "auto"
+      },
+      laterT
+    );
+
+    tl.from(
+      "#beat9-later-peg",
+      { scaleY: 0, transformOrigin: "top center", duration: 0.22, ease: "power2.out", overwrite: "auto" },
+      laterT
+    );
+
+    tl.from(
+      "#beat9-later-label",
+      { y: 12, opacity: 0, duration: 0.2, ease: "power2.out", overwrite: "auto" },
+      laterT + 0.08
+    );
+
+    tl.to("#beat9-later-curve",
+      {
+        opacity: 1,
+        strokeDashoffset: 0,
+        duration: 0.32,
+        ease: "power1.out",
+        overwrite: "auto"
+      },
+      laterT + 0.08
+    );
+
+    // ── Subline slides in on "the more" ───────────────────────────────
+    tl.to("#beat9-subline",
+      {
+        opacity: 1,
+        x: 0,
+        duration: 0.42,
+        ease: "expo.out",
+        overwrite: "auto"
+      },
+      landOn("the more", 0.2)
+    );
+
+    // ── Idle: green growth curve gentle scale yoyo ────────────────────
+    // fires after the early curve finishes drawing (earlyT + 0.62)
+    const idleStart = earlyT + 0.65;
+    tl.to("#beat9-early-curve",
+      {
+        scaleY: 1.02,
+        transformOrigin: "bottom left",
+        duration: 1.5,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: 1,
+        overwrite: "auto"
+      },
+      idleStart
+    );
+
+    // ── Reaction: green curve flashes / scale-pulses on "in your favor." ─
+    const favorT = landOn("in your favor.", 0);
+
+    tl.to("#beat9-early-curve",
+      {
+        scaleY: 1.08,
+        scaleX: 1.04,
+        transformOrigin: "bottom left",
+        stroke: "#FFFFFF",
+        duration: 0.18,
+        ease: "power3.out",
+        overwrite: "auto"
+      },
+      favorT
+    );
+    tl.to("#beat9-early-curve",
+      {
+        scaleY: 1.0,
+        scaleX: 1.0,
+        stroke: "#01CD74",
+        duration: 0.35,
+        ease: "elastic.out(1, 0.5)",
+        overwrite: "auto"
+      },
+      favorT + 0.18
+    );
+
+    // subline pulse on "in your favor."
+    tl.to("#beat9-subline",
+      {
+        scale: 1.04,
+        duration: 0.16,
+        ease: "power3.out",
+        overwrite: "auto"
+      },
+      favorT
+    );
+    tl.to("#beat9-subline",
+      {
+        scale: 1.0,
+        duration: 0.28,
+        ease: "elastic.out(1, 0.5)",
+        overwrite: "auto"
+      },
+      favorT + 0.16
+    );
+
+    // ── Kill visibility at end ────────────────────────────────────────
+    tl.set("#beat9", { visibility: "hidden" }, 6.35);
+  // Add this beat's timeline to master at its start offset
+  
+})();
+
+// ====== BEAT 10 (mega-build) start=46.30 dur=6.45 ======
+(function(){
+// ── TIMELINE REGISTRATION ────────────────────────────────────────────────
+    
+    
+const _BASE = 46.3;
+const _M = window.__masterTl;
+function _shift(a) {
+  if (a.length > 0 && typeof a[a.length - 1] === 'number') {
+    const copy = a.slice();
+    copy[copy.length - 1] = copy[copy.length - 1] + _BASE;
+    return copy;
+  }
+  return a;
+}
+const tl = {
+  from:    function() { return _M.from.apply(_M, _shift(Array.from(arguments))); },
+  to:      function() { return _M.to.apply(_M, _shift(Array.from(arguments))); },
+  fromTo:  function() { return _M.fromTo.apply(_M, _shift(Array.from(arguments))); },
+  set:     function() { return _M.set.apply(_M, _shift(Array.from(arguments))); },
+  call:    function() { return _M.call.apply(_M, _shift(Array.from(arguments))); },
+  add:     function() { return _M.add.apply(_M, _shift(Array.from(arguments))); },
+  totalDuration: function() { return _M.totalDuration(); },
+  duration: function() { return _M.duration(); }
+};
+
+    
+
+    // ── VO WORD TIMING (beat-relative) ────────────────────────────────────────
+    const W = [
+      { word: "If",       t: 0.101, e: 0.741 },
+      { word: "that",     t: 0.789, e: 0.981 },
+      { word: "penny",    t: 1.048, e: 1.383 },
+      { word: "had",      t: 1.403, e: 1.463 },
+      { word: "started",  t: 1.513, e: 1.863 },
+      { word: "doubling", t: 1.916, e: 2.34 },
+      { word: "just",     t: 2.404, e: 2.66 },
+      { word: "five",     t: 2.74,  e: 3.06 },
+      { word: "days",     t: 3.124, e: 3.38 },
+      { word: "earlier,", t: 3.43,  e: 4.26 },
+      { word: "it",       t: 4.313, e: 4.419 },
+      { word: "would",    t: 4.446, e: 4.581 },
+      { word: "not",      t: 4.641, e: 4.821 },
+      { word: "be",       t: 4.874, e: 4.98 },
+      { word: "five",     t: 5.06,  e: 5.38 },
+      { word: "million",  t: 5.43,  e: 5.78 },
+      { word: "dollars.", t: 5.84,  e: 6.34 }
+    ];
+
+    // ── PHRASE-ANCHORED TIMING HELPERS ────────────────────────────────────────
+    function _norm(s) { return s.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu, ""); }
+    function _findPhrase(phrase) {
+      const tokens = phrase.toLowerCase().split(/\s+/).map(_norm).filter(Boolean);
+      if (!tokens.length) throw new Error("landOn: empty phrase");
+      const hits = [];
+      for (let i = 0; i <= W.length - tokens.length; i++) {
+        let ok = true;
+        for (let j = 0; j < tokens.length; j++) {
+          if (_norm(W[i + j].word) !== tokens[j]) { ok = false; break; }
+        }
+        if (ok) hits.push(i);
+      }
+      if (hits.length === 0) throw new Error(`landOn: phrase "${phrase}" not found in transcript`);
+      if (hits.length > 1) {
+        const times = hits.map(i => W[i].t.toFixed(3) + "s").join(", ");
+        throw new Error(`landOn: phrase "${phrase}" matches ${hits.length} occurrences at [${times}]. Use a longer phrase to disambiguate.`);
+      }
+      return { startIdx: hits[0], endIdx: hits[0] + tokens.length - 1 };
+    }
+    function at(phrase) { return W[_findPhrase(phrase).startIdx].t; }
+    function landOn(phrase, duration) { return at(phrase) - (duration || 0); }
+    function landAfter(phrase, duration) { return W[_findPhrase(phrase).endIdx].e - (duration || 0); }
+
+    // ── SETUP: strikethrough starts invisible (scaleX=0) ─────────────────────
+    // The SVG line starts at scaleX 0 so the sweep tween animates it in
+    tl.set("#beat10-strike-line", { scaleX: 0, transformOrigin: "left center" }, 0);
+
+    // ── EYEBROW: slide in from above on "If that" ─────────────────────────────
+    tl.from(
+      "#beat10-eyebrow",
+      { y: -50, opacity: 0, duration: 0.55, ease: "expo.out" },
+      landOn("If that", 0.55)
+    );
+
+    // ── CALENDAR CELLS: appear one at a time on "five days" ───────────────────
+    // "just five days" anchor — "five" at t=2.740, "days" at t=3.124
+    // Cells −5 through −1 appear one per ~0.12s stagger starting at "just"
+    const dayIds = ["#beat10-day5", "#beat10-day4", "#beat10-day3", "#beat10-day2", "#beat10-day1"];
+    const dayStart = at("just");
+
+    dayIds.forEach(function(id, i) {
+      tl.from(
+        id,
+        { x: -60, opacity: 0, duration: 0.3, ease: "power3.out" },
+        dayStart + i * 0.12
+      );
+    });
+
+    // Slide all cells slightly right into final row position on "earlier,"
+    // (they already end at their CSS flex positions; add a subtle +x nudge settle)
+    tl.from(
+      "#beat10-calendar",
+      { x: 30, duration: 0.55, ease: "power3.out" },
+      at("earlier,")
+    );
+
+    // Calendar idle: gentle y yoyo on each cell (staggered, finite repeat)
+    dayIds.forEach(function(id, i) {
+      tl.to(
+        id,
+        { y: -4, duration: 0.7 + i * 0.1, ease: "sine.inOut", yoyo: true, repeat: 3, overwrite: "auto" },
+        at("earlier,") + 0.3 + i * 0.05
+      );
+    });
+
+    // ── STAT: slam in on "would not be" ──────────────────────────────────────
+    tl.from(
+      "#beat10-stat",
+      { scale: 0.72, opacity: 0, duration: 0.5, ease: "back.out(1.4)" },
+      landOn("would not be", 0.5)
+    );
+
+    // ── STRIKETHROUGH: sweep scaleX 0→1 across "five million dollars." ────────
+    // Starts on "five" (second occurrence at t=5.06), completes by end of "dollars."
+    const strikeStart = at("five million dollars.");
+    const strikeEnd   = W[W.length - 1].e; // 6.34
+    const strikeDur   = strikeEnd - strikeStart;
+
+    tl.to(
+      "#beat10-strike-line",
+      { scaleX: 1, duration: strikeDur, ease: "power3.out", transformOrigin: "left center" },
+      strikeStart
+    );
+
+    // Reaction scale pulse on stat when "dollars." lands
+    tl.to(
+      "#beat10-stat",
+      { scale: 1.06, duration: 0.12, ease: "power2.out", overwrite: "auto" },
+      at("dollars.")
+    );
+    tl.to(
+      "#beat10-stat",
+      { scale: 1.0, duration: 0.25, ease: "power2.in", overwrite: "auto" },
+      at("dollars.") + 0.12
+    );
+
+    // ── NOT EVEN CLOSE: fade in after strikethrough completes ─────────────────
+    tl.from(
+      "#beat10-not-close",
+      { opacity: 0, y: 18, duration: 0.4, ease: "power2.out" },
+      strikeEnd + 0.05
+    );
+
+    // ── VISIBILITY KILL ───────────────────────────────────────────────────────
+    tl.set("#beat10", { visibility: "hidden" }, 6.45);
+  // Add this beat's timeline to master at its start offset
+  
+})();
+
+// ====== BEAT 11 (mega-slam) start=52.75 dur=3.55 ======
+(function(){
+// ── TIMELINE REGISTRATION ────────────────────────────────────────────
+    
+    
+const _BASE = 52.75;
+const _M = window.__masterTl;
+function _shift(a) {
+  if (a.length > 0 && typeof a[a.length - 1] === 'number') {
+    const copy = a.slice();
+    copy[copy.length - 1] = copy[copy.length - 1] + _BASE;
+    return copy;
+  }
+  return a;
+}
+const tl = {
+  from:    function() { return _M.from.apply(_M, _shift(Array.from(arguments))); },
+  to:      function() { return _M.to.apply(_M, _shift(Array.from(arguments))); },
+  fromTo:  function() { return _M.fromTo.apply(_M, _shift(Array.from(arguments))); },
+  set:     function() { return _M.set.apply(_M, _shift(Array.from(arguments))); },
+  call:    function() { return _M.call.apply(_M, _shift(Array.from(arguments))); },
+  add:     function() { return _M.add.apply(_M, _shift(Array.from(arguments))); },
+  totalDuration: function() { return _M.totalDuration(); },
+  duration: function() { return _M.duration(); }
+};
+
+    
+
+    // ── VO WORD TIMING (beat-relative) ───────────────────────────────────
+    const W = [
+      { word: "It",          t: 0.077, e: 0.451 },
+      { word: "would",       t: 0.478, e: 0.613 },
+      { word: "be",          t: 0.666, e: 0.772 },
+      { word: "one",         t: 0.852, e: 1.092 },
+      { word: "hundred",     t: 1.142, e: 1.492 },
+      { word: "and",         t: 1.572, e: 1.812 },
+      { word: "seventy-two", t: 1.882, e: 2.532 },
+      { word: "million",     t: 2.582, e: 2.932 },
+      { word: "dollars.",    t: 2.992, e: 3.492 }
+    ];
+
+    // ── PHRASE-ANCHORED TIMING HELPERS ────────────────────────────────────
+    function _norm(s) { return s.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu, ""); }
+    function _findPhrase(phrase) {
+      const tokens = phrase.toLowerCase().split(/\s+/).map(_norm).filter(Boolean);
+      if (!tokens.length) throw new Error(`landOn: empty phrase`);
+      const hits = [];
+      for (let i = 0; i <= W.length - tokens.length; i++) {
+        let ok = true;
+        for (let j = 0; j < tokens.length; j++) {
+          if (_norm(W[i + j].word) !== tokens[j]) { ok = false; break; }
+        }
+        if (ok) hits.push(i);
+      }
+      if (hits.length === 0) throw new Error(`landOn: phrase "${phrase}" not found`);
+      if (hits.length > 1) throw new Error(`landOn: phrase "${phrase}" is ambiguous`);
+      return { startIdx: hits[0], endIdx: hits[0] + tokens.length - 1 };
+    }
+    function at(phrase)           { return W[_findPhrase(phrase).startIdx].t; }
+    function landOn(phrase, dur)  { return at(phrase) - (dur || 0); }
+    function landAfter(phrase, dur){ return W[_findPhrase(phrase).endIdx].e - (dur || 0); }
+
+    // ── MULBERRY32 PRNG (seed 171) ────────────────────────────────────────
+    function mulberry32(seed) {
+      return function() {
+        let t = (seed += 0x6d2b79f5);
+        t = Math.imul(t ^ (t >>> 15), t | 1);
+        t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+    }
+
+    // ── CONFETTI SETUP ────────────────────────────────────────────────────
+    const confettiCanvas = document.getElementById("beat11-confetti");
+    const ctx = confettiCanvas.getContext("2d");
+    confettiCanvas.width  = 1080;
+    confettiCanvas.height = 1920;
+
+    const rand = mulberry32(171);
+    const CONFETTI_COLORS = ["#FFFFFF", "#EFC42C", "#01CD74"];
+    const PIECE_COUNT = 120;
+
+    const pieces = [];
+    for (let i = 0; i < PIECE_COUNT; i++) {
+      pieces.push({
+        x:      rand() * 1080,
+        y:      -rand() * 1920,           // start above canvas
+        w:      12 + rand() * 20,
+        h:      6  + rand() * 10,
+        rot:    rand() * 360,
+        speed:  260 + rand() * 320,       // px/s
+        rotSpd: 60  + rand() * 180,       // deg/s
+        color:  CONFETTI_COLORS[Math.floor(rand() * 3)]
+      });
+    }
+
+    function drawConfetti(elapsed) {
+      ctx.clearRect(0, 0, 1080, 1920);
+      const beatEnd = 3.55;
+      for (const p of pieces) {
+        const y = p.y + elapsed * p.speed;
+        if (y > 1920 + 40) continue;
+        const angle = (p.rot + elapsed * p.rotSpd) * Math.PI / 180;
+        ctx.save();
+        ctx.translate(p.x, y);
+        ctx.rotate(angle);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+        ctx.restore();
+      }
+    }
+
+    // Confetti proxy for GSAP-driven time
+    const confettiProxy = { elapsed: 0 };
+
+    // Confetti tween: fade in on "seventy-two" and run to end
+    const confettiStart = at("seventy-two");
+    const confettiDur   = 3.55 - confettiStart;
+
+    tl.to("#beat11-confetti", { opacity: 1, duration: 0.2, ease: "power2.out" }, confettiStart);
+    tl.to(confettiProxy, {
+      elapsed: confettiDur,
+      duration: confettiDur,
+      ease: "none",
+      onUpdate: () => drawConfetti(confettiProxy.elapsed)
+    }, confettiStart);
+
+    // ── COUNTER NUMBER ANIMATION ──────────────────────────────────────────
+    // Counter target: lands as narrator finishes saying "million dollars." minus 1.4s
+    const counterLandTime = landAfter("million dollars.", 1.4);
+    // Entrance: counter fades in on "It would" start
+    const counterEnterTime = at("It would");
+
+    const counterEl   = document.getElementById("beat11-counter-text");
+    const counterProxy = { value: 0 };
+
+    // Fade in
+    tl.to("#beat11-counter", { opacity: 1, duration: 0.4, ease: "power2.out", overwrite: "auto" }, counterEnterTime);
+
+    // Number ramp: 0 → 172,000,000
+    const rampDur = counterLandTime - counterEnterTime;
+    tl.to(counterProxy, {
+      value: 172000000,
+      duration: Math.max(rampDur, 0.5),
+      ease: "power3.out",
+      onUpdate: function() {
+        const v = Math.round(counterProxy.value);
+        counterEl.textContent = "$" + v.toLocaleString("en-US");
+      }
+    }, counterEnterTime);
+
+    // ── EYEBROW ENTRANCE ──────────────────────────────────────────────────
+    tl.from("#beat11-eyebrow", {
+      y: -40,
+      opacity: 0,
+      duration: 0.45,
+      ease: "expo.out",
+      overwrite: "auto"
+    }, landOn("one hundred", 0.35));
+    tl.to("#beat11-eyebrow", { opacity: 1, duration: 0.45, ease: "expo.out", overwrite: "auto" }, landOn("one hundred", 0.35));
+
+    // ── LABEL ENTRANCE ────────────────────────────────────────────────────
+    tl.from("#beat11-label", {
+      y: 30,
+      opacity: 0,
+      duration: 0.4,
+      ease: "power3.out",
+      overwrite: "auto"
+    }, at("million"));
+    tl.to("#beat11-label", { opacity: 1, duration: 0.4, ease: "power3.out", overwrite: "auto" }, at("million"));
+
+    // ── COUNTER REACTION ON "dollars." ───────────────────────────────────
+    const dollarTime = at("dollars.");
+
+    // Scale pulse: 1 → 1.05 → 1
+    tl.to("#beat11-counter", {
+      scale: 1.05,
+      duration: 0.12,
+      ease: "power2.out",
+      yoyo: true,
+      repeat: 1,
+      overwrite: "auto"
+    }, dollarTime);
+
+    // Shake rotation: 0 → 1 → -1 → 0
+    tl.to("#beat11-counter", {
+      rotation: 1,
+      duration: 0.07,
+      ease: "none",
+      yoyo: true,
+      repeat: 3,
+      overwrite: "auto"
+    }, dollarTime + 0.1);
+
+    // ── VISIBILITY KILL ───────────────────────────────────────────────────
+    tl.set("#beat11", { visibility: "hidden" }, 3.55);
+  // Add this beat's timeline to master at its start offset
+  
+})();
+
+// ====== BEAT 12 (stocks) start=56.30 dur=8.70 ======
+(function(){
+// ── TIMELINE REGISTRATION ────────────────────────────────────────────
+    
+    
+const _BASE = 56.3;
+const _M = window.__masterTl;
+function _shift(a) {
+  if (a.length > 0 && typeof a[a.length - 1] === 'number') {
+    const copy = a.slice();
+    copy[copy.length - 1] = copy[copy.length - 1] + _BASE;
+    return copy;
+  }
+  return a;
+}
+const tl = {
+  from:    function() { return _M.from.apply(_M, _shift(Array.from(arguments))); },
+  to:      function() { return _M.to.apply(_M, _shift(Array.from(arguments))); },
+  fromTo:  function() { return _M.fromTo.apply(_M, _shift(Array.from(arguments))); },
+  set:     function() { return _M.set.apply(_M, _shift(Array.from(arguments))); },
+  call:    function() { return _M.call.apply(_M, _shift(Array.from(arguments))); },
+  add:     function() { return _M.add.apply(_M, _shift(Array.from(arguments))); },
+  totalDuration: function() { return _M.totalDuration(); },
+  duration: function() { return _M.duration(); }
+};
+
+    
+
+    // ── VO WORD TIMING (beat-relative) ───────────────────────────────────
+    const W = [
+      { word: "Stocks",    t: 0.148, e: 1.384 },
+      { word: "build",     t: 1.437, e: 1.702 },
+      { word: "wealth",    t: 1.759, e: 2.101 },
+      { word: "through",   t: 2.141, e: 2.421 },
+      { word: "compound",  t: 2.483, e: 2.979 },
+      { word: "interest.", t: 3.032, e: 3.616 },
+      { word: "Small",     t: 3.789, e: 4.654 },
+      { word: "amounts,",  t: 4.714, e: 5.294 },
+      { word: "started",   t: 5.344, e: 5.694 },
+      { word: "early,",    t: 5.761, e: 6.336 },
+      { word: "can",       t: 6.356, e: 6.416 },
+      { word: "become",    t: 6.473, e: 6.815 },
+      { word: "truly",     t: 6.895, e: 7.295 },
+      { word: "massive",   t: 7.365, e: 7.855 },
+      { word: "over",      t: 7.919, e: 8.175 },
+      { word: "time.",     t: 8.239, e: 8.575 }
+    ];
+
+    // ── PHRASE-ANCHORED TIMING HELPERS ────────────────────────────────────
+    function _norm(s) { return s.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu, ""); }
+    function _findPhrase(phrase) {
+      const tokens = phrase.toLowerCase().split(/\s+/).map(_norm).filter(Boolean);
+      if (!tokens.length) throw new Error("landOn: empty phrase");
+      const hits = [];
+      for (let i = 0; i <= W.length - tokens.length; i++) {
+        let ok = true;
+        for (let j = 0; j < tokens.length; j++) {
+          if (_norm(W[i + j].word) !== tokens[j]) { ok = false; break; }
+        }
+        if (ok) hits.push(i);
+      }
+      if (hits.length === 0) throw new Error(`landOn: phrase "${phrase}" not found`);
+      if (hits.length > 1) throw new Error(`landOn: phrase "${phrase}" ambiguous`);
+      return { startIdx: hits[0], endIdx: hits[0] + tokens.length - 1 };
+    }
+    function at(phrase) { return W[_findPhrase(phrase).startIdx].t; }
+    function landOn(phrase, duration) { return at(phrase) - (duration || 0); }
+
+    // ── SPARKLINE: stroke-dashoffset draw-in ─────────────────────────────
+    const path = document.getElementById("beat12-sparkline-path");
+    const pathLen = path.getTotalLength();
+    gsap.set(path, { strokeDasharray: pathLen, strokeDashoffset: pathLen });
+
+    // Draw sparkline on "compound interest." — completes around e of "interest."
+    const sparkStart = landOn("compound", 0);
+    const sparkDur = W[_findPhrase("interest.").endIdx].e - sparkStart;
+    tl.to(path, {
+      strokeDashoffset: 0,
+      duration: sparkDur,
+      ease: "power2.inOut",
+      overwrite: "auto"
+    }, sparkStart);
+
+    // Dot at tip: appears as sparkline completes
+    tl.to("#beat12-dot", {
+      opacity: 1,
+      duration: 0.18,
+      ease: "power2.out",
+      overwrite: "auto"
+    }, W[_findPhrase("interest.").endIdx].e - 0.15);
+
+    // ── HEADLINE word-by-word drop-in ─────────────────────────────────────
+    const hwEls = document.querySelectorAll(".beat12-hw");
+    // "Stocks" at t=0.148, "build wealth" — map to W words
+    const headlineWords = ["Stocks", "build", "wealth"];
+    hwEls.forEach((el, i) => {
+      tl.from(el, {
+        y: -50,
+        opacity: 0,
+        duration: 0.45,
+        ease: "expo.out",
+        overwrite: "auto"
+      }, landOn(headlineWords[i], 0.35));
+    });
+
+    // ── CHIP POP-INS ──────────────────────────────────────────────────────
+    // Chip 1 (AAPL) on "Small amounts,"
+    tl.to("#beat12-chip-aapl", {
+      opacity: 1,
+      scale: 1,
+      duration: 0.4,
+      ease: "back.out(1.7)",
+      overwrite: "auto"
+    }, landOn("Small amounts,", 0.3));
+
+    // Chip 2 (NKE) on "started early,"
+    tl.to("#beat12-chip-nke", {
+      opacity: 1,
+      scale: 1,
+      duration: 0.4,
+      ease: "back.out(1.7)",
+      overwrite: "auto"
+    }, landOn("started early,", 0.3));
+
+    // Chip 3 (SBUX) on "truly massive"
+    tl.to("#beat12-chip-sbux", {
+      opacity: 1,
+      scale: 1,
+      duration: 0.4,
+      ease: "back.out(1.7)",
+      overwrite: "auto"
+    }, landOn("truly massive", 0.3));
+
+    // ── CHIP IDLE: gentle scale yoyo (staggered 0.25s) ────────────────────
+    const chipIds = ["#beat12-chip-aapl", "#beat12-chip-nke", "#beat12-chip-sbux"];
+    const chipOnTimes = [
+      landOn("Small amounts,", 0.3) + 0.4,
+      landOn("started early,", 0.3) + 0.4,
+      landOn("truly massive",  0.3) + 0.4
+    ];
+    chipIds.forEach((id, i) => {
+      tl.to(id, {
+        scale: 1.02,
+        duration: 1.6,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: 1,
+        overwrite: "auto"
+      }, chipOnTimes[i] + i * 0.25);
+    });
+
+    // ── SPARKLINE IDLE: gentle y yoyo ─────────────────────────────────────
+    const sparklineIdleStart = W[_findPhrase("interest.").endIdx].e + 0.1;
+    tl.to("#beat12-sparkline-wrap", {
+      y: -4,
+      duration: 1.5,
+      ease: "sine.inOut",
+      yoyo: true,
+      repeat: 1,
+      overwrite: "auto"
+    }, sparklineIdleStart);
+
+    // ── SUBTITLE SLIDE-IN on "over time." ─────────────────────────────────
+    tl.from("#beat12-subtitle", {
+      y: 40,
+      opacity: 0,
+      duration: 0.5,
+      ease: "power3.out",
+      overwrite: "auto"
+    }, landOn("over time.", 0.4));
+    // Ensure opacity:1 is set (from() starts at 0 and lands at CSS 0, so also set to)
+    tl.set("#beat12-subtitle", { opacity: 1 }, landOn("over time.", 0.4));
+
+    // ── DOT PULSE on "over time." ─────────────────────────────────────────
+    tl.to("#beat12-dot", {
+      r: 26,
+      duration: 0.22,
+      ease: "power2.out",
+      yoyo: true,
+      repeat: 1,
+      overwrite: "auto"
+    }, at("over time."));
+
+    // ── KILL VISIBILITY at composition end ────────────────────────────────
+    tl.set("#beat12", { visibility: "hidden" }, 8.70);
+  // Add this beat's timeline to master at its start offset
+  
+})();
+
+// ====== BEAT 13 (cta) start=65.00 dur=8.30 ======
+(function(){
+// ── TIMELINE REGISTRATION ─────────────────────────────────────────────
+    
+    
+const _BASE = 65;
+const _M = window.__masterTl;
+function _shift(a) {
+  if (a.length > 0 && typeof a[a.length - 1] === 'number') {
+    const copy = a.slice();
+    copy[copy.length - 1] = copy[copy.length - 1] + _BASE;
+    return copy;
+  }
+  return a;
+}
+const tl = {
+  from:    function() { return _M.from.apply(_M, _shift(Array.from(arguments))); },
+  to:      function() { return _M.to.apply(_M, _shift(Array.from(arguments))); },
+  fromTo:  function() { return _M.fromTo.apply(_M, _shift(Array.from(arguments))); },
+  set:     function() { return _M.set.apply(_M, _shift(Array.from(arguments))); },
+  call:    function() { return _M.call.apply(_M, _shift(Array.from(arguments))); },
+  add:     function() { return _M.add.apply(_M, _shift(Array.from(arguments))); },
+  totalDuration: function() { return _M.totalDuration(); },
+  duration: function() { return _M.duration(); }
+};
+
+    
+
+    // ── VO WORD TIMING (beat-relative) ────────────────────────────────────
+    const W = [
+      { word: "Bloom",     t: 0.088, e: 1.153 },
+      { word: "has",       t: 1.193, e: 1.313 },
+      { word: "a",         t: 1.393, e: 1.473 },
+      { word: "tool",      t: 1.537, e: 1.793 },
+      { word: "called",    t: 1.85,  e: 2.192 },
+      { word: "Potential", t: 2.248, e: 2.752 },
+      { word: "Return",    t: 2.832, e: 3.312 },
+      { word: "that",      t: 3.408, e: 3.792 },
+      { word: "shows",     t: 3.845, e: 4.11  },
+      { word: "you",       t: 4.15,  e: 4.27  },
+      { word: "exactly",   t: 4.36,  e: 4.99  },
+      { word: "how",       t: 5.03,  e: 5.15  },
+      { word: "much",      t: 5.198, e: 5.39  },
+      { word: "your",      t: 5.422, e: 5.55  },
+      { word: "money",     t: 5.603, e: 5.868 },
+      { word: "could",     t: 5.895, e: 6.03  },
+      { word: "grow.",     t: 6.11,  e: 6.51  },
+      { word: "Try",       t: 6.71,  e: 7.31  },
+      { word: "it",        t: 7.337, e: 7.391 },
+      { word: "out.",      t: 7.471, e: 7.791 }
+    ];
+
+    // ── PHRASE-ANCHORED TIMING HELPERS ────────────────────────────────────
+    function _norm(s) { return s.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu, ""); }
+    function _findPhrase(phrase) {
+      const tokens = phrase.toLowerCase().split(/\s+/).map(_norm).filter(Boolean);
+      if (!tokens.length) throw new Error("landOn: empty phrase");
+      const hits = [];
+      for (let i = 0; i <= W.length - tokens.length; i++) {
+        let ok = true;
+        for (let j = 0; j < tokens.length; j++) {
+          if (_norm(W[i + j].word) !== tokens[j]) { ok = false; break; }
+        }
+        if (ok) hits.push(i);
+      }
+      if (hits.length === 0) throw new Error(`landOn: phrase "${phrase}" not found`);
+      if (hits.length > 1) {
+        const times = hits.map(i => W[i].t.toFixed(3) + "s").join(", ");
+        throw new Error(`landOn: phrase "${phrase}" matches ${hits.length} occurrences at [${times}]. Use a longer phrase.`);
+      }
+      return { startIdx: hits[0], endIdx: hits[0] + tokens.length - 1 };
+    }
+    function at(phrase)               { return W[_findPhrase(phrase).startIdx].t; }
+    function landOn(phrase, dur = 0)  { return at(phrase) - dur; }
+
+    // ── DETERMINISTIC PRNG (mulberry32, seed=13) ──────────────────────────
+    function mulberry32(seed) {
+      return function () {
+        let t = (seed += 0x6d2b79f5);
+        t = Math.imul(t ^ (t >>> 15), t | 1);
+        t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+    }
+
+    // ── CANVAS TICKER TAPE ─────────────────────────────────────────────────
+    const canvas = document.getElementById("beat13-canvas");
+    const ctx    = canvas.getContext("2d");
+    canvas.width  = 1080;
+    canvas.height = 1920;
+
+    const rand = mulberry32(13);
+    const TICKERS = ["8%", "10%", "$1K", "12%", "GROW", "$5K", "APY", "WIN", "3x"];
+    const tickerList = [];
+    for (let i = 0; i < 22; i++) {
+      tickerList.push({
+        label: TICKERS[Math.floor(rand() * TICKERS.length)],
+        x:     Math.floor(rand() * 1080),
+        y:     Math.floor(rand() * 2120) - 100,
+        speed: 12 + Math.floor(rand() * 8)
+      });
+    }
+
+    function drawTicker(t) {
+      ctx.clearRect(0, 0, 1080, 1920);
+      ctx.fillStyle = "rgba(255,255,255,0.55)";
+      ctx.font = "bold 28px Inter";
+      ctx.textAlign = "center";
+      tickerList.forEach(item => {
+        const y = ((item.y + t * item.speed) % 2220 + 2220) % 2220;
+        ctx.fillText(item.label, item.x, y);
+      });
+    }
+
+    // Canvas proxy for deterministic time scrubbing
+    const canvasProxy = { time: 0 };
+    tl.to("#beat13-canvas", { opacity: 0.25, duration: 0.4, ease: "power2.out" }, 0);
+    tl.to(canvasProxy, {
+      time: 8.30,
+      duration: 8.30,
+      ease: "none",
+      onUpdate: () => drawTicker(canvasProxy.time)
+    }, 0);
+
+    // ── ANIMATIONS ─────────────────────────────────────────────────────────
+
+    // --- Logo: scale-bounce entrance on "Bloom has" ---
+    const tLogo = landOn("Bloom has", 0.55);
+    tl.from("#beat13-logo", {
+      scale: 0,
+      opacity: 0,
+      duration: 0.55,
+      ease: "back.out(1.7)",
+      overwrite: "auto"
+    }, tLogo);
+
+    // Logo breathe idle: scale 1.04 yoyo sine, 1.8s, repeat 2 (covers ~3.6s of idle)
+    tl.to("#beat13-logo", {
+      scale: 1.04,
+      duration: 1.8,
+      ease: "sine.inOut",
+      yoyo: true,
+      repeat: 2,
+      overwrite: "auto"
+    }, tLogo + 0.55);
+
+    // --- Badge: SLAMS in on "Potential Return" ---
+    const tBadge = landOn("Potential Return", 0.5);
+    tl.from("#beat13-badge", {
+      scale: 0,
+      opacity: 0,
+      duration: 0.5,
+      ease: "back.out(1.4)",
+      overwrite: "auto"
+    }, tBadge);
+
+    // Badge line1 staggered entrance slightly after badge
+    tl.from("#beat13-badge-line1", {
+      y: 30,
+      opacity: 0,
+      duration: 0.35,
+      ease: "power3.out",
+      overwrite: "auto"
+    }, tBadge + 0.12);
+
+    tl.from("#beat13-badge-line2", {
+      y: 40,
+      opacity: 0,
+      duration: 0.40,
+      ease: "expo.out",
+      overwrite: "auto"
+    }, tBadge + 0.22);
+
+    // --- Subline: mask-wipe in on "shows you" ---
+    const tSubline = landOn("shows you", 0);
+    tl.to("#beat13-subline", {
+      clipPath: "inset(0 0% 0 0)",
+      duration: 0.55,
+      ease: "power2.inOut",
+      overwrite: "auto"
+    }, tSubline);
+
+    // --- Sparkline pill: slide-up on "could grow." ---
+    const tPill = landOn("could grow.", 0);
+    tl.from("#beat13-pill", {
+      y: 80,
+      opacity: 0,
+      duration: 0.5,
+      ease: "power3.out",
+      overwrite: "auto"
+    }, tPill);
+
+    // Sparkline draw-on effect via stroke-dasharray
+    const sparkEl = document.getElementById("beat13-sparkline-path");
+    const sparkLen = 450; // approximate polyline length
+    gsap.set(sparkEl, { strokeDasharray: sparkLen, strokeDashoffset: sparkLen });
+    tl.to(sparkEl, {
+      strokeDashoffset: 0,
+      duration: 0.7,
+      ease: "power2.out",
+      overwrite: "auto"
+    }, tPill + 0.1);
+
+    // --- CTA pill: slams in on "Try it out." ---
+    const tCta = landOn("Try it out.", 0);
+    tl.from("#beat13-cta", {
+      scale: 0,
+      opacity: 0,
+      duration: 0.38,
+      ease: "back.out(1.5)",
+      overwrite: "auto"
+    }, tCta);
+
+    // CTA overshoot then settle: scale 1.06 -> 1
+    tl.to("#beat13-cta", {
+      scale: 1.06,
+      duration: 0.18,
+      ease: "power1.out",
+      overwrite: "auto"
+    }, tCta + 0.38);
+    tl.to("#beat13-cta", {
+      scale: 1.0,
+      duration: 0.22,
+      ease: "power2.inOut",
+      overwrite: "auto"
+    }, tCta + 0.56);
+
+    // CTA shake: x jitter, 1 cycle
+    tl.to("#beat13-cta", {
+      x: -6,
+      duration: 0.06,
+      ease: "none",
+      repeat: 3,
+      yoyo: true,
+      overwrite: "auto"
+    }, tCta + 0.78);
+
+    // ── KILL at 8.30s ─────────────────────────────────────────────────────
+    tl.set("#beat13", { visibility: "hidden" }, 8.30);
+  // Add this beat's timeline to master at its start offset
+  
+})();
+
+</script>
+</body>
+</html>

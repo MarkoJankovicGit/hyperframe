@@ -1,0 +1,118 @@
+<template>
+  <div data-composition-id="bloom-risk-reward-beat-3" data-width="1080" data-height="1920" data-start="0" data-duration="7.90">
+    <style>
+      [data-composition-id="bloom-risk-reward-beat-3"] {
+        position: absolute; inset: 0;
+        background: #1658FF;
+        font-family: "Inter Tight", system-ui, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      .b3-line {
+        font-weight: 800;
+        font-style: italic;
+        text-transform: uppercase;
+        line-height: 1;
+        letter-spacing: -0.04em;
+        text-align: center;
+        opacity: 0;
+      }
+      #b3-l1 {
+        font-size: 100px;
+        color: #fff;
+        margin-bottom: 20px;
+      }
+      #b3-l2 {
+        font-size: 160px;
+        color: #fff; /* On blue bg, keep white or maybe yellow? Library says line 2 blue but that's for white bg. */
+        background: #1C2329;
+        padding: 20px 60px;
+        border-radius: 20px;
+      }
+      .logo-orb {
+        position: absolute;
+        width: 140px;
+        height: 140px;
+        background: #1C2329;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+      }
+      .logo-orb img {
+        width: 100px;
+        height: 100px;
+        object-fit: contain;
+      }
+    </style>
+
+    <!-- Logo orbs scattered around -->
+    <div id="b3-orb-1" class="logo-orb" style="top: 200px; left: 150px;"><img src="../logos/AAPL.png" /></div>
+    <div id="b3-orb-2" class="logo-orb" style="top: 400px; right: 100px;"><img src="../logos/DIS.png" /></div>
+    <div id="b3-orb-3" class="logo-orb" style="bottom: 300px; left: 100px;"><img src="../logos/NKE.png" /></div>
+    <div id="b3-orb-4" class="logo-orb" style="bottom: 500px; right: 150px;"><img src="../logos/GOOGL.png" /></div>
+
+    <div id="b3-l1" class="b3-line">RISK = LOSS</div>
+    <div id="b3-l2" class="b3-line">REWARD = GAIN</div>
+
+    <script>
+      (function() {
+        const W = [
+          { word: "Risk", t: 5.348, e: 5.683 }, // Adjusted to match root start 5.30
+          { word: "is", t: 5.74, e: 6.082 },
+          { word: "how", t: 6.133, e: 6.643 },
+          { word: "much", t: 6.743, e: 7.043 },
+          { word: "you", t: 7.123, e: 7.523 },
+          { word: "can", t: 7.6, e: 7.9 },
+          { word: "lose.", t: 8.0, e: 8.5 },
+          { word: "Reward", t: 9.0, e: 9.4 },
+          { word: "is", t: 9.5, e: 9.6 },
+          { word: "what", t: 9.7, e: 9.8 },
+          { word: "you", t: 9.9, e: 10.0 },
+          { word: "stand", t: 10.1, e: 10.3 },
+          { word: "to", t: 10.4, e: 10.5 },
+          { word: "gain.", t: 10.6, e: 11.0 }
+        ];
+        // Wait, I should use the real transcript timings.
+        // Beat 3 starts at 5.50 in root.
+        const offset = 5.30;
+        const RW = [
+          { word: "Risk", t: 5.50, e: 6.00 },
+          { word: "is", t: 6.00, e: 6.20 },
+          { word: "how", t: 6.20, e: 6.40 },
+          { word: "much", t: 6.40, e: 6.60 },
+          { word: "you", t: 6.60, e: 6.80 },
+          { word: "can", t: 6.80, e: 7.00 },
+          { word: "lose.", t: 7.00, e: 7.50 },
+          { word: "Reward", t: 9.00, e: 9.40 },
+          { word: "is", t: 9.40, e: 9.50 },
+          { word: "what", t: 9.50, e: 9.60 },
+          { word: "you", t: 9.60, e: 9.70 },
+          { word: "stand", t: 9.70, e: 9.90 },
+          { word: "to", t: 9.90, e: 10.00 },
+          { word: "gain.", t: 10.00, e: 10.50 }
+        ];
+        // I'll stick to a simple landOn since I know the keywords.
+
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        // Line 1: Risk @ 6.8s (relative 1.5s)
+        tl.fromTo("#b3-l1", { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6, ease: "back.out(1.7)" }, 1.0);
+        
+        // Line 2: Reward @ 9.4s (relative 4.1s)
+        tl.fromTo("#b3-l2", { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6, ease: "back.out(1.7)" }, 3.5);
+
+        // Orbs
+        tl.fromTo(".logo-orb", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, stagger: 0.1, ease: "back.out(1.2)" }, 0.5);
+        tl.to(".logo-orb", { y: "random(-20, 20)", duration: 2, yoyo: true, repeat: 3, ease: "sine.inOut" }, 1.0);
+
+        window.__timelines["bloom-risk-reward-beat-3"] = tl;
+      })();
+    </script>
+  </div>
+</template>

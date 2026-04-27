@@ -1,0 +1,444 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1777307187695,
+  "projectRoot": "C:\\Users\\User\\git\\bloom-hyperframes",
+  "techStack": {
+    "languages": [
+      {
+        "name": "JavaScript/TypeScript",
+        "version": null,
+        "confidence": "high",
+        "markers": [
+          "package.json"
+        ]
+      }
+    ],
+    "frameworks": [],
+    "packageManager": "npm",
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": null,
+    "testCommand": "npm test",
+    "lintCommand": null,
+    "devCommand": null,
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    }
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [
+      "assets",
+      "scripts"
+    ],
+    "gitBranches": null
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "assets": {
+      "path": "assets",
+      "purpose": "Static assets",
+      "fileCount": 2,
+      "lastAccessed": 1777307187661,
+      "keyFiles": [
+        "bloom-logo.png",
+        "timeline.js"
+      ]
+    },
+    "compositions": {
+      "path": "compositions",
+      "purpose": null,
+      "fileCount": 0,
+      "lastAccessed": 1777307187662,
+      "keyFiles": []
+    },
+    "market-time": {
+      "path": "market-time",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1777307187669,
+      "keyFiles": [
+        "index.html"
+      ]
+    },
+    "renders": {
+      "path": "renders",
+      "purpose": null,
+      "fileCount": 11,
+      "lastAccessed": 1777307187670,
+      "keyFiles": [
+        "hyperframes_2026-04-21_00-11-26.meta.json",
+        "hyperframes_2026-04-21_00-11-27.meta.json",
+        "hyperframes_2026-04-21_00-14-36.meta.json",
+        "hyperframes_2026-04-21_00-14-36.mp4",
+        "hyperframes_2026-04-21_22-04-33.meta.json"
+      ]
+    },
+    "scripts": {
+      "path": "scripts",
+      "purpose": "Build/utility scripts",
+      "fileCount": 15,
+      "lastAccessed": 1777307187670,
+      "keyFiles": [
+        "bloom-compound-interest-test.json",
+        "bloom-compound-interest.json",
+        "bloom-diversification.json",
+        "bloom-etfs-explained.json",
+        "bloom-investing-101.json"
+      ]
+    },
+    "skills": {
+      "path": "skills",
+      "purpose": null,
+      "fileCount": 0,
+      "lastAccessed": 1777307187670,
+      "keyFiles": []
+    },
+    "videos": {
+      "path": "videos",
+      "purpose": null,
+      "fileCount": 0,
+      "lastAccessed": 1777307187671,
+      "keyFiles": []
+    },
+    "assets\\models": {
+      "path": "assets\\models",
+      "purpose": "Data models",
+      "fileCount": 2,
+      "lastAccessed": 1777307187672,
+      "keyFiles": [
+        "cash-stack.glb",
+        "flowers.glb"
+      ]
+    },
+    "compositions\\components": {
+      "path": "compositions\\components",
+      "purpose": "UI components",
+      "fileCount": 5,
+      "lastAccessed": 1777307187672,
+      "keyFiles": [
+        "brand-tokens.html",
+        "grain-overlay.html",
+        "grid-pixelate-wipe.html"
+      ]
+    },
+    "market-time\\assets": {
+      "path": "market-time\\assets",
+      "purpose": "Static assets",
+      "fileCount": 0,
+      "lastAccessed": 1777307187673,
+      "keyFiles": []
+    }
+  },
+  "hotPaths": [
+    {
+      "path": "videos\\bloom-compound-interest\\index.html",
+      "accessCount": 17,
+      "lastAccessed": 1777240862479,
+      "type": "file"
+    },
+    {
+      "path": ".claude\\skills\\bloom-educational-video\\DESIGN.md",
+      "accessCount": 4,
+      "lastAccessed": 1777218078419,
+      "type": "file"
+    },
+    {
+      "path": ".claude\\skills\\bloom-educational-video\\references\\timing-helpers.md",
+      "accessCount": 4,
+      "lastAccessed": 1777218078782,
+      "type": "file"
+    },
+    {
+      "path": ".claude\\skills\\bloom-educational-video\\references\\animation-patterns.md",
+      "accessCount": 4,
+      "lastAccessed": 1777218079173,
+      "type": "file"
+    },
+    {
+      "path": ".claude\\skills\\bloom-educational-video\\references\\techniques.md",
+      "accessCount": 2,
+      "lastAccessed": 1777218041809,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-compound-interest\\snapshots\\eval-b1-t2.2.png",
+      "accessCount": 1,
+      "lastAccessed": 1777197986813,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-compound-interest\\snapshots\\eval-b2-t5.8.png",
+      "accessCount": 1,
+      "lastAccessed": 1777197987620,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-compound-interest\\snapshots\\eval-b3-t11.7.png",
+      "accessCount": 1,
+      "lastAccessed": 1777197988067,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-compound-interest\\snapshots\\eval-b4-t17.3.png",
+      "accessCount": 1,
+      "lastAccessed": 1777197988581,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-compound-interest\\snapshots\\eval-b5-t22.6.png",
+      "accessCount": 1,
+      "lastAccessed": 1777197996807,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-compound-interest\\snapshots\\eval-b6-t25.5.png",
+      "accessCount": 1,
+      "lastAccessed": 1777197997390,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-compound-interest\\snapshots\\eval-b7-t33.4.png",
+      "accessCount": 1,
+      "lastAccessed": 1777197998174,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-compound-interest\\snapshots\\eval-b8-t39.6.png",
+      "accessCount": 1,
+      "lastAccessed": 1777197998696,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-compound-interest\\snapshots\\eval-b9-t45.9.png",
+      "accessCount": 1,
+      "lastAccessed": 1777197999302,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-compound-interest\\snapshots\\eval-b10-t52.3.png",
+      "accessCount": 1,
+      "lastAccessed": 1777198008477,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-compound-interest\\snapshots\\eval-b11-t55.9.png",
+      "accessCount": 1,
+      "lastAccessed": 1777198009246,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-compound-interest\\snapshots\\eval-b12-t64.5.png",
+      "accessCount": 1,
+      "lastAccessed": 1777198009650,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-compound-interest\\snapshots\\eval-b13-t72.5.png",
+      "accessCount": 1,
+      "lastAccessed": 1777198010516,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-compound-interest\\snapshots\\eval2-1mid.png",
+      "accessCount": 1,
+      "lastAccessed": 1777198036421,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-compound-interest\\snapshots\\eval2-5late.png",
+      "accessCount": 1,
+      "lastAccessed": 1777198037316,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-compound-interest\\snapshots\\eval2-6late.png",
+      "accessCount": 1,
+      "lastAccessed": 1777198037458,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-compound-interest\\snapshots\\eval2-7late.png",
+      "accessCount": 1,
+      "lastAccessed": 1777198038228,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-compound-interest\\snapshots\\eval2-10late.png",
+      "accessCount": 1,
+      "lastAccessed": 1777198038622,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-compound-interest\\snapshots\\eval2-11late.png",
+      "accessCount": 1,
+      "lastAccessed": 1777198039145,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-compound-interest\\snapshots\\peak-b1-t1.68.png",
+      "accessCount": 1,
+      "lastAccessed": 1777203271670,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-compound-interest\\snapshots\\peak-b4-t15.99.png",
+      "accessCount": 1,
+      "lastAccessed": 1777203272024,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-compound-interest\\snapshots\\peak-b6-t24.91.png",
+      "accessCount": 1,
+      "lastAccessed": 1777203272858,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-compound-interest\\snapshots\\peak-b7-t31.35.png",
+      "accessCount": 1,
+      "lastAccessed": 1777203273157,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-compound-interest\\snapshots\\peak-b11-t55.23.png",
+      "accessCount": 1,
+      "lastAccessed": 1777203273966,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-compound-interest\\snapshots\\peak-b12-t62.39.png",
+      "accessCount": 1,
+      "lastAccessed": 1777203274394,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-compound-interest\\snapshots\\v6-b1.png",
+      "accessCount": 1,
+      "lastAccessed": 1777203622949,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-compound-interest\\snapshots\\v6-b4.png",
+      "accessCount": 1,
+      "lastAccessed": 1777203623693,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-compound-interest\\snapshots\\v6-b6.png",
+      "accessCount": 1,
+      "lastAccessed": 1777203624318,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-compound-interest\\snapshots\\v6-b7.png",
+      "accessCount": 1,
+      "lastAccessed": 1777203625036,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-compound-interest\\snapshots\\v6-b11.png",
+      "accessCount": 1,
+      "lastAccessed": 1777203625566,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-compound-interest\\snapshots\\v6-b12.png",
+      "accessCount": 1,
+      "lastAccessed": 1777203625922,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-compound-interest\\snapshots\\v7-b4.png",
+      "accessCount": 1,
+      "lastAccessed": 1777204806373,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-compound-interest\\snapshots\\v7-b6.png",
+      "accessCount": 1,
+      "lastAccessed": 1777204806738,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-compound-interest\\snapshots\\v7-b8.png",
+      "accessCount": 1,
+      "lastAccessed": 1777204807598,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-compound-interest\\snapshots\\v7-b11.png",
+      "accessCount": 1,
+      "lastAccessed": 1777204807955,
+      "type": "file"
+    },
+    {
+      "path": ".claude\\skills\\bloom-educational-video\\references\\step-1-setup.md",
+      "accessCount": 1,
+      "lastAccessed": 1777217097692,
+      "type": "file"
+    },
+    {
+      "path": ".claude\\skills\\bloom-educational-video\\references\\beat-library.md",
+      "accessCount": 1,
+      "lastAccessed": 1777217098456,
+      "type": "file"
+    },
+    {
+      "path": ".claude\\skills\\bloom-educational-video\\references\\step-3-vo.md",
+      "accessCount": 1,
+      "lastAccessed": 1777217099178,
+      "type": "file"
+    },
+    {
+      "path": ".claude\\skills\\bloom-educational-video\\references\\composition-rules.md",
+      "accessCount": 1,
+      "lastAccessed": 1777217099494,
+      "type": "file"
+    },
+    {
+      "path": ".claude\\skills\\bloom-educational-video\\references\\step-5-assets.md",
+      "accessCount": 1,
+      "lastAccessed": 1777217100340,
+      "type": "file"
+    },
+    {
+      "path": ".claude\\skills\\bloom-educational-video\\references\\step-7-validate.md",
+      "accessCount": 1,
+      "lastAccessed": 1777217101145,
+      "type": "file"
+    },
+    {
+      "path": ".claude\\skills\\bloom-educational-video\\references\\kie-prompts.md",
+      "accessCount": 1,
+      "lastAccessed": 1777217122016,
+      "type": "file"
+    },
+    {
+      "path": "scripts\\bloom-etfs-explained.json",
+      "accessCount": 1,
+      "lastAccessed": 1777217204287,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-etfs-explained\\BEATS.md",
+      "accessCount": 1,
+      "lastAccessed": 1777217222441,
+      "type": "file"
+    },
+    {
+      "path": "videos\\bloom-etfs-explained\\STORYBOARD.md",
+      "accessCount": 1,
+      "lastAccessed": 1777217941616,
+      "type": "file"
+    }
+  ],
+  "userDirectives": []
+}

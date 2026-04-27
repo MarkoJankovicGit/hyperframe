@@ -1,0 +1,158 @@
+<template>
+  <div id="beat7" class="scene"
+       data-composition-id="bloom-etfs-explained-beat-7"
+       data-width="1080" data-height="1920"
+       data-start="0" data-duration="6.05">
+    <style>
+      #beat7 {
+        position: absolute; inset: 0;
+        width: 1080px; height: 1920px;
+        overflow: hidden;
+        background: #FFFFFF;
+        font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        gap: 32px;
+      }
+      #beat7-eyebrow {
+        font-family: "Inter", system-ui, sans-serif;
+        font-weight: 700; font-size: 32px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: #1658FF;
+        opacity: 0;
+      }
+      #beat7-badge {
+        background: #1C2329;
+        color: #fff;
+        border-radius: 32px;
+        padding: 32px 56px;
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800; font-style: italic;
+        text-transform: uppercase;
+        letter-spacing: -0.018em;
+        line-height: 0.92;
+        font-size: 140px;
+        box-shadow: 0 24px 60px rgba(6,10,30,0.28);
+        opacity: 0;
+      }
+      #beat7-stack {
+        position: relative;
+        width: 460px; height: 460px;
+        display: flex; align-items: center; justify-content: center;
+        opacity: 0;
+      }
+      #beat7-stack img {
+        width: 100%; height: 100%;
+        object-fit: contain;
+        filter: drop-shadow(0 30px 50px rgba(6,10,30,0.22));
+      }
+      .b7-coin {
+        position: absolute;
+        width: 56px; height: 56px;
+        border-radius: 50%;
+        background: #01CD74;
+        box-shadow: 0 8px 18px rgba(1,205,116,0.4);
+        display: flex; align-items: center; justify-content: center;
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800; font-style: italic;
+        color: #ffffff; font-size: 32px;
+        opacity: 0;
+      }
+      #beat7-spark {
+        width: 760px; height: 110px;
+      }
+      #beat7-spark path {
+        stroke: #01CD74;
+        stroke-width: 7;
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-dasharray: 1300;
+        stroke-dashoffset: 1300;
+      }
+    </style>
+
+    <div id="beat7-eyebrow">Quarterly Payouts</div>
+    <div id="beat7-badge">Dividends</div>
+
+    <div id="beat7-stack">
+      <img src="../generated-assets/money-stack.png" />
+      <div class="b7-coin" id="beat7-c1" style="top: 40px; left: 60px;">$</div>
+      <div class="b7-coin" id="beat7-c2" style="top: 20px; left: 200px;">$</div>
+      <div class="b7-coin" id="beat7-c3" style="top: 50px; right: 160px;">$</div>
+      <div class="b7-coin" id="beat7-c4" style="top: 30px; right: 40px;">$</div>
+    </div>
+
+    <svg id="beat7-spark" viewBox="0 0 760 110" preserveAspectRatio="none">
+      <path d="M 10 90 L 100 78 L 190 82 L 280 60 L 370 52 L 460 40 L 550 30 L 640 22 L 750 10" />
+    </svg>
+
+    <script>
+      (function () {
+        const W = [{"w":"And","s":0.034,"e":0.574},{"w":"many","s":0.622,"e":0.814},{"w":"ETFs","s":0.954,"e":1.454},{"w":"also","s":1.534,"e":1.854},{"w":"pay","s":1.914,"e":2.094},{"w":"dividends,","s":2.158,"e":2.894},{"w":"quarterly","s":2.958,"e":3.534},{"w":"payouts,","s":3.604,"e":4.254},{"w":"just","s":4.318,"e":4.574},{"w":"for","s":4.594,"e":4.654},{"w":"holding","s":4.704,"e":5.054},{"w":"the","s":5.074,"e":5.134},{"w":"shares.","s":5.203,"e":5.777},{"w":"Next,","s":5.985,"e":6.977}];
+        function _norm(s){return s.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu,"");}
+        function _findPhrase(phrase){
+          const tokens=phrase.toLowerCase().split(/\s+/).map(_norm).filter(Boolean);
+          if(!tokens.length) throw new Error("landOn: empty phrase");
+          const hits=[];
+          for(let i=0;i<=W.length-tokens.length;i++){
+            let ok=true;
+            for(let j=0;j<tokens.length;j++){
+              if(_norm(W[i+j].w)!==tokens[j]){ok=false;break;}
+            }
+            if(ok) hits.push(i);
+          }
+          if(hits.length===0) throw new Error('landOn: phrase "'+phrase+'" not found');
+          if(hits.length>1) throw new Error('landOn: phrase "'+phrase+'" matches '+hits.length+' positions');
+          return {startIdx:hits[0], endIdx:hits[0]+tokens.length-1};
+        }
+        function at(p){return W[_findPhrase(p).startIdx].s;}
+        function landOn(p,d=0){return at(p)-d;}
+
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        tl.fromTo("#beat7-eyebrow",
+          { opacity: 0, y: -10 },
+          { opacity: 1, y: 0, duration: 0.4, ease: "power2.out", overwrite: "auto" },
+          landOn("quarterly payouts", 0.4));
+
+        tl.fromTo("#beat7-badge",
+          { opacity: 0, scale: 0.6, y: 30 },
+          { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "back.out(1.7)", overwrite: "auto" },
+          landOn("pay dividends", 0.5));
+
+        tl.fromTo("#beat7-stack",
+          { opacity: 0, x: 200, scale: 0.85 },
+          { opacity: 1, x: 0, scale: 1, duration: 0.55, ease: "back.out(1.7)", overwrite: "auto" },
+          landOn("pay dividends", 0.55));
+
+        tl.to("#beat7-stack",
+          { y: -10, duration: 1.5, yoyo: true, repeat: 2, ease: "sine.inOut", overwrite: "auto" },
+          landOn("pay dividends", 0) + 0.6);
+
+        // Coins burst on "quarterly payouts"
+        const coinLand = landOn("quarterly payouts", 0);
+        ["#beat7-c1","#beat7-c2","#beat7-c3","#beat7-c4"].forEach((sel, i) => {
+          tl.fromTo(sel,
+            { opacity: 0, y: 40, scale: 0.4 },
+            { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(1.8)", overwrite: "auto" },
+            coinLand + i*0.08);
+          tl.to(sel,
+            { y: -8, duration: 1.0, yoyo: true, repeat: 1, ease: "sine.inOut", overwrite: "auto" },
+            coinLand + 0.5 + i*0.08);
+        });
+
+        // Sparkline draws on "holding the shares"
+        tl.to("#beat7-spark path",
+          { strokeDashoffset: 0, duration: 0.9, ease: "power2.out", overwrite: "auto" },
+          landOn("holding the shares", 0.9));
+
+        tl.set("#beat7", { visibility: "hidden" }, 6.05);
+
+        window.__timelines["bloom-etfs-explained-beat-7"] = tl;
+      })();
+    </script>
+  </div>
+</template>

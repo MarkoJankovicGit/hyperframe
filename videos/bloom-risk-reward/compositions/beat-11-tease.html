@@ -1,0 +1,115 @@
+<template>
+  <div data-composition-id="bloom-risk-reward-beat-11" data-width="1080" data-height="1920" data-start="0" data-duration="6.40">
+    <style>
+      [data-composition-id="bloom-risk-reward-beat-11"] {
+        position: absolute; inset: 0;
+        background: #1658FF;
+        font-family: "Inter Tight", system-ui, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      #b11-logo {
+        width: 300px;
+        height: 300px;
+        margin-bottom: 60px;
+        opacity: 0;
+      }
+      #b11-eyebrow {
+        color: #fff;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 36px;
+        letter-spacing: 0.15em;
+        margin-bottom: 20px;
+        opacity: 0;
+      }
+      #b11-badge {
+        background: #1C2329;
+        padding: 40px 80px;
+        border-radius: 26px;
+        box-shadow: 0 24px 60px rgba(0,0,0,0.3);
+        opacity: 0;
+      }
+      #b11-badge-text {
+        color: #fff;
+        font-weight: 800;
+        font-style: italic;
+        text-transform: uppercase;
+        font-size: 80px;
+        line-height: 1;
+        letter-spacing: -0.01em;
+      }
+      #b11-chart {
+        width: 600px;
+        height: 120px;
+        margin-top: 60px;
+        overflow: visible;
+      }
+      #b11-path {
+        fill: none;
+        stroke: #01CD74;
+        stroke-width: 10;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+    </style>
+
+    <img id="b11-logo" src="../bloom-logo.png" />
+    <div id="b11-eyebrow">NEXT LESSON</div>
+    <div id="b11-badge">
+      <span id="b11-badge-text">DIVERSIFICATION</span>
+    </div>
+    
+    <svg id="b11-chart" viewBox="0 0 600 120">
+      <path id="b11-path" d="M 0 100 L 100 80 L 200 90 L 300 40 L 400 60 L 500 20 L 600 10" />
+    </svg>
+
+    <script>
+      (function() {
+        const W = [
+          { word: "maximize", t: 48.237, e: 48.8 },
+          { word: "reward", t: 48.9, e: 49.3 },
+          { word: "diversification.", t: 51.41, e: 52.4 }
+        ];
+        const offset = 46.50;
+        const _norm = s => s.toLowerCase().replace(/[^\p{L}\p{N}\s]/gu, "").trim();
+        function landOn(phrase, dur) {
+          const ws = _norm(phrase).split(/\s+/);
+          for (let i = 0; i <= W.length - ws.length; i++) {
+            let ok = true;
+            for (let j = 0; j < ws.length; j++) {
+              if (_norm(W[i + j].word) !== ws[j]) { ok = false; break; }
+            }
+            if (ok) return (W[i].t - offset) - dur;
+          }
+          return 0;
+        }
+
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        // Logo entrance
+        tl.fromTo("#b11-logo", { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.8, ease: "back.out(1.7)" }, 0.2);
+        tl.to("#b11-logo", { scale: 1.05, duration: 1.5, yoyo: true, repeat: 2, ease: "sine.inOut" }, 1.0);
+
+        // Eyebrow
+        tl.fromTo("#b11-eyebrow", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" }, landOn("maximize", 0.5));
+
+        // Badge
+        tl.fromTo("#b11-badge", { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.7)" }, landOn("diversification", 0.5));
+
+        // Chart draw
+        const path = document.getElementById("b11-path");
+        const length = path.getTotalLength();
+        path.style.strokeDasharray = length;
+        path.style.strokeDashoffset = length;
+        tl.to(path, { strokeDashoffset: 0, duration: 1.5, ease: "power2.inOut" }, landOn("diversification", 0.5));
+
+        window.__timelines["bloom-risk-reward-beat-11"] = tl;
+      })();
+    </script>
+  </div>
+</template>

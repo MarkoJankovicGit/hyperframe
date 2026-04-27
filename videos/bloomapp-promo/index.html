@@ -1,0 +1,683 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Bloom — Promotional Reel (15s)</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body {
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #1658ff;
+        font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+      }
+      #root {
+        position: relative;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+      }
+
+      .scene {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        opacity: 0;
+      }
+      #scene1 { background: #1658ff; opacity: 1; }
+      #scene2 { background: #ffffff; }
+      #scene3 { background: #f8f8f9; }
+      #scene4 { background: #1658ff; }
+
+      /* Shared headline-badge style */
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: #1c2329;
+        color: #ffffff;
+        border-radius: 26px;
+        box-shadow: 0 24px 60px rgba(6, 10, 30, 0.28);
+      }
+      .badge-text {
+        font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        line-height: 0.95;
+        letter-spacing: -0.012em;
+        text-transform: uppercase;
+        color: #ffffff;
+      }
+
+      /* ==============================================================
+         SCENE 1 — HOOK (0.0–2.6s) — "Wall Street shouldn't feel like a secret club."
+         ============================================================== */
+      #scene1 { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 46px; padding: 140px 80px; }
+      #scene1 #s1-canvas {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        opacity: 0.55;
+        z-index: 0;
+        pointer-events: none;
+      }
+      #scene1 #s1-star {
+        position: absolute;
+        top: 620px;
+        left: 50%;
+        margin-left: -260px;
+        width: 520px;
+        height: 520px;
+        opacity: 0.45;
+        z-index: 1;
+        pointer-events: none;
+        filter: drop-shadow(0 12px 40px rgba(0, 0, 0, 0.25));
+      }
+      #scene1 .s1-badge-primary { padding: 36px 60px; position: relative; z-index: 2; }
+      #scene1 .s1-badge-primary .badge-text { font-size: 148px; white-space: nowrap; }
+      #scene1 .s1-badge-secondary {
+        padding: 28px 56px;
+        max-width: 900px;
+        position: relative;
+        z-index: 2;
+      }
+      #scene1 .s1-badge-secondary .badge-text {
+        font-size: 66px;
+        white-space: normal;
+        text-align: center;
+        line-height: 1.04;
+      }
+
+      /* ==============================================================
+         SCENE 2 — FEATURE (2.6–7.88s) — "Bloom turns it into bite-size lessons. Real stocks. Zero jargon."
+         ============================================================== */
+      #scene2 .s2-glow {
+        position: absolute;
+        top: 400px;
+        left: 50%;
+        margin-left: -520px;
+        width: 1040px;
+        height: 1040px;
+        border-radius: 50%;
+        background: radial-gradient(circle at center, rgba(1, 205, 116, 0.14) 0%, rgba(1, 205, 116, 0.04) 40%, rgba(1, 205, 116, 0) 72%);
+        z-index: 0;
+        pointer-events: none;
+      }
+      #scene2 .s2-logo {
+        position: absolute;
+        top: 96px;
+        left: 96px;
+        width: 112px;
+        height: 112px;
+        z-index: 4;
+        object-fit: contain;
+      }
+      #scene2 .s2-phone {
+        position: absolute;
+        object-fit: contain;
+        filter: drop-shadow(0 36px 80px rgba(25, 33, 61, 0.18));
+      }
+      #scene2 .s2-phone-learn {
+        top: 340px;
+        left: 50%;
+        margin-left: -310px;
+        width: 620px;
+        z-index: 3;
+      }
+      #scene2 .s2-phone-ask {
+        top: 470px;
+        left: 60px;
+        width: 420px;
+        z-index: 2;
+        opacity: 0.95;
+      }
+      #scene2 .s2-badge-stack {
+        position: absolute;
+        bottom: 160px;
+        left: 80px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 32px;
+        z-index: 5;
+      }
+      #scene2 .s2-badge { padding: 28px 52px; }
+      #scene2 .s2-badge .badge-text { font-size: 92px; white-space: nowrap; }
+
+      /* ==============================================================
+         SCENE 3 — PROOF (7.88–12.655s) — "Two million downloads. Money protected up to five hundred thousand."
+         ============================================================== */
+      #scene3 #s3-canvas {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        opacity: 0.75;
+        z-index: 0;
+        pointer-events: none;
+      }
+      #scene3 .s3-stat-panel {
+        position: absolute;
+        top: 260px;
+        left: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 3;
+      }
+      #scene3 .s3-stat-number {
+        font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        font-size: 212px;
+        letter-spacing: -0.04em;
+        line-height: 0.92;
+        color: #1c2329;
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+      }
+      #scene3 .s3-stat-label {
+        font-family: "Inter", system-ui, sans-serif;
+        font-weight: 600;
+        font-size: 44px;
+        letter-spacing: 0.22em;
+        color: #4a4f54;
+        text-transform: uppercase;
+        margin-top: 20px;
+      }
+      #scene3 .s3-protected-panel {
+        position: absolute;
+        top: 280px;
+        left: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 38px;
+        opacity: 0;
+        z-index: 4;
+      }
+      #scene3 .s3-badge { padding: 30px 44px; }
+      #scene3 .s3-badge .badge-text { font-size: 78px; white-space: nowrap; }
+      #scene3 .s3-sipc-row {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+      }
+      #scene3 .s3-check { width: 88px; height: 88px; flex-shrink: 0; }
+      #scene3 .s3-check-path { stroke-dasharray: 90; stroke-dashoffset: 90; }
+      #scene3 .s3-sipc {
+        height: 80px;
+        width: auto;
+        object-fit: contain;
+        filter: drop-shadow(0 8px 20px rgba(25, 33, 61, 0.08));
+      }
+      #scene3 .s3-phone {
+        position: absolute;
+        bottom: 100px;
+        left: 50%;
+        margin-left: -340px;
+        width: 680px;
+        z-index: 2;
+        filter: drop-shadow(0 40px 80px rgba(25, 33, 61, 0.22));
+      }
+
+      /* ==============================================================
+         SCENE 4 — CTA (12.655–17.079s) — "Learn. Invest. Automate. Get Bloom."
+         ============================================================== */
+      #scene4 .s4-star {
+        position: absolute;
+        top: 560px;
+        left: 50%;
+        margin-left: -400px;
+        width: 800px;
+        height: 800px;
+        z-index: 1;
+        opacity: 0.5;
+        filter: drop-shadow(0 18px 60px rgba(0, 0, 0, 0.18));
+        pointer-events: none;
+      }
+      #scene4 .s4-verb-stack {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 36px;
+        z-index: 3;
+      }
+      #scene4 .s4-badge { padding: 32px 72px; }
+      #scene4 .s4-badge .badge-text { font-size: 168px; white-space: nowrap; }
+      #scene4 .s4-logo {
+        position: absolute;
+        top: 720px;
+        left: 50%;
+        margin-left: -240px;
+        width: 480px;
+        height: 480px;
+        z-index: 5;
+        opacity: 0;
+        object-fit: contain;
+        filter: drop-shadow(0 28px 70px rgba(0, 0, 0, 0.32));
+      }
+      #scene4 .s4-cta-pill {
+        position: absolute;
+        top: 1300px;
+        left: 50%;
+        margin-left: -300px;
+        width: 600px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: #1c2329;
+        color: #ffffff;
+        padding: 36px 56px;
+        border-radius: 300px;
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.32);
+        opacity: 0;
+        z-index: 6;
+      }
+      #scene4 .s4-cta-pill .badge-text { font-size: 96px; white-space: nowrap; }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="bloomapp-promo"
+      data-width="1080"
+      data-height="1920"
+      data-start="0"
+      data-duration="15.37"
+    >
+      <audio
+        id="narration"
+        class="clip"
+        data-start="0"
+        data-duration="15.37"
+        data-track-index="0"
+        data-volume="1"
+        src="narration.mp3"
+       style="z-index: 9"></audio>
+
+      <!-- ============================================================
+           SCENE 1 — HOOK
+           ============================================================ -->
+      <div id="scene1" class="scene" style="z-index: 1">
+        <canvas id="s1-canvas" width="1080" height="1920"></canvas>
+        <img id="s1-star" src="capture/assets/695f5099208b94c9b420571c-bloom-star.png" alt="" />
+        <div class="badge s1-badge-primary" id="s1-badge-primary">
+          <span class="badge-text">WALL STREET</span>
+        </div>
+        <div class="badge s1-badge-secondary" id="s1-badge-secondary">
+          <span class="badge-text">SHOULDN&rsquo;T FEEL LIKE A SECRET CLUB</span>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SCENE 2 — FEATURE
+           ============================================================ -->
+      <div id="scene2" class="scene" style="z-index: 1">
+        <div class="s2-glow" id="s2-glow"></div>
+        <img class="s2-logo" id="s2-logo" src="bloom-logo.png" alt="Bloom" / style="z-index: 7">
+        <img class="s2-phone s2-phone-ask" id="s2-phone-ask" src="capture/assets/690acfe6dcc7de5c86148956-ask-screen-1.png" alt="" />
+        <img class="s2-phone s2-phone-learn" id="s2-phone-learn" src="capture/assets/690abdf36629486dfb606b59-learn-screen-1.png" alt="" />
+        <div class="s2-badge-stack">
+          <div class="badge s2-badge" id="s2-badge-1"><span class="badge-text">BITE-SIZE&nbsp;LESSONS</span></div>
+          <div class="badge s2-badge" id="s2-badge-2"><span class="badge-text">REAL&nbsp;STOCKS</span></div>
+          <div class="badge s2-badge" id="s2-badge-3"><span class="badge-text">ZERO&nbsp;JARGON</span></div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SCENE 3 — PROOF
+           ============================================================ -->
+      <div id="scene3" class="scene" style="z-index: 1">
+        <canvas id="s3-canvas" width="1080" height="1920"></canvas>
+        <div class="s3-stat-panel" id="s3-stat-panel">
+          <div class="s3-stat-number" id="s3-stat-number">0+</div>
+          <div class="s3-stat-label" id="s3-stat-label">DOWNLOADS</div>
+        </div>
+        <div class="s3-protected-panel" id="s3-protected-panel">
+          <div class="badge s3-badge" id="s3-badge">
+            <span class="badge-text">$500,000 PROTECTED</span>
+          </div>
+          <div class="s3-sipc-row">
+            <svg class="s3-check" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="48" cy="48" r="44" fill="#01cd74" />
+              <path class="s3-check-path" d="M 28 50 L 44 66 L 70 36" stroke="#ffffff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+            </svg>
+            <img class="s3-sipc" id="s3-sipc" src="capture/assets/690ad285c2e9d81397a85ab8-sipc.png" alt="SIPC insured" / style="z-index: 4">
+          </div>
+        </div>
+        <img class="s3-phone" id="s3-phone" src="capture/assets/690ba188fa21cc9a599feb66-mockup-safe-p-8.png" alt="" / style="z-index: 3">
+      </div>
+
+      <!-- ============================================================
+           SCENE 4 — CTA
+           ============================================================ -->
+      <div id="scene4" class="scene" style="z-index: 1">
+        <img class="s4-star" id="s4-star" src="bloom-star.png" alt="" style="z-index: 1" />
+        <div class="s4-verb-stack" id="s4-verb-stack">
+          <div class="badge s4-badge" id="s4-verb-1"><span class="badge-text">LEARN.</span></div>
+          <div class="badge s4-badge" id="s4-verb-2"><span class="badge-text">INVEST.</span></div>
+          <div class="badge s4-badge" id="s4-verb-3"><span class="badge-text">AUTOMATE.</span></div>
+        </div>
+        <img class="s4-logo" id="s4-logo" src="bloom-logo-large.png" alt="Bloom" style="z-index: 5" />
+        <div class="s4-cta-pill" id="s4-cta-pill"><span class="badge-text">GET BLOOM.</span></div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        // ==========================================================
+        // Deterministic PRNG (shared across beats)
+        // ==========================================================
+        function mulberry32(seed) {
+          return function () {
+            let t = (seed += 0x6d2b79f5);
+            t = Math.imul(t ^ (t >>> 15), t | 1);
+            t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+            return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+          };
+        }
+
+        // ==========================================================
+        // SCENE 1 — HOOK (t = 0.0 → 2.6)
+        // VO onsets: Wall 0.0, shouldn't 0.546, club 1.614
+        // ==========================================================
+        (function () {
+          const rand = mulberry32(1337);
+          const canvas = document.getElementById("s1-canvas");
+          const ctx = canvas.getContext("2d");
+          const TOKENS = [
+            "SPY +0.34%", "AAPL", "NVDA -2.1%", "TSLA", "MSFT +1.2%", "AMZN",
+            "GOOGL", "META -0.4%", "BTC +3.8%", "ETH", "DJI", "QQQ +0.8%",
+            "VIX", "BRK.B", "JPM -0.7%", "PLTR", "AMD +2.9%", "COIN",
+            "SMCI", "WMT", "DIS -1.0%", "BABA +0.5%", "XOM", "UNH",
+            "C 0.12%", "F -0.3%", "BAC +0.2%", "PYPL", "KO", "PEP +0.1%"
+          ];
+          const COLUMNS = 6;
+          const COL_W = 1080 / COLUMNS;
+          const ROW_SP = 72;
+          const ROWS = Math.ceil(1920 / ROW_SP) + 6;
+          const grid = [];
+          for (let c = 0; c < COLUMNS; c++) {
+            const col = [];
+            const off = Math.floor(rand() * ROW_SP);
+            for (let r = 0; r < ROWS; r++) {
+              col.push({
+                token: TOKENS[Math.floor(rand() * TOKENS.length)],
+                yOff: off + r * ROW_SP,
+                alpha: 0.35 + rand() * 0.5,
+                size: 22 + Math.floor(rand() * 8),
+              });
+            }
+            grid.push(col);
+          }
+          function drawS1(localT) {
+            ctx.clearRect(0, 0, 1080, 1920);
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            const scroll = (localT * 20) % ROW_SP;
+            for (let c = 0; c < COLUMNS; c++) {
+              const x = c * COL_W + COL_W / 2;
+              const col = grid[c];
+              for (let r = 0; r < ROWS; r++) {
+                const cell = col[r];
+                const y = Math.round(cell.yOff - scroll);
+                if (y < -40 || y > 1960) continue;
+                ctx.fillStyle = "rgba(255, 255, 255, " + cell.alpha.toFixed(3) + ")";
+                ctx.font = "600 " + cell.size + "px 'Inter', system-ui, sans-serif";
+                ctx.fillText(cell.token, x, y);
+              }
+            }
+          }
+          drawS1(0);
+          const s1p = { t: 0 };
+          tl.to(s1p, { t: 2.2, duration: 2.2, ease: "none", onUpdate: function () { drawS1(s1p.t); } }, 0);
+        })();
+
+        // Star: pop in, rotate throughout scene
+        tl.from("#s1-star", { scale: 0, opacity: 0, duration: 0.5, ease: "back.out(1.6)" }, 0.3);
+        tl.to("#s1-star", { rotation: 12, duration: 1.8, ease: "none" }, 0.3);
+
+        // Badge 1 — "WALL STREET" slams @ VO "Wall" 0.0
+        tl.from("#s1-badge-primary", { y: -60, scale: 1.28, opacity: 0, rotation: -1.5, duration: 0.36, ease: "power3.out" }, 0.05);
+        tl.to("#s1-badge-primary", { scale: 1.015, duration: 0.9, ease: "sine.inOut", yoyo: true, repeat: 1 }, 1.0);
+
+        // Badge 2 — "SHOULDN'T FEEL..." wipes @ VO "shouldn't" 0.589
+        tl.set("#s1-badge-secondary", { clipPath: "inset(0 100% 0 0)" }, 0);
+        tl.fromTo(
+          "#s1-badge-secondary",
+          { y: 30, opacity: 0, clipPath: "inset(0 100% 0 0)" },
+          { y: 0, opacity: 1, clipPath: "inset(0 0% 0 0)", duration: 0.55, ease: "power3.out" },
+          0.589
+        );
+
+        // ==========================================================
+        // SCENE TRANSITION 1 → 2 at t = 2.2 (before VO "Bloom" @ 2.268)
+        // ==========================================================
+        tl.to("#scene1", { opacity: 0, duration: 0.2, ease: "power2.in", overwrite: "auto" }, 2.05);
+        tl.to("#scene2", { opacity: 1, duration: 0.25, ease: "power2.out", overwrite: "auto" }, 2.15);
+        tl.set("#scene1", { visibility: "hidden" }, 2.45);
+
+        // ==========================================================
+        // SCENE 2 — FEATURE (t = 2.2 → 7.47)
+        // VO onsets: Bloom 2.268, bite-size 3.506, real 4.866, zero 6.063, jargon 6.439
+        // ==========================================================
+
+        // Green radial glow breathe
+        tl.from("#s2-glow", { opacity: 0, scale: 0.9, duration: 0.5, ease: "power2.out" }, 2.2);
+        tl.to("#s2-glow", { scale: 1.05, duration: 2.5, ease: "sine.inOut", yoyo: true, repeat: 1 }, 2.7);
+
+        // Bloom logo: fade in on VO "Bloom"
+        tl.from("#s2-logo", { y: -30, opacity: 0, duration: 0.5, ease: "power3.out" }, 2.35);
+        tl.to("#s2-logo", { y: 4, duration: 2.4, ease: "sine.inOut", yoyo: true, repeat: 1 }, 2.9);
+
+        // Secondary phone enters first (ask) — tilts into rest
+        tl.fromTo(
+          "#s2-phone-ask",
+          { y: 220, opacity: 0, rotation: 18, scale: 0.92 },
+          { y: 0, opacity: 0.95, rotation: 10, scale: 1, duration: 0.8, ease: "power3.out" },
+          2.25
+        );
+
+        // Main phone (learn) enters with stagger
+        tl.fromTo(
+          "#s2-phone-learn",
+          { y: 280, opacity: 0, rotation: -16, scale: 0.9 },
+          { y: 0, opacity: 1, rotation: -8, scale: 1, duration: 0.85, ease: "power3.out" },
+          2.55
+        );
+
+        // Ken Burns on both phones
+        tl.to("#s2-phone-learn", { scale: 1.04, duration: 4.0, ease: "sine.inOut", overwrite: "auto" }, 3.45);
+        tl.to("#s2-phone-ask", { scale: 1.04, duration: 4.0, ease: "sine.inOut", overwrite: "auto" }, 3.55);
+
+        // Three badges slam synced to VO words (v3 transcript)
+        tl.fromTo(
+          "#s2-badge-1",
+          { x: -100, scale: 1.15, opacity: 0, rotation: -2 },
+          { x: 0, scale: 1, opacity: 1, rotation: 0, duration: 0.32, ease: "power3.out" },
+          3.506
+        );
+        tl.fromTo(
+          "#s2-badge-2",
+          { x: -100, scale: 1.15, opacity: 0, rotation: -2 },
+          { x: 0, scale: 1, opacity: 1, rotation: 0, duration: 0.32, ease: "power3.out" },
+          4.866
+        );
+        tl.fromTo(
+          "#s2-badge-3",
+          { x: -100, scale: 1.15, opacity: 0, rotation: -2 },
+          { x: 0, scale: 1, opacity: 1, rotation: 0, duration: 0.32, ease: "power3.out" },
+          6.063
+        );
+        tl.to("#s2-badge-1", { opacity: 0.55, duration: 0.25 }, 4.866);
+        tl.to("#s2-badge-2", { opacity: 0.55, duration: 0.25 }, 6.063);
+
+        // ==========================================================
+        // SCENE TRANSITION 2 → 3 at t = 7.88
+        // ==========================================================
+        tl.to("#scene2", { opacity: 0, duration: 0.2, ease: "power2.in", overwrite: "auto" }, 7.32);
+        tl.to("#scene3", { opacity: 1, duration: 0.25, ease: "power2.out", overwrite: "auto" }, 7.42);
+        tl.set("#scene2", { visibility: "hidden" }, 7.72);
+
+        // ==========================================================
+        // SCENE 3 — PROOF (t = 7.47 → 11.65)
+        // VO onsets: Two 7.479, money 8.999, protected 9.247, five 10.061, thousand 10.628
+        // ==========================================================
+        (function () {
+          const rand = mulberry32(24601);
+          const canvas = document.getElementById("s3-canvas");
+          const ctx = canvas.getContext("2d");
+          const parts = [];
+          for (let i = 0; i < 28; i++) {
+            parts.push({
+              x: rand() * 1080,
+              y: rand() * 1920,
+              r: 2 + rand() * 3.5,
+              phase: rand() * Math.PI * 2,
+              drift: 10 + rand() * 26,
+            });
+          }
+          function drawS3(localT) {
+            ctx.clearRect(0, 0, 1080, 1920);
+            for (let i = 0; i < parts.length; i++) {
+              const p = parts[i];
+              const yOff = Math.sin(p.phase + localT * 0.5) * p.drift;
+              const xOff = Math.cos(p.phase * 0.7 + localT * 0.3) * (p.drift * 0.6);
+              ctx.fillStyle = "rgba(28, 35, 41, 0.16)";
+              ctx.beginPath();
+              ctx.arc(p.x + xOff, p.y + yOff, p.r, 0, Math.PI * 2);
+              ctx.fill();
+            }
+          }
+          drawS3(0);
+          const s3p = { t: 0 };
+          tl.to(s3p, { t: 4.18, duration: 4.18, ease: "none", onUpdate: function () { drawS3(s3p.t); } }, 7.47);
+        })();
+
+        // Counter 0 → 2,000,000 — VO "Two million downloads" 7.479-8.96
+        const counter = document.getElementById("s3-stat-number");
+        counter.textContent = "0+";
+        const numP = { v: 0 };
+        tl.from("#s3-stat-number", { y: 40, opacity: 0, duration: 0.45, ease: "power3.out" }, 7.47);
+        tl.to(numP, {
+          v: 2000000,
+          duration: 1.25,
+          ease: "power2.out",
+          onUpdate: function () {
+            counter.textContent = Math.floor(numP.v).toLocaleString("en-US") + "+";
+          },
+        }, 7.57);
+        tl.from("#s3-stat-label", { opacity: 0, y: 18, duration: 0.45, ease: "power2.out" }, 8.30);
+
+        // Phone rises, Ken Burns
+        tl.from("#s3-phone", { y: 260, opacity: 0, rotation: -2, duration: 0.85, ease: "power3.out" }, 7.62);
+        tl.fromTo("#s3-phone", { scale: 1 }, { scale: 1.04, duration: 3.5, ease: "sine.inOut" }, 8.15);
+
+        // At VO "money" 8.999: swap stat panel → protected panel
+        tl.to("#s3-stat-panel", {
+          opacity: 0, y: -30, scale: 0.92, filter: "blur(12px)",
+          duration: 0.35, ease: "power2.in",
+        }, 8.85);
+        tl.fromTo(
+          "#s3-protected-panel",
+          { opacity: 0, y: 30, scale: 0.96 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "power3.out" },
+          9.10
+        );
+        tl.fromTo(
+          "#s3-badge",
+          { scale: 1.12, rotation: -1 },
+          { scale: 1, rotation: 0, duration: 0.4, ease: "back.out(1.3)" },
+          9.20
+        );
+        tl.from("#scene3 .s3-check", { scale: 0.4, opacity: 0, duration: 0.35, ease: "back.out(2)" }, 9.65);
+        tl.to("#scene3 .s3-check-path", { strokeDashoffset: 0, duration: 0.5, ease: "power2.out" }, 9.75);
+        tl.from("#s3-sipc", { scale: 0.7, opacity: 0, x: -20, duration: 0.35, ease: "back.out(1.5)" }, 9.90);
+
+        // ==========================================================
+        // SCENE TRANSITION 3 → 4 at t = 11.65 (before VO "Learn" 11.663)
+        // ==========================================================
+        tl.to("#scene3", { opacity: 0, duration: 0.2, ease: "power2.in", overwrite: "auto" }, 11.50);
+        tl.to("#scene4", { opacity: 1, duration: 0.25, ease: "power2.out", overwrite: "auto" }, 11.60);
+        tl.set("#scene3", { visibility: "hidden" }, 11.90);
+
+        // ==========================================================
+        // SCENE 4 — CTA (t = 11.65 → 15.37)
+        // VO onsets: Learn 11.663, invest 12.249, automate 13.088, — 13.712, get 13.992, Bloom 14.325
+        // ==========================================================
+
+        // Star: pop, rotate continuously
+        tl.from("#s4-star", { scale: 0, opacity: 0, duration: 0.5, ease: "back.out(1.7)", overwrite: "auto" }, 11.663);
+        tl.to("#s4-star", { rotation: 22, duration: 3.7, ease: "none", overwrite: "auto" }, 11.663);
+
+        // Verb 1 — LEARN @ 11.663
+        tl.fromTo(
+          "#s4-verb-1",
+          { y: -140, scale: 1.22, opacity: 0, rotation: -2 },
+          { y: 0, scale: 1, opacity: 1, rotation: 0, duration: 0.32, ease: "power3.out" },
+          11.663
+        );
+        // Verb 2 — INVEST @ 12.249
+        tl.fromTo(
+          "#s4-verb-2",
+          { y: 120, scale: 1.22, opacity: 0, rotation: 2 },
+          { y: 0, scale: 1, opacity: 1, rotation: 0, duration: 0.32, ease: "power3.out" },
+          12.249
+        );
+        // Verb 3 — AUTOMATE @ 13.088
+        tl.fromTo(
+          "#s4-verb-3",
+          { y: 160, scale: 1.22, opacity: 0, rotation: -2 },
+          { y: 0, scale: 1, opacity: 1, rotation: 0, duration: 0.32, ease: "power3.out" },
+          13.088
+        );
+
+        // Star audio-reactive micro-pulses on each verb slam
+        tl.to("#s4-star", { scale: 1.03, duration: 0.12, ease: "power2.out", overwrite: "auto" }, 11.663);
+        tl.to("#s4-star", { scale: 1.0, duration: 0.2, ease: "power2.in", overwrite: "auto" }, 11.783);
+        tl.to("#s4-star", { scale: 1.03, duration: 0.12, ease: "power2.out", overwrite: "auto" }, 12.249);
+        tl.to("#s4-star", { scale: 1.0, duration: 0.2, ease: "power2.in", overwrite: "auto" }, 12.369);
+        tl.to("#s4-star", { scale: 1.03, duration: 0.12, ease: "power2.out", overwrite: "auto" }, 13.088);
+        tl.to("#s4-star", { scale: 1.0, duration: 0.2, ease: "power2.in", overwrite: "auto" }, 13.208);
+
+        // Verbs collapse @ em-dash (13.712) → logo blooms
+        tl.to("#s4-verb-stack", {
+          scale: 0.4, opacity: 0, filter: "blur(12px)",
+          duration: 0.4, ease: "power3.in",
+        }, 13.70);
+        tl.fromTo(
+          "#s4-logo",
+          { scale: 0, opacity: 0, rotation: -12 },
+          { scale: 1, opacity: 1, rotation: 0, duration: 0.55, ease: "back.out(1.7)" },
+          13.85
+        );
+        tl.to("#s4-logo", { scale: 1.03, duration: 0.65, ease: "sine.inOut", yoyo: true, repeat: 1 }, 14.45);
+        tl.to("#s4-star", { scale: 1.12, opacity: 0.62, duration: 0.6, ease: "power2.out" }, 13.85);
+
+        // GET BLOOM pill slides up @ VO "Bloom" 14.325
+        tl.fromTo(
+          "#s4-cta-pill",
+          { y: 80, opacity: 0, scale: 0.95 },
+          { y: 0, opacity: 1, scale: 1, duration: 0.4, ease: "power3.out" },
+          14.325
+        );
+        tl.to("#s4-cta-pill", { scale: 1.02, duration: 0.25, ease: "sine.inOut", yoyo: true, repeat: 1, overwrite: "auto" }, 14.95);
+
+        window.__timelines["bloomapp-promo"] = tl;
+      </script>
+    </div>
+  </body>
+</html>

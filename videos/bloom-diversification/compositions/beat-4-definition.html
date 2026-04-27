@@ -1,0 +1,210 @@
+<template>
+  <div class="scene-root" data-composition-id="bloom-diversification-beat-4" data-width="1080" data-height="1920" data-start="0" data-duration="12.13">
+    <style>
+
+      .scene-root {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        font-family: "Inter", system-ui, sans-serif;
+        box-sizing: border-box;
+      }
+      .scene-content {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        height: 100%;
+        padding: 118px 82px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 36px;
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        padding: 16px 32px;
+        background: rgba(28,35,41,0.18);
+        color: #fff;
+        font-size: 32px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .eyebrow.dark { background: #1C2329; color: #fff; }
+      .eyebrow.blue { background: #1658FF; color: #fff; }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: #1C2329;
+        color: #fff;
+        border-radius: 26px;
+        padding: 34px 50px 42px;
+        box-shadow: 0 24px 60px rgba(6,10,30,0.28);
+        max-width: 930px;
+      }
+      .badge-text {
+        font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        text-transform: uppercase;
+        letter-spacing: -0.012em;
+        line-height: 0.92;
+        color: #fff;
+        text-align: center;
+      }
+      .title-dark {
+        font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        text-transform: uppercase;
+        letter-spacing: -0.012em;
+        line-height: 0.93;
+        color: #1C2329;
+        text-align: center;
+      }
+      .subcopy {
+        color: #4A4F54;
+        font-size: 42px;
+        font-weight: 700;
+        line-height: 1.12;
+        text-align: center;
+        max-width: 860px;
+      }
+      .white-text { color: #fff; }
+      .green { color: #01CD74; }
+      .blue { color: #1658FF; }
+      .logo-orb {
+        width: 142px;
+        height: 142px;
+        border-radius: 50%;
+        background: #1C2329;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 22px 50px rgba(6,10,30,0.24);
+      }
+      .logo-orb img {
+        max-width: 82px;
+        max-height: 82px;
+        object-fit: contain;
+      }
+      .bloom-logo {
+        width: 190px;
+        height: 190px;
+        object-fit: contain;
+      }
+      .star-bg {
+        position: absolute;
+        width: 820px;
+        height: 820px;
+        opacity: 0.16;
+        object-fit: contain;
+        z-index: 0;
+      }
+      .card {
+        background: #fff;
+        border: 2px solid #E8E9EA;
+        border-radius: 34px;
+        box-shadow: 0 20px 60px rgba(6,10,30,0.12);
+      }
+      .dark-card {
+        background: #1C2329;
+        color: #fff;
+        border-radius: 34px;
+        box-shadow: 0 24px 64px rgba(6,10,30,0.26);
+      }
+      .sparkline {
+        width: 760px;
+        height: 220px;
+      }
+      .sparkline path {
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 18;
+      }
+
+      [data-composition-id="bloom-diversification-beat-4"] { background: #FFFFFF; }
+      #b4-pills { display: flex; flex-direction: column; gap: 24px; width: 820px; }
+      .def-pill { height: 132px; border-radius: 999px; background: #1658FF; color:#fff; display:flex; align-items:center; justify-content:center; font: italic 800 62px "Inter Tight", sans-serif; text-transform: uppercase; }
+      #b4-basket { color: #1C2329; }
+    </style>
+    <div class="scene-content">
+      <div id="b4-title" class="title-dark" style="font-size:118px">SPREAD ACROSS</div>
+      <div id="b4-pills">
+        <div class="def-pill">Companies</div>
+        <div class="def-pill">Industries</div>
+        <div class="def-pill">Asset Classes</div>
+      </div>
+      <div id="b4-word" class="badge"><span class="badge-text" style="font-size:94px">DIVERSIFICATION</span></div>
+      <div id="b4-basket" class="subcopy">Not all your eggs in one basket.</div>
+    </div>
+    <script>
+      (function () {
+        const W = [{"word":"That","t":0.004,"e":0.772},
+        {"word":"practice,","t":0.843,"e":1.691},
+        {"word":"spreading","t":1.719,"e":1.971},
+        {"word":"investments","t":2.024,"e":2.607},
+        {"word":"across","t":2.664,"e":3.006},
+        {"word":"different","t":3.046,"e":3.406},
+        {"word":"companies,","t":3.47,"e":4.206},
+        {"word":"industries,","t":4.264,"e":4.924},
+        {"word":"and","t":4.964,"e":5.084},
+        {"word":"asset","t":5.151,"e":5.486},
+        {"word":"classes,","t":5.556,"e":6.286},
+        {"word":"is","t":6.339,"e":6.445},
+        {"word":"diversification.","t":6.502,"e":7.643},
+        {"word":"It's","t":7.856,"e":8.362},
+        {"word":"the","t":8.382,"e":8.442},
+        {"word":"investing","t":8.49,"e":8.922},
+        {"word":"version","t":8.982,"e":9.402},
+        {"word":"of","t":9.455,"e":9.561},
+        {"word":"don't","t":9.621,"e":9.881},
+        {"word":"put","t":9.921,"e":10.041},
+        {"word":"all","t":10.101,"e":10.281},
+        {"word":"your","t":10.313,"e":10.441},
+        {"word":"eggs","t":10.521,"e":10.841},
+        {"word":"in","t":10.894,"e":11},
+        {"word":"one","t":11.06,"e":11.24},
+        {"word":"basket.","t":11.331,"e":11.957}];
+
+        const _norm = (s) => s.toLowerCase().replace(/[^\p{L}\p{N}\s]/gu, "").trim();
+        function _findPhrase(phrase) {
+          const ws = _norm(phrase).split(/\s+/);
+          const out = [];
+          for (let i = 0; i <= W.length - ws.length; i++) {
+            let ok = true;
+            for (let j = 0; j < ws.length; j++) {
+              if (_norm(W[i + j].word) !== ws[j]) { ok = false; break; }
+            }
+            if (ok) out.push({ start: W[i].t, end: W[i + ws.length - 1].e });
+          }
+          if (out.length === 0) throw new Error('landOn: phrase "' + phrase + '" not found in beat W');
+          if (out.length > 1) throw new Error('landOn: phrase "' + phrase + '" matched ' + out.length + ' positions');
+          return out[0];
+        }
+        function landOn(phrase, dur) { return Math.max(0, _findPhrase(phrase).start - dur); }
+        function landAfter(phrase, dur) { return Math.max(0, _findPhrase(phrase).end - dur); }
+        function at(phrase) { return _findPhrase(phrase).start; }
+
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+        tl.set('[data-composition-id="bloom-diversification-beat-4"]', { opacity: 1 }, 0);
+        tl.fromTo("#b4-title", { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 0.48, ease: "power3.out", overwrite: "auto" }, landOn("spreading investments", 0.48));
+        tl.fromTo(".def-pill", { x: -120, opacity: 0 }, { x: 0, opacity: 1, duration: 0.48, stagger: 0.18, ease: "power3.out", overwrite: "auto" }, landOn("different companies", 0.48));
+        tl.fromTo("#b4-word", { scale: 0.72, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.55, ease: "back.out(1.7)", overwrite: "auto" }, landOn("is diversification", 0.55));
+        tl.fromTo("#b4-basket", { y: 34, opacity: 0 }, { y: 0, opacity: 1, duration: 0.48, ease: "power2.out", overwrite: "auto" }, landOn("eggs in one", 0.48));
+        tl.to('[data-composition-id="bloom-diversification-beat-4"]', { opacity: 0, duration: 0.2, ease: "none", overwrite: "auto" }, 11.93);
+        window.__timelines["bloom-diversification-beat-4"] = tl;
+      })();
+    </script>
+  </div>
+</template>

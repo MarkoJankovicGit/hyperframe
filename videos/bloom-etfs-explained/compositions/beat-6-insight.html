@@ -1,0 +1,162 @@
+<template>
+  <div id="beat6" class="scene"
+       data-composition-id="bloom-etfs-explained-beat-6"
+       data-width="1080" data-height="1920"
+       data-start="0" data-duration="5.05">
+    <style>
+      #beat6 {
+        position: absolute; inset: 0;
+        width: 1080px; height: 1920px;
+        overflow: hidden;
+        background: #1658FF;
+        font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        gap: 36px;
+      }
+      #beat6-star {
+        position: absolute;
+        top: 50%; left: 50%;
+        margin-top: -340px; margin-left: -340px;
+        width: 680px; height: 680px;
+        opacity: 0.32;
+        pointer-events: none;
+      }
+      #beat6-star img { width: 100%; height: 100%; object-fit: contain; }
+      #beat6-particles {
+        position: absolute; inset: 0;
+        width: 1080px; height: 1920px;
+        pointer-events: none;
+      }
+      .b6-badge {
+        position: relative; z-index: 2;
+        background: #1C2329;
+        color: #fff;
+        border-radius: 30px;
+        padding: 28px 48px;
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800; font-style: italic;
+        text-transform: uppercase;
+        letter-spacing: -0.018em;
+        line-height: 0.92;
+        font-size: 110px;
+        box-shadow: 0 24px 60px rgba(6,10,30,0.34);
+        opacity: 0;
+      }
+      #beat6-b3 { background: #01CD74; color: #1C2329; }
+    </style>
+
+    <div id="beat6-star"><img src="../bloom-star.png" /></div>
+    <canvas id="beat6-particles" width="1080" height="1920"></canvas>
+
+    <div class="b6-badge" id="beat6-b1">One Purchase</div>
+    <div class="b6-badge" id="beat6-b2">Hundreds of Stocks</div>
+    <div class="b6-badge" id="beat6-b3">Diversified</div>
+
+    <script>
+      (function () {
+        const W = [{"w":"One","s":0.111,"e":0.711},{"w":"purchase.","s":0.773,"e":1.349},{"w":"Hundreds","s":1.429,"e":2.069},{"w":"of","s":2.096,"e":2.15},{"w":"stocks.","s":2.241,"e":2.867},{"w":"Instant","s":2.967,"e":3.667},{"w":"diversification.","s":3.724,"e":4.704},{"w":"And","s":4.884,"e":5.424}];
+        function _norm(s){return s.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu,"");}
+        function _findPhrase(phrase){
+          const tokens=phrase.toLowerCase().split(/\s+/).map(_norm).filter(Boolean);
+          if(!tokens.length) throw new Error("landOn: empty phrase");
+          const hits=[];
+          for(let i=0;i<=W.length-tokens.length;i++){
+            let ok=true;
+            for(let j=0;j<tokens.length;j++){
+              if(_norm(W[i+j].w)!==tokens[j]){ok=false;break;}
+            }
+            if(ok) hits.push(i);
+          }
+          if(hits.length===0) throw new Error('landOn: phrase "'+phrase+'" not found');
+          if(hits.length>1) throw new Error('landOn: phrase "'+phrase+'" matches '+hits.length+' positions');
+          return {startIdx:hits[0], endIdx:hits[0]+tokens.length-1};
+        }
+        function at(p){return W[_findPhrase(p).startIdx].s;}
+        function landOn(p,d=0){return at(p)-d;}
+
+        function mulberry32(seed){
+          return function(){
+            let t=(seed+=0x6D2B79F5);
+            t=Math.imul(t^(t>>>15),t|1);
+            t^=t+Math.imul(t^(t>>>7),t|61);
+            return ((t^(t>>>14))>>>0)/4294967296;
+          };
+        }
+
+        const canvas = document.getElementById("beat6-particles");
+        const ctx = canvas.getContext("2d");
+        const rand = mulberry32(2027);
+        const PARTS = [];
+        for (let i=0;i<80;i++) {
+          const a = rand() * Math.PI * 2;
+          const speed = 200 + rand()*420;
+          PARTS.push({
+            x0: 540, y0: 960,
+            vx: Math.cos(a)*speed,
+            vy: Math.sin(a)*speed,
+            size: 4 + rand()*6,
+            color: rand() > 0.5 ? "#FFFFFF" : "#EFC42C"
+          });
+        }
+        const burstStart = landOn("Instant diversification", 0);
+        function drawParts(time){
+          ctx.clearRect(0,0,1080,1920);
+          const local = time - burstStart;
+          if (local < 0 || local > 1.4) return;
+          const tt = local;
+          for (const p of PARTS) {
+            const alpha = Math.max(0, 1 - tt/1.4);
+            const x = p.x0 + p.vx * tt;
+            const y = p.y0 + p.vy * tt + 280 * tt * tt;
+            ctx.fillStyle = p.color === "#FFFFFF"
+              ? "rgba(255,255,255," + alpha.toFixed(3) + ")"
+              : "rgba(239,196,44," + alpha.toFixed(3) + ")";
+            ctx.beginPath();
+            ctx.arc(x, y, p.size, 0, Math.PI*2);
+            ctx.fill();
+          }
+        }
+
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        // Particle canvas driven by proxy
+        const proxy = { t: 0 };
+        tl.to(proxy, { t: 5.05, duration: 5.05, ease: "none",
+          onUpdate: () => drawParts(proxy.t), overwrite: "auto" }, 0);
+
+        // Star slow rotation
+        tl.fromTo("#beat6-star",
+          { rotation: 0, opacity: 0 },
+          { rotation: 60, opacity: 0.32, duration: 5, ease: "none", transformOrigin: "50% 50%", overwrite: "auto" },
+          0);
+
+        const badges = [
+          { sel: "#beat6-b1", anchor: "One purchase" },
+          { sel: "#beat6-b2", anchor: "Hundreds of stocks" },
+          { sel: "#beat6-b3", anchor: "Instant diversification" }
+        ];
+        badges.forEach(b => {
+          tl.fromTo(b.sel,
+            { opacity: 0, scale: 0.5, rotation: -6 },
+            { opacity: 1, scale: 1, rotation: 0, duration: 0.4, ease: "back.out(1.8)", overwrite: "auto" },
+            landOn(b.anchor, 0.4));
+          tl.to(b.sel,
+            { y: -6, duration: 1.2, yoyo: true, repeat: 1, ease: "sine.inOut", overwrite: "auto" },
+            landOn(b.anchor, 0) + 0.5);
+        });
+
+        // Reaction pulse on third badge on its keyword
+        tl.fromTo("#beat6-b3",
+          { scale: 1 },
+          { scale: 1.08, duration: 0.18, yoyo: true, repeat: 2, ease: "power2.out", overwrite: "auto" },
+          landOn("Instant diversification", 0));
+
+        tl.set("#beat6", { visibility: "hidden" }, 5.05);
+
+        window.__timelines["bloom-etfs-explained-beat-6"] = tl;
+      })();
+    </script>
+  </div>
+</template>

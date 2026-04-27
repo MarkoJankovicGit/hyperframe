@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beat 2: Concept</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,700;0,800;1,700;1,800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; }
+
+    #beat2 {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      background: #FFFFFF;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 80px 60px;
+    }
+
+    /* Blur transition effect */
+    #beat2 {
+      filter: blur(0px);
+    }
+
+    /* Main headline: multi-line with blue accent */
+    .beat2-headline {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 900px;
+      line-height: 1.15;
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 800;
+      font-style: italic;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      color: #0F172A;
+    }
+
+    .beat2-headline-line1 {
+      font-size: 90px;
+      margin-bottom: 20px;
+    }
+
+    .beat2-headline-line2 {
+      font-size: 90px;
+      color: #1658FF;
+    }
+
+    /* Word-by-word styling */
+    .beat2-word {
+      display: inline-block;
+      opacity: 0;
+      margin: 0 0.1em;
+    }
+
+    /* SVG slice graphic (optional) */
+    #beat2-slice-graphic {
+      position: absolute;
+      z-index: 1;
+      top: 200px;
+      left: 80px;
+      width: 280px;
+      height: 280px;
+      opacity: 0;
+    }
+
+    .beat2-slice-path {
+      stroke-dasharray: 450;
+      stroke-dashoffset: 450;
+    }
+
+    /* Bottom text: "part-owner" emphasis */
+    .beat2-bottom-text {
+      position: absolute;
+      bottom: 300px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      z-index: 2;
+    }
+
+    .beat2-bottom-word {
+      display: inline-block;
+      opacity: 0;
+      margin: 0 0.1em;
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 800;
+      font-style: italic;
+      text-transform: uppercase;
+      font-size: 85px;
+      color: #0F172A;
+      letter-spacing: -0.02em;
+    }
+  </style>
+</head>
+<body>
+  <template data-start="2.80" data-duration="3.75">
+    <div id="beat2" class="scene" data-composition-id="bloom-stock-ownership-beat-2" data-width="1080" data-height="1920" data-start="0" data-duration="3.75">
+      <!-- Optional SVG slice graphic -->
+      <svg id="beat2-slice-graphic" viewBox="0 0 200 200">
+        <defs>
+          <linearGradient id="sliceGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#1658FF;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#1658FF;stop-opacity:0.6" />
+          </linearGradient>
+        </defs>
+        <circle cx="100" cy="100" r="90" fill="none" stroke="url(#sliceGrad)" stroke-width="3" class="beat2-slice-path" />
+        <path d="M 100 10 L 100 100 L 180 60 Z" fill="url(#sliceGrad)" opacity="0.4" />
+      </svg>
+
+      <!-- Main concept headline -->
+      <div class="beat2-headline">
+        <div class="beat2-headline-line1">
+          <span class="beat2-word">A</span>
+          <span class="beat2-word">stock</span>
+          <span class="beat2-word">is</span>
+          <span class="beat2-word">a</span>
+          <span class="beat2-word">slice</span>
+        </div>
+        <div class="beat2-headline-line2">
+          <span class="beat2-word">of</span>
+          <span class="beat2-word">ownership.</span>
+        </div>
+      </div>
+
+      <!-- Bottom emphasis text -->
+      <div class="beat2-bottom-text">
+        <span class="beat2-bottom-word">When you buy a stock, you become a</span>
+        <br />
+        <span class="beat2-bottom-word beat2-bottom-word-emphasis">part-owner.</span>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    // ── TIMELINE REGISTRATION ────────────────────────────────────────────
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["bloom-stock-ownership-beat-2"] = tl;
+
+    // ── VO WORD TIMING (beat-relative, shift absolute by -2.89s) ──────────
+    const W = [
+      { w: "A", s: 0.000, e: 0.000 },
+      { w: "stock", s: 0.093, e: 0.558 },
+      { w: "is", s: 0.611, e: 0.717 },
+      { w: "a", s: 0.757, e: 0.797 },
+      { w: "slice", s: 0.877, e: 1.277 },
+      { w: "of", s: 1.304, e: 1.358 },
+      { w: "ownership", s: 1.418, e: 1.973 },
+      { w: "in", s: 2.001, e: 2.051 },
+      { w: "a", s: 2.111, e: 2.161 },
+      { w: "company.", s: 2.221, e: 2.751 },
+      { w: "When", s: 3.031, e: 3.281 },
+      { w: "you", s: 3.301, e: 3.541 },
+      { w: "buy", s: 3.581, e: 3.851 },
+      { w: "a", s: 3.901, e: 4.011 },
+      { w: "stock,", s: 4.021, e: 4.561 },
+      { w: "you", s: 4.591, e: 4.811 },
+      { w: "become", s: 4.861, e: 5.191 },
+      { w: "a", s: 5.231, e: 5.321 },
+      { w: "part-owner.", s: 5.381, e: 5.976 }
+    ];
+
+    // ── PHRASE-ANCHORED TIMING HELPERS ────────────────────────────────────
+    function _norm(s) { return s.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu, ""); }
+    function _findPhrase(phrase) {
+      const tokens = phrase.toLowerCase().split(/\s+/).map(_norm).filter(Boolean);
+      if (!tokens.length) throw new Error(`landOn: empty phrase`);
+      const hits = [];
+      for (let i = 0; i <= W.length - tokens.length; i++) {
+        let ok = true;
+        for (let j = 0; j < tokens.length; j++) {
+          if (_norm(W[i + j].w) !== tokens[j]) { ok = false; break; }
+        }
+        if (ok) hits.push(i);
+      }
+      if (hits.length === 0) {
+        throw new Error(`landOn: phrase "${phrase}" not found in transcript`);
+      }
+      if (hits.length > 1) {
+        const times = hits.map(i => W[i].s.toFixed(3) + "s").join(", ");
+        throw new Error(`landOn: phrase "${phrase}" matches ${hits.length} occurrences at [${times}]. Use a longer phrase to disambiguate.`);
+      }
+      return { startIdx: hits[0], endIdx: hits[0] + tokens.length - 1 };
+    }
+    function at(phrase) { return W[_findPhrase(phrase).startIdx].s; }
+    function landOn(phrase, duration = 0) { return at(phrase) - duration; }
+    function landAfter(phrase, duration = 0) { return W[_findPhrase(phrase).endIdx].e - duration; }
+
+    // ── GSAP TIMELINE ────────────────────────────────────────────────────
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines = window.__timelines || {};
+    window.__timelines["bloom-stock-ownership-beat-2"] = tl;
+
+    // Entry fade-in (blur recovery from Beat 1 exit)
+    tl.from(
+      "#beat2",
+      {
+        filter: "blur(20px)",
+        opacity: 0,
+        duration: 0.25,
+        ease: "power3.out"
+      },
+      0
+    );
+
+    // Main headline words: slide in with decay
+    const HEADLINE_WORDS = ["A", "stock", "is", "a", "slice", "of", "ownership."];
+    document.querySelectorAll(".beat2-headline .beat2-word").forEach((el, i) => {
+      const slideDistance = 50 - i * 6;
+      tl.from(
+        el,
+        {
+          x: slideDistance,
+          y: 12,
+          opacity: 0,
+          duration: 0.4,
+          ease: "power2.out"
+        },
+        landOn(HEADLINE_WORDS[i], 0.4)
+      );
+    });
+
+    // SVG slice graphic: draw in on "slice" keyword
+    tl.to(
+      ".beat2-slice-path",
+      {
+        strokeDashoffset: 0,
+        duration: 0.6,
+        ease: "power2.out"
+      },
+      landOn("slice", 0.6)
+    );
+
+    // Slice graphic fade in
+    tl.from(
+      "#beat2-slice-graphic",
+      {
+        opacity: 0,
+        duration: 0.3,
+        ease: "power2.out"
+      },
+      landOn("slice", 0.6) - 0.1
+    );
+
+    // Slice graphic idle: gentle scale yoyo
+    tl.to(
+      "#beat2-slice-graphic",
+      {
+        scale: 1.04,
+        duration: 2.0,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: 1,
+        overwrite: "auto"
+      },
+      landOn("slice", 0.6) + 0.6
+    );
+
+    // Bottom text: "When you buy..." slides in
+    const BOTTOM_WORDS = ["When", "you", "buy", "a", "stock,", "you", "become", "a", "part-owner."];
+    const bottomWordElements = document.querySelectorAll(".beat2-bottom-word");
+    let bottomWordIndex = 0;
+
+    // For multi-line display, we need to handle this carefully
+    // First 8 words on first line, last word on second line
+    BOTTOM_WORDS.forEach((word, i) => {
+      const slideDistance = 40 - i * 4;
+      const wordEl = bottomWordElements[i] || bottomWordElements[bottomWordElements.length - 1];
+
+      tl.from(
+        wordEl,
+        {
+          x: slideDistance,
+          y: 10,
+          opacity: 0,
+          duration: 0.35,
+          ease: "power2.out"
+        },
+        landOn(word, 0.35)
+      );
+    });
+
+    // "part-owner" emphasis: lands with scale pulse
+    tl.from(
+      ".beat2-bottom-word-emphasis",
+      {
+        scale: 0.85,
+        opacity: 0,
+        duration: 0.35,
+        ease: "back.out(1.6)"
+      },
+      landOn("part-owner", 0.35)
+    );
+
+    // part-owner idle: subtle scale breathe
+    tl.to(
+      ".beat2-bottom-word-emphasis",
+      {
+        scale: 1.04,
+        duration: 1.8,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: 1,
+        overwrite: "auto"
+      },
+      landOn("part-owner", 0.35) + 0.35
+    );
+
+    // Exit: blur-through with opacity fade
+    tl.to(
+      "#beat2",
+      {
+        filter: "blur(20px)",
+        opacity: 0,
+        duration: 0.3,
+        ease: "power3.in"
+      },
+      3.75 - 0.3
+    );
+
+    // Hide after exit
+    tl.set("#beat2", { visibility: "hidden" }, 3.75);
+  </script>
+</body>
+</html>

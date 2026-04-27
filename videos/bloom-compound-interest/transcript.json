@@ -1,0 +1,1212 @@
+{
+  "sceneId": "scene-01",
+  "text": "You just won the lottery. And here's your choice: one million dollars right now — or a penny that doubles every single day for thirty days. Which would you take? After thirty days, the one million dollars is still just one million dollars. But the doubling penny? It becomes five point three million dollars. This is compound interest. It's when your returns start earning returns of their own — your growth grows on top of itself, over and over. Compound interest is a superpower that makes your money grow faster and faster over time. And here's what's really powerful: the earlier you start, the more it works in your favor. If that penny had started doubling just five days earlier, it would not be five million dollars. It would be one hundred and seventy-two million dollars. Stocks build wealth through compound interest. Small amounts, started early, can become truly massive over time. Bloom has a tool called Potential Return that shows you exactly how much your money could grow. Try it out.",
+  "words": [
+    {
+      "word": "You",
+      "start": 0,
+      "end": 0.159,
+      "startFrame": 0,
+      "endFrame": 5
+    },
+    {
+      "word": "just",
+      "start": 0.207,
+      "end": 0.399,
+      "startFrame": 6,
+      "endFrame": 12
+    },
+    {
+      "word": "won",
+      "start": 0.459,
+      "end": 0.639,
+      "startFrame": 14,
+      "endFrame": 19
+    },
+    {
+      "word": "the",
+      "start": 0.659,
+      "end": 0.719,
+      "startFrame": 20,
+      "endFrame": 22
+    },
+    {
+      "word": "lottery.",
+      "start": 0.789,
+      "end": 1.639,
+      "startFrame": 24,
+      "endFrame": 49
+    },
+    {
+      "word": "And",
+      "start": 1.729,
+      "end": 1.999,
+      "startFrame": 52,
+      "endFrame": 60
+    },
+    {
+      "word": "here's",
+      "start": 2.047,
+      "end": 2.319,
+      "startFrame": 61,
+      "endFrame": 70
+    },
+    {
+      "word": "your",
+      "start": 2.351,
+      "end": 2.479,
+      "startFrame": 71,
+      "endFrame": 74
+    },
+    {
+      "word": "choice:",
+      "start": 2.536,
+      "end": 3.598,
+      "startFrame": 76,
+      "endFrame": 108
+    },
+    {
+      "word": "one",
+      "start": 3.638,
+      "end": 3.758,
+      "startFrame": 109,
+      "endFrame": 113
+    },
+    {
+      "word": "million",
+      "start": 3.808,
+      "end": 4.158,
+      "startFrame": 114,
+      "endFrame": 125
+    },
+    {
+      "word": "dollars",
+      "start": 4.228,
+      "end": 4.718,
+      "startFrame": 127,
+      "endFrame": 142
+    },
+    {
+      "word": "right",
+      "start": 4.798,
+      "end": 5.198,
+      "startFrame": 144,
+      "endFrame": 156
+    },
+    {
+      "word": "now",
+      "start": 5.318,
+      "end": 5.678,
+      "startFrame": 160,
+      "endFrame": 170
+    },
+    {
+      "word": "—",
+      "start": 5.958,
+      "end": 6.238,
+      "startFrame": 179,
+      "endFrame": 187
+    },
+    {
+      "word": "or",
+      "start": 6.345,
+      "end": 6.559,
+      "startFrame": 190,
+      "endFrame": 197
+    },
+    {
+      "word": "a",
+      "start": 6.639,
+      "end": 6.719,
+      "startFrame": 199,
+      "endFrame": 202
+    },
+    {
+      "word": "penny",
+      "start": 6.799,
+      "end": 7.199,
+      "startFrame": 204,
+      "endFrame": 216
+    },
+    {
+      "word": "that",
+      "start": 7.279,
+      "end": 7.599,
+      "startFrame": 218,
+      "endFrame": 228
+    },
+    {
+      "word": "doubles",
+      "start": 7.659,
+      "end": 8.079,
+      "startFrame": 230,
+      "endFrame": 242
+    },
+    {
+      "word": "every",
+      "start": 8.146,
+      "end": 8.481,
+      "startFrame": 244,
+      "endFrame": 254
+    },
+    {
+      "word": "single",
+      "start": 8.538,
+      "end": 8.88,
+      "startFrame": 256,
+      "endFrame": 266
+    },
+    {
+      "word": "day",
+      "start": 8.96,
+      "end": 9.2,
+      "startFrame": 269,
+      "endFrame": 276
+    },
+    {
+      "word": "for",
+      "start": 9.26,
+      "end": 9.44,
+      "startFrame": 278,
+      "endFrame": 283
+    },
+    {
+      "word": "thirty",
+      "start": 9.486,
+      "end": 9.762,
+      "startFrame": 285,
+      "endFrame": 293
+    },
+    {
+      "word": "days.",
+      "start": 9.842,
+      "end": 10.322,
+      "startFrame": 295,
+      "endFrame": 310
+    },
+    {
+      "word": "Which",
+      "start": 10.469,
+      "end": 11.204,
+      "startFrame": 314,
+      "endFrame": 336
+    },
+    {
+      "word": "would",
+      "start": 11.231,
+      "end": 11.366,
+      "startFrame": 337,
+      "endFrame": 341
+    },
+    {
+      "word": "you",
+      "start": 11.386,
+      "end": 11.446,
+      "startFrame": 342,
+      "endFrame": 343
+    },
+    {
+      "word": "take?",
+      "start": 11.51,
+      "end": 11.846,
+      "startFrame": 345,
+      "endFrame": 355
+    },
+    {
+      "word": "After",
+      "start": 12.033,
+      "end": 12.968,
+      "startFrame": 361,
+      "endFrame": 389
+    },
+    {
+      "word": "thirty",
+      "start": 13.025,
+      "end": 13.367,
+      "startFrame": 391,
+      "endFrame": 401
+    },
+    {
+      "word": "days,",
+      "start": 13.463,
+      "end": 14.007,
+      "startFrame": 404,
+      "endFrame": 420
+    },
+    {
+      "word": "the",
+      "start": 14.047,
+      "end": 14.167,
+      "startFrame": 421,
+      "endFrame": 425
+    },
+    {
+      "word": "one",
+      "start": 14.207,
+      "end": 14.327,
+      "startFrame": 426,
+      "endFrame": 430
+    },
+    {
+      "word": "million",
+      "start": 14.377,
+      "end": 14.727,
+      "startFrame": 431,
+      "endFrame": 442
+    },
+    {
+      "word": "dollars",
+      "start": 14.787,
+      "end": 15.207,
+      "startFrame": 444,
+      "endFrame": 456
+    },
+    {
+      "word": "is",
+      "start": 15.314,
+      "end": 15.528,
+      "startFrame": 459,
+      "endFrame": 466
+    },
+    {
+      "word": "still",
+      "start": 15.595,
+      "end": 15.93,
+      "startFrame": 468,
+      "endFrame": 478
+    },
+    {
+      "word": "just",
+      "start": 16.01,
+      "end": 16.33,
+      "startFrame": 480,
+      "endFrame": 490
+    },
+    {
+      "word": "one",
+      "start": 16.39,
+      "end": 16.57,
+      "startFrame": 492,
+      "endFrame": 497
+    },
+    {
+      "word": "million",
+      "start": 16.61,
+      "end": 16.89,
+      "startFrame": 498,
+      "endFrame": 507
+    },
+    {
+      "word": "dollars.",
+      "start": 16.95,
+      "end": 17.53,
+      "startFrame": 509,
+      "endFrame": 526
+    },
+    {
+      "word": "But",
+      "start": 17.71,
+      "end": 18.25,
+      "startFrame": 531,
+      "endFrame": 548
+    },
+    {
+      "word": "the",
+      "start": 18.27,
+      "end": 18.33,
+      "startFrame": 548,
+      "endFrame": 550
+    },
+    {
+      "word": "doubling",
+      "start": 18.374,
+      "end": 18.726,
+      "startFrame": 551,
+      "endFrame": 562
+    },
+    {
+      "word": "penny?",
+      "start": 18.793,
+      "end": 19.568,
+      "startFrame": 564,
+      "endFrame": 587
+    },
+    {
+      "word": "It",
+      "start": 19.715,
+      "end": 20.009,
+      "startFrame": 591,
+      "endFrame": 600
+    },
+    {
+      "word": "becomes",
+      "start": 20.079,
+      "end": 20.569,
+      "startFrame": 602,
+      "endFrame": 617
+    },
+    {
+      "word": "five",
+      "start": 20.649,
+      "end": 20.969,
+      "startFrame": 619,
+      "endFrame": 629
+    },
+    {
+      "word": "point",
+      "start": 21.062,
+      "end": 21.527,
+      "startFrame": 632,
+      "endFrame": 646
+    },
+    {
+      "word": "three",
+      "start": 21.567,
+      "end": 21.767,
+      "startFrame": 647,
+      "endFrame": 653
+    },
+    {
+      "word": "million",
+      "start": 21.827,
+      "end": 22.247,
+      "startFrame": 655,
+      "endFrame": 667
+    },
+    {
+      "word": "dollars.",
+      "start": 22.307,
+      "end": 22.887,
+      "startFrame": 669,
+      "endFrame": 687
+    },
+    {
+      "word": "This",
+      "start": 23.111,
+      "end": 24.007,
+      "startFrame": 693,
+      "endFrame": 720
+    },
+    {
+      "word": "is",
+      "start": 24.087,
+      "end": 24.247,
+      "startFrame": 723,
+      "endFrame": 727
+    },
+    {
+      "word": "compound",
+      "start": 24.327,
+      "end": 24.967,
+      "startFrame": 730,
+      "endFrame": 749
+    },
+    {
+      "word": "interest.",
+      "start": 25.029,
+      "end": 25.605,
+      "startFrame": 751,
+      "endFrame": 768
+    },
+    {
+      "word": "It's",
+      "start": 25.872,
+      "end": 26.526,
+      "startFrame": 776,
+      "endFrame": 796
+    },
+    {
+      "word": "when",
+      "start": 26.55,
+      "end": 26.646,
+      "startFrame": 797,
+      "endFrame": 799
+    },
+    {
+      "word": "your",
+      "start": 26.678,
+      "end": 26.806,
+      "startFrame": 800,
+      "endFrame": 804
+    },
+    {
+      "word": "returns",
+      "start": 26.886,
+      "end": 27.446,
+      "startFrame": 807,
+      "endFrame": 823
+    },
+    {
+      "word": "start",
+      "start": 27.526,
+      "end": 27.926,
+      "startFrame": 826,
+      "endFrame": 838
+    },
+    {
+      "word": "earning",
+      "start": 27.966,
+      "end": 28.246,
+      "startFrame": 839,
+      "endFrame": 847
+    },
+    {
+      "word": "returns",
+      "start": 28.316,
+      "end": 28.806,
+      "startFrame": 849,
+      "endFrame": 864
+    },
+    {
+      "word": "of",
+      "start": 28.833,
+      "end": 28.887,
+      "startFrame": 865,
+      "endFrame": 867
+    },
+    {
+      "word": "their",
+      "start": 28.914,
+      "end": 29.049,
+      "startFrame": 867,
+      "endFrame": 871
+    },
+    {
+      "word": "own",
+      "start": 29.129,
+      "end": 29.369,
+      "startFrame": 874,
+      "endFrame": 881
+    },
+    {
+      "word": "—",
+      "start": 29.689,
+      "end": 30.009,
+      "startFrame": 891,
+      "endFrame": 900
+    },
+    {
+      "word": "your",
+      "start": 30.041,
+      "end": 30.169,
+      "startFrame": 901,
+      "endFrame": 905
+    },
+    {
+      "word": "growth",
+      "start": 30.238,
+      "end": 30.652,
+      "startFrame": 907,
+      "endFrame": 920
+    },
+    {
+      "word": "grows",
+      "start": 30.732,
+      "end": 31.132,
+      "startFrame": 922,
+      "endFrame": 934
+    },
+    {
+      "word": "on",
+      "start": 31.185,
+      "end": 31.291,
+      "startFrame": 936,
+      "endFrame": 939
+    },
+    {
+      "word": "top",
+      "start": 31.351,
+      "end": 31.531,
+      "startFrame": 941,
+      "endFrame": 946
+    },
+    {
+      "word": "of",
+      "start": 31.584,
+      "end": 31.69,
+      "startFrame": 948,
+      "endFrame": 951
+    },
+    {
+      "word": "itself,",
+      "start": 31.77,
+      "end": 32.49,
+      "startFrame": 953,
+      "endFrame": 975
+    },
+    {
+      "word": "over",
+      "start": 32.57,
+      "end": 32.89,
+      "startFrame": 977,
+      "endFrame": 987
+    },
+    {
+      "word": "and",
+      "start": 32.97,
+      "end": 33.21,
+      "startFrame": 989,
+      "endFrame": 996
+    },
+    {
+      "word": "over.",
+      "start": 33.274,
+      "end": 33.61,
+      "startFrame": 998,
+      "endFrame": 1008
+    },
+    {
+      "word": "Compound",
+      "start": 33.752,
+      "end": 34.888,
+      "startFrame": 1013,
+      "endFrame": 1047
+    },
+    {
+      "word": "interest",
+      "start": 34.941,
+      "end": 35.365,
+      "startFrame": 1048,
+      "endFrame": 1061
+    },
+    {
+      "word": "is",
+      "start": 35.418,
+      "end": 35.524,
+      "startFrame": 1063,
+      "endFrame": 1066
+    },
+    {
+      "word": "a",
+      "start": 35.564,
+      "end": 35.604,
+      "startFrame": 1067,
+      "endFrame": 1068
+    },
+    {
+      "word": "superpower",
+      "start": 35.697,
+      "end": 36.402,
+      "startFrame": 1071,
+      "endFrame": 1092
+    },
+    {
+      "word": "that",
+      "start": 36.466,
+      "end": 36.722,
+      "startFrame": 1094,
+      "endFrame": 1102
+    },
+    {
+      "word": "makes",
+      "start": 36.762,
+      "end": 36.962,
+      "startFrame": 1103,
+      "endFrame": 1109
+    },
+    {
+      "word": "your",
+      "start": 36.994,
+      "end": 37.122,
+      "startFrame": 1110,
+      "endFrame": 1114
+    },
+    {
+      "word": "money",
+      "start": 37.162,
+      "end": 37.362,
+      "startFrame": 1115,
+      "endFrame": 1121
+    },
+    {
+      "word": "grow",
+      "start": 37.426,
+      "end": 37.682,
+      "startFrame": 1123,
+      "endFrame": 1130
+    },
+    {
+      "word": "faster",
+      "start": 37.773,
+      "end": 38.319,
+      "startFrame": 1133,
+      "endFrame": 1150
+    },
+    {
+      "word": "and",
+      "start": 38.379,
+      "end": 38.559,
+      "startFrame": 1151,
+      "endFrame": 1157
+    },
+    {
+      "word": "faster",
+      "start": 38.639,
+      "end": 39.119,
+      "startFrame": 1159,
+      "endFrame": 1174
+    },
+    {
+      "word": "over",
+      "start": 39.167,
+      "end": 39.359,
+      "startFrame": 1175,
+      "endFrame": 1181
+    },
+    {
+      "word": "time.",
+      "start": 39.439,
+      "end": 39.839,
+      "startFrame": 1183,
+      "endFrame": 1195
+    },
+    {
+      "word": "And",
+      "start": 40.039,
+      "end": 40.639,
+      "startFrame": 1201,
+      "endFrame": 1219
+    },
+    {
+      "word": "here's",
+      "start": 40.687,
+      "end": 40.959,
+      "startFrame": 1221,
+      "endFrame": 1229
+    },
+    {
+      "word": "what's",
+      "start": 41.007,
+      "end": 41.279,
+      "startFrame": 1230,
+      "endFrame": 1238
+    },
+    {
+      "word": "really",
+      "start": 41.348,
+      "end": 41.762,
+      "startFrame": 1240,
+      "endFrame": 1253
+    },
+    {
+      "word": "powerful:",
+      "start": 41.815,
+      "end": 42.879,
+      "startFrame": 1254,
+      "endFrame": 1286
+    },
+    {
+      "word": "the",
+      "start": 42.919,
+      "end": 43.039,
+      "startFrame": 1288,
+      "endFrame": 1291
+    },
+    {
+      "word": "earlier",
+      "start": 43.099,
+      "end": 43.519,
+      "startFrame": 1293,
+      "endFrame": 1306
+    },
+    {
+      "word": "you",
+      "start": 43.559,
+      "end": 43.679,
+      "startFrame": 1307,
+      "endFrame": 1310
+    },
+    {
+      "word": "start,",
+      "start": 43.746,
+      "end": 44.401,
+      "startFrame": 1312,
+      "endFrame": 1332
+    },
+    {
+      "word": "the",
+      "start": 44.421,
+      "end": 44.481,
+      "startFrame": 1333,
+      "endFrame": 1334
+    },
+    {
+      "word": "more",
+      "start": 44.545,
+      "end": 44.801,
+      "startFrame": 1336,
+      "endFrame": 1344
+    },
+    {
+      "word": "it",
+      "start": 44.854,
+      "end": 44.96,
+      "startFrame": 1346,
+      "endFrame": 1349
+    },
+    {
+      "word": "works",
+      "start": 45.013,
+      "end": 45.278,
+      "startFrame": 1350,
+      "endFrame": 1358
+    },
+    {
+      "word": "in",
+      "start": 45.305,
+      "end": 45.359,
+      "startFrame": 1359,
+      "endFrame": 1361
+    },
+    {
+      "word": "your",
+      "start": 45.407,
+      "end": 45.599,
+      "startFrame": 1362,
+      "endFrame": 1368
+    },
+    {
+      "word": "favor.",
+      "start": 45.666,
+      "end": 46.081,
+      "startFrame": 1370,
+      "endFrame": 1382
+    },
+    {
+      "word": "If",
+      "start": 46.401,
+      "end": 47.041,
+      "startFrame": 1392,
+      "endFrame": 1411
+    },
+    {
+      "word": "that",
+      "start": 47.089,
+      "end": 47.281,
+      "startFrame": 1413,
+      "endFrame": 1418
+    },
+    {
+      "word": "penny",
+      "start": 47.348,
+      "end": 47.683,
+      "startFrame": 1420,
+      "endFrame": 1430
+    },
+    {
+      "word": "had",
+      "start": 47.703,
+      "end": 47.763,
+      "startFrame": 1431,
+      "endFrame": 1433
+    },
+    {
+      "word": "started",
+      "start": 47.813,
+      "end": 48.163,
+      "startFrame": 1434,
+      "endFrame": 1445
+    },
+    {
+      "word": "doubling",
+      "start": 48.216,
+      "end": 48.64,
+      "startFrame": 1446,
+      "endFrame": 1459
+    },
+    {
+      "word": "just",
+      "start": 48.704,
+      "end": 48.96,
+      "startFrame": 1461,
+      "endFrame": 1469
+    },
+    {
+      "word": "five",
+      "start": 49.04,
+      "end": 49.36,
+      "startFrame": 1471,
+      "endFrame": 1481
+    },
+    {
+      "word": "days",
+      "start": 49.424,
+      "end": 49.68,
+      "startFrame": 1483,
+      "endFrame": 1490
+    },
+    {
+      "word": "earlier,",
+      "start": 49.73,
+      "end": 50.56,
+      "startFrame": 1492,
+      "endFrame": 1517
+    },
+    {
+      "word": "it",
+      "start": 50.613,
+      "end": 50.719,
+      "startFrame": 1518,
+      "endFrame": 1522
+    },
+    {
+      "word": "would",
+      "start": 50.746,
+      "end": 50.881,
+      "startFrame": 1522,
+      "endFrame": 1526
+    },
+    {
+      "word": "not",
+      "start": 50.941,
+      "end": 51.121,
+      "startFrame": 1528,
+      "endFrame": 1534
+    },
+    {
+      "word": "be",
+      "start": 51.174,
+      "end": 51.28,
+      "startFrame": 1535,
+      "endFrame": 1538
+    },
+    {
+      "word": "five",
+      "start": 51.36,
+      "end": 51.68,
+      "startFrame": 1541,
+      "endFrame": 1550
+    },
+    {
+      "word": "million",
+      "start": 51.73,
+      "end": 52.08,
+      "startFrame": 1552,
+      "endFrame": 1562
+    },
+    {
+      "word": "dollars.",
+      "start": 52.14,
+      "end": 52.64,
+      "startFrame": 1564,
+      "endFrame": 1579
+    },
+    {
+      "word": "It",
+      "start": 52.827,
+      "end": 53.201,
+      "startFrame": 1585,
+      "endFrame": 1596
+    },
+    {
+      "word": "would",
+      "start": 53.228,
+      "end": 53.363,
+      "startFrame": 1597,
+      "endFrame": 1601
+    },
+    {
+      "word": "be",
+      "start": 53.416,
+      "end": 53.522,
+      "startFrame": 1602,
+      "endFrame": 1606
+    },
+    {
+      "word": "one",
+      "start": 53.602,
+      "end": 53.842,
+      "startFrame": 1608,
+      "endFrame": 1615
+    },
+    {
+      "word": "hundred",
+      "start": 53.892,
+      "end": 54.242,
+      "startFrame": 1617,
+      "endFrame": 1627
+    },
+    {
+      "word": "and",
+      "start": 54.322,
+      "end": 54.562,
+      "startFrame": 1630,
+      "endFrame": 1637
+    },
+    {
+      "word": "seventy-two",
+      "start": 54.632,
+      "end": 55.282,
+      "startFrame": 1639,
+      "endFrame": 1658
+    },
+    {
+      "word": "million",
+      "start": 55.332,
+      "end": 55.682,
+      "startFrame": 1660,
+      "endFrame": 1670
+    },
+    {
+      "word": "dollars.",
+      "start": 55.742,
+      "end": 56.242,
+      "startFrame": 1672,
+      "endFrame": 1687
+    },
+    {
+      "word": "Stocks",
+      "start": 56.448,
+      "end": 57.684,
+      "startFrame": 1693,
+      "endFrame": 1731
+    },
+    {
+      "word": "build",
+      "start": 57.737,
+      "end": 58.002,
+      "startFrame": 1732,
+      "endFrame": 1740
+    },
+    {
+      "word": "wealth",
+      "start": 58.059,
+      "end": 58.401,
+      "startFrame": 1742,
+      "endFrame": 1752
+    },
+    {
+      "word": "through",
+      "start": 58.441,
+      "end": 58.721,
+      "startFrame": 1753,
+      "endFrame": 1762
+    },
+    {
+      "word": "compound",
+      "start": 58.783,
+      "end": 59.279,
+      "startFrame": 1763,
+      "endFrame": 1778
+    },
+    {
+      "word": "interest.",
+      "start": 59.332,
+      "end": 59.916,
+      "startFrame": 1780,
+      "endFrame": 1797
+    },
+    {
+      "word": "Small",
+      "start": 60.089,
+      "end": 60.954,
+      "startFrame": 1803,
+      "endFrame": 1829
+    },
+    {
+      "word": "amounts,",
+      "start": 61.014,
+      "end": 61.594,
+      "startFrame": 1830,
+      "endFrame": 1848
+    },
+    {
+      "word": "started",
+      "start": 61.644,
+      "end": 61.994,
+      "startFrame": 1849,
+      "endFrame": 1860
+    },
+    {
+      "word": "early,",
+      "start": 62.061,
+      "end": 62.636,
+      "startFrame": 1862,
+      "endFrame": 1879
+    },
+    {
+      "word": "can",
+      "start": 62.656,
+      "end": 62.716,
+      "startFrame": 1880,
+      "endFrame": 1881
+    },
+    {
+      "word": "become",
+      "start": 62.773,
+      "end": 63.115,
+      "startFrame": 1883,
+      "endFrame": 1893
+    },
+    {
+      "word": "truly",
+      "start": 63.195,
+      "end": 63.595,
+      "startFrame": 1896,
+      "endFrame": 1908
+    },
+    {
+      "word": "massive",
+      "start": 63.665,
+      "end": 64.155,
+      "startFrame": 1910,
+      "endFrame": 1925
+    },
+    {
+      "word": "over",
+      "start": 64.219,
+      "end": 64.475,
+      "startFrame": 1927,
+      "endFrame": 1934
+    },
+    {
+      "word": "time.",
+      "start": 64.539,
+      "end": 64.875,
+      "startFrame": 1936,
+      "endFrame": 1946
+    },
+    {
+      "word": "Bloom",
+      "start": 65.088,
+      "end": 66.153,
+      "startFrame": 1953,
+      "endFrame": 1985
+    },
+    {
+      "word": "has",
+      "start": 66.193,
+      "end": 66.313,
+      "startFrame": 1986,
+      "endFrame": 1989
+    },
+    {
+      "word": "a",
+      "start": 66.393,
+      "end": 66.473,
+      "startFrame": 1992,
+      "endFrame": 1994
+    },
+    {
+      "word": "tool",
+      "start": 66.537,
+      "end": 66.793,
+      "startFrame": 1996,
+      "endFrame": 2004
+    },
+    {
+      "word": "called",
+      "start": 66.85,
+      "end": 67.192,
+      "startFrame": 2005,
+      "endFrame": 2016
+    },
+    {
+      "word": "Potential",
+      "start": 67.248,
+      "end": 67.752,
+      "startFrame": 2017,
+      "endFrame": 2033
+    },
+    {
+      "word": "Return",
+      "start": 67.832,
+      "end": 68.312,
+      "startFrame": 2035,
+      "endFrame": 2049
+    },
+    {
+      "word": "that",
+      "start": 68.408,
+      "end": 68.792,
+      "startFrame": 2052,
+      "endFrame": 2064
+    },
+    {
+      "word": "shows",
+      "start": 68.845,
+      "end": 69.11,
+      "startFrame": 2065,
+      "endFrame": 2073
+    },
+    {
+      "word": "you",
+      "start": 69.15,
+      "end": 69.27,
+      "startFrame": 2075,
+      "endFrame": 2078
+    },
+    {
+      "word": "exactly",
+      "start": 69.36,
+      "end": 69.99,
+      "startFrame": 2081,
+      "endFrame": 2100
+    },
+    {
+      "word": "how",
+      "start": 70.03,
+      "end": 70.15,
+      "startFrame": 2101,
+      "endFrame": 2105
+    },
+    {
+      "word": "much",
+      "start": 70.198,
+      "end": 70.39,
+      "startFrame": 2106,
+      "endFrame": 2112
+    },
+    {
+      "word": "your",
+      "start": 70.422,
+      "end": 70.55,
+      "startFrame": 2113,
+      "endFrame": 2117
+    },
+    {
+      "word": "money",
+      "start": 70.603,
+      "end": 70.868,
+      "startFrame": 2118,
+      "endFrame": 2126
+    },
+    {
+      "word": "could",
+      "start": 70.895,
+      "end": 71.03,
+      "startFrame": 2127,
+      "endFrame": 2131
+    },
+    {
+      "word": "grow.",
+      "start": 71.11,
+      "end": 71.51,
+      "startFrame": 2133,
+      "endFrame": 2145
+    },
+    {
+      "word": "Try",
+      "start": 71.71,
+      "end": 72.31,
+      "startFrame": 2151,
+      "endFrame": 2169
+    },
+    {
+      "word": "it",
+      "start": 72.337,
+      "end": 72.391,
+      "startFrame": 2170,
+      "endFrame": 2172
+    },
+    {
+      "word": "out.",
+      "start": 72.471,
+      "end": 72.791,
+      "startFrame": 2174,
+      "endFrame": 2184
+    }
+  ],
+  "durationSeconds": 73.291,
+  "durationFrames": 2199
+}

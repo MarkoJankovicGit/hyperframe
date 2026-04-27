@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"cd C:/Users/User/git/bloom-hyperframes/videos/bloom-market-2026-04-27/assets/logos && rm -f AMD.svg && curl -sSL \\\"https://logo.clearbit.com/intel.com?size=512\\\" -o INTC-clearbit.png && cu...",
+  "error": "Exit code 6\ncurl: (6) Could not resolve host: logo.clearbit.com",
+  "timestamp": "2026-04-27T16:44:07.225Z",
+  "retry_count": 1
+}

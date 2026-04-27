@@ -1,0 +1,1290 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1080, height=1920" />
+  <title>Bloom — Investing Myths</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,700;0,800;1,700;1,800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 1080px; height: 1920px; overflow: hidden;
+      background: #1658ff;
+      font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+    }
+    #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; }
+
+    .scene {
+      position: absolute; inset: 0; width: 1080px; height: 1920px;
+      overflow: hidden; opacity: 0;
+    }
+    #scene-pre { background: #1658ff; opacity: 1; }
+    #scene1  { background: #1658ff; }
+    #scene2  { background: #ffffff; }
+    #scene3  { background: #1658ff; }
+    #scene4  { background: #ffffff; }
+    #scene5  { background: #f8f8f9; }
+    #scene6  { background: #1658ff; }
+    #scene7  { background: #ffffff; }
+    #scene8  { background: #1658ff; }
+    #scene9  { background: #f8f8f9; }
+    #scene10 { background: #1658ff; }
+
+    .badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: #1c2329; color: #fff; border-radius: 26px;
+      box-shadow: 0 24px 60px rgba(6,10,30,0.28);
+    }
+    .badge-text {
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 800; font-style: italic; text-transform: uppercase;
+      letter-spacing: -0.012em; line-height: 0.95; color: #fff; text-align: center;
+    }
+
+    /* ── SCENE PRE — iMessage cascade ───────────────────────────── */
+    .s1-pre-msg {
+      position: absolute;
+      z-index: 3;
+      filter: drop-shadow(0 22px 44px rgba(0,0,0,0.32));
+      will-change: transform, opacity;
+    }
+    .imessage {
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
+      max-width: 740px;
+    }
+    .imessage .imsg-sender {
+      font-size: 30px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.78);
+      letter-spacing: 0.02em;
+      margin-bottom: 14px;
+    }
+    .imessage .imsg-bubble {
+      display: inline-block;
+      padding: 32px 44px;
+      border-radius: 48px;
+      font-size: 48px;
+      font-weight: 500;
+      line-height: 1.18;
+      letter-spacing: -0.005em;
+    }
+    .imessage.gray .imsg-bubble {
+      background: #E9E9EB;
+      color: #0a0a0a;
+      border-bottom-left-radius: 16px;
+    }
+    .imessage.blue .imsg-bubble {
+      background: #2C7DFB;
+      color: #ffffff;
+      border-bottom-right-radius: 16px;
+    }
+    /* Tyler (friend) — bottom-right */
+    #s1-msg-friend {
+      top: 1180px;
+      right: 56px;
+      text-align: right;
+    }
+    #s1-msg-friend .imsg-sender { margin-right: 24px; }
+    /* Mom (family) — middle-left */
+    #s1-msg-family {
+      top: 720px;
+      left: 56px;
+      text-align: left;
+      max-width: 780px;
+    }
+    #s1-msg-family .imsg-sender { margin-left: 24px; }
+    /* Social post card — top */
+    #s1-msg-social {
+      top: 200px;
+      left: 50%;
+      margin-left: -460px;
+      width: 920px;
+      background: rgba(20, 22, 28, 0.94);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-radius: 28px;
+      padding: 32px 40px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    #s1-msg-social .x-content {
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    #s1-msg-social .x-meta {
+      display: flex; align-items: baseline; gap: 12px;
+    }
+    #s1-msg-social .x-handle {
+      font-family: "Inter", system-ui;
+      font-weight: 700;
+      font-size: 30px;
+      color: #ffffff;
+      letter-spacing: -0.005em;
+    }
+    #s1-msg-social .x-time {
+      font-family: "Inter", system-ui;
+      font-weight: 500;
+      font-size: 26px;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.01em;
+    }
+    #s1-msg-social .x-text {
+      font-family: "Inter", system-ui;
+      font-weight: 600;
+      font-size: 42px;
+      color: #f4f5f7;
+      line-height: 1.2;
+      letter-spacing: -0.005em;
+    }
+
+    /* ── SCENE 1 — Hook ─────────────────────────────────────────── */
+    #s1-canvas { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+    #s1-layout {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 52px;
+    }
+    #s1-eyebrow {
+      font-family: "Inter", system-ui; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.75); font-size: 34px;
+      background: rgba(255,255,255,0.12); border-radius: 100px;
+      padding: 16px 48px; border: 1px solid rgba(255,255,255,0.2);
+    }
+    #s1-badge { padding: 44px 72px; max-width: 960px; }
+    #s1-badge .badge-text { font-size: 120px; }
+
+    /* ── SCENE 2 — Myth 1 ───────────────────────────────────────── */
+    #s2-layout {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 48px; padding: 80px;
+    }
+    #s2-header {
+      display: flex; align-items: center; gap: 24px;
+    }
+    #s2-myth-badge { padding: 20px 48px; }
+    #s2-myth-badge .badge-text { font-size: 72px; }
+    #s2-x-icon { flex-shrink: 0; }
+    #s2-myth-text {
+      font-family: "Inter Tight", system-ui; font-weight: 800;
+      font-style: italic; text-transform: uppercase;
+      font-size: 88px; color: #1c2329;
+      letter-spacing: -0.018em; line-height: 0.92;
+      text-align: center; max-width: 880px;
+    }
+    #s2-divider {
+      width: 120px; height: 6px; background: #e8e9ea; border-radius: 3px;
+    }
+    #s2-myth-claim {
+      font-family: "Inter", system-ui; font-weight: 500;
+      font-size: 46px; color: #4a4f54;
+      text-align: center; line-height: 1.35; max-width: 840px;
+    }
+
+    /* ── SCENE 3 — Bust 1 ───────────────────────────────────────── */
+    #s3-burst-canvas { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+    #s3-layout {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: flex-start;
+      gap: 28px; padding: 240px 80px 920px;
+    }
+    #s3-eyebrow {
+      font-family: "Inter", system-ui; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.7); font-size: 34px;
+    }
+    #s3-counter {
+      font-family: "Inter Tight", system-ui; font-weight: 800;
+      font-style: italic; font-size: 180px;
+      color: #fff; letter-spacing: -0.02em; line-height: 1;
+    }
+    #s3-label {
+      font-family: "Inter", system-ui; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.22em;
+      color: rgba(255,255,255,0.75); font-size: 36px;
+    }
+    #s3-bloom-row {
+      display: flex; align-items: center; gap: 22px;
+      margin-top: 16px;
+    }
+    #s3-bloom-mark {
+      width: 110px; height: 110px; object-fit: contain;
+      filter: drop-shadow(0 12px 28px rgba(0,0,0,0.28));
+    }
+    #s3-bloom-label {
+      font-family: "Inter Tight", system-ui; font-weight: 800;
+      font-style: italic; text-transform: uppercase;
+      font-size: 72px; color: #fff; letter-spacing: -0.015em;
+    }
+
+    /* ── SCENE 4 — Myth 2 ───────────────────────────────────────── */
+    #s4-layout {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 48px; padding: 80px;
+    }
+    #s4-myth-badge { padding: 20px 48px; }
+    #s4-myth-badge .badge-text { font-size: 72px; }
+    #s4-myth-text {
+      font-family: "Inter Tight", system-ui; font-weight: 800;
+      font-style: italic; text-transform: uppercase;
+      font-size: 100px; color: #1c2329;
+      letter-spacing: -0.018em; line-height: 0.90;
+      text-align: center; max-width: 880px;
+    }
+    #s4-myth-claim {
+      font-family: "Inter", system-ui; font-weight: 500;
+      font-size: 46px; color: #4a4f54;
+      text-align: center; line-height: 1.35; max-width: 840px;
+    }
+
+    /* ── SCENE 5 — Bust 2 ───────────────────────────────────────── */
+    #s5-layout {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 28px; padding: 80px;
+    }
+    #s5-eyebrow {
+      font-family: "Inter", system-ui; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.22em;
+      color: #4a4f54; font-size: 36px;
+    }
+    #s5-dollar {
+      font-family: "Inter Tight", system-ui; font-weight: 800;
+      font-style: italic; font-size: 260px;
+      color: #1658ff; letter-spacing: -0.03em; line-height: 1;
+    }
+    #s5-on-bloom {
+      font-family: "Inter", system-ui; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.22em;
+      color: #4a4f54; font-size: 40px;
+    }
+    #s5-sparkline-wrap { width: 700px; margin-top: 8px; }
+    #s5-sparkline-wrap svg { width: 100%; }
+    #s5-spark-line {
+      stroke: #1658ff; stroke-width: 7; fill: none;
+      stroke-linecap: round; stroke-linejoin: round;
+      stroke-dasharray: 900; stroke-dashoffset: 900;
+    }
+    #s5-grow-label {
+      font-family: "Inter", system-ui; font-weight: 600;
+      font-size: 38px; color: #01cd74;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      margin-top: 12px; text-align: center;
+    }
+    #s5-logo-row {
+      display: flex; align-items: center; gap: 18px; margin-top: 16px;
+    }
+    #s5-bloom-mark {
+      width: 88px; height: 88px; object-fit: contain;
+      filter: drop-shadow(0 8px 18px rgba(22,88,255,0.22));
+    }
+    #s5-bloom-text {
+      font-family: "Inter Tight", system-ui; font-weight: 800;
+      font-style: italic; font-size: 52px; color: #1c2329;
+      text-transform: uppercase; letter-spacing: -0.01em;
+    }
+
+    /* ── SCENE 6 — Myth 3 ───────────────────────────────────────── */
+    #s6-layout {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; padding: 80px;
+    }
+    #s6-card {
+      width: 940px;
+      background: #ffffff;
+      border-radius: 36px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.25);
+      padding: 64px 72px;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 36px;
+    }
+    #s6-myth-badge { padding: 16px 40px; }
+    #s6-myth-badge .badge-text { font-size: 60px; }
+    #s6-myth-text {
+      font-family: "Inter Tight", system-ui; font-weight: 800;
+      font-style: italic; text-transform: uppercase;
+      font-size: 84px; color: #1c2329;
+      letter-spacing: -0.018em; line-height: 0.92;
+      text-align: center;
+    }
+    #s6-myth-claim {
+      font-family: "Inter", system-ui; font-weight: 500;
+      font-size: 42px; color: #4a4f54;
+      text-align: center; line-height: 1.35;
+    }
+
+    /* ── SCENE 7 — Bust 3 ───────────────────────────────────────── */
+    #s7-layout {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 52px; padding: 80px;
+    }
+    #s7-eyebrow {
+      font-family: "Inter", system-ui; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.2em;
+      color: #4a4f54; font-size: 40px;
+    }
+    #s7-badge1 { padding: 32px 64px; }
+    #s7-badge1 .badge-text { font-size: 96px; }
+    #s7-timeline-wrap { width: 940px; }
+    #s7-timeline-line {
+      stroke: #1c2329; stroke-width: 10; fill: none;
+      stroke-linecap: round;
+      stroke-dasharray: 720; stroke-dashoffset: 720;
+    }
+    #s7-badge2 { padding: 32px 64px; background: #1658ff; }
+    #s7-badge2 .badge-text { font-size: 88px; }
+
+    /* ── SCENE 8 — Myth 4 ───────────────────────────────────────── */
+    #s8-layout {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; padding: 80px;
+    }
+    #s8-card {
+      width: 940px;
+      background: #ffffff;
+      border-radius: 36px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.25);
+      padding: 64px 72px;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 36px;
+    }
+    #s8-myth-badge { padding: 16px 40px; }
+    #s8-myth-badge .badge-text { font-size: 60px; }
+    #s8-myth-text {
+      font-family: "Inter Tight", system-ui; font-weight: 800;
+      font-style: italic; text-transform: uppercase;
+      font-size: 84px; color: #1c2329;
+      letter-spacing: -0.018em; line-height: 0.92;
+      text-align: center;
+    }
+    #s8-myth-claim {
+      font-family: "Inter", system-ui; font-weight: 500;
+      font-size: 42px; color: #4a4f54;
+      text-align: center; line-height: 1.35;
+    }
+
+    /* ── SCENE 9 — Bust 4 ───────────────────────────────────────── */
+    #s9-layout {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 48px; padding: 80px;
+    }
+    #s9-eyebrow {
+      font-family: "Inter", system-ui; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.22em;
+      color: #4a4f54; font-size: 36px;
+    }
+    #s9-shield-row {
+      display: flex; align-items: center; gap: 40px;
+    }
+    #s9-safer-badge { padding: 36px 72px; }
+    #s9-safer-badge .badge-text { font-size: 88px; }
+    #s9-subtext {
+      font-family: "Inter", system-ui; font-weight: 500;
+      font-size: 48px; color: #4a4f54;
+      text-align: center; line-height: 1.35; max-width: 840px;
+    }
+    #s9-subtext strong { color: #1658ff; font-weight: 700; }
+    #s9-logo-row {
+      display: flex; align-items: center; gap: 18px; margin-top: 8px;
+    }
+    #s9-bloom-mark {
+      width: 88px; height: 88px; object-fit: contain;
+      filter: drop-shadow(0 8px 18px rgba(22,88,255,0.22));
+    }
+    #s9-bloom-text {
+      font-family: "Inter Tight", system-ui; font-weight: 800;
+      font-style: italic; font-size: 52px; color: #1c2329;
+      text-transform: uppercase; letter-spacing: -0.01em;
+    }
+
+    /* ── SCENE 10 — CTA ─────────────────────────────────────────── */
+    #s10-layout {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 52px;
+    }
+    #s10-logo { width: 200px; height: 200px; object-fit: contain; }
+    #s10-pill {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: #1c2329; border-radius: 300px;
+      padding: 36px 96px;
+      box-shadow: 0 20px 60px rgba(6,10,30,0.35);
+    }
+    #s10-pill-text {
+      font-family: "Inter Tight", system-ui; font-weight: 800;
+      font-style: italic; text-transform: uppercase;
+      letter-spacing: -0.01em; font-size: 72px; color: #fff;
+    }
+    #s10-tagline {
+      font-family: "Inter", system-ui; font-weight: 400;
+      font-size: 38px; color: rgba(255,255,255,0.72);
+      text-align: center; max-width: 740px; line-height: 1.4;
+    }
+
+    /* ── GENERATED ILLUSTRATIONS ─────────────────────────────────────── */
+    .illustration {
+      position: absolute;
+      pointer-events: none;
+      object-fit: contain;
+      filter: drop-shadow(0 18px 40px rgba(0,0,0,0.18));
+      will-change: transform, opacity;
+    }
+    /* Scene 2 — Myth 1: briefcase + bowler hat, dominant top */
+    #s2-illustration {
+      top: 200px; left: 50%; margin-left: -250px;
+      width: 500px; height: 560px; z-index: 1;
+    }
+    /* Scene 2 layout shifts content lower to clear the illustration */
+    #s2-layout { padding-top: 810px !important; gap: 28px !important; justify-content: flex-start !important; }
+
+    /* Scene 3 — Bust 1: 3 Gen Z characters across the bottom */
+    .s3-char {
+      position: absolute; bottom: 0;
+      pointer-events: none;
+      object-fit: contain;
+      filter: drop-shadow(0 22px 40px rgba(0,0,0,0.22));
+      will-change: transform, opacity;
+      z-index: 1;
+    }
+    #s3-char-1 { left: 20px;  width: 360px; height: 870px; }
+    #s3-char-2 { left: 50%; margin-left: -195px; width: 390px; height: 900px; bottom: 30px; }
+    #s3-char-3 { right: 10px; width: 360px; height: 880px; }
+
+    /* Scene 4 — Myth 2: money-stack dominant top */
+    #s4-illustration {
+      top: 180px; left: 50%; margin-left: -230px;
+      width: 460px; height: 590px; z-index: 1;
+    }
+    #s4-layout { padding-top: 820px !important; gap: 28px !important; justify-content: flex-start !important; }
+
+    /* Scene 6 — Myth 3: alarm-clock dominant top */
+    #s6-illustration {
+      top: 160px; left: 50%; margin-left: -240px;
+      width: 480px; height: 620px; z-index: 1;
+    }
+    #s6-layout { padding-top: 820px !important; justify-content: flex-start !important; }
+
+    /* Scene 8 — Myth 4: broken-piggy (loss visualization) dominant top */
+    #s8-illustration {
+      top: 240px; left: 50%; margin-left: -270px;
+      width: 540px; height: 490px; z-index: 1;
+    }
+    #s8-layout { padding-top: 770px !important; justify-content: flex-start !important; }
+
+    /* Scene 9 — Bust 4: piggy bank as the safety hero */
+    #s9-illustration {
+      top: 240px; left: 50%; margin-left: -260px;
+      width: 520px; height: 540px; z-index: 1;
+    }
+    #s9-layout { padding-top: 820px !important; gap: 32px !important; justify-content: flex-start !important; }
+
+  </style>
+</head>
+<body>
+<div
+  id="root"
+  data-composition-id="bloom-investing-myths"
+  data-width="1080" data-height="1920"
+  data-start="0" data-duration="67.2"
+>
+  <audio id="narration" class="clip"
+         data-start="0" data-duration="67.2" data-track-index="0" data-volume="1"
+         src="narration.mp3"></audio>
+
+  <!-- ── SCENE PRE — iMessage cascade ─────────────────────────── -->
+  <div id="scene-pre" class="scene">
+    <div id="s1-msg-friend" class="s1-pre-msg imessage blue">
+      <div class="imsg-sender">Tyler</div>
+      <div class="imsg-bubble">yo bro $GME is gonna RIP</div>
+    </div>
+    <div id="s1-msg-family" class="s1-pre-msg imessage gray">
+      <div class="imsg-sender">Mom</div>
+      <div class="imsg-bubble">Sweetie just put it in a CD account, that's how we did it.</div>
+    </div>
+    <div id="s1-msg-social" class="s1-pre-msg">
+      <div class="x-content">
+        <div class="x-meta">
+          <span class="x-handle">@cryptobro_2026</span>
+          <span class="x-time">·  2m</span>
+        </div>
+        <div class="x-text">Stop buying stocks. Buy only gold.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCENE 1 — Hook ──────────────────────────────────────────── -->
+  <div id="scene1" class="scene">
+    <canvas id="s1-canvas" width="1080" height="1920"></canvas>
+    <div id="s1-layout">
+      <div id="s1-eyebrow">Investing Myths</div>
+      <div id="s1-badge" class="badge">
+        <span class="badge-text">Misconceptions</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCENE 2 — Myth 1 ────────────────────────────────────────── -->
+  <div id="scene2" class="scene">
+    <img id="s2-illustration" class="illustration" src="generated-assets/briefcase.png" alt="" />
+    <div id="s2-layout">
+      <div id="s2-header">
+        <div id="s2-myth-badge" class="badge">
+          <span class="badge-text">Myth 1</span>
+        </div>
+        <svg id="s2-x-icon" width="64" height="64" viewBox="0 0 64 64" fill="none">
+          <circle cx="32" cy="32" r="30" fill="#fef2f2" stroke="#fca5a5" stroke-width="3"/>
+          <line x1="20" y1="20" x2="44" y2="44" stroke="#ef4444" stroke-width="5" stroke-linecap="round"/>
+          <line x1="44" y1="20" x2="20" y2="44" stroke="#ef4444" stroke-width="5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div id="s2-myth-text">It's hard &amp; only for Boomers</div>
+      <div id="s2-divider"></div>
+      <div id="s2-myth-claim">Investing is complicated and not meant for young people</div>
+    </div>
+  </div>
+
+  <!-- ── SCENE 3 — Bust 1 ────────────────────────────────────────── -->
+  <div id="scene3" class="scene">
+    <canvas id="s3-burst-canvas" width="1080" height="1920"></canvas>
+    <img id="s3-char-1" class="s3-char" src="generated-assets/char-girl.png" alt="" />
+    <img id="s3-char-2" class="s3-char" src="generated-assets/char-guy.png" alt="" />
+    <img id="s3-char-3" class="s3-char" src="generated-assets/char-pro.png" alt="" />
+    <div id="s3-layout">
+      <div id="s3-eyebrow">Actually...</div>
+      <div id="s3-counter">0</div>
+      <div id="s3-label">Users on Bloom</div>
+      <div id="s3-bloom-row">
+        <img id="s3-bloom-mark" src="bloom-logo.png" alt="Bloom" />
+        <span id="s3-bloom-label">Bloom</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCENE 4 — Myth 2 ────────────────────────────────────────── -->
+  <div id="scene4" class="scene">
+    <img id="s4-illustration" class="illustration" src="generated-assets/money-stack.png" alt="" />
+    <div id="s4-layout">
+      <div id="s4-myth-badge" class="badge">
+        <span class="badge-text">Myth 2</span>
+      </div>
+      <div id="s4-myth-text">I need a lot of money</div>
+      <div id="s4-myth-claim">You need thousands of dollars before you can even begin investing</div>
+    </div>
+  </div>
+
+  <!-- ── SCENE 5 — Bust 2 ────────────────────────────────────────── -->
+  <div id="scene5" class="scene">
+    <div id="s5-layout">
+      <div id="s5-eyebrow">Start with</div>
+      <div id="s5-dollar">$0</div>
+      <div id="s5-on-bloom">on Bloom</div>
+      <div id="s5-sparkline-wrap">
+        <svg viewBox="0 0 700 160" fill="none">
+          <path id="s5-spark-line"
+            d="M 20 140 C 100 140 120 120 180 110 C 240 100 260 90 320 75 C 380 60 400 50 460 38 C 520 26 560 20 620 14 L 680 8"/>
+        </svg>
+      </div>
+      <div id="s5-grow-label">Small investments grow big</div>
+      <div id="s5-logo-row">
+        <img id="s5-bloom-mark" src="bloom-logo.png" alt="Bloom" />
+        <span id="s5-bloom-text">Bloom</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCENE 6 — Myth 3 ────────────────────────────────────────── -->
+  <div id="scene6" class="scene">
+    <img id="s6-illustration" class="illustration" src="generated-assets/alarm-clock.png" alt="" />
+    <div id="s6-layout">
+      <div id="s6-card">
+        <div id="s6-myth-badge" class="badge">
+          <span class="badge-text">Myth 3</span>
+        </div>
+        <div id="s6-myth-text">No time to start now</div>
+        <div id="s6-myth-claim">I'll just wait until later when I have more time</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCENE 7 — Bust 3 ────────────────────────────────────────── -->
+  <div id="scene7" class="scene">
+    <div id="s7-layout">
+      <div id="s7-eyebrow">Start at your own pace</div>
+      <div id="s7-badge1" class="badge">
+        <span class="badge-text">Your pace</span>
+      </div>
+      <div id="s7-timeline-wrap">
+        <svg viewBox="0 0 940 200" fill="none">
+          <!-- timeline baseline -->
+          <path id="s7-timeline-line" d="M 80 70 L 800 70"/>
+          <!-- dots -->
+          <circle id="s7-dot1" cx="80"  cy="70" r="22" fill="#1658ff" opacity="0"/>
+          <circle id="s7-dot2" cx="440" cy="70" r="22" fill="#1658ff" opacity="0"/>
+          <circle id="s7-dot3" cx="800" cy="70" r="26" fill="#01cd74" opacity="0"/>
+          <!-- labels -->
+          <text id="s7-lbl1" x="80"  y="155" text-anchor="middle" font-family="Inter" font-size="42" font-weight="700" fill="#4a4f54" opacity="0">Start</text>
+          <text id="s7-lbl2" x="440" y="155" text-anchor="middle" font-family="Inter" font-size="42" font-weight="700" fill="#4a4f54" opacity="0">Time</text>
+          <text id="s7-lbl3" x="800" y="155" text-anchor="middle" font-family="Inter" font-size="42" font-weight="700" fill="#01cd74" opacity="0">Growth</text>
+        </svg>
+      </div>
+      <div id="s7-badge2" class="badge">
+        <span class="badge-text">More time to grow</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCENE 8 — Myth 4 ────────────────────────────────────────── -->
+  <div id="scene8" class="scene">
+    <img id="s8-illustration" class="illustration" src="generated-assets/broken-piggy.png" alt="" />
+    <div id="s8-layout">
+      <div id="s8-card">
+        <div id="s8-myth-badge" class="badge">
+          <span class="badge-text">Myth 4</span>
+        </div>
+        <div id="s8-myth-text">I'll lose all my money</div>
+        <div id="s8-myth-claim">Investing is super risky and I could lose everything</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCENE 9 — Bust 4 ────────────────────────────────────────── -->
+  <div id="scene9" class="scene">
+    <img id="s9-illustration" class="illustration" src="generated-assets/piggy-bank.png" alt="" />
+    <div id="s9-layout">
+      <div id="s9-eyebrow">You choose</div>
+      <div id="s9-shield-row">
+        <div id="s9-safer-badge" class="badge">
+          <span class="badge-text">Safer investments</span>
+        </div>
+      </div>
+      <div id="s9-subtext"><strong>Bloom</strong> teaches you how to pick what to invest in</div>
+      <div id="s9-logo-row">
+        <img id="s9-bloom-mark" src="bloom-logo.png" alt="Bloom" />
+        <span id="s9-bloom-text">Bloom</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCENE 10 — CTA ──────────────────────────────────────────── -->
+  <div id="scene10" class="scene">
+    <div id="s10-layout">
+      <img id="s10-logo" src="bloom-logo.png" alt="Bloom" />
+      <div id="s10-pill">
+        <span id="s10-pill-text">Get Bloom</span>
+      </div>
+      <div id="s10-tagline">Start your investing journey today.</div>
+    </div>
+  </div>
+
+  <script>
+    // ── MULBERRY32 PRNG (no Math.random) ─────────────────────────────
+    function mulberry32(seed) {
+      return function () {
+        let t = (seed += 0x6d2b79f5);
+        t = Math.imul(t ^ (t >>> 15), t | 1);
+        t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+    }
+
+    // ── BEAT BOUNDARIES ──────────────────────────────────────────────
+    const B1 = 0, B2 = 10.25, B3 = 16.55, B4 = 24.35, B5 = 29.05;
+    const B6 = 35.85, B7 = 41.62, B8 = 51.95, B9 = 57.45, B10 = 63.4;
+    const END = 67.2;
+
+    // ── VO WORD TIMING (inlined vo-words.json) ───────────────────────
+    const W = [{"w":"You","s":0,"e":0.081},{"w":"might","s":0.108,"e":0.243},{"w":"have","s":0.275,"e":0.403},{"w":"heard","s":0.443,"e":0.643},{"w":"certain","s":0.683,"e":0.963},{"w":"things","s":1.02,"e":1.362},{"w":"about","s":1.389,"e":1.524},{"w":"investing","s":1.588,"e":2.164},{"w":"from","s":2.196,"e":2.324},{"w":"friends,","s":2.384,"e":3.044},{"w":"family,","s":3.113,"e":3.607},{"w":"or","s":3.66,"e":3.766},{"w":"social","s":3.823,"e":4.165},{"w":"media.","s":4.245,"e":4.725},{"w":"There","s":4.845,"e":5.445},{"w":"are","s":5.485,"e":5.605},{"w":"a","s":5.685,"e":5.765},{"w":"lot","s":5.805,"e":5.925},{"w":"of","s":5.978,"e":6.084},{"w":"common","s":6.13,"e":6.406},{"w":"misconceptions","s":6.463,"e":7.125},{"w":"about","s":7.165,"e":7.365},{"w":"investing,","s":7.429,"e":8.325},{"w":"so","s":8.405,"e":8.565},{"w":"we're","s":8.645,"e":8.886},{"w":"here","s":8.918,"e":9.046},{"w":"to","s":9.099,"e":9.205},{"w":"give","s":9.221,"e":9.285},{"w":"you","s":9.325,"e":9.445},{"w":"the","s":9.465,"e":9.525},{"w":"facts.","s":9.605,"e":10.165},{"w":"Myth","s":10.405,"e":11.365},{"w":"one:","s":11.445,"e":12.245},{"w":"Investing","s":12.301,"e":12.805},{"w":"is","s":12.885,"e":13.045},{"w":"hard","s":13.125,"e":13.445},{"w":"and","s":13.485,"e":13.605},{"w":"complicated,","s":13.665,"e":14.485},{"w":"and","s":14.525,"e":14.645},{"w":"it's","s":14.672,"e":14.806},{"w":"only","s":14.87,"e":15.126},{"w":"for","s":15.166,"e":15.286},{"w":"Boomers.","s":15.334,"e":16.487},{"w":"Anybody","s":16.647,"e":17.287},{"w":"can","s":17.347,"e":17.527},{"w":"invest,","s":17.607,"e":18.247},{"w":"and","s":18.287,"e":18.407},{"w":"we're","s":18.46,"e":18.647},{"w":"here","s":18.679,"e":18.807},{"w":"to","s":18.834,"e":18.888},{"w":"make","s":18.92,"e":19.048},{"w":"it","s":19.101,"e":19.207},{"w":"easy!","s":19.287,"e":19.687},{"w":"Over","s":19.863,"e":20.567},{"w":"one","s":20.607,"e":20.727},{"w":"million","s":20.797,"e":21.287},{"w":"users","s":21.367,"e":21.767},{"w":"are","s":21.807,"e":21.927},{"w":"already","s":21.987,"e":22.407},{"w":"learning","s":22.451,"e":22.803},{"w":"and","s":22.843,"e":22.963},{"w":"investing","s":23.019,"e":23.523},{"w":"on","s":23.603,"e":23.763},{"w":"Bloom.","s":23.83,"e":24.245},{"w":"Myth","s":24.517,"e":25.605},{"w":"two:","s":25.685,"e":26.085},{"w":"I'm","s":26.365,"e":26.765},{"w":"going","s":26.785,"e":26.885},{"w":"to","s":26.912,"e":26.966},{"w":"need","s":27.014,"e":27.206},{"w":"a","s":27.246,"e":27.286},{"w":"lot","s":27.366,"e":27.606},{"w":"of","s":27.633,"e":27.687},{"w":"money","s":27.727,"e":27.927},{"w":"to","s":27.98,"e":28.086},{"w":"start.","s":28.166,"e":29.006},{"w":"On","s":29.153,"e":29.447},{"w":"Bloom,","s":29.527,"e":30.007},{"w":"you","s":30.047,"e":30.167},{"w":"can","s":30.187,"e":30.247},{"w":"start","s":30.3,"e":30.565},{"w":"investing","s":30.613,"e":31.045},{"w":"with","s":31.077,"e":31.205},{"w":"just","s":31.269,"e":31.525},{"w":"one","s":31.585,"e":31.765},{"w":"dollar,","s":31.834,"e":32.648},{"w":"and","s":32.688,"e":32.808},{"w":"even","s":32.856,"e":33.048},{"w":"small","s":33.115,"e":33.45},{"w":"investments","s":33.503,"e":34.086},{"w":"can","s":34.126,"e":34.246},{"w":"become","s":34.292,"e":34.568},{"w":"big","s":34.668,"e":34.968},{"w":"over","s":35.016,"e":35.208},{"w":"time.","s":35.288,"e":35.688},{"w":"Myth","s":36.008,"e":37.288},{"w":"three:","s":37.355,"e":37.77},{"w":"I","s":38.09,"e":38.41},{"w":"don't","s":38.45,"e":38.65},{"w":"have","s":38.682,"e":38.81},{"w":"time","s":38.858,"e":39.05},{"w":"to","s":39.103,"e":39.209},{"w":"invest","s":39.266,"e":39.608},{"w":"now,","s":39.688,"e":40.088},{"w":"so","s":40.168,"e":40.328},{"w":"I'll","s":40.408,"e":40.569},{"w":"just","s":40.601,"e":40.729},{"w":"start","s":40.782,"e":41.047},{"w":"later.","s":41.114,"e":41.529},{"w":"You","s":41.749,"e":42.409},{"w":"don't","s":42.429,"e":42.569},{"w":"need","s":42.601,"e":42.729},{"w":"a","s":42.789,"e":42.849},{"w":"lot","s":42.879,"e":42.969},{"w":"of","s":42.996,"e":43.05},{"w":"time","s":43.098,"e":43.29},{"w":"to","s":43.343,"e":43.449},{"w":"get","s":43.489,"e":43.609},{"w":"started!","s":43.669,"e":44.609},{"w":"Bloom","s":44.696,"e":45.131},{"w":"lets","s":45.179,"e":45.371},{"w":"you","s":45.411,"e":45.531},{"w":"learn","s":45.584,"e":45.849},{"w":"and","s":45.889,"e":46.009},{"w":"invest","s":46.078,"e":46.492},{"w":"at","s":46.545,"e":46.651},{"w":"your","s":46.683,"e":46.811},{"w":"own","s":46.871,"e":47.051},{"w":"pace,","s":47.163,"e":48.011},{"w":"and","s":48.051,"e":48.171},{"w":"the","s":48.191,"e":48.251},{"w":"earlier","s":48.311,"e":48.731},{"w":"you","s":48.771,"e":48.891},{"w":"start,","s":48.971,"e":49.691},{"w":"the","s":49.731,"e":49.851},{"w":"more","s":49.899,"e":50.091},{"w":"time","s":50.155,"e":50.411},{"w":"you","s":50.451,"e":50.571},{"w":"give","s":50.603,"e":50.731},{"w":"your","s":50.763,"e":50.891},{"w":"money","s":50.931,"e":51.131},{"w":"to","s":51.184,"e":51.29},{"w":"grow.","s":51.37,"e":51.77},{"w":"Myth","s":52.09,"e":53.37},{"w":"four:","s":53.45,"e":54.33},{"w":"I'm","s":54.37,"e":54.49},{"w":"going","s":54.53,"e":54.73},{"w":"to","s":54.757,"e":54.811},{"w":"lose","s":54.859,"e":55.051},{"w":"a","s":55.091,"e":55.131},{"w":"lot","s":55.191,"e":55.371},{"w":"of","s":55.424,"e":55.53},{"w":"money,","s":55.583,"e":56.008},{"w":"and","s":56.028,"e":56.088},{"w":"it's","s":56.141,"e":56.327},{"w":"super","s":56.394,"e":56.729},{"w":"risky.","s":56.809,"e":57.369},{"w":"You","s":57.609,"e":58.329},{"w":"can","s":58.389,"e":58.569},{"w":"always","s":58.626,"e":58.968},{"w":"choose","s":59.025,"e":59.367},{"w":"safer","s":59.434,"e":59.769},{"w":"investments,","s":59.836,"e":60.653},{"w":"and","s":60.693,"e":60.813},{"w":"Bloom","s":60.88,"e":61.215},{"w":"will","s":61.231,"e":61.295},{"w":"teach","s":61.348,"e":61.613},{"w":"you","s":61.633,"e":61.693},{"w":"how","s":61.733,"e":61.853},{"w":"to","s":61.88,"e":61.934},{"w":"pick","s":61.998,"e":62.254},{"w":"what","s":62.286,"e":62.414},{"w":"to","s":62.467,"e":62.573},{"w":"invest","s":62.63,"e":62.972},{"w":"in.","s":63.052,"e":63.292},{"w":"Start","s":63.492,"e":64.492},{"w":"your","s":64.508,"e":64.572},{"w":"investing","s":64.628,"e":65.132},{"w":"journey","s":65.182,"e":65.532},{"w":"on","s":65.612,"e":65.772},{"w":"Bloom","s":65.839,"e":66.174},{"w":"today.","s":66.241,"e":66.656}];
+
+    // ── PHRASE-ANCHORED TIMING HELPERS ───────────────────────────────
+    function _norm(s) { return s.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu, ""); }
+    function _findPhrase(phrase) {
+      const tokens = phrase.toLowerCase().split(/\s+/).map(_norm).filter(Boolean);
+      if (!tokens.length) throw new Error(`landOn: empty phrase`);
+      const hits = [];
+      for (let i = 0; i <= W.length - tokens.length; i++) {
+        let ok = true;
+        for (let j = 0; j < tokens.length; j++) {
+          if (_norm(W[i + j].w) !== tokens[j]) { ok = false; break; }
+        }
+        if (ok) hits.push(i);
+      }
+      if (hits.length === 0) throw new Error(`landOn: phrase "${phrase}" not found`);
+      if (hits.length > 1) {
+        const times = hits.map(i => W[i].s.toFixed(3) + "s").join(", ");
+        throw new Error(`landOn: phrase "${phrase}" matches ${hits.length} times at [${times}]`);
+      }
+      return { startIdx: hits[0], endIdx: hits[0] + tokens.length - 1 };
+    }
+    function at(phrase)                      { return W[_findPhrase(phrase).startIdx].s; }
+    function landOn(phrase, duration = 0)    { return at(phrase) - duration; }
+    function landAfter(phrase, duration = 0) { return W[_findPhrase(phrase).endIdx].e - duration; }
+
+    // Resolve burst anchor once (used in canvas closure)
+    const BURST_AT = landAfter("one million"); // 21.287
+
+    // ── MASTER TIMELINE ──────────────────────────────────────────────
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+
+    // ════════════════════════════════════════════════════════════════
+    // SCENE PRE — iMessage cascade  (t = 0 → 5.6)
+    // VO: "You might have heard certain things about investing from
+    //      friends, family, or social media."
+    // ════════════════════════════════════════════════════════════════
+
+    // Tyler (friend) — slides up + spring on "friends"
+    tl.fromTo("#s1-msg-friend",
+      { y: 80, opacity: 0, scale: 0.85 },
+      { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.7)" },
+      landOn("friends,", 0.5));
+    tl.to("#s1-msg-friend",
+      { y: -8, duration: 1.2, ease: "sine.inOut", yoyo: true, repeat: 1, overwrite: "auto" },
+      2.6);
+
+    // Mom (family) — slides up + spring on "family"
+    tl.fromTo("#s1-msg-family",
+      { y: 80, opacity: 0, scale: 0.85 },
+      { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.7)" },
+      landOn("family,", 0.5));
+    tl.to("#s1-msg-family",
+      { y: -6, duration: 1.4, ease: "sine.inOut", yoyo: true, repeat: 1, overwrite: "auto" },
+      3.4);
+
+    // X notification (social media) — slides down from top
+    tl.fromTo("#s1-msg-social",
+      { y: -240, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.5, ease: "back.out(1.4)" },
+      landOn("social media", 0.5));
+    tl.to("#s1-msg-social",
+      { y: 6, duration: 1.2, ease: "sine.inOut", yoyo: true, repeat: 1, overwrite: "auto" },
+      4.0);
+
+    // Glitch shake — all 3 bubbles tremble before dissolving
+    tl.to(".s1-pre-msg",
+      { x: -12, duration: 0.06, ease: "power1.inOut", yoyo: true, repeat: 5, overwrite: "auto" },
+      4.85);
+
+    // Fade + scale out
+    tl.to(".s1-pre-msg",
+      { opacity: 0, scale: 0.88, duration: 0.4, ease: "power2.in", overwrite: "auto" },
+      5.2);
+
+    // Scene transition: pre → 1
+    tl.to("#scene-pre", { opacity: 0, duration: 0.3, ease: "power2.in",  overwrite: "auto" }, 5.3);
+    tl.to("#scene1",    { opacity: 1, duration: 0.3, ease: "power2.out", overwrite: "auto" }, 5.3);
+    tl.set("#scene-pre", { visibility: "hidden" }, 5.7);
+
+    // ════════════════════════════════════════════════════════════════
+    // SCENE 1 — Hook  (t = 5.3 → 10.25)
+    // VO: "There are a lot of common misconceptions about investing,
+    //      so we're here to give you the facts."
+    // ════════════════════════════════════════════════════════════════
+
+    // Canvas ticker tape
+    (function () {
+      const rand = mulberry32(2024);
+      const canvas = document.getElementById("s1-canvas");
+      const ctx = canvas.getContext("2d");
+      const TOKENS = ["SPY","AAPL","NVDA","TSLA","MSFT","AMZN",
+                      "GOOGL","META","NKE","COST","DIS","QQQ",
+                      "VOO","NFLX","V","JPM","SBUX","WMT","ETF"];
+      const COLS = 6, COLW = 180, ROWSP = 72;
+      const ROWS = Math.ceil(1920 / ROWSP) + 6;
+      const grid = [];
+      for (let c = 0; c < COLS; c++) {
+        const col = [];
+        const off = Math.floor(rand() * ROWSP);
+        for (let r = 0; r < ROWS; r++) {
+          col.push({
+            token: TOKENS[Math.floor(rand() * TOKENS.length)],
+            yOff:  off + r * ROWSP,
+            alpha: 0.08 + rand() * 0.14,
+            size:  22 + Math.floor(rand() * 10)
+          });
+        }
+        grid.push(col);
+      }
+      function drawTicker(t) {
+        ctx.clearRect(0, 0, 1080, 1920);
+        ctx.textAlign = "center"; ctx.textBaseline = "middle";
+        const scroll = (t * 20) % ROWSP;
+        for (let c = 0; c < COLS; c++) {
+          const x = c * COLW + COLW / 2;
+          for (let r = 0; r < ROWS; r++) {
+            const cell = grid[c][r];
+            const y = Math.round(cell.yOff - scroll);
+            if (y < -40 || y > 1960) continue;
+            ctx.fillStyle = "rgba(255,255,255," + cell.alpha.toFixed(3) + ")";
+            ctx.font = "600 " + cell.size + "px 'Inter',system-ui,sans-serif";
+            ctx.fillText(cell.token, x, y);
+          }
+        }
+      }
+      drawTicker(0);
+      const p = { t: 0 };
+      tl.to(p, { t: B2, duration: B2, ease: "none", onUpdate: () => drawTicker(p.t) }, B1);
+    })();
+
+    // Eyebrow fades in after the iMessage cascade dissolves
+    tl.fromTo("#s1-eyebrow",
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" },
+      5.55);
+
+    // Main badge SLAMS on "misconceptions"
+    tl.fromTo("#s1-badge",
+      { scale: 0.6, opacity: 0 },
+      { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(1.7)" },
+      landOn("misconceptions", 0.45));
+
+    // S1 → S2
+    tl.to("#scene1",  { opacity: 0, duration: 0.18, ease: "power2.in",  overwrite: "auto" }, B2 - 0.18);
+    tl.to("#scene2",  { opacity: 1, duration: 0.22, ease: "power2.out", overwrite: "auto" }, B2 - 0.08);
+    tl.set("#scene1", { visibility: "hidden" }, B2 + 0.2);
+
+    // ════════════════════════════════════════════════════════════════
+    // SCENE 2 — Myth 1  (t = 10.25 → 16.55)
+    // VO: "Myth one: Investing is hard and complicated, and it's only for Boomers."
+    // ════════════════════════════════════════════════════════════════
+
+    // Badge + X icon slam on "Myth one"
+    tl.fromTo("#s2-header",
+      { scale: 0.75, opacity: 0 },
+      { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2)" },
+      B2 + 0.35);
+
+    // Myth text slides up on "hard and complicated"
+    tl.fromTo("#s2-myth-text",
+      { opacity: 0, y: 40 },
+      { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" },
+      landOn("hard and complicated", 0.4));
+
+    // Divider + claim fades on "Boomers"
+    tl.fromTo("#s2-divider",
+      { scaleX: 0, opacity: 0 },
+      { scaleX: 1, opacity: 1, duration: 0.4, ease: "power2.out", transformOrigin: "left center" },
+      landOn("Boomers", 0.35));
+    tl.fromTo("#s2-myth-claim",
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" },
+      landOn("Boomers", 0.3));
+
+    // S2 → S3
+    tl.to("#scene2",  { opacity: 0, duration: 0.18, ease: "power2.in",  overwrite: "auto" }, B3 - 0.18);
+    tl.to("#scene3",  { opacity: 1, duration: 0.22, ease: "power2.out", overwrite: "auto" }, B3 - 0.08);
+    tl.set("#scene2", { visibility: "hidden" }, B3 + 0.2);
+
+    // ════════════════════════════════════════════════════════════════
+    // SCENE 3 — Bust 1  (t = 16.55 → 24.35)
+    // VO: "Anybody can invest…over one million users…on Bloom."
+    // ════════════════════════════════════════════════════════════════
+
+    // Particle burst canvas (fires at counter land)
+    (function () {
+      const canvas = document.getElementById("s3-burst-canvas");
+      const ctx = canvas.getContext("2d");
+      const rand = mulberry32(3101);
+      const N = 72;
+      const parts = [];
+      for (let i = 0; i < N; i++) {
+        const angle = (i / N) * Math.PI * 2 + (rand() - 0.5) * 0.35;
+        parts.push({
+          angle,
+          speed: 350 + rand() * 550,
+          size:  4 + rand() * 9,
+          color: i % 3 === 0 ? "#efc42c" : (i % 3 === 1 ? "#ffffff" : "#01cd74")
+        });
+      }
+      const cx = 540, cy = 860;
+      function draw(t) {
+        ctx.clearRect(0, 0, 1080, 1920);
+        if (t < BURST_AT || t > BURST_AT + 1.8) return;
+        const elapsed = t - BURST_AT;
+        ctx.globalAlpha = 1;
+        for (let i = 0; i < N; i++) {
+          const p = parts[i];
+          const dist = p.speed * elapsed;
+          const x = cx + Math.cos(p.angle) * dist;
+          const y = cy + Math.sin(p.angle) * dist;
+          const alpha = Math.max(0, 1 - elapsed / 1.6);
+          ctx.fillStyle = p.color;
+          ctx.globalAlpha = alpha;
+          ctx.beginPath();
+          ctx.arc(x, y, p.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.globalAlpha = 1;
+      }
+      draw(B3);
+      const p = { t: B3 };
+      tl.to(p, { t: B4, duration: B4 - B3, ease: "none", onUpdate: () => draw(p.t) }, B3);
+    })();
+
+    // Eyebrow
+    tl.fromTo("#s3-eyebrow",
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" },
+      B3 + 0.25);
+
+    // Counter 0 → 1,000,000 — LANDS at end of "one million"
+    (function () {
+      const el = document.getElementById("s3-counter");
+      const proxy = { v: 0 };
+      tl.to(proxy, {
+        v: 1000000,
+        duration: 1.5,
+        ease: "power3.out",
+        onUpdate: () => { el.textContent = Math.round(proxy.v).toLocaleString(); }
+      }, landAfter("one million", 1.5));
+    })();
+
+    tl.fromTo("#s3-label",
+      { opacity: 0, y: 16 },
+      { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" },
+      BURST_AT + 0.1);
+
+    // Bloom row fades in as "investing on Bloom" is spoken
+    tl.fromTo("#s3-bloom-row",
+      { opacity: 0, scale: 0.85 },
+      { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.7)" },
+      landOn("investing on Bloom", 0.4));
+
+    // S3 → S4
+    tl.to("#scene3",  { opacity: 0, duration: 0.18, ease: "power2.in",  overwrite: "auto" }, B4 - 0.18);
+    tl.to("#scene4",  { opacity: 1, duration: 0.22, ease: "power2.out", overwrite: "auto" }, B4 - 0.08);
+    tl.set("#scene3", { visibility: "hidden" }, B4 + 0.2);
+
+    // ════════════════════════════════════════════════════════════════
+    // SCENE 4 — Myth 2  (t = 24.35 → 29.05)
+    // VO: "Myth two: I'm going to need a lot of money to start."
+    // ════════════════════════════════════════════════════════════════
+
+    tl.fromTo("#s4-myth-badge",
+      { scale: 0.75, opacity: 0 },
+      { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2)" },
+      B4 + 0.35);
+
+    tl.fromTo("#s4-myth-text",
+      { opacity: 0, y: 36 },
+      { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" },
+      landOn("lot of money to start", 0.4));
+
+    tl.fromTo("#s4-myth-claim",
+      { opacity: 0 },
+      { opacity: 1, duration: 0.4, ease: "power2.out" },
+      landOn("lot of money to start", 0.2));
+
+    // S4 → S5
+    tl.to("#scene4",  { opacity: 0, duration: 0.18, ease: "power2.in",  overwrite: "auto" }, B5 - 0.18);
+    tl.to("#scene5",  { opacity: 1, duration: 0.22, ease: "power2.out", overwrite: "auto" }, B5 - 0.08);
+    tl.set("#scene4", { visibility: "hidden" }, B5 + 0.2);
+
+    // ════════════════════════════════════════════════════════════════
+    // SCENE 5 — Bust 2  (t = 29.05 → 35.85)
+    // VO: "On Bloom, you can start investing with just one dollar…"
+    // ════════════════════════════════════════════════════════════════
+
+    tl.fromTo("#s5-eyebrow",
+      { opacity: 0, y: 16 },
+      { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" },
+      B5 + 0.3);
+
+    // "$1" counter — elastic bounce LANDING at end of "one dollar"
+    (function () {
+      const el = document.getElementById("s5-dollar");
+      const proxy = { v: 0 };
+      tl.to(proxy, {
+        v: 1,
+        duration: 0.8,
+        ease: "elastic.out(1, 0.45)",
+        onUpdate: () => { el.textContent = "$" + Math.round(proxy.v); }
+      }, landAfter("one dollar", 0.8));
+    })();
+
+    tl.fromTo("#s5-on-bloom",
+      { opacity: 0, y: 16 },
+      { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" },
+      landAfter("one dollar") + 0.15);
+
+    // Sparkline draws in after counter
+    tl.to("#s5-spark-line",
+      { strokeDashoffset: 0, duration: 1.6, ease: "power2.inOut" },
+      landAfter("one dollar") + 0.35);
+
+    tl.fromTo("#s5-grow-label",
+      { opacity: 0, y: 12 },
+      { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" },
+      landOn("big over time", 0.3));
+
+    tl.fromTo("#s5-logo-row",
+      { opacity: 0, scale: 0.85 },
+      { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.7)" },
+      landOn("big over time", 0.2));
+
+    // S5 → S6
+    tl.to("#scene5",  { opacity: 0, duration: 0.18, ease: "power2.in",  overwrite: "auto" }, B6 - 0.18);
+    tl.to("#scene6",  { opacity: 1, duration: 0.22, ease: "power2.out", overwrite: "auto" }, B6 - 0.08);
+    tl.set("#scene5", { visibility: "hidden" }, B6 + 0.2);
+
+    // ════════════════════════════════════════════════════════════════
+    // SCENE 6 — Myth 3  (t = 35.85 → 41.62)
+    // VO: "Myth three: I don't have time to invest now, so I'll just start later."
+    // ════════════════════════════════════════════════════════════════
+
+    // White card slides up from y:80
+    tl.fromTo("#s6-card",
+      { y: 80, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.55, ease: "power3.out" },
+      B6 + 0.3);
+
+    tl.fromTo("#s6-myth-badge",
+      { scale: 0.75, opacity: 0 },
+      { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(2)" },
+      B6 + 0.55);
+
+    // Myth text enters on "don't have time to invest now"
+    tl.fromTo("#s6-myth-text",
+      { opacity: 0, y: 28 },
+      { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" },
+      landOn("don't have time to invest now", 0.4));
+
+    tl.fromTo("#s6-myth-claim",
+      { opacity: 0 },
+      { opacity: 1, duration: 0.35, ease: "power2.out" },
+      landOn("don't have time to invest now", 0.2));
+
+    // S6 → S7
+    tl.to("#scene6",  { opacity: 0, duration: 0.18, ease: "power2.in",  overwrite: "auto" }, B7 - 0.18);
+    tl.to("#scene7",  { opacity: 1, duration: 0.22, ease: "power2.out", overwrite: "auto" }, B7 - 0.08);
+    tl.set("#scene6", { visibility: "hidden" }, B7 + 0.2);
+
+    // ════════════════════════════════════════════════════════════════
+    // SCENE 7 — Bust 3  (t = 41.62 → 51.95)
+    // VO: "You don't need a lot of time…Bloom lets you learn and invest at
+    //      your own pace, and the earlier you start, the more time you give
+    //      your money to grow."
+    // ════════════════════════════════════════════════════════════════
+
+    tl.fromTo("#s7-eyebrow",
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" },
+      B7 + 0.2);
+
+    // "YOUR PACE" badge slams on "your own pace"
+    tl.fromTo("#s7-badge1",
+      { scale: 0.65, opacity: 0 },
+      { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(2.2)" },
+      landOn("your own pace", 0.45));
+
+    // Timeline draws in on "earlier you start"
+    tl.to("#s7-timeline-line",
+      { strokeDashoffset: 0, duration: 1.2, ease: "power2.inOut" },
+      landOn("earlier you start", 1.2));
+    // Dots and labels pop in sequentially
+    tl.to(["#s7-dot1", "#s7-lbl1"],
+      { opacity: 1, duration: 0.25, ease: "power2.out" },
+      landOn("earlier you start", 1.0));
+    tl.to(["#s7-dot2", "#s7-lbl2"],
+      { opacity: 1, duration: 0.25, ease: "power2.out" },
+      landOn("earlier you start", 0.6));
+    tl.to(["#s7-dot3", "#s7-lbl3"],
+      { opacity: 1, duration: 0.25, ease: "power2.out" },
+      landOn("time you give", 0.2));
+    // "MORE TIME TO GROW" badge slams on "time you give"
+    tl.fromTo("#s7-badge2",
+      { scale: 0.65, opacity: 0 },
+      { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(2.2)" },
+      landOn("time you give", 0.45));
+    // S7 → S8
+    tl.to("#scene7",  { opacity: 0, duration: 0.18, ease: "power2.in",  overwrite: "auto" }, B8 - 0.18);
+    tl.to("#scene8",  { opacity: 1, duration: 0.22, ease: "power2.out", overwrite: "auto" }, B8 - 0.08);
+    tl.set("#scene7", { visibility: "hidden" }, B8 + 0.2);
+
+    // ════════════════════════════════════════════════════════════════
+    // SCENE 8 — Myth 4  (t = 51.95 → 57.45)
+    // VO: "Myth four: I'm going to lose a lot of money, and it's super risky."
+    // ════════════════════════════════════════════════════════════════
+
+    tl.fromTo("#s8-card",
+      { y: 80, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.55, ease: "power3.out" },
+      B8 + 0.3);
+
+    tl.fromTo("#s8-myth-badge",
+      { scale: 0.75, opacity: 0 },
+      { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(2)" },
+      B8 + 0.55);
+
+    // Myth text enters on "lose a lot"
+    tl.fromTo("#s8-myth-text",
+      { opacity: 0, y: 28 },
+      { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" },
+      landOn("lose a lot", 0.4));
+
+    tl.fromTo("#s8-myth-claim",
+      { opacity: 0 },
+      { opacity: 1, duration: 0.35, ease: "power2.out" },
+      landOn("lose a lot", 0.2));
+
+    // Subtle card shake on "super risky"
+    tl.to("#s8-card",
+      { x: -8, duration: 0.07, ease: "power1.inOut", yoyo: true, repeat: 3 },
+      landOn("super risky", 0.1));
+
+    // S8 → S9
+    tl.to("#scene8",  { opacity: 0, duration: 0.18, ease: "power2.in",  overwrite: "auto" }, B9 - 0.18);
+    tl.to("#scene9",  { opacity: 1, duration: 0.22, ease: "power2.out", overwrite: "auto" }, B9 - 0.08);
+    tl.set("#scene8", { visibility: "hidden" }, B9 + 0.2);
+
+    // ════════════════════════════════════════════════════════════════
+    // SCENE 9 — Bust 4  (t = 57.45 → 63.4)
+    // VO: "You can always choose safer investments, and Bloom will teach
+    //      you how to pick what to invest in."
+    // ════════════════════════════════════════════════════════════════
+
+    tl.fromTo("#s9-eyebrow",
+      { opacity: 0, y: 16 },
+      { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" },
+      B9 + 0.3);
+
+    // "SAFER INVESTMENTS" badge slams on keyword
+    tl.fromTo("#s9-safer-badge",
+      { scale: 0.65, opacity: 0 },
+      { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(2.2)" },
+      landOn("safer investments", 0.45));
+
+    // Subtext + Bloom row fade in on "Bloom will teach"
+    tl.fromTo("#s9-subtext",
+      { opacity: 0, y: 24 },
+      { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" },
+      landOn("Bloom will teach", 0.35));
+
+    tl.fromTo("#s9-logo-row",
+      { opacity: 0, scale: 0.85 },
+      { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.7)" },
+      landOn("Bloom will teach", 0.2));
+
+    // S9 → S10
+    tl.to("#scene9",  { opacity: 0, duration: 0.18, ease: "power2.in",  overwrite: "auto" }, B10 - 0.18);
+    tl.to("#scene10", { opacity: 1, duration: 0.22, ease: "power2.out", overwrite: "auto" }, B10 - 0.08);
+    tl.set("#scene9", { visibility: "hidden" }, B10 + 0.2);
+
+    // ════════════════════════════════════════════════════════════════
+    // SCENE 10 — CTA-close  (t = 63.4 → 67.2)
+    // VO: "Start your investing journey on Bloom today."
+    // ════════════════════════════════════════════════════════════════
+
+    // Bloom logo scale-bounce entrance
+    tl.fromTo("#s10-logo",
+      { scale: 0, opacity: 0 },
+      { scale: 1, opacity: 1, duration: 0.6, ease: "back.out(1.7)" },
+      B10 + 0.25);
+
+    // Gentle breathe — finite repeat, overwrite to avoid scale conflict with entrance
+    // Available: END - (B10+0.9) = 2.3s, cycle = 1.1*2 = 2.2s → repeat: 0
+    tl.to("#s10-logo",
+      { scale: 1.05, duration: 1.1, ease: "sine.inOut", yoyo: true, repeat: 0, overwrite: "auto" },
+      B10 + 0.9);
+
+    // Pill slides up
+    tl.fromTo("#s10-pill",
+      { y: 50, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" },
+      B10 + 0.65);
+
+    // Tagline fades in
+    tl.fromTo("#s10-tagline",
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" },
+      B10 + 1.0);
+
+    // ── Register ──────────────────────────────────────────────────────
+    // ════════════════════════════════════════════════════════════════
+    // GENERATED ILLUSTRATIONS — entrance + ambient drift
+    // ════════════════════════════════════════════════════════════════
+
+    // Scene 2 — boomer-guy slides up early on "complicated", small reaction on "Boomers"
+    tl.fromTo("#s2-illustration",
+      { y: 80, opacity: 0, rotation: -2 },
+      { y: 0, opacity: 1, rotation: 0, duration: 0.7, ease: "back.out(1.4)" },
+      landOn("complicated", 0.65));
+    // Punchline reaction — quick scale pulse on "Boomers"
+    tl.to("#s2-illustration",
+      { scale: 1.05, duration: 0.18, ease: "power2.out", yoyo: true, repeat: 1, overwrite: "auto" },
+      landOn("Boomers", 0.0));
+
+    // Scene 3 — 3 Gen Z characters cascade in early so they dwell across the bust beat
+    tl.fromTo("#s3-char-1",
+      { y: 220, opacity: 0, scale: 0.92 },
+      { y: 0, opacity: 1, scale: 1, duration: 0.55, ease: "back.out(1.6)" },
+      landOn("Anybody", 0.4));
+    tl.to("#s3-char-1",
+      { y: -10, duration: 2.4, ease: "sine.inOut", yoyo: true, repeat: 1, overwrite: "auto" },
+      B3 + 2.0);
+
+    tl.fromTo("#s3-char-2",
+      { y: 240, opacity: 0, scale: 0.92 },
+      { y: 0, opacity: 1, scale: 1, duration: 0.55, ease: "back.out(1.6)" },
+      landOn("here to make", 0.4));
+    tl.to("#s3-char-2",
+      { y: -8, duration: 2.6, ease: "sine.inOut", yoyo: true, repeat: 1, overwrite: "auto" },
+      B3 + 2.6);
+
+    tl.fromTo("#s3-char-3",
+      { y: 220, opacity: 0, scale: 0.92 },
+      { y: 0, opacity: 1, scale: 1, duration: 0.55, ease: "back.out(1.6)" },
+      landOn("easy!", 0.4));
+    tl.to("#s3-char-3",
+      { y: -12, duration: 2.5, ease: "sine.inOut", yoyo: true, repeat: 1, overwrite: "auto" },
+      B3 + 3.4);
+
+    // Scene 4 — money-mountain slides up early on "Myth two", reaction pulse on "money"
+    tl.fromTo("#s4-illustration",
+      { y: 100, opacity: 0, scale: 0.92 },
+      { y: 0, opacity: 1, scale: 1, duration: 0.75, ease: "back.out(1.5)" },
+      landAfter("Myth two", 0.0));
+    tl.to("#s4-illustration",
+      { scale: 1.05, duration: 0.18, ease: "power2.out", yoyo: true, repeat: 1, overwrite: "auto" },
+      landOn("money to start", 0.0));
+
+    // Scene 6 — busy-character emerges with "Myth three" so it dwells through the whole beat
+    tl.fromTo("#s6-illustration",
+      { y: 80, opacity: 0, rotation: 2 },
+      { y: 0, opacity: 1, rotation: 0, duration: 0.7, ease: "back.out(1.4)" },
+      landAfter("Myth three", 0.0));
+    // Stressed shake on "later" punchline
+    tl.to("#s6-illustration",
+      { x: -6, duration: 0.08, ease: "power1.inOut", yoyo: true, repeat: 5, overwrite: "auto" },
+      landOn("later", 0.0));
+
+    // Scene 8 — roller-coaster emerges with "Myth four", wobble reaction on "super risky"
+    tl.fromTo("#s8-illustration",
+      { y: 80, opacity: 0, scale: 0.95 },
+      { y: 0, opacity: 1, scale: 1, duration: 0.7, ease: "back.out(1.4)" },
+      landAfter("Myth four", 0.0));
+    tl.to("#s8-illustration",
+      { rotation: 2, duration: 0.12, ease: "power1.inOut", yoyo: true, repeat: 5, overwrite: "auto" },
+      landOn("super risky", 0.0));
+
+    // Scene 9 — piggy bank bounces in on "safer investments", gentle wiggle
+    tl.fromTo("#s9-illustration",
+      { y: 100, opacity: 0, scale: 0.85 },
+      { y: 0, opacity: 1, scale: 1, duration: 0.7, ease: "back.out(1.7)" },
+      landOn("safer investments", 0.65));
+    tl.to("#s9-illustration",
+      { rotation: 2, duration: 1.4, ease: "sine.inOut", yoyo: true, repeat: 1, overwrite: "auto" },
+      B9 + 1.4);
+
+    window.__timelines["bloom-investing-myths"] = tl;
+  </script>
+</div>
+</body>
+</html>

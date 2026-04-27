@@ -1,0 +1,120 @@
+<template>
+  <div data-composition-id="bloom-risk-reward-beat-7" data-width="1080" data-height="1920" data-start="0" data-duration="6.90">
+    <style>
+      [data-composition-id="bloom-risk-reward-beat-7"] {
+        position: absolute; inset: 0;
+        background: #1658FF;
+        font-family: "Inter Tight", system-ui, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      #b7-canvas {
+        position: absolute; inset: 0;
+        pointer-events: none;
+      }
+      #b7-counter {
+        font-size: 320px;
+        font-weight: 800;
+        font-style: italic;
+        color: #fff;
+        line-height: 0.9;
+        letter-spacing: -0.04em;
+        opacity: 0;
+      }
+      #b7-label {
+        font-size: 40px;
+        font-weight: 700;
+        color: rgba(255,255,255,0.8);
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        margin-top: 40px;
+        opacity: 0;
+      }
+      #b7-glow {
+        position: absolute;
+        width: 800px; height: 800px;
+        background: radial-gradient(circle, rgba(1,205,116,0.4) 0%, transparent 70%);
+        opacity: 0;
+        pointer-events: none;
+      }
+    </style>
+
+    <canvas id="b7-canvas"></canvas>
+    <div id="b7-glow"></div>
+    <div id="b7-counter">$10</div>
+    <div id="b7-label">POTENTIAL REWARD</div>
+
+    <script>
+      (function() {
+        const W = [
+          { word: "But", t: 24.8 + 0.2, e: 24.8 + 0.6 },
+          { word: "doubles,", t: 26.189, e: 26.8 },
+          { word: "reward", t: 27.29, e: 27.8 },
+          { word: "becomes", t: 30.1, e: 30.3 },
+          { word: "twenty.", t: 30.136, e: 31.0 }
+        ];
+        const offset = 24.60;
+        const _norm = s => s.toLowerCase().replace(/[^\p{L}\p{N}\s]/gu, "").trim();
+        function landOn(phrase, dur) {
+          const ws = _norm(phrase).split(/\s+/);
+          for (let i = 0; i <= W.length - ws.length; i++) {
+            let ok = true;
+            for (let j = 0; j < ws.length; j++) {
+              if (_norm(W[i + j].word) !== ws[j]) { ok = false; break; }
+            }
+            if (ok) return (W[i].t - offset) - dur;
+          }
+          return 0;
+        }
+
+        const canvas = document.getElementById("b7-canvas");
+        const ctx = canvas.getContext("2d");
+        const rand = (function(s){return function(){let t=s+=0x6d2b79f5;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296}})(456);
+        const particles = Array.from({length:60}, () => ({
+          x: 540, y: 960, vx: (rand()-0.5)*40, vy: (rand()-0.5)*40, size: 4+rand()*12, color: rand()>0.5?"#FFFFFF":"#01CD74"
+        }));
+        function draw(elapsed) {
+          ctx.clearRect(0,0,1080,1920);
+          if (elapsed <= 0) return;
+          particles.forEach(p => {
+            const x = p.x + p.vx * elapsed * 20;
+            const y = p.y + p.vy * elapsed * 20 + 0.5 * 9.8 * elapsed * elapsed * 100;
+            ctx.fillStyle = p.color;
+            ctx.globalAlpha = Math.max(0, 1.5 - elapsed);
+            ctx.beginPath(); ctx.arc(x, y, p.size, 0, Math.PI*2); ctx.fill();
+          });
+        }
+
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        // Counter entrance
+        tl.fromTo("#b7-counter", { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6, ease: "back.out(1.7)", overwrite: "auto" }, 0.2);
+        tl.fromTo("#b7-label", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power2.out", overwrite: "auto" }, 0.5);
+
+        // Counter ramp 10 -> 20
+        const val = { n: 10 };
+        tl.to(val, { 
+          n: 20, 
+          duration: 1.0, 
+          ease: "power2.inOut", 
+          overwrite: "auto",
+          onUpdate: () => { document.getElementById("b7-counter").textContent = "$" + Math.round(val.n); }
+        }, landOn("becomes twenty", 1.0));
+
+        // Emphasis
+        tl.to("#b7-glow", { opacity: 1, duration: 0.5, overwrite: "auto" }, landOn("becomes twenty", 0.5));
+        tl.to("#b7-counter", { scale: 1.2, duration: 0.3, yoyo: true, repeat: 1, ease: "back.out(2)", overwrite: "auto" }, landOn("becomes twenty", 0));
+
+        // Particles
+        const pProxy = { t: 0 };
+        tl.to(pProxy, { t: 2, duration: 2, ease: "none", onUpdate: () => draw(pProxy.t) }, landOn("becomes twenty", 0));
+
+        window.__timelines["bloom-risk-reward-beat-7"] = tl;
+      })();
+    </script>
+  </div>
+</template>

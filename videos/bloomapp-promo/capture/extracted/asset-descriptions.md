@@ -1,0 +1,80 @@
+# Asset Descriptions
+
+One line per file. Read this instead of opening every image individually.
+
+- 68f124cab6613d51f70f02ba-check-icon.svg — 0KB, in: footer-container, above fold, 68f124cab6613d51f70f02ba check icon
+- 690aa9265138c157b753d52a-icon-learning.png — 11KB, "learning", in: w-layout-blockcontainer container-features w-container, above fold
+- 690aa9267867c0ea4d30499a-icon-portfolio.png — 11KB, "portfolio", in: w-layout-blockcontainer container-features w-container, above fold
+- 690aa926b5cc368f45089fb8-icon-bloomie.png — 16KB, "bloomie", in: w-layout-blockcontainer container-features w-container, above fold
+- 690abdf36629486dfb606b59-learn-screen-1-.png — 119KB, "screenshot", section: "Finally, Stock Market Education That Actually Makes Sense"
+- 690abdf36629486dfb606b59-learn-screen-1.png — 305KB, "screenshot", section: "Finally, Stock Market Education That Actually Makes Sense"
+- 690abdf36efd4181177a2cd5-learn-screen-3-.png — 145KB, "screenshot", section: "Finally, Stock Market Education That Actually Makes Sense"
+- 690abdf36efd4181177a2cd5-learn-screen-3.png — 363KB, "screenshot", section: "Finally, Stock Market Education That Actually Makes Sense"
+- 690abdf3ee744516a1c5726f-learn-screen-2-.png — 112KB, "screenshot", section: "Finally, Stock Market Education That Actually Makes Sense"
+- 690abdf3ee744516a1c5726f-learn-screen-2.png — 410KB, "screenshot", section: "Finally, Stock Market Education That Actually Makes Sense"
+- 690acfe644f168f9ed224242-ask-screen-2-p-.png — 122KB, "screenshot", section: "Meet Bloomie, Your AI Investing Buddy"
+- 690acfe644f168f9ed224242-ask-screen-2.png — 436KB, "screenshot", section: "Meet Bloomie, Your AI Investing Buddy"
+- 690acfe66824cf87fd07cdc5-ask-screen-3-p-.png — 131KB, "screenshot", section: "Meet Bloomie, Your AI Investing Buddy"
+- 690acfe66824cf87fd07cdc5-ask-screen-3.png — 426KB, "screenshot", section: "Meet Bloomie, Your AI Investing Buddy"
+- 690acfe6dcc7de5c86148956-ask-screen-1-p-.png — 99KB, "screenshot", section: "Meet Bloomie, Your AI Investing Buddy"
+- 690acfe6dcc7de5c86148956-ask-screen-1.png — 402KB, "screenshot", section: "Meet Bloomie, Your AI Investing Buddy"
+- 690ad285c2e9d81397a85ab8-sipc.png — 14KB, "sipc", section: "Trusted by real investors and experts"
+- 690ba188fa21cc9a599feb66-mockup-safe-p-5.png — 71KB, "Trusted App", section: "Trusted by real investors and experts"
+- 690ba188fa21cc9a599feb66-mockup-safe-p-8.png — 160KB, "Trusted App", section: "Trusted by real investors and experts"
+- 690ba188fa21cc9a599feb66-mockup-safe.png — 727KB, "Trusted App", section: "Trusted by real investors and experts"
+- 690ba8a8c56264654608fd99-mock-cta-p-1080.png — 116KB, section: "Your journey starts here"
+- 690ba8a8c56264654608fd99-mock-cta-p-1600.png — 237KB, section: "Your journey starts here"
+- 690ba8a8c56264654608fd99-mock-cta-p-2000.png — 335KB, section: "Your journey starts here"
+- 690ba8a8c56264654608fd99-mock-cta-p-500.png — 32KB, section: "Your journey starts here"
+- 690ba8a8c56264654608fd99-mock-cta-p-800.png — 67KB, section: "Your journey starts here"
+- 690ba8a8c56264654608fd99-mock-cta.png — 1354KB, section: "Your journey starts here"
+- 690d0ddc03bc85b76cd1cee6-icon-tournament.svg — 91KB, "tournament", section: "Play games and earn real rewards"
+- 690d0e72e0953cff5794b897-icon-oink.svg — 2404KB, "oink", section: "Play games and earn real rewards"
+- 690d0e92c1c5befbd2b995cd-icon-chest.svg — 262KB, "chest", section: "Play games and earn real rewards"
+- 69168d6da707162284db151f-star.svg — 1KB, section: "What our users say"
+- 695f5099208b94c9b420571c-bloom-star-p-10.png — 209KB, "Bloom Hero Image", in: home-v1-hero-image spinning-cards-animation, above fold
+- 695f5099208b94c9b420571c-bloom-star-p-50.png — 57KB, "Bloom Hero Image", in: home-v1-hero-image spinning-cards-animation, above fold
+- 695f5099208b94c9b420571c-bloom-star-p-80.png — 122KB, "Bloom Hero Image", in: home-v1-hero-image spinning-cards-animation, above fold
+- 695f5099208b94c9b420571c-bloom-star.png — 313KB, "Bloom Hero Image", in: home-v1-hero-image spinning-cards-animation, above fold
+- 69658da19de625338f11dcab-icon-mirror.png — 14KB, "Auto Portfolio
+", in: w-layout-blockcontainer container-features w-container, above fold
+- 696822256205908aed48cd52-background-divi.png — 21KB, section: "Finally, Stock Market Education That Actually Makes Sense"
+- 6969b3780052c896a2457a34-title-hero-2-p-.png — 13KB, section: "Learn. Invest. Automate - Investing made easy, not complicat", above fold
+- 6969b3780052c896a2457a34-title-hero-2.png — 17KB, section: "Learn. Invest. Automate - Investing made easy, not complicat", above fold
+- 6969b3782178536196122be5-title-mirror-p-.png — 12KB, section: "Not Sure Where to Invest? Follow and Mirror Wall Street’s to", above fold
+- 6969b3782178536196122be5-title-mirror.png — 17KB, section: "Not Sure Where to Invest? Follow and Mirror Wall Street’s to", above fold
+- 6969b378690a2eadcc04b6b0-title-learn.png — 12KB, section: "Finally, Stock Market Education That Actually Makes Sense"
+- favicon.png — 1KB, favicon
+- image-0.svg — 22KB, image 0
+- image-13.jpg — 446KB, image 13
+- image-14.jpg — 39KB, image 14
+- image-15.jpg — 73KB, image 15
+- image-33.png — 252KB, image 33
+- image-34.png — 56KB, image 34
+- image-35.png — 116KB, image 35
+- image-36.png — 188KB, image 36
+- image-49.png — 61KB, image 49
+- image-50.png — 133KB, image 50
+- image-51.png — 344KB, image 51
+- image-52.jpg — 60KB, image 52
+- og-image.png — 75KB, og image
+- fonts/68f124cab6613d51f70f035d_line-rounded-icon-font-brix.woff — font file
+- fonts/68f124cab6613d51f70f03f1_fontello.woff — font file
+- fonts/68f124cab6613d51f70f0450_fontello.woff — font file
+- fonts/68f124cab6613d51f70f04db_Social-Media-Icon-Font-Brix.woff — font file
+- fonts/68f124cab6613d51f70f05e1_techpay-icon.woff — font file
+- fonts/HI_diYsKILxRpg3hIP6sJ7fM7PqPMcMnZFqUwX28DBKXtMlrSQ.ttf — font file
+- fonts/HI_diYsKILxRpg3hIP6sJ7fM7PqPMcMnZFqUwX28DCuXtMlrSQ.ttf — font file
+- fonts/HI_diYsKILxRpg3hIP6sJ7fM7PqPMcMnZFqUwX28DJKQtMlrSQ.ttf — font file
+- fonts/HI_diYsKILxRpg3hIP6sJ7fM7PqPMcMnZFqUwX28DMyQtMlrSQ.ttf — font file
+- fonts/HI_diYsKILxRpg3hIP6sJ7fM7PqPMcMnZFqUwX28DP6QtMlrSQ.ttf — font file
+- fonts/NGSnv5HMAFg6IuGlBNMjxJEL2VmU3NS7Z2mj0QiaWy5X.ttf — font file
+- fonts/NGSnv5HMAFg6IuGlBNMjxJEL2VmU3NS7Z2mj6AiaWy5X.ttf — font file
+- fonts/NGSnv5HMAFg6IuGlBNMjxJEL2VmU3NS7Z2mjDw-aWy5X.ttf — font file
+- fonts/NGSnv5HMAFg6IuGlBNMjxJEL2VmU3NS7Z2mjPQ-aWy5X.ttf — font file
+- fonts/NGSnv5HMAFg6IuGlBNMjxJEL2VmU3NS7Z2mjUQ-aWy5X.ttf — font file
+- fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZ9hjQ.ttf — font file
+- fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuGKYAZ9hjQ.ttf — font file
+- fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuI6fAZ9hjQ.ttf — font file
+- fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hjQ.ttf — font file
+- fonts/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuOKfAZ9hjQ.ttf — font file

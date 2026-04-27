@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1080, height=1920" />
+  <title>Beat 10 — Tease</title>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <style>
+    #beat10 {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      background: #1658ff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      font-family: "Inter", system-ui, sans-serif;
+    }
+
+    .beat10-content {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #beat10-logo {
+      width: 240px;
+      height: 240px;
+      position: absolute;
+      top: 300px;
+      z-index: 10;
+    }
+
+    #beat10-badge {
+      background: #1c2329;
+      color: white;
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 800;
+      font-style: italic;
+      text-transform: uppercase;
+      letter-spacing: -0.012em;
+      line-height: 0.95;
+      border-radius: 26px;
+      padding: 24px 48px;
+      font-size: 88px;
+      text-align: center;
+      box-shadow: 0 24px 60px rgba(6, 10, 30, 0.28);
+      position: absolute;
+      top: 700px;
+      white-space: nowrap;
+      opacity: 0;
+      z-index: 5;
+    }
+
+    #beat10-journey {
+      position: absolute;
+      bottom: 400px;
+      width: 920px;
+      height: 300px;
+      z-index: 3;
+    }
+
+    #beat10-path {
+      width: 100%;
+      height: 100%;
+    }
+
+    #beat10-path-line {
+      stroke-dasharray: 800;
+      stroke-dashoffset: 800;
+    }
+
+    .beat10-milestone {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 28px;
+      color: #1658ff;
+      opacity: 0;
+      z-index: 4;
+    }
+
+    .beat10-milestone-1 { left: 0; top: 120px; }
+    .beat10-milestone-2 { left: 230px; top: 20px; }
+    .beat10-milestone-3 { left: 460px; top: 160px; }
+    .beat10-milestone-4 { left: 690px; top: 60px; }
+    .beat10-milestone-5 { left: 860px; top: 140px; }
+
+    #beat10-logo-glow {
+      position: absolute;
+      top: 300px;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      box-shadow: 0 0 80px rgba(255, 255, 255, 0.4), inset 0 0 80px rgba(255, 255, 255, 0.2);
+      opacity: 0;
+      z-index: 9;
+    }
+
+    .beat10-headline {
+      position: absolute;
+      bottom: 240px;
+      text-align: center;
+      width: 920px;
+      z-index: 3;
+    }
+
+    .beat10-word {
+      display: inline-block;
+      color: white;
+      font-family: "Inter", system-ui, sans-serif;
+      font-size: 56px;
+      font-weight: 500;
+      margin: 0 8px;
+      opacity: 0;
+      line-height: 1.2;
+    }
+  </style>
+</head>
+<body style="margin: 0; padding: 0;">
+  <template data-start="0" data-duration="32.28">
+    <div
+      id="beat10"
+      class="scene"
+      data-composition-id="bloom-stock-ownership-beat-10"
+      data-width="1080"
+      data-height="1920"
+      data-start="0"
+      data-duration="32.78"
+    >
+      <div class="beat10-content">
+        <!-- Bloom logo (hero entrance) -->
+        <img
+          id="beat10-logo"
+          src="../bloom-logo.png"
+          alt="Bloom"
+          style="opacity: 0"
+        />
+
+        <!-- Glow effect behind logo -->
+        <div id="beat10-logo-glow"></div>
+
+        <!-- Badge: BLOOM WILL TEACH YOU -->
+        <div id="beat10-badge"></div>
+
+        <!-- Journey path with milestones -->
+        <div id="beat10-journey">
+          <svg class="beat10-path" viewBox="0 0 920 300">
+            <path
+              id="beat10-path-line"
+              d="M 30 150 Q 230 50, 460 150 T 860 150"
+              stroke="rgba(255, 255, 255, 0.6)"
+              stroke-width="8"
+              fill="none"
+              stroke-linecap="round"
+            />
+          </svg>
+
+          <!-- Milestone markers -->
+          <div class="beat10-milestone beat10-milestone-1">📚</div>
+          <div class="beat10-milestone beat10-milestone-2">📊</div>
+          <div class="beat10-milestone beat10-milestone-3">🎯</div>
+          <div class="beat10-milestone beat10-milestone-4">💡</div>
+          <div class="beat10-milestone beat10-milestone-5">🚀</div>
+        </div>
+
+        <!-- Headline words (per-word entrance) -->
+        <div class="beat10-headline">
+          <span class="beat10-word">how</span>
+          <span class="beat10-word">to</span>
+          <span class="beat10-word">evaluate</span>
+          <span class="beat10-word">and</span>
+          <span class="beat10-word">choose</span>
+          <span class="beat10-word">stocks</span>
+          <span class="beat10-word">...</span>
+          <span class="beat10-word">journey</span>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    // ── TIMELINE REGISTRATION ────────────────────────────────────────────
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["bloom-stock-ownership-beat-10"] = tl;
+
+    const W = [
+      { w: "Bloom", s: 0.000, e: 0.471 },
+      { w: "will", s: 0.501, e: 0.711 },
+      { w: "teach", s: 0.751, e: 1.091 },
+      { w: "you", s: 1.121, e: 1.301 },
+      { w: "how", s: 1.331, e: 1.541 },
+      { w: "to", s: 1.571, e: 1.681 },
+      { w: "evaluate", s: 1.711, e: 2.131 },
+      { w: "and", s: 2.161, e: 2.311 },
+      { w: "choose", s: 2.341, e: 2.701 },
+      { w: "stocks", s: 2.741, e: 3.161 },
+      { w: "to", s: 3.191, e: 3.291 },
+      { w: "start", s: 3.321, e: 3.581 },
+      { w: "your", s: 3.611, e: 3.801 },
+      { w: "investing", s: 3.831, e: 4.281 },
+      { w: "journey.", s: 4.331, e: 4.881 },
+    ];
+
+    function _norm(s) { return s.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu, ""); }
+    function _findPhrase(phrase) {
+      const tokens = phrase.toLowerCase().split(/\s+/).map(_norm).filter(Boolean);
+      if (!tokens.length) throw new Error(`landOn: empty phrase`);
+      const hits = [];
+      for (let i = 0; i <= W.length - tokens.length; i++) {
+        let ok = true;
+        for (let j = 0; j < tokens.length; j++) {
+          if (_norm(W[i + j].w) !== tokens[j]) { ok = false; break; }
+        }
+        if (ok) hits.push(i);
+      }
+      if (hits.length === 0) throw new Error(`landOn: phrase "${phrase}" not found`);
+      if (hits.length > 1) {
+        const times = hits.map(i => W[i].s.toFixed(3) + "s").join(", ");
+        throw new Error(`landOn: phrase "${phrase}" matches ${hits.length} at [${times}]`);
+      }
+      return { startIdx: hits[0], endIdx: hits[0] + tokens.length - 1 };
+    }
+    function at(phrase) { return W[_findPhrase(phrase).startIdx].s; }
+    function landOn(phrase, duration = 0) { return at(phrase) - duration; }
+    function landAfter(phrase, duration = 0) { return W[_findPhrase(phrase).endIdx].e - duration; }
+
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines = window.__timelines || {};
+    window.__timelines["bloom-stock-ownership-beat-10"] = tl;
+
+    // Phase 1: Logo entrance + spin
+    tl.fromTo("#beat10-logo", { scale: 0, rotation: -360, opacity: 0 },
+      { scale: 1, rotation: 0, opacity: 1, duration: 0.6, ease: "back.out(1.7)" },
+      landOn("Bloom", 0.6));
+    tl.fromTo("#beat10-logo-glow", { opacity: 0 },
+      { opacity: 1, duration: 0.4, ease: "power2.out" },
+      landOn("Bloom", 0.4));
+
+    const logoDwell = 32.28 - at("Bloom");
+    const rotationCycles = Math.floor(logoDwell / 3.0);
+    tl.to("#beat10-logo", {
+      rotation: 2, duration: 1.5, ease: "sine.inOut", yoyo: true,
+      repeat: rotationCycles, overwrite: "auto"
+    }, landOn("Bloom", 0.6));
+
+    // Phase 2: Badge entrance
+    tl.fromTo("#beat10-badge", { y: 100, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.4, ease: "power2.out" },
+      landOn("will teach you", 0.4));
+
+    // Phase 3: Path drawing
+    tl.to("#beat10-path-line", { strokeDashoffset: 0, duration: 4.0, ease: "power2.inOut" },
+      landOn("evaluate", 4.0));
+
+    const milestones = [
+      ".beat10-milestone-1", ".beat10-milestone-2", ".beat10-milestone-3",
+      ".beat10-milestone-4", ".beat10-milestone-5"
+    ];
+    milestones.forEach((sel, idx) => {
+      const staggerDelay = idx * 0.5;
+      tl.fromTo(sel, { scale: 0, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.6)" },
+        landOn("evaluate", 4.0) + staggerDelay);
+      tl.to(sel, {
+        scale: 1.1, duration: 0.8, ease: "sine.inOut",
+        yoyo: true, repeat: 3, overwrite: "auto"
+      }, landOn("evaluate", 4.0) + staggerDelay + 0.3);
+    });
+
+    // Phase 4: Headline words
+    const headlineWords = [
+      { word: "how", phrase: "how", dur: 0.35 },
+      { word: "to", phrase: "to evaluate", dur: 0.3 },
+      { word: "evaluate", phrase: "evaluate", dur: 0.35 },
+      { word: "and", phrase: "and", dur: 0.3 },
+      { word: "choose", phrase: "choose", dur: 0.35 },
+      { word: "stocks", phrase: "stocks", dur: 0.35 },
+      { word: "...", phrase: "start your", dur: 0.3 },
+      { word: "journey", phrase: "journey", dur: 0.4 },
+    ];
+
+    document.querySelectorAll(".beat10-word").forEach((el, idx) => {
+      const config = headlineWords[idx];
+      if (!config) return;
+      const xOffset = 60 - idx * 8;
+      tl.fromTo(el, { x: xOffset, y: 14, opacity: 0 },
+        { x: 0, y: 0, opacity: 1, duration: config.dur, ease: "power2.out" },
+        landOn(config.phrase, config.dur));
+    });
+
+    tl.to(".beat10-milestone", {
+      scale: 1.15, duration: 0.12, ease: "power2.out",
+      yoyo: true, repeat: 1
+    }, landOn("choose stocks", 0.12));
+
+    // Phase 5: Exit fade and glow
+    tl.to(["#beat10-badge", ".beat10-milestone", ".beat10-word"],
+      { opacity: 0, duration: 0.5, ease: "power2.in" }, 32.28 - 2.0);
+    tl.to("#beat10-path-line", { opacity: 0, duration: 0.5, ease: "power2.in" }, 32.28 - 2.0);
+    tl.to("#beat10-logo", {
+      scale: 1.08, duration: 1.0, ease: "sine.inOut",
+      yoyo: true, repeat: 1, overwrite: "auto"
+    }, 32.28 - 2.0);
+    tl.to("#beat10-logo-glow", {
+      boxShadow: "0 0 120px rgba(255, 255, 255, 0.6), inset 0 0 120px rgba(255, 255, 255, 0.3)",
+      duration: 1.0, ease: "power2.inOut"
+    }, 32.28 - 2.0);
+
+    tl.set("#beat10", { visibility: "hidden" }, 32.28);
+  </script>
+</body>
+</html>

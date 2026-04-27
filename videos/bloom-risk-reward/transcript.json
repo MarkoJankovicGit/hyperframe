@@ -1,0 +1,925 @@
+{
+  "sceneId": "scene-01",
+  "text": "Think investing is just a gamble? It's actually a calculation of risk versus reward. Risk is how much you can lose. Reward is what you stand to gain. And every single investment has both. Whether it's the phone in your hand, the shoes on your feet, or a stock like Disney. Imagine you invest ten dollars in Disney. If the company goes out of business, your risk is ten dollars. But if the stock doubles, your reward is ten dollars. Your ten dollars becomes twenty. You control your risk by deciding how much to invest, and what to pick. Higher risk, higher reward. Lower risk, safer returns. You've finished your first step in understanding the relationship between risk and reward. Next: how to maximize your reward while minimizing your risk: diversification.",
+  "words": [
+    {
+      "word": "Think",
+      "start": 0,
+      "end": 0.16,
+      "startFrame": 0,
+      "endFrame": 5
+    },
+    {
+      "word": "investing",
+      "start": 0.224,
+      "end": 0.8,
+      "startFrame": 7,
+      "endFrame": 24
+    },
+    {
+      "word": "is",
+      "start": 0.827,
+      "end": 0.881,
+      "startFrame": 25,
+      "endFrame": 26
+    },
+    {
+      "word": "just",
+      "start": 0.945,
+      "end": 1.201,
+      "startFrame": 28,
+      "endFrame": 36
+    },
+    {
+      "word": "a",
+      "start": 1.241,
+      "end": 1.281,
+      "startFrame": 37,
+      "endFrame": 38
+    },
+    {
+      "word": "gamble?",
+      "start": 1.338,
+      "end": 2.04,
+      "startFrame": 40,
+      "endFrame": 61
+    },
+    {
+      "word": "It's",
+      "start": 2.16,
+      "end": 2.48,
+      "startFrame": 65,
+      "endFrame": 74
+    },
+    {
+      "word": "actually",
+      "start": 2.524,
+      "end": 2.876,
+      "startFrame": 76,
+      "endFrame": 86
+    },
+    {
+      "word": "a",
+      "start": 2.956,
+      "end": 3.036,
+      "startFrame": 89,
+      "endFrame": 91
+    },
+    {
+      "word": "calculation",
+      "start": 3.089,
+      "end": 3.672,
+      "startFrame": 93,
+      "endFrame": 110
+    },
+    {
+      "word": "of",
+      "start": 3.752,
+      "end": 3.912,
+      "startFrame": 113,
+      "endFrame": 117
+    },
+    {
+      "word": "risk",
+      "start": 3.992,
+      "end": 4.312,
+      "startFrame": 120,
+      "endFrame": 129
+    },
+    {
+      "word": "versus",
+      "start": 4.381,
+      "end": 4.795,
+      "startFrame": 131,
+      "endFrame": 144
+    },
+    {
+      "word": "reward.",
+      "start": 4.864,
+      "end": 5.438,
+      "startFrame": 146,
+      "endFrame": 163
+    },
+    {
+      "word": "Risk",
+      "start": 5.646,
+      "end": 6.478,
+      "startFrame": 169,
+      "endFrame": 194
+    },
+    {
+      "word": "is",
+      "start": 6.531,
+      "end": 6.637,
+      "startFrame": 196,
+      "endFrame": 199
+    },
+    {
+      "word": "how",
+      "start": 6.677,
+      "end": 6.797,
+      "startFrame": 200,
+      "endFrame": 204
+    },
+    {
+      "word": "much",
+      "start": 6.829,
+      "end": 6.957,
+      "startFrame": 205,
+      "endFrame": 209
+    },
+    {
+      "word": "you",
+      "start": 6.997,
+      "end": 7.117,
+      "startFrame": 210,
+      "endFrame": 214
+    },
+    {
+      "word": "can",
+      "start": 7.137,
+      "end": 7.197,
+      "startFrame": 214,
+      "endFrame": 216
+    },
+    {
+      "word": "lose.",
+      "start": 7.293,
+      "end": 8.277,
+      "startFrame": 219,
+      "endFrame": 248
+    },
+    {
+      "word": "Reward",
+      "start": 8.363,
+      "end": 8.879,
+      "startFrame": 251,
+      "endFrame": 266
+    },
+    {
+      "word": "is",
+      "start": 8.932,
+      "end": 9.038,
+      "startFrame": 268,
+      "endFrame": 271
+    },
+    {
+      "word": "what",
+      "start": 9.07,
+      "end": 9.198,
+      "startFrame": 272,
+      "endFrame": 276
+    },
+    {
+      "word": "you",
+      "start": 9.238,
+      "end": 9.358,
+      "startFrame": 277,
+      "endFrame": 281
+    },
+    {
+      "word": "stand",
+      "start": 9.425,
+      "end": 9.76,
+      "startFrame": 283,
+      "endFrame": 293
+    },
+    {
+      "word": "to",
+      "start": 9.787,
+      "end": 9.841,
+      "startFrame": 294,
+      "endFrame": 295
+    },
+    {
+      "word": "gain.",
+      "start": 9.921,
+      "end": 10.321,
+      "startFrame": 298,
+      "endFrame": 310
+    },
+    {
+      "word": "And",
+      "start": 10.461,
+      "end": 10.881,
+      "startFrame": 314,
+      "endFrame": 326
+    },
+    {
+      "word": "every",
+      "start": 10.948,
+      "end": 11.283,
+      "startFrame": 328,
+      "endFrame": 338
+    },
+    {
+      "word": "single",
+      "start": 11.34,
+      "end": 11.682,
+      "startFrame": 340,
+      "endFrame": 350
+    },
+    {
+      "word": "investment",
+      "start": 11.733,
+      "end": 12.243,
+      "startFrame": 352,
+      "endFrame": 367
+    },
+    {
+      "word": "has",
+      "start": 12.343,
+      "end": 12.643,
+      "startFrame": 370,
+      "endFrame": 379
+    },
+    {
+      "word": "both.",
+      "start": 12.723,
+      "end": 13.123,
+      "startFrame": 382,
+      "endFrame": 394
+    },
+    {
+      "word": "Whether",
+      "start": 13.243,
+      "end": 14.083,
+      "startFrame": 397,
+      "endFrame": 422
+    },
+    {
+      "word": "it's",
+      "start": 14.11,
+      "end": 14.324,
+      "startFrame": 423,
+      "endFrame": 430
+    },
+    {
+      "word": "the",
+      "start": 14.364,
+      "end": 14.484,
+      "startFrame": 431,
+      "endFrame": 435
+    },
+    {
+      "word": "phone",
+      "start": 14.524,
+      "end": 14.724,
+      "startFrame": 436,
+      "endFrame": 442
+    },
+    {
+      "word": "in",
+      "start": 14.751,
+      "end": 14.805,
+      "startFrame": 443,
+      "endFrame": 444
+    },
+    {
+      "word": "your",
+      "start": 14.837,
+      "end": 14.965,
+      "startFrame": 445,
+      "endFrame": 449
+    },
+    {
+      "word": "hand,",
+      "start": 15.045,
+      "end": 15.525,
+      "startFrame": 451,
+      "endFrame": 466
+    },
+    {
+      "word": "the",
+      "start": 15.565,
+      "end": 15.685,
+      "startFrame": 467,
+      "endFrame": 471
+    },
+    {
+      "word": "shoes",
+      "start": 15.738,
+      "end": 16.003,
+      "startFrame": 472,
+      "endFrame": 480
+    },
+    {
+      "word": "on",
+      "start": 16.03,
+      "end": 16.084,
+      "startFrame": 481,
+      "endFrame": 483
+    },
+    {
+      "word": "your",
+      "start": 16.132,
+      "end": 16.324,
+      "startFrame": 484,
+      "endFrame": 490
+    },
+    {
+      "word": "feet,",
+      "start": 16.372,
+      "end": 16.724,
+      "startFrame": 491,
+      "endFrame": 502
+    },
+    {
+      "word": "or",
+      "start": 16.777,
+      "end": 16.883,
+      "startFrame": 503,
+      "endFrame": 506
+    },
+    {
+      "word": "a",
+      "start": 16.923,
+      "end": 16.963,
+      "startFrame": 508,
+      "endFrame": 509
+    },
+    {
+      "word": "stock",
+      "start": 17.043,
+      "end": 17.443,
+      "startFrame": 511,
+      "endFrame": 523
+    },
+    {
+      "word": "like",
+      "start": 17.475,
+      "end": 17.603,
+      "startFrame": 524,
+      "endFrame": 528
+    },
+    {
+      "word": "Disney.",
+      "start": 17.66,
+      "end": 18.082,
+      "startFrame": 530,
+      "endFrame": 542
+    },
+    {
+      "word": "Imagine",
+      "start": 18.222,
+      "end": 19.202,
+      "startFrame": 547,
+      "endFrame": 576
+    },
+    {
+      "word": "you",
+      "start": 19.222,
+      "end": 19.282,
+      "startFrame": 577,
+      "endFrame": 578
+    },
+    {
+      "word": "invest",
+      "start": 19.339,
+      "end": 19.681,
+      "startFrame": 580,
+      "endFrame": 590
+    },
+    {
+      "word": "ten",
+      "start": 19.741,
+      "end": 19.921,
+      "startFrame": 592,
+      "endFrame": 598
+    },
+    {
+      "word": "dollars",
+      "start": 19.971,
+      "end": 20.321,
+      "startFrame": 599,
+      "endFrame": 610
+    },
+    {
+      "word": "in",
+      "start": 20.348,
+      "end": 20.402,
+      "startFrame": 610,
+      "endFrame": 612
+    },
+    {
+      "word": "Disney.",
+      "start": 20.459,
+      "end": 20.881,
+      "startFrame": 614,
+      "endFrame": 626
+    },
+    {
+      "word": "If",
+      "start": 21.094,
+      "end": 21.52,
+      "startFrame": 633,
+      "endFrame": 646
+    },
+    {
+      "word": "the",
+      "start": 21.54,
+      "end": 21.6,
+      "startFrame": 646,
+      "endFrame": 648
+    },
+    {
+      "word": "company",
+      "start": 21.64,
+      "end": 21.92,
+      "startFrame": 649,
+      "endFrame": 658
+    },
+    {
+      "word": "goes",
+      "start": 21.968,
+      "end": 22.16,
+      "startFrame": 659,
+      "endFrame": 665
+    },
+    {
+      "word": "out",
+      "start": 22.2,
+      "end": 22.32,
+      "startFrame": 666,
+      "endFrame": 670
+    },
+    {
+      "word": "of",
+      "start": 22.347,
+      "end": 22.401,
+      "startFrame": 670,
+      "endFrame": 672
+    },
+    {
+      "word": "business,",
+      "start": 22.454,
+      "end": 23.038,
+      "startFrame": 674,
+      "endFrame": 691
+    },
+    {
+      "word": "your",
+      "start": 23.07,
+      "end": 23.198,
+      "startFrame": 692,
+      "endFrame": 696
+    },
+    {
+      "word": "risk",
+      "start": 23.278,
+      "end": 23.598,
+      "startFrame": 698,
+      "endFrame": 708
+    },
+    {
+      "word": "is",
+      "start": 23.678,
+      "end": 23.838,
+      "startFrame": 710,
+      "endFrame": 715
+    },
+    {
+      "word": "ten",
+      "start": 23.898,
+      "end": 24.078,
+      "startFrame": 717,
+      "endFrame": 722
+    },
+    {
+      "word": "dollars.",
+      "start": 24.148,
+      "end": 24.718,
+      "startFrame": 724,
+      "endFrame": 742
+    },
+    {
+      "word": "But",
+      "start": 24.858,
+      "end": 25.278,
+      "startFrame": 746,
+      "endFrame": 758
+    },
+    {
+      "word": "if",
+      "start": 25.331,
+      "end": 25.437,
+      "startFrame": 760,
+      "endFrame": 763
+    },
+    {
+      "word": "the",
+      "start": 25.457,
+      "end": 25.517,
+      "startFrame": 764,
+      "endFrame": 766
+    },
+    {
+      "word": "stock",
+      "start": 25.584,
+      "end": 25.919,
+      "startFrame": 768,
+      "endFrame": 778
+    },
+    {
+      "word": "doubles,",
+      "start": 25.989,
+      "end": 26.639,
+      "startFrame": 780,
+      "endFrame": 799
+    },
+    {
+      "word": "your",
+      "start": 26.671,
+      "end": 26.799,
+      "startFrame": 800,
+      "endFrame": 804
+    },
+    {
+      "word": "reward",
+      "start": 26.89,
+      "end": 27.436,
+      "startFrame": 807,
+      "endFrame": 823
+    },
+    {
+      "word": "is",
+      "start": 27.516,
+      "end": 27.676,
+      "startFrame": 825,
+      "endFrame": 830
+    },
+    {
+      "word": "ten",
+      "start": 27.736,
+      "end": 27.916,
+      "startFrame": 832,
+      "endFrame": 837
+    },
+    {
+      "word": "dollars.",
+      "start": 27.986,
+      "end": 28.636,
+      "startFrame": 840,
+      "endFrame": 859
+    },
+    {
+      "word": "Your",
+      "start": 28.764,
+      "end": 29.276,
+      "startFrame": 863,
+      "endFrame": 878
+    },
+    {
+      "word": "ten",
+      "start": 29.356,
+      "end": 29.596,
+      "startFrame": 881,
+      "endFrame": 888
+    },
+    {
+      "word": "dollars",
+      "start": 29.656,
+      "end": 30.076,
+      "startFrame": 890,
+      "endFrame": 902
+    },
+    {
+      "word": "becomes",
+      "start": 30.136,
+      "end": 30.556,
+      "startFrame": 904,
+      "endFrame": 917
+    },
+    {
+      "word": "twenty.",
+      "start": 30.613,
+      "end": 31.435,
+      "startFrame": 918,
+      "endFrame": 943
+    },
+    {
+      "word": "You",
+      "start": 31.555,
+      "end": 31.915,
+      "startFrame": 947,
+      "endFrame": 957
+    },
+    {
+      "word": "control",
+      "start": 31.975,
+      "end": 32.395,
+      "startFrame": 959,
+      "endFrame": 972
+    },
+    {
+      "word": "your",
+      "start": 32.427,
+      "end": 32.555,
+      "startFrame": 973,
+      "endFrame": 977
+    },
+    {
+      "word": "risk",
+      "start": 32.635,
+      "end": 32.955,
+      "startFrame": 979,
+      "endFrame": 989
+    },
+    {
+      "word": "by",
+      "start": 33.008,
+      "end": 33.114,
+      "startFrame": 990,
+      "endFrame": 993
+    },
+    {
+      "word": "deciding",
+      "start": 33.176,
+      "end": 33.672,
+      "startFrame": 995,
+      "endFrame": 1010
+    },
+    {
+      "word": "how",
+      "start": 33.712,
+      "end": 33.832,
+      "startFrame": 1011,
+      "endFrame": 1015
+    },
+    {
+      "word": "much",
+      "start": 33.88,
+      "end": 34.072,
+      "startFrame": 1016,
+      "endFrame": 1022
+    },
+    {
+      "word": "to",
+      "start": 34.099,
+      "end": 34.153,
+      "startFrame": 1023,
+      "endFrame": 1025
+    },
+    {
+      "word": "invest,",
+      "start": 34.233,
+      "end": 34.873,
+      "startFrame": 1027,
+      "endFrame": 1046
+    },
+    {
+      "word": "and",
+      "start": 34.953,
+      "end": 35.193,
+      "startFrame": 1049,
+      "endFrame": 1056
+    },
+    {
+      "word": "what",
+      "start": 35.241,
+      "end": 35.433,
+      "startFrame": 1057,
+      "endFrame": 1063
+    },
+    {
+      "word": "to",
+      "start": 35.46,
+      "end": 35.514,
+      "startFrame": 1064,
+      "endFrame": 1065
+    },
+    {
+      "word": "pick.",
+      "start": 35.594,
+      "end": 36.074,
+      "startFrame": 1068,
+      "endFrame": 1082
+    },
+    {
+      "word": "Higher",
+      "start": 36.2,
+      "end": 36.956,
+      "startFrame": 1086,
+      "endFrame": 1109
+    },
+    {
+      "word": "risk,",
+      "start": 37.052,
+      "end": 37.596,
+      "startFrame": 1112,
+      "endFrame": 1128
+    },
+    {
+      "word": "higher",
+      "start": 37.642,
+      "end": 37.918,
+      "startFrame": 1129,
+      "endFrame": 1138
+    },
+    {
+      "word": "reward.",
+      "start": 37.987,
+      "end": 38.481,
+      "startFrame": 1140,
+      "endFrame": 1154
+    },
+    {
+      "word": "Lower",
+      "start": 38.628,
+      "end": 39.363,
+      "startFrame": 1159,
+      "endFrame": 1181
+    },
+    {
+      "word": "risk,",
+      "start": 39.443,
+      "end": 40.003,
+      "startFrame": 1183,
+      "endFrame": 1200
+    },
+    {
+      "word": "safer",
+      "start": 40.07,
+      "end": 40.405,
+      "startFrame": 1202,
+      "endFrame": 1212
+    },
+    {
+      "word": "returns.",
+      "start": 40.485,
+      "end": 41.205,
+      "startFrame": 1215,
+      "endFrame": 1236
+    },
+    {
+      "word": "You've",
+      "start": 41.405,
+      "end": 42.164,
+      "startFrame": 1242,
+      "endFrame": 1265
+    },
+    {
+      "word": "finished",
+      "start": 42.208,
+      "end": 42.56,
+      "startFrame": 1266,
+      "endFrame": 1277
+    },
+    {
+      "word": "your",
+      "start": 42.576,
+      "end": 42.64,
+      "startFrame": 1277,
+      "endFrame": 1279
+    },
+    {
+      "word": "first",
+      "start": 42.707,
+      "end": 43.042,
+      "startFrame": 1281,
+      "endFrame": 1291
+    },
+    {
+      "word": "step",
+      "start": 43.106,
+      "end": 43.362,
+      "startFrame": 1293,
+      "endFrame": 1301
+    },
+    {
+      "word": "in",
+      "start": 43.415,
+      "end": 43.521,
+      "startFrame": 1302,
+      "endFrame": 1306
+    },
+    {
+      "word": "understanding",
+      "start": 43.567,
+      "end": 44.165,
+      "startFrame": 1307,
+      "endFrame": 1325
+    },
+    {
+      "word": "the",
+      "start": 44.185,
+      "end": 44.245,
+      "startFrame": 1326,
+      "endFrame": 1327
+    },
+    {
+      "word": "relationship",
+      "start": 44.294,
+      "end": 44.882,
+      "startFrame": 1329,
+      "endFrame": 1346
+    },
+    {
+      "word": "between",
+      "start": 44.932,
+      "end": 45.282,
+      "startFrame": 1348,
+      "endFrame": 1358
+    },
+    {
+      "word": "risk",
+      "start": 45.378,
+      "end": 45.762,
+      "startFrame": 1361,
+      "endFrame": 1373
+    },
+    {
+      "word": "and",
+      "start": 45.822,
+      "end": 46.002,
+      "startFrame": 1375,
+      "endFrame": 1380
+    },
+    {
+      "word": "reward.",
+      "start": 46.071,
+      "end": 46.565,
+      "startFrame": 1382,
+      "endFrame": 1397
+    },
+    {
+      "word": "Next:",
+      "start": 46.789,
+      "end": 47.885,
+      "startFrame": 1404,
+      "endFrame": 1437
+    },
+    {
+      "word": "how",
+      "start": 47.935,
+      "end": 48.085,
+      "startFrame": 1438,
+      "endFrame": 1443
+    },
+    {
+      "word": "to",
+      "start": 48.112,
+      "end": 48.166,
+      "startFrame": 1443,
+      "endFrame": 1445
+    },
+    {
+      "word": "maximize",
+      "start": 48.237,
+      "end": 48.805,
+      "startFrame": 1447,
+      "endFrame": 1464
+    },
+    {
+      "word": "your",
+      "start": 48.837,
+      "end": 48.965,
+      "startFrame": 1465,
+      "endFrame": 1469
+    },
+    {
+      "word": "reward",
+      "start": 49.034,
+      "end": 49.448,
+      "startFrame": 1471,
+      "endFrame": 1483
+    },
+    {
+      "word": "while",
+      "start": 49.501,
+      "end": 49.766,
+      "startFrame": 1485,
+      "endFrame": 1493
+    },
+    {
+      "word": "minimizing",
+      "start": 49.824,
+      "end": 50.404,
+      "startFrame": 1495,
+      "endFrame": 1512
+    },
+    {
+      "word": "your",
+      "start": 50.436,
+      "end": 50.564,
+      "startFrame": 1513,
+      "endFrame": 1517
+    },
+    {
+      "word": "risk:",
+      "start": 50.66,
+      "end": 51.364,
+      "startFrame": 1520,
+      "endFrame": 1541
+    },
+    {
+      "word": "diversification.",
+      "start": 51.41,
+      "end": 52.405,
+      "startFrame": 1542,
+      "endFrame": 1572
+    }
+  ],
+  "durationSeconds": 52.905,
+  "durationFrames": 1587
+}

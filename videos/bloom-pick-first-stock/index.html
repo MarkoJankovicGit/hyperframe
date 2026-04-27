@@ -1,0 +1,986 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Bloom Lesson 1 — Pick Your First Stock</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body {
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #1658ff;
+        font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+      }
+      #root {
+        position: relative;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+      }
+
+      /* ==== Scene base ==== */
+      .scene {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        opacity: 0;
+      }
+      #scene1 { background: #1658ff; opacity: 1; }
+      #scene2 { background: #ffffff; }
+      #scene3 { background: #ffffff; }
+      #scene4 { background: #1658ff; }
+      #scene5 { background: #f8f8f9; }
+      #scene6 { background: #1658ff; }
+      #scene7 { background: #1658ff; }
+      #scene8 { background: #ffffff; }
+      #scene9 { background: #ffffff; }
+      #scene10 { background: #1658ff; }
+
+      /* ==== Shared headline-badge ==== */
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: #1c2329;
+        color: #fff;
+        border-radius: 26px;
+        box-shadow: 0 24px 60px rgba(6,10,30,0.28);
+      }
+      .badge-text {
+        font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        line-height: 0.95;
+        letter-spacing: -0.012em;
+        text-transform: uppercase;
+        color: #fff;
+      }
+
+      .eyebrow {
+        font-family: "Inter", system-ui, sans-serif;
+        font-weight: 600;
+        font-size: 38px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: #4a4f54;
+      }
+
+      /* ============================================================
+         SCENE 1 — HOOK (0.00–2.62) "Picking your first stock can feel intimidating."
+         ============================================================ */
+      #scene1 #s1-canvas {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        opacity: 0.55;
+        z-index: 0;
+      }
+      #scene1 .s1-eyebrow {
+        position: absolute;
+        top: 700px;
+        left: 50%;
+        margin-left: -380px;
+        width: 760px;
+        padding: 18px 32px;
+        background: rgba(0,0,0,0.55);
+        border-radius: 100px;
+        text-align: center;
+        color: #ffffff;
+        font-size: 36px;
+        font-family: "Inter", system-ui, sans-serif;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        z-index: 2;
+        backdrop-filter: blur(6px);
+      }
+      #scene1 .s1-badge {
+        position: absolute;
+        top: 860px;
+        left: 50%;
+        margin-left: -480px;
+        width: 960px;
+        padding: 42px 44px;
+        z-index: 3;
+        justify-content: center;
+      }
+      #scene1 .s1-badge .badge-text { font-size: 110px; }
+
+      /* ============================================================
+         SCENE 2 — REFRAME (2.62–5.55) "But you may already know..."
+         ============================================================ */
+      #scene2 .s2-headline {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0 80px;
+      }
+      #scene2 .s2-headline-text {
+        font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        font-size: 132px;
+        line-height: 0.96;
+        letter-spacing: -0.02em;
+        text-transform: uppercase;
+        color: #1c2329;
+        text-align: center;
+      }
+      #scene2 .s2-accent {
+        position: absolute;
+        bottom: 720px;
+        left: 50%;
+        margin-left: -160px;
+        width: 320px;
+        height: 12px;
+        background: #1658ff;
+        border-radius: 6px;
+        transform-origin: 0% 50%;
+      }
+
+      /* ============================================================
+         SCENE 3 — CONCEPT (5.55–10.34) "Brands you use every day..."
+         ============================================================ */
+      #scene3 .s3-orb {
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background: #1c2329;
+        box-shadow: 0 30px 80px rgba(25,33,61,0.22);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1;
+      }
+      #scene3 .s3-orb img { width: 130px; height: 130px; object-fit: contain; }
+      #scene3 #s3-orb-1 { top: 220px; left: 80px; }
+      #scene3 #s3-orb-2 { top: 280px; right: 100px; width: 220px; height: 220px; }
+      #scene3 #s3-orb-3 { top: 1450px; left: 90px; width: 180px; height: 180px; }
+      #scene3 #s3-orb-4 { top: 1500px; right: 70px; width: 230px; height: 230px; }
+      #scene3 .s3-headline {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        padding: 0 80px;
+        z-index: 2;
+      }
+      #scene3 .s3-text {
+        font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        line-height: 0.94;
+        letter-spacing: -0.02em;
+        text-transform: uppercase;
+        color: #1c2329;
+        text-align: center;
+      }
+      #scene3 .s3-line-1 { font-size: 116px; }
+      #scene3 .s3-line-2 { font-size: 168px; color: #1658ff; }
+
+      /* ============================================================
+         SCENE 4 — EXAMPLES (10.34–16.32) "Phone/Shoes/Drink"
+         ============================================================ */
+      #scene4 .s4-grid {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 48px;
+        padding: 120px 80px;
+      }
+      #scene4 .s4-row {
+        display: flex;
+        align-items: center;
+        gap: 36px;
+        opacity: 0;
+      }
+      #scene4 .s4-asset {
+        flex-shrink: 0;
+        width: 320px;
+        height: 320px;
+        background: rgba(255,255,255,0.08);
+        border-radius: 32px;
+        border: 2px solid rgba(255,255,255,0.18);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(10px);
+      }
+      #scene4 .s4-asset img { max-width: 240px; max-height: 240px; object-fit: contain; }
+      #scene4 .s4-question {
+        font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        font-size: 78px;
+        line-height: 0.96;
+        letter-spacing: -0.012em;
+        text-transform: uppercase;
+        color: #ffffff;
+      }
+
+      /* ============================================================
+         SCENE 5 — TRY IT + REVEAL (16.32–25.13) — viewer prompt
+         ============================================================ */
+      #scene5 .s5-stack {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 100px 80px;
+        gap: 28px;
+      }
+      #scene5 .s5-eyebrow-badge {
+        align-self: center;
+        padding: 22px 44px;
+        margin-bottom: 16px;
+        opacity: 0;
+      }
+      #scene5 .s5-eyebrow-badge .badge-text { font-size: 64px; }
+      #scene5 .s5-slot {
+        width: 880px;
+        height: 156px;
+        background: #ffffff;
+        border-radius: 28px;
+        border: 2px solid #e8e9ea;
+        display: flex;
+        align-items: center;
+        gap: 28px;
+        padding: 0 36px;
+        opacity: 0;
+        box-shadow: 0 16px 40px rgba(25,33,61,0.06);
+      }
+      #scene5 .s5-num {
+        flex-shrink: 0;
+        width: 84px;
+        height: 84px;
+        border-radius: 50%;
+        background: #1658ff;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        font-size: 56px;
+        flex-shrink: 0;
+      }
+      #scene5 .s5-line {
+        flex: 1;
+        height: 6px;
+        background-image: linear-gradient(to right, #c9ccd1 50%, transparent 50%);
+        background-size: 24px 6px;
+        background-repeat: repeat-x;
+        background-position: left center;
+      }
+      #scene5 .s5-logo {
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        background: #1c2329;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transform-origin: 50% 50%;
+      }
+      #scene5 .s5-logo img { width: 70px; height: 70px; object-fit: contain; }
+      #scene5 .s5-tickr {
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        font-size: 56px;
+        color: #1c2329;
+        opacity: 0;
+        text-transform: uppercase;
+        letter-spacing: -0.01em;
+      }
+
+      /* ============================================================
+         SCENE 6 — PAYOFF (25.13–29.37) iPhone with portfolio
+         ============================================================ */
+      #scene6 .s6-phone {
+        position: absolute;
+        top: 220px;
+        left: 50%;
+        margin-left: -380px;
+        width: 760px;
+        z-index: 2;
+        opacity: 0;
+        filter: drop-shadow(0 50px 90px rgba(0,0,0,0.3));
+      }
+      #scene6 .s6-cta {
+        position: absolute;
+        bottom: 200px;
+        left: 50%;
+        margin-left: -440px;
+        width: 880px;
+        padding: 32px 48px;
+        z-index: 3;
+        justify-content: center;
+        opacity: 0;
+      }
+      #scene6 .s6-cta .badge-text { font-size: 96px; }
+      #scene6 .s6-glow {
+        position: absolute;
+        top: 800px;
+        left: 50%;
+        margin-left: -500px;
+        width: 1000px;
+        height: 1000px;
+        border-radius: 50%;
+        background: radial-gradient(circle at center, rgba(1,205,116,0.18) 0%, rgba(1,205,116,0) 60%);
+        z-index: 1;
+        opacity: 0;
+      }
+
+      /* ============================================================
+         SCENE 7 — INSIGHT (29.37–32.79) SUPERPOWER
+         ============================================================ */
+      #scene7 #s7-canvas {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        z-index: 1;
+      }
+      #scene7 .s7-star {
+        position: absolute;
+        top: 580px;
+        left: 50%;
+        margin-left: -380px;
+        width: 760px;
+        height: 760px;
+        opacity: 0.4;
+        z-index: 0;
+        filter: drop-shadow(0 0 60px rgba(255,255,255,0.2));
+      }
+      #scene7 .s7-eyebrow {
+        position: absolute;
+        top: 700px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        color: rgba(255,255,255,0.85);
+        z-index: 3;
+      }
+      #scene7 .s7-headline {
+        position: absolute;
+        top: 800px;
+        left: 50%;
+        margin-left: -490px;
+        width: 980px;
+        padding: 48px 32px;
+        z-index: 4;
+        justify-content: center;
+        background: #1c2329;
+      }
+      #scene7 .s7-headline .badge-text { font-size: 156px; }
+
+      /* ============================================================
+         SCENE 8 — BREAKDOWN (32.79–39.05) 3 reasons
+         ============================================================ */
+      #scene8 .s8-stack {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 36px;
+        padding: 100px 80px;
+      }
+      #scene8 .s8-card {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+        background: #1c2329;
+        color: #fff;
+        padding: 32px 44px;
+        border-radius: 26px;
+        box-shadow: 0 22px 54px rgba(25,33,61,0.18);
+        opacity: 0;
+        width: 880px;
+      }
+      #scene8 .s8-card svg {
+        flex-shrink: 0;
+        width: 84px;
+        height: 84px;
+      }
+      #scene8 .s8-text {
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        font-size: 72px;
+        line-height: 0.96;
+        letter-spacing: -0.012em;
+        text-transform: uppercase;
+        color: #fff;
+      }
+
+      /* ============================================================
+         SCENE 9 — BRIDGE (39.05–41.89) STEP 1 OF 2
+         ============================================================ */
+      #scene9 .s9-stack {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 48px;
+        padding: 0 80px;
+      }
+      #scene9 .s9-eyebrow {
+        font-family: "Inter", system-ui, sans-serif;
+        font-weight: 600;
+        font-size: 44px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: #4a4f54;
+      }
+      #scene9 .s9-headline {
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        font-size: 220px;
+        letter-spacing: -0.03em;
+        line-height: 0.92;
+        text-transform: uppercase;
+        color: #1c2329;
+      }
+      #scene9 .s9-bar-track {
+        width: 760px;
+        height: 28px;
+        background: #e8e9ea;
+        border-radius: 14px;
+        overflow: hidden;
+      }
+      #scene9 .s9-bar-fill {
+        width: 0%;
+        height: 100%;
+        background: #1658ff;
+        border-radius: 14px;
+      }
+      #scene9 .s9-sub {
+        font-family: "Inter", system-ui, sans-serif;
+        font-weight: 500;
+        font-size: 36px;
+        letter-spacing: 0.04em;
+        color: #4a4f54;
+      }
+
+      /* ============================================================
+         SCENE 10 — TEASE (41.89–46.66) NEXT LESSON
+         ============================================================ */
+      #scene10 .s10-stack {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 36px;
+        padding: 0 80px;
+      }
+      #scene10 .s10-logo {
+        width: 200px;
+        height: 200px;
+        opacity: 0;
+      }
+      #scene10 .s10-eyebrow {
+        font-family: "Inter", system-ui, sans-serif;
+        font-weight: 600;
+        font-size: 42px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.8);
+        opacity: 0;
+      }
+      #scene10 .s10-badge {
+        padding: 38px 56px;
+        opacity: 0;
+      }
+      #scene10 .s10-badge .badge-text { font-size: 132px; }
+      #scene10 .s10-chart-svg {
+        width: 720px;
+        height: 220px;
+        opacity: 0;
+      }
+      #scene10 .s10-chart-line {
+        stroke: #ffffff;
+        stroke-width: 6;
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-dasharray: 1400;
+        stroke-dashoffset: 1400;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="bloom-pick-first-stock"
+      data-width="1080"
+      data-height="1920"
+      data-start="0"
+      data-duration="46.66"
+    >
+      <audio
+        id="narration"
+        class="clip"
+        data-start="0"
+        data-duration="46.66"
+        data-track-index="0"
+        data-volume="1"
+        src="narration.mp3"
+      ></audio>
+
+      <!-- SCENE 1 — HOOK -->
+      <div id="scene1" class="scene">
+        <canvas id="s1-canvas" width="1080" height="1920"></canvas>
+        <div class="s1-eyebrow eyebrow">PICKING YOUR FIRST STOCK</div>
+        <div class="badge s1-badge"><span class="badge-text">INTIMIDATING?</span></div>
+      </div>
+
+      <!-- SCENE 2 — REFRAME -->
+      <div id="scene2" class="scene">
+        <div class="s2-headline">
+          <div class="s2-headline-text" id="s2-text">BUT YOU<br/>ALREADY KNOW</div>
+        </div>
+        <div class="s2-accent" id="s2-accent"></div>
+      </div>
+
+      <!-- SCENE 3 — CONCEPT -->
+      <div id="scene3" class="scene">
+        <div class="s3-orb" id="s3-orb-1"><img src="logos/AAPL.png" alt="" /></div>
+        <div class="s3-orb" id="s3-orb-2"><img src="logos/SBUX.png" alt="" /></div>
+        <div class="s3-orb" id="s3-orb-3"><img src="logos/MCD.png" alt="" /></div>
+        <div class="s3-orb" id="s3-orb-4"><img src="logos/NFLX.png" alt="" /></div>
+        <div class="s3-headline">
+          <div class="s3-text s3-line-1" id="s3-line-1">THE BRANDS YOU USE</div>
+          <div class="s3-text s3-line-2" id="s3-line-2">EVERY DAY</div>
+        </div>
+      </div>
+
+      <!-- SCENE 4 — EXAMPLES -->
+      <div id="scene4" class="scene">
+        <div class="s4-grid">
+          <div class="s4-row" id="s4-row-1">
+            <div class="s4-asset"><img src="generated-assets/phone.png" alt="" /></div>
+            <div class="s4-question">PHONE IN<br/>YOUR HAND?</div>
+          </div>
+          <div class="s4-row" id="s4-row-2">
+            <div class="s4-asset"><img src="generated-assets/shoe.png" alt="" /></div>
+            <div class="s4-question">SHOES ON<br/>YOUR FEET?</div>
+          </div>
+          <div class="s4-row" id="s4-row-3">
+            <div class="s4-asset"><img src="generated-assets/coke.png" alt="" /></div>
+            <div class="s4-question">DRINK IN<br/>YOUR FRIDGE?</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCENE 5 — TRY IT + REVEAL -->
+      <div id="scene5" class="scene">
+        <div class="s5-stack">
+          <div class="badge s5-eyebrow-badge" id="s5-eyebrow"><span class="badge-text">YOUR TURN</span></div>
+          <div class="s5-slot" id="s5-slot-1">
+            <div class="s5-num">1</div>
+            <div class="s5-line"></div>
+            <div class="s5-logo" id="s5-logo-1"><img src="logos/AAPL.png" alt="" /></div>
+            <div class="s5-tickr" id="s5-tickr-1">AAPL</div>
+          </div>
+          <div class="s5-slot" id="s5-slot-2">
+            <div class="s5-num">2</div>
+            <div class="s5-line"></div>
+            <div class="s5-logo" id="s5-logo-2"><img src="logos/SBUX.png" alt="" /></div>
+            <div class="s5-tickr" id="s5-tickr-2">SBUX</div>
+          </div>
+          <div class="s5-slot" id="s5-slot-3">
+            <div class="s5-num">3</div>
+            <div class="s5-line"></div>
+            <div class="s5-logo" id="s5-logo-3"><img src="logos/NKE.png" alt="" /></div>
+            <div class="s5-tickr" id="s5-tickr-3">NKE</div>
+          </div>
+          <div class="s5-slot" id="s5-slot-4">
+            <div class="s5-num">4</div>
+            <div class="s5-line"></div>
+            <div class="s5-logo" id="s5-logo-4"><img src="logos/NFLX.png" alt="" /></div>
+            <div class="s5-tickr" id="s5-tickr-4">NFLX</div>
+          </div>
+          <div class="s5-slot" id="s5-slot-5">
+            <div class="s5-num">5</div>
+            <div class="s5-line"></div>
+            <div class="s5-tickr" id="s5-tickr-5" style="color:#a4a7a9">?</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCENE 6 — PAYOFF -->
+      <div id="scene6" class="scene">
+        <div class="s6-glow" id="s6-glow"></div>
+        <img class="s6-phone" id="s6-phone" src="generated-assets/portfolio-phone.png" alt="Bloom portfolio" />
+        <div class="badge s6-cta" id="s6-cta"><span class="badge-text">INVEST ON BLOOM</span></div>
+      </div>
+
+      <!-- SCENE 7 — INSIGHT -->
+      <div id="scene7" class="scene">
+        <img class="s7-star" id="s7-star" src="bloom-star.png" alt="" />
+        <canvas id="s7-canvas" width="1080" height="1920"></canvas>
+        <div class="s7-eyebrow eyebrow" id="s7-eyebrow">YOUR INSIGHT IS A</div>
+        <div class="badge s7-headline" id="s7-headline"><span class="badge-text">SUPERPOWER</span></div>
+      </div>
+
+      <!-- SCENE 8 — BREAKDOWN -->
+      <div id="scene8" class="scene">
+        <div class="s8-stack">
+          <div class="s8-card" id="s8-card-1">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 21s-7-4.35-7-10a5 5 0 019-3 5 5 0 019 3c0 5.65-7 10-7 10z" fill="#fe566b" stroke="#fff" stroke-width="1.5"/>
+            </svg>
+            <div class="s8-text">PRODUCTS<br/>PEOPLE LOVE</div>
+          </div>
+          <div class="s8-card" id="s8-card-2">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="#efc42c" stroke="#fff" stroke-width="1.5"/>
+            </svg>
+            <div class="s8-text">BRANDS<br/>THAT STICK</div>
+          </div>
+          <div class="s8-card" id="s8-card-3">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M3 17l6-6 4 4 8-8" stroke="#01cd74" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14 7h7v7" stroke="#01cd74" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div class="s8-text">COMPANIES<br/>THAT GROW</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCENE 9 — BRIDGE -->
+      <div id="scene9" class="scene">
+        <div class="s9-stack">
+          <div class="s9-eyebrow">YOU'VE FINISHED</div>
+          <div class="s9-headline">STEP 1<br/>OF 2</div>
+          <div class="s9-bar-track"><div class="s9-bar-fill" id="s9-bar"></div></div>
+          <div class="s9-sub">FINDING COMPANIES YOU KNOW</div>
+        </div>
+      </div>
+
+      <!-- SCENE 10 — TEASE -->
+      <div id="scene10" class="scene">
+        <div class="s10-stack">
+          <img class="s10-logo" id="s10-logo" src="bloom-logo.png" alt="Bloom" />
+          <div class="s10-eyebrow" id="s10-eyebrow">NEXT LESSON</div>
+          <div class="badge s10-badge" id="s10-badge"><span class="badge-text">ANALYZE STOCKS</span></div>
+          <svg class="s10-chart-svg" id="s10-chart" viewBox="0 0 720 220">
+            <path class="s10-chart-line" d="M 20 170 L 90 150 L 160 175 L 230 130 L 300 145 L 370 110 L 440 85 L 510 105 L 580 60 L 650 40 L 700 25"/>
+          </svg>
+        </div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        // Deterministic PRNG
+        function mulberry32(seed) {
+          return function () {
+            let t = (seed += 0x6d2b79f5);
+            t = Math.imul(t ^ (t >>> 15), t | 1);
+            t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+            return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+          };
+        }
+
+        // ====================================================
+        // SCENE 1 — HOOK (0.00 → 2.62) "intimidating" 1.498
+        // ====================================================
+        (function () {
+          const rand = mulberry32(2024);
+          const canvas = document.getElementById("s1-canvas");
+          const ctx = canvas.getContext("2d");
+          const TOKENS = ["SPY","AAPL","NVDA","TSLA","MSFT +1.2%","AMZN","GOOGL","META -0.4%","BTC","ETH","DJI","QQQ","VIX","BRK.B","JPM","PLTR","AMD +2.9%","COIN","SMCI","WMT","KO","PEP","XOM","UNH","V"];
+          const COLS = 6;
+          const COLW = 1080 / COLS;
+          const ROWSP = 78;
+          const ROWS = Math.ceil(1920 / ROWSP) + 6;
+          const grid = [];
+          for (let c = 0; c < COLS; c++) {
+            const col = [];
+            const off = Math.floor(rand() * ROWSP);
+            for (let r = 0; r < ROWS; r++) {
+              col.push({
+                token: TOKENS[Math.floor(rand() * TOKENS.length)],
+                yOff: off + r * ROWSP,
+                alpha: 0.4 + rand() * 0.55,
+                size: 22 + Math.floor(rand() * 10),
+              });
+            }
+            grid.push(col);
+          }
+          function draw(t) {
+            ctx.clearRect(0, 0, 1080, 1920);
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            const scroll = (t * 22) % ROWSP;
+            for (let c = 0; c < COLS; c++) {
+              const x = c * COLW + COLW / 2;
+              for (let r = 0; r < ROWS; r++) {
+                const cell = grid[c][r];
+                const y = Math.round(cell.yOff - scroll);
+                if (y < -40 || y > 1960) continue;
+                ctx.fillStyle = "rgba(255,255,255," + cell.alpha.toFixed(3) + ")";
+                ctx.font = "600 " + cell.size + "px 'Inter',system-ui,sans-serif";
+                ctx.fillText(cell.token, x, y);
+              }
+            }
+          }
+          draw(0);
+          const p = { t: 0 };
+          tl.to(p, { t: 2.62, duration: 2.62, ease: "none", onUpdate: () => draw(p.t) }, 0);
+        })();
+
+        tl.from("#scene1 .s1-eyebrow", { y: -30, opacity: 0, duration: 0.5, ease: "power3.out" }, 0.1);
+        tl.from("#scene1 .s1-badge", { y: -80, scale: 1.25, opacity: 0, rotation: -2, duration: 0.4, ease: "power3.out" }, 1.10);
+        tl.fromTo("#scene1 .s1-badge", { rotation: -2 }, { rotation: 0, duration: 0.55, ease: "elastic.out(1,0.55)" }, 1.50);
+
+        // S1 → S2
+        tl.to("#scene1", { opacity: 0, duration: 0.18, ease: "power2.in", overwrite: "auto" }, 2.45);
+        tl.to("#scene2", { opacity: 1, duration: 0.22, ease: "power2.out", overwrite: "auto" }, 2.55);
+        tl.set("#scene1", { visibility: "hidden" }, 2.85);
+
+        // ====================================================
+        // SCENE 2 — REFRAME (2.62 → 5.55) words: But 2.622, already 3.242, know 3.570
+        // ====================================================
+        tl.set("#s2-text", { clipPath: "inset(0 100% 0 0)" }, 0);
+        tl.fromTo(
+          "#s2-text",
+          { y: 30, clipPath: "inset(0 100% 0 0)" },
+          { y: 0, clipPath: "inset(0 0% 0 0)", duration: 0.7, ease: "power3.out" },
+          2.62
+        );
+        tl.fromTo("#s2-accent", { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: "power3.out" }, 3.57);
+
+        // S2 → S3
+        tl.to("#scene2", { opacity: 0, duration: 0.18, ease: "power2.in", overwrite: "auto" }, 5.37);
+        tl.to("#scene3", { opacity: 1, duration: 0.22, ease: "power2.out", overwrite: "auto" }, 5.47);
+        tl.set("#scene2", { visibility: "hidden" }, 5.78);
+
+        // ====================================================
+        // SCENE 3 — CONCEPT (5.55 → 10.34) words: brands 7.096, every 7.839, day 8.254
+        // ====================================================
+        tl.from("#s3-orb-1", { scale: 0, opacity: 0, rotation: -45, duration: 0.55, ease: "back.out(1.6)" }, 5.7);
+        tl.from("#s3-orb-2", { scale: 0, opacity: 0, rotation: 45, duration: 0.55, ease: "back.out(1.6)" }, 5.95);
+        tl.from("#s3-orb-3", { scale: 0, opacity: 0, rotation: -30, duration: 0.55, ease: "back.out(1.6)" }, 6.20);
+        tl.from("#s3-orb-4", { scale: 0, opacity: 0, rotation: 30, duration: 0.55, ease: "back.out(1.6)" }, 6.45);
+        // gentle float
+        tl.to("#s3-orb-1", { y: 12, duration: 2.0, ease: "sine.inOut", yoyo: true, repeat: 1, overwrite: "auto" }, 6.5);
+        tl.to("#s3-orb-2", { y: -10, duration: 1.8, ease: "sine.inOut", yoyo: true, repeat: 1, overwrite: "auto" }, 6.6);
+        tl.to("#s3-orb-3", { y: -14, duration: 2.1, ease: "sine.inOut", yoyo: true, repeat: 1, overwrite: "auto" }, 6.7);
+        tl.to("#s3-orb-4", { y: 12, duration: 1.9, ease: "sine.inOut", yoyo: true, repeat: 1, overwrite: "auto" }, 6.8);
+
+        tl.from("#s3-line-1", { y: 40, opacity: 0, duration: 0.5, ease: "power3.out" }, 7.10);
+        tl.from("#s3-line-2", { y: 60, scale: 1.15, opacity: 0, duration: 0.5, ease: "back.out(1.4)" }, 7.84);
+
+        // S3 → S4
+        tl.to("#scene3", { opacity: 0, duration: 0.18, ease: "power2.in", overwrite: "auto" }, 10.16);
+        tl.to("#scene4", { opacity: 1, duration: 0.22, ease: "power2.out", overwrite: "auto" }, 10.26);
+        tl.set("#scene3", { visibility: "hidden" }, 10.55);
+
+        // ====================================================
+        // SCENE 4 — EXAMPLES (10.34 → 16.32) words: phone 11.342, shoes 12.861, drink 14.540
+        // ====================================================
+        tl.fromTo("#s4-row-1", { x: 200, opacity: 0 }, { x: 0, opacity: 1, duration: 0.55, ease: "power3.out" }, 10.79);
+        tl.fromTo("#s4-row-2", { x: 200, opacity: 0 }, { x: 0, opacity: 1, duration: 0.55, ease: "power3.out" }, 12.31);
+        tl.fromTo("#s4-row-3", { x: 200, opacity: 0 }, { x: 0, opacity: 1, duration: 0.55, ease: "power3.out" }, 13.99);
+        // little bounce on each asset (lands on the noun word)
+        tl.fromTo("#s4-row-1 .s4-asset", { scale: 0.85 }, { scale: 1.0, duration: 0.45, ease: "back.out(1.7)" }, 10.89);
+        tl.fromTo("#s4-row-2 .s4-asset", { scale: 0.85 }, { scale: 1.0, duration: 0.45, ease: "back.out(1.7)" }, 12.41);
+        tl.fromTo("#s4-row-3 .s4-asset", { scale: 0.85 }, { scale: 1.0, duration: 0.45, ease: "back.out(1.7)" }, 14.09);
+
+        // S4 → S5
+        tl.to("#scene4", { opacity: 0, duration: 0.18, ease: "power2.in", overwrite: "auto" }, 16.14);
+        tl.to("#scene5", { opacity: 1, duration: 0.22, ease: "power2.out", overwrite: "auto" }, 16.24);
+        tl.set("#scene4", { visibility: "hidden" }, 16.55);
+
+        // ====================================================
+        // SCENE 5 — TRY IT + REVEAL (16.32 → 25.13)
+        // List 16.326, Apple 21.349, Starbucks 22.300, Nike 23.124, Netflix 24.324
+        // ====================================================
+        tl.fromTo("#s5-eyebrow", { y: -40, opacity: 0, scale: 1.1 }, { y: 0, opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.6)" }, 16.326);
+        tl.fromTo("#s5-slot-1", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, 16.55);
+        tl.fromTo("#s5-slot-2", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, 16.75);
+        tl.fromTo("#s5-slot-3", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, 16.95);
+        tl.fromTo("#s5-slot-4", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, 17.15);
+        tl.fromTo("#s5-slot-5", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, 17.35);
+
+        // Reveal phase — fill in 4 logos at VO word onsets
+        function revealLogo(slotN, t) {
+          tl.fromTo("#s5-logo-" + slotN, { scale: 0, opacity: 0, rotation: -30 }, { scale: 1, opacity: 1, rotation: 0, duration: 0.45, ease: "back.out(1.7)" }, t);
+          tl.fromTo("#s5-tickr-" + slotN, { x: -20, opacity: 0 }, { x: 0, opacity: 1, duration: 0.35, ease: "power2.out" }, t + 0.1);
+        }
+        revealLogo(1, 20.90); // Apple — lands at 21.349
+        revealLogo(2, 21.85); // Starbucks — lands at 22.300
+        revealLogo(3, 22.67); // Nike — lands at 23.124
+        revealLogo(4, 23.87); // Netflix — lands at 24.324
+
+        // S5 → S6
+        tl.to("#scene5", { opacity: 0, duration: 0.18, ease: "power2.in", overwrite: "auto" }, 24.95);
+        tl.to("#scene6", { opacity: 1, duration: 0.22, ease: "power2.out", overwrite: "auto" }, 25.05);
+        tl.set("#scene5", { visibility: "hidden" }, 25.36);
+
+        // ====================================================
+        // SCENE 6 — PAYOFF (25.13 → 29.37) "Bloom" 28.777
+        // ====================================================
+        tl.fromTo(
+          "#s6-phone",
+          { x: 250, y: 80, rotation: 6, opacity: 0, scale: 0.92 },
+          { x: 0, y: 0, rotation: 0, opacity: 1, scale: 1, duration: 0.85, ease: "power3.out" },
+          25.13
+        );
+        tl.to("#s6-phone", { scale: 1.04, duration: 3.5, ease: "sine.inOut", overwrite: "auto" }, 25.98);
+        tl.fromTo("#s6-glow", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.7, ease: "power2.out" }, 25.5);
+
+        tl.fromTo(
+          "#s6-cta",
+          { y: 60, opacity: 0, scale: 0.95 },
+          { y: 0, opacity: 1, scale: 1, duration: 0.45, ease: "power3.out" },
+          28.33
+        );
+        tl.to("#s6-cta", { scale: 1.02, duration: 0.4, ease: "sine.inOut", yoyo: true, repeat: 1, overwrite: "auto" }, 29.0);
+
+        // S6 → S7
+        tl.to("#scene6", { opacity: 0, duration: 0.18, ease: "power2.in", overwrite: "auto" }, 29.19);
+        tl.to("#scene7", { opacity: 1, duration: 0.22, ease: "power2.out", overwrite: "auto" }, 29.29);
+        tl.set("#scene6", { visibility: "hidden" }, 29.6);
+
+        // ====================================================
+        // SCENE 7 — INSIGHT (29.37 → 32.79) "superpower" 31.839
+        // ====================================================
+        tl.from("#s7-star", { scale: 0, opacity: 0, duration: 0.5, ease: "back.out(1.6)" }, 29.37);
+        tl.to("#s7-star", { rotation: 18, duration: 3.4, ease: "none", overwrite: "auto" }, 29.37);
+
+        tl.from("#s7-eyebrow", { y: -20, opacity: 0, duration: 0.45, ease: "power3.out" }, 29.4);
+
+        tl.fromTo(
+          "#s7-headline",
+          { y: -80, scale: 1.3, opacity: 0, rotation: -2 },
+          { y: 0, scale: 1, opacity: 1, rotation: 0, duration: 0.45, ease: "power3.out" },
+          31.39
+        );
+        tl.fromTo("#s7-headline", { rotation: -2 }, { rotation: 0, duration: 0.55, ease: "elastic.out(1,0.5)" }, 31.78);
+
+        // particle burst on superpower
+        (function () {
+          const canvas = document.getElementById("s7-canvas");
+          const ctx = canvas.getContext("2d");
+          const rand = mulberry32(7777);
+          const N = 60;
+          const parts = [];
+          for (let i = 0; i < N; i++) {
+            const angle = (i / N) * Math.PI * 2;
+            parts.push({
+              angle: angle + (rand() - 0.5) * 0.3,
+              speed: 400 + rand() * 600,
+              size: 4 + rand() * 8,
+              color: i % 3 === 0 ? "#efc42c" : "#ffffff",
+            });
+          }
+          const cx = 540, cy = 920; // SUPERPOWER center
+          let lastT = 0;
+          function draw(t) {
+            ctx.clearRect(0, 0, 1080, 1920);
+            if (t < 31.839 || t > 33.5) { lastT = t; return; }
+            const elapsed = t - 31.839;
+            for (let i = 0; i < N; i++) {
+              const p = parts[i];
+              const dist = p.speed * elapsed;
+              const x = cx + Math.cos(p.angle) * dist;
+              const y = cy + Math.sin(p.angle) * dist;
+              const alpha = Math.max(0, 1 - elapsed / 1.6);
+              ctx.fillStyle = p.color;
+              ctx.globalAlpha = alpha;
+              ctx.beginPath();
+              ctx.arc(x, y, p.size, 0, Math.PI * 2);
+              ctx.fill();
+            }
+            ctx.globalAlpha = 1;
+            lastT = t;
+          }
+          draw(0);
+          const p = { t: 29.37 };
+          tl.to(p, { t: 32.79, duration: 3.42, ease: "none", onUpdate: () => draw(p.t) }, 29.37);
+        })();
+
+        // S7 → S8
+        tl.to("#scene7", { opacity: 0, duration: 0.18, ease: "power2.in", overwrite: "auto" }, 32.61);
+        tl.to("#scene8", { opacity: 1, duration: 0.22, ease: "power2.out", overwrite: "auto" }, 32.71);
+        tl.set("#scene7", { visibility: "hidden" }, 33.02);
+
+        // ====================================================
+        // SCENE 8 — BREAKDOWN (32.79 → 39.05)
+        // products 33.803, brands 35.652, companies 37.330
+        // ====================================================
+        tl.fromTo("#s8-card-1", { x: -100, opacity: 0, rotation: -2 }, { x: 0, opacity: 1, rotation: 0, duration: 0.45, ease: "power3.out" }, 33.35);
+        tl.fromTo("#s8-card-2", { x: -100, opacity: 0, rotation: -2 }, { x: 0, opacity: 1, rotation: 0, duration: 0.45, ease: "power3.out" }, 35.20);
+        tl.fromTo("#s8-card-3", { x: -100, opacity: 0, rotation: -2 }, { x: 0, opacity: 1, rotation: 0, duration: 0.45, ease: "power3.out" }, 36.88);
+
+        // S8 → S9
+        tl.to("#scene8", { opacity: 0, duration: 0.18, ease: "power2.in", overwrite: "auto" }, 38.87);
+        tl.to("#scene9", { opacity: 1, duration: 0.22, ease: "power2.out", overwrite: "auto" }, 38.97);
+        tl.set("#scene8", { visibility: "hidden" }, 39.28);
+
+        // ====================================================
+        // SCENE 9 — BRIDGE (39.05 → 41.89) "step one" 40.954
+        // ====================================================
+        tl.from("#scene9 .s9-eyebrow", { y: -20, opacity: 0, duration: 0.4, ease: "power3.out" }, 39.05);
+        tl.from("#scene9 .s9-headline", { y: 40, opacity: 0, duration: 0.5, ease: "power3.out" }, 39.30);
+        tl.from("#scene9 .s9-bar-track", { scaleX: 0, opacity: 0, duration: 0.45, ease: "power3.out" }, 39.70);
+        tl.from("#scene9 .s9-sub", { y: 20, opacity: 0, duration: 0.4, ease: "power2.out" }, 40.10);
+        tl.to("#s9-bar", { width: "50%", duration: 0.6, ease: "power3.out" }, 40.95);
+
+        // S9 → S10
+        tl.to("#scene9", { opacity: 0, duration: 0.18, ease: "power2.in", overwrite: "auto" }, 41.71);
+        tl.to("#scene10", { opacity: 1, duration: 0.22, ease: "power2.out", overwrite: "auto" }, 41.81);
+        tl.set("#scene9", { visibility: "hidden" }, 42.12);
+
+        // ====================================================
+        // SCENE 10 — TEASE (41.89 → 46.66)
+        // Next 41.898, tell 43.419, investment 45.348
+        // ====================================================
+        tl.fromTo("#s10-logo", { scale: 0, opacity: 0, rotation: -20 }, { scale: 1, opacity: 1, rotation: 0, duration: 0.55, ease: "back.out(1.6)" }, 41.90);
+        tl.to("#s10-logo", { scale: 1.04, duration: 1.2, ease: "sine.inOut", yoyo: true, repeat: 1, overwrite: "auto" }, 42.5);
+        tl.fromTo("#s10-eyebrow", { y: -10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, 42.10);
+        tl.fromTo(
+          "#s10-badge",
+          { y: 60, scale: 1.15, opacity: 0, rotation: -1 },
+          { y: 0, scale: 1, opacity: 1, rotation: 0, duration: 0.45, ease: "power3.out" },
+          42.97
+        );
+        tl.fromTo("#s10-chart", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 43.95);
+        tl.to(".s10-chart-line", { strokeDashoffset: 0, duration: 1.6, ease: "power2.inOut" }, 44.0);
+
+        window.__timelines["bloom-pick-first-stock"] = tl;
+      </script>
+    </div>
+  </body>
+</html>

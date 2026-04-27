@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"npx hyperframes lint compositions/beat-1-hook.html 2>&1\",\"description\":\"Check if beat-1 passes lint\"}",
+  "error": "Exit code 1\n\n✗  Not a directory: C:\\Users\\User\\git\\video-creator\\hyperframes\\videos\\bloom-stock-ownership\\compositions\\beat-1-hook.html",
+  "timestamp": "2026-04-25T19:05:07.038Z",
+  "retry_count": 2
+}

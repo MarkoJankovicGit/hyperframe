@@ -1,0 +1,93 @@
+[
+  {
+    "n": 1,
+    "start": 0,
+    "end": 2.5,
+    "name": "hook",
+    "file": "beat-1-hook.html"
+  },
+  {
+    "n": 2,
+    "start": 2.5,
+    "end": 6.4,
+    "name": "choice-a",
+    "file": "beat-2-choice-a.html"
+  },
+  {
+    "n": 3,
+    "start": 6.4,
+    "end": 12.1,
+    "name": "choice-b",
+    "file": "beat-3-choice-b.html"
+  },
+  {
+    "n": 4,
+    "start": 12.1,
+    "end": 17.85,
+    "name": "stat-a",
+    "file": "beat-4-stat-a.html"
+  },
+  {
+    "n": 5,
+    "start": 17.85,
+    "end": 23.2,
+    "name": "stat-b",
+    "file": "beat-5-stat-b.html"
+  },
+  {
+    "n": 6,
+    "start": 23.2,
+    "end": 25.95,
+    "name": "concept-name",
+    "file": "beat-6-concept-name.html"
+  },
+  {
+    "n": 7,
+    "start": 25.95,
+    "end": 33.85,
+    "name": "concept-stack",
+    "file": "beat-7-concept-stack.html"
+  },
+  {
+    "n": 8,
+    "start": 33.85,
+    "end": 40.1,
+    "name": "superpower",
+    "file": "beat-8-superpower.html"
+  },
+  {
+    "n": 9,
+    "start": 40.1,
+    "end": 46.5,
+    "name": "earlier",
+    "file": "beat-9-earlier.html"
+  },
+  {
+    "n": 10,
+    "start": 46.5,
+    "end": 52.9,
+    "name": "mega-build",
+    "file": "beat-10-mega-build.html"
+  },
+  {
+    "n": 11,
+    "start": 52.9,
+    "end": 56.55,
+    "name": "mega-slam",
+    "file": "beat-11-mega-slam.html"
+  },
+  {
+    "n": 12,
+    "start": 56.55,
+    "end": 65.2,
+    "name": "stocks",
+    "file": "beat-12-stocks.html"
+  },
+  {
+    "n": 13,
+    "start": 65.2,
+    "end": 73.3,
+    "name": "cta",
+    "file": "beat-13-cta.html"
+  }
+]

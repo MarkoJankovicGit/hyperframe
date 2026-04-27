@@ -1,0 +1,50 @@
+<!--
+  Bloom V2 brand tokens — CSS custom properties.
+  Include this <style> block at the top of every scene.
+-->
+<style>
+  :root {
+    /* Palette — Bloom V2 (purple on near-black) */
+    --b-bg: #09090b;
+    --b-bg-card: rgba(255, 255, 255, 0.02);
+    --b-primary: #a78bfa;       /* purple — primary accent */
+    --b-primary-l: #c4b5fd;     /* light purple — hover/glow */
+    --b-primary-d: #6d28d9;     /* deep purple — depth layer */
+    --b-dark: #1a0a2e;          /* deep violet — gradient stop */
+
+    /* Text */
+    --b-t-white: #fafafa;
+    --b-t-mut: #71717a;
+    --b-t-gray: #a1a1aa;
+
+    /* Glass + borders */
+    --b-glass: rgba(167, 139, 250, 0.03);
+    --b-glass-bdr: rgba(167, 139, 250, 0.12);
+
+    /* Typography */
+    --b-font: "Outfit", system-ui, sans-serif;
+    --b-font-heading: "Outfit", system-ui, sans-serif;
+
+    /* Shadow / glow */
+    --b-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+    --b-glow: 0 0 24px rgba(167, 139, 250, 0.5);
+    --b-glow-strong: 0 0 48px rgba(167, 139, 250, 0.8);
+  }
+
+  @font-face {
+    font-family: "Outfit";
+    font-weight: 400 900;
+    font-style: normal;
+    font-display: block;
+    src: url("https://fonts.gstatic.com/s/outfit/v11/QGYyz_MVcBeNP4NJuktqkYXOlOb6PQHxQA.woff2")
+      format("woff2");
+  }
+
+  html,
+  body {
+    background: var(--b-bg);
+    color: var(--b-t-white);
+    font-family: var(--b-font);
+    font-feature-settings: "ss01", "cv11";
+  }
+</style>

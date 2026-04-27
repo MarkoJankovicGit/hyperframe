@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"cd C:/Users/User/git/bloom-hyperframes && git status videos/bloom-compound-interest/ 2>&1 | tail -10; echo \\\"---ls---\\\"; ls videos/bloom-compound-interest/compositions/ 2>&1\",\"description\"...",
+  "error": "Exit code 2\nfatal: not a git repository (or any of the parent directories): .git\n---ls---\nls: cannot access 'videos/bloom-compound-interest/compositions/': No such file or directory",
+  "timestamp": "2026-04-25T22:22:44.307Z",
+  "retry_count": 2
+}

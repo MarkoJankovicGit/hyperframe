@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beat 9: Stat Reveal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,700;0,800;1,700;1,800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; }
+    #beat9 { position: absolute; inset: 0; width: 1080px; height: 1920px; background: #F8F8F9; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
+    .beat9-stat-block { position: relative; display: flex; flex-direction: column; align-items: center; gap: 20px; margin-bottom: 100px; opacity: 0; }
+    #beat9-counter { font-family: "Inter Tight", system-ui, sans-serif; font-size: 220px; font-weight: 800; font-style: italic; color: #1658FF; line-height: 0.9; text-align: center; min-width: 200px; }
+    .beat9-percent { font-family: "Inter Tight", system-ui, sans-serif; font-size: 140px; font-weight: 800; color: #1658FF; margin-top: -40px; opacity: 0; }
+    .beat9-label { font-family: "Inter", system-ui, sans-serif; font-size: 48px; font-weight: 600; color: #4A4F54; text-align: center; letter-spacing: 0.08em; opacity: 0; }
+    #beat9-star-glow { position: absolute; width: 240px; height: 240px; top: -60px; left: 50%; transform: translateX(-50%); opacity: 0; filter: drop-shadow(0 0 40px rgba(239, 196, 44, 0.6)); }
+    #beat9-timeline-bar { position: absolute; width: 700px; height: 6px; background: linear-gradient(to right, #1658FF, #01CD74); border-radius: 3px; top: 220px; left: 50%; transform: translateX(-50%); opacity: 0; scaleX: 0; transform-origin: left; }
+    .beat9-supporting-text { position: relative; z-index: 2; text-align: center; max-width: 920px; font-family: "Inter", system-ui, sans-serif; font-size: 48px; font-weight: 600; color: #4A4F54; letter-spacing: 0.02em; opacity: 0; }
+  </style>
+</head>
+<body>
+  <template data-start="0" data-duration="7.52">
+    <div id="beat9" class="scene" data-composition-id="bloom-stock-ownership-beat-9" data-width="1080" data-height="1920" data-start="0" data-duration="7.52">
+      <img id="beat9-star-glow" src="../bloom-star.png" alt="Star glow" />
+      <div id="beat9-timeline-bar"></div>
+      <div class="beat9-stat-block">
+        <div id="beat9-counter">0</div>
+        <div class="beat9-percent">%</div>
+        <div class="beat9-label">PER YEAR, 30 YEARS</div>
+      </div>
+      <div class="beat9-supporting-text">Stocks are one of the best long-term investments.</div>
+    </div>
+  </template>
+
+  <script>
+    // ── TIMELINE REGISTRATION ────────────────────────────────────────────
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["bloom-stock-ownership-beat-9"] = tl;
+
+    const W = [
+      { w: "Stocks", s: 0.000, e: 0.441 },
+      { w: "are", s: 0.481, e: 0.631 },
+      { w: "one", s: 0.671, e: 0.881 },
+      { w: "of", s: 0.911, e: 1.001 },
+      { w: "the", s: 1.031, e: 1.131 },
+      { w: "best", s: 1.161, e: 1.451 },
+      { w: "long-term", s: 1.491, e: 2.001 },
+      { w: "investments,", s: 2.041, e: 2.591 },
+      { w: "having", s: 2.621, e: 2.901 },
+      { w: "grown", s: 2.931, e: 3.281 },
+      { w: "on", s: 3.311, e: 3.471 },
+      { w: "average", s: 3.501, e: 3.871 },
+      { w: "ten", s: 3.901, e: 4.231 },
+      { w: "percent", s: 4.271, e: 4.691 },
+      { w: "per", s: 4.731, e: 4.861 },
+      { w: "year", s: 4.891, e: 5.211 },
+      { w: "over", s: 5.261, e: 5.411 },
+      { w: "the", s: 5.441, e: 5.541 },
+      { w: "last", s: 5.571, e: 5.791 },
+      { w: "30", s: 5.821, e: 6.001 },
+      { w: "years!", s: 6.031, e: 6.521 }
+    ];
+
+    function _norm(s) { return s.toLowerCase().replace(/[^p{L}p{N}'-]/gu, ""); }
+    function _findPhrase(phrase) {
+      const tokens = phrase.toLowerCase().split(/s+/).map(_norm).filter(Boolean);
+      if (!tokens.length) throw new Error("empty");
+      const hits = [];
+      for (let i = 0; i <= W.length - tokens.length; i++) {
+        let ok = true;
+        for (let j = 0; j < tokens.length; j++) {
+          if (_norm(W[i + j].w) !== tokens[j]) { ok = false; break; }
+        }
+        if (ok) hits.push(i);
+      }
+      if (hits.length === 0) throw new Error("not found");
+      if (hits.length > 1) throw new Error("ambiguous");
+      return { startIdx: hits[0], endIdx: hits[0] + tokens.length - 1 };
+    }
+    function at(phrase) { return W[_findPhrase(phrase).startIdx].s; }
+    function landOn(phrase, duration = 0) { return at(phrase) - duration; }
+    function landAfter(phrase, duration = 0) { return W[_findPhrase(phrase).endIdx].e - duration; }
+
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines = window.__timelines || {};
+    window.__timelines["bloom-stock-ownership-beat-9"] = tl;
+
+    tl.from(".beat9-supporting-text", { opacity: 0, y: 20, duration: 0.4, ease: "power2.out" }, landOn("Stocks", 0.4));
+    tl.to("#beat9-timeline-bar", { opacity: 1, scaleX: 1, duration: 2.0, ease: "power2.out" }, 0.2);
+    tl.from("#beat9-star-glow", { scale: 0, opacity: 0, duration: 0.4, ease: "back.out(1.5)" }, landOn("average", 0.4));
+    tl.from(".beat9-stat-block", { opacity: 0, scale: 0.8, duration: 0.5, ease: "back.out(1.5)" }, landOn("average", 0.5));
+
+    const counterProxy = { v: 0 };
+    tl.to(counterProxy, { v: 10, duration: 1.2, ease: "power2.out", onUpdate: () => { document.getElementById("beat9-counter").textContent = Math.round(counterProxy.v); } }, landAfter("ten percent", 1.2));
+
+    tl.from(".beat9-percent", { opacity: 0, scale: 0.8, duration: 0.4, ease: "back.out(1.5)" }, landAfter("ten percent", 1.2) + 0.2);
+    tl.from(".beat9-label", { opacity: 0, y: 10, duration: 0.4, ease: "power2.out" }, landAfter("ten percent", 1.2) + 0.3);
+
+    tl.to("#beat9-counter", { scale: 1.05, duration: 1.5, ease: "sine.inOut", yoyo: true, repeat: 2, overwrite: "auto" }, landAfter("ten percent", 1.2) + 0.5);
+    tl.to("#beat9-star-glow", { filter: "drop-shadow(0 0 50px rgba(239, 196, 44, 0.8))", scale: 1.08, duration: 1.8, ease: "sine.inOut", yoyo: true, repeat: 1, overwrite: "auto" }, landOn("average", 0.4) + 0.5);
+
+    tl.to("#beat9", { opacity: 0, duration: 0.2, ease: "power2.in" }, 7.32);
+    tl.set("#beat9", { visibility: "hidden" }, 7.52);
+  </script>
+</body>
+</html>

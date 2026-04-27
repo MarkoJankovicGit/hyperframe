@@ -1,0 +1,2180 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Bloom Daily Market Update — Component Reel</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.137.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.137.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.137.0/examples/js/loaders/RGBELoader.js"></script>
+    <style>
+      /* ---------- shared / base ---------- */
+      body { margin: 0; background: #050505; font-family: "Inter Tight", "Inter", system-ui, sans-serif; }
+      * { box-sizing: border-box; }
+
+      .beat {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+      }
+      .bg-blue   { background: #1658FF; }
+      .bg-white  { background: #FFFFFF; }
+      .bg-soft   { background: #F8F8F9; }
+      .bg-dark   { background: radial-gradient(ellipse 60% 45% at 50% 55%, #0d1116 0%, #050505 70%), #000; }
+
+      /* small numeric tag at top-left ("01 / 13 — PERCENT PILL") */
+      .tag {
+        position: absolute;
+        top: 64px;
+        left: 64px;
+        z-index: 4;
+        font-family: "Inter", system-ui, sans-serif;
+        font-weight: 700;
+        font-size: 26px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        opacity: 0;
+      }
+      .tag-light { color: rgba(255,255,255,0.78); }
+      .tag-dark  { color: rgba(28,35,41,0.62); }
+      .tag .tag-num {
+        display: inline-block;
+        margin-right: 14px;
+        padding: 6px 14px;
+        border-radius: 999px;
+        font-size: 22px;
+        letter-spacing: 0.18em;
+      }
+      .tag-light .tag-num { background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.22); }
+      .tag-dark  .tag-num { background: rgba(28,35,41,0.06); border: 1px solid rgba(28,35,41,0.12); }
+
+      /* big component name as bottom caption */
+      .caption {
+        position: absolute;
+        bottom: 110px;
+        left: 64px;
+        right: 64px;
+        z-index: 4;
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        font-size: 90px;
+        line-height: 0.95;
+        letter-spacing: -0.02em;
+        text-transform: uppercase;
+        opacity: 0;
+      }
+      .caption-light { color: #fff; }
+      .caption-dark  { color: #1C2329; }
+      .caption-sub {
+        display: block;
+        margin-top: 16px;
+        font-family: "Inter", system-ui, sans-serif;
+        font-weight: 600;
+        font-style: normal;
+        font-size: 28px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+      .caption-light .caption-sub { color: rgba(255,255,255,0.7); }
+      .caption-dark  .caption-sub { color: rgba(28,35,41,0.55); }
+
+      /* center-stage container — components are placed here */
+      .stage {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* ============================================================
+         BEAT 1 — TITLE CARD
+         ============================================================ */
+      #beat-title { background: #1658FF; }
+      #beat-title .tt-wordmark {
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        font-size: 138px;
+        line-height: 0.92;
+        letter-spacing: -0.025em;
+        text-transform: uppercase;
+        color: #fff;
+        text-align: center;
+        opacity: 0;
+      }
+      #beat-title .tt-line2 {
+        display: block;
+        margin-top: 18px;
+        color: #FFC847;
+      }
+      #beat-title .tt-eyebrow {
+        font-family: "Inter", system-ui, sans-serif;
+        font-weight: 700;
+        font-size: 30px;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.78);
+        text-align: center;
+        margin-bottom: 32px;
+        opacity: 0;
+      }
+      #beat-title .tt-meta {
+        position: absolute;
+        bottom: 110px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-family: "Inter", system-ui, sans-serif;
+        font-weight: 600;
+        font-size: 24px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.55);
+        opacity: 0;
+      }
+      #beat-title .tt-divider {
+        display: inline-block;
+        width: 0;
+        height: 4px;
+        background: #FFC847;
+        margin: 36px auto;
+        border-radius: 2px;
+      }
+
+      /* ============================================================
+         BEAT 2 — PERCENT PILL
+         ============================================================ */
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        padding: 22px 34px;
+        border-radius: 999px;
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        font-size: 64px;
+        letter-spacing: -0.012em;
+        line-height: 1;
+      }
+      .pill .pill-arrow {
+        font-size: 56px;
+        line-height: 1;
+        font-style: normal;
+        font-weight: 800;
+      }
+      .pill-up   { background: rgba(1,205,116,0.14); color: #01CD74; border: 2px solid rgba(1,205,116,0.30); }
+      .pill-down { background: rgba(255,82,82,0.12);  color: #FF5252; border: 2px solid rgba(255,82,82,0.28); }
+
+      #beat-pill .pill-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 48px;
+        align-items: flex-start;
+      }
+      #beat-pill .pill { opacity: 0; }
+
+      /* ============================================================
+         BEAT 3 — CEO QUOTE (portrait + name + role + pull quote)
+         ============================================================ */
+      #beat-ceo .ceo-stack {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 36px;
+        width: 100%;
+        padding: 0 64px;
+      }
+      #beat-ceo .ceo-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        background: #1658FF;
+        color: #fff;
+        font-family: "Inter", system-ui, sans-serif;
+        font-weight: 700;
+        font-size: 26px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        padding: 14px 32px;
+        border-radius: 999px;
+        box-shadow: 0 14px 32px rgba(22,88,255,0.30);
+        opacity: 0;
+      }
+      #beat-ceo .ceo-eyebrow::before {
+        content: "";
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #FFC847;
+        box-shadow: 0 0 12px rgba(255,200,71,0.85);
+      }
+
+      #beat-ceo .ceo-portrait-wrap {
+        position: relative;
+        width: 580px;
+        height: 580px;
+        flex-shrink: 0;
+        opacity: 0;
+        transform: scale(0.7);
+      }
+      #beat-ceo .ceo-portrait {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: #E8E9EA;
+        background-image: url("assets/portraits/tim-cook.png");
+        background-size: cover;
+        background-position: center 22%;
+        border: 8px solid #fff;
+        box-shadow: 0 32px 80px rgba(6,10,30,0.22);
+      }
+      /* Apple logo orb anchored to portrait */
+      #beat-ceo .ceo-brand {
+        position: absolute;
+        bottom: 14px;
+        right: 14px;
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        background: #1C2329;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 18px 40px rgba(6,10,30,0.32);
+        opacity: 0;
+        transform: scale(0.5);
+      }
+      #beat-ceo .ceo-brand img { width: 80px; height: 80px; object-fit: contain; }
+      #beat-ceo .ceo-brand .ceo-brand-fallback {
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800; font-style: italic;
+        color: #fff; font-size: 28px;
+      }
+
+      #beat-ceo .ceo-name {
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        font-size: 132px;
+        color: #1C2329;
+        letter-spacing: -0.025em;
+        line-height: 0.95;
+        text-transform: uppercase;
+        text-align: center;
+        opacity: 0;
+      }
+      #beat-ceo .ceo-role {
+        margin-top: -8px;
+        font-family: "Inter", system-ui, sans-serif;
+        font-weight: 700;
+        font-size: 28px;
+        letter-spacing: 0.36em;
+        text-transform: uppercase;
+        color: #4A4F54;
+        text-align: center;
+        opacity: 0;
+      }
+
+      #beat-ceo .ceo-quote {
+        margin-top: 12px;
+        max-width: 880px;
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 700;
+        font-style: italic;
+        font-size: 50px;
+        line-height: 1.12;
+        color: #1C2329;
+        letter-spacing: -0.014em;
+        text-align: center;
+      }
+      #beat-ceo .ceo-quote .word {
+        display: inline-block;
+        opacity: 0;
+        margin-right: 0.18em;
+      }
+      #beat-ceo .ceo-quote .accent { color: #1658FF; }
+
+      /* ============================================================
+         BEAT 4 — COUNTER
+         ============================================================ */
+      #beat-counter .counter-row {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 14px;
+      }
+      #beat-counter .counter-currency {
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 700;
+        font-style: italic;
+        font-size: 110px;
+        color: #FFC847;
+        line-height: 1;
+        opacity: 0;
+      }
+      #beat-counter .counter-value {
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        font-size: 280px;
+        color: #fff;
+        letter-spacing: -0.025em;
+        line-height: 0.95;
+      }
+      #beat-counter .counter-label {
+        margin-top: 24px;
+        font-family: "Inter", system-ui, sans-serif;
+        font-weight: 700;
+        font-size: 32px;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.65);
+        text-align: center;
+        opacity: 0;
+      }
+      #beat-counter .counter-block { text-align: center; }
+
+      /* ============================================================
+         BEAT 5 — PRICE CARD (Bloom-flavored, Robinhood-layout)
+         ============================================================ */
+      #beat-index { background: #1658FF; }
+
+      #beat-index .pc-card {
+        position: relative;
+        width: 920px;
+        height: 1500px;
+        background: #FFFFFF;
+        border: 1px solid #E8E9EA;
+        border-radius: 44px;
+        padding: 48px 52px 44px;
+        box-shadow: 0 32px 80px rgba(6,10,30,0.18);
+        display: flex;
+        flex-direction: column;
+        opacity: 0;
+        font-family: "Inter", system-ui, sans-serif;
+        color: #1C2329;
+      }
+
+      /* top nav row */
+      #beat-index .pc-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 56px;
+      }
+      #beat-index .pc-back svg, #beat-index .pc-nav-icon svg {
+        display: block;
+        width: 44px; height: 44px;
+        stroke: #1C2329;
+        fill: none;
+        stroke-width: 2.6;
+      }
+      #beat-index .pc-nav-right {
+        display: flex; align-items: center; gap: 28px;
+      }
+      #beat-index .pc-check {
+        width: 56px; height: 56px;
+        border-radius: 50%;
+        background: #1658FF;
+        display: flex; align-items: center; justify-content: center;
+        box-shadow: 0 8px 18px rgba(22,88,255,0.28);
+      }
+      #beat-index .pc-check svg { width: 28px; height: 28px; stroke: #fff; fill: none; stroke-width: 4; }
+
+      /* ticker header */
+      #beat-index .pc-header {
+        display: flex; align-items: center; gap: 28px;
+        margin-top: 32px;
+      }
+      #beat-index .pc-logo {
+        width: 124px; height: 124px;
+        border-radius: 50%;
+        background: #1C2329;
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0;
+        box-shadow: 0 18px 40px rgba(6,10,30,0.18);
+      }
+      #beat-index .pc-logo img { width: 78px; height: 78px; object-fit: contain; }
+      #beat-index .pc-logo .pc-logo-fallback {
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800; font-style: italic;
+        color: #fff; font-size: 30px;
+      }
+      #beat-index .pc-name {
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        font-size: 84px;
+        color: #1C2329;
+        letter-spacing: -0.018em;
+        line-height: 0.95;
+        text-transform: uppercase;
+      }
+      #beat-index .pc-exchange {
+        margin-top: 10px;
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 26px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: #4A4F54;
+      }
+
+      /* big price + expand */
+      #beat-index .pc-price-row {
+        display: flex; align-items: flex-start; justify-content: space-between;
+        margin-top: 40px;
+      }
+      #beat-index .pc-price {
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        font-size: 138px;
+        color: #1C2329;
+        letter-spacing: -0.028em;
+        line-height: 1;
+      }
+      #beat-index .pc-expand {
+        width: 72px; height: 72px;
+        border-radius: 50%;
+        border: 2px solid #E8E9EA;
+        background: #F8F8F9;
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0;
+      }
+      #beat-index .pc-expand svg { width: 32px; height: 32px; stroke: #1C2329; fill: none; stroke-width: 2.4; }
+
+      /* delta line */
+      #beat-index .pc-delta {
+        margin-top: 18px;
+        display: flex; align-items: center; gap: 14px;
+        font-size: 36px;
+        font-weight: 700;
+        opacity: 0;
+      }
+      #beat-index .pc-delta-arrow {
+        width: 0; height: 0;
+        border-left: 14px solid transparent;
+        border-right: 14px solid transparent;
+        border-bottom: 22px solid #01CD74;
+      }
+      #beat-index .pc-delta-val { color: #01CD74; }
+      #beat-index .pc-delta-period { color: #4A4F54; font-weight: 500; }
+
+      /* chart */
+      #beat-index .pc-chart-wrap {
+        position: relative;
+        margin-top: 32px;
+        height: 460px;
+      }
+      #beat-index .pc-chart {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+      #beat-index .pc-chart-line {
+        fill: none;
+        stroke: #01CD74;
+        stroke-width: 6;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      #beat-index .pc-chart-dot {
+        fill: #01CD74;
+        opacity: 0;
+      }
+      #beat-index .pc-chart-axis {
+        position: absolute;
+        left: 0; right: 0;
+        bottom: 0;
+        height: 0;
+        border-bottom: 2px dashed #E8E9EA;
+        opacity: 0;
+      }
+
+      /* time-range row — Bloom black headline-badge for active */
+      #beat-index .pc-ranges {
+        display: flex; align-items: center; justify-content: space-between;
+        margin-top: 28px;
+        padding: 0 4px;
+      }
+      #beat-index .pc-range {
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        font-size: 34px;
+        color: #1C2329;
+        letter-spacing: -0.005em;
+        opacity: 0;
+      }
+      #beat-index .pc-range.active {
+        background: #1C2329;
+        color: #FFFFFF;
+        border-radius: 999px;
+        padding: 12px 28px;
+        box-shadow: 0 12px 24px rgba(6,10,30,0.18);
+      }
+      #beat-index .pc-range-icon {
+        display: inline-flex; gap: 5px; align-items: flex-end;
+      }
+      #beat-index .pc-range-icon span {
+        display: block;
+        width: 6px;
+        background: #01CD74;
+        border-radius: 1px;
+      }
+
+      /* stats row */
+      #beat-index .pc-stats {
+        display: flex; gap: 80px;
+        margin-top: 56px;
+        opacity: 0;
+      }
+      #beat-index .pc-stat-label {
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 22px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: #4A4F54;
+      }
+      #beat-index .pc-stat-value {
+        margin-top: 8px;
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        font-size: 50px;
+        color: #1C2329;
+        letter-spacing: -0.018em;
+      }
+
+      /* bottom: volume + trade */
+      #beat-index .pc-bottom {
+        display: flex; align-items: center; justify-content: space-between;
+        margin-top: auto;
+        padding-top: 36px;
+        border-top: 1px solid #E8E9EA;
+        opacity: 0;
+      }
+      #beat-index .pc-vol-label {
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 22px;
+        color: #4A4F54;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+      #beat-index .pc-vol-value {
+        margin-top: 6px;
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        font-size: 40px;
+        color: #1C2329;
+      }
+      /* Bloom signature: black headline-badge as the Trade CTA */
+      #beat-index .pc-trade {
+        background: #1C2329;
+        color: #fff;
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        text-transform: uppercase;
+        font-size: 40px;
+        padding: 24px 80px;
+        border-radius: 300px;
+        letter-spacing: -0.012em;
+        box-shadow: 0 18px 40px rgba(6,10,30,0.28);
+      }
+
+      /* ============================================================
+         BEAT 6 — MOVER CARD
+         ============================================================ */
+      #beat-mover .mover-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+      }
+      .mover {
+        width: 800px;
+        height: 160px;
+        background: rgba(255,255,255,0.06);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255,255,255,0.14);
+        border-radius: 28px;
+        padding: 0 32px;
+        display: flex;
+        align-items: center;
+        gap: 32px;
+        opacity: 0;
+      }
+      .mover .orb {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: #1C2329;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        box-shadow: 0 14px 28px rgba(0,0,0,0.4);
+      }
+      .mover .orb img { width: 64px; height: 64px; object-fit: contain; }
+      .mover .orb-fallback {
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        color: #fff;
+        font-size: 30px;
+        letter-spacing: -0.012em;
+      }
+      .mover .mover-tk {
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        font-size: 56px;
+        color: #fff;
+        letter-spacing: -0.012em;
+        line-height: 1;
+      }
+      .mover .mover-sub {
+        font-family: "Inter", system-ui, sans-serif;
+        font-weight: 600;
+        font-size: 20px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.62);
+      }
+      .mover .mover-mid { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+      .mover .mover-pill {
+        padding: 14px 22px;
+        border-radius: 999px;
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        font-size: 36px;
+      }
+      .mover .mover-pill.up   { background: rgba(1,205,116,0.18); color: #01CD74; }
+      .mover .mover-pill.down { background: rgba(255,82,82,0.16); color: #FF5252; }
+
+      /* ============================================================
+         BEAT 7 — QUOTE CARD
+         ============================================================ */
+      #beat-quote .quote-card {
+        width: 880px;
+        background: #fff;
+        border: 1px solid #E8E9EA;
+        border-radius: 36px;
+        padding: 80px 72px 64px;
+        box-shadow: 0 32px 80px rgba(20,28,55,0.10);
+        position: relative;
+        opacity: 0;
+      }
+      #beat-quote .quote-bar {
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 0;
+        height: 6px;
+        background: #1658FF;
+        border-radius: 0 3px 3px 0;
+      }
+      #beat-quote .quote-mark {
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        font-size: 130px;
+        line-height: 0.6;
+        color: #1658FF;
+        opacity: 0;
+        margin-bottom: 12px;
+      }
+      #beat-quote .quote-text {
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 700;
+        font-style: italic;
+        font-size: 64px;
+        line-height: 1.05;
+        color: #1C2329;
+        letter-spacing: -0.018em;
+      }
+      #beat-quote .quote-text .word {
+        display: inline-block;
+        opacity: 0;
+        margin-right: 0.18em;
+      }
+      #beat-quote .quote-attr {
+        margin-top: 36px;
+        font-family: "Inter", system-ui, sans-serif;
+        font-weight: 600;
+        font-size: 26px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: #4A4F54;
+        opacity: 0;
+      }
+      #beat-quote .quote-attr .role { color: rgba(74,79,84,0.55); margin-left: 14px; }
+
+      /* ============================================================
+         BEAT 8 — TICKER TAPE
+         ============================================================ */
+      #beat-ticker {
+        background: #1658FF;
+      }
+      #beat-ticker canvas {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        z-index: 1;
+      }
+      #beat-ticker .ticker-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+      #beat-ticker .ticker-title {
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        font-size: 120px;
+        line-height: 0.95;
+        color: #fff;
+        letter-spacing: -0.025em;
+        text-transform: uppercase;
+        text-align: center;
+        opacity: 0;
+      }
+      #beat-ticker .ticker-sub {
+        margin-top: 22px;
+        font-family: "Inter", system-ui, sans-serif;
+        font-weight: 700;
+        font-size: 30px;
+        letter-spacing: 0.42em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.72);
+        opacity: 0;
+      }
+
+      /* ============================================================
+         BEATS 9/10/11 — CINEMA 3D REVEAL (gold / oil / pillar)
+         ============================================================ */
+      .c3d {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse 50% 35% at 50% 55%, #1a0f04 0%, #050505 60%), #000;
+      }
+      #beat-3d-oil { background: radial-gradient(ellipse 50% 35% at 50% 55%, #0d141d 0%, #050505 60%), #000; }
+      #beat-3d-pillar { background: radial-gradient(ellipse 50% 35% at 50% 55%, #0e1320 0%, #050505 60%), #000; }
+      .c3d canvas {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        z-index: 1;
+      }
+      .c3d-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 3;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding-top: 200px;
+      }
+      .c3d-eyebrow {
+        font-family: "Inter", system-ui, sans-serif;
+        font-weight: 600;
+        font-size: 26px;
+        letter-spacing: 0.36em;
+        color: rgba(255,255,255,0.75);
+        text-transform: uppercase;
+        opacity: 0;
+      }
+      .c3d-badge {
+        margin-top: 28px;
+        background: #1C2329;
+        color: #fff;
+        border-radius: 28px;
+        padding: 24px 64px;
+        opacity: 0;
+        transform: scale(0.7);
+      }
+      .c3d-badge-text {
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        font-size: 150px;
+        text-transform: uppercase;
+        letter-spacing: -0.022em;
+        line-height: 0.95;
+        color: #fff;
+      }
+      .c3d-bottom {
+        position: absolute;
+        bottom: 220px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        z-index: 3;
+        opacity: 0;
+      }
+      .c3d-currency {
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 700;
+        font-style: italic;
+        font-size: 60px;
+        color: #FFC847;
+        line-height: 1;
+        margin-right: 8px;
+      }
+      .c3d-value {
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        font-size: 170px;
+        color: #fff;
+        letter-spacing: -0.025em;
+        line-height: 0.95;
+      }
+      .c3d-unit {
+        margin-top: 12px;
+        font-family: "Inter", system-ui, sans-serif;
+        font-weight: 700;
+        font-size: 28px;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: rgba(255, 220, 140, 0.85);
+      }
+
+      /* fallback graphic shown when GLB fails to load */
+      .c3d-fallback {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        font-size: 320px;
+        color: rgba(255,200,80,0.18);
+        letter-spacing: -0.04em;
+      }
+
+      /* ============================================================
+         BEAT 12 — MARKET PULSE OPEN (composite)
+         ============================================================ */
+      #beat-pulse {
+        background: #1658FF;
+      }
+      #beat-pulse canvas {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        width: 1080px;
+        height: 1920px;
+      }
+      #beat-pulse .pulse-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 3;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      #beat-pulse .pulse-date {
+        display: inline-flex;
+        align-items: center;
+        gap: 18px;
+        background: #1C2329;
+        color: #fff;
+        border-radius: 999px;
+        padding: 22px 42px;
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        font-size: 38px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        opacity: 0;
+      }
+      #beat-pulse .pulse-date .pulse-dot {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: #FFC847;
+        box-shadow: 0 0 14px rgba(255,200,71,0.85);
+      }
+      #beat-pulse .pulse-title {
+        margin-top: 36px;
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        font-size: 150px;
+        line-height: 0.95;
+        color: #fff;
+        letter-spacing: -0.025em;
+        text-transform: uppercase;
+        text-align: center;
+        opacity: 0;
+      }
+      #beat-pulse .pulse-title .accent { color: #FFC847; display: block; }
+      #beat-pulse .pulse-logo {
+        margin-top: 56px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transform: scale(0.6);
+      }
+      #beat-pulse .pulse-logo img {
+        width: 240px;
+        height: 240px;
+        object-fit: contain;
+        filter: drop-shadow(0 14px 32px rgba(6,10,30,0.28));
+      }
+
+      /* ============================================================
+         BEAT 13 — SIGN OFF (composite)
+         ============================================================ */
+      #beat-signoff {
+        background: #1658FF;
+      }
+      #beat-signoff .so-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 3;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      #beat-signoff .so-logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transform: scale(0.6);
+      }
+      #beat-signoff .so-logo img {
+        width: 280px;
+        height: 280px;
+        object-fit: contain;
+        filter: drop-shadow(0 16px 36px rgba(6,10,30,0.32));
+      }
+      #beat-signoff .so-tagline {
+        margin-top: 44px;
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        font-size: 100px;
+        line-height: 0.96;
+        color: #fff;
+        letter-spacing: -0.025em;
+        text-transform: uppercase;
+        text-align: center;
+        opacity: 0;
+      }
+      #beat-signoff .so-host {
+        margin-top: 30px;
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        background: #1C2329;
+        color: #fff;
+        border-radius: 999px;
+        padding: 18px 32px;
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        font-size: 32px;
+        text-transform: uppercase;
+        opacity: 0;
+      }
+      #beat-signoff .so-host .so-yellow { color: #FFC847; }
+    </style>
+  </head>
+  <body>
+    <div id="root"
+      data-composition-id="bloom-components-showreel"
+      data-width="1080"
+      data-height="1920"
+      data-start="0"
+      data-duration="43.5">
+
+      <!-- ========================================================
+           BEAT 1 — TITLE CARD (0 - 3s)
+           ======================================================== -->
+      <div id="beat-title" class="beat clip bg-blue"
+        data-start="0" data-duration="3.0" data-track-index="1">
+        <div class="stage" style="flex-direction:column;">
+          <div class="tt-eyebrow" id="tt-eyebrow">BLOOM &nbsp;•&nbsp; DAILY MARKET UPDATE</div>
+          <div class="tt-wordmark" id="tt-wordmark">
+            COMPONENT
+            <span class="tt-line2">REEL</span>
+          </div>
+          <div class="tt-divider" id="tt-divider"></div>
+        </div>
+        <div class="tt-meta" id="tt-meta">v1 — 13 components — 1080×1920 @ 30fps</div>
+      </div>
+
+      <!-- ========================================================
+           BEAT 2 — PERCENT PILL (3 - 6s)
+           ======================================================== -->
+      <div id="beat-pill" class="beat clip bg-white"
+        data-start="3.0" data-duration="3.0" data-track-index="1">
+        <div class="tag tag-dark" id="b2-tag">
+          <span class="tag-num">02 / 13</span>PERCENT PILL
+        </div>
+        <div class="stage">
+          <div class="pill-stack">
+            <div class="pill pill-up" id="b2-up">
+              <span class="pill-arrow">&uarr;</span>+0.42%
+            </div>
+            <div class="pill pill-down" id="b2-down">
+              <span class="pill-arrow">&darr;</span>&minus;1.18%
+            </div>
+          </div>
+        </div>
+        <div class="caption caption-dark" id="b2-caption">
+          PercentPill
+          <span class="caption-sub">Atom · gain &amp; loss indicator</span>
+        </div>
+      </div>
+
+      <!-- ========================================================
+           BEAT 3 — CEO QUOTE (6 - 9s) · portrait + name + role + pull-quote
+           ======================================================== -->
+      <div id="beat-ceo" class="beat clip bg-soft"
+        data-start="6.0" data-duration="3.0" data-track-index="1">
+        <div class="tag tag-dark" id="b3-tag">
+          <span class="tag-num">03 / 13</span>CEO QUOTE
+        </div>
+        <div class="stage">
+          <div class="ceo-stack">
+            <div class="ceo-eyebrow" id="b3-eyebrow">STEPPING DOWN</div>
+
+            <div class="ceo-portrait-wrap" id="b3-portrait">
+              <div class="ceo-portrait"></div>
+              <div class="ceo-brand" id="b3-brand">
+                <img src="assets/logos/AAPL.png" alt="Apple" onerror="this.style.display='none'; this.parentNode.innerHTML='<span class=&quot;ceo-brand-fallback&quot;>AAPL</span>';"/>
+              </div>
+            </div>
+
+            <div class="ceo-name" id="b3-name">TIM&nbsp;COOK</div>
+            <div class="ceo-role" id="b3-role">APPLE &middot; CEO &middot; 2011&ndash;2026</div>
+
+            <div class="ceo-quote" id="b3-quote">
+              <span class="word">&ldquo;After</span>
+              <span class="word">fourteen</span>
+              <span class="word">years,</span>
+              <span class="word accent">it&rsquo;s</span>
+              <span class="word accent">time</span>
+              <span class="word">to</span>
+              <span class="word">pass</span>
+              <span class="word">the</span>
+              <span class="word">torch.&rdquo;</span>
+            </div>
+          </div>
+        </div>
+        <div class="caption caption-dark" id="b3-caption">
+          CEO Quote
+          <span class="caption-sub">Composite &middot; portrait + role + pull-quote</span>
+        </div>
+      </div>
+
+      <!-- ========================================================
+           BEAT 4 — COUNTER (9 - 12s)
+           ======================================================== -->
+      <div id="beat-counter" class="beat clip bg-dark"
+        data-start="9.0" data-duration="3.0" data-track-index="1">
+        <div class="tag tag-light" id="b4-tag">
+          <span class="tag-num">04 / 13</span>COUNTER
+        </div>
+        <div class="stage">
+          <div class="counter-block">
+            <div class="counter-row">
+              <span class="counter-currency" id="b4-cur">$</span>
+              <span class="counter-value" id="b4-val">0</span>
+            </div>
+            <div class="counter-label" id="b4-label">PROJECTED · PER OUNCE</div>
+          </div>
+        </div>
+        <div class="caption caption-light" id="b4-caption">
+          Counter
+          <span class="caption-sub">Atom · proxy-tweened number · Intl.NumberFormat</span>
+        </div>
+      </div>
+
+      <!-- ========================================================
+           BEAT 5 — PRICE CARD (Robinhood-style) (12 - 15s)
+           ======================================================== -->
+      <div id="beat-index" class="beat clip"
+        data-start="12.0" data-duration="3.0" data-track-index="1">
+        <div class="tag tag-light" id="b5-tag">
+          <span class="tag-num">05 / 13</span>PRICE CARD
+        </div>
+        <div class="stage">
+          <div class="pc-card" id="b5-card">
+            <!-- top nav -->
+            <div class="pc-nav" id="b5-nav">
+              <div class="pc-back">
+                <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="pc-nav-right">
+                <div class="pc-nav-icon">
+                  <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" stroke-linecap="round" stroke-linejoin="round"/><path d="M13.7 21a2 2 0 0 1-3.4 0" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="pc-check">
+                  <svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- ticker header -->
+            <div class="pc-header" id="b5-header">
+              <div class="pc-logo">
+                <img src="assets/logos/NVDA.png" alt="NVDA" onerror="this.style.display='none'; this.parentNode.innerHTML='<span class=&quot;pc-logo-fallback&quot;>NVDA</span>';"/>
+              </div>
+              <div class="pc-titles">
+                <div class="pc-name">NVIDIA</div>
+                <div class="pc-exchange">NVDA &middot; Nasdaq</div>
+              </div>
+            </div>
+
+            <!-- big price -->
+            <div class="pc-price-row">
+              <div class="pc-price" id="b5-price">$0.00</div>
+              <div class="pc-expand">
+                <svg viewBox="0 0 24 24"><path d="M4 14v6h6M20 10V4h-6M4 20l7-7M20 4l-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+            </div>
+
+            <!-- delta -->
+            <div class="pc-delta" id="b5-delta">
+              <span class="pc-delta-arrow"></span>
+              <span class="pc-delta-val">+$24.42 (2.41%)</span>
+              <span class="pc-delta-period">Today</span>
+            </div>
+
+            <!-- chart -->
+            <div class="pc-chart-wrap">
+              <svg class="pc-chart" id="b5-chart" viewBox="0 0 800 460" preserveAspectRatio="none">
+                <path id="b5-chart-line" class="pc-chart-line"
+                  d="M 0 380 L 30 360 L 55 372 L 80 348 L 110 356 L 140 320 L 170 332 L 200 290 L 230 304 L 260 282 L 290 296 L 320 264 L 350 280 L 380 250 L 410 268 L 440 232 L 470 248 L 500 210 L 530 226 L 560 188 L 590 200 L 620 162 L 650 178 L 680 132 L 710 150 L 740 96 L 770 78 L 800 50" />
+                <circle id="b5-chart-dot" class="pc-chart-dot" cx="800" cy="50" r="10" />
+              </svg>
+              <div class="pc-chart-axis" id="b5-chart-axis"></div>
+            </div>
+
+            <!-- time-range chips -->
+            <div class="pc-ranges" id="b5-ranges">
+              <div class="pc-range active">1D</div>
+              <div class="pc-range">1W</div>
+              <div class="pc-range">1M</div>
+              <div class="pc-range">3M</div>
+              <div class="pc-range">1Y</div>
+              <div class="pc-range">5Y</div>
+              <div class="pc-range pc-range-icon">
+                <span style="height:14px"></span>
+                <span style="height:30px"></span>
+                <span style="height:20px"></span>
+                <span style="height:36px"></span>
+              </div>
+            </div>
+
+            <!-- stats -->
+            <div class="pc-stats" id="b5-stats">
+              <div class="pc-stat">
+                <div class="pc-stat-label">Market Cap</div>
+                <div class="pc-stat-value">$2.54T</div>
+              </div>
+              <div class="pc-stat">
+                <div class="pc-stat-label">P/E Ratio</div>
+                <div class="pc-stat-value">66.18</div>
+              </div>
+            </div>
+
+            <!-- volume + trade -->
+            <div class="pc-bottom" id="b5-bottom">
+              <div class="pc-vol">
+                <div class="pc-vol-label">Today's Volume</div>
+                <div class="pc-vol-value">24,988,072</div>
+              </div>
+              <div class="pc-trade">Trade</div>
+            </div>
+          </div>
+        </div>
+        <div class="caption caption-light" id="b5-caption">
+          Price Card
+          <span class="caption-sub">Hero · ticker + price + delta + intraday chart</span>
+        </div>
+      </div>
+
+      <!-- ========================================================
+           BEAT 6 — MOVER CARD (15 - 18s)
+           ======================================================== -->
+      <div id="beat-mover" class="beat clip bg-blue"
+        data-start="15.0" data-duration="3.0" data-track-index="1">
+        <div class="tag tag-light" id="b6-tag">
+          <span class="tag-num">06 / 13</span>MOVER CARD
+        </div>
+        <div class="stage">
+          <div class="mover-stack">
+            <div class="mover" id="b6-m1">
+              <div class="orb"><img src="assets/logos/NVDA.png" alt="NVDA" onerror="this.style.display='none'; this.parentNode.innerHTML='<span class=&quot;orb-fallback&quot;>NVDA</span>';"/></div>
+              <div class="mover-mid">
+                <div class="mover-tk">NVDA</div>
+                <div class="mover-sub">NVIDIA · 1,164.40</div>
+              </div>
+              <div class="mover-pill up">&uarr; +3.86%</div>
+            </div>
+            <div class="mover" id="b6-m2">
+              <div class="orb"><img src="assets/logos/AAPL.png" alt="AAPL" onerror="this.style.display='none'; this.parentNode.innerHTML='<span class=&quot;orb-fallback&quot;>AAPL</span>';"/></div>
+              <div class="mover-mid">
+                <div class="mover-tk">AAPL</div>
+                <div class="mover-sub">APPLE · 248.92</div>
+              </div>
+              <div class="mover-pill up">&uarr; +1.24%</div>
+            </div>
+            <div class="mover" id="b6-m3">
+              <div class="orb"><img src="assets/logos/TSLA.png" alt="TSLA" onerror="this.style.display='none'; this.parentNode.innerHTML='<span class=&quot;orb-fallback&quot;>TSLA</span>';"/></div>
+              <div class="mover-mid">
+                <div class="mover-tk">TSLA</div>
+                <div class="mover-sub">TESLA · 412.37</div>
+              </div>
+              <div class="mover-pill down">&darr; &minus;2.18%</div>
+            </div>
+          </div>
+        </div>
+        <div class="caption caption-light" id="b6-caption">
+          Mover Card
+          <span class="caption-sub">Molecule · LogoOrb + ticker + percent pill</span>
+        </div>
+      </div>
+
+      <!-- ========================================================
+           BEAT 7 — QUOTE CARD (18 - 21s)
+           ======================================================== -->
+      <div id="beat-quote" class="beat clip bg-soft"
+        data-start="18.0" data-duration="3.0" data-track-index="1">
+        <div class="tag tag-dark" id="b7-tag">
+          <span class="tag-num">07 / 13</span>QUOTE CARD
+        </div>
+        <div class="stage">
+          <div class="quote-card" id="b7-card">
+            <div class="quote-bar" id="b7-bar"></div>
+            <div class="quote-mark" id="b7-mark">&ldquo;</div>
+            <div class="quote-text">
+              <span class="word">Inflation</span>
+              <span class="word">remains</span>
+              <span class="word">somewhat</span>
+              <span class="word">elevated</span>
+              <span class="word">above</span>
+              <span class="word">target.</span>
+            </div>
+            <div class="quote-attr" id="b7-attr">
+              JEROME&nbsp;POWELL <span class="role">· FED CHAIR</span>
+            </div>
+          </div>
+        </div>
+        <div class="caption caption-dark" id="b7-caption">
+          Quote Card
+          <span class="caption-sub">Molecule · attributed pull-quote with accent bar</span>
+        </div>
+      </div>
+
+      <!-- ========================================================
+           BEAT 8 — TICKER TAPE (21 - 24s)
+           ======================================================== -->
+      <div id="beat-ticker" class="beat clip bg-blue"
+        data-start="21.0" data-duration="3.0" data-track-index="1">
+        <canvas id="b8-canvas" width="1080" height="1920"></canvas>
+        <div class="tag tag-light" id="b8-tag">
+          <span class="tag-num">08 / 13</span>TICKER TAPE
+        </div>
+        <div class="ticker-overlay">
+          <div class="ticker-title" id="b8-title">SCROLLING<br/>TICKERS</div>
+          <div class="ticker-sub" id="b8-sub">Canvas 2D · deterministic</div>
+        </div>
+        <div class="caption caption-light" id="b8-caption">
+          Ticker Tape
+          <span class="caption-sub">Atom · Canvas 2D · seeded mulberry32</span>
+        </div>
+      </div>
+
+      <!-- ========================================================
+           BEAT 9 — CINEMA 3D : GOLD (24 - 28.5s)
+           ======================================================== -->
+      <div id="beat-3d-gold" class="beat clip c3d"
+        data-start="24.0" data-duration="4.5" data-track-index="1">
+        <canvas id="b9-canvas" width="1080" height="1920"></canvas>
+        <div class="c3d-fallback" id="b9-fallback">GOLD</div>
+        <div class="tag tag-light" id="b9-tag">
+          <span class="tag-num">09 / 13</span>CINEMA 3D · GOLD
+        </div>
+        <div class="c3d-overlay">
+          <div class="c3d-eyebrow" id="b9-eyebrow">FORECAST RAISED</div>
+          <div class="c3d-badge" id="b9-badge"><span class="c3d-badge-text">GOLD</span></div>
+        </div>
+        <div class="c3d-bottom" id="b9-bottom">
+          <span class="c3d-currency">$</span>
+          <span class="c3d-value" id="b9-val">5,684</span>
+          <div class="c3d-unit">PER OUNCE</div>
+        </div>
+        <div class="caption caption-light" id="b9-caption">
+          Cinema 3D · Gold Bar
+          <span class="caption-sub">Hero · PBR + HDRi + GSAP camera</span>
+        </div>
+      </div>
+
+      <!-- ========================================================
+           BEAT 10 — CINEMA 3D : OIL (28.5 - 33s)
+           ======================================================== -->
+      <div id="beat-3d-oil" class="beat clip c3d"
+        data-start="28.5" data-duration="4.5" data-track-index="1">
+        <canvas id="b10-canvas" width="1080" height="1920"></canvas>
+        <div class="c3d-fallback" id="b10-fallback">OIL</div>
+        <div class="tag tag-light" id="b10-tag">
+          <span class="tag-num">10 / 13</span>CINEMA 3D · OIL
+        </div>
+        <div class="c3d-overlay">
+          <div class="c3d-eyebrow" id="b10-eyebrow">CRUDE · WTI</div>
+          <div class="c3d-badge" id="b10-badge"><span class="c3d-badge-text">OIL</span></div>
+        </div>
+        <div class="c3d-bottom" id="b10-bottom">
+          <span class="c3d-currency">$</span>
+          <span class="c3d-value" id="b10-val">82.40</span>
+          <div class="c3d-unit">PER BARREL</div>
+        </div>
+        <div class="caption caption-light" id="b10-caption">
+          Cinema 3D · Oil Barrel
+          <span class="caption-sub">Hero · recipe generalization test</span>
+        </div>
+      </div>
+
+      <!-- ========================================================
+           BEAT 11 — CINEMA 3D : PILLAR (33 - 37.5s)
+           ======================================================== -->
+      <div id="beat-3d-pillar" class="beat clip c3d"
+        data-start="33.0" data-duration="4.5" data-track-index="1">
+        <canvas id="b11-canvas" width="1080" height="1920"></canvas>
+        <div class="c3d-fallback" id="b11-fallback">FED</div>
+        <div class="tag tag-light" id="b11-tag">
+          <span class="tag-num">11 / 13</span>CINEMA 3D · PILLAR
+        </div>
+        <div class="c3d-overlay">
+          <div class="c3d-eyebrow" id="b11-eyebrow">FED &middot; FOMC</div>
+          <div class="c3d-badge" id="b11-badge"><span class="c3d-badge-text">RATES</span></div>
+        </div>
+        <div class="c3d-bottom" id="b11-bottom">
+          <span class="c3d-value" id="b11-val">5.25%</span>
+          <div class="c3d-unit">FEDERAL FUNDS RATE</div>
+        </div>
+        <div class="caption caption-light" id="b11-caption">
+          Cinema 3D · Fed Pillar
+          <span class="caption-sub">Hero · non-metal material test</span>
+        </div>
+      </div>
+
+      <!-- ========================================================
+           BEAT 12 — MARKET PULSE OPEN (37.5 - 40.5s)
+           ======================================================== -->
+      <div id="beat-pulse" class="beat clip"
+        data-start="37.5" data-duration="3.0" data-track-index="1">
+        <canvas id="b12-canvas" width="1080" height="1920"></canvas>
+        <div class="tag tag-light" id="b12-tag">
+          <span class="tag-num">12 / 13</span>MARKET PULSE · OPEN
+        </div>
+        <div class="pulse-overlay">
+          <div class="pulse-date" id="b12-date">
+            <span class="pulse-dot"></span>
+            APR 26 · 2026
+          </div>
+          <div class="pulse-title" id="b12-title">
+            DAILY<br/>MARKET<span class="accent">PULSE</span>
+          </div>
+          <div class="pulse-logo" id="b12-logo"><img src="assets/logos/BLOOM.png" alt="Bloom" onerror="this.style.display='none';"/></div>
+        </div>
+        <div class="caption caption-light" id="b12-caption">
+          Market Pulse · Open
+          <span class="caption-sub">Composite · Ticker + DateBadge + Logo</span>
+        </div>
+      </div>
+
+      <!-- ========================================================
+           BEAT 13 — SIGN OFF (40.5 - 43.5s)
+           ======================================================== -->
+      <div id="beat-signoff" class="beat clip"
+        data-start="40.5" data-duration="3.0" data-track-index="1">
+        <div class="tag tag-light" id="b13-tag">
+          <span class="tag-num">13 / 13</span>SIGN OFF
+        </div>
+        <div class="so-overlay">
+          <div class="so-logo" id="b13-logo"><img src="assets/logos/BLOOM.png" alt="Bloom" onerror="this.style.display='none';"/></div>
+          <div class="so-tagline" id="b13-tagline">SEE&nbsp;YOU<br/>TOMORROW.</div>
+          <div class="so-host" id="b13-host">
+            HOSTED&nbsp;BY <span class="so-yellow">SELMA</span>
+          </div>
+        </div>
+        <div class="caption caption-light" id="b13-caption">
+          Sign Off
+          <span class="caption-sub">Composite · Logo + tagline + host pill</span>
+        </div>
+      </div>
+
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+
+      /* ─── seeded PRNG (deterministic across renders) ──────────── */
+      function mulberry32(seed) {
+        return function () {
+          let t = (seed += 0x6d2b79f5);
+          t = Math.imul(t ^ (t >>> 15), t | 1);
+          t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+          return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        };
+      }
+
+      /* ─── path length helpers ────────────────────────────────── */
+      function setupDraw(pathEl) {
+        const len = pathEl.getTotalLength();
+        pathEl.style.strokeDasharray = len;
+        pathEl.style.strokeDashoffset = len;
+        return len;
+      }
+
+      /* ─── shared logo preload (used by ticker-tape canvases) ─── */
+      const LOGO_TICKERS = [
+        "AAPL", "NVDA", "TSLA", "META", "GOOGL", "AMZN", "MSFT",
+        "SPY", "QQQ", "JPM", "V", "WMT", "DIS", "KO", "PEP",
+        "NFLX", "NKE", "SBUX", "COST",
+        "ADNOC", "IBM", "MCD", "MRNA", "NOW", "SAVE", "TXN", "VOO"
+      ];
+      const LOGO_IMAGES = LOGO_TICKERS.map(function (tk) {
+        const img = new Image();
+        img.src = "assets/logos/" + tk + ".png";
+        return img;
+      });
+      function isReady(img) { return img && img.complete && img.naturalWidth > 0; }
+
+      // Deterministic Fisher-Yates shuffle (uses a passed-in PRNG).
+      function shuffleSeq(n, rand) {
+        const a = [];
+        for (let i = 0; i < n; i++) a.push(i);
+        for (let i = a.length - 1; i > 0; i--) {
+          const j = Math.floor(rand() * (i + 1));
+          const tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+        }
+        return a;
+      }
+
+      /* ─── master timeline ────────────────────────────────────── */
+      const tl = gsap.timeline({ paused: true });
+      const fmt = new Intl.NumberFormat("en-US");
+
+      /* ============================================================
+         BEAT 1 — TITLE
+         ============================================================ */
+      (function () {
+        const start = 0;
+        tl.fromTo("#tt-eyebrow",
+          { opacity: 0, y: -14 },
+          { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" },
+          start + 0.10);
+        tl.fromTo("#tt-wordmark",
+          { opacity: 0, y: 28, scale: 0.94 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "back.out(1.6)" },
+          start + 0.25);
+        tl.to("#tt-divider",
+          { width: 220, duration: 0.4, ease: "power2.out" },
+          start + 0.85);
+        tl.fromTo("#tt-meta",
+          { opacity: 0, y: 12 },
+          { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" },
+          start + 1.10);
+      })();
+
+      /* ============================================================
+         BEAT 2 — PERCENT PILL
+         ============================================================ */
+      (function () {
+        const start = 3.0;
+        tl.fromTo("#b2-tag", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }, start + 0.05);
+        tl.fromTo("#b2-up",
+          { opacity: 0, x: -50, scale: 0.85 },
+          { opacity: 1, x: 0, scale: 1, duration: 0.5, ease: "back.out(1.7)" },
+          start + 0.30);
+        tl.fromTo("#b2-down",
+          { opacity: 0, x: -50, scale: 0.85 },
+          { opacity: 1, x: 0, scale: 1, duration: 0.5, ease: "back.out(1.7)" },
+          start + 0.55);
+        tl.fromTo("#b2-caption", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, start + 1.10);
+      })();
+
+      /* ============================================================
+         BEAT 3 — CEO QUOTE (portrait + name + role + pull-quote)
+         ============================================================ */
+      (function () {
+        const start = 6.0;
+
+        tl.fromTo("#b3-tag", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.4 }, start + 0.05);
+
+        // Eyebrow ribbon
+        tl.fromTo("#b3-eyebrow",
+          { opacity: 0, y: -16, scale: 0.85 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.7)" },
+          start + 0.15);
+
+        // Portrait scales in
+        tl.fromTo("#b3-portrait",
+          { opacity: 0, scale: 0.7 },
+          { opacity: 1, scale: 1, duration: 0.6, ease: "power3.out" },
+          start + 0.30);
+
+        // Apple brand orb pops onto portrait corner
+        tl.fromTo("#b3-brand",
+          { opacity: 0, scale: 0.4 },
+          { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.9)" },
+          start + 0.85);
+
+        // Name + role
+        tl.fromTo("#b3-name",
+          { opacity: 0, y: 28, scale: 0.96 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "power3.out" },
+          start + 1.00);
+        tl.fromTo("#b3-role",
+          { opacity: 0, y: 14 },
+          { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" },
+          start + 1.30);
+
+        // Quote words stagger in
+        const quoteWords = document.querySelectorAll("#b3-quote .word");
+        quoteWords.forEach(function (w, i) {
+          tl.fromTo(w,
+            { opacity: 0, y: 14, x: 10 - i * 1.5 },
+            { opacity: 1, y: 0, x: 0, duration: 0.32, ease: "power2.out" },
+            start + 1.55 + i * 0.07);
+        });
+
+        tl.fromTo("#b3-caption",
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.45 },
+          start + 2.55);
+      })();
+
+      /* ============================================================
+         BEAT 4 — COUNTER
+         ============================================================ */
+      (function () {
+        const start = 9.0;
+        const valEl = document.getElementById("b4-val");
+        const proxy = { v: 0 };
+
+        tl.fromTo("#b4-tag", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.4 }, start + 0.05);
+        tl.fromTo("#b4-cur", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }, start + 0.30);
+        tl.to(proxy, {
+          v: 5684,
+          duration: 1.4,
+          ease: "power2.out",
+          onUpdate: function () { if (valEl) valEl.textContent = fmt.format(Math.floor(proxy.v)); }
+        }, start + 0.40);
+        tl.fromTo("#b4-label", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4 }, start + 1.50);
+        tl.fromTo("#b4-caption", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45 }, start + 1.80);
+      })();
+
+      /* ============================================================
+         BEAT 5 — PRICE CARD (Robinhood-style)
+         ============================================================ */
+      (function () {
+        const start = 12.0;
+        const chartLine = document.getElementById("b5-chart-line");
+        if (chartLine) setupDraw(chartLine);
+
+        // Price counter $0 → $1,037.89 (lands at start + 1.4s)
+        const priceEl = document.getElementById("b5-price");
+        const priceProxy = { v: 0 };
+        const fmtPrice = new Intl.NumberFormat("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+        tl.fromTo("#b5-tag", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.4 }, start + 0.05);
+
+        // Card frame fades in
+        tl.fromTo("#b5-card",
+          { opacity: 0, y: 40, scale: 0.97 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "power3.out" },
+          start + 0.10);
+
+        // Price counter ramps as soon as the card lands
+        tl.to(priceProxy, {
+          v: 1037.89,
+          duration: 1.0,
+          ease: "power2.out",
+          onUpdate: function () { if (priceEl) priceEl.textContent = "$" + fmtPrice.format(priceProxy.v); }
+        }, start + 0.50);
+
+        // Sparkline draws across (~1s); dashed axis fades in just behind it
+        tl.to("#b5-chart-line",
+          { strokeDashoffset: 0, duration: 1.1, ease: "power2.out" },
+          start + 0.55);
+        tl.to("#b5-chart-axis",
+          { opacity: 1, duration: 0.4, ease: "power2.out" },
+          start + 0.55);
+        tl.to("#b5-chart-dot",
+          { opacity: 1, duration: 0.25, ease: "power2.out" },
+          start + 1.55);
+
+        // Delta line slides in as price lands
+        tl.fromTo("#b5-delta",
+          { opacity: 0, y: 14 },
+          { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" },
+          start + 1.40);
+
+        // Time-range chips stagger in
+        tl.fromTo("#b5-ranges .pc-range",
+          { opacity: 0, y: 12 },
+          { opacity: 1, y: 0, duration: 0.32, stagger: 0.05, ease: "power2.out" },
+          start + 1.65);
+
+        // Stats fade in
+        tl.fromTo("#b5-stats",
+          { opacity: 0, y: 14 },
+          { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" },
+          start + 2.00);
+
+        // Volume + Trade pill
+        tl.fromTo("#b5-bottom",
+          { opacity: 0, y: 18 },
+          { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" },
+          start + 2.20);
+
+        // Caption
+        tl.fromTo("#b5-caption",
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" },
+          start + 2.45);
+      })();
+
+      /* ============================================================
+         BEAT 6 — MOVER CARD
+         ============================================================ */
+      (function () {
+        const start = 15.0;
+        tl.fromTo("#b6-tag", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.4 }, start + 0.05);
+        ["#b6-m1", "#b6-m2", "#b6-m3"].forEach(function (sel, i) {
+          tl.fromTo(sel,
+            { opacity: 0, x: -60, scale: 0.96 },
+            { opacity: 1, x: 0, scale: 1, duration: 0.5, ease: "back.out(1.5)" },
+            start + 0.25 + i * 0.16);
+        });
+        tl.fromTo("#b6-caption", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45 }, start + 1.30);
+      })();
+
+      /* ============================================================
+         BEAT 7 — QUOTE CARD (per-word kinetic typography)
+         ============================================================ */
+      (function () {
+        const start = 18.0;
+        tl.fromTo("#b7-tag", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.4 }, start + 0.05);
+        tl.fromTo("#b7-card",
+          { opacity: 0, y: 30, scale: 0.97 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "power3.out" },
+          start + 0.25);
+        tl.to("#b7-bar",
+          { width: 6, height: 80, duration: 0.4, ease: "power2.out" },
+          start + 0.50);
+        tl.fromTo("#b7-mark", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, start + 0.55);
+
+        const words = document.querySelectorAll("#beat-quote .quote-text .word");
+        words.forEach(function (w, i) {
+          tl.fromTo(w,
+            { opacity: 0, y: 16, x: 12 - i * 2 },
+            { opacity: 1, y: 0, x: 0, duration: 0.32, ease: "power2.out" },
+            start + 0.65 + i * 0.10);
+        });
+        tl.fromTo("#b7-attr", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.45 }, start + 1.55);
+        tl.fromTo("#b7-caption", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45 }, start + 1.80);
+      })();
+
+      /* ============================================================
+         BEAT 8 — TICKER TAPE (5-column logo grid, alternating scroll)
+         ============================================================ */
+      (function () {
+        const start = 21.0;
+        const cvs = document.getElementById("b8-canvas");
+        const ctx = cvs ? cvs.getContext("2d") : null;
+        const rand = mulberry32(2026);
+
+        // Layout: 5 columns. Even cols scroll down, odd cols scroll up.
+        const COLS = 5;
+        const PER_COL = 8;
+        const SPACING = 260;            // vertical gap between orbs in same column
+        const RADIUS = 86;              // orb radius
+        const SPEED = 100;              // px/s
+        const COL_HEIGHT = PER_COL * SPACING;
+        const COL_W = 1080 / COLS;
+
+        // Walk a shuffled index sequence so no logo repeats within the same
+        // column (and the order across columns feels mixed, not patterned).
+        const order = shuffleSeq(LOGO_IMAGES.length, rand);
+        let cursor = 0;
+        const columns = [];
+        for (let c = 0; c < COLS; c++) {
+          const items = [];
+          for (let i = 0; i < PER_COL; i++) {
+            items.push({
+              idx: order[cursor % order.length],
+              opacity: 0.55 + rand() * 0.20
+            });
+            cursor++;
+          }
+          columns.push({
+            cx: COL_W * c + COL_W / 2,
+            dir: (c % 2 === 0) ? 1 : -1,                   // alternating direction
+            seedOffset: rand() * SPACING,                   // stagger columns initially
+            items: items
+          });
+        }
+
+        function drawOrb(cx, cy, opacity, idx) {
+          ctx.fillStyle = "rgba(28,35,41," + (opacity * 0.92) + ")";
+          ctx.beginPath();
+          ctx.arc(cx, cy, RADIUS, 0, Math.PI * 2);
+          ctx.fill();
+          const img = LOGO_IMAGES[idx];
+          if (isReady(img)) {
+            const inner = RADIUS * 1.18;
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(cx, cy, RADIUS - 2, 0, Math.PI * 2);
+            ctx.clip();
+            ctx.globalAlpha = Math.min(1, opacity * 1.5);
+            ctx.drawImage(img, cx - inner / 2, cy - inner / 2, inner, inner);
+            ctx.globalAlpha = 1;
+            ctx.restore();
+          }
+        }
+
+        function drawTicker(t) {
+          if (!ctx) return;
+          ctx.clearRect(0, 0, 1080, 1920);
+          for (let c = 0; c < COLS; c++) {
+            const col = columns[c];
+            const baseShift = col.dir * t * SPEED + col.seedOffset;
+            for (let i = 0; i < PER_COL; i++) {
+              const item = col.items[i];
+              const naturalY = i * SPACING;
+              let y = ((naturalY + baseShift) % COL_HEIGHT + COL_HEIGHT) % COL_HEIGHT;
+              y = y - SPACING;        // shift so wrap zone sits off-screen
+              if (y < -RADIUS * 2 || y > 1920 + RADIUS * 2) continue;
+              drawOrb(col.cx, y, item.opacity, item.idx);
+            }
+          }
+        }
+
+        const proxy = { t: 0 };
+        tl.to(proxy, { t: 3, duration: 3, ease: "none", onUpdate: function () { drawTicker(proxy.t); } }, start);
+
+        tl.fromTo("#b8-tag", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.4 }, start + 0.05);
+        tl.fromTo("#b8-title",
+          { opacity: 0, y: 30, scale: 0.94 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "back.out(1.5)" },
+          start + 0.30);
+        tl.fromTo("#b8-sub", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4 }, start + 0.70);
+        tl.fromTo("#b8-caption", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45 }, start + 1.30);
+      })();
+
+      /* ============================================================
+         3D shared helpers — a Cinema3DReveal scene per beat.
+         Each call sets up its own Three.js renderer + scene, animates
+         camera + bar via state proxy, driven by the master timeline.
+         ============================================================ */
+      function createCinema3D(opts) {
+        const cvs = document.getElementById(opts.canvasId);
+        const fallbackEl = document.getElementById(opts.fallbackId);
+        if (!cvs) return null;
+
+        const renderer = new THREE.WebGLRenderer({
+          canvas: cvs, alpha: false, antialias: true, powerPreference: "high-performance"
+        });
+        renderer.setPixelRatio(2);
+        renderer.setSize(1080, 1920, false);
+        renderer.setClearColor(0x050505, 1.0);
+        renderer.outputEncoding = THREE.sRGBEncoding;
+        renderer.toneMapping = THREE.CineonToneMapping;
+        renderer.toneMappingExposure = opts.exposure || 1.0;
+
+        const scene = new THREE.Scene();
+        scene.background = null;
+        scene.fog = new THREE.Fog(0x000000, 5.5, 13.0);
+
+        const camera = new THREE.PerspectiveCamera(22, 1080 / 1920, 0.05, 100);
+        camera.position.set(0, 0.15, 9.0);
+        camera.lookAt(0, 0.05, 0);
+
+        const pmrem = new THREE.PMREMGenerator(renderer);
+        pmrem.compileEquirectangularShader();
+        new THREE.RGBELoader().load("assets/studio.hdr", function (hdr) {
+          hdr.mapping = THREE.EquirectangularReflectionMapping;
+          scene.environment = pmrem.fromEquirectangular(hdr).texture;
+          hdr.dispose();
+          pmrem.dispose();
+        });
+
+        const key = new THREE.DirectionalLight(opts.keyColor || 0xfff0d4, opts.keyIntensity || 4.0);
+        key.position.set(2.8, 3.6, 3.4);
+        scene.add(key);
+
+        const rim = new THREE.SpotLight(opts.rimColor || 0xffe1a8, opts.rimIntensity || 2.5, 16, Math.PI / 5.0, 0.5, 1.2);
+        rim.position.set(-2.4, 4.6, -3.0);
+        rim.target.position.set(0, 0, 0);
+        scene.add(rim);
+        scene.add(rim.target);
+
+        const pivot = new THREE.Group();
+        scene.add(pivot);
+
+        let mesh = null;
+        let loaded = false;
+        new THREE.GLTFLoader().load(
+          opts.glb,
+          function (gltf) {
+            mesh = gltf.scene;
+            mesh.traverse(function (child) {
+              if (child.isMesh) {
+                if (!child.geometry.attributes.normal) child.geometry.computeVertexNormals();
+                if (child.material && child.material.isMeshStandardMaterial) {
+                  child.material.envMapIntensity = opts.envMapIntensity || 1.0;
+                  child.material.emissiveIntensity = 0.0;
+                  child.material.needsUpdate = true;
+                }
+              }
+            });
+            // Center
+            let box = new THREE.Box3().setFromObject(mesh);
+            const center = box.getCenter(new THREE.Vector3());
+            mesh.position.sub(center);
+            // Re-measure
+            box = new THREE.Box3().setFromObject(mesh);
+            const size = box.getSize(new THREE.Vector3());
+            const dims = [size.x, size.y, size.z];
+            const sortedIdx = dims.map(function (v, i) { return { v: v, i: i }; })
+                                  .sort(function (a, b) { return b.v - a.v; });
+            const longest = sortedIdx[0].i;
+            // For barrel/pillar — keep tall objects vertical (longest=Y is fine);
+            // for gold bar — longest=X is target. The opts.orient flag picks behavior.
+            if (opts.orient === "horizontal") {
+              if (longest === 2) mesh.rotation.y = Math.PI / 2;
+              else if (longest === 1) mesh.rotation.z = Math.PI / 2;
+            } else if (opts.orient === "vertical") {
+              if (longest === 0) mesh.rotation.z = Math.PI / 2;
+              else if (longest === 2) mesh.rotation.x = Math.PI / 2;
+            }
+            // Scale to fit
+            const orientedBox = new THREE.Box3().setFromObject(mesh);
+            const orientedSize = orientedBox.getSize(new THREE.Vector3());
+            const targetExtent = opts.orient === "vertical"
+              ? (opts.targetHeight || 2.4) / orientedSize.y
+              : (opts.targetWidth || 1.55) / orientedSize.x;
+            mesh.scale.setScalar(targetExtent);
+            // Re-center
+            const finalBox = new THREE.Box3().setFromObject(mesh);
+            const finalCenter = finalBox.getCenter(new THREE.Vector3());
+            mesh.position.sub(finalCenter);
+            pivot.add(mesh);
+            loaded = true;
+          },
+          undefined,
+          function (err) {
+            console.error("GLB load failed for " + opts.glb + ":", err);
+            if (fallbackEl) fallbackEl.style.display = "flex";
+          }
+        );
+
+        const state = {
+          camZ: 9.0, camY: 0.15,
+          rotY: opts.startRotY || -0.45,
+          rotX: opts.startRotX || 0.30,
+          rotZ: 0.0,
+          opacity: 0
+        };
+
+        function renderFrame() {
+          camera.position.z = state.camZ;
+          camera.position.y = state.camY;
+          camera.lookAt(0, 0.05, 0);
+          pivot.rotation.x = state.rotX;
+          pivot.rotation.y = state.rotY;
+          pivot.rotation.z = state.rotZ;
+          if (mesh) {
+            mesh.traverse(function (child) {
+              if (child.isMesh && child.material) {
+                child.material.opacity = state.opacity;
+                child.material.transparent = state.opacity < 1;
+              }
+            });
+          }
+          renderer.render(scene, camera);
+        }
+
+        // Initial render (also re-runs after GLB loads via timeline ticks)
+        renderFrame();
+
+        return { state: state, render: renderFrame };
+      }
+
+      /* ============================================================
+         BEAT 9 — CINEMA 3D : GOLD (24 - 28.5s)
+         ============================================================ */
+      (function () {
+        const start = 24.0;
+        const beat = createCinema3D({
+          canvasId: "b9-canvas",
+          fallbackId: "b9-fallback",
+          glb: "assets/models/gold-bar.glb",
+          orient: "horizontal",
+          targetWidth: 1.55,
+          envMapIntensity: 1.0
+        });
+        if (!beat) return;
+        const s = beat.state;
+
+        tl.fromTo("#b9-tag", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.4 }, start + 0.05);
+        // bar fades in + camera dolly + slow orbit
+        tl.to(s, {
+          camZ: 8.4, camY: 0.18,
+          rotY: 0.40, rotX: 0.30, opacity: 1,
+          duration: 1.6, ease: "power2.out", onUpdate: beat.render
+        }, start + 0.10);
+        tl.to(s, {
+          rotY: 0.85, duration: 2.6, ease: "none", onUpdate: beat.render
+        }, start + 1.70);
+
+        // Overlays
+        tl.fromTo("#b9-eyebrow", { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.4 }, start + 0.50);
+        tl.fromTo("#b9-badge",
+          { opacity: 0, scale: 0.5, y: -30 },
+          { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "back.out(2)" },
+          start + 0.85);
+        tl.fromTo("#b9-bottom", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.45 }, start + 1.40);
+        tl.fromTo("#b9-caption", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45 }, start + 2.40);
+      })();
+
+      /* ============================================================
+         BEAT 10 — CINEMA 3D : OIL (28.5 - 33s)
+         ============================================================ */
+      (function () {
+        const start = 28.5;
+        const beat = createCinema3D({
+          canvasId: "b10-canvas",
+          fallbackId: "b10-fallback",
+          glb: "assets/models/oil-barrel.glb",
+          orient: "vertical",
+          targetHeight: 2.4,
+          envMapIntensity: 1.2,
+          keyColor: 0xfff0d4,
+          keyIntensity: 3.6,
+          rimColor: 0xa8c8ff,
+          rimIntensity: 2.2,
+          startRotY: -0.30,
+          startRotX: 0.10
+        });
+        if (!beat) return;
+        const s = beat.state;
+
+        tl.fromTo("#b10-tag", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.4 }, start + 0.05);
+        tl.to(s, {
+          camZ: 8.2, camY: 0.10,
+          rotY: 0.30, rotX: 0.10, opacity: 1,
+          duration: 1.5, ease: "power2.out", onUpdate: beat.render
+        }, start + 0.10);
+        tl.to(s, {
+          rotY: 0.85, duration: 2.7, ease: "none", onUpdate: beat.render
+        }, start + 1.60);
+
+        tl.fromTo("#b10-eyebrow", { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.4 }, start + 0.50);
+        tl.fromTo("#b10-badge",
+          { opacity: 0, scale: 0.5, y: -30 },
+          { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "back.out(2)" },
+          start + 0.85);
+        tl.fromTo("#b10-bottom", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.45 }, start + 1.40);
+        tl.fromTo("#b10-caption", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45 }, start + 2.40);
+      })();
+
+      /* ============================================================
+         BEAT 11 — CINEMA 3D : PILLAR (33 - 37.5s)
+         ============================================================ */
+      (function () {
+        const start = 33.0;
+        const beat = createCinema3D({
+          canvasId: "b11-canvas",
+          fallbackId: "b11-fallback",
+          glb: "assets/models/fed-pillar.glb",
+          orient: "vertical",
+          targetHeight: 2.6,
+          envMapIntensity: 0.8,
+          exposure: 1.1,
+          keyColor: 0xffffff,
+          keyIntensity: 3.8,
+          rimColor: 0xc8d8ff,
+          rimIntensity: 2.0,
+          startRotY: -0.20,
+          startRotX: 0.05
+        });
+        if (!beat) return;
+        const s = beat.state;
+
+        tl.fromTo("#b11-tag", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.4 }, start + 0.05);
+        tl.to(s, {
+          camZ: 8.0, camY: 0.05,
+          rotY: 0.20, rotX: 0.05, opacity: 1,
+          duration: 1.5, ease: "power2.out", onUpdate: beat.render
+        }, start + 0.10);
+        tl.to(s, {
+          rotY: 0.65, duration: 2.7, ease: "none", onUpdate: beat.render
+        }, start + 1.60);
+
+        tl.fromTo("#b11-eyebrow", { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.4 }, start + 0.50);
+        tl.fromTo("#b11-badge",
+          { opacity: 0, scale: 0.5, y: -30 },
+          { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "back.out(2)" },
+          start + 0.85);
+        tl.fromTo("#b11-bottom", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.45 }, start + 1.40);
+        tl.fromTo("#b11-caption", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45 }, start + 2.40);
+      })();
+
+      /* ============================================================
+         BEAT 12 — MARKET PULSE OPEN (5-column logo grid, dim ambient)
+         ============================================================ */
+      (function () {
+        const start = 37.5;
+        const cvs = document.getElementById("b12-canvas");
+        const ctx = cvs ? cvs.getContext("2d") : null;
+        const rand = mulberry32(7777);
+
+        // Same 5-column layout as Beat 8, but slower + lower opacity so the
+        // pattern reads as ambient background, not subject.
+        const COLS = 5;
+        const PER_COL = 8;
+        const SPACING = 260;
+        const RADIUS = 76;
+        const SPEED = 70;
+        const COL_HEIGHT = PER_COL * SPACING;
+        const COL_W = 1080 / COLS;
+
+        const order = shuffleSeq(LOGO_IMAGES.length, rand);
+        let cursor = 0;
+        const columns = [];
+        for (let c = 0; c < COLS; c++) {
+          const items = [];
+          for (let i = 0; i < PER_COL; i++) {
+            items.push({
+              idx: order[cursor % order.length],
+              opacity: 0.20 + rand() * 0.14
+            });
+            cursor++;
+          }
+          columns.push({
+            cx: COL_W * c + COL_W / 2,
+            dir: (c % 2 === 0) ? 1 : -1,
+            seedOffset: rand() * SPACING,
+            items: items
+          });
+        }
+
+        function drawOrbDim(cx, cy, opacity, idx) {
+          ctx.fillStyle = "rgba(28,35,41," + (opacity * 0.82) + ")";
+          ctx.beginPath();
+          ctx.arc(cx, cy, RADIUS, 0, Math.PI * 2);
+          ctx.fill();
+          const img = LOGO_IMAGES[idx];
+          if (isReady(img)) {
+            const inner = RADIUS * 1.18;
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(cx, cy, RADIUS - 2, 0, Math.PI * 2);
+            ctx.clip();
+            ctx.globalAlpha = Math.min(1, opacity * 1.3);
+            ctx.drawImage(img, cx - inner / 2, cy - inner / 2, inner, inner);
+            ctx.globalAlpha = 1;
+            ctx.restore();
+          }
+        }
+
+        function drawPulse(t) {
+          if (!ctx) return;
+          ctx.clearRect(0, 0, 1080, 1920);
+          for (let c = 0; c < COLS; c++) {
+            const col = columns[c];
+            const baseShift = col.dir * t * SPEED + col.seedOffset;
+            for (let i = 0; i < PER_COL; i++) {
+              const item = col.items[i];
+              const naturalY = i * SPACING;
+              let y = ((naturalY + baseShift) % COL_HEIGHT + COL_HEIGHT) % COL_HEIGHT;
+              y = y - SPACING;
+              if (y < -RADIUS * 2 || y > 1920 + RADIUS * 2) continue;
+              drawOrbDim(col.cx, y, item.opacity, item.idx);
+            }
+          }
+        }
+        const p = { t: 0 };
+        tl.to(p, { t: 3, duration: 3, ease: "none", onUpdate: function () { drawPulse(p.t); } }, start);
+
+        tl.fromTo("#b12-tag", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.4 }, start + 0.05);
+        tl.fromTo("#b12-date",
+          { opacity: 0, scale: 0.7, y: -20 },
+          { opacity: 1, scale: 1, y: 0, duration: 0.45, ease: "back.out(1.7)" },
+          start + 0.20);
+        tl.fromTo("#b12-title",
+          { opacity: 0, y: 28, scale: 0.96 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "power3.out" },
+          start + 0.55);
+        tl.fromTo("#b12-logo",
+          { opacity: 0, scale: 0.5 },
+          { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" },
+          start + 1.10);
+        tl.fromTo("#b12-caption", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45 }, start + 1.50);
+      })();
+
+      /* ============================================================
+         BEAT 13 — SIGN OFF (composite — Logo + tagline + host pill)
+         ============================================================ */
+      (function () {
+        const start = 40.5;
+        tl.fromTo("#b13-tag", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.4 }, start + 0.05);
+        tl.fromTo("#b13-logo",
+          { opacity: 0, scale: 0.5 },
+          { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.8)" },
+          start + 0.20);
+        tl.fromTo("#b13-tagline",
+          { opacity: 0, y: 30, scale: 0.96 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "power3.out" },
+          start + 0.45);
+        tl.fromTo("#b13-host",
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" },
+          start + 0.95);
+        tl.fromTo("#b13-caption", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45 }, start + 1.30);
+      })();
+
+      window.__timelines["bloom-components-showreel"] = tl;
+    </script>
+  </body>
+</html>

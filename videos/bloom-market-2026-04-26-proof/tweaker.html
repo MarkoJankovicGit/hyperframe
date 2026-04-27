@@ -1,0 +1,595 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Gold Bar Tweaker</title>
+    <style>
+      html, body { margin: 0; padding: 0; height: 100%; background: #000; overflow: hidden; font-family: system-ui, sans-serif; }
+      canvas { display: block; }
+      #hud {
+        position: fixed; bottom: 14px; left: 14px;
+        color: #888; font-family: ui-monospace, "SF Mono", Menlo, monospace;
+        font-size: 11px; line-height: 1.6;
+        pointer-events: none; user-select: none;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+      }
+      #hud b { color: #ddd; }
+      #toast {
+        position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+        background: rgba(20,20,20,0.92); color: #ffe1a8;
+        padding: 18px 28px; border-radius: 12px;
+        font-family: ui-monospace, monospace; font-size: 14px;
+        opacity: 0; transition: opacity 0.25s;
+        pointer-events: none;
+        border: 1px solid rgba(255,200,100,0.25);
+        box-shadow: 0 14px 40px rgba(0,0,0,0.6);
+      }
+      #toast.show { opacity: 1; }
+      .lil-gui { --width: 320px !important; }
+    </style>
+  </head>
+  <body>
+    <div id="hud">
+      <b>drag</b> orbit · <b>scroll</b> zoom · <b>right-drag</b> pan<br/>
+      gui top-right · click <b>📋 Export</b> to copy settings
+    </div>
+    <div id="toast">copied to clipboard</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/three@0.137.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.137.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.137.0/examples/js/loaders/RGBELoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.137.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.137.0/examples/js/postprocessing/EffectComposer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.137.0/examples/js/postprocessing/RenderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.137.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.137.0/examples/js/postprocessing/ShaderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.137.0/examples/js/shaders/CopyShader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.137.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lil-gui@0.19.2/dist/lil-gui.umd.min.js"></script>
+
+    <script>
+      // ===================================================================
+      // Live settings — every one is exposed in lil-gui below.
+      // ===================================================================
+      const S = {
+        // Renderer
+        toneMapping: "Cineon",
+        exposure: 1.0,
+        bgColor: "#050505",
+
+        // Material (multipliers on top of GLB's PBR maps)
+        metalnessMult: 1.0,
+        roughnessMult: 1.0,
+        envMapIntensity: 1.0,
+        emissiveIntensity: 0.0,
+
+        // Lights
+        hemiIntensity: 0.0,
+        hemiSkyColor: "#ffe6b8",
+        hemiGroundColor: "#1a3a8a",
+
+        keyIntensity: 4.0,
+        keyColor: "#fff0d4",
+        keyX: 2.8, keyY: 3.6, keyZ: 3.4,
+
+        fillIntensity: 0.0,
+        fillColor: "#82a8ff",
+        fillX: -3.5, fillY: 1.4, fillZ: 3.0,
+
+        rimIntensity: 2.5,
+        rimColor: "#ffe1a8",
+        rimX: -2.4, rimY: 4.6, rimZ: -3.0,
+
+        // Bloom
+        bloomEnabled: false,
+        bloomStrength: 0.25,
+        bloomRadius: 0.50,
+        bloomThreshold: 0.88,
+
+        // Floor
+        floorVisible: false,
+        floorColor: "#000000",
+        floorMetalness: 0.70,
+        floorRoughness: 0.30,
+        floorEnvMap: 0.05,
+        floorY: -0.28,
+        floorSize: 20,
+
+        // Fog
+        fogEnabled: true,
+        fogColor: "#000000",
+        fogNear: 5.5,
+        fogFar: 13.0,
+
+        // Bar pose (static — overlap not animated here)
+        barRotX: 0.30,
+        barRotY: 0.40,
+        barRotZ: 0.0,
+        barTargetWidth: 1.55,
+
+        // Asset selection
+        hdri: "assets/studio.hdr",
+        glb: "assets/gold-bar.glb",
+
+        // Environment rotation (rotates bar + lights together against fixed
+        // HDRi — visually identical to rotating the HDRi sphere)
+        worldRotation: 0,
+        autoRotate: false,
+        autoRotateSpeed: 0.5,    // radians per second
+        showEnvAsBg: false,
+
+        // Camera
+        camY: 0.18,
+        camZ: 8.4,
+        camFov: 22,
+        lookAtY: 0.05,
+
+        // Actions
+        export() { exportSettings(); },
+        reset() { window.location.reload(); }
+      };
+
+      const HDRI_OPTIONS = [
+        "assets/studio.hdr",                            // current — studio_small_03 (bright softbox, dark walls)
+        "assets/studio-photostudio01.hdr",              // photo_studio_01 (single overhead softbox, soft)
+        "assets/studio-softboxes-cluttered.hdr",        // studio_small_08 (multiple softboxes)
+        "assets/studio-warm-photostudio-02.hdr"         // brown_photostudio_02 (warm even)
+      ];
+      const GLB_OPTIONS = [
+        "assets/gold-bar.glb",                          // current — points to v2 PBR
+        "assets/gold-bar-v2-pbr.glb",                   // ★ v2: NEW cleaner ref + full PBR maps
+        "assets/gold-bar-v1-pbr.glb",                   // v1: original ref + full PBR maps
+        "assets/gold-bar-pbr.glb",                      // older PBR attempt
+        "assets/gold-bar-pbr-v3.glb",                   // older PBR attempt
+        "assets/gold-bar-textured-with-text.glb",       // basecolor + text gibberish
+        "assets/gold-bar-textured-no-pbr.glb",          // basecolor only (no PBR)
+        "assets/gold-bar-no-texture.glb",               // bare geometry
+        "assets/gold-bar-text-gen.glb",                 // original text-to-3D refined
+        "assets/gold-bar-preview.glb",                  // preview only
+        "assets/gold-bar-lowpoly.glb"                   // lowpoly geometry
+      ];
+
+      const TONE_MAPPING_OPTIONS = ["None", "Linear", "Reinhard", "Cineon", "ACES"];
+
+      // ===================================================================
+      // Scene setup
+      // ===================================================================
+      const renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: false,
+        powerPreference: "high-performance"
+      });
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.outputEncoding = THREE.sRGBEncoding;
+      renderer.physicallyCorrectLights = false;
+      document.body.appendChild(renderer.domElement);
+
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(S.bgColor);
+
+      const camera = new THREE.PerspectiveCamera(S.camFov, window.innerWidth / window.innerHeight, 0.05, 100);
+      camera.position.set(0, S.camY, S.camZ);
+      camera.lookAt(0, S.lookAtY, 0);
+
+      const controls = new THREE.OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.08;
+      controls.target.set(0, S.lookAtY, 0);
+
+      // ----- World group (rotates bar + lights together, simulates env rotation) -----
+      const worldGroup = new THREE.Group();
+      scene.add(worldGroup);
+
+      // ----- Lights -----
+      // Hemi is direction-less, stays at scene root (not affected by rotation)
+      const hemi = new THREE.HemisphereLight(S.hemiSkyColor, S.hemiGroundColor, S.hemiIntensity);
+      scene.add(hemi);
+
+      // Directional/spot lights go in worldGroup so they rotate with the bar
+      const key = new THREE.DirectionalLight(S.keyColor, S.keyIntensity);
+      key.position.set(S.keyX, S.keyY, S.keyZ);
+      worldGroup.add(key);
+      worldGroup.add(key.target);
+
+      const fill = new THREE.DirectionalLight(S.fillColor, S.fillIntensity);
+      fill.position.set(S.fillX, S.fillY, S.fillZ);
+      worldGroup.add(fill);
+      worldGroup.add(fill.target);
+
+      const rim = new THREE.SpotLight(S.rimColor, S.rimIntensity, 16, Math.PI / 5.0, 0.5, 1.2);
+      rim.position.set(S.rimX, S.rimY, S.rimZ);
+      rim.target.position.set(0, 0, 0);
+      worldGroup.add(rim);
+      worldGroup.add(rim.target);
+
+      // ----- Floor -----
+      const groundGeo = new THREE.PlaneGeometry(S.floorSize, S.floorSize);
+      const groundMat = new THREE.MeshStandardMaterial({
+        color: S.floorColor,
+        metalness: S.floorMetalness,
+        roughness: S.floorRoughness,
+        envMapIntensity: S.floorEnvMap
+      });
+      const ground = new THREE.Mesh(groundGeo, groundMat);
+      ground.rotation.x = -Math.PI / 2;
+      ground.position.y = S.floorY;
+      scene.add(ground);
+
+      // ----- Fog -----
+      scene.fog = new THREE.Fog(S.fogColor, S.fogNear, S.fogFar);
+
+      // ----- HDRi loader (PMREMGenerator for environment maps) -----
+      const pmrem = new THREE.PMREMGenerator(renderer);
+      pmrem.compileEquirectangularShader();
+
+      function loadHDRi(path) {
+        return new Promise(function (resolve, reject) {
+          new THREE.RGBELoader().load(path, function (hdr) {
+            hdr.mapping = THREE.EquirectangularReflectionMapping;
+            const envMap = pmrem.fromEquirectangular(hdr).texture;
+            scene.environment = envMap;
+            hdr.dispose();
+            resolve();
+          }, undefined, reject);
+        });
+      }
+
+      // ----- Bar pivot (lives inside worldGroup so it rotates with lights) -----
+      const barPivot = new THREE.Group();
+      barPivot.rotation.set(S.barRotX, S.barRotY, S.barRotZ);
+      worldGroup.add(barPivot);
+
+      let barInner = null;
+      function loadBar(path) {
+        // remove old bar
+        while (barPivot.children.length > 0) {
+          const c = barPivot.children[0];
+          barPivot.remove(c);
+          c.traverse(function (n) {
+            if (n.isMesh) {
+              n.geometry?.dispose();
+              if (n.material?.map) n.material.map.dispose();
+              n.material?.dispose();
+            }
+          });
+        }
+        return new Promise(function (resolve, reject) {
+          new THREE.GLTFLoader().load(path, function (gltf) {
+            const bar = gltf.scene;
+            bar.traverse(function (child) {
+              if (child.isMesh) {
+                if (!child.geometry.attributes.normal) {
+                  child.geometry.computeVertexNormals();
+                }
+              }
+            });
+            // Center
+            let box = new THREE.Box3().setFromObject(bar);
+            const center = box.getCenter(new THREE.Vector3());
+            bar.position.sub(center);
+            // Re-measure
+            box = new THREE.Box3().setFromObject(bar);
+            const size = box.getSize(new THREE.Vector3());
+            const dims = [size.x, size.y, size.z];
+            const sortedIdx = dims
+              .map(function (v, i) { return { v: v, i: i }; })
+              .sort(function (a, b) { return b.v - a.v; });
+            const longest = sortedIdx[0].i;
+            if (longest === 2) bar.rotation.y = Math.PI / 2;
+            else if (longest === 1) bar.rotation.z = Math.PI / 2;
+            // Rescale & recenter
+            const oriented = new THREE.Box3().setFromObject(bar);
+            const ortSize = oriented.getSize(new THREE.Vector3());
+            const scale = S.barTargetWidth / ortSize.x;
+            bar.scale.setScalar(scale);
+            const finalBox = new THREE.Box3().setFromObject(bar);
+            const finalCenter = finalBox.getCenter(new THREE.Vector3());
+            bar.position.sub(finalCenter);
+            barPivot.add(bar);
+            barInner = bar;
+            applyMaterialOverrides();
+            resolve();
+          }, undefined, reject);
+        });
+      }
+
+      function applyMaterialOverrides() {
+        if (!barInner) return;
+        barInner.traverse(function (child) {
+          if (child.isMesh && child.material && child.material.isMeshStandardMaterial) {
+            if (!child.userData.origMetalness) {
+              child.userData.origMetalness = child.material.metalness;
+              child.userData.origRoughness = child.material.roughness;
+            }
+            child.material.metalness = child.userData.origMetalness * S.metalnessMult;
+            child.material.roughness = child.userData.origRoughness * S.roughnessMult;
+            child.material.envMapIntensity = S.envMapIntensity;
+            child.material.emissiveIntensity = S.emissiveIntensity;
+            child.material.needsUpdate = true;
+          }
+        });
+      }
+
+      // ----- Postprocessing -----
+      let composer, bloom;
+      function buildComposer() {
+        composer = new THREE.EffectComposer(renderer);
+        composer.setPixelRatio(window.devicePixelRatio);
+        composer.setSize(window.innerWidth, window.innerHeight);
+        composer.addPass(new THREE.RenderPass(scene, camera));
+        bloom = new THREE.UnrealBloomPass(
+          new THREE.Vector2(window.innerWidth, window.innerHeight),
+          S.bloomStrength, S.bloomRadius, S.bloomThreshold
+        );
+        composer.addPass(bloom);
+      }
+      buildComposer();
+
+      // ----- Tone mapping mapper -----
+      const TM = {
+        None: THREE.NoToneMapping,
+        Linear: THREE.LinearToneMapping,
+        Reinhard: THREE.ReinhardToneMapping,
+        Cineon: THREE.CineonToneMapping,
+        ACES: THREE.ACESFilmicToneMapping
+      };
+
+      // ===================================================================
+      // GUI
+      // ===================================================================
+      const GUI = window.lil && window.lil.GUI ? window.lil.GUI : window.GUI;
+      const gui = new GUI({ title: "Gold Bar Tweaker", width: 340 });
+
+      const fRender = gui.addFolder("Renderer");
+      fRender.add(S, "toneMapping", TONE_MAPPING_OPTIONS).onChange(applyAll);
+      fRender.add(S, "exposure", 0.1, 3.0, 0.01).onChange(applyAll);
+      fRender.addColor(S, "bgColor").onChange(applyAll);
+
+      const fAssets = gui.addFolder("Assets");
+      fAssets.add(S, "hdri", HDRI_OPTIONS).onChange(function (v) { loadHDRi(v).then(applyAll); });
+      fAssets.add(S, "glb", GLB_OPTIONS).onChange(function (v) { loadBar(v); });
+
+      const fEnv = gui.addFolder("Environment Rotation");
+      const ctrlWorldRot = fEnv.add(S, "worldRotation", -Math.PI, Math.PI, 0.001).name("rotation (rad)");
+      ctrlWorldRot.onChange(applyAll);
+      fEnv.add(S, "autoRotate").name("auto-rotate");
+      fEnv.add(S, "autoRotateSpeed", 0, 3, 0.01).name("rotate speed (rad/s)");
+      fEnv.add(S, "showEnvAsBg").name("show HDRi as bg").onChange(applyAll);
+
+      const fMat = gui.addFolder("Bar Material");
+      fMat.add(S, "metalnessMult", 0.0, 2.0, 0.01).onChange(applyMaterialOverrides);
+      fMat.add(S, "roughnessMult", 0.0, 3.0, 0.01).onChange(applyMaterialOverrides);
+      fMat.add(S, "envMapIntensity", 0.0, 4.0, 0.01).onChange(applyMaterialOverrides);
+      fMat.add(S, "emissiveIntensity", 0.0, 1.0, 0.01).onChange(applyMaterialOverrides);
+
+      const fLights = gui.addFolder("Lights").close();
+
+      const fHemi = fLights.addFolder("Hemisphere").close();
+      fHemi.add(S, "hemiIntensity", 0, 4, 0.05).onChange(applyAll);
+      fHemi.addColor(S, "hemiSkyColor").onChange(applyAll);
+      fHemi.addColor(S, "hemiGroundColor").onChange(applyAll);
+
+      const fKey = fLights.addFolder("Key (Directional)");
+      fKey.add(S, "keyIntensity", 0, 12, 0.05).onChange(applyAll);
+      fKey.addColor(S, "keyColor").onChange(applyAll);
+      fKey.add(S, "keyX", -8, 8, 0.05).onChange(applyAll);
+      fKey.add(S, "keyY", -2, 10, 0.05).onChange(applyAll);
+      fKey.add(S, "keyZ", -8, 8, 0.05).onChange(applyAll);
+
+      const fFill = fLights.addFolder("Fill (Directional)").close();
+      fFill.add(S, "fillIntensity", 0, 6, 0.05).onChange(applyAll);
+      fFill.addColor(S, "fillColor").onChange(applyAll);
+      fFill.add(S, "fillX", -8, 8, 0.05).onChange(applyAll);
+      fFill.add(S, "fillY", -2, 10, 0.05).onChange(applyAll);
+      fFill.add(S, "fillZ", -8, 8, 0.05).onChange(applyAll);
+
+      const fRim = fLights.addFolder("Rim (Spot)");
+      fRim.add(S, "rimIntensity", 0, 12, 0.05).onChange(applyAll);
+      fRim.addColor(S, "rimColor").onChange(applyAll);
+      fRim.add(S, "rimX", -8, 8, 0.05).onChange(applyAll);
+      fRim.add(S, "rimY", -2, 10, 0.05).onChange(applyAll);
+      fRim.add(S, "rimZ", -8, 8, 0.05).onChange(applyAll);
+
+      const fBloom = gui.addFolder("Bloom").close();
+      fBloom.add(S, "bloomEnabled").onChange(applyAll);
+      fBloom.add(S, "bloomStrength", 0, 2, 0.01).onChange(applyAll);
+      fBloom.add(S, "bloomRadius", 0, 2, 0.01).onChange(applyAll);
+      fBloom.add(S, "bloomThreshold", 0, 1, 0.01).onChange(applyAll);
+
+      const fFloor = gui.addFolder("Floor").close();
+      fFloor.add(S, "floorVisible").onChange(applyAll);
+      fFloor.addColor(S, "floorColor").onChange(applyAll);
+      fFloor.add(S, "floorMetalness", 0, 1, 0.01).onChange(applyAll);
+      fFloor.add(S, "floorRoughness", 0, 1, 0.01).onChange(applyAll);
+      fFloor.add(S, "floorEnvMap", 0, 2, 0.01).onChange(applyAll);
+      fFloor.add(S, "floorY", -2, 1, 0.01).onChange(applyAll);
+      fFloor.add(S, "floorSize", 2, 50, 0.5).onChange(function (v) {
+        ground.geometry.dispose();
+        ground.geometry = new THREE.PlaneGeometry(v, v);
+      });
+
+      const fFog = gui.addFolder("Fog").close();
+      fFog.add(S, "fogEnabled").onChange(applyAll);
+      fFog.addColor(S, "fogColor").onChange(applyAll);
+      fFog.add(S, "fogNear", 0, 30, 0.1).onChange(applyAll);
+      fFog.add(S, "fogFar", 0, 50, 0.1).onChange(applyAll);
+
+      const fBar = gui.addFolder("Bar Pose");
+      fBar.add(S, "barRotX", -Math.PI, Math.PI, 0.01).onChange(applyAll);
+      fBar.add(S, "barRotY", -Math.PI, Math.PI, 0.01).onChange(applyAll);
+      fBar.add(S, "barRotZ", -Math.PI, Math.PI, 0.01).onChange(applyAll);
+
+      const fActions = gui.addFolder("Actions");
+      fActions.add(S, "export").name("📋 Export settings to clipboard");
+      fActions.add(S, "reset").name("↺ Reset (reload page)");
+
+      // ===================================================================
+      // applyAll — pushes every setting to its target on each tick
+      // ===================================================================
+      function applyAll() {
+        renderer.toneMapping = TM[S.toneMapping];
+        renderer.toneMappingExposure = S.exposure;
+
+        // Background: solid color OR the HDRi env map (debug view)
+        if (S.showEnvAsBg && scene.environment) {
+          scene.background = scene.environment;
+        } else {
+          scene.background = new THREE.Color(S.bgColor);
+        }
+
+        // World group rotation simulates HDRi rotation:
+        // bar + lights rotate together against fixed HDRi.
+        worldGroup.rotation.y = S.worldRotation;
+
+        hemi.intensity = S.hemiIntensity;
+        hemi.color.set(S.hemiSkyColor);
+        hemi.groundColor.set(S.hemiGroundColor);
+
+        key.intensity = S.keyIntensity;
+        key.color.set(S.keyColor);
+        key.position.set(S.keyX, S.keyY, S.keyZ);
+
+        fill.intensity = S.fillIntensity;
+        fill.color.set(S.fillColor);
+        fill.position.set(S.fillX, S.fillY, S.fillZ);
+
+        rim.intensity = S.rimIntensity;
+        rim.color.set(S.rimColor);
+        rim.position.set(S.rimX, S.rimY, S.rimZ);
+
+        if (bloom) {
+          bloom.enabled = S.bloomEnabled;
+          bloom.strength = S.bloomStrength;
+          bloom.radius = S.bloomRadius;
+          bloom.threshold = S.bloomThreshold;
+        }
+
+        ground.visible = S.floorVisible;
+        groundMat.color.set(S.floorColor);
+        groundMat.metalness = S.floorMetalness;
+        groundMat.roughness = S.floorRoughness;
+        groundMat.envMapIntensity = S.floorEnvMap;
+        ground.position.y = S.floorY;
+        groundMat.needsUpdate = true;
+
+        if (S.fogEnabled) {
+          if (!scene.fog) scene.fog = new THREE.Fog(S.fogColor, S.fogNear, S.fogFar);
+          scene.fog.color.set(S.fogColor);
+          scene.fog.near = S.fogNear;
+          scene.fog.far = S.fogFar;
+        } else {
+          scene.fog = null;
+        }
+
+        barPivot.rotation.set(S.barRotX, S.barRotY, S.barRotZ);
+        applyMaterialOverrides();
+      }
+
+      // ===================================================================
+      // Export — copy current settings to clipboard as paste-ready JS
+      // ===================================================================
+      function exportSettings() {
+        const lines = [
+          "// === GOLD BAR LOOK — exported from tweaker ===",
+          "// Paste these into the production composition.",
+          "",
+          "// renderer",
+          "renderer.toneMapping = THREE." + S.toneMapping + (S.toneMapping === "None" ? "ToneMapping" : (S.toneMapping === "ACES" ? "FilmicToneMapping" : "ToneMapping")) + ";",
+          "renderer.toneMappingExposure = " + S.exposure + ";",
+          "renderer.setClearColor(0x" + S.bgColor.replace("#", "") + ", 1.0);",
+          "",
+          "// material (multipliers on Meshy PBR maps)",
+          "//   metalness  = origMetalness * " + S.metalnessMult,
+          "//   roughness  = origRoughness * " + S.roughnessMult,
+          "child.material.envMapIntensity = " + S.envMapIntensity + ";",
+          "child.material.emissiveIntensity = " + S.emissiveIntensity + ";",
+          "",
+          "// lights",
+          "hemi.intensity = " + S.hemiIntensity + ";",
+          "key.intensity = " + S.keyIntensity + ";",
+          "key.color.set('" + S.keyColor + "');",
+          "key.position.set(" + S.keyX + ", " + S.keyY + ", " + S.keyZ + ");",
+          "fill.intensity = " + S.fillIntensity + ";",
+          "rim.intensity = " + S.rimIntensity + ";",
+          "rim.color.set('" + S.rimColor + "');",
+          "rim.position.set(" + S.rimX + ", " + S.rimY + ", " + S.rimZ + ");",
+          "",
+          "// bloom",
+          "bloom.strength = " + S.bloomStrength + ";",
+          "bloom.radius = " + S.bloomRadius + ";",
+          "bloom.threshold = " + S.bloomThreshold + ";",
+          "",
+          "// floor",
+          "ground.visible = " + S.floorVisible + ";",
+          "groundMat.color.set('" + S.floorColor + "');",
+          "groundMat.metalness = " + S.floorMetalness + ";",
+          "groundMat.roughness = " + S.floorRoughness + ";",
+          "groundMat.envMapIntensity = " + S.floorEnvMap + ";",
+          "ground.position.y = " + S.floorY + ";",
+          "",
+          "// fog",
+          S.fogEnabled
+            ? "scene.fog = new THREE.Fog(0x" + S.fogColor.replace("#", "") + ", " + S.fogNear + ", " + S.fogFar + ");"
+            : "scene.fog = null;",
+          "",
+          "// bar pose (initial; production overrides via GSAP timeline)",
+          "barPivot.rotation.set(" + S.barRotX + ", " + S.barRotY + ", " + S.barRotZ + ");",
+          "",
+          "// assets",
+          "// hdri = " + S.hdri,
+          "// glb  = " + S.glb,
+          ""
+        ];
+        const out = lines.join("\n");
+        console.log(out);
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(out).then(showToast);
+        } else {
+          showToast();
+        }
+      }
+
+      function showToast() {
+        const t = document.getElementById("toast");
+        t.classList.add("show");
+        setTimeout(function () { t.classList.remove("show"); }, 1400);
+      }
+
+      // ===================================================================
+      // Init: load HDRi + bar, then render loop
+      // ===================================================================
+      Promise.all([loadHDRi(S.hdri), loadBar(S.glb)]).then(function () {
+        applyAll();
+        animate();
+      });
+
+      let lastT = performance.now();
+      function animate() {
+        requestAnimationFrame(animate);
+        const now = performance.now();
+        const dt = (now - lastT) / 1000;
+        lastT = now;
+        controls.update();
+        if (S.autoRotate) {
+          S.worldRotation += S.autoRotateSpeed * dt;
+          // Wrap to [-π, π] so the slider stays in range
+          if (S.worldRotation >  Math.PI) S.worldRotation -= 2 * Math.PI;
+          if (S.worldRotation < -Math.PI) S.worldRotation += 2 * Math.PI;
+          worldGroup.rotation.y = S.worldRotation;
+          ctrlWorldRot.updateDisplay();
+        }
+        if (S.bloomEnabled && composer) composer.render();
+        else renderer.render(scene, camera);
+      }
+
+      window.addEventListener("resize", function () {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        composer.setSize(window.innerWidth, window.innerHeight);
+        if (bloom) bloom.setSize(window.innerWidth, window.innerHeight);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,98 @@
+<template>
+  <div data-composition-id="bloom-risk-reward-beat-10" data-width="1080" data-height="1920" data-start="0" data-duration="5.60">
+    <style>
+      [data-composition-id="bloom-risk-reward-beat-10"] {
+        position: absolute; inset: 0;
+        background: #FFFFFF;
+        font-family: "Inter Tight", system-ui, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      #b10-eyebrow {
+        color: #4A4F54;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 32px;
+        letter-spacing: 0.2em;
+        margin-bottom: 40px;
+        opacity: 0;
+      }
+      #b10-step {
+        font-weight: 800;
+        font-style: italic;
+        text-transform: uppercase;
+        font-size: 180px;
+        line-height: 0.9;
+        color: #1C2329;
+        text-align: center;
+        margin-bottom: 60px;
+        opacity: 0;
+      }
+      #b10-progress-wrap {
+        width: 800px;
+        height: 24px;
+        background: #E8E9EA;
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 60px;
+      }
+      #b10-progress-fill {
+        width: 0%;
+        height: 100%;
+        background: #1658FF;
+      }
+      #b10-subtitle {
+        color: #1658FF;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 40px;
+        letter-spacing: 0.1em;
+        opacity: 0;
+      }
+    </style>
+
+    <div id="b10-eyebrow">YOU'VE FINISHED</div>
+    <div id="b10-step">STEP 1<br/>OF 2</div>
+    <div id="b10-progress-wrap">
+      <div id="b10-progress-fill"></div>
+    </div>
+    <div id="b10-subtitle">RELATIONSHIP MASTERED</div>
+
+    <script>
+      (function() {
+        const W = [
+          { word: "finished", t: 42.1, e: 42.4 },
+          { word: "first", t: 42.6, e: 42.9 },
+          { word: "step", t: 43.0, e: 43.2 },
+          { word: "relationship", t: 44.294, e: 44.8 }
+        ];
+        const offset = 41.10;
+        const _norm = s => s.toLowerCase().replace(/[^\p{L}\p{N}\s]/gu, "").trim();
+        function landOn(phrase, dur) {
+          const ws = _norm(phrase).split(/\s+/);
+          for (let i = 0; i <= W.length - ws.length; i++) {
+            let ok = true;
+            for (let j = 0; j < ws.length; j++) {
+              if (_norm(W[i + j].word) !== ws[j]) { ok = false; break; }
+            }
+            if (ok) return (W[i].t - offset) - dur;
+          }
+          return 0;
+        }
+
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        tl.fromTo("#b10-eyebrow", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" }, 0.3);
+        tl.fromTo("#b10-step", { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6, ease: "back.out(1.7)" }, 0.5);
+        tl.to("#b10-progress-fill", { width: "50%", duration: 1.0, ease: "power2.inOut" }, landOn("step", 0.5));
+        tl.fromTo("#b10-subtitle", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" }, landOn("relationship", 0.5));
+
+        window.__timelines["bloom-risk-reward-beat-10"] = tl;
+      })();
+    </script>
+  </div>
+</template>

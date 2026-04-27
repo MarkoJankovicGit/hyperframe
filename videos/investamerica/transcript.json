@@ -1,0 +1,423 @@
+[
+  {
+    "sceneId": "scene-01",
+    "text": "Every American child just got a one thousand dollar investment account. It's Invest America, a new program backed by the U S Treasury. With Bloom, you can turn that seed money into a lifelong head start. A I-powered education, copy trading, and zero commissions. Over four million children have already registered. Claim your account at bloom app dot com.",
+    "words": [
+      {
+        "word": "Every",
+        "start": 0,
+        "end": 0.395,
+        "startFrame": 0,
+        "endFrame": 12
+      },
+      {
+        "word": "American",
+        "start": 0.453,
+        "end": 0.906,
+        "startFrame": 14,
+        "endFrame": 27
+      },
+      {
+        "word": "child",
+        "start": 0.964,
+        "end": 1.347,
+        "startFrame": 29,
+        "endFrame": 40
+      },
+      {
+        "word": "just",
+        "start": 1.44,
+        "end": 1.625,
+        "startFrame": 43,
+        "endFrame": 49
+      },
+      {
+        "word": "got",
+        "start": 1.66,
+        "end": 1.8,
+        "startFrame": 50,
+        "endFrame": 54
+      },
+      {
+        "word": "a",
+        "start": 1.834,
+        "end": 1.858,
+        "startFrame": 55,
+        "endFrame": 56
+      },
+      {
+        "word": "one",
+        "start": 1.974,
+        "end": 2.287,
+        "startFrame": 59,
+        "endFrame": 69
+      },
+      {
+        "word": "thousand",
+        "start": 2.334,
+        "end": 2.775,
+        "startFrame": 70,
+        "endFrame": 83
+      },
+      {
+        "word": "dollar",
+        "start": 2.833,
+        "end": 3.158,
+        "startFrame": 85,
+        "endFrame": 95
+      },
+      {
+        "word": "investment",
+        "start": 3.228,
+        "end": 3.738,
+        "startFrame": 97,
+        "endFrame": 112
+      },
+      {
+        "word": "account.",
+        "start": 3.762,
+        "end": 4.319,
+        "startFrame": 113,
+        "endFrame": 130
+      },
+      {
+        "word": "It's",
+        "start": 4.923,
+        "end": 5.178,
+        "startFrame": 148,
+        "endFrame": 155
+      },
+      {
+        "word": "Invest",
+        "start": 5.248,
+        "end": 5.817,
+        "startFrame": 157,
+        "endFrame": 175
+      },
+      {
+        "word": "America,",
+        "start": 5.886,
+        "end": 6.664,
+        "startFrame": 177,
+        "endFrame": 200
+      },
+      {
+        "word": "a",
+        "start": 6.792,
+        "end": 6.873,
+        "startFrame": 204,
+        "endFrame": 206
+      },
+      {
+        "word": "new",
+        "start": 7.001,
+        "end": 7.198,
+        "startFrame": 210,
+        "endFrame": 216
+      },
+      {
+        "word": "program",
+        "start": 7.279,
+        "end": 7.779,
+        "startFrame": 218,
+        "endFrame": 233
+      },
+      {
+        "word": "backed",
+        "start": 7.86,
+        "end": 8.162,
+        "startFrame": 236,
+        "endFrame": 245
+      },
+      {
+        "word": "by",
+        "start": 8.197,
+        "end": 8.29,
+        "startFrame": 246,
+        "endFrame": 249
+      },
+      {
+        "word": "the",
+        "start": 8.336,
+        "end": 8.406,
+        "startFrame": 250,
+        "endFrame": 252
+      },
+      {
+        "word": "U",
+        "start": 8.487,
+        "end": 8.603,
+        "startFrame": 255,
+        "endFrame": 258
+      },
+      {
+        "word": "S",
+        "start": 8.696,
+        "end": 8.812,
+        "startFrame": 261,
+        "endFrame": 264
+      },
+      {
+        "word": "Treasury.",
+        "start": 8.87,
+        "end": 9.543,
+        "startFrame": 266,
+        "endFrame": 286
+      },
+      {
+        "word": "With",
+        "start": 9.927,
+        "end": 10.124,
+        "startFrame": 298,
+        "endFrame": 304
+      },
+      {
+        "word": "Bloom,",
+        "start": 10.182,
+        "end": 10.565,
+        "startFrame": 305,
+        "endFrame": 317
+      },
+      {
+        "word": "you",
+        "start": 10.646,
+        "end": 10.751,
+        "startFrame": 319,
+        "endFrame": 323
+      },
+      {
+        "word": "can",
+        "start": 10.809,
+        "end": 10.925,
+        "startFrame": 324,
+        "endFrame": 328
+      },
+      {
+        "word": "turn",
+        "start": 10.971,
+        "end": 11.204,
+        "startFrame": 329,
+        "endFrame": 336
+      },
+      {
+        "word": "that",
+        "start": 11.25,
+        "end": 11.401,
+        "startFrame": 338,
+        "endFrame": 342
+      },
+      {
+        "word": "seed",
+        "start": 11.471,
+        "end": 11.703,
+        "startFrame": 344,
+        "endFrame": 351
+      },
+      {
+        "word": "money",
+        "start": 11.749,
+        "end": 11.958,
+        "startFrame": 352,
+        "endFrame": 359
+      },
+      {
+        "word": "into",
+        "start": 12.028,
+        "end": 12.214,
+        "startFrame": 361,
+        "endFrame": 366
+      },
+      {
+        "word": "a",
+        "start": 12.307,
+        "end": 12.341,
+        "startFrame": 369,
+        "endFrame": 370
+      },
+      {
+        "word": "lifelong",
+        "start": 12.457,
+        "end": 13.038,
+        "startFrame": 374,
+        "endFrame": 391
+      },
+      {
+        "word": "head",
+        "start": 13.108,
+        "end": 13.27,
+        "startFrame": 393,
+        "endFrame": 398
+      },
+      {
+        "word": "start.",
+        "start": 13.328,
+        "end": 13.909,
+        "startFrame": 400,
+        "endFrame": 417
+      },
+      {
+        "word": "A",
+        "start": 14.42,
+        "end": 14.512,
+        "startFrame": 433,
+        "endFrame": 435
+      },
+      {
+        "word": "I-powered",
+        "start": 14.687,
+        "end": 15.348,
+        "startFrame": 441,
+        "endFrame": 460
+      },
+      {
+        "word": "education,",
+        "start": 15.418,
+        "end": 16.184,
+        "startFrame": 463,
+        "endFrame": 486
+      },
+      {
+        "word": "copy",
+        "start": 16.335,
+        "end": 16.695,
+        "startFrame": 490,
+        "endFrame": 501
+      },
+      {
+        "word": "trading,",
+        "start": 16.753,
+        "end": 17.183,
+        "startFrame": 503,
+        "endFrame": 515
+      },
+      {
+        "word": "and",
+        "start": 17.218,
+        "end": 17.45,
+        "startFrame": 517,
+        "endFrame": 524
+      },
+      {
+        "word": "zero",
+        "start": 17.543,
+        "end": 17.914,
+        "startFrame": 526,
+        "endFrame": 537
+      },
+      {
+        "word": "commissions.",
+        "start": 17.984,
+        "end": 18.738,
+        "startFrame": 540,
+        "endFrame": 562
+      },
+      {
+        "word": "Over",
+        "start": 19.122,
+        "end": 19.389,
+        "startFrame": 574,
+        "endFrame": 582
+      },
+      {
+        "word": "four",
+        "start": 19.505,
+        "end": 19.772,
+        "startFrame": 585,
+        "endFrame": 593
+      },
+      {
+        "word": "million",
+        "start": 19.865,
+        "end": 20.225,
+        "startFrame": 596,
+        "endFrame": 607
+      },
+      {
+        "word": "children",
+        "start": 20.283,
+        "end": 20.701,
+        "startFrame": 608,
+        "endFrame": 621
+      },
+      {
+        "word": "have",
+        "start": 20.759,
+        "end": 20.91,
+        "startFrame": 623,
+        "endFrame": 627
+      },
+      {
+        "word": "already",
+        "start": 20.979,
+        "end": 21.432,
+        "startFrame": 629,
+        "endFrame": 643
+      },
+      {
+        "word": "registered.",
+        "start": 21.513,
+        "end": 22.198,
+        "startFrame": 645,
+        "endFrame": 666
+      },
+      {
+        "word": "Claim",
+        "start": 22.581,
+        "end": 22.837,
+        "startFrame": 677,
+        "endFrame": 685
+      },
+      {
+        "word": "your",
+        "start": 22.883,
+        "end": 23.011,
+        "startFrame": 686,
+        "endFrame": 690
+      },
+      {
+        "word": "account",
+        "start": 23.046,
+        "end": 23.371,
+        "startFrame": 691,
+        "endFrame": 701
+      },
+      {
+        "word": "at",
+        "start": 23.441,
+        "end": 23.557,
+        "startFrame": 703,
+        "endFrame": 707
+      },
+      {
+        "word": "bloom",
+        "start": 23.615,
+        "end": 23.893,
+        "startFrame": 708,
+        "endFrame": 717
+      },
+      {
+        "word": "app",
+        "start": 24.009,
+        "end": 24.125,
+        "startFrame": 720,
+        "endFrame": 724
+      },
+      {
+        "word": "dot",
+        "start": 24.195,
+        "end": 24.393,
+        "startFrame": 726,
+        "endFrame": 732
+      },
+      {
+        "word": "com.",
+        "start": 24.462,
+        "end": 25.17,
+        "startFrame": 734,
+        "endFrame": 755
+      }
+    ],
+    "durationSeconds": 25.67,
+    "durationFrames": 770
+  }
+]

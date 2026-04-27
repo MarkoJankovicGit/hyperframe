@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beat 6: Stock Price Concept</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,700;0,800;1,700;1,800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; }
+
+    #beat6 {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      background: #FFFFFF;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Main headline */
+    .beat6-headline {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 920px;
+      line-height: 1.15;
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 800;
+      font-style: italic;
+      text-transform: uppercase;
+      color: #0F172A;
+      letter-spacing: -0.02em;
+      font-size: 100px;
+      margin-bottom: 120px;
+    }
+
+    /* Price tag SVG container */
+    .beat6-svg-container {
+      position: relative;
+      z-index: 2;
+      width: 500px;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+    }
+
+    .beat6-svg-container svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.12));
+    }
+
+    /* Price label above tag */
+    .beat6-label {
+      position: absolute;
+      z-index: 3;
+      font-family: "Inter", system-ui, sans-serif;
+      font-size: 40px;
+      font-weight: 700;
+      color: #4A4F54;
+      opacity: 0;
+      top: 60px;
+    }
+
+    /* Sub-label for "price" */
+    .beat6-sublabel {
+      position: absolute;
+      z-index: 3;
+      font-family: "Inter", system-ui, sans-serif;
+      font-size: 36px;
+      font-weight: 500;
+      color: #64748B;
+      opacity: 0;
+      bottom: 120px;
+    }
+  </style>
+</head>
+<body>
+  <template data-start="0" data-duration="5.22" data-composition-id="bloom-stock-ownership-beat-6" data-width="1080" data-height="1920">
+    <div id="beat6" class="scene" data-composition-id="bloom-stock-ownership-beat-6" data-width="1080" data-height="1920" data-start="0" data-duration="5.22">
+      <div class="beat6-headline">
+        Every stock has a stock price
+      </div>
+
+      <div class="beat6-svg-container">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet">
+          <!-- Price tag: rounded rectangle (tag shape) -->
+          <g>
+            <!-- Tag body -->
+            <rect
+              x="80"
+              y="60"
+              width="240"
+              height="160"
+              rx="20"
+              fill="none"
+              stroke="#1658FF"
+              stroke-width="4"
+            />
+
+            <!-- Hole at top for string -->
+            <circle cx="200" cy="45" r="12" fill="none" stroke="#1658FF" stroke-width="3" />
+
+            <!-- String -->
+            <line x1="200" y1="45" x2="200" y2="60" stroke="#1658FF" stroke-width="2" />
+
+            <!-- Dollar sign -->
+            <text
+              x="160"
+              y="140"
+              font-family="Inter Tight, system-ui, sans-serif"
+              font-size="72"
+              font-weight="800"
+              fill="#1658FF"
+              text-anchor="start"
+              dominant-baseline="middle"
+            >$</text>
+
+            <!-- Placeholder value (will animate in) -->
+            <text
+              class="beat6-price-number"
+              x="240"
+              y="140"
+              font-family="Inter Tight, system-ui, sans-serif"
+              font-size="72"
+              font-weight="800"
+              fill="#1658FF"
+              text-anchor="start"
+              dominant-baseline="middle"
+              opacity="0"
+            >142.50</text>
+          </g>
+        </svg>
+
+        <div class="beat6-label">stock price</div>
+        <div class="beat6-sublabel">= value of one share</div>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    // ── TIMELINE REGISTRATION ────────────────────────────────────────────
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["bloom-stock-ownership-beat-6"] = tl;
+
+    // ── VO WORD TIMING (beat-relative, shift absolute by -18.38s) ──────────
+    const W = [
+      { w: "Every", s: 0.000, e: 0.221 },
+      { w: "stock", s: 0.261, e: 0.721 },
+      { w: "has", s: 0.781, e: 0.951 },
+      { w: "a", s: 0.981, e: 1.081 },
+      { w: "stock", s: 1.111, e: 1.551 },
+      { w: "price,", s: 1.611, e: 2.061 },
+      { w: "representing", s: 2.111, e: 2.691 },
+      { w: "the", s: 2.741, e: 2.831 },
+      { w: "value", s: 2.871, e: 3.181 },
+      { w: "of", s: 3.231, e: 3.301 },
+      { w: "a", s: 3.331, e: 3.431 },
+      { w: "single", s: 3.471, e: 3.771 },
+      { w: "share.", s: 3.821, e: 4.221 }
+    ];
+
+    // ── PHRASE-ANCHORED TIMING HELPERS ────────────────────────────────────
+    function _norm(s) { return s.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu, ""); }
+    function _findPhrase(phrase) {
+      const tokens = phrase.toLowerCase().split(/\s+/).map(_norm).filter(Boolean);
+      if (!tokens.length) throw new Error(`landOn: empty phrase`);
+      const hits = [];
+      for (let i = 0; i <= W.length - tokens.length; i++) {
+        let ok = true;
+        for (let j = 0; j < tokens.length; j++) {
+          if (_norm(W[i + j].w) !== tokens[j]) { ok = false; break; }
+        }
+        if (ok) hits.push(i);
+      }
+      if (hits.length === 0) {
+        throw new Error(`landOn: phrase "${phrase}" not found in transcript`);
+      }
+      if (hits.length > 1) {
+        const times = hits.map(i => W[i].s.toFixed(3) + "s").join(", ");
+        throw new Error(`landOn: phrase "${phrase}" matches ${hits.length} occurrences at [${times}]. Use a longer phrase to disambiguate.`);
+      }
+      return { startIdx: hits[0], endIdx: hits[0] + tokens.length - 1 };
+    }
+    function at(phrase) { return W[_findPhrase(phrase).startIdx].s; }
+    function landOn(phrase, duration = 0) { return at(phrase) - duration; }
+    function landAfter(phrase, duration = 0) { return W[_findPhrase(phrase).endIdx].e - duration; }
+
+    // ── GSAP TIMELINE ────────────────────────────────────────────────────
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines = window.__timelines || {};
+    window.__timelines["bloom-stock-ownership-beat-6"] = tl;
+
+    // Headline: fade in at t=0
+    tl.from(
+      ".beat6-headline",
+      {
+        opacity: 0,
+        scale: 0.95,
+        duration: 0.35,
+        ease: "power2.out"
+      },
+      0
+    );
+
+    // SVG container: scale in from beneath with spring
+    tl.from(
+      ".beat6-svg-container",
+      {
+        scale: 0.85,
+        opacity: 0,
+        y: 80,
+        duration: 0.5,
+        ease: "back.out(1.6)"
+      },
+      0.1
+    );
+
+    // "stock price" phrase: pulse on second "stock" @ 1.111s
+    tl.to(
+      ".beat6-svg-container svg",
+      {
+        scale: 1.08,
+        duration: 0.3,
+        ease: "back.out(1.5)"
+      },
+      landOn("stock price", 0.3)
+    );
+
+    // Price label "stock price": fade in on "price" @ 1.611s
+    tl.from(
+      ".beat6-label",
+      {
+        x: 40,
+        opacity: 0,
+        duration: 0.35,
+        ease: "power2.out"
+      },
+      landOn("price,", 0.35)
+    );
+
+    // Price number ($142.50): fade in on "price" with scale
+    tl.from(
+      ".beat6-price-number",
+      {
+        opacity: 0,
+        scale: 0.8,
+        duration: 0.35,
+        ease: "back.out(1.5)"
+      },
+      landOn("price,", 0.35)
+    );
+
+    // Sub-label "= value of one share": appear on "share" @ 3.821s
+    tl.from(
+      ".beat6-sublabel",
+      {
+        y: 20,
+        opacity: 0,
+        duration: 0.3,
+        ease: "power2.out"
+      },
+      landOn("share.", 0.3)
+    );
+
+    // "share" reaction: second pulse on the SVG
+    tl.to(
+      ".beat6-svg-container svg",
+      {
+        scale: 1.06,
+        duration: 0.2,
+        ease: "power2.out",
+        yoyo: true,
+        repeat: 1
+      },
+      landOn("share.", 0.3)
+    );
+
+    // SVG container idle: gentle y bob (keep energy alive)
+    tl.to(
+      ".beat6-svg-container svg",
+      {
+        y: -4,
+        duration: 2.0,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: 1,
+        overwrite: "auto"
+      },
+      landOn("stock price", 0.3) + 0.3
+    );
+
+    // Exit: crossfade at t=5.02s (0.2s before beat end)
+    tl.to(
+      "#beat6",
+      {
+        opacity: 0,
+        filter: "blur(20px)",
+        duration: 0.35,
+        ease: "power3.in"
+      },
+      4.87
+    );
+
+    // Hide visibility at beat end
+    tl.set("#beat6", { visibility: "hidden" }, 5.22);
+  </script>
+</body>
+</html>

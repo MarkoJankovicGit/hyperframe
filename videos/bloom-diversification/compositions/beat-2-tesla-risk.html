@@ -1,0 +1,202 @@
+<template>
+  <div class="scene-root" data-composition-id="bloom-diversification-beat-2" data-width="1080" data-height="1920" data-start="0" data-duration="8.30">
+    <style>
+
+      .scene-root {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        font-family: "Inter", system-ui, sans-serif;
+        box-sizing: border-box;
+      }
+      .scene-content {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        height: 100%;
+        padding: 118px 82px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 36px;
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        padding: 16px 32px;
+        background: rgba(28,35,41,0.18);
+        color: #fff;
+        font-size: 32px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .eyebrow.dark { background: #1C2329; color: #fff; }
+      .eyebrow.blue { background: #1658FF; color: #fff; }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: #1C2329;
+        color: #fff;
+        border-radius: 26px;
+        padding: 34px 50px 42px;
+        box-shadow: 0 24px 60px rgba(6,10,30,0.28);
+        max-width: 930px;
+      }
+      .badge-text {
+        font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        text-transform: uppercase;
+        letter-spacing: -0.012em;
+        line-height: 0.92;
+        color: #fff;
+        text-align: center;
+      }
+      .title-dark {
+        font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        text-transform: uppercase;
+        letter-spacing: -0.012em;
+        line-height: 0.93;
+        color: #1C2329;
+        text-align: center;
+      }
+      .subcopy {
+        color: #4A4F54;
+        font-size: 42px;
+        font-weight: 700;
+        line-height: 1.12;
+        text-align: center;
+        max-width: 860px;
+      }
+      .white-text { color: #fff; }
+      .green { color: #01CD74; }
+      .blue { color: #1658FF; }
+      .logo-orb {
+        width: 142px;
+        height: 142px;
+        border-radius: 50%;
+        background: #1C2329;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 22px 50px rgba(6,10,30,0.24);
+      }
+      .logo-orb img {
+        max-width: 82px;
+        max-height: 82px;
+        object-fit: contain;
+      }
+      .bloom-logo {
+        width: 190px;
+        height: 190px;
+        object-fit: contain;
+      }
+      .star-bg {
+        position: absolute;
+        width: 820px;
+        height: 820px;
+        opacity: 0.16;
+        object-fit: contain;
+        z-index: 0;
+      }
+      .card {
+        background: #fff;
+        border: 2px solid #E8E9EA;
+        border-radius: 34px;
+        box-shadow: 0 20px 60px rgba(6,10,30,0.12);
+      }
+      .dark-card {
+        background: #1C2329;
+        color: #fff;
+        border-radius: 34px;
+        box-shadow: 0 24px 64px rgba(6,10,30,0.26);
+      }
+      .sparkline {
+        width: 760px;
+        height: 220px;
+      }
+      .sparkline path {
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 18;
+      }
+
+      [data-composition-id="bloom-diversification-beat-2"] { background: #FFFFFF; }
+      #b2-card { width: 820px; min-height: 330px; display: flex; align-items: center; justify-content: center; gap: 42px; padding: 42px; box-sizing: border-box; }
+      #b2-loss { background: #1C2329; }
+    </style>
+    <div class="scene-content">
+      <div id="b2-label" class="eyebrow blue">Concentration Risk</div>
+      <div id="b2-money" class="title-dark" style="font-size:168px">$1,000</div>
+      <div id="b2-card" class="dark-card">
+        <div class="logo-orb"><img src="../logos/TSLA.png" /></div>
+        <div class="badge-text" style="font-size:112px">ALL IN TESLA</div>
+      </div>
+      <div id="b2-loss" class="badge"><span class="badge-text" style="font-size:118px">CAN DISAPPEAR</span></div>
+    </div>
+    <script>
+      (function () {
+        const W = [{"word":"Imagine","t":0.002,"e":1.052},
+        {"word":"you","t":1.072,"e":1.132},
+        {"word":"invest","t":1.201,"e":1.615},
+        {"word":"one","t":1.675,"e":1.855},
+        {"word":"thousand","t":1.899,"e":2.251},
+        {"word":"dollars,","t":2.311,"e":2.811},
+        {"word":"all","t":2.891,"e":3.131},
+        {"word":"in","t":3.158,"e":3.212},
+        {"word":"Tesla.","t":3.292,"e":3.772},
+        {"word":"If","t":3.985,"e":4.411},
+        {"word":"Tesla","t":4.478,"e":4.813},
+        {"word":"fails,","t":4.906,"e":5.611},
+        {"word":"your","t":5.659,"e":5.851},
+        {"word":"whole","t":5.891,"e":6.091},
+        {"word":"one","t":6.151,"e":6.331},
+        {"word":"thousand","t":6.375,"e":6.727},
+        {"word":"dollars","t":6.787,"e":7.207},
+        {"word":"can","t":7.247,"e":7.367},
+        {"word":"disappear.","t":7.431,"e":8.087}];
+
+        const _norm = (s) => s.toLowerCase().replace(/[^\p{L}\p{N}\s]/gu, "").trim();
+        function _findPhrase(phrase) {
+          const ws = _norm(phrase).split(/\s+/);
+          const out = [];
+          for (let i = 0; i <= W.length - ws.length; i++) {
+            let ok = true;
+            for (let j = 0; j < ws.length; j++) {
+              if (_norm(W[i + j].word) !== ws[j]) { ok = false; break; }
+            }
+            if (ok) out.push({ start: W[i].t, end: W[i + ws.length - 1].e });
+          }
+          if (out.length === 0) throw new Error('landOn: phrase "' + phrase + '" not found in beat W');
+          if (out.length > 1) throw new Error('landOn: phrase "' + phrase + '" matched ' + out.length + ' positions');
+          return out[0];
+        }
+        function landOn(phrase, dur) { return Math.max(0, _findPhrase(phrase).start - dur); }
+        function landAfter(phrase, dur) { return Math.max(0, _findPhrase(phrase).end - dur); }
+        function at(phrase) { return _findPhrase(phrase).start; }
+
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+        tl.set('[data-composition-id="bloom-diversification-beat-2"]', { opacity: 1 }, 0);
+        tl.fromTo("#b2-label", { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.42, ease: "power2.out", overwrite: "auto" }, landOn("Imagine you", 0.42));
+        tl.fromTo("#b2-money", { y: 70, opacity: 0, scale: 0.86 }, { y: 0, opacity: 1, scale: 1, duration: 0.55, ease: "expo.out", overwrite: "auto" }, landOn("invest one thousand", 0.55));
+        tl.fromTo("#b2-card", { x: 150, opacity: 0, rotation: 4 }, { x: 0, opacity: 1, rotation: 0, duration: 0.6, ease: "power3.out", overwrite: "auto" }, landOn("all in Tesla", 0.6));
+        tl.fromTo("#b2-loss", { y: 80, opacity: 0, scale: 0.78 }, { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.7)", overwrite: "auto" }, landOn("can disappear", 0.5));
+        tl.to("#b2-card", { rotation: -2, duration: 1.1, yoyo: true, repeat: 2, ease: "sine.inOut", overwrite: "auto" }, at("Tesla fails"));
+        tl.to('[data-composition-id="bloom-diversification-beat-2"]', { opacity: 0, duration: 0.2, ease: "none", overwrite: "auto" }, 8.10);
+        window.__timelines["bloom-diversification-beat-2"] = tl;
+      })();
+    </script>
+  </div>
+</template>

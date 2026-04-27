@@ -1,0 +1,1436 @@
+{
+  "sceneId": "scene-01",
+  "text": "You can actually own a piece of Apple. A stock is a slice of ownership in a company. When you buy a stock, you're buying a small piece of a real company, and you become a part-owner of the company. You can buy stocks of many different companies, including some you may already know like Apple or Nike. As a part-owner, or investor, in a company, you hope that your company can grow so that you can grow your money alongside it. But how does your money actually grow? Just like with anything else you buy, every stock has a stock price, which represents the value of a single share, or piece, of stock. Stock prices can go up and down every day, so the value of your investment can also change every day — sometimes by a lot! If your stock's price goes up, then your investment also increases in value. Ultimately, stocks are one of the best investments for building long-term wealth, having grown on average ten percent per year in the last 30 years! Bloom will teach you how to evaluate and choose stocks to buy, different types of stocks and other important concepts to help you start your investing journey.",
+  "words": [
+    {
+      "word": "You",
+      "start": 0,
+      "end": 0.081,
+      "startFrame": 0,
+      "endFrame": 2
+    },
+    {
+      "word": "can",
+      "start": 0.121,
+      "end": 0.241,
+      "startFrame": 4,
+      "endFrame": 7
+    },
+    {
+      "word": "actually",
+      "start": 0.285,
+      "end": 0.637,
+      "startFrame": 9,
+      "endFrame": 19
+    },
+    {
+      "word": "own",
+      "start": 0.737,
+      "end": 1.037,
+      "startFrame": 22,
+      "endFrame": 31
+    },
+    {
+      "word": "a",
+      "start": 1.117,
+      "end": 1.197,
+      "startFrame": 34,
+      "endFrame": 36
+    },
+    {
+      "word": "piece",
+      "start": 1.237,
+      "end": 1.437,
+      "startFrame": 37,
+      "endFrame": 43
+    },
+    {
+      "word": "of",
+      "start": 1.464,
+      "end": 1.518,
+      "startFrame": 44,
+      "endFrame": 46
+    },
+    {
+      "word": "Apple.",
+      "start": 1.585,
+      "end": 2,
+      "startFrame": 48,
+      "endFrame": 60
+    },
+    {
+      "word": "A",
+      "start": 2.8,
+      "end": 2.8,
+      "startFrame": 84,
+      "endFrame": 84
+    },
+    {
+      "word": "stock",
+      "start": 2.893,
+      "end": 3.358,
+      "startFrame": 87,
+      "endFrame": 101
+    },
+    {
+      "word": "is",
+      "start": 3.411,
+      "end": 3.517,
+      "startFrame": 102,
+      "endFrame": 106
+    },
+    {
+      "word": "a",
+      "start": 3.557,
+      "end": 3.597,
+      "startFrame": 107,
+      "endFrame": 108
+    },
+    {
+      "word": "slice",
+      "start": 3.677,
+      "end": 4.077,
+      "startFrame": 110,
+      "endFrame": 122
+    },
+    {
+      "word": "of",
+      "start": 4.104,
+      "end": 4.158,
+      "startFrame": 123,
+      "endFrame": 125
+    },
+    {
+      "word": "ownership",
+      "start": 4.214,
+      "end": 4.718,
+      "startFrame": 126,
+      "endFrame": 142
+    },
+    {
+      "word": "in",
+      "start": 4.771,
+      "end": 4.877,
+      "startFrame": 143,
+      "endFrame": 146
+    },
+    {
+      "word": "a",
+      "start": 4.917,
+      "end": 4.957,
+      "startFrame": 148,
+      "endFrame": 149
+    },
+    {
+      "word": "company.",
+      "start": 5.017,
+      "end": 5.517,
+      "startFrame": 151,
+      "endFrame": 166
+    },
+    {
+      "word": "When",
+      "start": 5.709,
+      "end": 6.477,
+      "startFrame": 171,
+      "endFrame": 194
+    },
+    {
+      "word": "you",
+      "start": 6.517,
+      "end": 6.637,
+      "startFrame": 196,
+      "endFrame": 199
+    },
+    {
+      "word": "buy",
+      "start": 6.677,
+      "end": 6.797,
+      "startFrame": 200,
+      "endFrame": 204
+    },
+    {
+      "word": "a",
+      "start": 6.837,
+      "end": 6.877,
+      "startFrame": 205,
+      "endFrame": 206
+    },
+    {
+      "word": "stock,",
+      "start": 6.97,
+      "end": 7.595,
+      "startFrame": 209,
+      "endFrame": 228
+    },
+    {
+      "word": "you're",
+      "start": 7.615,
+      "end": 7.756,
+      "startFrame": 228,
+      "endFrame": 233
+    },
+    {
+      "word": "buying",
+      "start": 7.802,
+      "end": 8.078,
+      "startFrame": 234,
+      "endFrame": 242
+    },
+    {
+      "word": "a",
+      "start": 8.118,
+      "end": 8.158,
+      "startFrame": 244,
+      "endFrame": 245
+    },
+    {
+      "word": "small",
+      "start": 8.225,
+      "end": 8.56,
+      "startFrame": 247,
+      "endFrame": 257
+    },
+    {
+      "word": "piece",
+      "start": 8.627,
+      "end": 8.962,
+      "startFrame": 259,
+      "endFrame": 269
+    },
+    {
+      "word": "of",
+      "start": 9.015,
+      "end": 9.121,
+      "startFrame": 270,
+      "endFrame": 274
+    },
+    {
+      "word": "a",
+      "start": 9.161,
+      "end": 9.201,
+      "startFrame": 275,
+      "endFrame": 276
+    },
+    {
+      "word": "real",
+      "start": 9.265,
+      "end": 9.521,
+      "startFrame": 278,
+      "endFrame": 286
+    },
+    {
+      "word": "company,",
+      "start": 9.581,
+      "end": 10.241,
+      "startFrame": 287,
+      "endFrame": 307
+    },
+    {
+      "word": "and",
+      "start": 10.301,
+      "end": 10.481,
+      "startFrame": 309,
+      "endFrame": 314
+    },
+    {
+      "word": "you",
+      "start": 10.521,
+      "end": 10.641,
+      "startFrame": 316,
+      "endFrame": 319
+    },
+    {
+      "word": "become",
+      "start": 10.675,
+      "end": 10.879,
+      "startFrame": 320,
+      "endFrame": 326
+    },
+    {
+      "word": "a",
+      "start": 10.919,
+      "end": 10.959,
+      "startFrame": 328,
+      "endFrame": 329
+    },
+    {
+      "word": "part-owner",
+      "start": 11.023,
+      "end": 11.681,
+      "startFrame": 331,
+      "endFrame": 350
+    },
+    {
+      "word": "of",
+      "start": 11.734,
+      "end": 11.84,
+      "startFrame": 352,
+      "endFrame": 355
+    },
+    {
+      "word": "the",
+      "start": 11.86,
+      "end": 11.92,
+      "startFrame": 356,
+      "endFrame": 358
+    },
+    {
+      "word": "company.",
+      "start": 11.98,
+      "end": 12.48,
+      "startFrame": 359,
+      "endFrame": 374
+    },
+    {
+      "word": "You",
+      "start": 12.72,
+      "end": 13.44,
+      "startFrame": 382,
+      "endFrame": 403
+    },
+    {
+      "word": "can",
+      "start": 13.46,
+      "end": 13.52,
+      "startFrame": 404,
+      "endFrame": 406
+    },
+    {
+      "word": "buy",
+      "start": 13.58,
+      "end": 13.76,
+      "startFrame": 407,
+      "endFrame": 413
+    },
+    {
+      "word": "stocks",
+      "start": 13.829,
+      "end": 14.243,
+      "startFrame": 415,
+      "endFrame": 427
+    },
+    {
+      "word": "of",
+      "start": 14.296,
+      "end": 14.402,
+      "startFrame": 429,
+      "endFrame": 432
+    },
+    {
+      "word": "many",
+      "start": 14.45,
+      "end": 14.642,
+      "startFrame": 434,
+      "endFrame": 439
+    },
+    {
+      "word": "different",
+      "start": 14.674,
+      "end": 14.962,
+      "startFrame": 440,
+      "endFrame": 449
+    },
+    {
+      "word": "companies,",
+      "start": 15.026,
+      "end": 15.682,
+      "startFrame": 451,
+      "endFrame": 470
+    },
+    {
+      "word": "including",
+      "start": 15.73,
+      "end": 16.162,
+      "startFrame": 472,
+      "endFrame": 485
+    },
+    {
+      "word": "some",
+      "start": 16.21,
+      "end": 16.402,
+      "startFrame": 486,
+      "endFrame": 492
+    },
+    {
+      "word": "you",
+      "start": 16.442,
+      "end": 16.562,
+      "startFrame": 493,
+      "endFrame": 497
+    },
+    {
+      "word": "may",
+      "start": 16.602,
+      "end": 16.722,
+      "startFrame": 498,
+      "endFrame": 502
+    },
+    {
+      "word": "already",
+      "start": 16.772,
+      "end": 17.122,
+      "startFrame": 503,
+      "endFrame": 514
+    },
+    {
+      "word": "know",
+      "start": 17.186,
+      "end": 17.442,
+      "startFrame": 516,
+      "endFrame": 523
+    },
+    {
+      "word": "like",
+      "start": 17.522,
+      "end": 17.842,
+      "startFrame": 526,
+      "endFrame": 535
+    },
+    {
+      "word": "Apple",
+      "start": 17.922,
+      "end": 18.322,
+      "startFrame": 538,
+      "endFrame": 550
+    },
+    {
+      "word": "or",
+      "start": 18.375,
+      "end": 18.481,
+      "startFrame": 551,
+      "endFrame": 554
+    },
+    {
+      "word": "Nike.",
+      "start": 18.577,
+      "end": 19.121,
+      "startFrame": 557,
+      "endFrame": 574
+    },
+    {
+      "word": "As",
+      "start": 19.468,
+      "end": 20.162,
+      "startFrame": 584,
+      "endFrame": 605
+    },
+    {
+      "word": "a",
+      "start": 20.202,
+      "end": 20.242,
+      "startFrame": 606,
+      "endFrame": 607
+    },
+    {
+      "word": "part-owner,",
+      "start": 20.306,
+      "end": 21.122,
+      "startFrame": 609,
+      "endFrame": 634
+    },
+    {
+      "word": "or",
+      "start": 21.202,
+      "end": 21.362,
+      "startFrame": 636,
+      "endFrame": 641
+    },
+    {
+      "word": "investor,",
+      "start": 21.433,
+      "end": 22.081,
+      "startFrame": 643,
+      "endFrame": 662
+    },
+    {
+      "word": "in",
+      "start": 22.108,
+      "end": 22.162,
+      "startFrame": 663,
+      "endFrame": 665
+    },
+    {
+      "word": "a",
+      "start": 22.202,
+      "end": 22.242,
+      "startFrame": 666,
+      "endFrame": 667
+    },
+    {
+      "word": "company,",
+      "start": 22.302,
+      "end": 23.042,
+      "startFrame": 669,
+      "endFrame": 691
+    },
+    {
+      "word": "you",
+      "start": 23.082,
+      "end": 23.202,
+      "startFrame": 692,
+      "endFrame": 696
+    },
+    {
+      "word": "hope",
+      "start": 23.25,
+      "end": 23.442,
+      "startFrame": 698,
+      "endFrame": 703
+    },
+    {
+      "word": "that",
+      "start": 23.474,
+      "end": 23.602,
+      "startFrame": 704,
+      "endFrame": 708
+    },
+    {
+      "word": "your",
+      "start": 23.634,
+      "end": 23.762,
+      "startFrame": 709,
+      "endFrame": 713
+    },
+    {
+      "word": "company",
+      "start": 23.802,
+      "end": 24.082,
+      "startFrame": 714,
+      "endFrame": 722
+    },
+    {
+      "word": "can",
+      "start": 24.142,
+      "end": 24.322,
+      "startFrame": 724,
+      "endFrame": 730
+    },
+    {
+      "word": "grow",
+      "start": 24.418,
+      "end": 24.802,
+      "startFrame": 733,
+      "endFrame": 744
+    },
+    {
+      "word": "so",
+      "start": 24.882,
+      "end": 25.042,
+      "startFrame": 746,
+      "endFrame": 751
+    },
+    {
+      "word": "that",
+      "start": 25.074,
+      "end": 25.202,
+      "startFrame": 752,
+      "endFrame": 756
+    },
+    {
+      "word": "you",
+      "start": 25.242,
+      "end": 25.362,
+      "startFrame": 757,
+      "endFrame": 761
+    },
+    {
+      "word": "can",
+      "start": 25.402,
+      "end": 25.522,
+      "startFrame": 762,
+      "endFrame": 766
+    },
+    {
+      "word": "grow",
+      "start": 25.57,
+      "end": 25.762,
+      "startFrame": 767,
+      "endFrame": 773
+    },
+    {
+      "word": "your",
+      "start": 25.794,
+      "end": 25.922,
+      "startFrame": 774,
+      "endFrame": 778
+    },
+    {
+      "word": "money",
+      "start": 25.975,
+      "end": 26.24,
+      "startFrame": 779,
+      "endFrame": 787
+    },
+    {
+      "word": "alongside",
+      "start": 26.312,
+      "end": 26.96,
+      "startFrame": 789,
+      "endFrame": 809
+    },
+    {
+      "word": "it.",
+      "start": 27.013,
+      "end": 27.199,
+      "startFrame": 810,
+      "endFrame": 816
+    },
+    {
+      "word": "But",
+      "start": 27.499,
+      "end": 28.399,
+      "startFrame": 825,
+      "endFrame": 852
+    },
+    {
+      "word": "how",
+      "start": 28.459,
+      "end": 28.639,
+      "startFrame": 854,
+      "endFrame": 859
+    },
+    {
+      "word": "does",
+      "start": 28.671,
+      "end": 28.799,
+      "startFrame": 860,
+      "endFrame": 864
+    },
+    {
+      "word": "your",
+      "start": 28.815,
+      "end": 28.879,
+      "startFrame": 864,
+      "endFrame": 866
+    },
+    {
+      "word": "money",
+      "start": 28.932,
+      "end": 29.197,
+      "startFrame": 868,
+      "endFrame": 876
+    },
+    {
+      "word": "actually",
+      "start": 29.259,
+      "end": 29.755,
+      "startFrame": 878,
+      "endFrame": 893
+    },
+    {
+      "word": "grow?",
+      "start": 29.835,
+      "end": 30.235,
+      "startFrame": 895,
+      "endFrame": 907
+    },
+    {
+      "word": "Just",
+      "start": 30.443,
+      "end": 31.275,
+      "startFrame": 913,
+      "endFrame": 938
+    },
+    {
+      "word": "like",
+      "start": 31.323,
+      "end": 31.515,
+      "startFrame": 940,
+      "endFrame": 945
+    },
+    {
+      "word": "with",
+      "start": 31.547,
+      "end": 31.675,
+      "startFrame": 946,
+      "endFrame": 950
+    },
+    {
+      "word": "anything",
+      "start": 31.719,
+      "end": 32.071,
+      "startFrame": 952,
+      "endFrame": 962
+    },
+    {
+      "word": "else",
+      "start": 32.119,
+      "end": 32.311,
+      "startFrame": 964,
+      "endFrame": 969
+    },
+    {
+      "word": "you",
+      "start": 32.331,
+      "end": 32.391,
+      "startFrame": 970,
+      "endFrame": 972
+    },
+    {
+      "word": "buy,",
+      "start": 32.471,
+      "end": 33.031,
+      "startFrame": 974,
+      "endFrame": 991
+    },
+    {
+      "word": "every",
+      "start": 33.084,
+      "end": 33.349,
+      "startFrame": 993,
+      "endFrame": 1000
+    },
+    {
+      "word": "stock",
+      "start": 33.429,
+      "end": 33.829,
+      "startFrame": 1003,
+      "endFrame": 1015
+    },
+    {
+      "word": "has",
+      "start": 33.869,
+      "end": 33.989,
+      "startFrame": 1016,
+      "endFrame": 1020
+    },
+    {
+      "word": "a",
+      "start": 34.029,
+      "end": 34.069,
+      "startFrame": 1021,
+      "endFrame": 1022
+    },
+    {
+      "word": "stock",
+      "start": 34.136,
+      "end": 34.471,
+      "startFrame": 1024,
+      "endFrame": 1034
+    },
+    {
+      "word": "price,",
+      "start": 34.551,
+      "end": 35.111,
+      "startFrame": 1037,
+      "endFrame": 1053
+    },
+    {
+      "word": "which",
+      "start": 35.138,
+      "end": 35.273,
+      "startFrame": 1054,
+      "endFrame": 1058
+    },
+    {
+      "word": "represents",
+      "start": 35.324,
+      "end": 35.834,
+      "startFrame": 1060,
+      "endFrame": 1075
+    },
+    {
+      "word": "the",
+      "start": 35.874,
+      "end": 35.994,
+      "startFrame": 1076,
+      "endFrame": 1080
+    },
+    {
+      "word": "value",
+      "start": 36.074,
+      "end": 36.474,
+      "startFrame": 1082,
+      "endFrame": 1094
+    },
+    {
+      "word": "of",
+      "start": 36.527,
+      "end": 36.633,
+      "startFrame": 1096,
+      "endFrame": 1099
+    },
+    {
+      "word": "a",
+      "start": 36.673,
+      "end": 36.713,
+      "startFrame": 1100,
+      "endFrame": 1101
+    },
+    {
+      "word": "single",
+      "start": 36.77,
+      "end": 37.112,
+      "startFrame": 1103,
+      "endFrame": 1113
+    },
+    {
+      "word": "share,",
+      "start": 37.192,
+      "end": 37.752,
+      "startFrame": 1116,
+      "endFrame": 1133
+    },
+    {
+      "word": "or",
+      "start": 37.805,
+      "end": 37.911,
+      "startFrame": 1134,
+      "endFrame": 1137
+    },
+    {
+      "word": "piece,",
+      "start": 37.991,
+      "end": 38.471,
+      "startFrame": 1140,
+      "endFrame": 1154
+    },
+    {
+      "word": "of",
+      "start": 38.524,
+      "end": 38.63,
+      "startFrame": 1156,
+      "endFrame": 1159
+    },
+    {
+      "word": "stock.",
+      "start": 38.697,
+      "end": 39.192,
+      "startFrame": 1161,
+      "endFrame": 1176
+    },
+    {
+      "word": "Stock",
+      "start": 39.405,
+      "end": 40.47,
+      "startFrame": 1182,
+      "endFrame": 1214
+    },
+    {
+      "word": "prices",
+      "start": 40.539,
+      "end": 40.953,
+      "startFrame": 1216,
+      "endFrame": 1229
+    },
+    {
+      "word": "can",
+      "start": 40.993,
+      "end": 41.113,
+      "startFrame": 1230,
+      "endFrame": 1233
+    },
+    {
+      "word": "go",
+      "start": 41.166,
+      "end": 41.272,
+      "startFrame": 1235,
+      "endFrame": 1238
+    },
+    {
+      "word": "up",
+      "start": 41.352,
+      "end": 41.512,
+      "startFrame": 1241,
+      "endFrame": 1245
+    },
+    {
+      "word": "and",
+      "start": 41.552,
+      "end": 41.672,
+      "startFrame": 1247,
+      "endFrame": 1250
+    },
+    {
+      "word": "down",
+      "start": 41.736,
+      "end": 41.992,
+      "startFrame": 1252,
+      "endFrame": 1260
+    },
+    {
+      "word": "every",
+      "start": 42.059,
+      "end": 42.394,
+      "startFrame": 1262,
+      "endFrame": 1272
+    },
+    {
+      "word": "day,",
+      "start": 42.474,
+      "end": 42.954,
+      "startFrame": 1274,
+      "endFrame": 1289
+    },
+    {
+      "word": "so",
+      "start": 43.007,
+      "end": 43.113,
+      "startFrame": 1290,
+      "endFrame": 1293
+    },
+    {
+      "word": "the",
+      "start": 43.153,
+      "end": 43.273,
+      "startFrame": 1295,
+      "endFrame": 1298
+    },
+    {
+      "word": "value",
+      "start": 43.34,
+      "end": 43.675,
+      "startFrame": 1300,
+      "endFrame": 1310
+    },
+    {
+      "word": "of",
+      "start": 43.702,
+      "end": 43.756,
+      "startFrame": 1311,
+      "endFrame": 1313
+    },
+    {
+      "word": "your",
+      "start": 43.788,
+      "end": 43.916,
+      "startFrame": 1314,
+      "endFrame": 1317
+    },
+    {
+      "word": "investment",
+      "start": 43.967,
+      "end": 44.477,
+      "startFrame": 1319,
+      "endFrame": 1334
+    },
+    {
+      "word": "can",
+      "start": 44.537,
+      "end": 44.717,
+      "startFrame": 1336,
+      "endFrame": 1342
+    },
+    {
+      "word": "also",
+      "start": 44.797,
+      "end": 45.117,
+      "startFrame": 1344,
+      "endFrame": 1354
+    },
+    {
+      "word": "change",
+      "start": 45.163,
+      "end": 45.439,
+      "startFrame": 1355,
+      "endFrame": 1363
+    },
+    {
+      "word": "every",
+      "start": 45.492,
+      "end": 45.757,
+      "startFrame": 1365,
+      "endFrame": 1373
+    },
+    {
+      "word": "day",
+      "start": 45.837,
+      "end": 46.077,
+      "startFrame": 1375,
+      "endFrame": 1382
+    },
+    {
+      "word": "—",
+      "start": 46.237,
+      "end": 46.397,
+      "startFrame": 1387,
+      "endFrame": 1392
+    },
+    {
+      "word": "sometimes",
+      "start": 46.453,
+      "end": 46.957,
+      "startFrame": 1394,
+      "endFrame": 1409
+    },
+    {
+      "word": "by",
+      "start": 47.01,
+      "end": 47.116,
+      "startFrame": 1410,
+      "endFrame": 1413
+    },
+    {
+      "word": "a",
+      "start": 47.156,
+      "end": 47.196,
+      "startFrame": 1415,
+      "endFrame": 1416
+    },
+    {
+      "word": "lot!",
+      "start": 47.296,
+      "end": 47.676,
+      "startFrame": 1419,
+      "endFrame": 1430
+    },
+    {
+      "word": "If",
+      "start": 47.996,
+      "end": 48.636,
+      "startFrame": 1440,
+      "endFrame": 1459
+    },
+    {
+      "word": "your",
+      "start": 48.668,
+      "end": 48.796,
+      "startFrame": 1460,
+      "endFrame": 1464
+    },
+    {
+      "word": "stock's",
+      "start": 48.849,
+      "end": 49.194,
+      "startFrame": 1465,
+      "endFrame": 1476
+    },
+    {
+      "word": "price",
+      "start": 49.261,
+      "end": 49.596,
+      "startFrame": 1478,
+      "endFrame": 1488
+    },
+    {
+      "word": "goes",
+      "start": 49.66,
+      "end": 49.916,
+      "startFrame": 1490,
+      "endFrame": 1497
+    },
+    {
+      "word": "up,",
+      "start": 50.023,
+      "end": 50.477,
+      "startFrame": 1501,
+      "endFrame": 1514
+    },
+    {
+      "word": "then",
+      "start": 50.509,
+      "end": 50.637,
+      "startFrame": 1515,
+      "endFrame": 1519
+    },
+    {
+      "word": "your",
+      "start": 50.653,
+      "end": 50.717,
+      "startFrame": 1520,
+      "endFrame": 1522
+    },
+    {
+      "word": "investment",
+      "start": 50.768,
+      "end": 51.278,
+      "startFrame": 1523,
+      "endFrame": 1538
+    },
+    {
+      "word": "also",
+      "start": 51.39,
+      "end": 51.838,
+      "startFrame": 1542,
+      "endFrame": 1555
+    },
+    {
+      "word": "increases",
+      "start": 51.902,
+      "end": 52.478,
+      "startFrame": 1557,
+      "endFrame": 1574
+    },
+    {
+      "word": "in",
+      "start": 52.505,
+      "end": 52.559,
+      "startFrame": 1575,
+      "endFrame": 1577
+    },
+    {
+      "word": "value.",
+      "start": 52.639,
+      "end": 53.119,
+      "startFrame": 1579,
+      "endFrame": 1594
+    },
+    {
+      "word": "Ultimately,",
+      "start": 53.257,
+      "end": 54.877,
+      "startFrame": 1598,
+      "endFrame": 1646
+    },
+    {
+      "word": "stocks",
+      "start": 54.946,
+      "end": 55.36,
+      "startFrame": 1648,
+      "endFrame": 1661
+    },
+    {
+      "word": "are",
+      "start": 55.42,
+      "end": 55.6,
+      "startFrame": 1663,
+      "endFrame": 1668
+    },
+    {
+      "word": "one",
+      "start": 55.62,
+      "end": 55.68,
+      "startFrame": 1669,
+      "endFrame": 1670
+    },
+    {
+      "word": "of",
+      "start": 55.733,
+      "end": 55.839,
+      "startFrame": 1672,
+      "endFrame": 1675
+    },
+    {
+      "word": "the",
+      "start": 55.859,
+      "end": 55.919,
+      "startFrame": 1676,
+      "endFrame": 1678
+    },
+    {
+      "word": "best",
+      "start": 56.015,
+      "end": 56.399,
+      "startFrame": 1680,
+      "endFrame": 1692
+    },
+    {
+      "word": "investments",
+      "start": 56.446,
+      "end": 56.963,
+      "startFrame": 1693,
+      "endFrame": 1709
+    },
+    {
+      "word": "for",
+      "start": 57.003,
+      "end": 57.123,
+      "startFrame": 1710,
+      "endFrame": 1714
+    },
+    {
+      "word": "building",
+      "start": 57.167,
+      "end": 57.519,
+      "startFrame": 1715,
+      "endFrame": 1726
+    },
+    {
+      "word": "long-term",
+      "start": 57.599,
+      "end": 58.239,
+      "startFrame": 1728,
+      "endFrame": 1747
+    },
+    {
+      "word": "wealth,",
+      "start": 58.296,
+      "end": 58.878,
+      "startFrame": 1749,
+      "endFrame": 1766
+    },
+    {
+      "word": "having",
+      "start": 58.912,
+      "end": 59.116,
+      "startFrame": 1767,
+      "endFrame": 1773
+    },
+    {
+      "word": "grown",
+      "start": 59.183,
+      "end": 59.518,
+      "startFrame": 1775,
+      "endFrame": 1786
+    },
+    {
+      "word": "on",
+      "start": 59.598,
+      "end": 59.758,
+      "startFrame": 1788,
+      "endFrame": 1793
+    },
+    {
+      "word": "average",
+      "start": 59.828,
+      "end": 60.318,
+      "startFrame": 1795,
+      "endFrame": 1810
+    },
+    {
+      "word": "ten",
+      "start": 60.378,
+      "end": 60.558,
+      "startFrame": 1811,
+      "endFrame": 1817
+    },
+    {
+      "word": "percent",
+      "start": 60.628,
+      "end": 61.118,
+      "startFrame": 1819,
+      "endFrame": 1834
+    },
+    {
+      "word": "per",
+      "start": 61.178,
+      "end": 61.358,
+      "startFrame": 1835,
+      "endFrame": 1841
+    },
+    {
+      "word": "year",
+      "start": 61.438,
+      "end": 61.758,
+      "startFrame": 1843,
+      "endFrame": 1853
+    },
+    {
+      "word": "in",
+      "start": 61.811,
+      "end": 61.917,
+      "startFrame": 1854,
+      "endFrame": 1858
+    },
+    {
+      "word": "the",
+      "start": 61.937,
+      "end": 61.997,
+      "startFrame": 1858,
+      "endFrame": 1860
+    },
+    {
+      "word": "last",
+      "start": 62.061,
+      "end": 62.317,
+      "startFrame": 1862,
+      "endFrame": 1870
+    },
+    {
+      "word": "30",
+      "start": 62.557,
+      "end": 62.797,
+      "startFrame": 1877,
+      "endFrame": 1884
+    },
+    {
+      "word": "years!",
+      "start": 62.89,
+      "end": 63.515,
+      "startFrame": 1887,
+      "endFrame": 1905
+    },
+    {
+      "word": "Bloom",
+      "start": 63.728,
+      "end": 64.793,
+      "startFrame": 1912,
+      "endFrame": 1944
+    },
+    {
+      "word": "will",
+      "start": 64.825,
+      "end": 64.953,
+      "startFrame": 1945,
+      "endFrame": 1949
+    },
+    {
+      "word": "teach",
+      "start": 64.993,
+      "end": 65.193,
+      "startFrame": 1950,
+      "endFrame": 1956
+    },
+    {
+      "word": "you",
+      "start": 65.233,
+      "end": 65.353,
+      "startFrame": 1957,
+      "endFrame": 1961
+    },
+    {
+      "word": "how",
+      "start": 65.393,
+      "end": 65.513,
+      "startFrame": 1962,
+      "endFrame": 1965
+    },
+    {
+      "word": "to",
+      "start": 65.566,
+      "end": 65.672,
+      "startFrame": 1967,
+      "endFrame": 1970
+    },
+    {
+      "word": "evaluate",
+      "start": 65.752,
+      "end": 66.392,
+      "startFrame": 1973,
+      "endFrame": 1992
+    },
+    {
+      "word": "and",
+      "start": 66.432,
+      "end": 66.552,
+      "startFrame": 1993,
+      "endFrame": 1997
+    },
+    {
+      "word": "choose",
+      "start": 66.609,
+      "end": 66.951,
+      "startFrame": 1998,
+      "endFrame": 2009
+    },
+    {
+      "word": "stocks",
+      "start": 67.02,
+      "end": 67.434,
+      "startFrame": 2011,
+      "endFrame": 2023
+    },
+    {
+      "word": "to",
+      "start": 67.461,
+      "end": 67.515,
+      "startFrame": 2024,
+      "endFrame": 2025
+    },
+    {
+      "word": "buy,",
+      "start": 67.615,
+      "end": 68.235,
+      "startFrame": 2028,
+      "endFrame": 2047
+    },
+    {
+      "word": "different",
+      "start": 68.275,
+      "end": 68.635,
+      "startFrame": 2048,
+      "endFrame": 2059
+    },
+    {
+      "word": "types",
+      "start": 68.688,
+      "end": 68.953,
+      "startFrame": 2061,
+      "endFrame": 2069
+    },
+    {
+      "word": "of",
+      "start": 68.98,
+      "end": 69.034,
+      "startFrame": 2069,
+      "endFrame": 2071
+    },
+    {
+      "word": "stocks",
+      "start": 69.114,
+      "end": 69.594,
+      "startFrame": 2073,
+      "endFrame": 2088
+    },
+    {
+      "word": "and",
+      "start": 69.634,
+      "end": 69.754,
+      "startFrame": 2089,
+      "endFrame": 2093
+    },
+    {
+      "word": "other",
+      "start": 69.807,
+      "end": 70.072,
+      "startFrame": 2094,
+      "endFrame": 2102
+    },
+    {
+      "word": "important",
+      "start": 70.12,
+      "end": 70.552,
+      "startFrame": 2104,
+      "endFrame": 2117
+    },
+    {
+      "word": "concepts",
+      "start": 70.623,
+      "end": 71.191,
+      "startFrame": 2119,
+      "endFrame": 2136
+    },
+    {
+      "word": "to",
+      "start": 71.218,
+      "end": 71.272,
+      "startFrame": 2137,
+      "endFrame": 2138
+    },
+    {
+      "word": "help",
+      "start": 71.32,
+      "end": 71.512,
+      "startFrame": 2140,
+      "endFrame": 2145
+    },
+    {
+      "word": "you",
+      "start": 71.572,
+      "end": 71.752,
+      "startFrame": 2147,
+      "endFrame": 2153
+    },
+    {
+      "word": "start",
+      "start": 71.805,
+      "end": 72.07,
+      "startFrame": 2154,
+      "endFrame": 2162
+    },
+    {
+      "word": "your",
+      "start": 72.086,
+      "end": 72.15,
+      "startFrame": 2163,
+      "endFrame": 2165
+    },
+    {
+      "word": "investing",
+      "start": 72.206,
+      "end": 72.71,
+      "startFrame": 2166,
+      "endFrame": 2181
+    },
+    {
+      "word": "journey.",
+      "start": 72.76,
+      "end": 73.27,
+      "startFrame": 2183,
+      "endFrame": 2198
+    }
+  ],
+  "durationSeconds": 73.77,
+  "durationFrames": 2213
+}

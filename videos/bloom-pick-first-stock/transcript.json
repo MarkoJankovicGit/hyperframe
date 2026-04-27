@@ -1,0 +1,827 @@
+{
+  "sceneId": "scene-01",
+  "text": "Picking your first stock can feel intimidating. But you may already know great companies to invest in. Look around. The brands you use every day are often the ones worth owning. Who makes the phone in your hand? The shoes on your feet? The drink in your fridge? List five companies you interact with almost every day. Maybe you thought of Apple. Starbucks. Nike. Or Netflix. Every one of these — you can invest in, right on Bloom. Your insight as a customer is a superpower. You know which products people love, which brands stick, which companies are growing. But finding companies is only step one. Next: how to tell a great company from a great investment.",
+  "words": [
+    {
+      "word": "Picking",
+      "start": 0,
+      "end": 0.24,
+      "startFrame": 0,
+      "endFrame": 7
+    },
+    {
+      "word": "your",
+      "start": 0.272,
+      "end": 0.4,
+      "startFrame": 8,
+      "endFrame": 12
+    },
+    {
+      "word": "first",
+      "start": 0.453,
+      "end": 0.718,
+      "startFrame": 14,
+      "endFrame": 22
+    },
+    {
+      "word": "stock",
+      "start": 0.771,
+      "end": 1.036,
+      "startFrame": 23,
+      "endFrame": 31
+    },
+    {
+      "word": "can",
+      "start": 1.076,
+      "end": 1.196,
+      "startFrame": 32,
+      "endFrame": 36
+    },
+    {
+      "word": "feel",
+      "start": 1.244,
+      "end": 1.436,
+      "startFrame": 37,
+      "endFrame": 43
+    },
+    {
+      "word": "intimidating.",
+      "start": 1.498,
+      "end": 2.562,
+      "startFrame": 45,
+      "endFrame": 77
+    },
+    {
+      "word": "But",
+      "start": 2.622,
+      "end": 2.802,
+      "startFrame": 79,
+      "endFrame": 84
+    },
+    {
+      "word": "you",
+      "start": 2.862,
+      "end": 3.042,
+      "startFrame": 86,
+      "endFrame": 91
+    },
+    {
+      "word": "may",
+      "start": 3.082,
+      "end": 3.202,
+      "startFrame": 92,
+      "endFrame": 96
+    },
+    {
+      "word": "already",
+      "start": 3.242,
+      "end": 3.522,
+      "startFrame": 97,
+      "endFrame": 106
+    },
+    {
+      "word": "know",
+      "start": 3.57,
+      "end": 3.762,
+      "startFrame": 107,
+      "endFrame": 113
+    },
+    {
+      "word": "great",
+      "start": 3.829,
+      "end": 4.164,
+      "startFrame": 115,
+      "endFrame": 125
+    },
+    {
+      "word": "companies",
+      "start": 4.212,
+      "end": 4.644,
+      "startFrame": 126,
+      "endFrame": 139
+    },
+    {
+      "word": "to",
+      "start": 4.671,
+      "end": 4.725,
+      "startFrame": 140,
+      "endFrame": 142
+    },
+    {
+      "word": "invest",
+      "start": 4.794,
+      "end": 5.208,
+      "startFrame": 144,
+      "endFrame": 156
+    },
+    {
+      "word": "in.",
+      "start": 5.261,
+      "end": 5.447,
+      "startFrame": 158,
+      "endFrame": 163
+    },
+    {
+      "word": "Look",
+      "start": 5.575,
+      "end": 6.087,
+      "startFrame": 167,
+      "endFrame": 183
+    },
+    {
+      "word": "around.",
+      "start": 6.156,
+      "end": 6.81,
+      "startFrame": 185,
+      "endFrame": 204
+    },
+    {
+      "word": "The",
+      "start": 6.87,
+      "end": 7.05,
+      "startFrame": 206,
+      "endFrame": 212
+    },
+    {
+      "word": "brands",
+      "start": 7.096,
+      "end": 7.372,
+      "startFrame": 213,
+      "endFrame": 221
+    },
+    {
+      "word": "you",
+      "start": 7.412,
+      "end": 7.532,
+      "startFrame": 222,
+      "endFrame": 226
+    },
+    {
+      "word": "use",
+      "start": 7.592,
+      "end": 7.772,
+      "startFrame": 228,
+      "endFrame": 233
+    },
+    {
+      "word": "every",
+      "start": 7.839,
+      "end": 8.174,
+      "startFrame": 235,
+      "endFrame": 245
+    },
+    {
+      "word": "day",
+      "start": 8.254,
+      "end": 8.494,
+      "startFrame": 248,
+      "endFrame": 255
+    },
+    {
+      "word": "are",
+      "start": 8.554,
+      "end": 8.734,
+      "startFrame": 257,
+      "endFrame": 262
+    },
+    {
+      "word": "often",
+      "start": 8.787,
+      "end": 9.052,
+      "startFrame": 264,
+      "endFrame": 272
+    },
+    {
+      "word": "the",
+      "start": 9.092,
+      "end": 9.212,
+      "startFrame": 273,
+      "endFrame": 276
+    },
+    {
+      "word": "ones",
+      "start": 9.26,
+      "end": 9.452,
+      "startFrame": 278,
+      "endFrame": 284
+    },
+    {
+      "word": "worth",
+      "start": 9.492,
+      "end": 9.692,
+      "startFrame": 285,
+      "endFrame": 291
+    },
+    {
+      "word": "owning.",
+      "start": 9.749,
+      "end": 10.171,
+      "startFrame": 292,
+      "endFrame": 305
+    },
+    {
+      "word": "Who",
+      "start": 10.351,
+      "end": 10.891,
+      "startFrame": 311,
+      "endFrame": 327
+    },
+    {
+      "word": "makes",
+      "start": 10.944,
+      "end": 11.209,
+      "startFrame": 328,
+      "endFrame": 336
+    },
+    {
+      "word": "the",
+      "start": 11.229,
+      "end": 11.289,
+      "startFrame": 337,
+      "endFrame": 339
+    },
+    {
+      "word": "phone",
+      "start": 11.342,
+      "end": 11.607,
+      "startFrame": 340,
+      "endFrame": 348
+    },
+    {
+      "word": "in",
+      "start": 11.634,
+      "end": 11.688,
+      "startFrame": 349,
+      "endFrame": 351
+    },
+    {
+      "word": "your",
+      "start": 11.72,
+      "end": 11.848,
+      "startFrame": 352,
+      "endFrame": 355
+    },
+    {
+      "word": "hand?",
+      "start": 11.912,
+      "end": 12.248,
+      "startFrame": 357,
+      "endFrame": 367
+    },
+    {
+      "word": "The",
+      "start": 12.388,
+      "end": 12.808,
+      "startFrame": 372,
+      "endFrame": 384
+    },
+    {
+      "word": "shoes",
+      "start": 12.861,
+      "end": 13.126,
+      "startFrame": 386,
+      "endFrame": 394
+    },
+    {
+      "word": "on",
+      "start": 13.153,
+      "end": 13.207,
+      "startFrame": 395,
+      "endFrame": 396
+    },
+    {
+      "word": "your",
+      "start": 13.239,
+      "end": 13.367,
+      "startFrame": 397,
+      "endFrame": 401
+    },
+    {
+      "word": "feet?",
+      "start": 13.447,
+      "end": 13.847,
+      "startFrame": 403,
+      "endFrame": 415
+    },
+    {
+      "word": "The",
+      "start": 14.007,
+      "end": 14.487,
+      "startFrame": 420,
+      "endFrame": 435
+    },
+    {
+      "word": "drink",
+      "start": 14.54,
+      "end": 14.805,
+      "startFrame": 436,
+      "endFrame": 444
+    },
+    {
+      "word": "in",
+      "start": 14.832,
+      "end": 14.886,
+      "startFrame": 445,
+      "endFrame": 447
+    },
+    {
+      "word": "your",
+      "start": 14.918,
+      "end": 15.046,
+      "startFrame": 448,
+      "endFrame": 451
+    },
+    {
+      "word": "fridge?",
+      "start": 15.126,
+      "end": 16.206,
+      "startFrame": 454,
+      "endFrame": 486
+    },
+    {
+      "word": "List",
+      "start": 16.326,
+      "end": 16.806,
+      "startFrame": 490,
+      "endFrame": 504
+    },
+    {
+      "word": "five",
+      "start": 16.87,
+      "end": 17.126,
+      "startFrame": 506,
+      "endFrame": 514
+    },
+    {
+      "word": "companies",
+      "start": 17.174,
+      "end": 17.606,
+      "startFrame": 515,
+      "endFrame": 528
+    },
+    {
+      "word": "you",
+      "start": 17.646,
+      "end": 17.766,
+      "startFrame": 529,
+      "endFrame": 533
+    },
+    {
+      "word": "interact",
+      "start": 17.828,
+      "end": 18.324,
+      "startFrame": 535,
+      "endFrame": 550
+    },
+    {
+      "word": "with",
+      "start": 18.372,
+      "end": 18.564,
+      "startFrame": 551,
+      "endFrame": 557
+    },
+    {
+      "word": "almost",
+      "start": 18.621,
+      "end": 18.963,
+      "startFrame": 559,
+      "endFrame": 569
+    },
+    {
+      "word": "every",
+      "start": 19.03,
+      "end": 19.365,
+      "startFrame": 571,
+      "endFrame": 581
+    },
+    {
+      "word": "day.",
+      "start": 19.445,
+      "end": 19.765,
+      "startFrame": 583,
+      "endFrame": 593
+    },
+    {
+      "word": "Maybe",
+      "start": 19.938,
+      "end": 20.803,
+      "startFrame": 598,
+      "endFrame": 624
+    },
+    {
+      "word": "you",
+      "start": 20.843,
+      "end": 20.963,
+      "startFrame": 625,
+      "endFrame": 629
+    },
+    {
+      "word": "thought",
+      "start": 20.983,
+      "end": 21.123,
+      "startFrame": 629,
+      "endFrame": 634
+    },
+    {
+      "word": "of",
+      "start": 21.176,
+      "end": 21.282,
+      "startFrame": 635,
+      "endFrame": 638
+    },
+    {
+      "word": "Apple.",
+      "start": 21.349,
+      "end": 22.244,
+      "startFrame": 640,
+      "endFrame": 667
+    },
+    {
+      "word": "Starbucks.",
+      "start": 22.3,
+      "end": 22.964,
+      "startFrame": 669,
+      "endFrame": 689
+    },
+    {
+      "word": "Nike.",
+      "start": 23.124,
+      "end": 24.004,
+      "startFrame": 694,
+      "endFrame": 720
+    },
+    {
+      "word": "Or",
+      "start": 24.084,
+      "end": 24.244,
+      "startFrame": 723,
+      "endFrame": 727
+    },
+    {
+      "word": "Netflix.",
+      "start": 24.324,
+      "end": 24.964,
+      "startFrame": 730,
+      "endFrame": 749
+    },
+    {
+      "word": "Every",
+      "start": 25.137,
+      "end": 26.002,
+      "startFrame": 754,
+      "endFrame": 780
+    },
+    {
+      "word": "one",
+      "start": 26.062,
+      "end": 26.242,
+      "startFrame": 782,
+      "endFrame": 787
+    },
+    {
+      "word": "of",
+      "start": 26.269,
+      "end": 26.323,
+      "startFrame": 788,
+      "endFrame": 790
+    },
+    {
+      "word": "these",
+      "start": 26.39,
+      "end": 26.725,
+      "startFrame": 792,
+      "endFrame": 802
+    },
+    {
+      "word": "—",
+      "start": 26.925,
+      "end": 27.125,
+      "startFrame": 808,
+      "endFrame": 814
+    },
+    {
+      "word": "you",
+      "start": 27.145,
+      "end": 27.205,
+      "startFrame": 814,
+      "endFrame": 816
+    },
+    {
+      "word": "can",
+      "start": 27.245,
+      "end": 27.365,
+      "startFrame": 817,
+      "endFrame": 821
+    },
+    {
+      "word": "invest",
+      "start": 27.422,
+      "end": 27.764,
+      "startFrame": 823,
+      "endFrame": 833
+    },
+    {
+      "word": "in,",
+      "start": 27.844,
+      "end": 28.244,
+      "startFrame": 835,
+      "endFrame": 847
+    },
+    {
+      "word": "right",
+      "start": 28.284,
+      "end": 28.484,
+      "startFrame": 849,
+      "endFrame": 855
+    },
+    {
+      "word": "on",
+      "start": 28.564,
+      "end": 28.724,
+      "startFrame": 857,
+      "endFrame": 862
+    },
+    {
+      "word": "Bloom.",
+      "start": 28.777,
+      "end": 29.202,
+      "startFrame": 863,
+      "endFrame": 876
+    },
+    {
+      "word": "Your",
+      "start": 29.378,
+      "end": 30.082,
+      "startFrame": 881,
+      "endFrame": 902
+    },
+    {
+      "word": "insight",
+      "start": 30.152,
+      "end": 30.642,
+      "startFrame": 905,
+      "endFrame": 919
+    },
+    {
+      "word": "as",
+      "start": 30.695,
+      "end": 30.801,
+      "startFrame": 921,
+      "endFrame": 924
+    },
+    {
+      "word": "a",
+      "start": 30.841,
+      "end": 30.881,
+      "startFrame": 925,
+      "endFrame": 926
+    },
+    {
+      "word": "customer",
+      "start": 30.943,
+      "end": 31.439,
+      "startFrame": 928,
+      "endFrame": 943
+    },
+    {
+      "word": "is",
+      "start": 31.519,
+      "end": 31.679,
+      "startFrame": 946,
+      "endFrame": 950
+    },
+    {
+      "word": "a",
+      "start": 31.719,
+      "end": 31.759,
+      "startFrame": 952,
+      "endFrame": 953
+    },
+    {
+      "word": "superpower.",
+      "start": 31.839,
+      "end": 32.639,
+      "startFrame": 955,
+      "endFrame": 979
+    },
+    {
+      "word": "You",
+      "start": 32.799,
+      "end": 33.279,
+      "startFrame": 984,
+      "endFrame": 998
+    },
+    {
+      "word": "know",
+      "start": 33.327,
+      "end": 33.519,
+      "startFrame": 1000,
+      "endFrame": 1006
+    },
+    {
+      "word": "which",
+      "start": 33.559,
+      "end": 33.759,
+      "startFrame": 1007,
+      "endFrame": 1013
+    },
+    {
+      "word": "products",
+      "start": 33.803,
+      "end": 34.155,
+      "startFrame": 1014,
+      "endFrame": 1025
+    },
+    {
+      "word": "people",
+      "start": 34.201,
+      "end": 34.477,
+      "startFrame": 1026,
+      "endFrame": 1034
+    },
+    {
+      "word": "love,",
+      "start": 34.573,
+      "end": 35.277,
+      "startFrame": 1037,
+      "endFrame": 1058
+    },
+    {
+      "word": "which",
+      "start": 35.33,
+      "end": 35.595,
+      "startFrame": 1060,
+      "endFrame": 1068
+    },
+    {
+      "word": "brands",
+      "start": 35.652,
+      "end": 35.994,
+      "startFrame": 1070,
+      "endFrame": 1080
+    },
+    {
+      "word": "stick,",
+      "start": 36.074,
+      "end": 36.554,
+      "startFrame": 1082,
+      "endFrame": 1097
+    },
+    {
+      "word": "which",
+      "start": 36.674,
+      "end": 37.274,
+      "startFrame": 1100,
+      "endFrame": 1118
+    },
+    {
+      "word": "companies",
+      "start": 37.33,
+      "end": 37.834,
+      "startFrame": 1120,
+      "endFrame": 1135
+    },
+    {
+      "word": "are",
+      "start": 37.874,
+      "end": 37.994,
+      "startFrame": 1136,
+      "endFrame": 1140
+    },
+    {
+      "word": "growing.",
+      "start": 38.064,
+      "end": 38.954,
+      "startFrame": 1142,
+      "endFrame": 1169
+    },
+    {
+      "word": "But",
+      "start": 39.054,
+      "end": 39.354,
+      "startFrame": 1172,
+      "endFrame": 1181
+    },
+    {
+      "word": "finding",
+      "start": 39.414,
+      "end": 39.834,
+      "startFrame": 1182,
+      "endFrame": 1195
+    },
+    {
+      "word": "companies",
+      "start": 39.882,
+      "end": 40.314,
+      "startFrame": 1196,
+      "endFrame": 1209
+    },
+    {
+      "word": "is",
+      "start": 40.394,
+      "end": 40.554,
+      "startFrame": 1212,
+      "endFrame": 1217
+    },
+    {
+      "word": "only",
+      "start": 40.618,
+      "end": 40.874,
+      "startFrame": 1219,
+      "endFrame": 1226
+    },
+    {
+      "word": "step",
+      "start": 40.954,
+      "end": 41.274,
+      "startFrame": 1229,
+      "endFrame": 1238
+    },
+    {
+      "word": "one.",
+      "start": 41.354,
+      "end": 41.674,
+      "startFrame": 1241,
+      "endFrame": 1250
+    },
+    {
+      "word": "Next:",
+      "start": 41.898,
+      "end": 43.114,
+      "startFrame": 1257,
+      "endFrame": 1293
+    },
+    {
+      "word": "how",
+      "start": 43.154,
+      "end": 43.274,
+      "startFrame": 1295,
+      "endFrame": 1298
+    },
+    {
+      "word": "to",
+      "start": 43.301,
+      "end": 43.355,
+      "startFrame": 1299,
+      "endFrame": 1301
+    },
+    {
+      "word": "tell",
+      "start": 43.419,
+      "end": 43.675,
+      "startFrame": 1303,
+      "endFrame": 1310
+    },
+    {
+      "word": "a",
+      "start": 43.755,
+      "end": 43.835,
+      "startFrame": 1313,
+      "endFrame": 1315
+    },
+    {
+      "word": "great",
+      "start": 43.902,
+      "end": 44.237,
+      "startFrame": 1317,
+      "endFrame": 1327
+    },
+    {
+      "word": "company",
+      "start": 44.287,
+      "end": 44.637,
+      "startFrame": 1329,
+      "endFrame": 1339
+    },
+    {
+      "word": "from",
+      "start": 44.685,
+      "end": 44.877,
+      "startFrame": 1341,
+      "endFrame": 1346
+    },
+    {
+      "word": "a",
+      "start": 44.917,
+      "end": 44.957,
+      "startFrame": 1348,
+      "endFrame": 1349
+    },
+    {
+      "word": "great",
+      "start": 45.01,
+      "end": 45.275,
+      "startFrame": 1350,
+      "endFrame": 1358
+    },
+    {
+      "word": "investment.",
+      "start": 45.348,
+      "end": 46.158,
+      "startFrame": 1360,
+      "endFrame": 1385
+    }
+  ],
+  "durationSeconds": 46.658,
+  "durationFrames": 1400
+}

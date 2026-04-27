@@ -1,0 +1,294 @@
+[
+  {
+    "url": "https://investamerica.bloomapp.com/images/bloom-logo.svg",
+    "type": "Image",
+    "contexts": [
+      "img[src]"
+    ],
+    "notes": "Bloom",
+    "description": "Bloom",
+    "nearestHeading": "GiveyourchildaheadstartontheAmericanDream.",
+    "sectionClasses": "min-h-screen bg-cream",
+    "aboveFold": true
+  },
+  {
+    "url": "https://investamerica.bloomapp.com/images/stickers/pink_stickers_rocket.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]"
+    ],
+    "notes": null,
+    "nearestHeading": "GiveyourchildaheadstartontheAmericanDream.",
+    "sectionClasses": "min-h-screen flex items-center relative overflow-hidden bg-gradient-to-b from-cream via-cream to-cream-light",
+    "aboveFold": true
+  },
+  {
+    "url": "https://investamerica.bloomapp.com/images/stickers/pink_stickers_house.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]"
+    ],
+    "notes": null,
+    "nearestHeading": "GiveyourchildaheadstartontheAmericanDream.",
+    "sectionClasses": "min-h-screen flex items-center relative overflow-hidden bg-gradient-to-b from-cream via-cream to-cream-light",
+    "aboveFold": true
+  },
+  {
+    "url": "https://investamerica.bloomapp.com/images/stickers/pink_stickers_money_wings.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]"
+    ],
+    "notes": null,
+    "nearestHeading": "GiveyourchildaheadstartontheAmericanDream.",
+    "sectionClasses": "min-h-screen flex items-center relative overflow-hidden bg-gradient-to-b from-cream via-cream to-cream-light",
+    "aboveFold": true
+  },
+  {
+    "url": "https://investamerica.bloomapp.com/images/stickers/pink_stickers_coin.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]"
+    ],
+    "notes": null,
+    "nearestHeading": "GiveyourchildaheadstartontheAmericanDream.",
+    "sectionClasses": "min-h-screen flex items-center relative overflow-hidden bg-gradient-to-b from-cream via-cream to-cream-light",
+    "aboveFold": true
+  },
+  {
+    "url": "https://investamerica.bloomapp.com/images/copy_trading_mockup.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]"
+    ],
+    "notes": "Bloom copy trading — mirror top investors like Warren Buffett, Bill Ackman, and Ray Dalio",
+    "description": "Bloom copy trading — mirror top investors like Warren Buffett, Bill Ackman, and Ray Dalio",
+    "nearestHeading": "Copy the world's best investors.",
+    "sectionClasses": "py-24 md:py-32 bg-gradient-to-br from-[#0A1A63] to-[#1658FF] relative overflow-hidden",
+    "aboveFold": true
+  },
+  {
+    "url": "https://investamerica.bloomapp.com/images/invest_america_card_bloomie.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]"
+    ],
+    "notes": "Bloomie AI research assistant chat interface",
+    "description": "Bloomie AI research assistant chat interface",
+    "nearestHeading": "Why families choose Bloom",
+    "sectionClasses": "py-24 md:py-32 bg-cream-light relative overflow-hidden",
+    "aboveFold": true
+  },
+  {
+    "url": "https://investamerica.bloomapp.com/images/invest_america_card_learning.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]"
+    ],
+    "notes": "AI-generated investment courses personalized to your skill level",
+    "description": "AI-generated investment courses personalized to your skill level",
+    "nearestHeading": "Why families choose Bloom",
+    "sectionClasses": "py-24 md:py-32 bg-cream-light relative overflow-hidden",
+    "aboveFold": true
+  },
+  {
+    "url": "https://investamerica.bloomapp.com/images/invest_america_card_invest.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]"
+    ],
+    "notes": "Bloom portfolio tracking with zero fees",
+    "description": "Bloom portfolio tracking with zero fees",
+    "nearestHeading": "Why families choose Bloom",
+    "sectionClasses": "py-24 md:py-32 bg-cream-light relative overflow-hidden",
+    "aboveFold": true
+  },
+  {
+    "url": "https://investamerica.bloomapp.com/images/invest_america_card_parents.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]"
+    ],
+    "notes": "Parental dashboard showing lessons completed and progress tracking",
+    "description": "Parental dashboard showing lessons completed and progress tracking",
+    "nearestHeading": "Why families choose Bloom",
+    "sectionClasses": "py-24 md:py-32 bg-cream-light relative overflow-hidden",
+    "aboveFold": true
+  },
+  {
+    "url": "https://investamerica.bloomapp.com/images/invest_america_card_copy_trading.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]"
+    ],
+    "notes": "Mirror top investors like Warren Buffett and Bill Ackman",
+    "description": "Mirror top investors like Warren Buffett and Bill Ackman",
+    "nearestHeading": "Why families choose Bloom",
+    "sectionClasses": "py-24 md:py-32 bg-cream-light relative overflow-hidden",
+    "aboveFold": true
+  },
+  {
+    "url": "https://investamerica.bloomapp.com/images/invest_america_card_games.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]"
+    ],
+    "notes": "Chapter conquered achievement with trophy and mastery progress",
+    "description": "Chapter conquered achievement with trophy and mastery progress",
+    "nearestHeading": "Why families choose Bloom",
+    "sectionClasses": "py-24 md:py-32 bg-cream-light relative overflow-hidden",
+    "aboveFold": true
+  },
+  {
+    "url": "https://investamerica.bloomapp.com/favicon.ico",
+    "type": "Icon",
+    "contexts": [
+      "link[rel=\"icon\"]"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://investamerica.bloomapp.com/_next/static/css/cb83eb10567a66b6.css",
+    "type": "Other",
+    "contexts": [
+      "link[rel=\"preload\"]"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://fonts.gstatic.com/l/font?kit=jizHRFtNs2ka5fXjeivQ4LroWlx-6zATiA&skey=1319132b16075d60&v=v5",
+    "type": "Other",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://fonts.gstatic.com/l/font?kit=jizBRFtNs2ka5fXjeivQ4LroWlx-2zE&skey=8f4195a287ef110c&v=v5",
+    "type": "Other",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://fonts.gstatic.com/l/font?kit=UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfMZs&skey=c491285d6722e4fa&v=v20",
+    "type": "Other",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://fonts.gstatic.com/l/font?kit=UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuI6fMZs&skey=c491285d6722e4fa&v=v20",
+    "type": "Other",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://fonts.gstatic.com/l/font?kit=UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuGKYMZs&skey=c491285d6722e4fa&v=v20",
+    "type": "Other",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://fonts.gstatic.com/l/font?kit=UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYMZs&skey=c491285d6722e4fa&v=v20",
+    "type": "Other",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://fonts.gstatic.com/s/instrumentserif/v5/jizHRFtNs2ka5fXjeivQ4LroWlx-6zAjgn7Motmp5r61.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://fonts.gstatic.com/s/instrumentserif/v5/jizHRFtNs2ka5fXjeivQ4LroWlx-6zAjjH7Motmp5g.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://fonts.gstatic.com/s/instrumentserif/v5/jizBRFtNs2ka5fXjeivQ4LroWlx-6zsTjnTLgNuZ5w.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://fonts.gstatic.com/s/instrumentserif/v5/jizBRFtNs2ka5fXjeivQ4LroWlx-6zUTjnTLgNs.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2JL7W0Q5n-wU.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa0ZL7W0Q5n-wU.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2ZL7W0Q5n-wU.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1pL7W0Q5n-wU.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2pL7W0Q5n-wU.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa25L7W0Q5n-wU.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  }
+]

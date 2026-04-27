@@ -1,0 +1,1443 @@
+{
+  "sceneId": "scene-01",
+  "text": "Want the most popular way to lower risk while still chasing reward? It's called diversification. Imagine you invest one thousand dollars, all in Tesla. If Tesla fails, your whole one thousand dollars can disappear. A better move is spreading that money across five companies: two hundred dollars in each one. Now, if one company struggles, you still have four others working for you. That practice, spreading investments across different companies, industries, and asset classes, is diversification. It's the investing version of don't put all your eggs in one basket. Diversification reduces risk because different investments rarely all crash at the exact same time. If you only own tech stocks like Apple and Meta, a tech slump can pull your whole portfolio down. In twenty twenty two, Meta dropped nearly seventy percent. But if you also owned healthcare stocks, your portfolio had another engine. Moderna surged during the demand for COVID testing and vaccines. So diversification is not just about avoiding losses. It can also give you more ways to profit across different market conditions. You could ride the tech wave from twenty fourteen to twenty twenty one, then still benefit when healthcare rallied in twenty twenty two. Next lesson: the easiest way to diversify, ETFs.",
+  "words": [
+    {
+      "word": "Want",
+      "start": 0,
+      "end": 0.16,
+      "startFrame": 0,
+      "endFrame": 5
+    },
+    {
+      "word": "the",
+      "start": 0.18,
+      "end": 0.24,
+      "startFrame": 5,
+      "endFrame": 7
+    },
+    {
+      "word": "most",
+      "start": 0.304,
+      "end": 0.56,
+      "startFrame": 9,
+      "endFrame": 17
+    },
+    {
+      "word": "popular",
+      "start": 0.62,
+      "end": 1.04,
+      "startFrame": 19,
+      "endFrame": 31
+    },
+    {
+      "word": "way",
+      "start": 1.12,
+      "end": 1.36,
+      "startFrame": 34,
+      "endFrame": 41
+    },
+    {
+      "word": "to",
+      "start": 1.387,
+      "end": 1.441,
+      "startFrame": 42,
+      "endFrame": 43
+    },
+    {
+      "word": "lower",
+      "start": 1.494,
+      "end": 1.759,
+      "startFrame": 45,
+      "endFrame": 53
+    },
+    {
+      "word": "risk",
+      "start": 1.855,
+      "end": 2.239,
+      "startFrame": 56,
+      "endFrame": 67
+    },
+    {
+      "word": "while",
+      "start": 2.292,
+      "end": 2.557,
+      "startFrame": 69,
+      "endFrame": 77
+    },
+    {
+      "word": "still",
+      "start": 2.584,
+      "end": 2.719,
+      "startFrame": 78,
+      "endFrame": 82
+    },
+    {
+      "word": "chasing",
+      "start": 2.779,
+      "end": 3.199,
+      "startFrame": 83,
+      "endFrame": 96
+    },
+    {
+      "word": "reward?",
+      "start": 3.268,
+      "end": 3.762,
+      "startFrame": 98,
+      "endFrame": 113
+    },
+    {
+      "word": "It's",
+      "start": 4.002,
+      "end": 4.562,
+      "startFrame": 120,
+      "endFrame": 137
+    },
+    {
+      "word": "called",
+      "start": 4.596,
+      "end": 4.8,
+      "startFrame": 138,
+      "endFrame": 144
+    },
+    {
+      "word": "diversification.",
+      "start": 4.869,
+      "end": 6.002,
+      "startFrame": 146,
+      "endFrame": 180
+    },
+    {
+      "word": "Imagine",
+      "start": 6.152,
+      "end": 7.202,
+      "startFrame": 185,
+      "endFrame": 216
+    },
+    {
+      "word": "you",
+      "start": 7.222,
+      "end": 7.282,
+      "startFrame": 217,
+      "endFrame": 218
+    },
+    {
+      "word": "invest",
+      "start": 7.351,
+      "end": 7.765,
+      "startFrame": 221,
+      "endFrame": 233
+    },
+    {
+      "word": "one",
+      "start": 7.825,
+      "end": 8.005,
+      "startFrame": 235,
+      "endFrame": 240
+    },
+    {
+      "word": "thousand",
+      "start": 8.049,
+      "end": 8.401,
+      "startFrame": 241,
+      "endFrame": 252
+    },
+    {
+      "word": "dollars,",
+      "start": 8.461,
+      "end": 8.961,
+      "startFrame": 254,
+      "endFrame": 269
+    },
+    {
+      "word": "all",
+      "start": 9.041,
+      "end": 9.281,
+      "startFrame": 271,
+      "endFrame": 278
+    },
+    {
+      "word": "in",
+      "start": 9.308,
+      "end": 9.362,
+      "startFrame": 279,
+      "endFrame": 281
+    },
+    {
+      "word": "Tesla.",
+      "start": 9.442,
+      "end": 9.922,
+      "startFrame": 283,
+      "endFrame": 298
+    },
+    {
+      "word": "If",
+      "start": 10.135,
+      "end": 10.561,
+      "startFrame": 304,
+      "endFrame": 317
+    },
+    {
+      "word": "Tesla",
+      "start": 10.628,
+      "end": 10.963,
+      "startFrame": 319,
+      "endFrame": 329
+    },
+    {
+      "word": "fails,",
+      "start": 11.056,
+      "end": 11.761,
+      "startFrame": 332,
+      "endFrame": 353
+    },
+    {
+      "word": "your",
+      "start": 11.809,
+      "end": 12.001,
+      "startFrame": 354,
+      "endFrame": 360
+    },
+    {
+      "word": "whole",
+      "start": 12.041,
+      "end": 12.241,
+      "startFrame": 361,
+      "endFrame": 367
+    },
+    {
+      "word": "one",
+      "start": 12.301,
+      "end": 12.481,
+      "startFrame": 369,
+      "endFrame": 374
+    },
+    {
+      "word": "thousand",
+      "start": 12.525,
+      "end": 12.877,
+      "startFrame": 376,
+      "endFrame": 386
+    },
+    {
+      "word": "dollars",
+      "start": 12.937,
+      "end": 13.357,
+      "startFrame": 388,
+      "endFrame": 401
+    },
+    {
+      "word": "can",
+      "start": 13.397,
+      "end": 13.517,
+      "startFrame": 402,
+      "endFrame": 406
+    },
+    {
+      "word": "disappear.",
+      "start": 13.581,
+      "end": 14.237,
+      "startFrame": 407,
+      "endFrame": 427
+    },
+    {
+      "word": "A",
+      "start": 14.637,
+      "end": 15.037,
+      "startFrame": 439,
+      "endFrame": 451
+    },
+    {
+      "word": "better",
+      "start": 15.083,
+      "end": 15.359,
+      "startFrame": 452,
+      "endFrame": 461
+    },
+    {
+      "word": "move",
+      "start": 15.423,
+      "end": 15.679,
+      "startFrame": 463,
+      "endFrame": 470
+    },
+    {
+      "word": "is",
+      "start": 15.732,
+      "end": 15.838,
+      "startFrame": 472,
+      "endFrame": 475
+    },
+    {
+      "word": "spreading",
+      "start": 15.878,
+      "end": 16.238,
+      "startFrame": 476,
+      "endFrame": 487
+    },
+    {
+      "word": "that",
+      "start": 16.27,
+      "end": 16.398,
+      "startFrame": 488,
+      "endFrame": 492
+    },
+    {
+      "word": "money",
+      "start": 16.438,
+      "end": 16.638,
+      "startFrame": 493,
+      "endFrame": 499
+    },
+    {
+      "word": "across",
+      "start": 16.707,
+      "end": 17.121,
+      "startFrame": 501,
+      "endFrame": 514
+    },
+    {
+      "word": "five",
+      "start": 17.201,
+      "end": 17.521,
+      "startFrame": 516,
+      "endFrame": 526
+    },
+    {
+      "word": "companies:",
+      "start": 17.585,
+      "end": 18.481,
+      "startFrame": 528,
+      "endFrame": 554
+    },
+    {
+      "word": "two",
+      "start": 18.501,
+      "end": 18.561,
+      "startFrame": 555,
+      "endFrame": 557
+    },
+    {
+      "word": "hundred",
+      "start": 18.601,
+      "end": 18.881,
+      "startFrame": 558,
+      "endFrame": 566
+    },
+    {
+      "word": "dollars",
+      "start": 18.941,
+      "end": 19.361,
+      "startFrame": 568,
+      "endFrame": 581
+    },
+    {
+      "word": "in",
+      "start": 19.414,
+      "end": 19.52,
+      "startFrame": 582,
+      "endFrame": 586
+    },
+    {
+      "word": "each",
+      "start": 19.568,
+      "end": 19.76,
+      "startFrame": 587,
+      "endFrame": 593
+    },
+    {
+      "word": "one.",
+      "start": 19.86,
+      "end": 20.24,
+      "startFrame": 596,
+      "endFrame": 607
+    },
+    {
+      "word": "Now,",
+      "start": 20.5,
+      "end": 21.36,
+      "startFrame": 615,
+      "endFrame": 641
+    },
+    {
+      "word": "if",
+      "start": 21.413,
+      "end": 21.519,
+      "startFrame": 642,
+      "endFrame": 646
+    },
+    {
+      "word": "one",
+      "start": 21.599,
+      "end": 21.839,
+      "startFrame": 648,
+      "endFrame": 655
+    },
+    {
+      "word": "company",
+      "start": 21.889,
+      "end": 22.239,
+      "startFrame": 657,
+      "endFrame": 667
+    },
+    {
+      "word": "struggles,",
+      "start": 22.295,
+      "end": 22.959,
+      "startFrame": 669,
+      "endFrame": 689
+    },
+    {
+      "word": "you",
+      "start": 23.019,
+      "end": 23.199,
+      "startFrame": 691,
+      "endFrame": 696
+    },
+    {
+      "word": "still",
+      "start": 23.239,
+      "end": 23.439,
+      "startFrame": 697,
+      "endFrame": 703
+    },
+    {
+      "word": "have",
+      "start": 23.487,
+      "end": 23.679,
+      "startFrame": 705,
+      "endFrame": 710
+    },
+    {
+      "word": "four",
+      "start": 23.743,
+      "end": 23.999,
+      "startFrame": 712,
+      "endFrame": 720
+    },
+    {
+      "word": "others",
+      "start": 24.068,
+      "end": 24.482,
+      "startFrame": 722,
+      "endFrame": 734
+    },
+    {
+      "word": "working",
+      "start": 24.522,
+      "end": 24.802,
+      "startFrame": 736,
+      "endFrame": 744
+    },
+    {
+      "word": "for",
+      "start": 24.862,
+      "end": 25.042,
+      "startFrame": 746,
+      "endFrame": 751
+    },
+    {
+      "word": "you.",
+      "start": 25.082,
+      "end": 25.282,
+      "startFrame": 752,
+      "endFrame": 758
+    },
+    {
+      "word": "That",
+      "start": 25.474,
+      "end": 26.242,
+      "startFrame": 764,
+      "endFrame": 787
+    },
+    {
+      "word": "practice,",
+      "start": 26.313,
+      "end": 27.161,
+      "startFrame": 789,
+      "endFrame": 815
+    },
+    {
+      "word": "spreading",
+      "start": 27.189,
+      "end": 27.441,
+      "startFrame": 816,
+      "endFrame": 823
+    },
+    {
+      "word": "investments",
+      "start": 27.494,
+      "end": 28.077,
+      "startFrame": 825,
+      "endFrame": 842
+    },
+    {
+      "word": "across",
+      "start": 28.134,
+      "end": 28.476,
+      "startFrame": 844,
+      "endFrame": 854
+    },
+    {
+      "word": "different",
+      "start": 28.516,
+      "end": 28.876,
+      "startFrame": 855,
+      "endFrame": 866
+    },
+    {
+      "word": "companies,",
+      "start": 28.94,
+      "end": 29.676,
+      "startFrame": 868,
+      "endFrame": 890
+    },
+    {
+      "word": "industries,",
+      "start": 29.734,
+      "end": 30.394,
+      "startFrame": 892,
+      "endFrame": 912
+    },
+    {
+      "word": "and",
+      "start": 30.434,
+      "end": 30.554,
+      "startFrame": 913,
+      "endFrame": 917
+    },
+    {
+      "word": "asset",
+      "start": 30.621,
+      "end": 30.956,
+      "startFrame": 919,
+      "endFrame": 929
+    },
+    {
+      "word": "classes,",
+      "start": 31.026,
+      "end": 31.756,
+      "startFrame": 931,
+      "endFrame": 953
+    },
+    {
+      "word": "is",
+      "start": 31.809,
+      "end": 31.915,
+      "startFrame": 954,
+      "endFrame": 957
+    },
+    {
+      "word": "diversification.",
+      "start": 31.972,
+      "end": 33.113,
+      "startFrame": 959,
+      "endFrame": 993
+    },
+    {
+      "word": "It's",
+      "start": 33.326,
+      "end": 33.832,
+      "startFrame": 1000,
+      "endFrame": 1015
+    },
+    {
+      "word": "the",
+      "start": 33.852,
+      "end": 33.912,
+      "startFrame": 1016,
+      "endFrame": 1017
+    },
+    {
+      "word": "investing",
+      "start": 33.96,
+      "end": 34.392,
+      "startFrame": 1019,
+      "endFrame": 1032
+    },
+    {
+      "word": "version",
+      "start": 34.452,
+      "end": 34.872,
+      "startFrame": 1034,
+      "endFrame": 1046
+    },
+    {
+      "word": "of",
+      "start": 34.925,
+      "end": 35.031,
+      "startFrame": 1048,
+      "endFrame": 1051
+    },
+    {
+      "word": "don't",
+      "start": 35.091,
+      "end": 35.351,
+      "startFrame": 1053,
+      "endFrame": 1061
+    },
+    {
+      "word": "put",
+      "start": 35.391,
+      "end": 35.511,
+      "startFrame": 1062,
+      "endFrame": 1065
+    },
+    {
+      "word": "all",
+      "start": 35.571,
+      "end": 35.751,
+      "startFrame": 1067,
+      "endFrame": 1073
+    },
+    {
+      "word": "your",
+      "start": 35.783,
+      "end": 35.911,
+      "startFrame": 1073,
+      "endFrame": 1077
+    },
+    {
+      "word": "eggs",
+      "start": 35.991,
+      "end": 36.311,
+      "startFrame": 1080,
+      "endFrame": 1089
+    },
+    {
+      "word": "in",
+      "start": 36.364,
+      "end": 36.47,
+      "startFrame": 1091,
+      "endFrame": 1094
+    },
+    {
+      "word": "one",
+      "start": 36.53,
+      "end": 36.71,
+      "startFrame": 1096,
+      "endFrame": 1101
+    },
+    {
+      "word": "basket.",
+      "start": 36.801,
+      "end": 37.427,
+      "startFrame": 1104,
+      "endFrame": 1123
+    },
+    {
+      "word": "Diversification",
+      "start": 37.747,
+      "end": 38.945,
+      "startFrame": 1132,
+      "endFrame": 1168
+    },
+    {
+      "word": "reduces",
+      "start": 39.015,
+      "end": 39.505,
+      "startFrame": 1170,
+      "endFrame": 1185
+    },
+    {
+      "word": "risk",
+      "start": 39.601,
+      "end": 39.985,
+      "startFrame": 1188,
+      "endFrame": 1200
+    },
+    {
+      "word": "because",
+      "start": 40.035,
+      "end": 40.385,
+      "startFrame": 1201,
+      "endFrame": 1212
+    },
+    {
+      "word": "different",
+      "start": 40.417,
+      "end": 40.705,
+      "startFrame": 1213,
+      "endFrame": 1221
+    },
+    {
+      "word": "investments",
+      "start": 40.758,
+      "end": 41.341,
+      "startFrame": 1223,
+      "endFrame": 1240
+    },
+    {
+      "word": "rarely",
+      "start": 41.421,
+      "end": 41.901,
+      "startFrame": 1243,
+      "endFrame": 1257
+    },
+    {
+      "word": "all",
+      "start": 41.981,
+      "end": 42.221,
+      "startFrame": 1259,
+      "endFrame": 1267
+    },
+    {
+      "word": "crash",
+      "start": 42.314,
+      "end": 42.779,
+      "startFrame": 1269,
+      "endFrame": 1283
+    },
+    {
+      "word": "at",
+      "start": 42.832,
+      "end": 42.938,
+      "startFrame": 1285,
+      "endFrame": 1288
+    },
+    {
+      "word": "the",
+      "start": 42.958,
+      "end": 43.018,
+      "startFrame": 1289,
+      "endFrame": 1291
+    },
+    {
+      "word": "exact",
+      "start": 43.098,
+      "end": 43.498,
+      "startFrame": 1293,
+      "endFrame": 1305
+    },
+    {
+      "word": "same",
+      "start": 43.546,
+      "end": 43.738,
+      "startFrame": 1306,
+      "endFrame": 1312
+    },
+    {
+      "word": "time.",
+      "start": 43.818,
+      "end": 44.218,
+      "startFrame": 1315,
+      "endFrame": 1327
+    },
+    {
+      "word": "If",
+      "start": 44.485,
+      "end": 45.019,
+      "startFrame": 1335,
+      "endFrame": 1351
+    },
+    {
+      "word": "you",
+      "start": 45.059,
+      "end": 45.179,
+      "startFrame": 1352,
+      "endFrame": 1355
+    },
+    {
+      "word": "only",
+      "start": 45.259,
+      "end": 45.579,
+      "startFrame": 1358,
+      "endFrame": 1367
+    },
+    {
+      "word": "own",
+      "start": 45.639,
+      "end": 45.819,
+      "startFrame": 1369,
+      "endFrame": 1375
+    },
+    {
+      "word": "tech",
+      "start": 45.883,
+      "end": 46.139,
+      "startFrame": 1376,
+      "endFrame": 1384
+    },
+    {
+      "word": "stocks",
+      "start": 46.196,
+      "end": 46.538,
+      "startFrame": 1386,
+      "endFrame": 1396
+    },
+    {
+      "word": "like",
+      "start": 46.586,
+      "end": 46.778,
+      "startFrame": 1398,
+      "endFrame": 1403
+    },
+    {
+      "word": "Apple",
+      "start": 46.845,
+      "end": 47.18,
+      "startFrame": 1405,
+      "endFrame": 1415
+    },
+    {
+      "word": "and",
+      "start": 47.22,
+      "end": 47.34,
+      "startFrame": 1417,
+      "endFrame": 1420
+    },
+    {
+      "word": "Meta,",
+      "start": 47.42,
+      "end": 48.06,
+      "startFrame": 1423,
+      "endFrame": 1442
+    },
+    {
+      "word": "a",
+      "start": 48.1,
+      "end": 48.14,
+      "startFrame": 1443,
+      "endFrame": 1444
+    },
+    {
+      "word": "tech",
+      "start": 48.204,
+      "end": 48.46,
+      "startFrame": 1446,
+      "endFrame": 1454
+    },
+    {
+      "word": "slump",
+      "start": 48.513,
+      "end": 48.778,
+      "startFrame": 1455,
+      "endFrame": 1463
+    },
+    {
+      "word": "can",
+      "start": 48.838,
+      "end": 49.018,
+      "startFrame": 1465,
+      "endFrame": 1471
+    },
+    {
+      "word": "pull",
+      "start": 49.066,
+      "end": 49.258,
+      "startFrame": 1472,
+      "endFrame": 1478
+    },
+    {
+      "word": "your",
+      "start": 49.306,
+      "end": 49.498,
+      "startFrame": 1479,
+      "endFrame": 1485
+    },
+    {
+      "word": "whole",
+      "start": 49.538,
+      "end": 49.738,
+      "startFrame": 1486,
+      "endFrame": 1492
+    },
+    {
+      "word": "portfolio",
+      "start": 49.81,
+      "end": 50.458,
+      "startFrame": 1494,
+      "endFrame": 1514
+    },
+    {
+      "word": "down.",
+      "start": 50.538,
+      "end": 51.018,
+      "startFrame": 1516,
+      "endFrame": 1531
+    },
+    {
+      "word": "In",
+      "start": 51.285,
+      "end": 51.819,
+      "startFrame": 1539,
+      "endFrame": 1555
+    },
+    {
+      "word": "twenty",
+      "start": 51.865,
+      "end": 52.141,
+      "startFrame": 1556,
+      "endFrame": 1564
+    },
+    {
+      "word": "twenty",
+      "start": 52.187,
+      "end": 52.463,
+      "startFrame": 1566,
+      "endFrame": 1574
+    },
+    {
+      "word": "two,",
+      "start": 52.523,
+      "end": 53.103,
+      "startFrame": 1576,
+      "endFrame": 1593
+    },
+    {
+      "word": "Meta",
+      "start": 53.167,
+      "end": 53.423,
+      "startFrame": 1595,
+      "endFrame": 1603
+    },
+    {
+      "word": "dropped",
+      "start": 53.463,
+      "end": 53.743,
+      "startFrame": 1604,
+      "endFrame": 1612
+    },
+    {
+      "word": "nearly",
+      "start": 53.812,
+      "end": 54.226,
+      "startFrame": 1614,
+      "endFrame": 1627
+    },
+    {
+      "word": "seventy",
+      "start": 54.296,
+      "end": 54.786,
+      "startFrame": 1629,
+      "endFrame": 1644
+    },
+    {
+      "word": "percent.",
+      "start": 54.846,
+      "end": 55.346,
+      "startFrame": 1645,
+      "endFrame": 1660
+    },
+    {
+      "word": "But",
+      "start": 55.486,
+      "end": 55.906,
+      "startFrame": 1665,
+      "endFrame": 1677
+    },
+    {
+      "word": "if",
+      "start": 55.959,
+      "end": 56.065,
+      "startFrame": 1679,
+      "endFrame": 1682
+    },
+    {
+      "word": "you",
+      "start": 56.105,
+      "end": 56.225,
+      "startFrame": 1683,
+      "endFrame": 1687
+    },
+    {
+      "word": "also",
+      "start": 56.305,
+      "end": 56.625,
+      "startFrame": 1689,
+      "endFrame": 1699
+    },
+    {
+      "word": "owned",
+      "start": 56.678,
+      "end": 56.943,
+      "startFrame": 1700,
+      "endFrame": 1708
+    },
+    {
+      "word": "healthcare",
+      "start": 56.987,
+      "end": 57.427,
+      "startFrame": 1710,
+      "endFrame": 1723
+    },
+    {
+      "word": "stocks,",
+      "start": 57.507,
+      "end": 58.147,
+      "startFrame": 1725,
+      "endFrame": 1744
+    },
+    {
+      "word": "your",
+      "start": 58.179,
+      "end": 58.307,
+      "startFrame": 1745,
+      "endFrame": 1749
+    },
+    {
+      "word": "portfolio",
+      "start": 58.379,
+      "end": 59.027,
+      "startFrame": 1751,
+      "endFrame": 1771
+    },
+    {
+      "word": "had",
+      "start": 59.067,
+      "end": 59.187,
+      "startFrame": 1772,
+      "endFrame": 1776
+    },
+    {
+      "word": "another",
+      "start": 59.237,
+      "end": 59.587,
+      "startFrame": 1777,
+      "endFrame": 1788
+    },
+    {
+      "word": "engine.",
+      "start": 59.644,
+      "end": 60.066,
+      "startFrame": 1789,
+      "endFrame": 1802
+    },
+    {
+      "word": "Moderna",
+      "start": 60.215,
+      "end": 61.269,
+      "startFrame": 1806,
+      "endFrame": 1838
+    },
+    {
+      "word": "surged",
+      "start": 61.349,
+      "end": 61.829,
+      "startFrame": 1840,
+      "endFrame": 1855
+    },
+    {
+      "word": "during",
+      "start": 61.886,
+      "end": 62.228,
+      "startFrame": 1857,
+      "endFrame": 1867
+    },
+    {
+      "word": "the",
+      "start": 62.248,
+      "end": 62.308,
+      "startFrame": 1867,
+      "endFrame": 1869
+    },
+    {
+      "word": "demand",
+      "start": 62.377,
+      "end": 62.791,
+      "startFrame": 1871,
+      "endFrame": 1884
+    },
+    {
+      "word": "for",
+      "start": 62.811,
+      "end": 62.871,
+      "startFrame": 1884,
+      "endFrame": 1886
+    },
+    {
+      "word": "COVID",
+      "start": 62.951,
+      "end": 63.351,
+      "startFrame": 1889,
+      "endFrame": 1901
+    },
+    {
+      "word": "testing",
+      "start": 63.401,
+      "end": 63.751,
+      "startFrame": 1902,
+      "endFrame": 1913
+    },
+    {
+      "word": "and",
+      "start": 63.831,
+      "end": 64.071,
+      "startFrame": 1915,
+      "endFrame": 1922
+    },
+    {
+      "word": "vaccines.",
+      "start": 64.151,
+      "end": 64.951,
+      "startFrame": 1925,
+      "endFrame": 1949
+    },
+    {
+      "word": "So",
+      "start": 65.164,
+      "end": 65.59,
+      "startFrame": 1955,
+      "endFrame": 1968
+    },
+    {
+      "word": "diversification",
+      "start": 65.659,
+      "end": 66.631,
+      "startFrame": 1970,
+      "endFrame": 1999
+    },
+    {
+      "word": "is",
+      "start": 66.711,
+      "end": 66.871,
+      "startFrame": 2001,
+      "endFrame": 2006
+    },
+    {
+      "word": "not",
+      "start": 66.971,
+      "end": 67.271,
+      "startFrame": 2009,
+      "endFrame": 2018
+    },
+    {
+      "word": "just",
+      "start": 67.319,
+      "end": 67.511,
+      "startFrame": 2020,
+      "endFrame": 2025
+    },
+    {
+      "word": "about",
+      "start": 67.551,
+      "end": 67.751,
+      "startFrame": 2027,
+      "endFrame": 2033
+    },
+    {
+      "word": "avoiding",
+      "start": 67.804,
+      "end": 68.228,
+      "startFrame": 2034,
+      "endFrame": 2047
+    },
+    {
+      "word": "losses.",
+      "start": 68.319,
+      "end": 69.025,
+      "startFrame": 2050,
+      "endFrame": 2071
+    },
+    {
+      "word": "It",
+      "start": 69.105,
+      "end": 69.265,
+      "startFrame": 2073,
+      "endFrame": 2078
+    },
+    {
+      "word": "can",
+      "start": 69.305,
+      "end": 69.425,
+      "startFrame": 2079,
+      "endFrame": 2083
+    },
+    {
+      "word": "also",
+      "start": 69.489,
+      "end": 69.745,
+      "startFrame": 2085,
+      "endFrame": 2092
+    },
+    {
+      "word": "give",
+      "start": 69.793,
+      "end": 69.985,
+      "startFrame": 2094,
+      "endFrame": 2100
+    },
+    {
+      "word": "you",
+      "start": 70.025,
+      "end": 70.145,
+      "startFrame": 2101,
+      "endFrame": 2104
+    },
+    {
+      "word": "more",
+      "start": 70.209,
+      "end": 70.465,
+      "startFrame": 2106,
+      "endFrame": 2114
+    },
+    {
+      "word": "ways",
+      "start": 70.529,
+      "end": 70.785,
+      "startFrame": 2116,
+      "endFrame": 2124
+    },
+    {
+      "word": "to",
+      "start": 70.812,
+      "end": 70.866,
+      "startFrame": 2124,
+      "endFrame": 2126
+    },
+    {
+      "word": "profit",
+      "start": 70.946,
+      "end": 71.426,
+      "startFrame": 2128,
+      "endFrame": 2143
+    },
+    {
+      "word": "across",
+      "start": 71.483,
+      "end": 71.825,
+      "startFrame": 2144,
+      "endFrame": 2155
+    },
+    {
+      "word": "different",
+      "start": 71.865,
+      "end": 72.225,
+      "startFrame": 2156,
+      "endFrame": 2167
+    },
+    {
+      "word": "market",
+      "start": 72.282,
+      "end": 72.624,
+      "startFrame": 2168,
+      "endFrame": 2179
+    },
+    {
+      "word": "conditions.",
+      "start": 72.689,
+      "end": 73.499,
+      "startFrame": 2181,
+      "endFrame": 2205
+    },
+    {
+      "word": "You",
+      "start": 73.679,
+      "end": 74.219,
+      "startFrame": 2210,
+      "endFrame": 2227
+    },
+    {
+      "word": "could",
+      "start": 74.259,
+      "end": 74.459,
+      "startFrame": 2228,
+      "endFrame": 2234
+    },
+    {
+      "word": "ride",
+      "start": 74.507,
+      "end": 74.699,
+      "startFrame": 2235,
+      "endFrame": 2241
+    },
+    {
+      "word": "the",
+      "start": 74.719,
+      "end": 74.779,
+      "startFrame": 2242,
+      "endFrame": 2243
+    },
+    {
+      "word": "tech",
+      "start": 74.843,
+      "end": 75.099,
+      "startFrame": 2245,
+      "endFrame": 2253
+    },
+    {
+      "word": "wave",
+      "start": 75.163,
+      "end": 75.419,
+      "startFrame": 2255,
+      "endFrame": 2263
+    },
+    {
+      "word": "from",
+      "start": 75.451,
+      "end": 75.579,
+      "startFrame": 2264,
+      "endFrame": 2267
+    },
+    {
+      "word": "twenty",
+      "start": 75.625,
+      "end": 75.901,
+      "startFrame": 2269,
+      "endFrame": 2277
+    },
+    {
+      "word": "fourteen",
+      "start": 75.954,
+      "end": 76.378,
+      "startFrame": 2279,
+      "endFrame": 2291
+    },
+    {
+      "word": "to",
+      "start": 76.485,
+      "end": 76.699,
+      "startFrame": 2295,
+      "endFrame": 2301
+    },
+    {
+      "word": "twenty",
+      "start": 76.722,
+      "end": 76.86,
+      "startFrame": 2302,
+      "endFrame": 2306
+    },
+    {
+      "word": "twenty",
+      "start": 76.906,
+      "end": 77.182,
+      "startFrame": 2307,
+      "endFrame": 2315
+    },
+    {
+      "word": "one,",
+      "start": 77.242,
+      "end": 77.982,
+      "startFrame": 2317,
+      "endFrame": 2339
+    },
+    {
+      "word": "then",
+      "start": 78.014,
+      "end": 78.142,
+      "startFrame": 2340,
+      "endFrame": 2344
+    },
+    {
+      "word": "still",
+      "start": 78.209,
+      "end": 78.544,
+      "startFrame": 2346,
+      "endFrame": 2356
+    },
+    {
+      "word": "benefit",
+      "start": 78.604,
+      "end": 79.024,
+      "startFrame": 2358,
+      "endFrame": 2371
+    },
+    {
+      "word": "when",
+      "start": 79.072,
+      "end": 79.264,
+      "startFrame": 2372,
+      "endFrame": 2378
+    },
+    {
+      "word": "healthcare",
+      "start": 79.308,
+      "end": 79.748,
+      "startFrame": 2379,
+      "endFrame": 2392
+    },
+    {
+      "word": "rallied",
+      "start": 79.808,
+      "end": 80.228,
+      "startFrame": 2394,
+      "endFrame": 2407
+    },
+    {
+      "word": "in",
+      "start": 80.308,
+      "end": 80.468,
+      "startFrame": 2409,
+      "endFrame": 2414
+    },
+    {
+      "word": "twenty",
+      "start": 80.514,
+      "end": 80.79,
+      "startFrame": 2415,
+      "endFrame": 2424
+    },
+    {
+      "word": "twenty",
+      "start": 80.836,
+      "end": 81.112,
+      "startFrame": 2425,
+      "endFrame": 2433
+    },
+    {
+      "word": "two.",
+      "start": 81.172,
+      "end": 81.592,
+      "startFrame": 2435,
+      "endFrame": 2448
+    },
+    {
+      "word": "Next",
+      "start": 81.848,
+      "end": 82.872,
+      "startFrame": 2455,
+      "endFrame": 2486
+    },
+    {
+      "word": "lesson:",
+      "start": 82.929,
+      "end": 83.351,
+      "startFrame": 2488,
+      "endFrame": 2501
+    },
+    {
+      "word": "the",
+      "start": 83.451,
+      "end": 83.751,
+      "startFrame": 2504,
+      "endFrame": 2513
+    },
+    {
+      "word": "easiest",
+      "start": 83.821,
+      "end": 84.311,
+      "startFrame": 2515,
+      "endFrame": 2529
+    },
+    {
+      "word": "way",
+      "start": 84.391,
+      "end": 84.631,
+      "startFrame": 2532,
+      "endFrame": 2539
+    },
+    {
+      "word": "to",
+      "start": 84.658,
+      "end": 84.712,
+      "startFrame": 2540,
+      "endFrame": 2541
+    },
+    {
+      "word": "diversify,",
+      "start": 84.781,
+      "end": 85.916,
+      "startFrame": 2543,
+      "endFrame": 2577
+    },
+    {
+      "word": "ETFs.",
+      "start": 86.076,
+      "end": 86.796,
+      "startFrame": 2582,
+      "endFrame": 2604
+    }
+  ],
+  "durationSeconds": 87.296,
+  "durationFrames": 2619
+}

@@ -1,0 +1,19 @@
+T  hyperframes preview
+[?25l|
+  Port 3002 in use by HyperFrames project "bloom-compound-interest" — skipping
+  Port 3003 in use by HyperFrames project "investamerica" — skipping
+  Port 3004 in use by HyperFrames project "netflix_black_screen" — skipping
+  Port 3005 in use by HyperFrames project "bloom-risk-reward" — skipping
+  Port 3006 in use by HyperFrames project "netflix_black_screen" — skipping
+o  Studio running
+[?25h
+  Port 3002 is in use, using 3007 instead
+
+  Project   bloom-diversification
+  Studio    http://localhost:3007
+
+  Edit with your AI agent — it has HyperFrames skills installed.
+  Changes reload automatically in the studio.
+
+  Press Ctrl+C to stop
+

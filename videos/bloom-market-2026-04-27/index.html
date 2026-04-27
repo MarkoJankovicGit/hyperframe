@@ -1,0 +1,2604 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Bloom Daily Market Pulse — Apr 27, 2026</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.137.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.137.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.137.0/examples/js/loaders/RGBELoader.js"></script>
+    <style>
+      body { margin: 0; background: #050505; font-family: "Inter Tight","Inter",system-ui,sans-serif; }
+      * { box-sizing: border-box; }
+
+      .beat { position: absolute; inset: 0; width: 1080px; height: 1920px; overflow: hidden; opacity: 0; }
+      .bg-blue   { background: #1658FF; }
+      .bg-white  { background: #FFFFFF; }
+      .bg-soft   { background: #F8F8F9; }
+      .bg-dark   { background: radial-gradient(ellipse 60% 45% at 50% 55%, #0d1116 0%, #050505 70%), #000; }
+
+      .stage {
+        position: absolute; inset: 0; z-index: 2;
+        display: flex; align-items: center; justify-content: center;
+      }
+
+      /* ============================================================
+         BEAT 1 — MARKET PULSE OPEN
+         ============================================================ */
+      #beat-pulse { background: #1658FF; }
+      #beat-pulse canvas { position: absolute; inset: 0; z-index: 1; width: 1080px; height: 1920px; }
+      #beat-pulse .pulse-overlay {
+        position: absolute; inset: 0; z-index: 3;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+      }
+      #beat-pulse .pulse-date {
+        display: inline-flex; align-items: center; gap: 18px;
+        background: #1C2329; color: #fff;
+        border-radius: 999px;
+        padding: 22px 44px;
+        font-family: "Inter Tight",system-ui,sans-serif;
+        font-weight: 800; font-style: italic;
+        font-size: 40px; text-transform: uppercase;
+        letter-spacing: 0.06em;
+        opacity: 0;
+      }
+      #beat-pulse .pulse-date .pulse-dot {
+        width: 14px; height: 14px; border-radius: 50%;
+        background: #FFC847; box-shadow: 0 0 14px rgba(255,200,71,0.85);
+      }
+      #beat-pulse .pulse-title {
+        margin-top: 36px;
+        font-family: "Inter Tight",system-ui,sans-serif;
+        font-weight: 800; font-style: italic;
+        font-size: 168px; line-height: 0.95;
+        color: #fff; letter-spacing: -0.025em;
+        text-transform: uppercase; text-align: center;
+        opacity: 0;
+      }
+      #beat-pulse .pulse-title .accent { color: #FFC847; display: block; }
+      #beat-pulse .pulse-logo {
+        margin-top: 56px; opacity: 0; transform: scale(0.6);
+      }
+      #beat-pulse .pulse-logo img {
+        width: 240px; height: 240px; object-fit: contain;
+        filter: drop-shadow(0 14px 32px rgba(6,10,30,0.32));
+      }
+
+      /* ============================================================
+         BEAT 1B - EUROPE / US FUTURES MAP
+         ============================================================ */
+      #beat-regions {
+        background:
+          radial-gradient(ellipse 70% 42% at 52% 48%, rgba(22,88,255,0.10) 0%, rgba(22,88,255,0) 70%),
+          #FFFFFF;
+      }
+      #beat-regions .region-stage {
+        position: absolute;
+        inset: 0;
+        padding: 148px 82px 138px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      #beat-regions .region-card {
+        position: relative;
+        width: 760px;
+        opacity: 0;
+      }
+      #beat-regions .region-card.europe {
+        align-self: flex-start;
+      }
+      #beat-regions .region-card.us {
+        align-self: flex-end;
+        margin-top: -18px;
+      }
+      #beat-regions .region-map {
+        width: 100%;
+        display: block;
+        border-radius: 34px;
+        filter: drop-shadow(0 24px 46px rgba(6,10,30,0.18));
+      }
+      #beat-regions .region-text {
+        margin-top: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+      }
+      #beat-regions .region-label {
+        color: #1658FF;
+        font: 800 22px "Inter",system-ui,sans-serif;
+        letter-spacing: 0.34em;
+        text-transform: uppercase;
+      }
+      #beat-regions .region-status {
+        flex-shrink: 0;
+        border-radius: 999px;
+        background: #1C2329;
+        color: #FFFFFF;
+        padding: 14px 22px;
+        font: italic 800 28px "Inter Tight",system-ui,sans-serif;
+        letter-spacing: -0.01em;
+        text-transform: uppercase;
+        box-shadow: 0 12px 26px rgba(6,10,30,0.20);
+      }
+      #beat-regions .region-status .up {
+        color: #01CD74;
+      }
+      #beat-regions .region-headline {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        display: inline-flex;
+        align-items: center;
+        gap: 18px;
+        background: #1C2329;
+        color: #FFFFFF;
+        border-radius: 999px;
+        padding: 22px 38px;
+        box-shadow: 0 22px 48px rgba(6,10,30,0.24);
+        opacity: 0;
+      }
+      #beat-regions .region-headline .dot {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: #01CD74;
+        box-shadow: 0 0 18px rgba(1,205,116,0.72);
+      }
+      #beat-regions .region-headline .copy {
+        font: italic 800 42px "Inter Tight",system-ui,sans-serif;
+        text-transform: uppercase;
+        letter-spacing: -0.012em;
+        white-space: nowrap;
+      }
+
+      /* ============================================================
+         BEAT 2 — STAT SLAM (+1.2% Nasdaq)
+         ============================================================ */
+      #beat-slam { background: #1658FF; }
+      #beat-slam .slam-eyebrow {
+        font-family: "Inter",system-ui,sans-serif;
+        font-weight: 700; font-size: 30px;
+        letter-spacing: 0.42em; text-transform: uppercase;
+        color: rgba(255,255,255,0.78); text-align: center;
+        opacity: 0;
+      }
+      #beat-slam .slam-arrow {
+        font-family: "Inter Tight",system-ui,sans-serif;
+        font-weight: 800; font-style: italic;
+        color: #FFC847; font-size: 180px;
+        line-height: 0.95;
+        text-shadow: 0 0 30px rgba(255,200,71,0.45);
+        opacity: 0; display: inline-block;
+      }
+      #beat-slam .slam-num-row {
+        display: inline-flex; align-items: baseline; gap: 6px; margin-top: 10px;
+      }
+      #beat-slam .slam-num {
+        font-family: "Inter Tight",system-ui,sans-serif;
+        font-weight: 800; font-style: italic;
+        font-size: 390px; color: #fff;
+        letter-spacing: -0.04em; line-height: 0.92;
+      }
+      #beat-slam .slam-pct {
+        font-family: "Inter Tight",system-ui,sans-serif;
+        font-weight: 800; font-style: italic;
+        font-size: 180px; color: #fff;
+        letter-spacing: -0.025em; line-height: 0.92;
+      }
+      #beat-slam .slam-label {
+        margin-top: 24px;
+        background: #1C2329; color: #fff;
+        border-radius: 999px;
+        padding: 22px 56px;
+        font-family: "Inter Tight",system-ui,sans-serif;
+        font-weight: 800; font-style: italic;
+        font-size: 48px; text-transform: uppercase;
+        letter-spacing: -0.012em;
+        box-shadow: 0 18px 40px rgba(6,10,30,0.32);
+        opacity: 0;
+      }
+      #beat-slam .slam-stack { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+      #beat-slam .nas-stack {
+        width: 900px;
+        display: flex;
+        flex-direction: column;
+        gap: 26px;
+        align-items: stretch;
+      }
+      #beat-slam .nas-card {
+        position: relative;
+        min-height: 960px;
+        background: #FFFFFF;
+        border-radius: 44px;
+        padding: 54px 56px 50px;
+        box-shadow: 0 34px 80px rgba(6,10,30,0.26);
+        opacity: 0;
+        overflow: hidden;
+      }
+      #beat-slam .nas-card::before {
+        content: "";
+        position: absolute;
+        inset: -120px -140px auto auto;
+        width: 430px;
+        height: 430px;
+        border-radius: 50%;
+        background: rgba(22,88,255,0.10);
+      }
+      #beat-slam .nas-head {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 28px;
+      }
+      #beat-slam .nas-id {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+      }
+      #beat-slam .nas-orb {
+        width: 124px;
+        height: 124px;
+        border-radius: 50%;
+        background: #1C2329;
+        color: #FFFFFF;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font: italic 800 34px "Inter Tight",system-ui,sans-serif;
+        box-shadow: 0 18px 38px rgba(6,10,30,0.22);
+      }
+      #beat-slam .nas-name {
+        font: italic 800 84px "Inter Tight",system-ui,sans-serif;
+        color: #1C2329;
+        line-height: 0.92;
+        letter-spacing: -0.022em;
+        text-transform: uppercase;
+      }
+      #beat-slam .nas-sub {
+        margin-top: 12px;
+        color: #1658FF;
+        font: 800 24px "Inter",system-ui,sans-serif;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+      }
+      #beat-slam .nas-pill {
+        border-radius: 999px;
+        background: #01CD74;
+        color: #FFFFFF;
+        padding: 18px 28px;
+        font: italic 800 42px "Inter Tight",system-ui,sans-serif;
+        box-shadow: 0 12px 26px rgba(1,205,116,0.25);
+        white-space: nowrap;
+      }
+      #beat-slam .nas-price-row {
+        position: relative;
+        z-index: 1;
+        margin-top: 72px;
+        display: flex;
+        align-items: baseline;
+        gap: 16px;
+      }
+      #beat-slam .nas-price {
+        font: italic 800 188px "Inter Tight",system-ui,sans-serif;
+        color: #1C2329;
+        line-height: 0.9;
+        letter-spacing: -0.042em;
+      }
+      #beat-slam .nas-pct {
+        font: italic 800 92px "Inter Tight",system-ui,sans-serif;
+        color: #1C2329;
+        line-height: 1;
+      }
+      #beat-slam .nas-chart {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        height: 340px;
+        margin-top: 46px;
+        overflow: visible;
+      }
+      #beat-slam .nas-chart-line {
+        fill: none;
+        stroke: #1658FF;
+        stroke-width: 12;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      #beat-slam .nas-chart-glow {
+        fill: none;
+        stroke: rgba(22,88,255,0.16);
+        stroke-width: 34;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      #beat-slam .nas-note {
+        margin-top: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        background: #1C2329;
+        color: #FFFFFF;
+        border-radius: 30px;
+        padding: 26px 30px;
+        opacity: 0;
+        box-shadow: 0 18px 38px rgba(6,10,30,0.22);
+      }
+      #beat-slam .nas-note-kicker {
+        color: #1658FF;
+        font: 800 18px "Inter",system-ui,sans-serif;
+        letter-spacing: 0.30em;
+        text-transform: uppercase;
+      }
+      #beat-slam .nas-note-main {
+        margin-top: 6px;
+        font: italic 800 44px "Inter Tight",system-ui,sans-serif;
+        letter-spacing: -0.012em;
+        text-transform: uppercase;
+      }
+      #beat-slam .nas-chip-row {
+        display: flex;
+        gap: 10px;
+        flex-shrink: 0;
+      }
+      #beat-slam .nas-chip {
+        border-radius: 999px;
+        padding: 10px 16px;
+        background: #FFFFFF;
+        color: #1C2329;
+        font: italic 800 20px "Inter Tight",system-ui,sans-serif;
+        text-transform: uppercase;
+      }
+
+      /* ============================================================
+         BEAT 3 — MOVER CARDS (Intel +23%, AMD +14%)
+         ============================================================ */
+      #beat-movers { background: #FFFFFF; }
+      #beat-movers .movers-eyebrow {
+        margin-bottom: 36px; text-align: center;
+        font-family: "Inter",system-ui,sans-serif;
+        font-weight: 700; font-size: 28px;
+        letter-spacing: 0.36em; text-transform: uppercase;
+        color: #1658FF;
+        opacity: 0;
+      }
+      #beat-movers .mover-stack { display: flex; flex-direction: column; gap: 36px; align-items: center; }
+      #beat-movers .mover-stack .header { display: flex; flex-direction: column; align-items: center; }
+      .mover-card {
+        width: 880px; height: 200px;
+        background: #FFFFFF;
+        border: 1px solid #E8E9EA;
+        border-radius: 36px;
+        padding: 0 44px;
+        display: flex; align-items: center; gap: 36px;
+        box-shadow: 0 24px 60px rgba(20,28,55,0.08);
+        opacity: 0;
+      }
+      .mover-card .orb {
+        width: 130px; height: 130px;
+        border-radius: 50%;
+        background: #1C2329;
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0;
+        box-shadow: 0 14px 28px rgba(6,10,30,0.22);
+      }
+      .mover-card .orb img { width: 80px; height: 80px; object-fit: contain; }
+      .mover-card .orb .orb-fallback {
+        font-family: "Inter Tight",system-ui,sans-serif;
+        font-weight: 800; font-style: italic;
+        color: #fff; font-size: 38px; letter-spacing: -0.012em;
+      }
+      .mover-card .mover-mid { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+      .mover-card .mover-tk {
+        font-family: "Inter Tight",system-ui,sans-serif;
+        font-weight: 800; font-style: italic;
+        font-size: 64px; color: #1C2329;
+        letter-spacing: -0.018em; line-height: 1;
+      }
+      .mover-card .mover-sub {
+        font-family: "Inter",system-ui,sans-serif;
+        font-weight: 600; font-size: 22px;
+        letter-spacing: 0.22em; text-transform: uppercase;
+        color: #4A4F54;
+      }
+      .mover-card .mover-pill {
+        padding: 16px 28px;
+        border-radius: 999px;
+        font-family: "Inter Tight",system-ui,sans-serif;
+        font-weight: 800; font-style: italic;
+        font-size: 44px;
+      }
+      .mover-card .mover-pill.up { background: rgba(1,205,116,0.16); color: #01CD74; }
+
+      /* ============================================================
+         BEATS 4 + 5 — PRICE CARDS (Robinhood layout, Bloom-styled)
+         ============================================================ */
+      .pc-frame { background: #1658FF; }
+      .pc-card {
+        position: relative;
+        width: 920px; height: 1500px;
+        background: #FFFFFF;
+        border: 1px solid #E8E9EA;
+        border-radius: 44px;
+        padding: 48px 52px 44px;
+        box-shadow: 0 32px 80px rgba(6,10,30,0.18);
+        display: flex; flex-direction: column;
+        opacity: 0;
+        font-family: "Inter",system-ui,sans-serif;
+        color: #1C2329;
+      }
+      .pc-nav {
+        display: flex; align-items: center; justify-content: space-between;
+        height: 56px;
+      }
+      .pc-back svg, .pc-nav-icon svg {
+        display: block; width: 44px; height: 44px;
+        stroke: #1C2329; fill: none; stroke-width: 2.6;
+      }
+      .pc-nav-right { display: flex; align-items: center; gap: 28px; }
+      .pc-check {
+        width: 56px; height: 56px; border-radius: 50%;
+        background: #1658FF;
+        display: flex; align-items: center; justify-content: center;
+        box-shadow: 0 8px 18px rgba(22,88,255,0.28);
+      }
+      .pc-check svg { width: 28px; height: 28px; stroke: #fff; fill: none; stroke-width: 4; }
+
+      .pc-header {
+        display: flex; align-items: center; gap: 28px; margin-top: 32px;
+      }
+      .pc-logo {
+        width: 124px; height: 124px;
+        border-radius: 50%; background: #1C2329;
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0;
+        box-shadow: 0 18px 40px rgba(6,10,30,0.18);
+      }
+      .pc-logo img { width: 78px; height: 78px; object-fit: contain; }
+      .pc-logo .pc-logo-fallback {
+        font-family: "Inter Tight",system-ui,sans-serif;
+        font-weight: 800; font-style: italic;
+        color: #fff; font-size: 30px;
+      }
+      .pc-name {
+        font-family: "Inter Tight",system-ui,sans-serif;
+        font-weight: 800; font-style: italic;
+        font-size: 84px; color: #1C2329;
+        letter-spacing: -0.018em; line-height: 0.95;
+        text-transform: uppercase;
+      }
+      .pc-exchange {
+        margin-top: 10px;
+        font-size: 26px; font-weight: 600;
+        letter-spacing: 0.18em; text-transform: uppercase;
+        color: #4A4F54;
+      }
+
+      .pc-price-row {
+        display: flex; align-items: flex-start; justify-content: space-between;
+        margin-top: 40px;
+      }
+      .pc-price {
+        font-family: "Inter Tight",system-ui,sans-serif;
+        font-weight: 800; font-style: italic;
+        font-size: 138px; color: #1C2329;
+        letter-spacing: -0.028em; line-height: 1;
+      }
+      .pc-expand {
+        width: 72px; height: 72px;
+        border-radius: 50%;
+        border: 2px solid #E8E9EA;
+        background: #F8F8F9;
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0;
+      }
+      .pc-expand svg { width: 32px; height: 32px; stroke: #1C2329; fill: none; stroke-width: 2.4; }
+
+      .pc-delta {
+        margin-top: 18px;
+        display: flex; align-items: center; gap: 14px;
+        font-size: 36px; font-weight: 700;
+        opacity: 0;
+      }
+      .pc-delta-arrow {
+        width: 0; height: 0;
+        border-left: 14px solid transparent;
+        border-right: 14px solid transparent;
+        border-bottom: 22px solid #01CD74;
+      }
+      .pc-delta-val { color: #01CD74; }
+      .pc-delta-period { color: #4A4F54; font-weight: 500; }
+
+      .pc-chart-wrap { position: relative; margin-top: 32px; height: 460px; }
+      .pc-chart { position: absolute; inset: 0; width: 100%; height: 100%; }
+      .pc-chart-line {
+        fill: none; stroke: #01CD74; stroke-width: 6;
+        stroke-linecap: round; stroke-linejoin: round;
+      }
+      .pc-chart-dot { fill: #01CD74; opacity: 0; }
+      .pc-chart-axis {
+        position: absolute; left: 0; right: 0; bottom: 0; height: 0;
+        border-bottom: 2px dashed #E8E9EA; opacity: 0;
+      }
+
+      .pc-ranges {
+        display: flex; align-items: center; justify-content: space-between;
+        margin-top: 28px; padding: 0 4px;
+      }
+      .pc-range {
+        font-family: "Inter Tight",system-ui,sans-serif;
+        font-weight: 800; font-style: italic;
+        font-size: 34px; color: #1C2329;
+        letter-spacing: -0.005em;
+        opacity: 0;
+      }
+      .pc-range.active {
+        background: #1C2329; color: #FFFFFF;
+        border-radius: 999px;
+        padding: 12px 28px;
+        box-shadow: 0 12px 24px rgba(6,10,30,0.18);
+      }
+      .pc-range-icon { display: inline-flex; gap: 5px; align-items: flex-end; }
+      .pc-range-icon span { display: block; width: 6px; background: #01CD74; border-radius: 1px; }
+
+      .pc-stats { display: flex; gap: 80px; margin-top: 56px; opacity: 0; }
+      .pc-stat-label {
+        font-size: 22px; font-weight: 600;
+        letter-spacing: 0.18em; text-transform: uppercase;
+        color: #4A4F54;
+      }
+      .pc-stat-value {
+        margin-top: 8px;
+        font-family: "Inter Tight",system-ui,sans-serif;
+        font-weight: 800; font-style: italic;
+        font-size: 50px; color: #1C2329;
+        letter-spacing: -0.018em;
+      }
+
+      .pc-bottom {
+        display: flex; align-items: center; justify-content: space-between;
+        margin-top: auto;
+        padding-top: 36px;
+        border-top: 1px solid #E8E9EA;
+        opacity: 0;
+      }
+      .pc-vol-label {
+        font-size: 22px; color: #4A4F54;
+        font-weight: 600; letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+      .pc-vol-value {
+        margin-top: 6px;
+        font-family: "Inter Tight",system-ui,sans-serif;
+        font-weight: 800; font-style: italic;
+        font-size: 40px; color: #1C2329;
+      }
+      .pc-trade {
+        background: #1C2329; color: #fff;
+        font-family: "Inter Tight",system-ui,sans-serif;
+        font-weight: 800; font-style: italic;
+        text-transform: uppercase;
+        font-size: 40px;
+        padding: 24px 80px;
+        border-radius: 300px;
+        letter-spacing: -0.012em;
+        box-shadow: 0 18px 40px rgba(6,10,30,0.28);
+      }
+
+      /* BTC variant — orange logo orb + green delta still */
+      #beat-btc .pc-logo { background: #F7931A; }
+      #beat-btc .pc-logo .pc-logo-fallback { color: #fff; font-size: 38px; }
+
+      /* ============================================================
+         BEAT 4 UPGRADE - INDEX TRIPLET
+         ============================================================ */
+      .idx-stack {
+        width: 920px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        align-items: stretch;
+      }
+      .idx-kicker {
+        align-self: center;
+        margin-bottom: 8px;
+        background: #1C2329;
+        color: #fff;
+        border-radius: 999px;
+        padding: 16px 34px;
+        font: italic 800 34px "Inter Tight",system-ui,sans-serif;
+        text-transform: uppercase;
+        letter-spacing: -0.01em;
+        box-shadow: 0 18px 40px rgba(6,10,30,0.24);
+        opacity: 0;
+      }
+      .idx-card {
+        height: 220px;
+        background: #FFFFFF;
+        border: 1px solid rgba(232,233,234,0.9);
+        border-radius: 34px;
+        padding: 28px 32px;
+        display: grid;
+        grid-template-columns: 118px 188px 1fr 178px;
+        gap: 22px;
+        align-items: center;
+        box-shadow: 0 24px 58px rgba(6,10,30,0.22);
+        opacity: 0;
+      }
+      .idx-orb {
+        width: 108px;
+        height: 108px;
+        border-radius: 50%;
+        background: #1C2329;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font: italic 800 34px "Inter Tight",system-ui,sans-serif;
+        box-shadow: 0 14px 28px rgba(6,10,30,0.22);
+      }
+      .idx-orb img { width: 70px; height: 70px; object-fit: contain; }
+      .idx-ticker {
+        font: italic 800 58px "Inter Tight",system-ui,sans-serif;
+        color: #1C2329;
+        line-height: 0.95;
+        letter-spacing: -0.018em;
+      }
+      .idx-name {
+        margin-top: 10px;
+        font: 700 20px "Inter",system-ui,sans-serif;
+        color: #4A4F54;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+      }
+      .idx-chart {
+        width: 100%;
+        height: 124px;
+        overflow: visible;
+      }
+      .idx-line {
+        fill: none;
+        stroke: #01CD74;
+        stroke-width: 7;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .idx-stat {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 12px;
+      }
+      .idx-value {
+        font: italic 800 50px "Inter Tight",system-ui,sans-serif;
+        color: #1C2329;
+        line-height: 0.98;
+        letter-spacing: -0.02em;
+      }
+      .idx-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 126px;
+        border-radius: 999px;
+        padding: 12px 16px;
+        background: rgba(1,205,116,0.14);
+        color: #01CD74;
+        font: italic 800 30px "Inter Tight",system-ui,sans-serif;
+        letter-spacing: -0.012em;
+      }
+
+      /* ============================================================
+         BEAT 5 UPGRADE - CRYPTO PAIR + RANGE BAR
+         ============================================================ */
+      .crypto-stack {
+        width: 920px;
+        display: flex;
+        flex-direction: column;
+        gap: 26px;
+      }
+      .crypto-card {
+        background: #FFFFFF;
+        border: 1px solid #E8E9EA;
+        border-radius: 42px;
+        box-shadow: 0 30px 76px rgba(6,10,30,0.22);
+        color: #1C2329;
+        opacity: 0;
+      }
+      .crypto-card.btc {
+        min-height: 940px;
+        padding: 44px 48px 42px;
+      }
+      .crypto-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 22px;
+      }
+      .crypto-id {
+        display: flex;
+        align-items: center;
+        gap: 26px;
+      }
+      .crypto-orb {
+        width: 118px;
+        height: 118px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font: italic 800 58px "Inter Tight",system-ui,sans-serif;
+        box-shadow: 0 18px 40px rgba(6,10,30,0.20);
+      }
+      .crypto-orb.btc { background: #F7931A; }
+      .crypto-orb.eth { background: #1C2329; font-size: 50px; }
+      .crypto-name {
+        font: italic 800 78px "Inter Tight",system-ui,sans-serif;
+        line-height: 0.94;
+        letter-spacing: -0.018em;
+        text-transform: uppercase;
+      }
+      .crypto-sub {
+        margin-top: 8px;
+        font: 700 24px "Inter",system-ui,sans-serif;
+        color: #4A4F54;
+        text-transform: uppercase;
+        letter-spacing: 0.20em;
+      }
+      .crypto-pill {
+        border-radius: 999px;
+        padding: 14px 22px;
+        font: italic 800 34px "Inter Tight",system-ui,sans-serif;
+        white-space: nowrap;
+      }
+      .crypto-pill.up { background: rgba(1,205,116,0.14); color: #01CD74; }
+      .crypto-pill.down { background: rgba(255,82,82,0.13); color: #FF5252; }
+      .crypto-price {
+        margin-top: 42px;
+        font: italic 800 132px "Inter Tight",system-ui,sans-serif;
+        line-height: 0.95;
+        letter-spacing: -0.034em;
+      }
+      .crypto-chart {
+        margin-top: 32px;
+        width: 100%;
+        height: 300px;
+      }
+      .crypto-line {
+        fill: none;
+        stroke: #01CD74;
+        stroke-width: 7;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .crypto-range {
+        margin-top: 34px;
+        padding: 26px 28px 28px;
+        border-radius: 28px;
+        background: #F8F8F9;
+        border: 1px solid #E8E9EA;
+      }
+      .range-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 22px;
+        font: 700 20px "Inter",system-ui,sans-serif;
+        color: #4A4F54;
+        text-transform: uppercase;
+        letter-spacing: 0.24em;
+      }
+      .range-title strong {
+        font: italic 800 34px "Inter Tight",system-ui,sans-serif;
+        color: #1C2329;
+        letter-spacing: -0.012em;
+      }
+      .range-track {
+        position: relative;
+        height: 28px;
+        border-radius: 999px;
+        background: #E8E9EA;
+        overflow: visible;
+      }
+      .range-fill {
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 0%;
+        border-radius: 999px;
+        background: linear-gradient(to right, #FF5252, #FFC847 48%, #01CD74);
+      }
+      .range-marker {
+        position: absolute;
+        top: 50%;
+        left: 0%;
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        background: #fff;
+        border: 4px solid #1C2329;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 10px 22px rgba(6,10,30,0.24);
+      }
+      .range-labels {
+        margin-top: 18px;
+        display: flex;
+        justify-content: space-between;
+        font: italic 800 30px "Inter Tight",system-ui,sans-serif;
+        color: #1C2329;
+      }
+      .crypto-card.eth {
+        min-height: 220px;
+        padding: 30px 34px;
+        display: grid;
+        grid-template-columns: 92px 1fr 250px;
+        gap: 22px;
+        align-items: center;
+      }
+      .crypto-card.eth .crypto-orb {
+        width: 88px;
+        height: 88px;
+        font-size: 44px;
+      }
+      .eth-title {
+        font: italic 800 46px "Inter Tight",system-ui,sans-serif;
+        letter-spacing: -0.014em;
+      }
+      .eth-sub {
+        margin-top: 6px;
+        font: 700 18px "Inter",system-ui,sans-serif;
+        color: #4A4F54;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+      }
+      .eth-right {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 12px;
+      }
+      .eth-price {
+        font: italic 800 48px "Inter Tight",system-ui,sans-serif;
+        letter-spacing: -0.018em;
+      }
+      .eth-line {
+        fill: none;
+        stroke: #FF5252;
+        stroke-width: 6;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      #b4-card,
+      #b5-card {
+        display: none;
+      }
+
+      /* ============================================================
+         BEATS 6 + 8 — CINEMA 3D (Oil + Pillar) — Bloom white register
+         ============================================================ */
+      .c3d {
+        position: absolute; inset: 0;
+        /* white surface with subtle Bloom-blue radial behind the model
+           so the subject doesn't disappear and the brand register holds */
+        background:
+          radial-gradient(ellipse 60% 45% at 50% 56%, rgba(22,88,255,0.10) 0%, rgba(22,88,255,0) 70%),
+          #FFFFFF;
+      }
+      #beat-pillar {
+        background:
+          radial-gradient(ellipse 60% 45% at 50% 56%, rgba(22,88,255,0.10) 0%, rgba(22,88,255,0) 70%),
+          #FFFFFF;
+      }
+      .c3d canvas {
+        position: absolute; inset: 0; z-index: 1;
+        width: 1080px; height: 1920px;
+      }
+      /* contact-shadow under the 3D subject to ground it on the white floor */
+      .c3d::after {
+        content: "";
+        position: absolute;
+        left: 50%; bottom: 460px;
+        transform: translateX(-50%);
+        width: 540px; height: 90px;
+        background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(28,35,41,0.22) 0%, rgba(28,35,41,0) 70%);
+        z-index: 2;
+        pointer-events: none;
+      }
+      .c3d-overlay {
+        position: absolute; inset: 0; z-index: 3;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: flex-start;
+        padding-top: 200px;
+      }
+      .c3d-eyebrow {
+        font-family: "Inter",system-ui,sans-serif;
+        font-weight: 800; font-size: 38px;
+        letter-spacing: 0.32em; text-transform: uppercase;
+        color: #1658FF;
+        text-align: center;
+        white-space: nowrap;
+        opacity: 0;
+      }
+      #beat-oil .c3d-eyebrow {
+        font-size: 44px;
+        letter-spacing: 0.16em;
+        color: #1658FF;
+        text-shadow: 0 2px 14px rgba(255,255,255,0.9);
+      }
+      .c3d-badge {
+        margin-top: 30px; background: #1C2329;
+        color: #fff; border-radius: 30px;
+        padding: 28px 76px; opacity: 0;
+        transform: scale(0.6);
+        box-shadow: 0 24px 56px rgba(6,10,30,0.22);
+      }
+      .c3d-badge-text {
+        font-family: "Inter Tight",system-ui,sans-serif;
+        font-weight: 800; font-style: italic;
+        font-size: 156px; text-transform: uppercase;
+        letter-spacing: -0.022em; line-height: 0.95;
+        color: #fff;
+      }
+      .c3d-bottom {
+        position: absolute; bottom: 220px;
+        left: 0; right: 0; text-align: center;
+        z-index: 3; opacity: 0;
+      }
+      .c3d-callout {
+        position: absolute;
+        top: 580px;
+        left: 50%;
+        right: auto;
+        z-index: 4;
+        transform: translateX(-50%);
+        display: inline-flex;
+        align-items: center;
+        gap: 18px;
+        background: #FF5252;
+        color: #FFFFFF;
+        border-radius: 999px;
+        padding: 18px 38px;
+        box-shadow: 0 22px 48px rgba(255,82,82,0.40);
+        white-space: nowrap;
+        opacity: 0;
+      }
+      .c3d-callout .num {
+        font: italic 800 56px "Inter Tight",system-ui,sans-serif;
+        letter-spacing: -0.02em;
+        line-height: 1;
+        color: #FFFFFF;
+      }
+      .c3d-callout .lbl {
+        font: 800 24px "Inter",system-ui,sans-serif;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.94);
+      }
+      .c3d-currency {
+        font-family: "Inter Tight",system-ui,sans-serif;
+        font-weight: 800; font-style: italic;
+        font-size: 84px; color: #1658FF;
+        line-height: 1; margin-right: 8px;
+      }
+      .c3d-value {
+        font-family: "Inter Tight",system-ui,sans-serif;
+        font-weight: 800; font-style: italic;
+        font-size: 220px; color: #1C2329;
+        letter-spacing: -0.025em; line-height: 0.95;
+      }
+      .c3d-unit {
+        margin-top: 12px;
+        font-family: "Inter",system-ui,sans-serif;
+        font-weight: 700; font-size: 30px;
+        letter-spacing: 0.4em; text-transform: uppercase;
+        color: #4A4F54;
+      }
+      /* Pillar variant uses the same ink palette on white */
+      #beat-pillar .c3d-currency { color: #1658FF; }
+      #beat-pillar .c3d-unit { color: #4A4F54; }
+      #beat-oil .c3d-currency,
+      #beat-oil .c3d-value,
+      #beat-oil .c3d-unit {
+        color: #FFFFFF;
+        text-shadow: 0 3px 18px rgba(6,10,30,0.48);
+      }
+      .odds-wrap {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 220px;
+        z-index: 3;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        opacity: 0;
+      }
+      .odds-eyebrow {
+        margin-bottom: 18px;
+        font: 700 22px "Inter",system-ui,sans-serif;
+        letter-spacing: 0.30em;
+        text-transform: uppercase;
+        color: #4A4F54;
+      }
+      .odds-bar {
+        position: relative;
+        width: 760px;
+        height: 86px;
+        background: #FFE5E5;
+        border-radius: 999px;
+        overflow: hidden;
+        box-shadow: 0 14px 32px rgba(6,10,30,0.18);
+      }
+      .odds-fill {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 0%;
+        background: #01CD74;
+        border-radius: 999px 0 0 999px;
+      }
+      .odds-label {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font: italic 800 38px "Inter Tight",system-ui,sans-serif;
+        text-transform: uppercase;
+        letter-spacing: -0.012em;
+        color: #fff;
+        z-index: 2;
+      }
+      .odds-label.yes { left: 36px; }
+      .odds-label.no { right: 36px; color: #FF5252; }
+      .fed-pause-chip {
+        position: absolute;
+        left: 50%;
+        bottom: 96px;
+        transform: translateX(-50%);
+        z-index: 4;
+        display: inline-flex;
+        align-items: center;
+        gap: 18px;
+        background: #1C2329;
+        color: #FFFFFF;
+        border: 2px solid rgba(22,88,255,0.34);
+        border-radius: 999px;
+        padding: 24px 42px;
+        box-shadow: 0 18px 40px rgba(6,10,30,0.24);
+        opacity: 0;
+      }
+      .fed-pause-chip .dot {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: #1658FF;
+        box-shadow: 0 0 18px rgba(22,88,255,0.72);
+      }
+      .fed-pause-chip .copy {
+        font: italic 800 48px "Inter Tight",system-ui,sans-serif;
+        text-transform: uppercase;
+        letter-spacing: -0.012em;
+        white-space: nowrap;
+      }
+      #b8-bottom,
+      #b9-up,
+      #b9-down {
+        display: none;
+      }
+
+      /* ============================================================
+         BEAT 7 — SENTIMENT (climate-stripes, vertical)
+         75 bars stacked top-to-bottom, 1952 → 2026.
+         Each bar's color encodes that year's U-Mich reading.
+         The eye reads down. The data falls. The floor is red.
+         ============================================================ */
+      #beat-sentiment { background: #F8F8F9; }
+      #beat-sentiment .strip-stage {
+        position: absolute; inset: 0;
+        display: flex; flex-direction: column;
+        align-items: center;
+        padding: 90px 80px 80px;
+      }
+      #beat-sentiment .strip-eyebrow {
+        background: #1C2329; color: #fff;
+        border-radius: 999px;
+        padding: 22px 50px;
+        font: 700 36px "Inter",system-ui,sans-serif;
+        letter-spacing: 0.30em; text-transform: uppercase;
+        opacity: 0;
+      }
+      #beat-sentiment .strip-axis-top {
+        width: 920px;
+        display: flex; justify-content: space-between; align-items: center;
+        margin-top: 32px;
+        font: 700 28px "Inter",system-ui,sans-serif;
+        color: #4A4F54;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        opacity: 0;
+      }
+      #beat-sentiment .strip-axis-top .axis-mid {
+        font-weight: 600;
+        color: #4A4F54;
+        letter-spacing: 0.30em;
+      }
+      #beat-sentiment .strip-axis-top .axis-mid em {
+        font-style: normal;
+        color: #1C2329;
+        font-weight: 800;
+      }
+      #beat-sentiment .strip-wrap {
+        margin-top: 16px;
+        width: 920px;
+        display: flex; flex-direction: column;
+        gap: 3px;
+      }
+      #beat-sentiment .strip-bar {
+        width: 100%;
+        height: 14px;
+        border-radius: 3px;
+        transform-origin: left center;
+        opacity: 0;
+      }
+      #beat-sentiment .strip-bar.now {
+        margin-top: 6px;
+        height: 28px;
+        border-radius: 6px;
+        position: relative;
+      }
+      #beat-sentiment .strip-callout {
+        margin-top: 30px;
+        width: 920px;
+        display: flex; align-items: center; gap: 32px;
+      }
+      #beat-sentiment .strip-callout-num {
+        font: italic 800 240px "Inter Tight",system-ui,sans-serif;
+        color: #1C2329;
+        letter-spacing: -0.04em;
+        line-height: 0.9;
+        text-shadow: 0 12px 32px rgba(6,10,30,0.10);
+        opacity: 0;
+      }
+      #beat-sentiment .strip-callout-meta {
+        display: flex; flex-direction: column;
+        gap: 14px;
+        flex: 1;
+      }
+      #beat-sentiment .strip-callout-tag {
+        align-self: flex-start;
+        background: #FF5252; color: #fff;
+        border-radius: 999px;
+        padding: 14px 30px;
+        font: italic 800 36px "Inter Tight",system-ui,sans-serif;
+        text-transform: uppercase;
+        letter-spacing: -0.012em;
+        opacity: 0;
+        box-shadow: 0 18px 40px rgba(255,82,82,0.32);
+      }
+      #beat-sentiment .strip-callout-sub {
+        font: 700 22px "Inter",system-ui,sans-serif;
+        color: #4A4F54;
+        letter-spacing: 0.30em; text-transform: uppercase;
+        opacity: 0;
+      }
+
+      /* ============================================================
+         BEAT 9 — ACTION PLAN (two pills)
+         ============================================================ */
+      #beat-plan { background: #1658FF; }
+      #beat-plan .plan-stack {
+        display: flex; flex-direction: column; gap: 36px; align-items: center;
+      }
+      #beat-plan .plan-eyebrow {
+        margin-bottom: 30px;
+        font: italic 800 138px "Inter Tight",system-ui,sans-serif;
+        letter-spacing: -0.03em;
+        text-transform: uppercase;
+        color: #FFFFFF;
+        opacity: 0;
+        text-align: center;
+        line-height: 0.92;
+      }
+      .plan-list {
+        width: 900px;
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+      }
+      .plan-row {
+        background: #FFFFFF;
+        border-radius: 30px;
+        padding: 30px 34px;
+        box-shadow: 0 26px 64px rgba(6,10,30,0.28);
+        display: grid;
+        grid-template-columns: 94px 1fr;
+        gap: 26px;
+        align-items: center;
+        opacity: 0;
+      }
+      .plan-row.dark {
+        background: #1C2329;
+        color: #FFFFFF;
+      }
+      .plan-step {
+        width: 86px;
+        height: 86px;
+        border-radius: 50%;
+        background: #1658FF;
+        color: #FFFFFF;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font: italic 800 42px "Inter Tight",system-ui,sans-serif;
+        box-shadow: 0 12px 26px rgba(22,88,255,0.34);
+      }
+      .plan-row.dark .plan-step {
+        background: #FFFFFF;
+        color: #1658FF;
+      }
+      .plan-copy {
+        min-width: 0;
+      }
+      .plan-label {
+        color: #1658FF;
+        font: 800 18px "Inter",system-ui,sans-serif;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+      }
+      .plan-row.dark .plan-label {
+        color: rgba(255,255,255,0.68);
+      }
+      .plan-action {
+        margin-top: 8px;
+        color: #1C2329;
+        font: italic 800 56px "Inter Tight",system-ui,sans-serif;
+        line-height: 0.96;
+        letter-spacing: -0.018em;
+        text-transform: uppercase;
+      }
+      .plan-row.dark .plan-action {
+        color: #FFFFFF;
+      }
+      .plan-detail {
+        margin-top: 10px;
+        color: #4A4F54;
+        font: 800 22px "Inter",system-ui,sans-serif;
+        letter-spacing: 0.20em;
+        text-transform: uppercase;
+      }
+      .plan-row.dark .plan-detail {
+        color: rgba(255,255,255,0.64);
+      }
+      .ladder {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+        width: 920px;
+      }
+      .ladder-col {
+        background: #fff;
+        border-radius: 32px;
+        padding: 36px 32px;
+        box-shadow: 0 24px 60px rgba(6,10,30,0.30);
+        display: flex;
+        flex-direction: column;
+        min-height: 300px;
+        opacity: 0;
+      }
+      .ladder-header {
+        font: italic 800 48px "Inter Tight",system-ui,sans-serif;
+        text-transform: uppercase;
+        letter-spacing: -0.018em;
+        margin-bottom: 18px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .ladder-col.long .ladder-header { color: #01CD74; }
+      .ladder-col.short .ladder-header { color: #FF5252; }
+      .ladder-row {
+        font: italic 800 30px "Inter Tight",system-ui,sans-serif;
+        text-transform: uppercase;
+        letter-spacing: -0.012em;
+        color: #1C2329;
+        padding: 18px 0;
+        border-top: 1px solid #E8E9EA;
+        line-height: 1.05;
+        opacity: 0;
+      }
+      .ladder-row:first-of-type { border-top: none; }
+      .cal-tile {
+        display: inline-flex;
+        align-items: center;
+        gap: 26px;
+        background: #fff;
+        border-radius: 32px;
+        padding: 28px 44px;
+        box-shadow: 0 28px 64px rgba(6,10,30,0.30);
+        opacity: 0;
+      }
+      .cal-day {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: #1C2329;
+        color: #fff;
+        border-radius: 18px;
+        padding: 14px 26px;
+        min-width: 130px;
+      }
+      .cal-day-name {
+        font: 700 22px "Inter",system-ui,sans-serif;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+      }
+      .cal-day-num {
+        margin-top: 4px;
+        font: italic 800 64px "Inter Tight",system-ui,sans-serif;
+        letter-spacing: -0.025em;
+        line-height: 1;
+      }
+      .cal-event {
+        font: italic 800 56px "Inter Tight",system-ui,sans-serif;
+        text-transform: uppercase;
+        letter-spacing: -0.018em;
+        color: #1C2329;
+        line-height: 1;
+      }
+      .cal-sub {
+        margin-top: 8px;
+        font: 700 22px "Inter",system-ui,sans-serif;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: #FF5252;
+      }
+
+      /* ============================================================
+         BEAT 10 — SIGN OFF
+         ============================================================ */
+      #beat-signoff { background: #1658FF; }
+      #beat-signoff .so-overlay {
+        position: absolute; inset: 0; z-index: 3;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+      }
+      #beat-signoff .so-logo {
+        opacity: 0; transform: scale(0.6);
+        display: flex; align-items: center; justify-content: center;
+      }
+      #beat-signoff .so-logo img {
+        width: 280px; height: 280px; object-fit: contain;
+        filter: drop-shadow(0 16px 36px rgba(6,10,30,0.32));
+      }
+      #beat-signoff .so-tagline {
+        margin-top: 44px;
+        font-family: "Inter Tight",system-ui,sans-serif;
+        font-weight: 800; font-style: italic;
+        font-size: 132px; line-height: 0.96;
+        color: #fff; letter-spacing: -0.025em;
+        text-transform: uppercase; text-align: center;
+        opacity: 0;
+      }
+      #beat-signoff .so-tagline .accent { color: #FFC847; }
+      #beat-signoff .so-host {
+        margin-top: 30px;
+        display: inline-flex; align-items: center; gap: 14px;
+        background: #1C2329; color: #fff;
+        border-radius: 999px;
+        padding: 18px 36px;
+        font-family: "Inter Tight",system-ui,sans-serif;
+        font-weight: 800; font-style: italic;
+        font-size: 32px; text-transform: uppercase;
+        opacity: 0;
+      }
+      #beat-signoff .so-sources {
+        margin-top: 22px;
+        font: 700 18px "Inter",system-ui,sans-serif;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.58);
+        display: inline-flex;
+        gap: 14px;
+        align-items: center;
+        opacity: 0;
+      }
+      #beat-signoff .so-sources .dot {
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.35);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"
+      data-composition-id="bloom-market-2026-04-27"
+      data-width="1080"
+      data-height="1920"
+      data-start="0"
+      data-duration="52.5">
+
+      <audio id="narration" class="clip"
+        data-start="0" data-duration="52.5" data-track-index="0"
+        src="narration.mp3" data-volume="1"></audio>
+
+      <!-- Background music bed — ducked far below VO so narration dominates the midrange.
+           data-media-start="10" skips the silent intro of forward-momentum.mp3
+           (music begins playing from its 10s mark at video t=0). -->
+      <audio id="bgm" class="clip"
+        data-start="0" data-duration="52.5" data-track-index="2"
+        data-media-start="10"
+        src="assets/music/forward-momentum.mp3" data-volume="0.16"></audio>
+
+      <!-- ========== BEAT 1 — MARKET PULSE OPEN (0 - 2.95s) ========== -->
+      <div id="beat-pulse" class="beat clip"
+        data-start="0" data-duration="2.95" data-track-index="1">
+        <canvas id="b1-canvas" width="1080" height="1920"></canvas>
+        <div class="pulse-overlay">
+          <div class="pulse-date" id="b1-date">
+            <span class="pulse-dot"></span>APR 27 &middot; 2026
+          </div>
+          <div class="pulse-title" id="b1-title">
+            DAILY<br/>MARKET<span class="accent">PULSE</span>
+          </div>
+          <div class="pulse-logo" id="b1-logo">
+            <img src="assets/logos/BLOOM.png" alt="Bloom" onerror="this.style.display='none';"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== BEAT 1B - EUROPE / US FUTURES (2.95 - 7.4s) ========== -->
+      <div id="beat-regions" class="beat clip"
+        data-start="2.95" data-duration="4.45" data-track-index="1">
+        <div class="region-stage">
+          <div class="region-card europe" id="b1b-europe">
+            <img class="region-map" src="assets/continents/europe.png" alt="Europe futures map"/>
+            <div class="region-text">
+              <div class="region-label">EUROPEAN PRE-MARKET</div>
+              <div class="region-status"><span class="up">UP</span> OPEN</div>
+            </div>
+          </div>
+          <div class="region-headline" id="b1b-headline">
+            <span class="dot"></span>
+            <span class="copy">FUTURES GREEN</span>
+          </div>
+          <div class="region-card us" id="b1b-us">
+            <img class="region-map" src="assets/continents/us.png" alt="US futures map"/>
+            <div class="region-text">
+              <div class="region-label">US FUTURES</div>
+              <div class="region-status"><span class="up">GREEN</span> TAPE</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== BEAT 2 - NASDAQ CARD (7.4 - 11.8s) ========== -->
+      <div id="beat-slam" class="beat clip"
+        data-start="7.4" data-duration="4.4" data-track-index="1">
+        <div class="stage">
+          <div class="nas-stack">
+            <div class="nas-card" id="b2-card">
+              <div class="nas-head" id="b2-head">
+                <div class="nas-id">
+                  <div class="nas-orb">NDX</div>
+                  <div>
+                    <div class="nas-name">NASDAQ</div>
+                    <div class="nas-sub">FUTURES &middot; TECH BID</div>
+                  </div>
+                </div>
+                <div class="nas-pill" id="b2-pill">&uarr; +1.2%</div>
+              </div>
+              <div class="nas-price-row">
+                <span class="nas-price" id="b2-num">+0.0</span>
+                <span class="nas-pct" id="b2-pct">%</span>
+              </div>
+              <svg class="nas-chart" viewBox="0 0 800 340" preserveAspectRatio="none">
+                <path id="b2-line-glow" class="nas-chart-glow"
+                  d="M 0 272 C 54 238, 88 280, 136 228 C 190 168, 230 210, 284 156 C 338 102, 388 144, 442 96 C 500 44, 548 92, 604 50 C 662 6, 718 38, 800 18"/>
+                <path id="b2-line" class="nas-chart-line"
+                  d="M 0 272 C 54 238, 88 280, 136 228 C 190 168, 230 210, 284 156 C 338 102, 388 144, 442 96 C 500 44, 548 92, 604 50 C 662 6, 718 38, 800 18"/>
+              </svg>
+              <div class="nas-note" id="b2-label">
+                <div>
+                  <div class="nas-note-kicker">Semiconductor note</div>
+                  <div class="nas-note-main">Semis carry the rally</div>
+                </div>
+                <div class="nas-chip-row">
+                  <span class="nas-chip">INTC +23%</span>
+                  <span class="nas-chip">AMD +14%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== BEAT 3 — MOVERS (10.5 - 15.0s) ========== -->
+      <div id="beat-movers" class="beat clip"
+        data-start="11.8" data-duration="4.2" data-track-index="1">
+        <div class="stage">
+          <div class="mover-stack">
+            <div class="header"><div class="movers-eyebrow" id="b3-eye">TODAY'S LEADERS</div></div>
+            <div class="mover-card" id="b3-m1">
+              <div class="orb"><img src="assets/logos/INTC.svg" alt="Intel" onerror="this.style.display='none'; this.parentNode.innerHTML='<span class=&quot;orb-fallback&quot;>INTC</span>';"/></div>
+              <div class="mover-mid">
+                <div class="mover-tk">INTC</div>
+                <div class="mover-sub">INTEL &middot; SEMIS</div>
+              </div>
+              <div class="mover-pill up">&uarr; +23.0%</div>
+            </div>
+            <div class="mover-card" id="b3-m2">
+              <div class="orb"><img src="assets/logos/AMD.svg" alt="AMD" onerror="this.style.display='none'; this.parentNode.innerHTML='<span class=&quot;orb-fallback&quot;>AMD</span>';"/></div>
+              <div class="mover-mid">
+                <div class="mover-tk">AMD</div>
+                <div class="mover-sub">AMD &middot; SEMIS</div>
+              </div>
+              <div class="mover-pill up">&uarr; +14.0%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== BEAT 4 — S&P PRICE CARD (15.0 - 22.0s) ========== -->
+      <div id="beat-spy" class="beat clip pc-frame"
+        data-start="16.0" data-duration="5.0" data-track-index="1">
+        <div class="stage">
+          <div class="idx-stack">
+            <div class="idx-kicker" id="b4-kicker">US OPEN SNAPSHOT</div>
+            <div class="idx-card" id="b4-card-spy">
+              <div class="idx-orb"><img src="assets/logos/SPY.png" alt="SPY" onerror="this.style.display='none'; this.parentNode.textContent='SPY';"/></div>
+              <div class="idx-meta"><div class="idx-ticker">SPY</div><div class="idx-name">S&amp;P 500</div></div>
+              <svg class="idx-chart" viewBox="0 0 360 124" preserveAspectRatio="none">
+                <path id="b4-line-spy" class="idx-line" d="M0 96 C42 82, 54 104, 92 72 C128 42, 158 76, 194 56 C238 28, 252 46, 294 22 C326 4, 344 12, 360 6"/>
+              </svg>
+              <div class="idx-stat"><div class="idx-value" id="b4-spy-val">$7,165</div><div class="idx-pill">+0.80%</div></div>
+            </div>
+            <div class="idx-card" id="b4-card-ndx">
+              <div class="idx-orb"><img src="assets/logos/QQQ.png" alt="QQQ" onerror="this.style.display='none'; this.parentNode.textContent='NDX';"/></div>
+              <div class="idx-meta"><div class="idx-ticker">NDX</div><div class="idx-name">NASDAQ</div></div>
+              <svg class="idx-chart" viewBox="0 0 360 124" preserveAspectRatio="none">
+                <path id="b4-line-ndx" class="idx-line" d="M0 108 C38 88, 62 98, 92 70 C126 38, 150 62, 190 38 C226 16, 258 44, 292 20 C322 0, 342 10, 360 2"/>
+              </svg>
+              <div class="idx-stat"><div class="idx-value">24,798</div><div class="idx-pill">+1.30%</div></div>
+            </div>
+            <div class="idx-card" id="b4-card-dow">
+              <div class="idx-orb">DOW</div>
+              <div class="idx-meta"><div class="idx-ticker">DOW</div><div class="idx-name">DJI</div></div>
+              <svg class="idx-chart" viewBox="0 0 360 124" preserveAspectRatio="none">
+                <path id="b4-line-dow" class="idx-line" d="M0 82 C34 74, 62 90, 96 70 C132 48, 164 60, 198 42 C230 30, 260 46, 296 30 C326 18, 344 24, 360 16"/>
+              </svg>
+              <div class="idx-stat"><div class="idx-value">41,560</div><div class="idx-pill">+0.30%</div></div>
+            </div>
+          </div>
+          <div class="pc-card" id="b4-card">
+            <div class="pc-nav">
+              <div class="pc-back"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="pc-nav-right">
+                <div class="pc-nav-icon"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" stroke-linecap="round" stroke-linejoin="round"/><path d="M13.7 21a2 2 0 0 1-3.4 0" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div class="pc-check"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              </div>
+            </div>
+            <div class="pc-header">
+              <div class="pc-logo"><img src="assets/logos/SPY.png" alt="SPY" onerror="this.style.display='none'; this.parentNode.innerHTML='<span class=&quot;pc-logo-fallback&quot;>SPY</span>';"/></div>
+              <div>
+                <div class="pc-name">S&amp;P&nbsp;500</div>
+                <div class="pc-exchange">SPY &middot; FUTURES</div>
+              </div>
+            </div>
+            <div class="pc-price-row">
+              <div class="pc-price" id="b4-price">$0</div>
+              <div class="pc-expand"><svg viewBox="0 0 24 24"><path d="M4 14v6h6M20 10V4h-6M4 20l7-7M20 4l-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            </div>
+            <div class="pc-delta" id="b4-delta">
+              <span class="pc-delta-arrow"></span>
+              <span class="pc-delta-val">+$57.20 (+0.80%)</span>
+              <span class="pc-delta-period">Today</span>
+            </div>
+            <div class="pc-chart-wrap">
+              <svg class="pc-chart" id="b4-chart" viewBox="0 0 800 460" preserveAspectRatio="none">
+                <path id="b4-line" class="pc-chart-line"
+                  d="M 0 380 L 30 366 L 60 376 L 90 354 L 120 360 L 150 332 L 180 344 L 210 304 L 240 318 L 270 296 L 300 308 L 330 268 L 360 280 L 390 244 L 420 254 L 450 218 L 480 226 L 510 188 L 540 196 L 570 158 L 600 168 L 630 130 L 660 138 L 690 96 L 720 100 L 750 70 L 780 60 L 800 50" />
+                <circle id="b4-dot" class="pc-chart-dot" cx="800" cy="50" r="10" />
+              </svg>
+              <div class="pc-chart-axis" id="b4-axis"></div>
+            </div>
+            <div class="pc-ranges" id="b4-ranges">
+              <div class="pc-range active">1D</div>
+              <div class="pc-range">1W</div>
+              <div class="pc-range">1M</div>
+              <div class="pc-range">3M</div>
+              <div class="pc-range">1Y</div>
+              <div class="pc-range">5Y</div>
+              <div class="pc-range pc-range-icon">
+                <span style="height:14px"></span><span style="height:30px"></span>
+                <span style="height:20px"></span><span style="height:36px"></span>
+              </div>
+            </div>
+            <div class="pc-stats" id="b4-stats">
+              <div><div class="pc-stat-label">Apr Gain</div><div class="pc-stat-value">+8.0%</div></div>
+              <div><div class="pc-stat-label">VIX</div><div class="pc-stat-value">15.0</div></div>
+            </div>
+            <div class="pc-bottom" id="b4-bottom">
+              <div>
+                <div class="pc-vol-label">Today's Range</div>
+                <div class="pc-vol-value">7,108 — 7,165</div>
+              </div>
+              <div class="pc-trade">Watch</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== BEAT 5 — BTC PRICE CARD (22.0 - 28.5s) ========== -->
+      <div id="beat-btc" class="beat clip pc-frame"
+        data-start="21.0" data-duration="4.5" data-track-index="1">
+        <div class="stage">
+          <div class="crypto-stack">
+            <div class="crypto-card btc" id="b5-btc-card">
+              <div class="crypto-head">
+                <div class="crypto-id">
+                  <div class="crypto-orb btc">&#8383;</div>
+                  <div><div class="crypto-name">BITCOIN</div><div class="crypto-sub">BTC &middot; CRYPTO</div></div>
+                </div>
+                <div class="crypto-pill up">&uarr; +2.34%</div>
+              </div>
+              <div class="crypto-price" id="b5-btc-price">$78,650</div>
+              <svg class="crypto-chart" viewBox="0 0 824 300" preserveAspectRatio="none">
+                <path id="b5-btc-line" class="crypto-line" d="M0 188 C34 160, 62 210, 104 176 C148 140, 184 152, 220 122 C260 88, 306 130, 346 96 C390 58, 430 106, 474 76 C518 44, 562 86, 604 52 C650 18, 688 54, 728 32 C770 10, 800 24, 824 12"/>
+              </svg>
+              <div class="crypto-range">
+                <div class="range-title"><span>24H RANGE</span><strong id="b5-range-now">$78,650</strong></div>
+                <div class="range-track">
+                  <div class="range-fill" id="b5-range-fill"></div>
+                  <div class="range-marker" id="b5-range-marker"></div>
+                </div>
+                <div class="range-labels"><span>$77,500</span><span>$80,100</span></div>
+              </div>
+            </div>
+            <div class="crypto-card eth" id="b5-eth-card">
+              <div class="crypto-orb eth">ETH</div>
+              <div>
+                <div class="eth-title">ETHEREUM</div>
+                <div class="eth-sub">ETH &middot; CRYPTO</div>
+              </div>
+              <div class="eth-right">
+                <div class="eth-price">$3,247</div>
+                <div class="crypto-pill down">&darr; -1.84%</div>
+                <svg width="210" height="50" viewBox="0 0 210 50" preserveAspectRatio="none">
+                  <path id="b5-eth-line" class="eth-line" d="M0 8 C30 14, 38 6, 64 18 C90 30, 116 18, 138 30 C164 44, 184 34, 210 46"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="pc-card" id="b5-card">
+            <div class="pc-nav">
+              <div class="pc-back"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="pc-nav-right">
+                <div class="pc-nav-icon"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" stroke-linecap="round" stroke-linejoin="round"/><path d="M13.7 21a2 2 0 0 1-3.4 0" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div class="pc-check"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              </div>
+            </div>
+            <div class="pc-header">
+              <div class="pc-logo"><span class="pc-logo-fallback">&#8383;</span></div>
+              <div>
+                <div class="pc-name">BITCOIN</div>
+                <div class="pc-exchange">BTC &middot; CRYPTO</div>
+              </div>
+            </div>
+            <div class="pc-price-row">
+              <div class="pc-price" id="b5-price">$0</div>
+              <div class="pc-expand"><svg viewBox="0 0 24 24"><path d="M4 14v6h6M20 10V4h-6M4 20l7-7M20 4l-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            </div>
+            <div class="pc-delta" id="b5-delta">
+              <span class="pc-delta-arrow"></span>
+              <span class="pc-delta-val">+$1,820 (+2.34%)</span>
+              <span class="pc-delta-period">Today</span>
+            </div>
+            <div class="pc-chart-wrap">
+              <svg class="pc-chart" id="b5-chart" viewBox="0 0 800 460" preserveAspectRatio="none">
+                <path id="b5-line" class="pc-chart-line"
+                  d="M 0 280 L 30 268 L 60 296 L 90 312 L 120 286 L 150 268 L 180 248 L 210 256 L 240 232 L 270 244 L 300 218 L 330 232 L 360 204 L 390 224 L 420 196 L 450 220 L 480 188 L 510 208 L 540 174 L 570 192 L 600 158 L 630 178 L 660 142 L 690 162 L 720 124 L 750 142 L 780 110 L 800 96" />
+                <circle id="b5-dot" class="pc-chart-dot" cx="800" cy="96" r="10" />
+              </svg>
+              <div class="pc-chart-axis" id="b5-axis"></div>
+            </div>
+            <div class="pc-ranges" id="b5-ranges">
+              <div class="pc-range active">1D</div>
+              <div class="pc-range">1W</div>
+              <div class="pc-range">1M</div>
+              <div class="pc-range">3M</div>
+              <div class="pc-range">1Y</div>
+              <div class="pc-range">5Y</div>
+              <div class="pc-range pc-range-icon">
+                <span style="height:14px"></span><span style="height:30px"></span>
+                <span style="height:20px"></span><span style="height:36px"></span>
+              </div>
+            </div>
+            <div class="pc-stats" id="b5-stats">
+              <div><div class="pc-stat-label">Mkt Cap</div><div class="pc-stat-value">$1.54T</div></div>
+              <div><div class="pc-stat-label">24h Vol</div><div class="pc-stat-value">$58.2B</div></div>
+            </div>
+            <div class="pc-bottom" id="b5-bottom">
+              <div>
+                <div class="pc-vol-label">24h Range</div>
+                <div class="pc-vol-value">$77,500 — $80,100</div>
+              </div>
+              <div class="pc-trade">Watch</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== BEAT 6 — CINEMA 3D OIL (28.5 - 38.0s) ========== -->
+      <div id="beat-oil" class="beat clip c3d"
+        data-start="25.5" data-duration="8.0" data-track-index="1">
+        <canvas id="b6-canvas" width="1080" height="1920"></canvas>
+        <div class="c3d-overlay">
+          <div class="c3d-eyebrow" id="b6-eye">CRUDE &middot; WTI &middot; SUPPLY SHOCK</div>
+          <div class="c3d-badge" id="b6-badge"><span class="c3d-badge-text">OIL</span></div>
+        </div>
+        <div class="c3d-callout" id="b6-callout">
+          <div class="num">-10M</div>
+          <div class="lbl">BBL/D &middot; SUPPLY</div>
+        </div>
+        <div class="c3d-bottom" id="b6-bottom">
+          <span class="c3d-currency">$</span>
+          <span class="c3d-value" id="b6-val">100</span>
+          <div class="c3d-unit">PER BARREL</div>
+        </div>
+      </div>
+
+      <!-- ========== BEAT 7 — SENTIMENT (climate-stripes vertical) ========== -->
+      <div id="beat-sentiment" class="beat clip"
+        data-start="33.5" data-duration="5.2" data-track-index="1">
+        <div class="strip-stage">
+          <div class="strip-eyebrow" id="b7-eye">U-MICH CONSUMER SENTIMENT &middot; 1952 &mdash; 2026</div>
+
+          <div class="strip-axis-top" id="b7-axis">
+            <span>1952</span>
+            <span class="axis-mid">74 YEARS &middot; ONE READING <em>WORST</em></span>
+            <span>2026</span>
+          </div>
+
+          <!-- 75 bars injected here by the timeline IIFE -->
+          <div class="strip-wrap" id="b7-strip"></div>
+
+          <div class="strip-callout">
+            <div class="strip-callout-num" id="b7-num">0.0</div>
+            <div class="strip-callout-meta">
+              <div class="strip-callout-tag" id="b7-tag">&#9660;&nbsp;&nbsp;WORST SINCE 1952</div>
+              <div class="strip-callout-sub" id="b7-sub">U-MICH CONSUMER SENTIMENT INDEX</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== BEAT 8 — CINEMA 3D PILLAR (42.5 - 47.0s) ========== -->
+      <div id="beat-pillar" class="beat clip c3d"
+        data-start="38.7" data-duration="5.8" data-track-index="1">
+        <canvas id="b8-canvas" width="1080" height="1920"></canvas>
+        <div class="c3d-overlay">
+          <div class="c3d-eyebrow" id="b8-eye">FOMC &middot; THIS WEEK</div>
+          <div class="c3d-badge" id="b8-badge"><span class="c3d-badge-text">FED</span></div>
+        </div>
+        <div class="odds-wrap" id="b8-odds">
+          <div class="odds-eyebrow">POLYMARKET ODDS &middot; FOMC THIS WEEK</div>
+          <div class="odds-bar">
+            <div class="odds-fill" id="b8-fill"></div>
+            <span class="odds-label yes">99% NO CHANGE</span>
+            <span class="odds-label no">1% CUT</span>
+          </div>
+        </div>
+        <div class="fed-pause-chip" id="b8-pause">
+          <span class="dot"></span>
+          <span class="copy">BULLS BET ON A PAUSE</span>
+        </div>
+        <div class="c3d-bottom" id="b8-bottom">
+          <span class="c3d-value" id="b8-val">99%</span>
+          <div class="c3d-unit">ODDS &middot; NO CHANGE</div>
+        </div>
+      </div>
+
+      <!-- ========== BEAT 9 — ACTION PLAN (47.0 - 53.5s) ========== -->
+      <div id="beat-plan" class="beat clip"
+        data-start="44.5" data-duration="5.2" data-track-index="1">
+        <div class="stage">
+          <div class="plan-stack">
+            <div class="plan-eyebrow" id="b9-eye">THE PLAN</div>
+            <div class="plan-list" id="b9-list">
+              <div class="plan-row" id="b9-row-1">
+                <div class="plan-step">1</div>
+                <div class="plan-copy">
+                  <div class="plan-label">Risk-on leaders</div>
+                  <div class="plan-action">Long semis + BTC</div>
+                  <div class="plan-detail">Above NDX / BTC support</div>
+                </div>
+              </div>
+              <div class="plan-row dark" id="b9-row-2">
+                <div class="plan-step">2</div>
+                <div class="plan-copy">
+                  <div class="plan-label">Hedge the shock</div>
+                  <div class="plan-action">Short oil-sensitive names</div>
+                  <div class="plan-detail">Energy costs are the pressure point</div>
+                </div>
+              </div>
+              <div class="plan-row" id="b9-row-3">
+                <div class="plan-step">3</div>
+                <div class="plan-copy">
+                  <div class="plan-label">Next catalyst</div>
+                  <div class="plan-action">Watch Wed 29 CPI</div>
+                  <div class="plan-detail">One print can reset the trade</div>
+                </div>
+              </div>
+            </div>
+            <div class="plan-pill up" id="b9-up">
+              <span class="arrow">&uarr;</span><span>SEMIS LEAD</span>
+            </div>
+            <div class="plan-pill down" id="b9-down">
+              <span class="arrow">&darr;</span><span>OIL-SENSITIVE LAGS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== BEAT 10 — SIGN OFF (53.5 - 57.5s) ========== -->
+      <div id="beat-signoff" class="beat clip"
+        data-start="49.7" data-duration="2.8" data-track-index="1">
+        <div class="so-overlay">
+          <div class="so-logo" id="b10-logo">
+            <img src="assets/logos/BLOOM.png" alt="Bloom" onerror="this.style.display='none';"/>
+          </div>
+          <div class="so-tagline" id="b10-tag">SEE&nbsp;YOU<br/><span class="accent">TOMORROW.</span></div>
+          <div class="so-host" id="b10-host">DAILY MARKET PULSE &middot; BLOOM</div>
+          <div class="so-sources" id="b10-sources">
+            DATA <span class="dot"></span> BLOOMBERG <span class="dot"></span> CNBC <span class="dot"></span> POLYMARKET
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+
+      /* ─── deterministic PRNG ─── */
+      function mulberry32(seed) {
+        return function () {
+          let t = (seed += 0x6d2b79f5);
+          t = Math.imul(t ^ (t >>> 15), t | 1);
+          t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+          return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        };
+      }
+
+      /* ─── path-length helper for stroke-dashoffset ─── */
+      function setupDraw(pathEl) {
+        const len = pathEl.getTotalLength();
+        pathEl.style.strokeDasharray = len;
+        pathEl.style.strokeDashoffset = len;
+        return len;
+      }
+
+      /* ─── deterministic shuffle ─── */
+      function shuffleSeq(n, rand) {
+        const a = []; for (let i = 0; i < n; i++) a.push(i);
+        for (let i = a.length - 1; i > 0; i--) {
+          const j = Math.floor(rand() * (i + 1));
+          const tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+        }
+        return a;
+      }
+
+      /* ─── logos preload ─── */
+      const LOGO_TICKERS = [
+        "AAPL","NVDA","TSLA","META","GOOGL","AMZN","MSFT",
+        "SPY","QQQ","JPM","V","WMT","DIS","KO","PEP",
+        "NFLX","NKE","SBUX","COST",
+        "ADNOC","IBM","MCD","MRNA","NOW","SAVE","TXN","VOO"
+      ];
+      const LOGO_IMAGES = LOGO_TICKERS.map(function (tk) {
+        const img = new Image(); img.src = "assets/logos/" + tk + ".png"; return img;
+      });
+      function isReady(img) { return img && img.complete && img.naturalWidth > 0; }
+
+      /* ─── master timeline ─── */
+      const tl = gsap.timeline({ paused: true });
+      const fmt0 = new Intl.NumberFormat("en-US");
+      const fmt1 = new Intl.NumberFormat("en-US", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+      const fmt2 = new Intl.NumberFormat("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      [
+        ["#beat-pulse", 0.0, 2.95],
+        ["#beat-regions", 2.95, 7.4],
+        ["#beat-slam", 7.4, 11.8],
+        ["#beat-movers", 11.8, 16.0],
+        ["#beat-spy", 16.0, 21.0],
+        ["#beat-btc", 21.0, 25.5],
+        ["#beat-oil", 25.5, 33.5],
+        ["#beat-sentiment", 33.5, 38.7],
+        ["#beat-pillar", 38.7, 44.5],
+        ["#beat-plan", 44.5, 49.7],
+        ["#beat-signoff", 49.7, 52.5]
+      ].forEach(function (beat) {
+        tl.set(beat[0], { opacity: 1 }, beat[1]);
+        if (beat[2] < 52.5) tl.set(beat[0], { opacity: 0 }, beat[2]);
+      });
+
+      /* ============================================================
+         BEAT 1 — MARKET PULSE OPEN (0 - 4.5s)
+         landmark words: "Monday April" 0.000, "Pre-market" 2.368
+         ============================================================ */
+      (function () {
+        const start = 0.0;
+        const cvs = document.getElementById("b1-canvas");
+        const ctx = cvs ? cvs.getContext("2d") : null;
+        const rand = mulberry32(7777);
+
+        // 5-column ambient logo grid
+        const COLS = 5, PER_COL = 8, SPACING = 260, RADIUS = 76, SPEED = 70;
+        const COL_HEIGHT = PER_COL * SPACING;
+        const COL_W = 1080 / COLS;
+        const order = shuffleSeq(LOGO_IMAGES.length, rand);
+        let cursor = 0;
+        const columns = [];
+        for (let c = 0; c < COLS; c++) {
+          const items = [];
+          for (let i = 0; i < PER_COL; i++) {
+            items.push({ idx: order[cursor % order.length], opacity: 0.20 + rand() * 0.14 });
+            cursor++;
+          }
+          columns.push({
+            cx: COL_W * c + COL_W / 2,
+            dir: (c % 2 === 0) ? 1 : -1,
+            seedOffset: rand() * SPACING,
+            items: items
+          });
+        }
+
+        function drawOrb(cx, cy, opacity, idx) {
+          ctx.fillStyle = "rgba(28,35,41," + (opacity * 0.82) + ")";
+          ctx.beginPath(); ctx.arc(cx, cy, RADIUS, 0, Math.PI * 2); ctx.fill();
+          const img = LOGO_IMAGES[idx];
+          if (isReady(img)) {
+            const inner = RADIUS * 1.18;
+            ctx.save();
+            ctx.beginPath(); ctx.arc(cx, cy, RADIUS - 2, 0, Math.PI * 2); ctx.clip();
+            ctx.globalAlpha = Math.min(1, opacity * 1.3);
+            ctx.drawImage(img, cx - inner / 2, cy - inner / 2, inner, inner);
+            ctx.globalAlpha = 1; ctx.restore();
+          }
+        }
+        function drawPulse(t) {
+          if (!ctx) return;
+          ctx.clearRect(0, 0, 1080, 1920);
+          for (let c = 0; c < COLS; c++) {
+            const col = columns[c];
+            const baseShift = col.dir * t * SPEED + col.seedOffset;
+            for (let i = 0; i < PER_COL; i++) {
+              const item = col.items[i];
+              let y = ((i * SPACING + baseShift) % COL_HEIGHT + COL_HEIGHT) % COL_HEIGHT;
+              y = y - SPACING;
+              if (y < -RADIUS * 2 || y > 1920 + RADIUS * 2) continue;
+              drawOrb(col.cx, y, item.opacity, item.idx);
+            }
+          }
+        }
+        const p = { t: 0 };
+        tl.to(p, { t: 5.0, duration: 5.0, ease: "none", onUpdate: function () { drawPulse(p.t); } }, start);
+
+        tl.fromTo("#b1-date",
+          { opacity: 0, scale: 0.7, y: -22 },
+          { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "back.out(1.7)" }, start + 0.20);
+        tl.fromTo("#b1-title",
+          { opacity: 0, y: 32, scale: 0.96 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "power3.out" }, start + 0.65);
+        tl.fromTo("#b1-logo",
+          { opacity: 0, scale: 0.5 },
+          { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.8)" }, start + 1.40);
+      })();
+
+      /* ============================================================
+         BEAT 1B - EUROPE / US FUTURES MAP
+         Word anchors:
+           "European pre-market" 3.019  → Europe map enters at +0.07s
+           "US futures"          4.272  → US map enters at +1.32s
+           "futures are green"   4.598  → Headline pill at +1.65s
+         ============================================================ */
+      (function () {
+        const start = 2.95;
+        tl.fromTo("#b1b-europe",
+          { opacity: 0, x: -140, y: -18, scale: 0.94 },
+          { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.55, ease: "power3.out" }, start + 0.07);
+        tl.fromTo("#b1b-us",
+          { opacity: 0, x: 150, y: 18, scale: 0.94 },
+          { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.55, ease: "power3.out" }, start + 1.32);
+        tl.fromTo("#b1b-headline",
+          { opacity: 0, scale: 0.82, y: 18 },
+          { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "back.out(1.7)" }, start + 1.65);
+        tl.fromTo("#b1b-headline",
+          { boxShadow: "0 22px 48px rgba(6,10,30,0.24)" },
+          { boxShadow: "0 22px 48px rgba(1,205,116,0.34)", duration: 0.22, yoyo: true, repeat: 1 }, start + 2.00);
+      })();
+
+      /* ============================================================
+         BEAT 2 - NASDAQ PRICE CARD FOUNDATION
+         ============================================================ */
+      (function () {
+        const start = 7.4;
+        const nasLine = document.getElementById("b2-line");
+        const nasGlow = document.getElementById("b2-line-glow");
+        if (nasLine) setupDraw(nasLine);
+        if (nasGlow) setupDraw(nasGlow);
+
+        tl.fromTo("#b2-card",
+          { opacity: 0, y: 46, scale: 0.96 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.52, ease: "power3.out" }, start + 0.02);
+        tl.fromTo("#b2-head",
+          { opacity: 0, y: -18 },
+          { opacity: 1, y: 0, duration: 0.36, ease: "power2.out" }, start + 0.18);
+        tl.fromTo("#b2-pill",
+          { opacity: 0, scale: 0.72, x: 26 },
+          { opacity: 1, scale: 1, x: 0, duration: 0.38, ease: "back.out(1.8)" }, start + 0.44);
+        tl.to("#b2-line-glow", { strokeDashoffset: 0, duration: 1.25, ease: "power2.out" }, start + 0.62);
+        tl.to("#b2-line", { strokeDashoffset: 0, duration: 1.25, ease: "power2.out" }, start + 0.68);
+      })();
+
+      /* ============================================================
+         BEAT 2 — STAT SLAM "+1.2%" (4.5 - 10.5s)
+         landmark: "one percent" 6.676 — number lands just before
+         ============================================================ */
+      (function () {
+        const start = 5.0;
+        const numEl = document.getElementById("b2-num");
+        const proxy = { v: 0 };
+
+        tl.fromTo("#b2-eye",
+          { opacity: 0, y: -16 },
+          { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, start + 0.10);
+        tl.fromTo("#b2-arrow",
+          { opacity: 0, y: 30, scale: 0.4 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "back.out(2.0)" }, start + 0.55);
+
+        // Counter ramps to 1.2 (lands at "one percent" = 6.676s = beat-relative 2.176s)
+        tl.to(proxy, {
+          v: 1.2,
+          duration: 1.2, ease: "power2.out",
+          onUpdate: function () { if (numEl) numEl.textContent = "+" + fmt1.format(proxy.v); }
+        }, start + 3.45);
+
+        tl.fromTo("#b2-pct",
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, start + 3.65);
+
+        // Punch on landing
+        tl.fromTo("#b2-num",
+          { scale: 1 },
+          { scale: 1.06, duration: 0.18, yoyo: true, repeat: 1, ease: "power2.out" }, start + 4.65);
+
+        tl.fromTo("#b2-label",
+          { opacity: 0, y: 24, scale: 0.92 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, start + 5.15);
+      })();
+
+      /* ============================================================
+         BEAT 3 — MOVERS Intel +23% / AMD +14% (10.5 - 15.0s)
+         landmarks: "Intel" 10.971 (= 0.471 in beat), "AMD up" 13.537 (= 3.037)
+         ============================================================ */
+      (function () {
+        const start = 11.8;
+        tl.fromTo("#b3-eye",
+          { opacity: 0, y: -14 },
+          { opacity: 1, y: 0, duration: 0.4 }, start + 0.05);
+
+        // Intel card lands on "Intel" word
+        tl.fromTo("#b3-m1",
+          { opacity: 0, x: -80, scale: 0.94 },
+          { opacity: 1, x: 0, scale: 1, duration: 0.5, ease: "back.out(1.5)" }, start + 0.20);
+
+        // AMD card lands on "AMD up"
+        tl.fromTo("#b3-m2",
+          { opacity: 0, x: -80, scale: 0.94 },
+          { opacity: 1, x: 0, scale: 1, duration: 0.5, ease: "back.out(1.5)" }, start + 2.60);
+      })();
+
+      /* ============================================================
+         BEAT 4 — S&P PRICE CARD (15.0 - 22.0s)
+         landmarks: "S and P" 15.488 (=0.488), "seven thousand one" 18.657 (=3.657)
+         ============================================================ */
+      (function () {
+        const start = 16.0;
+        const idxLines = ["b4-line-spy", "b4-line-ndx", "b4-line-dow"].map(function (id) {
+          const p = document.getElementById(id);
+          if (p) setupDraw(p);
+          return p;
+        });
+        const spyValEl = document.getElementById("b4-spy-val");
+        const spyProxy = { v: 0 };
+        const line = document.getElementById("b4-line");
+        if (line) setupDraw(line);
+        const priceEl = document.getElementById("b4-price");
+        const proxy = { v: 0 };
+
+        tl.fromTo("#b4-kicker",
+          { opacity: 0, y: -16, scale: 0.94 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.38, ease: "back.out(1.6)" }, start + 0.12);
+        tl.fromTo("#b4-card-spy, #b4-card-ndx, #b4-card-dow",
+          { opacity: 0, y: 40, scale: 0.96 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.48, stagger: 0.14, ease: "power3.out" }, start + 0.28);
+        idxLines.forEach(function (p, i) {
+          if (p) tl.to(p, { strokeDashoffset: 0, duration: 1.05, ease: "power2.out" }, start + 0.95 + i * 0.12);
+        });
+        tl.to(spyProxy, {
+          v: 7165,
+          duration: 1.6,
+          ease: "power2.out",
+          onUpdate: function () { if (spyValEl) spyValEl.textContent = "$" + fmt0.format(Math.floor(spyProxy.v)); }
+        }, start + 1.25);
+
+        tl.fromTo("#b4-card",
+          { opacity: 0, y: 36, scale: 0.97 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "power3.out" }, start + 0.10);
+
+        // Price ramps to land on "seven thousand one" (=3.657s in beat)
+        tl.to(proxy, {
+          v: 7165,
+          duration: 1.6, ease: "power2.out",
+          onUpdate: function () { if (priceEl) priceEl.textContent = "$" + fmt0.format(Math.floor(proxy.v)); }
+        }, start + 2.0);
+
+        tl.to("#b4-line",  { strokeDashoffset: 0, duration: 1.4, ease: "power2.out" }, start + 1.0);
+        tl.to("#b4-axis",  { opacity: 1, duration: 0.4 }, start + 1.0);
+        tl.to("#b4-dot",   { opacity: 1, duration: 0.25 }, start + 2.40);
+
+        tl.fromTo("#b4-delta",
+          { opacity: 0, y: 14 },
+          { opacity: 1, y: 0, duration: 0.4 }, start + 3.7);
+        tl.fromTo("#b4-ranges .pc-range",
+          { opacity: 0, y: 12 },
+          { opacity: 1, y: 0, duration: 0.32, stagger: 0.05 }, start + 4.0);
+        tl.fromTo("#b4-stats",
+          { opacity: 0, y: 14 },
+          { opacity: 1, y: 0, duration: 0.4 }, start + 4.6);
+        tl.fromTo("#b4-bottom",
+          { opacity: 0, y: 18 },
+          { opacity: 1, y: 0, duration: 0.4 }, start + 5.0);
+      })();
+
+      /* ============================================================
+         BEAT 5 — BTC PRICE CARD (22.0 - 28.5s)
+         landmarks: "Bitcoin" 23.081 (=1.081), "seventy-eight thousand" 24.010-25.264
+         ============================================================ */
+      (function () {
+        const start = 21.0;
+        const btcLine = document.getElementById("b5-btc-line");
+        const ethLine = document.getElementById("b5-eth-line");
+        if (btcLine) setupDraw(btcLine);
+        if (ethLine) setupDraw(ethLine);
+        const btcPriceEl = document.getElementById("b5-btc-price");
+        const btcProxy = { v: 0 };
+        const line = document.getElementById("b5-line");
+        if (line) setupDraw(line);
+        const priceEl = document.getElementById("b5-price");
+        const proxy = { v: 0 };
+
+        tl.fromTo("#b5-btc-card",
+          { opacity: 0, y: 38, scale: 0.97 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "power3.out" }, start + 0.15);
+        tl.to(btcProxy, {
+          v: 78650,
+          duration: 1.45,
+          ease: "power2.out",
+          onUpdate: function () { if (btcPriceEl) btcPriceEl.textContent = "$" + fmt0.format(Math.floor(btcProxy.v)); }
+        }, start + 0.55);
+        tl.to("#b5-btc-line", { strokeDashoffset: 0, duration: 1.05, ease: "power2.out" }, start + 0.45);
+        tl.to("#b5-range-fill", { width: "57%", duration: 0.7, ease: "power2.out" }, start + 1.20);
+        tl.to("#b5-range-marker", { left: "57%", duration: 0.7, ease: "power2.out" }, start + 1.20);
+        tl.fromTo("#b5-range-now",
+          { color: "#4A4F54" },
+          { color: "#1C2329", duration: 0.25, yoyo: true, repeat: 1 }, start + 1.70);
+        tl.fromTo("#b5-eth-card",
+          { opacity: 0, x: 90, scale: 0.96 },
+          { opacity: 1, x: 0, scale: 1, duration: 0.48, ease: "power3.out" }, start + 2.25);
+        tl.to("#b5-eth-line", { strokeDashoffset: 0, duration: 0.7, ease: "power2.out" }, start + 2.50);
+
+        tl.fromTo("#b5-card",
+          { opacity: 0, y: 36, scale: 0.97 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "power3.out" }, start + 0.10);
+
+        // Price ramps from 0 to 78,650 (lands ~"seventy-eight thousand" end = 25.264s = 3.264 in beat)
+        tl.to(proxy, {
+          v: 78650,
+          duration: 1.4, ease: "power2.out",
+          onUpdate: function () { if (priceEl) priceEl.textContent = "$" + fmt0.format(Math.floor(proxy.v)); }
+        }, start + 1.6);
+
+        tl.to("#b5-line",  { strokeDashoffset: 0, duration: 1.3, ease: "power2.out" }, start + 0.9);
+        tl.to("#b5-axis",  { opacity: 1, duration: 0.4 }, start + 0.9);
+        tl.to("#b5-dot",   { opacity: 1, duration: 0.25 }, start + 2.20);
+
+        tl.fromTo("#b5-delta",
+          { opacity: 0, y: 14 },
+          { opacity: 1, y: 0, duration: 0.4 }, start + 3.30);
+        tl.fromTo("#b5-ranges .pc-range",
+          { opacity: 0, y: 12 },
+          { opacity: 1, y: 0, duration: 0.32, stagger: 0.05 }, start + 3.60);
+        tl.fromTo("#b5-stats",
+          { opacity: 0, y: 14 },
+          { opacity: 1, y: 0, duration: 0.4 }, start + 4.20);
+        tl.fromTo("#b5-bottom",
+          { opacity: 0, y: 18 },
+          { opacity: 1, y: 0, duration: 0.4 }, start + 4.60);
+      })();
+
+      /* ============================================================
+         BEATS 6 + 8 — Cinema3DReveal helper
+         ============================================================ */
+      function createCinema3D(opts) {
+        const cvs = document.getElementById(opts.canvasId);
+        if (!cvs) return null;
+        const renderer = new THREE.WebGLRenderer({ canvas: cvs, alpha: true, antialias: true, powerPreference: "high-performance" });
+        renderer.setPixelRatio(2);
+        renderer.setSize(1080, 1920, false);
+        // Transparent canvas — let the parent .c3d white+blue radial show through.
+        renderer.setClearColor(0x000000, 0.0);
+        renderer.outputEncoding = THREE.sRGBEncoding;
+        renderer.toneMapping = THREE.CineonToneMapping;
+        renderer.toneMappingExposure = opts.exposure || 1.0;
+
+        const scene = new THREE.Scene();
+        scene.background = null;
+        // No fog on white — fog reads as a dirty haze on a clean surface.
+        scene.fog = null;
+
+        const camera = new THREE.PerspectiveCamera(22, 1080 / 1920, 0.05, 100);
+        camera.position.set(0, 0.15, 9.0);
+        camera.lookAt(0, 0.05, 0);
+
+        const pmrem = new THREE.PMREMGenerator(renderer);
+        pmrem.compileEquirectangularShader();
+        new THREE.RGBELoader().load("assets/studio.hdr", function (hdr) {
+          hdr.mapping = THREE.EquirectangularReflectionMapping;
+          scene.environment = pmrem.fromEquirectangular(hdr).texture;
+          hdr.dispose(); pmrem.dispose();
+        });
+
+        const key = new THREE.DirectionalLight(opts.keyColor || 0xfff0d4, opts.keyIntensity || 4.0);
+        key.position.set(2.8, 3.6, 3.4); scene.add(key);
+        const rim = new THREE.SpotLight(opts.rimColor || 0xffe1a8, opts.rimIntensity || 2.5, 16, Math.PI / 5.0, 0.5, 1.2);
+        rim.position.set(-2.4, 4.6, -3.0); rim.target.position.set(0, 0, 0);
+        scene.add(rim); scene.add(rim.target);
+
+        const pivot = new THREE.Group(); scene.add(pivot);
+        let mesh = null;
+        new THREE.GLTFLoader().load(opts.glb, function (gltf) {
+          mesh = gltf.scene;
+          mesh.traverse(function (child) {
+            if (child.isMesh) {
+              if (!child.geometry.attributes.normal) child.geometry.computeVertexNormals();
+              if (child.material && child.material.isMeshStandardMaterial) {
+                child.material.envMapIntensity = opts.envMapIntensity || 1.0;
+                child.material.emissiveIntensity = 0.0;
+                child.material.needsUpdate = true;
+              }
+            }
+          });
+          let box = new THREE.Box3().setFromObject(mesh);
+          mesh.position.sub(box.getCenter(new THREE.Vector3()));
+          box = new THREE.Box3().setFromObject(mesh);
+          const size = box.getSize(new THREE.Vector3());
+          const dims = [size.x, size.y, size.z];
+          const sortedIdx = dims.map(function (v, i) { return { v: v, i: i }; })
+                                .sort(function (a, b) { return b.v - a.v; });
+          const longest = sortedIdx[0].i;
+          if (opts.orient === "vertical") {
+            if (longest === 0) mesh.rotation.z = Math.PI / 2;
+            else if (longest === 2) mesh.rotation.x = Math.PI / 2;
+          } else {
+            if (longest === 2) mesh.rotation.y = Math.PI / 2;
+            else if (longest === 1) mesh.rotation.z = Math.PI / 2;
+          }
+          const orientedBox = new THREE.Box3().setFromObject(mesh);
+          const orientedSize = orientedBox.getSize(new THREE.Vector3());
+          const target = opts.orient === "vertical"
+            ? (opts.targetHeight || 2.4) / orientedSize.y
+            : (opts.targetWidth || 1.55) / orientedSize.x;
+          mesh.scale.setScalar(target);
+          const finalBox = new THREE.Box3().setFromObject(mesh);
+          mesh.position.sub(finalBox.getCenter(new THREE.Vector3()));
+          pivot.add(mesh);
+          renderFrame();
+        });
+
+        const state = {
+          camZ: 9.0, camY: 0.15,
+          rotY: opts.startRotY || -0.30,
+          rotX: opts.startRotX || 0.10,
+          opacity: 0
+        };
+        function renderFrame() {
+          camera.position.z = state.camZ;
+          camera.position.y = state.camY;
+          camera.lookAt(0, 0.05, 0);
+          pivot.rotation.x = state.rotX;
+          pivot.rotation.y = state.rotY;
+          if (mesh) {
+            mesh.traverse(function (child) {
+              if (child.isMesh && child.material) {
+                child.material.opacity = state.opacity;
+                child.material.transparent = state.opacity < 1;
+              }
+            });
+          }
+          renderer.render(scene, camera);
+        }
+        renderFrame();
+        return { state: state, render: renderFrame };
+      }
+
+      /* ============================================================
+         BEAT 6 — CINEMA 3D OIL (28.5 - 38.0s)
+         landmarks: "war and oil" 29.025-30.407, "Middle East" 31.010,
+                    "one hundred dollars" 35.956-37.082
+         ============================================================ */
+      (function () {
+        const start = 25.5;
+        const beat = createCinema3D({
+          canvasId: "b6-canvas",
+          glb: "assets/models/oil-barrel.glb",
+          orient: "vertical",
+          targetHeight: 2.4,
+          envMapIntensity: 0.95,
+          keyColor: 0xffffff,  keyIntensity: 2.6,
+          rimColor: 0xc8d8ff,  rimIntensity: 1.6,
+          startRotY: -0.30
+        });
+        if (!beat) return;
+        const s = beat.state;
+
+        // Bar fade-in + slow orbit
+        tl.to(s, {
+          camZ: 8.2, camY: 0.10, rotY: 0.30, rotX: 0.10, opacity: 1,
+          duration: 1.6, ease: "power2.out", onUpdate: beat.render
+        }, start + 0.10);
+        tl.to(s, { rotY: 1.10, duration: 7.5, ease: "none", onUpdate: beat.render }, start + 1.70);
+
+        // Eyebrow lands on "war and oil" (=0.525 in beat)
+        tl.fromTo("#b6-eye",
+          { opacity: 0, y: -14 },
+          { opacity: 1, y: 0, duration: 0.4 }, start + 0.20);
+        // OIL badge lands on "Middle East" (=2.510 in beat)
+        tl.fromTo("#b6-badge",
+          { opacity: 0, scale: 0.5, y: -30 },
+          { opacity: 1, scale: 1, y: 0, duration: 0.55, ease: "back.out(2.0)" }, start + 1.96);
+        tl.fromTo("#b6-callout",
+          { opacity: 0, scale: 0.82, y: 18 },
+          { opacity: 1, scale: 1, x: 0, y: 0, duration: 0.46, ease: "back.out(1.7)" }, start + 4.35);
+        // Bottom $100 counter lands on "one hundred dollars" end (=8.582 in beat)
+        const valEl = document.getElementById("b6-val");
+        const proxy = { v: 0 };
+        tl.fromTo("#b6-bottom",
+          { opacity: 0, y: 28 },
+          { opacity: 1, y: 0, duration: 0.45 }, start + 5.30);
+        tl.to(proxy, {
+          v: 100,
+          duration: 1.6, ease: "power2.out",
+          onUpdate: function () { if (valEl) valEl.textContent = fmt0.format(Math.floor(proxy.v)); }
+        }, start + 5.45);
+        tl.fromTo("#b6-val",
+          { scale: 1 },
+          { scale: 1.06, duration: 0.18, yoyo: true, repeat: 1, ease: "power2.out" }, start + 6.95);
+      })();
+
+      /* ============================================================
+         BEAT 7 — SENTIMENT (climate-stripes vertical) — 33.5 → 38.7s
+         landmarks: "Sentiment" 33.820 (= +0.32), "forty-nine" 35.585 (= +2.09)
+         75 bars (1952..2026) cascade top-to-bottom; final 2026 bar lights
+         red and pulses; the 49.8 callout lands beside it.
+         ============================================================ */
+      (function () {
+        const start = 33.5;
+
+        // Plausible historical U-Mich Consumer Sentiment values per year.
+        // Final entry (2026) is the script's record low: 49.8.
+        const SENTIMENT = [
+          85,86,84,87,88,86,70,78,80,80,86,89,92,95, // 1952-1965
+          90,88,90,80,75,75,87,75,60,65,80,85,80,70, // 1966-1979
+          60,65,75,85,95,96,96,88,92,92,80,70,80,85, // 1980-1993
+          92,92,95,105,105,108,                       // 1994-1999
+          105,90,86,87,92,88,90,85,                   // 2000-2007
+          65,70,75,65,75,80,84,92,92,95,95,96,        // 2008-2019
+          75,80,60,65,70,60,49.8                      // 2020-2026
+        ];
+
+        // Color ramp: Bloom blue → soft blue → gray → coral → red.
+        function colorFor(v) {
+          if (v >= 100) return "#1658FF";
+          if (v >= 90)  return "#3B71FF";
+          if (v >= 82)  return "#7BA1FF";
+          if (v >= 75)  return "#B6CAFA";
+          if (v >= 68)  return "#D8DCE3";
+          if (v >= 60)  return "#FFB8B8";
+          if (v >= 55)  return "#FF8A8A";
+          return "#FF5252";
+        }
+
+        // Build the 75 stacked bars.
+        const stripWrap = document.getElementById("b7-strip");
+        const bars = [];
+        if (stripWrap) {
+          stripWrap.innerHTML = "";
+          for (let i = 0; i < SENTIMENT.length; i++) {
+            const v = SENTIMENT[i];
+            const isLast = (i === SENTIMENT.length - 1);
+            const bar = document.createElement("div");
+            bar.className = "strip-bar" + (isLast ? " now" : "");
+            bar.style.background = colorFor(v);
+            stripWrap.appendChild(bar);
+            bars.push(bar);
+          }
+        }
+
+        const numEl = document.getElementById("b7-num");
+        if (numEl) numEl.textContent = "0.0";
+        const proxy = { v: 0 };
+
+        // Eyebrow lands as "Sentiment" begins (beat-rel +0.32)
+        tl.fromTo("#b7-eye",
+          { opacity: 0, y: -16 },
+          { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, start + 0.20);
+
+        tl.fromTo("#b7-axis",
+          { opacity: 0, y: -10 },
+          { opacity: 1, y: 0, duration: 0.4 }, start + 0.40);
+
+        // Bars cascade top-to-bottom — 75 bars × 0.014s stagger ≈ 1.05s
+        tl.fromTo(bars,
+          { opacity: 0, scaleX: 0 },
+          { opacity: 1, scaleX: 1, duration: 0.32, stagger: 0.014, ease: "power2.out" },
+          start + 0.55);
+
+        // Red final-bar glow pulse — repeats once, lands as the floor reveals.
+        tl.fromTo(".strip-bar.now",
+          { boxShadow: "0 0 0 0 rgba(255,82,82,0.55)" },
+          { boxShadow: "0 0 0 16px rgba(255,82,82,0)", duration: 0.85,
+            repeat: 1, ease: "power2.out" },
+          start + 1.60);
+
+        // Fade the number in just before the counter starts running
+        tl.fromTo("#b7-num",
+          { opacity: 0, y: 28, scale: 0.92 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "power3.out" },
+          start + 1.10);
+
+        // 49.8 counter rises from 0 — lands during "forty-nine point eight" (+2.09)
+        tl.to(proxy, {
+          v: 49.8,
+          duration: 1.3, ease: "power2.out",
+          onUpdate: function () { if (numEl) numEl.textContent = fmt1.format(proxy.v); }
+        }, start + 1.20);
+
+        // Punch on landing
+        tl.fromTo("#b7-num",
+          { scale: 1 },
+          { scale: 1.04, duration: 0.18, yoyo: true, repeat: 1, ease: "power2.out" },
+          start + 2.50);
+
+        // Red record-low tag
+        tl.fromTo("#b7-tag",
+          { opacity: 0, scale: 0.7, x: -30 },
+          { opacity: 1, scale: 1, x: 0, duration: 0.45, ease: "back.out(1.7)" },
+          start + 2.70);
+
+        // Subtitle
+        tl.fromTo("#b7-sub",
+          { opacity: 0, y: 12 },
+          { opacity: 1, y: 0, duration: 0.4 },
+          start + 3.10);
+      })();
+
+      /* ============================================================
+         BEAT 8 — CINEMA 3D PILLAR (42.5 - 47.0s)
+         landmarks: "Fed meets" 42.597 (=0.097), "Ninety-nine percent" 44.199-45.117
+         ============================================================ */
+      (function () {
+        const start = 38.7;
+        const beat = createCinema3D({
+          canvasId: "b8-canvas",
+          glb: "assets/models/fed-rate-building-textured.glb",
+          orient: "horizontal",
+          targetWidth: 1.85,
+          envMapIntensity: 0.85,
+          exposure: 1.05,
+          keyColor: 0xffffff, keyIntensity: 2.8,
+          rimColor: 0xc8d8ff, rimIntensity: 1.4,
+          startRotY: -0.20
+        });
+        if (!beat) return;
+        const s = beat.state;
+
+        tl.to(s, {
+          camZ: 9.8, camY: 0.15, rotY: 0.20, rotX: 0.05, opacity: 1,
+          duration: 1.5, ease: "power2.out", onUpdate: beat.render
+        }, start + 0.10);
+        tl.to(s, { rotY: 0.92, duration: 4.1, ease: "none", onUpdate: beat.render }, start + 1.60);
+
+        tl.fromTo("#b8-eye",
+          { opacity: 0, y: -14 },
+          { opacity: 1, y: 0, duration: 0.4 }, start + 0.10);
+        tl.fromTo("#b8-badge",
+          { opacity: 0, scale: 0.5, y: -30 },
+          { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "back.out(2.0)" }, start + 0.45);
+        tl.fromTo("#b8-odds",
+          { opacity: 0, y: 28 },
+          { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, start + 1.30);
+        tl.to("#b8-fill",
+          { width: "99%", duration: 0.9, ease: "power2.out" }, start + 1.72);
+        tl.fromTo("#b8-pause",
+          { opacity: 0, y: 18, scale: 0.94 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.46, ease: "back.out(1.6)" }, start + 4.55);
+        tl.fromTo("#b8-bottom",
+          { opacity: 0, y: 28 },
+          { opacity: 1, y: 0, duration: 0.4 }, start + 1.40);
+        // Punch on "Ninety-nine percent" end (=2.617 in beat)
+        tl.fromTo("#b8-val",
+          { scale: 1 },
+          { scale: 1.06, duration: 0.18, yoyo: true, repeat: 1, ease: "power2.out" }, start + 2.6);
+      })();
+
+      /* ============================================================
+         BEAT 9 — ACTION PLAN (47.0 - 53.5s)
+         landmarks: "Bulls bet" 47.160 (=0.160), "Semis lead" 49.134 (=2.134)
+         ============================================================ */
+      (function () {
+        const start = 44.5;
+        tl.fromTo("#b9-eye",
+          { opacity: 0, y: -14 },
+          { opacity: 1, y: 0, duration: 0.32 }, start + 0.02);
+        tl.fromTo("#b9-row-1",
+          { opacity: 0, y: 56, scale: 0.95 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.46, ease: "back.out(1.5)" }, start + 0.22);
+        tl.fromTo("#b9-row-2",
+          { opacity: 0, y: 56, scale: 0.95 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.42, ease: "back.out(1.5)" }, start + 1.30);
+        tl.fromTo("#b9-row-3",
+          { opacity: 0, y: 56, scale: 0.95 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.42, ease: "back.out(1.5)" }, start + 2.60);
+        tl.fromTo("#b9-up",
+          { opacity: 0, x: -80, scale: 0.9 },
+          { opacity: 1, x: 0, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, start + 1.80);
+        tl.fromTo("#b9-down",
+          { opacity: 0, x: -80, scale: 0.9 },
+          { opacity: 1, x: 0, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, start + 3.50);
+      })();
+
+      /* ============================================================
+         BEAT 10 — SIGN OFF (53.5 - 57.5s)
+         landmark: "See you tomorrow" 55.798-56.796
+         ============================================================ */
+      (function () {
+        const start = 49.7;
+        tl.fromTo("#b10-logo",
+          { opacity: 0, scale: 0.5 },
+          { opacity: 1, scale: 1, duration: 0.55, ease: "back.out(1.8)" }, start + 0.20);
+        tl.fromTo("#b10-tag",
+          { opacity: 0, y: 30, scale: 0.96 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "power3.out" }, start + 0.80);
+        tl.fromTo("#b10-host",
+          { opacity: 0, y: 14 },
+          { opacity: 1, y: 0, duration: 0.4 }, start + 1.35);
+        tl.fromTo("#b10-sources",
+          { opacity: 0, y: 8 },
+          { opacity: 1, y: 0, duration: 0.4 }, start + 1.85);
+      })();
+
+      window.__timelines["bloom-market-2026-04-27"] = tl;
+    </script>
+  </body>
+</html>

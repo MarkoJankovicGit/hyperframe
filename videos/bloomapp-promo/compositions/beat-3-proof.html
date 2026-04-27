@@ -1,0 +1,347 @@
+<template id="beat-3-proof-template">
+  <div
+    data-composition-id="beat-3-proof"
+    data-width="1080"
+    data-height="1920"
+    data-start="0"
+    data-duration="4.775"
+  >
+    <div class="b3-scene">
+      <canvas id="b3-particles" width="1080" height="1920"></canvas>
+
+      <div class="b3-stat-panel" id="b3-stat-panel">
+        <div class="b3-stat-number" id="b3-stat-number">0</div>
+        <div class="b3-stat-label" id="b3-stat-label">DOWNLOADS</div>
+      </div>
+
+      <div class="b3-protected-panel" id="b3-protected-panel">
+        <div class="b3-badge">
+          <span class="b3-badge-text">$500,000 PROTECTED</span>
+        </div>
+        <div class="b3-sipc-row">
+          <svg
+            class="b3-check"
+            viewBox="0 0 96 96"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <circle cx="48" cy="48" r="44" fill="#01cd74" />
+            <path
+              class="b3-check-path"
+              d="M 28 50 L 44 66 L 70 36"
+              stroke="#ffffff"
+              stroke-width="8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              fill="none"
+            />
+          </svg>
+          <img
+            class="b3-sipc"
+            src="../capture/assets/690ad285c2e9d81397a85ab8-sipc.png"
+            alt="SIPC insured"
+          />
+        </div>
+      </div>
+
+      <img
+        id="b3-phone"
+        class="b3-phone"
+        src="../capture/assets/690ba188fa21cc9a599feb66-mockup-safe-p-8.png"
+        alt=""
+      />
+    </div>
+
+    <style>
+      [data-composition-id="beat-3-proof"] {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #f8f8f9;
+        font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+      }
+      [data-composition-id="beat-3-proof"] .b3-scene {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+      [data-composition-id="beat-3-proof"] #b3-particles {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        opacity: 0.7;
+        z-index: 0;
+        pointer-events: none;
+      }
+      [data-composition-id="beat-3-proof"] .b3-stat-panel {
+        position: absolute;
+        top: 220px;
+        left: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 3;
+      }
+      [data-composition-id="beat-3-proof"] .b3-stat-number {
+        font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        font-size: 212px;
+        letter-spacing: -0.04em;
+        line-height: 0.92;
+        color: #1c2329;
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+      }
+      [data-composition-id="beat-3-proof"] .b3-stat-label {
+        font-family: "Inter", system-ui, sans-serif;
+        font-weight: 600;
+        font-size: 44px;
+        letter-spacing: 0.22em;
+        color: #4a4f54;
+        text-transform: uppercase;
+        margin-top: 20px;
+      }
+      [data-composition-id="beat-3-proof"] .b3-protected-panel {
+        position: absolute;
+        top: 240px;
+        left: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 38px;
+        opacity: 0;
+        z-index: 4;
+      }
+      [data-composition-id="beat-3-proof"] .b3-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: #1c2329;
+        color: #ffffff;
+        padding: 36px 60px;
+        border-radius: 26px;
+        box-shadow: 0 24px 60px rgba(25, 33, 61, 0.2);
+      }
+      [data-composition-id="beat-3-proof"] .b3-badge-text {
+        font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        font-size: 104px;
+        letter-spacing: -0.02em;
+        line-height: 0.95;
+        text-transform: uppercase;
+        color: #ffffff;
+        white-space: nowrap;
+      }
+      [data-composition-id="beat-3-proof"] .b3-sipc-row {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+      }
+      [data-composition-id="beat-3-proof"] .b3-check {
+        width: 88px;
+        height: 88px;
+        flex-shrink: 0;
+      }
+      [data-composition-id="beat-3-proof"] .b3-check-path {
+        stroke-dasharray: 90;
+        stroke-dashoffset: 90;
+      }
+      [data-composition-id="beat-3-proof"] .b3-sipc {
+        height: 80px;
+        width: auto;
+        object-fit: contain;
+        filter: drop-shadow(0 8px 20px rgba(25, 33, 61, 0.08));
+      }
+      [data-composition-id="beat-3-proof"] .b3-phone {
+        position: absolute;
+        bottom: 80px;
+        left: 50%;
+        margin-left: -340px;
+        width: 680px;
+        z-index: 2;
+        filter: drop-shadow(0 40px 80px rgba(25, 33, 61, 0.22));
+      }
+    </style>
+
+    <script>
+      (function () {
+        const tl = gsap.timeline({ paused: true });
+        const sel = function (s) {
+          return '[data-composition-id="beat-3-proof"] ' + s;
+        };
+
+        // --- Canvas particles (deterministic) ---
+        const canvas = document.querySelector(sel("#b3-particles"));
+        const ctx = canvas.getContext("2d");
+        function mulberry32(seed) {
+          return function () {
+            let t = (seed += 0x6d2b79f5);
+            t = Math.imul(t ^ (t >>> 15), t | 1);
+            t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+            return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+          };
+        }
+        const rand = mulberry32(24601);
+        const PARTICLES = [];
+        for (let i = 0; i < 28; i++) {
+          PARTICLES.push({
+            x: rand() * 1080,
+            y: rand() * 1920,
+            r: 2 + rand() * 3.5,
+            phase: rand() * Math.PI * 2,
+            drift: 10 + rand() * 26,
+          });
+        }
+        function drawParticles(t) {
+          ctx.clearRect(0, 0, 1080, 1920);
+          for (let i = 0; i < PARTICLES.length; i++) {
+            const p = PARTICLES[i];
+            const yOff = Math.sin(p.phase + t * 0.5) * p.drift;
+            const xOff = Math.cos(p.phase * 0.7 + t * 0.3) * (p.drift * 0.6);
+            ctx.fillStyle = "rgba(28, 35, 41, 0.18)";
+            ctx.beginPath();
+            ctx.arc(p.x + xOff, p.y + yOff, p.r, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+        drawParticles(0);
+        const pProxy = { t: 0 };
+        tl.to(
+          pProxy,
+          {
+            t: 4.775,
+            duration: 4.775,
+            ease: "none",
+            onUpdate: function () {
+              drawParticles(pProxy.t);
+            },
+          },
+          0
+        );
+
+        // --- Counter: 0 → 2,000,000 with Easing.out(Easing.quad), lands at ~1.2s ---
+        const counter = document.querySelector(sel("#b3-stat-number"));
+        const numProxy = { v: 0 };
+        function fmt(n) {
+          const v = Math.floor(n);
+          return v.toLocaleString("en-US") + "+";
+        }
+        counter.textContent = "0+";
+        tl.to(
+          numProxy,
+          {
+            v: 2000000,
+            duration: 1.25,
+            ease: "power2.out",
+            onUpdate: function () {
+              counter.textContent = fmt(numProxy.v);
+            },
+          },
+          0.1
+        );
+
+        // --- Stat label fades in as counter lands ---
+        tl.from(
+          sel(".b3-stat-label"),
+          { opacity: 0, y: 18, duration: 0.45, ease: "power2.out" },
+          0.9
+        );
+
+        // --- Stat panel subtle entrance ---
+        tl.from(
+          sel(".b3-stat-number"),
+          { y: 40, opacity: 0, duration: 0.45, ease: "power3.out" },
+          0
+        );
+
+        // --- Phone mockup rises from bottom, Ken Burns zoom ---
+        tl.from(
+          sel(".b3-phone"),
+          { y: 260, opacity: 0, rotation: -2, duration: 0.85, ease: "power3.out" },
+          0.15
+        );
+        tl.fromTo(
+          sel(".b3-phone"),
+          { scale: 1 },
+          { scale: 1.04, duration: 3.8, ease: "sine.inOut" },
+          1.0
+        );
+
+        // --- At ~1.95s (VO "Money"), stat panel morphs out, protected panel morphs in ---
+        tl.to(
+          sel(".b3-stat-panel"),
+          {
+            opacity: 0,
+            y: -30,
+            scale: 0.92,
+            filter: "blur(12px)",
+            duration: 0.35,
+            ease: "power2.in",
+          },
+          1.85
+        );
+
+        tl.fromTo(
+          sel(".b3-protected-panel"),
+          { opacity: 0, y: 30, scale: 0.96 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.45,
+            ease: "power3.out",
+          },
+          2.10
+        );
+
+        // --- Badge slams in with mini overshoot ---
+        tl.fromTo(
+          sel(".b3-badge"),
+          { scale: 1.12, rotation: -1 },
+          {
+            scale: 1,
+            rotation: 0,
+            duration: 0.4,
+            ease: "back.out(1.3)",
+          },
+          2.20
+        );
+
+        // --- Green checkmark draws itself SVG-style ---
+        tl.to(
+          sel(".b3-check-path"),
+          {
+            strokeDashoffset: 0,
+            duration: 0.5,
+            ease: "power2.out",
+          },
+          2.75
+        );
+        tl.from(
+          sel(".b3-check"),
+          { scale: 0.4, opacity: 0, duration: 0.35, ease: "back.out(2)" },
+          2.65
+        );
+
+        // --- SIPC badge pops in beside check ---
+        tl.from(
+          sel(".b3-sipc"),
+          { scale: 0.7, opacity: 0, x: -20, duration: 0.35, ease: "back.out(1.5)" },
+          2.90
+        );
+
+        window.__timelines = window.__timelines || {};
+        window.__timelines["beat-3-proof"] = tl;
+      })();
+    </script>
+  </div>
+</template>

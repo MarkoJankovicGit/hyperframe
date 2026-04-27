@@ -1,0 +1,107 @@
+<template>
+  <div data-composition-id="bloom-risk-reward-beat-1" data-width="1080" data-height="1920" data-start="0" data-duration="2.50">
+    <style>
+      [data-composition-id="bloom-risk-reward-beat-1"] {
+        position: absolute; inset: 0;
+        background: #1658FF;
+        font-family: "Inter Tight", system-ui, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      #b1-canvas {
+        position: absolute; inset: 0;
+        opacity: 0.15;
+      }
+      #b1-eyebrow {
+        background: rgba(28, 35, 41, 0.4);
+        padding: 12px 32px;
+        border-radius: 100px;
+        color: #fff;
+        font-size: 32px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 40px;
+        opacity: 0;
+      }
+      #b1-badge {
+        background: #1C2329;
+        padding: 40px 80px;
+        border-radius: 26px;
+        box-shadow: 0 24px 60px rgba(0,0,0,0.3);
+        opacity: 0;
+      }
+      #b1-badge-text {
+        color: #fff;
+        font-weight: 800;
+        font-style: italic;
+        text-transform: uppercase;
+        font-size: 160px;
+        line-height: 0.9;
+        letter-spacing: -0.02em;
+      }
+    </style>
+
+    <canvas id="b1-canvas"></canvas>
+    
+    <div id="b1-eyebrow">THE INVESTING MYTH</div>
+    <div id="b1-badge">
+      <span id="b1-badge-text">GAMBLE?</span>
+    </div>
+
+    <script>
+      (function() {
+        const W = [
+          { word: "Think", t: 0, e: 0.16 },
+          { word: "investing", t: 0.224, e: 0.8 },
+          { word: "is", t: 0.827, e: 0.881 },
+          { word: "just", t: 0.945, e: 1.201 },
+          { word: "a", t: 1.241, e: 1.281 },
+          { word: "gamble?", t: 1.338, e: 2.04 }
+        ];
+        const _norm = s => s.toLowerCase().replace(/[^\p{L}\p{N}\s]/gu, "").trim();
+        function landOn(phrase, dur) {
+          const ws = _norm(phrase).split(/\s+/);
+          for (let i = 0; i <= W.length - ws.length; i++) {
+            let ok = true;
+            for (let j = 0; j < ws.length; j++) {
+              if (_norm(W[i + j].word) !== ws[j]) { ok = false; break; }
+            }
+            if (ok) return W[i].t - dur;
+          }
+          return 0;
+        }
+
+        const canvas = document.getElementById("b1-canvas");
+        const ctx = canvas.getContext("2d");
+        const symbols = ["AAPL", "TSLA", "DIS", "AMZN", "MSFT", "GOOGL"];
+        const rand = (function(s){return function(){let t=s+=0x6d2b79f5;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296}})(123);
+        const tickers = Array.from({length:15}, () => ({
+          x: rand()*1080, y: rand()*1920, s: symbols[Math.floor(rand()*symbols.length)], v: 20+rand()*20
+        }));
+        function draw(elapsed) {
+          ctx.clearRect(0,0,1080,1920);
+          ctx.font = "italic 800 80px 'Inter Tight'";
+          ctx.fillStyle = "rgba(255,255,255,0.4)";
+          tickers.forEach(t => {
+            let y = Math.round((t.y + elapsed * t.v) % 1920);
+            ctx.fillText(t.s, t.x, y);
+          });
+        }
+
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+        const proxy = { t: 0 };
+        tl.to(proxy, { t: 2.5, duration: 2.5, ease: "none", onUpdate: () => draw(proxy.t) }, 0);
+
+        tl.fromTo("#b1-eyebrow", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" }, 0.2);
+        tl.fromTo("#b1-badge", { scale: 0.5, opacity: 0, rotation: -5 }, { scale: 1, opacity: 1, rotation: 0, duration: 0.5, ease: "back.out(1.7)" }, landOn("gamble", 0.5));
+        
+        window.__timelines["bloom-risk-reward-beat-1"] = tl;
+      })();
+    </script>
+  </div>
+</template>

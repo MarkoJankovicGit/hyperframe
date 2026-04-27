@@ -1,0 +1,853 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.137.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.137.0/examples/js/loaders/GLTFLoader.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      @font-face {
+        font-family: "Outfit";
+        font-weight: 400 900;
+        font-style: normal;
+        font-display: block;
+        src: url("https://fonts.gstatic.com/s/outfit/v11/QGYyz_MVcBeNP4NJuktqkYXOlOb6PQHxQA.woff2") format("woff2");
+      }
+
+      html, body {
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #09090b;
+        color: #fafafa;
+        font-family: "Outfit", system-ui, sans-serif;
+        font-feature-settings: "ss01", "cv11";
+      }
+
+      /* Root composition */
+      #root {
+        position: relative;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+      }
+
+      /* 3D model canvas */
+      #model-canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 1080px;
+        height: 1920px;
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      /* Grain overlay */
+      #grain {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 1080px;
+        height: 1920px;
+        z-index: 50;
+        pointer-events: none;
+        opacity: 0.04;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      }
+
+      /* Flash overlay for transitions */
+      #flash-overlay {
+        position: absolute;
+        top: 0; left: 0;
+        width: 1080px; height: 1920px;
+        background: #ffffff;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 60;
+      }
+
+      /* Scene containers */
+      .scene {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 160px 80px;
+        gap: 36px;
+        text-align: center;
+      }
+
+      #scene2, #scene3, #scene4, #scene5, #scene6 { opacity: 0; }
+
+      /* Typography tokens */
+      .eyebrow {
+        font-size: 32px;
+        font-weight: 600;
+        color: #71717a;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+      }
+
+      .hero {
+        font-weight: 800;
+        color: #fafafa;
+        text-transform: uppercase;
+        letter-spacing: -0.02em;
+        line-height: 0.95;
+      }
+
+      .accent-purple { color: #a78bfa; }
+      .accent-light { color: #c4b5fd; }
+      .muted { color: #71717a; }
+      .red { color: #e5383b; }
+      .green { color: #22c55e; }
+
+      /* Ticker cards */
+      .ticker-card {
+        width: 100%;
+        max-width: 720px;
+        padding: 36px 44px;
+        border-radius: 20px;
+        background: rgba(255,255,255,0.02);
+        border: 1px solid rgba(167,139,250,0.12);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .ticker-symbol {
+        font-size: 48px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+
+      .ticker-change {
+        font-size: 72px;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+      }
+
+      .ticker-note {
+        font-size: 28px;
+        font-weight: 400;
+        color: #a1a1aa;
+      }
+
+      /* Stock Card component */
+      .stock-card {
+        --sc-bg: #09090b;
+        --sc-border: rgba(167, 139, 250, 0.15);
+        --sc-radius: 0px;
+        --sc-width: 1080px;
+        --sc-green: #22c55e;
+        --sc-red: #e5383b;
+        --sc-text: #fafafa;
+        --sc-muted: #a1a1aa;
+        --sc-accent: #a78bfa;
+
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        max-width: var(--sc-width);
+        height: 1920px;
+        padding: 100px 60px 120px;
+        background: var(--sc-bg);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 36px;
+        text-align: left;
+        font-family: inherit;
+      }
+
+      .sc-header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .sc-logo {
+        width: 64px;
+        height: 64px;
+        border-radius: 16px;
+        object-fit: contain;
+        flex-shrink: 0;
+        background: #e4e4e7;
+        padding: 8px;
+      }
+
+      .sc-title-group {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .sc-name {
+        font-size: 52px;
+        font-weight: 700;
+        color: var(--sc-text);
+        line-height: 1.1;
+        letter-spacing: -0.01em;
+      }
+
+      .sc-ticker {
+        font-size: 24px;
+        font-weight: 500;
+        color: var(--sc-muted);
+        line-height: 1.2;
+      }
+
+      .sc-price-block {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .sc-price {
+        font-size: 96px;
+        font-weight: 800;
+        color: var(--sc-text);
+        letter-spacing: -0.03em;
+        line-height: 1;
+      }
+
+      .sc-change-row {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .sc-change {
+        font-size: 32px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .sc-change.up   { color: var(--sc-green); }
+      .sc-change.down { color: var(--sc-red); }
+
+      .sc-change-arrow {
+        width: 0;
+        height: 0;
+        border-style: solid;
+      }
+
+      .sc-change.up .sc-change-arrow {
+        border-width: 0 7px 10px 7px;
+        border-color: transparent transparent var(--sc-green) transparent;
+      }
+
+      .sc-change.down .sc-change-arrow {
+        border-width: 10px 7px 0 7px;
+        border-color: var(--sc-red) transparent transparent transparent;
+      }
+
+      .sc-change-pct {
+        font-size: 26px;
+        font-weight: 500;
+        color: var(--sc-muted);
+      }
+
+      .sc-chart-wrap {
+        width: 100%;
+        height: 480px;
+        overflow: visible;
+        flex-shrink: 0;
+      }
+
+      .sc-chart-wrap svg {
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+      }
+
+      .sc-chart-path {
+        fill: none;
+        stroke-width: 3;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .sc-chart-path.up   { stroke: var(--sc-green); }
+      .sc-chart-path.down { stroke: var(--sc-red); }
+
+      .sc-chart-area {
+        fill-opacity: 0.10;
+      }
+
+      .sc-chart-area.up   { fill: var(--sc-green); }
+      .sc-chart-area.down { fill: var(--sc-red); }
+
+      .sc-chart-dot {
+        stroke: var(--sc-bg);
+        stroke-width: 3;
+      }
+
+      .sc-chart-dot.up   { fill: var(--sc-green); }
+      .sc-chart-dot.down { fill: var(--sc-red); }
+
+      .sc-tabs {
+        display: flex;
+        gap: 8px;
+      }
+
+      .sc-tab {
+        padding: 10px 20px;
+        border-radius: 12px;
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--sc-muted);
+        background: transparent;
+        border: 1px solid transparent;
+      }
+
+      .sc-tab.active {
+        background: var(--sc-accent);
+        color: #09090b;
+        border-color: var(--sc-accent);
+      }
+
+      .sc-trade-btn {
+        display: none;
+      }
+
+      .sc-divider {
+        width: 100%;
+        height: 1px;
+        background: var(--sc-border);
+      }
+
+      .sc-stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px 32px;
+        margin-top: 8px;
+      }
+
+      .sc-stat {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: calc(33.333% - 22px);
+        flex-shrink: 0;
+      }
+
+      .sc-stat-label {
+        font-size: 24px;
+        font-weight: 500;
+        color: var(--sc-muted);
+      }
+
+      .sc-stat-value {
+        font-size: 36px;
+        font-weight: 700;
+        color: var(--sc-text);
+      }
+
+      /* Count-up number */
+      .big-number {
+        font-size: 160px;
+        font-weight: 900;
+        letter-spacing: -0.04em;
+        line-height: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="41" data-width="1080" data-height="1920">
+      <!-- 3D Model canvas -->
+      <canvas id="model-canvas"></canvas>
+
+      <!-- Grain -->
+      <div id="grain"></div>
+
+      <!-- Flash overlay -->
+      <div id="flash-overlay"></div>
+
+      <!-- ========== SCENE 1: Hook ========== -->
+      <div class="scene" id="scene1">
+        <div class="eyebrow" id="s1-eyebrow">Market Brief — Apr 23, 2026</div>
+        <div class="hero" id="s1-title" style="font-size: 140px;">PULLBACK</div>
+        <div id="s1-arrow" style="font-size: 200px; line-height: 1;">↓</div>
+        <div class="muted" id="s1-sub" style="font-size: 42px; max-width: 700px;">
+          Major indexes retreat from yesterday's all-time highs
+        </div>
+      </div>
+
+      <!-- ========== SCENE 2: Oil ========== -->
+      <div class="scene" id="scene2" style="justify-content: flex-end; padding-bottom: 200px; padding-top: 900px;">
+        <div class="eyebrow" id="s2-eyebrow" style="color: #d4d4d8;">Commodities</div>
+        <div class="hero" id="s2-title" style="font-size: 180px; color: #ffffff;">OIL</div>
+        <div class="big-number" id="s2-price" style="color: #ffffff;">$103</div>
+        <div id="s2-sub" style="font-size: 38px; max-width: 760px; color: #d4d4d8;">
+          Brent crude climbs for a fourth straight day as Iran peace talks stall
+        </div>
+      </div>
+
+      <!-- ========== SCENE 3: Bitcoin ========== -->
+      <div class="scene" id="scene3">
+        <div class="eyebrow" id="s3-eyebrow">Crypto</div>
+        <div style="font-size: 200px; line-height: 1;" id="s3-symbol">₿</div>
+        <div class="big-number" id="s3-price" style="font-size: 120px;">~$77,200</div>
+        <div class="muted" id="s3-sub" style="font-size: 38px;">
+          Flirting with $80K again after overnight highs near $78,900
+        </div>
+      </div>
+
+      <!-- ========== SCENE 4: Big Movers ========== -->
+      <div class="scene" id="scene4" style="padding: 0; justify-content: flex-start;">
+        <!-- ServiceNow Stock Card -->
+        <div class="stock-card" id="card-now" style="opacity: 0; visibility: hidden;"
+          data-logo="assets/logos/NOW.png"
+          data-name="ServiceNow"
+          data-ticker="NOW"
+          data-exchange="NYSE"
+          data-price="742.50"
+          data-change="-$142.50"
+          data-change-pct="-18.0%"
+          data-chart="M0,5 L30,12 L60,18 L90,15 L120,28 L150,32 L180,45 L210,50 L240,62 L270,68 L300,75"
+          data-theme="red"
+          data-market-cap="$178B"
+          data-pe="52"
+          data-volume="2.4M"
+        ></div>
+
+        <!-- IBM Stock Card -->
+        <div class="stock-card" id="card-ibm" style="opacity: 0; visibility: hidden;"
+          data-logo="assets/logos/IBM.png"
+          data-name="IBM"
+          data-ticker="IBM"
+          data-exchange="NYSE"
+          data-price="198.30"
+          data-change="-$16.20"
+          data-change-pct="-8.2%"
+          data-chart="M0,15 L40,18 L80,22 L120,20 L160,30 L200,35 L240,42 L300,48"
+          data-theme="red"
+          data-market-cap="$182B"
+          data-pe="22"
+          data-volume="8.1M"
+        ></div>
+      </div>
+
+      <!-- ========== SCENE 5: Surprises ========== -->
+      <div class="scene" id="scene5" style="padding: 0; justify-content: flex-start;">
+        <!-- Texas Instruments Stock Card -->
+        <div class="stock-card" id="card-txn" style="opacity: 0; visibility: hidden;"
+          data-logo="assets/logos/TXN.png"
+          data-name="Texas Instruments"
+          data-ticker="TXN"
+          data-exchange="Nasdaq"
+          data-price="184.20"
+          data-change="+$20.42"
+          data-change-pct="+12.4%"
+          data-chart="M0,70 L40,65 L80,55 L120,58 L160,45 L200,35 L240,25 L300,10"
+          data-theme="green"
+          data-market-cap="$168B"
+          data-pe="28"
+          data-volume="6.7M"
+        ></div>
+
+        <!-- Spirit Airlines Stock Card -->
+        <div class="stock-card" id="card-save" style="opacity: 0; visibility: hidden;"
+          data-logo="assets/logos/SAVE.png"
+          data-name="Spirit Airlines"
+          data-ticker="SAVE"
+          data-exchange="NYSE"
+          data-price="4.85"
+          data-change="+$2.48"
+          data-change-pct="+105%"
+          data-chart="M0,75 L30,70 L60,60 L90,55 L120,45 L150,40 L180,28 L210,22 L240,12 L270,8 L300,2"
+          data-theme="green"
+          data-market-cap="$530M"
+          data-pe="—"
+          data-volume="45M"
+        ></div>
+      </div>
+
+      <!-- ========== SCENE 6: Outro ========== -->
+      <div class="scene" id="scene6">
+        <div class="eyebrow" id="s6-eyebrow">Breaking</div>
+        <div class="hero" id="s6-title" style="font-size: 72px; max-width: 800px;">
+          Tim Cook steps down as <span class="accent-purple">Apple CEO</span>
+        </div>
+        <div class="muted" id="s6-date" style="font-size: 48px;">September 1st</div>
+        <div style="width: 120px; height: 3px; background: #a78bfa;" id="s6-rule"></div>
+        <div class="muted" id="s6-intel" style="font-size: 36px;">
+          Intel reports after the bell today
+        </div>
+        <div class="hero accent-purple" id="s6-brand" style="font-size: 96px; margin-top: 60px;">Market Time</div>
+      </div>
+
+      <!-- Audio tracks -->
+      <audio id="vo1" data-start="0" data-duration="4.029" data-track-index="10" data-volume="1" src="assets/voiceover/scene-01-hook.mp3"></audio>
+      <audio id="vo2" data-start="4.029" data-duration="6.026" data-track-index="10" data-volume="1" src="assets/voiceover/scene-02-oil.mp3"></audio>
+      <audio id="vo3" data-start="10.055" data-duration="5.887" data-track-index="10" data-volume="1" src="assets/voiceover/scene-03-bitcoin.mp3"></audio>
+      <audio id="vo4" data-start="15.942" data-duration="8.302" data-track-index="10" data-volume="1" src="assets/voiceover/scene-04-movers.mp3"></audio>
+      <audio id="vo5" data-start="24.244" data-duration="7.930" data-track-index="10" data-volume="1" src="assets/voiceover/scene-05-surprises.mp3"></audio>
+      <audio id="vo6" data-start="32.174" data-duration="8.673" data-track-index="10" data-volume="1" src="assets/voiceover/scene-06-outro.mp3"></audio>
+    </div>
+
+    <!-- ========== Three.js Oil Barrel ========== -->
+    <script>
+      (function () {
+        const canvas = document.getElementById("model-canvas");
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+        renderer.setPixelRatio(2);
+        renderer.setSize(1080, 1920, false);
+        renderer.setClearColor(0x000000, 0);
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(40, 1080 / 1920, 0.1, 50);
+        camera.position.set(0, 0.2, 5.5);
+        camera.lookAt(0, -0.2, 0);
+
+        // Bright studio lighting
+        scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+
+        const key = new THREE.DirectionalLight(0xffffff, 1.8);
+        key.position.set(4, 6, 6);
+        scene.add(key);
+
+        const fill = new THREE.DirectionalLight(0xffcccc, 0.8);
+        fill.position.set(-4, 3, 4);
+        scene.add(fill);
+
+        const rim = new THREE.DirectionalLight(0xffffff, 1.2);
+        rim.position.set(0, 4, -6);
+        scene.add(rim);
+
+        const under = new THREE.PointLight(0xff4444, 0.5, 10);
+        under.position.set(0, -2, 2);
+        scene.add(under);
+
+        // Low-poly materials with flat shading for crisp facets
+        const redBodyMat = new THREE.MeshStandardMaterial({
+          color: 0xcc1a1a,
+          emissive: 0x220000,
+          emissiveIntensity: 0.08,
+          metalness: 0.2,
+          roughness: 0.45,
+          flatShading: true,
+        });
+
+        const blackBandMat = new THREE.MeshStandardMaterial({
+          color: 0x1a1a1a,
+          emissive: 0x050505,
+          emissiveIntensity: 0.05,
+          metalness: 0.4,
+          roughness: 0.35,
+          flatShading: true,
+        });
+
+        let barrelModel = null;
+
+        const loader = new THREE.GLTFLoader();
+        loader.load(
+          "assets/models/oil-barrel.glb",
+          function (gltf) {
+            barrelModel = gltf.scene;
+
+            barrelModel.traverse(function (child) {
+              if (!child.isMesh) return;
+              // Detect bands by geometry proportions — bands are thin horizontally
+              const geoBox = new THREE.Box3().setFromObject(child);
+              const geoSize = geoBox.getSize(new THREE.Vector3());
+              const yRatio = geoSize.y / Math.max(geoSize.x, geoSize.z);
+              const isBand = yRatio < 0.35; // thin ring = band
+              child.material = isBand ? blackBandMat : redBodyMat;
+            });
+
+            const box = new THREE.Box3().setFromObject(barrelModel);
+            const size = box.getSize(new THREE.Vector3());
+            const center = box.getCenter(new THREE.Vector3());
+            barrelModel.position.sub(center);
+            const scale = 2.4 / Math.max(size.x, size.y, size.z);
+            barrelModel.scale.setScalar(scale);
+            barrelModel.position.y = 0.2;
+            barrelModel.visible = false;
+            scene.add(barrelModel);
+          },
+          undefined,
+          function (err) {
+            console.error("Barrel load failed:", err);
+          }
+        );
+
+        window.__renderModel = function (compTime) {
+          if (!barrelModel) {
+            renderer.render(scene, camera);
+            return;
+          }
+          const inOilScene = compTime >= 3.5 && compTime <= 10.2;
+          barrelModel.visible = inOilScene;
+          if (inOilScene) {
+            const t = compTime - 4.0;
+            barrelModel.rotation.y = t * 0.7;
+            barrelModel.rotation.x = 0.12 + Math.sin(t * 1.1) * 0.06;
+            barrelModel.rotation.z = Math.sin(t * 0.8) * 0.1;
+            barrelModel.position.y = 0.2 + Math.sin(t * 1.4) * 0.12;
+          }
+          renderer.render(scene, camera);
+        };
+
+        renderer.render(scene, camera);
+      })();
+    </script>
+
+    <!-- ========== Stock Card Initialization ========== -->
+    <script>
+      (function () {
+        document.querySelectorAll(".stock-card").forEach(function (card) {
+          const logo      = card.dataset.logo;
+          const name      = card.dataset.name;
+          const ticker    = card.dataset.ticker;
+          const exchange  = card.dataset.exchange || "Nasdaq";
+          const price     = card.dataset.price;
+          const change    = card.dataset.change;
+          const changePct = card.dataset.changePct;
+          const chartPath = card.dataset.chart;
+          const marketCap = card.dataset.marketCap;
+          const pe        = card.dataset.pe;
+          const volume    = card.dataset.volume;
+          const theme     = card.dataset.theme === "red" ? "down" : "up";
+
+          let html = '';
+
+          // Header
+          html += '<div class="sc-header">';
+          if (logo) html += '<img class="sc-logo" src="' + logo + '" alt="' + (name || ticker) + '" />';
+          html += '<div class="sc-title-group">';
+          if (name)   html += '<div class="sc-name">' + name + '</div>';
+          if (ticker) html += '<div class="sc-ticker">' + ticker + ' · ' + exchange + '</div>';
+          html += '</div></div>';
+
+          // Price block
+          html += '<div class="sc-price-block">';
+          html += '<div class="sc-price">$' + (price || "0") + '</div>';
+          if (change || changePct) {
+            html += '<div class="sc-change-row">';
+            html += '<div class="sc-change ' + theme + '">';
+            html += '<span class="sc-change-arrow"></span>';
+            html += '<span>' + (change || "") + '</span>';
+            html += '</div>';
+            if (changePct) html += '<div class="sc-change-pct">' + changePct + ' Today</div>';
+            html += '</div>';
+          }
+          html += '</div>';
+
+          // Chart
+          if (chartPath) {
+            html += '<div class="sc-chart-wrap">';
+            html += '<svg viewBox="0 0 300 80" preserveAspectRatio="none">';
+            html += '<path class="sc-chart-area ' + theme + '" d="' + chartPath + ' L300,80 L0,80 Z" />';
+            html += '<path class="sc-chart-path ' + theme + '" d="' + chartPath + '" stroke-dasharray="400" stroke-dashoffset="400" />';
+            html += '<circle class="sc-chart-dot ' + theme + '" cx="300" cy="0" r="0" />';
+            html += '</svg></div>';
+          }
+
+          // Tabs
+          html += '<div class="sc-tabs">';
+          ["1D","1W","1M","3M","1Y","5Y"].forEach(function (t, i) {
+            html += '<div class="sc-tab ' + (i === 0 ? 'active' : '') + '">' + t + '</div>';
+          });
+          html += '</div>';
+
+          // Divider
+          html += '<div class="sc-divider"></div>';
+
+          // Stats
+          if (marketCap || pe || volume) {
+            html += '<div class="sc-stats">';
+            if (marketCap) {
+              html += '<div class="sc-stat"><div class="sc-stat-label">Market Cap</div><div class="sc-stat-value">' + marketCap + '</div></div>';
+            }
+            if (pe) {
+              html += '<div class="sc-stat"><div class="sc-stat-label">P/E Ratio</div><div class="sc-stat-value">' + pe + '</div></div>';
+            }
+            if (volume) {
+              html += '<div class="sc-stat"><div class="sc-stat-label">Today\'s Volume</div><div class="sc-stat-value">' + volume + '</div></div>';
+            }
+            html += '</div>';
+          }
+
+          card.innerHTML = html;
+
+          // Position end dot on chart
+          if (chartPath) {
+            const svgPath = card.querySelector(".sc-chart-path");
+            const dot     = card.querySelector(".sc-chart-dot");
+            if (svgPath && dot) {
+              const len = svgPath.getTotalLength();
+              const end = svgPath.getPointAtLength(len);
+              dot.setAttribute("cx", end.x);
+              dot.setAttribute("cy", end.y);
+              dot.setAttribute("r", "5");
+            }
+          }
+        });
+      })();
+    </script>
+
+    <!-- ========== GSAP Timeline ========== -->
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // Word-level timing hooks (absolute seconds)
+      const W = {
+        s1_markets: 0.00,
+        s1_pulling: 0.627,
+        s1_back: 0.964,
+        s1_highs: 2.868,
+
+        s2_oil: 4.029,
+        s2_climbing: 4.633,
+        s2_103: 6.653,
+        s2_stall: 8.905,
+
+        s3_bitcoin: 10.055,
+        s3_80000: 11.320,
+        s3_77200: 13.538,
+
+        s4_servicenow: 15.942,
+        s4_18: 19.460,
+        s4_ibm: 20.807,
+        s4_8: 21.782,
+        s4_earnings: 22.943,
+
+        s5_texas: 24.476,
+        s5_surged: 25.591,
+        s5_spirit: 28.249,
+        s5_doubled: 29.956,
+
+        s6_tim: 32.174,
+        s6_apple: 34.275,
+        s6_september: 35.204,
+        s6_intel: 36.948,
+        s6_tomorrow: 39.593,
+      };
+
+      // Transition helpers
+      function flashTransition(outId, inId, t) {
+        var dur = 0.45;
+        tl.to("#flash-overlay", { opacity: 1, duration: 0.15, ease: "power2.in", overwrite: "auto" }, t);
+        tl.to(outId, { opacity: 0, duration: 0.1 }, t + 0.05);
+        tl.set(outId, { opacity: 0, visibility: "hidden" }, t + dur);
+        tl.set(inId, { opacity: 1 }, t + 0.15);
+        tl.to("#flash-overlay", { opacity: 0, duration: 0.25, ease: "power2.out", overwrite: "auto" }, t + 0.15);
+      }
+
+      function blurCrossfade(outId, inId, t, dur) {
+        dur = dur || 0.4;
+        tl.to(outId, { filter: "blur(10px)", scale: 1.03, opacity: 0, duration: dur, ease: "power2.inOut" }, t);
+        tl.set(outId, { opacity: 0, visibility: "hidden" }, t + dur);
+        tl.fromTo(inId, { filter: "blur(10px)", scale: 0.97, opacity: 0 }, { filter: "blur(0px)", scale: 1, opacity: 1, duration: dur, ease: "power2.inOut" }, t);
+      }
+
+      function scalePush(outId, inId, t, dur) {
+        dur = dur || 0.4;
+        tl.to(outId, { scale: 0.95, opacity: 0, duration: dur, ease: "power2.inOut" }, t);
+        tl.set(outId, { opacity: 0, visibility: "hidden" }, t + dur);
+        tl.fromTo(inId, { scale: 1.05, opacity: 0 }, { scale: 1, opacity: 1, duration: dur, ease: "power2.inOut" }, t);
+      }
+
+      function zoomDissolve(outId, inId, t, dur) {
+        dur = dur || 0.45;
+        tl.to(outId, { scale: 1.08, filter: "blur(6px)", opacity: 0, duration: dur, ease: "power2.inOut" }, t);
+        tl.set(outId, { opacity: 0, visibility: "hidden" }, t + dur);
+        tl.fromTo(inId, { scale: 0.92, opacity: 0 }, { scale: 1, opacity: 1, duration: dur, ease: "power2.inOut" }, t);
+      }
+
+      // 3D model tick loop
+      const clock = { t: 0 };
+      tl.to(clock, { t: 45, duration: 45, ease: "none", onUpdate: () => { window.__renderModel?.(clock.t); } }, 0);
+
+      // ========== SCENE 1 (0.00 – 4.03s) ==========
+      tl.from("#s1-eyebrow", { y: 20, opacity: 0, duration: 0.5, ease: "power2.out" }, W.s1_markets + 0.1);
+      tl.from("#s1-title", { y: 60, opacity: 0, duration: 0.7, ease: "power3.out" }, W.s1_pulling);
+      tl.from("#s1-arrow", { y: 40, opacity: 0, scale: 0.8, duration: 0.6, ease: "back.out(1.6)" }, W.s1_back);
+      tl.from("#s1-sub", { y: 20, opacity: 0, duration: 0.5, ease: "power2.out" }, W.s1_highs - 0.3);
+
+      flashTransition("#scene1", "#scene2", 3.73);
+
+      // ========== SCENE 2 (4.03 – 10.06s) ==========
+      tl.from("#s2-eyebrow", { y: 20, opacity: 0, duration: 0.5, ease: "power2.out" }, W.s2_oil + 0.1);
+      tl.from("#s2-title", { y: 50, opacity: 0, duration: 0.7, ease: "power3.out" }, W.s2_climbing - 0.1);
+      const s2Counter = { val: 0 };
+      tl.to(s2Counter, { val: 103, duration: 0.8, ease: "power2.out", snap: { val: 1 }, onUpdate: () => { const el = document.getElementById("s2-price"); if (el) el.textContent = "$" + Math.round(s2Counter.val); } }, W.s2_103);
+      tl.from("#s2-price", { scale: 0.7, opacity: 0, duration: 0.6, ease: "back.out(1.7)" }, W.s2_103);
+      tl.from("#s2-sub", { y: 20, opacity: 0, duration: 0.5, ease: "power2.out" }, W.s2_103 + 0.5);
+      // Barrel shake on "stall" for tension
+      tl.to("#model-canvas", { x: 6, duration: 0.04, ease: "none", yoyo: true, repeat: 5 }, W.s2_stall);
+
+      blurCrossfade("#scene2", "#scene3", 9.76, 0.4);
+
+      // ========== SCENE 3 (10.06 – 15.94s) ==========
+      tl.from("#s3-eyebrow", { y: 20, opacity: 0, duration: 0.5, ease: "power2.out" }, W.s3_bitcoin + 0.1);
+      tl.from("#s3-symbol", { scale: 0.5, opacity: 0, duration: 0.7, ease: "back.out(1.8)" }, W.s3_bitcoin + 0.2);
+      tl.from("#s3-price", { y: 30, opacity: 0, duration: 0.6, ease: "power3.out" }, W.s3_80000 - 0.1);
+      tl.from("#s3-sub", { y: 20, opacity: 0, duration: 0.5, ease: "power2.out" }, W.s3_77200 - 0.5);
+
+      scalePush("#scene3", "#scene4", 15.64, 0.4);
+
+      // ========== SCENE 4 (15.94 – 24.24s) ==========
+      // ServiceNow card slides in
+      tl.set("#card-now", { visibility: "visible" }, W.s4_servicenow);
+      tl.fromTo("#card-now", { y: 80, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: "power3.out", overwrite: "auto" }, W.s4_servicenow);
+      tl.to("#card-now .sc-chart-path", { strokeDashoffset: 0, duration: 1.2, ease: "power2.out" }, W.s4_servicenow + 0.2);
+
+      // Swap to IBM card
+      tl.to("#card-now", { x: -100, opacity: 0, duration: 0.4, ease: "power2.in" }, W.s4_ibm - 0.2);
+      tl.set("#card-now", { visibility: "hidden" }, W.s4_ibm + 0.2);
+      tl.set("#card-ibm", { visibility: "visible" }, W.s4_ibm);
+      tl.fromTo("#card-ibm", { x: 100, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.out", overwrite: "auto" }, W.s4_ibm);
+      tl.to("#card-ibm .sc-chart-path", { strokeDashoffset: 0, duration: 1.0, ease: "power2.out" }, W.s4_ibm + 0.2);
+
+      zoomDissolve("#scene4", "#scene5", 23.94, 0.45);
+
+      // ========== SCENE 5 (24.24 – 32.17s) ==========
+      // Texas Instruments card slides in
+      tl.set("#card-txn", { visibility: "visible" }, W.s5_texas);
+      tl.fromTo("#card-txn", { y: 80, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: "power3.out", overwrite: "auto" }, W.s5_texas);
+      tl.to("#card-txn .sc-chart-path", { strokeDashoffset: 0, duration: 1.2, ease: "power2.out" }, W.s5_texas + 0.2);
+
+      // Swap to Spirit Airlines card
+      tl.to("#card-txn", { x: -100, opacity: 0, duration: 0.4, ease: "power2.in" }, W.s5_spirit - 0.2);
+      tl.set("#card-txn", { visibility: "hidden" }, W.s5_spirit + 0.2);
+      tl.set("#card-save", { visibility: "visible" }, W.s5_spirit);
+      tl.fromTo("#card-save", { x: 100, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.out", overwrite: "auto" }, W.s5_spirit);
+      tl.to("#card-save .sc-chart-path", { strokeDashoffset: 0, duration: 1.0, ease: "power2.out" }, W.s5_spirit + 0.2);
+
+      flashTransition("#scene5", "#scene6", 31.87);
+
+      // ========== SCENE 6 (32.17 – 40.85s) — FINAL ==========
+      tl.from("#s6-eyebrow", { y: 20, opacity: 0, duration: 0.5, ease: "power2.out" }, W.s6_tim + 0.1);
+      tl.from("#s6-title", { y: 40, opacity: 0, duration: 0.6, ease: "power3.out" }, W.s6_apple - 0.2);
+      tl.from("#s6-date", { y: 20, opacity: 0, duration: 0.5, ease: "power2.out" }, W.s6_september - 0.1);
+      tl.from("#s6-rule", { scaleX: 0, transformOrigin: "50% 50%", duration: 0.4, ease: "power2.out" }, W.s6_september + 0.3);
+      tl.from("#s6-intel", { y: 20, opacity: 0, duration: 0.5, ease: "power2.out" }, W.s6_intel - 0.2);
+      tl.from("#s6-brand", { scale: 0.8, opacity: 0, duration: 0.7, ease: "back.out(1.6)" }, W.s6_tomorrow - 0.8);
+
+      // Final fade-out + visibility kill
+      tl.to(["#scene6", "#grain", "#model-canvas"], { opacity: 0, duration: 0.6, ease: "sine.inOut" }, 40.2);
+      tl.set(["#scene6", "#grain", "#model-canvas"], { visibility: "hidden" }, 40.8);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

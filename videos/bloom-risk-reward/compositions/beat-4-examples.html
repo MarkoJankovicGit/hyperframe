@@ -1,0 +1,111 @@
+<template>
+  <div data-composition-id="bloom-risk-reward-beat-4" data-width="1080" data-height="1920" data-start="0" data-duration="5.10">
+    <style>
+      [data-composition-id="bloom-risk-reward-beat-4"] {
+        position: absolute; inset: 0;
+        background: #FFFFFF;
+        font-family: "Inter Tight", system-ui, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      .b4-row {
+        display: flex;
+        align-items: center;
+        width: 900px;
+        height: 320px;
+        background: rgba(28, 35, 41, 0.04);
+        border-radius: 40px;
+        margin: 20px 0;
+        padding: 0 40px;
+        opacity: 0;
+        transform: translateX(200px);
+      }
+      .b4-card {
+        width: 240px;
+        height: 240px;
+        background: #1C2329;
+        border-radius: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+        margin-right: 40px;
+      }
+      .b4-card img {
+        width: 160px;
+        height: 160px;
+        object-fit: contain;
+      }
+      .b4-text {
+        color: #1C2329;
+        font-weight: 800;
+        font-style: italic;
+        text-transform: uppercase;
+        font-size: 80px;
+        letter-spacing: -0.02em;
+      }
+    </style>
+
+    <div id="b4-row-1" class="b4-row">
+      <div class="b4-card"><img src="../logos/AAPL.png" /></div>
+      <div class="b4-text">PHONE</div>
+    </div>
+    <div id="b4-row-2" class="b4-row">
+      <div class="b4-card"><img src="../logos/NKE.png" /></div>
+      <div class="b4-text">SHOES</div>
+    </div>
+    <div id="b4-row-3" class="b4-row">
+      <div class="b4-card"><img src="../logos/DIS.png" /></div>
+      <div class="b4-text">DISNEY</div>
+    </div>
+
+    <script>
+      (function() {
+        const W = [
+          { word: "Whether", t: 13.243, e: 14.083 },
+          { word: "it's", t: 14.11, e: 14.324 },
+          { word: "the", t: 14.364, e: 14.484 },
+          { word: "phone", t: 14.524, e: 14.724 },
+          { word: "in", t: 14.751, e: 14.805 },
+          { word: "your", t: 14.837, e: 14.965 },
+          { word: "hand,", t: 15.045, e: 15.525 },
+          { word: "the", t: 15.565, e: 15.685 },
+          { word: "shoes", t: 15.738, e: 16.003 },
+          { word: "on", t: 16.03, e: 16.084 },
+          { word: "your", t: 16.132, e: 16.324 },
+          { word: "feet,", t: 16.372, e: 16.724 },
+          { word: "or", t: 16.777, e: 16.883 },
+          { word: "a", t: 16.923, e: 16.963 },
+          { word: "stock", t: 17.043, e: 17.443 },
+          { word: "like", t: 17.475, e: 17.603 },
+          { word: "Disney.", t: 17.66, e: 18.082 }
+        ];
+        const offset = 13.00;
+        const _norm = s => s.toLowerCase().replace(/[^\p{L}\p{N}\s]/gu, "").trim();
+        function landOn(phrase, dur) {
+          const ws = _norm(phrase).split(/\s+/);
+          for (let i = 0; i <= W.length - ws.length; i++) {
+            let ok = true;
+            for (let j = 0; j < ws.length; j++) {
+              if (_norm(W[i + j].word) !== ws[j]) { ok = false; break; }
+            }
+            if (ok) return (W[i].t - offset) - dur;
+          }
+          return 0;
+        }
+
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        tl.fromTo("#b4-row-1", { x: 400, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, ease: "back.out(1.5)" }, landOn("phone", 0.6));
+        tl.fromTo("#b4-row-2", { x: 400, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, ease: "back.out(1.5)" }, landOn("shoes", 0.6));
+        tl.fromTo("#b4-row-3", { x: 400, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, ease: "back.out(1.5)" }, landOn("Disney", 0.6));
+
+        window.__timelines["bloom-risk-reward-beat-4"] = tl;
+      })();
+    </script>
+  </div>
+</template>

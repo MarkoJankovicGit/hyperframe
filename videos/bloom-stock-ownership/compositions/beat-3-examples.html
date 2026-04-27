@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beat 3: Examples</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,700;0,800;1,700;1,800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; }
+
+    #beat3 {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      background: #1658FF;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Canvas particle field background */
+    #beat3-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1080px;
+      height: 1920px;
+      opacity: 0.3;
+    }
+
+    /* Main headline */
+    .beat3-headline {
+      position: absolute;
+      top: 140px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      z-index: 2;
+      max-width: 920px;
+      margin: 0 auto;
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 800;
+      font-style: italic;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      font-size: 80px;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .beat3-word {
+      display: inline-block;
+      opacity: 0;
+      margin: 0 0.1em;
+    }
+
+    /* Logo containers grid */
+    .beat3-logos-container {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      gap: 60px;
+      align-items: center;
+      justify-content: center;
+      margin-top: 200px;
+    }
+
+    .beat3-logo-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .beat3-logo-circle {
+      width: 180px;
+      height: 180px;
+      background: #1C2329;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 24px 60px rgba(6, 10, 30, 0.28);
+      opacity: 0;
+    }
+
+    .beat3-logo-circle img {
+      width: 90%;
+      height: 90%;
+      object-fit: contain;
+      padding: 20px;
+    }
+
+    .beat3-company-name {
+      font-family: "Inter", system-ui, sans-serif;
+      font-weight: 600;
+      font-size: 44px;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      opacity: 0;
+    }
+  </style>
+</head>
+<body>
+  <template data-start="6.55" data-duration="3.96">
+    <div id="beat3" class="scene" data-composition-id="bloom-stock-ownership-beat-3" data-width="1080" data-height="1920" data-start="0" data-duration="3.96">
+      <canvas id="beat3-canvas"></canvas>
+
+      <!-- Main headline -->
+      <div class="beat3-headline">
+        <span class="beat3-word">You</span>
+        <span class="beat3-word">can</span>
+        <span class="beat3-word">buy</span>
+        <span class="beat3-word">stocks</span>
+        <span class="beat3-word">of</span>
+        <span class="beat3-word">companies</span>
+        <span class="beat3-word">you</span>
+        <span class="beat3-word">know</span>
+      </div>
+
+      <!-- Logo containers -->
+      <div class="beat3-logos-container">
+        <div class="beat3-logo-item">
+          <div class="beat3-logo-circle" id="beat3-aapl-circle">
+            <img src="../logos/AAPL.png" alt="Apple Inc." />
+          </div>
+          <div class="beat3-company-name" id="beat3-aapl-name">Apple</div>
+        </div>
+
+        <div style="color: #FFFFFF; font-size: 60px; font-weight: 300;">or</div>
+
+        <div class="beat3-logo-item">
+          <div class="beat3-logo-circle" id="beat3-nke-circle">
+            <img src="../logos/NKE.png" alt="Nike Inc." />
+          </div>
+          <div class="beat3-company-name" id="beat3-nke-name">Nike</div>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    // ── TIMELINE REGISTRATION ────────────────────────────────────────────
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["bloom-stock-ownership-beat-3"] = tl;
+
+    // ── VO WORD TIMING (beat-relative, shift absolute by -6.64s) ──────────
+    const W = [
+      { w: "You", s: 0.000, e: 0.141 },
+      { w: "can", s: 0.181, e: 0.271 },
+      { w: "buy", s: 0.311, e: 0.501 },
+      { w: "stocks", s: 0.541, e: 0.911 },
+      { w: "of", s: 0.961, e: 1.041 },
+      { w: "companies", s: 1.101, e: 1.511 },
+      { w: "you", s: 1.551, e: 1.731 },
+      { w: "know", s: 1.781, e: 1.991 },
+      { w: "like", s: 2.031, e: 2.191 },
+      { w: "Apple", s: 2.231, e: 2.651 },
+      { w: "or", s: 2.681, e: 2.851 },
+      { w: "Nike.", s: 2.891, e: 3.431 }
+    ];
+
+    // ── PHRASE-ANCHORED TIMING HELPERS ────────────────────────────────────
+    function _norm(s) { return s.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu, ""); }
+    function _findPhrase(phrase) {
+      const tokens = phrase.toLowerCase().split(/\s+/).map(_norm).filter(Boolean);
+      if (!tokens.length) throw new Error(`landOn: empty phrase`);
+      const hits = [];
+      for (let i = 0; i <= W.length - tokens.length; i++) {
+        let ok = true;
+        for (let j = 0; j < tokens.length; j++) {
+          if (_norm(W[i + j].w) !== tokens[j]) { ok = false; break; }
+        }
+        if (ok) hits.push(i);
+      }
+      if (hits.length === 0) {
+        throw new Error(`landOn: phrase "${phrase}" not found in transcript`);
+      }
+      if (hits.length > 1) {
+        const times = hits.map(i => W[i].s.toFixed(3) + "s").join(", ");
+        throw new Error(`landOn: phrase "${phrase}" matches ${hits.length} occurrences at [${times}]. Use a longer phrase to disambiguate.`);
+      }
+      return { startIdx: hits[0], endIdx: hits[0] + tokens.length - 1 };
+    }
+    function at(phrase) { return W[_findPhrase(phrase).startIdx].s; }
+    function landOn(phrase, duration = 0) { return at(phrase) - duration; }
+    function landAfter(phrase, duration = 0) { return W[_findPhrase(phrase).endIdx].e - duration; }
+
+    // ── CANVAS PARTICLE FIELD (deterministic PRNG) ────────────────────────
+    function mulberry32(seed) {
+      return function () {
+        let t = (seed += 0x6d2b79f5);
+        t = Math.imul(t ^ (t >>> 15), t | 1);
+        t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+    }
+
+    const canvas = document.getElementById("beat3-canvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = 1080;
+    canvas.height = 1920;
+
+    const rand = mulberry32(2025);
+    const particles = [];
+    for (let i = 0; i < 150; i++) {
+      particles.push({
+        x: rand() * 1080,
+        y: rand() * 1920,
+        r: 1 + rand() * 2,
+        vx: (rand() - 0.5) * 8,
+        vy: (rand() - 0.5) * 8
+      });
+    }
+
+    function drawParticles(t) {
+      ctx.clearRect(0, 0, 1080, 1920);
+      ctx.fillStyle = "rgba(255, 255, 255, 0.4)";
+
+      particles.forEach(p => {
+        const x = (p.x + p.vx * t) % 1080;
+        const y = (p.y + p.vy * t) % 1920;
+        ctx.beginPath();
+        ctx.arc(x > 0 ? x : 1080 + x, y > 0 ? y : 1920 + y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      });
+    }
+
+    // ── GSAP TIMELINE ────────────────────────────────────────────────────
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines = window.__timelines || {};
+    window.__timelines["bloom-stock-ownership-beat-3"] = tl;
+
+    // Entry fade-in (blur recovery from Beat 2)
+    tl.from(
+      "#beat3",
+      {
+        filter: "blur(20px)",
+        opacity: 0,
+        duration: 0.25,
+        ease: "power3.out"
+      },
+      0
+    );
+
+    // Canvas particle field animation
+    const canvasProxy = { time: 0 };
+    tl.to(
+      canvasProxy,
+      {
+        time: 3.96,
+        duration: 3.96,
+        ease: "none",
+        onUpdate: () => drawParticles(canvasProxy.time)
+      },
+      0
+    );
+
+    // Headline words: slide in with decay
+    const HEADLINE_WORDS = ["You", "can", "buy", "stocks", "of", "companies", "you", "know"];
+    document.querySelectorAll(".beat3-headline .beat3-word").forEach((el, i) => {
+      const slideDistance = 50 - i * 5;
+      tl.from(
+        el,
+        {
+          x: slideDistance,
+          y: 12,
+          opacity: 0,
+          duration: 0.35,
+          ease: "power2.out"
+        },
+        landOn(HEADLINE_WORDS[i], 0.35)
+      );
+    });
+
+    // AAPL logo circle: pop in on "Apple" with spring
+    tl.from(
+      "#beat3-aapl-circle",
+      {
+        scale: 0,
+        opacity: 0,
+        duration: 0.35,
+        ease: "back.out(1.7)"
+      },
+      landOn("Apple", 0.35)
+    );
+
+    // AAPL company name fade in
+    tl.from(
+      "#beat3-aapl-name",
+      {
+        opacity: 0,
+        y: 10,
+        duration: 0.25,
+        ease: "power2.out"
+      },
+      landOn("Apple", 0.35)
+    );
+
+    // AAPL logo idle: gentle rotation yoyo
+    tl.to(
+      "#beat3-aapl-circle",
+      {
+        rotation: 2,
+        duration: 2.2,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: 1,
+        overwrite: "auto"
+      },
+      landOn("Apple", 0.35) + 0.35
+    );
+
+    // NKE logo circle: pop in on "Nike" with spring
+    tl.from(
+      "#beat3-nke-circle",
+      {
+        scale: 0,
+        opacity: 0,
+        duration: 0.35,
+        ease: "back.out(1.7)"
+      },
+      landOn("Nike", 0.35)
+    );
+
+    // NKE company name fade in
+    tl.from(
+      "#beat3-nke-name",
+      {
+        opacity: 0,
+        y: 10,
+        duration: 0.25,
+        ease: "power2.out"
+      },
+      landOn("Nike", 0.35)
+    );
+
+    // NKE logo idle: gentle rotation yoyo
+    tl.to(
+      "#beat3-nke-circle",
+      {
+        rotation: 2,
+        duration: 2.2,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: 1,
+        overwrite: "auto"
+      },
+      landOn("Nike", 0.35) + 0.35
+    );
+
+    // Exit: hard cut with fade
+    tl.to(
+      "#beat3",
+      {
+        opacity: 0,
+        duration: 0.2,
+        ease: "power2.in"
+      },
+      3.96 - 0.2
+    );
+
+    // Hide after exit
+    tl.set("#beat3", { visibility: "hidden" }, 3.96);
+  </script>
+</body>
+</html>

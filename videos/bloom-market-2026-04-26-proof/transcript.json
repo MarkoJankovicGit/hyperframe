@@ -1,0 +1,99 @@
+{
+  "sceneId": "scene-01",
+  "text": "Forecasts moved higher. Gold raised to five thousand six hundred dollars per ounce.",
+  "words": [
+    {
+      "word": "Forecasts",
+      "start": 0,
+      "end": 0.72,
+      "startFrame": 0,
+      "endFrame": 22
+    },
+    {
+      "word": "moved",
+      "start": 0.787,
+      "end": 1.122,
+      "startFrame": 24,
+      "endFrame": 34
+    },
+    {
+      "word": "higher.",
+      "start": 1.168,
+      "end": 2.044,
+      "startFrame": 35,
+      "endFrame": 61
+    },
+    {
+      "word": "Gold",
+      "start": 2.164,
+      "end": 2.644,
+      "startFrame": 65,
+      "endFrame": 79
+    },
+    {
+      "word": "raised",
+      "start": 2.713,
+      "end": 3.127,
+      "startFrame": 81,
+      "endFrame": 94
+    },
+    {
+      "word": "to",
+      "start": 3.207,
+      "end": 3.367,
+      "startFrame": 96,
+      "endFrame": 101
+    },
+    {
+      "word": "five",
+      "start": 3.415,
+      "end": 3.607,
+      "startFrame": 102,
+      "endFrame": 108
+    },
+    {
+      "word": "thousand",
+      "start": 3.66,
+      "end": 4.084,
+      "startFrame": 110,
+      "endFrame": 123
+    },
+    {
+      "word": "six",
+      "start": 4.184,
+      "end": 4.484,
+      "startFrame": 126,
+      "endFrame": 135
+    },
+    {
+      "word": "hundred",
+      "start": 4.514,
+      "end": 4.724,
+      "startFrame": 135,
+      "endFrame": 142
+    },
+    {
+      "word": "dollars",
+      "start": 4.784,
+      "end": 5.204,
+      "startFrame": 144,
+      "endFrame": 156
+    },
+    {
+      "word": "per",
+      "start": 5.244,
+      "end": 5.364,
+      "startFrame": 157,
+      "endFrame": 161
+    },
+    {
+      "word": "ounce.",
+      "start": 5.444,
+      "end": 5.924,
+      "startFrame": 163,
+      "endFrame": 178
+    }
+  ],
+  "durationSeconds": 6.424,
+  "durationFrames": 193
+}

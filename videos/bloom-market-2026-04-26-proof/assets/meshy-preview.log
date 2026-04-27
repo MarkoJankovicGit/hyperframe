@@ -1,0 +1,33 @@
+[1s] status=IN_PROGRESS progress=72%
+[11s] status=IN_PROGRESS progress=99%
+[22s] status=IN_PROGRESS progress=99%
+[32s] status=SUCCEEDED progress=100%
+
+Task completed successfully!
+{
+  "id": "019dcaa0-cf6d-7678-a83a-cbc61882ed23",
+  "type": "text-to-3d-preview",
+  "mode": "preview",
+  "name": "",
+  "model_type": "standard",
+  "seed": 3620366318,
+  "art_style": "realistic",
+  "texture_richness": "",
+  "prompt": "premium polished solid gold ingot bar, rectangular shape with rounded edges, clean isolated subject for cinematic product render, stamped numerical text 999.9 on top surface, smooth metallic surface, no environment, isolated on neutral background",
+  "negative_prompt": "",
+  "texture_prompt": "",
+  "texture_image_url": "",
+  "status": "SUCCEEDED",
+  "created_at": 1777221030968,
+  "progress": 100,
+  "started_at": 1777221031571,
+  "finished_at": 1777221080618,
+  "task_error": null,
+  "model_urls": {
+    "glb": "https://assets.meshy.ai/348d8e94-f70e-470c-ac9d-f5ef81186194/tasks/019dcaa0-cf6d-7678-a83a-cbc61882ed23/output/model.glb?Expires=4930761600&Signature=Nm7JNea2mZzCumdmYVLCrKnqKC3-afVuwF1HZF5Jrd~xbVEcyUPWefS8KsFsm~doMBjJIs~5cgGrbOs3pOWYjDU5RmHEW435TW8~bDyluRa-y2Rd4pKmd65lflKw2GDj4F8qaxXuNiJdNkpYjSZ7tmr1d4jEcvcyqtMVrcrv2wTm8iDH8rtz-2grin1cFNHbqCTeQX6aJLS3XYyXHdrEnipaDMu0pXQDPGP0E43n1B06BcQg42mDubdm0gCyI4HamMR49~V~zlV2myB743EgOmKdjYnnfqdepQn0~3EPw--WoN8~9sarF60FGNVTak59S~CR6-mjeI5PyBZN3dLKMA__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  },
+  "thumbnail_url": "https://assets.meshy.ai/348d8e94-f70e-470c-ac9d-f5ef81186194/tasks/019dcaa0-cf6d-7678-a83a-cbc61882ed23/output/preview.png?Expires=4930761600&Signature=g6aMaAw9V4QJOWS~Ey1PWPcWP-hKdZ4W7jGqkp7sY2hixUSdlGnyzqoOlZY1exWUIv~9pe3N6gO2-BqHB2pOWz8569Gu9wd-ZiHJqHGf5h5EXIisIuS6pQcfOW6pRTwsFylPYDyMI6lLrellza2pOysHh1RAJcuxT5umG-N85iJrkK4EQEv3~oucosk-fRkQDXpM6l6J8vhEPgdlicKYNPW~SgFGUEudrgY7H1Cq0WSuuArnZ2tc4AhLo7nZOVetgCkNctpv2UCIGTVvMXvqHCJGqodPu0uSW2aROUu3l~i~jtQLgHOTuEP8Cil~oeJdBAVmPAgDVOiLC5e2hhvf7w__&Key-Pair-Id=K1VGYTHIYLM9UM",
+  "video_url": "",
+  "texture_urls": [],
+  "consumed_credits": 20
+}

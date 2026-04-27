@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beat 7: Insight - Volatility</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,700;0,800;1,700;1,800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; }
+    #beat7 { position: absolute; inset: 0; width: 1080px; height: 1920px; background: #1658FF; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
+    #beat7-sparkline-container { position: relative; width: 800px; height: 300px; margin-bottom: 120px; opacity: 0; }
+    #beat7-sparkline { width: 100%; height: 100%; }
+    .beat7-sparkline-path { stroke-dasharray: 800; stroke-dashoffset: 800; stroke-linecap: round; stroke-linejoin: round; }
+    .beat7-headline { position: relative; z-index: 2; text-align: center; max-width: 920px; line-height: 1.1; font-family: "Inter Tight", system-ui, sans-serif; font-weight: 800; font-style: italic; text-transform: uppercase; color: #FFFFFF; letter-spacing: -0.02em; font-size: 90px; }
+    .beat7-word { display: inline-block; opacity: 0; margin: 0 0.1em; }
+  </style>
+</head>
+<body>
+  <template data-start="0" data-duration="5.25">
+    <div id="beat7" class="scene" data-composition-id="bloom-stock-ownership-beat-7" data-width="1080" data-height="1920" data-start="0" data-duration="5.25">
+      <div id="beat7-sparkline-container">
+        <svg id="beat7-sparkline" viewBox="0 0 800 200">
+          <line x1="0" y1="100" x2="800" y2="100" stroke="rgba(255,255,255,0.1)" stroke-width="2" stroke-dasharray="20,10" />
+          <path class="beat7-sparkline-path" d="M 50 150 Q 120 130 180 80 T 280 140 T 420 60 Q 500 50 600 85 Q 680 110 750 40" stroke="#01CD74" stroke-width="8" fill="none" />
+          <circle cx="180" cy="80" r="18" fill="none" stroke="#01CD74" stroke-width="3" opacity="0" class="beat7-peak-glow" />
+          <circle cx="280" cy="140" r="18" fill="none" stroke="#94a3b8" stroke-width="3" opacity="0" class="beat7-valley-glow" />
+          <circle cx="750" cy="40" r="20" fill="none" stroke="#01CD74" stroke-width="4" opacity="0" class="beat7-peak-glow-2" />
+        </svg>
+      </div>
+      <div class="beat7-headline">
+        <span class="beat7-word">Stock</span><span class="beat7-word">prices</span><span class="beat7-word">go</span><span class="beat7-word">up</span><span class="beat7-word">and</span><span class="beat7-word">down.</span>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    // ── TIMELINE REGISTRATION ────────────────────────────────────────────
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["bloom-stock-ownership-beat-7"] = tl;
+
+    const W=[{w:"Stock",s:0,e:.471},{w:"prices",s:.511,e:.851},{w:"go",s:.891,e:1.061},{w:"up",s:1.111,e:1.371},{w:"and",s:1.401,e:1.551},{w:"down",s:1.591,e:1.851},{w:"every",s:1.891,e:2.101},{w:"day.",s:2.141,e:2.491},{w:"So",s:2.541,e:2.711},{w:"your",s:2.741,e:2.931},{w:"investment",s:2.961,e:3.451},{w:"can",s:3.481,e:3.651},{w:"also",s:3.681,e:3.901},{w:"change",s:3.931,e:4.331},{w:"every",s:4.381,e:4.591},{w:"day",s:4.631,e:4.901},{w:"—",s:4.931,e:5.001},{w:"sometimes",s:5.031,e:5.281},{w:"by",s:5.311,e:5.401},{w:"a",s:5.431,e:5.481},{w:"lot!",s:5.481,e:5.701}];
+    function _norm(s){return s.toLowerCase().replace(/[^p{L}p{N}'-]/gu,"");}
+    function _findPhrase(phrase){const tokens=phrase.toLowerCase().split(/s+/).map(_norm).filter(Boolean);if(!tokens.length)throw new Error("empty");const hits=[];for(let i=0;i<=W.length-tokens.length;i++){let ok=true;for(let j=0;j<tokens.length;j++){if(_norm(W[i+j].w)!==tokens[j]){ok=false;break;}}if(ok)hits.push(i);}if(hits.length===0)throw new Error("not found");if(hits.length>1)throw new Error("ambiguous");return{startIdx:hits[0],endIdx:hits[0]+tokens.length-1};}
+    function at(phrase){return W[_findPhrase(phrase).startIdx].s;}
+    function landOn(phrase,duration=0){return at(phrase)-duration;}
+    function landAfter(phrase,duration=0){return W[_findPhrase(phrase).endIdx].e-duration;}
+    const tl=gsap.timeline({paused:true});window.__timelines=window.__timelines||{};window.__timelines["bloom-stock-ownership-beat-7"]=tl;
+    tl.from("#beat7-sparkline-container",{scale:.8,opacity:0,duration:.4,ease:"back.out(1.5)"},0);
+    tl.to(".beat7-sparkline-path",{strokeDashoffset:0,duration:2,ease:"power2.out"},.3);
+    tl.to(".beat7-peak-glow",{opacity:1,scale:1.2,duration:.3,ease:"power2.out"},landOn("up",.3));
+    tl.to(".beat7-peak-glow",{opacity:0,duration:.3,ease:"power2.in"},landOn("up",.3)+.4);
+    tl.to(".beat7-valley-glow",{opacity:1,scale:1.2,duration:.3,ease:"power2.out"},landOn("down",.3));
+    tl.to(".beat7-valley-glow",{opacity:0,duration:.3,ease:"power2.in"},landOn("down",.3)+.4);
+    tl.to(".beat7-peak-glow-2",{opacity:1,scale:1.5,duration:.4,ease:"back.out(1.5)"},landOn("a lot",.4));
+    tl.to(".beat7-peak-glow-2",{scale:1.8,opacity:.8,duration:.2,ease:"sine.inOut",yoyo:true,repeat:2,overwrite:"auto"},landOn("a lot",.4)+.35);
+    const WORDS=["Stock","prices","go","up","and","down."];
+    document.querySelectorAll(".beat7-word").forEach((el,i)=>{const slideDistance=60-i*10;tl.from(el,{x:slideDistance,y:14,opacity:0,duration:.35,ease:"power2.out"},landOn(WORDS[i],.35));});
+    tl.to("#beat7-sparkline-container",{y:-8,duration:2,ease:"sine.inOut",yoyo:true,repeat:1,overwrite:"auto"},.6);
+    tl.to("#beat7",{opacity:0,duration:.2,ease:"power2.in"},5.05);
+    tl.set("#beat7",{visibility:"hidden"},5.25);
+  </script>
+</body>
+</html>

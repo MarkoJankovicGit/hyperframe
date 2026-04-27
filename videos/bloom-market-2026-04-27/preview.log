@@ -1,0 +1,16 @@
+
+  ⚠ duplicate_media_discovery_risk: Detected 2 matching img entries with the same source/start/duration.
+    Fix: Avoid duplicated media nodes that can be discovered twice during compilation.
+
+T  hyperframes preview
+[?25l|
+o  Studio running
+[?25h
+  Project   bloom-market-2026-04-27
+  Studio    http://localhost:3017
+
+  Edit with your AI agent — it has HyperFrames skills installed.
+  Changes reload automatically in the studio.
+
+  Press Ctrl+C to stop
+

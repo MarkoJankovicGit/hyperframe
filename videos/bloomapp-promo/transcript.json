@@ -1,0 +1,246 @@
+{
+  "sceneId": "scene-01",
+  "text": "Wall Street shouldn't feel like a secret club. Bloom turns it into bite-size lessons, real stocks, zero jargon. Two million downloads, money protected up to five hundred thousand. Learn, invest, automate — get Bloom.",
+  "words": [
+    {
+      "word": "Wall",
+      "start": 0,
+      "end": 0.16,
+      "startFrame": 0,
+      "endFrame": 5
+    },
+    {
+      "word": "Street",
+      "start": 0.217,
+      "end": 0.559,
+      "startFrame": 7,
+      "endFrame": 17
+    },
+    {
+      "word": "shouldn't",
+      "start": 0.589,
+      "end": 0.879,
+      "startFrame": 18,
+      "endFrame": 26
+    },
+    {
+      "word": "feel",
+      "start": 0.927,
+      "end": 1.119,
+      "startFrame": 28,
+      "endFrame": 34
+    },
+    {
+      "word": "like",
+      "start": 1.151,
+      "end": 1.279,
+      "startFrame": 35,
+      "endFrame": 38
+    },
+    {
+      "word": "a",
+      "start": 1.319,
+      "end": 1.359,
+      "startFrame": 40,
+      "endFrame": 41
+    },
+    {
+      "word": "secret",
+      "start": 1.405,
+      "end": 1.681,
+      "startFrame": 42,
+      "endFrame": 50
+    },
+    {
+      "word": "club.",
+      "start": 1.761,
+      "end": 2.161,
+      "startFrame": 53,
+      "endFrame": 65
+    },
+    {
+      "word": "Bloom",
+      "start": 2.268,
+      "end": 2.803,
+      "startFrame": 68,
+      "endFrame": 84
+    },
+    {
+      "word": "turns",
+      "start": 2.856,
+      "end": 3.121,
+      "startFrame": 86,
+      "endFrame": 94
+    },
+    {
+      "word": "it",
+      "start": 3.148,
+      "end": 3.202,
+      "startFrame": 94,
+      "endFrame": 96
+    },
+    {
+      "word": "into",
+      "start": 3.25,
+      "end": 3.442,
+      "startFrame": 98,
+      "endFrame": 103
+    },
+    {
+      "word": "bite-size",
+      "start": 3.506,
+      "end": 4.082,
+      "startFrame": 105,
+      "endFrame": 122
+    },
+    {
+      "word": "lessons,",
+      "start": 4.142,
+      "end": 4.802,
+      "startFrame": 124,
+      "endFrame": 144
+    },
+    {
+      "word": "real",
+      "start": 4.866,
+      "end": 5.122,
+      "startFrame": 146,
+      "endFrame": 154
+    },
+    {
+      "word": "stocks,",
+      "start": 5.213,
+      "end": 5.999,
+      "startFrame": 156,
+      "endFrame": 180
+    },
+    {
+      "word": "zero",
+      "start": 6.063,
+      "end": 6.319,
+      "startFrame": 182,
+      "endFrame": 190
+    },
+    {
+      "word": "jargon.",
+      "start": 6.439,
+      "end": 7.439,
+      "startFrame": 193,
+      "endFrame": 223
+    },
+    {
+      "word": "Two",
+      "start": 7.479,
+      "end": 7.599,
+      "startFrame": 224,
+      "endFrame": 228
+    },
+    {
+      "word": "million",
+      "start": 7.649,
+      "end": 7.999,
+      "startFrame": 229,
+      "endFrame": 240
+    },
+    {
+      "word": "downloads,",
+      "start": 8.063,
+      "end": 8.959,
+      "startFrame": 242,
+      "endFrame": 269
+    },
+    {
+      "word": "money",
+      "start": 8.999,
+      "end": 9.199,
+      "startFrame": 270,
+      "endFrame": 276
+    },
+    {
+      "word": "protected",
+      "start": 9.247,
+      "end": 9.679,
+      "startFrame": 277,
+      "endFrame": 290
+    },
+    {
+      "word": "up",
+      "start": 9.732,
+      "end": 9.838,
+      "startFrame": 292,
+      "endFrame": 295
+    },
+    {
+      "word": "to",
+      "start": 9.891,
+      "end": 9.997,
+      "startFrame": 297,
+      "endFrame": 300
+    },
+    {
+      "word": "five",
+      "start": 10.061,
+      "end": 10.317,
+      "startFrame": 302,
+      "endFrame": 310
+    },
+    {
+      "word": "hundred",
+      "start": 10.347,
+      "end": 10.557,
+      "startFrame": 310,
+      "endFrame": 317
+    },
+    {
+      "word": "thousand.",
+      "start": 10.628,
+      "end": 11.596,
+      "startFrame": 319,
+      "endFrame": 348
+    },
+    {
+      "word": "Learn,",
+      "start": 11.663,
+      "end": 12.158,
+      "startFrame": 350,
+      "endFrame": 365
+    },
+    {
+      "word": "invest,",
+      "start": 12.249,
+      "end": 13.035,
+      "startFrame": 367,
+      "endFrame": 391
+    },
+    {
+      "word": "automate",
+      "start": 13.088,
+      "end": 13.512,
+      "startFrame": 393,
+      "endFrame": 405
+    },
+    {
+      "word": "—",
+      "start": 13.712,
+      "end": 13.912,
+      "startFrame": 411,
+      "endFrame": 417
+    },
+    {
+      "word": "get",
+      "start": 13.992,
+      "end": 14.232,
+      "startFrame": 420,
+      "endFrame": 427
+    },
+    {
+      "word": "Bloom.",
+      "start": 14.325,
+      "end": 14.87,
+      "startFrame": 430,
+      "endFrame": 446
+    }
+  ],
+  "durationSeconds": 15.37,
+  "durationFrames": 461
+}

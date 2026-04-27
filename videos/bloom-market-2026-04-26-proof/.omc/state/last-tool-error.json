@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"cd \\\"C:/Users/User/git/bloom-hyperframes/videos/bloom-market-2026-04-26-proof\\\" && npx hyperframes snapshot --at 2.5,4.5,6.0 -o snapshots 2>&1 | tail -10 && ls snapshots/ 2>&1\",\"timeout\":1...",
+  "error": "Exit code 2\n\n✗  Not a directory: C:\\Users\\User\\git\\bloom-hyperframes\\videos\\bloom-market-2026-04-26-proof\\snapshots\n\nls: cannot access 'snapshots/': No such file or directory",
+  "timestamp": "2026-04-26T16:39:30.825Z",
+  "retry_count": 1
+}

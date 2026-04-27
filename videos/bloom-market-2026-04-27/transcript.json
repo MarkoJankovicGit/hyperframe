@@ -1,0 +1,1016 @@
+{
+  "sceneId": "scene-01",
+  "text": "Good morning, traders. Monday, April twenty-seventh, European pre-market, and US futures are green. Tech is carrying the tape: Nasdaq up just over one percent, semis hot for an eighteenth straight day. Intel is up twenty-three percent, AMD up fourteen, and S and P futures are pressing toward seven thousand one hundred sixty-five. Crypto is holding: Bitcoin near seventy-eight thousand, Ethereum still choppy. But under the rally, the risk is war and oil. In the Middle East, conflict has cut supply by ten million barrels a day, keeping crude near one hundred dollars. Sentiment is cracking too, down to forty-nine point eight, the weakest since nineteen fifty-two. The Fed meets this week, with ninety-nine percent odds of no change. Playbook: bulls bet on the pause, semis lead, oil-sensitive names lag, and Wednesday's print can reset the trade. That's your daily market pulse. See you tomorrow.",
+  "words": [
+    {
+      "word": "Good",
+      "start": 0,
+      "end": 0.197,
+      "startFrame": 0,
+      "endFrame": 6
+    },
+    {
+      "word": "morning,",
+      "start": 0.244,
+      "end": 0.534,
+      "startFrame": 7,
+      "endFrame": 16
+    },
+    {
+      "word": "traders.",
+      "start": 0.557,
+      "end": 1.149,
+      "startFrame": 17,
+      "endFrame": 34
+    },
+    {
+      "word": "Monday,",
+      "start": 1.474,
+      "end": 1.939,
+      "startFrame": 44,
+      "endFrame": 58
+    },
+    {
+      "word": "April",
+      "start": 1.985,
+      "end": 2.241,
+      "startFrame": 60,
+      "endFrame": 67
+    },
+    {
+      "word": "twenty-seventh,",
+      "start": 2.276,
+      "end": 2.937,
+      "startFrame": 68,
+      "endFrame": 88
+    },
+    {
+      "word": "European",
+      "start": 3.019,
+      "end": 3.413,
+      "startFrame": 91,
+      "endFrame": 102
+    },
+    {
+      "word": "pre-market,",
+      "start": 3.46,
+      "end": 4.04,
+      "startFrame": 104,
+      "endFrame": 121
+    },
+    {
+      "word": "and",
+      "start": 4.075,
+      "end": 4.191,
+      "startFrame": 122,
+      "endFrame": 126
+    },
+    {
+      "word": "US",
+      "start": 4.272,
+      "end": 4.528,
+      "startFrame": 128,
+      "endFrame": 136
+    },
+    {
+      "word": "futures",
+      "start": 4.598,
+      "end": 4.969,
+      "startFrame": 138,
+      "endFrame": 149
+    },
+    {
+      "word": "are",
+      "start": 5.016,
+      "end": 5.166,
+      "startFrame": 150,
+      "endFrame": 155
+    },
+    {
+      "word": "green.",
+      "start": 5.201,
+      "end": 5.642,
+      "startFrame": 156,
+      "endFrame": 169
+    },
+    {
+      "word": "Tech",
+      "start": 6.084,
+      "end": 6.362,
+      "startFrame": 183,
+      "endFrame": 191
+    },
+    {
+      "word": "is",
+      "start": 6.42,
+      "end": 6.502,
+      "startFrame": 193,
+      "endFrame": 195
+    },
+    {
+      "word": "carrying",
+      "start": 6.56,
+      "end": 6.861,
+      "startFrame": 197,
+      "endFrame": 206
+    },
+    {
+      "word": "the",
+      "start": 6.908,
+      "end": 6.978,
+      "startFrame": 207,
+      "endFrame": 209
+    },
+    {
+      "word": "tape:",
+      "start": 7.012,
+      "end": 7.384,
+      "startFrame": 210,
+      "endFrame": 222
+    },
+    {
+      "word": "Nasdaq",
+      "start": 7.663,
+      "end": 8.197,
+      "startFrame": 230,
+      "endFrame": 246
+    },
+    {
+      "word": "up",
+      "start": 8.301,
+      "end": 8.452,
+      "startFrame": 249,
+      "endFrame": 254
+    },
+    {
+      "word": "just",
+      "start": 8.522,
+      "end": 8.719,
+      "startFrame": 256,
+      "endFrame": 262
+    },
+    {
+      "word": "over",
+      "start": 8.766,
+      "end": 8.94,
+      "startFrame": 263,
+      "endFrame": 268
+    },
+    {
+      "word": "one",
+      "start": 9.009,
+      "end": 9.149,
+      "startFrame": 270,
+      "endFrame": 274
+    },
+    {
+      "word": "percent,",
+      "start": 9.183,
+      "end": 9.706,
+      "startFrame": 275,
+      "endFrame": 291
+    },
+    {
+      "word": "semis",
+      "start": 9.915,
+      "end": 10.194,
+      "startFrame": 297,
+      "endFrame": 306
+    },
+    {
+      "word": "hot",
+      "start": 10.24,
+      "end": 10.437,
+      "startFrame": 307,
+      "endFrame": 313
+    },
+    {
+      "word": "for",
+      "start": 10.484,
+      "end": 10.588,
+      "startFrame": 315,
+      "endFrame": 318
+    },
+    {
+      "word": "an",
+      "start": 10.623,
+      "end": 10.693,
+      "startFrame": 319,
+      "endFrame": 321
+    },
+    {
+      "word": "eighteenth",
+      "start": 10.751,
+      "end": 11.146,
+      "startFrame": 323,
+      "endFrame": 334
+    },
+    {
+      "word": "straight",
+      "start": 11.18,
+      "end": 11.436,
+      "startFrame": 335,
+      "endFrame": 343
+    },
+    {
+      "word": "day.",
+      "start": 11.471,
+      "end": 11.842,
+      "startFrame": 344,
+      "endFrame": 355
+    },
+    {
+      "word": "Intel",
+      "start": 12.365,
+      "end": 12.794,
+      "startFrame": 371,
+      "endFrame": 384
+    },
+    {
+      "word": "is",
+      "start": 12.875,
+      "end": 12.968,
+      "startFrame": 386,
+      "endFrame": 389
+    },
+    {
+      "word": "up",
+      "start": 13.015,
+      "end": 13.084,
+      "startFrame": 390,
+      "endFrame": 393
+    },
+    {
+      "word": "twenty-three",
+      "start": 13.119,
+      "end": 13.526,
+      "startFrame": 394,
+      "endFrame": 406
+    },
+    {
+      "word": "percent,",
+      "start": 13.561,
+      "end": 14.083,
+      "startFrame": 407,
+      "endFrame": 422
+    },
+    {
+      "word": "AMD",
+      "start": 14.362,
+      "end": 14.815,
+      "startFrame": 431,
+      "endFrame": 444
+    },
+    {
+      "word": "up",
+      "start": 15.024,
+      "end": 15.174,
+      "startFrame": 451,
+      "endFrame": 455
+    },
+    {
+      "word": "fourteen,",
+      "start": 15.244,
+      "end": 15.836,
+      "startFrame": 457,
+      "endFrame": 475
+    },
+    {
+      "word": "and",
+      "start": 16.08,
+      "end": 16.196,
+      "startFrame": 482,
+      "endFrame": 486
+    },
+    {
+      "word": "S",
+      "start": 16.301,
+      "end": 16.452,
+      "startFrame": 489,
+      "endFrame": 494
+    },
+    {
+      "word": "and",
+      "start": 16.556,
+      "end": 16.661,
+      "startFrame": 497,
+      "endFrame": 500
+    },
+    {
+      "word": "P",
+      "start": 16.719,
+      "end": 16.788,
+      "startFrame": 502,
+      "endFrame": 504
+    },
+    {
+      "word": "futures",
+      "start": 16.916,
+      "end": 17.299,
+      "startFrame": 507,
+      "endFrame": 519
+    },
+    {
+      "word": "are",
+      "start": 17.346,
+      "end": 17.473,
+      "startFrame": 520,
+      "endFrame": 524
+    },
+    {
+      "word": "pressing",
+      "start": 17.508,
+      "end": 17.763,
+      "startFrame": 525,
+      "endFrame": 533
+    },
+    {
+      "word": "toward",
+      "start": 17.81,
+      "end": 18.019,
+      "startFrame": 534,
+      "endFrame": 541
+    },
+    {
+      "word": "seven",
+      "start": 18.077,
+      "end": 18.344,
+      "startFrame": 542,
+      "endFrame": 550
+    },
+    {
+      "word": "thousand",
+      "start": 18.39,
+      "end": 18.727,
+      "startFrame": 552,
+      "endFrame": 562
+    },
+    {
+      "word": "one",
+      "start": 18.832,
+      "end": 19.017,
+      "startFrame": 565,
+      "endFrame": 571
+    },
+    {
+      "word": "hundred",
+      "start": 19.052,
+      "end": 19.319,
+      "startFrame": 572,
+      "endFrame": 580
+    },
+    {
+      "word": "sixty-five.",
+      "start": 19.377,
+      "end": 20.12,
+      "startFrame": 581,
+      "endFrame": 604
+    },
+    {
+      "word": "Crypto",
+      "start": 20.643,
+      "end": 20.898,
+      "startFrame": 619,
+      "endFrame": 627
+    },
+    {
+      "word": "is",
+      "start": 20.956,
+      "end": 21.026,
+      "startFrame": 629,
+      "endFrame": 631
+    },
+    {
+      "word": "holding:",
+      "start": 21.061,
+      "end": 21.455,
+      "startFrame": 632,
+      "endFrame": 644
+    },
+    {
+      "word": "Bitcoin",
+      "start": 21.664,
+      "end": 22.048,
+      "startFrame": 650,
+      "endFrame": 661
+    },
+    {
+      "word": "near",
+      "start": 22.094,
+      "end": 22.233,
+      "startFrame": 663,
+      "endFrame": 667
+    },
+    {
+      "word": "seventy-eight",
+      "start": 22.291,
+      "end": 22.767,
+      "startFrame": 669,
+      "endFrame": 683
+    },
+    {
+      "word": "thousand,",
+      "start": 22.802,
+      "end": 23.255,
+      "startFrame": 684,
+      "endFrame": 698
+    },
+    {
+      "word": "Ethereum",
+      "start": 23.359,
+      "end": 23.766,
+      "startFrame": 701,
+      "endFrame": 713
+    },
+    {
+      "word": "still",
+      "start": 23.824,
+      "end": 24.033,
+      "startFrame": 715,
+      "endFrame": 721
+    },
+    {
+      "word": "choppy.",
+      "start": 24.079,
+      "end": 24.544,
+      "startFrame": 722,
+      "endFrame": 736
+    },
+    {
+      "word": "But",
+      "start": 24.927,
+      "end": 25.055,
+      "startFrame": 748,
+      "endFrame": 752
+    },
+    {
+      "word": "under",
+      "start": 25.089,
+      "end": 25.252,
+      "startFrame": 753,
+      "endFrame": 758
+    },
+    {
+      "word": "the",
+      "start": 25.287,
+      "end": 25.356,
+      "startFrame": 759,
+      "endFrame": 761
+    },
+    {
+      "word": "rally,",
+      "start": 25.403,
+      "end": 25.786,
+      "startFrame": 762,
+      "endFrame": 774
+    },
+    {
+      "word": "the",
+      "start": 25.821,
+      "end": 25.925,
+      "startFrame": 775,
+      "endFrame": 778
+    },
+    {
+      "word": "risk",
+      "start": 25.995,
+      "end": 26.204,
+      "startFrame": 780,
+      "endFrame": 786
+    },
+    {
+      "word": "is",
+      "start": 26.262,
+      "end": 26.366,
+      "startFrame": 788,
+      "endFrame": 791
+    },
+    {
+      "word": "war",
+      "start": 26.436,
+      "end": 26.657,
+      "startFrame": 793,
+      "endFrame": 800
+    },
+    {
+      "word": "and",
+      "start": 26.726,
+      "end": 26.831,
+      "startFrame": 802,
+      "endFrame": 805
+    },
+    {
+      "word": "oil.",
+      "start": 26.912,
+      "end": 27.307,
+      "startFrame": 807,
+      "endFrame": 819
+    },
+    {
+      "word": "In",
+      "start": 27.911,
+      "end": 28.027,
+      "startFrame": 837,
+      "endFrame": 841
+    },
+    {
+      "word": "the",
+      "start": 28.061,
+      "end": 28.131,
+      "startFrame": 842,
+      "endFrame": 844
+    },
+    {
+      "word": "Middle",
+      "start": 28.166,
+      "end": 28.387,
+      "startFrame": 845,
+      "endFrame": 852
+    },
+    {
+      "word": "East,",
+      "start": 28.421,
+      "end": 28.723,
+      "startFrame": 853,
+      "endFrame": 862
+    },
+    {
+      "word": "conflict",
+      "start": 28.828,
+      "end": 29.269,
+      "startFrame": 865,
+      "endFrame": 878
+    },
+    {
+      "word": "has",
+      "start": 29.304,
+      "end": 29.397,
+      "startFrame": 879,
+      "endFrame": 882
+    },
+    {
+      "word": "cut",
+      "start": 29.443,
+      "end": 29.582,
+      "startFrame": 883,
+      "endFrame": 887
+    },
+    {
+      "word": "supply",
+      "start": 29.629,
+      "end": 29.907,
+      "startFrame": 889,
+      "endFrame": 897
+    },
+    {
+      "word": "by",
+      "start": 29.977,
+      "end": 30.082,
+      "startFrame": 899,
+      "endFrame": 902
+    },
+    {
+      "word": "ten",
+      "start": 30.151,
+      "end": 30.337,
+      "startFrame": 905,
+      "endFrame": 910
+    },
+    {
+      "word": "million",
+      "start": 30.395,
+      "end": 30.651,
+      "startFrame": 912,
+      "endFrame": 920
+    },
+    {
+      "word": "barrels",
+      "start": 30.709,
+      "end": 30.999,
+      "startFrame": 921,
+      "endFrame": 930
+    },
+    {
+      "word": "a",
+      "start": 31.034,
+      "end": 31.068,
+      "startFrame": 931,
+      "endFrame": 932
+    },
+    {
+      "word": "day,",
+      "start": 31.115,
+      "end": 31.498,
+      "startFrame": 933,
+      "endFrame": 945
+    },
+    {
+      "word": "keeping",
+      "start": 31.626,
+      "end": 31.87,
+      "startFrame": 949,
+      "endFrame": 956
+    },
+    {
+      "word": "crude",
+      "start": 31.928,
+      "end": 32.195,
+      "startFrame": 958,
+      "endFrame": 966
+    },
+    {
+      "word": "near",
+      "start": 32.229,
+      "end": 32.369,
+      "startFrame": 967,
+      "endFrame": 971
+    },
+    {
+      "word": "one",
+      "start": 32.427,
+      "end": 32.543,
+      "startFrame": 973,
+      "endFrame": 976
+    },
+    {
+      "word": "hundred",
+      "start": 32.578,
+      "end": 32.822,
+      "startFrame": 977,
+      "endFrame": 985
+    },
+    {
+      "word": "dollars.",
+      "start": 32.856,
+      "end": 33.379,
+      "startFrame": 986,
+      "endFrame": 1001
+    },
+    {
+      "word": "Sentiment",
+      "start": 33.82,
+      "end": 34.226,
+      "startFrame": 1015,
+      "endFrame": 1027
+    },
+    {
+      "word": "is",
+      "start": 34.273,
+      "end": 34.354,
+      "startFrame": 1028,
+      "endFrame": 1031
+    },
+    {
+      "word": "cracking",
+      "start": 34.412,
+      "end": 34.772,
+      "startFrame": 1032,
+      "endFrame": 1043
+    },
+    {
+      "word": "too,",
+      "start": 34.83,
+      "end": 35.178,
+      "startFrame": 1045,
+      "endFrame": 1055
+    },
+    {
+      "word": "down",
+      "start": 35.283,
+      "end": 35.422,
+      "startFrame": 1058,
+      "endFrame": 1063
+    },
+    {
+      "word": "to",
+      "start": 35.457,
+      "end": 35.515,
+      "startFrame": 1064,
+      "endFrame": 1065
+    },
+    {
+      "word": "forty-nine",
+      "start": 35.585,
+      "end": 36.003,
+      "startFrame": 1068,
+      "endFrame": 1080
+    },
+    {
+      "word": "point",
+      "start": 36.038,
+      "end": 36.223,
+      "startFrame": 1081,
+      "endFrame": 1087
+    },
+    {
+      "word": "eight,",
+      "start": 36.281,
+      "end": 36.63,
+      "startFrame": 1088,
+      "endFrame": 1099
+    },
+    {
+      "word": "the",
+      "start": 36.781,
+      "end": 36.885,
+      "startFrame": 1103,
+      "endFrame": 1107
+    },
+    {
+      "word": "weakest",
+      "start": 36.943,
+      "end": 37.338,
+      "startFrame": 1108,
+      "endFrame": 1120
+    },
+    {
+      "word": "since",
+      "start": 37.442,
+      "end": 37.663,
+      "startFrame": 1123,
+      "endFrame": 1130
+    },
+    {
+      "word": "nineteen",
+      "start": 37.698,
+      "end": 38,
+      "startFrame": 1131,
+      "endFrame": 1140
+    },
+    {
+      "word": "fifty-two.",
+      "start": 38.058,
+      "end": 38.673,
+      "startFrame": 1142,
+      "endFrame": 1160
+    },
+    {
+      "word": "The",
+      "start": 39.195,
+      "end": 39.288,
+      "startFrame": 1176,
+      "endFrame": 1179
+    },
+    {
+      "word": "Fed",
+      "start": 39.346,
+      "end": 39.521,
+      "startFrame": 1180,
+      "endFrame": 1186
+    },
+    {
+      "word": "meets",
+      "start": 39.567,
+      "end": 39.753,
+      "startFrame": 1187,
+      "endFrame": 1193
+    },
+    {
+      "word": "this",
+      "start": 39.8,
+      "end": 39.939,
+      "startFrame": 1194,
+      "endFrame": 1198
+    },
+    {
+      "word": "week,",
+      "start": 40.009,
+      "end": 40.276,
+      "startFrame": 1200,
+      "endFrame": 1208
+    },
+    {
+      "word": "with",
+      "start": 40.31,
+      "end": 40.461,
+      "startFrame": 1209,
+      "endFrame": 1214
+    },
+    {
+      "word": "ninety-nine",
+      "start": 40.531,
+      "end": 40.949,
+      "startFrame": 1216,
+      "endFrame": 1228
+    },
+    {
+      "word": "percent",
+      "start": 40.984,
+      "end": 41.239,
+      "startFrame": 1230,
+      "endFrame": 1237
+    },
+    {
+      "word": "odds",
+      "start": 41.297,
+      "end": 41.541,
+      "startFrame": 1239,
+      "endFrame": 1246
+    },
+    {
+      "word": "of",
+      "start": 41.588,
+      "end": 41.657,
+      "startFrame": 1248,
+      "endFrame": 1250
+    },
+    {
+      "word": "no",
+      "start": 41.762,
+      "end": 41.913,
+      "startFrame": 1253,
+      "endFrame": 1257
+    },
+    {
+      "word": "change.",
+      "start": 41.971,
+      "end": 42.423,
+      "startFrame": 1259,
+      "endFrame": 1273
+    },
+    {
+      "word": "Playbook:",
+      "start": 42.702,
+      "end": 43.12,
+      "startFrame": 1281,
+      "endFrame": 1294
+    },
+    {
+      "word": "bulls",
+      "start": 43.271,
+      "end": 43.515,
+      "startFrame": 1298,
+      "endFrame": 1305
+    },
+    {
+      "word": "bet",
+      "start": 43.561,
+      "end": 43.689,
+      "startFrame": 1307,
+      "endFrame": 1311
+    },
+    {
+      "word": "on",
+      "start": 43.747,
+      "end": 43.817,
+      "startFrame": 1312,
+      "endFrame": 1315
+    },
+    {
+      "word": "the",
+      "start": 43.852,
+      "end": 43.921,
+      "startFrame": 1316,
+      "endFrame": 1318
+    },
+    {
+      "word": "pause,",
+      "start": 43.956,
+      "end": 44.362,
+      "startFrame": 1319,
+      "endFrame": 1331
+    },
+    {
+      "word": "semis",
+      "start": 44.513,
+      "end": 44.804,
+      "startFrame": 1335,
+      "endFrame": 1344
+    },
+    {
+      "word": "lead,",
+      "start": 44.85,
+      "end": 45.152,
+      "startFrame": 1346,
+      "endFrame": 1355
+    },
+    {
+      "word": "oil-sensitive",
+      "start": 45.303,
+      "end": 45.93,
+      "startFrame": 1359,
+      "endFrame": 1378
+    },
+    {
+      "word": "names",
+      "start": 45.965,
+      "end": 46.174,
+      "startFrame": 1379,
+      "endFrame": 1385
+    },
+    {
+      "word": "lag,",
+      "start": 46.208,
+      "end": 46.533,
+      "startFrame": 1386,
+      "endFrame": 1396
+    },
+    {
+      "word": "and",
+      "start": 46.719,
+      "end": 46.963,
+      "startFrame": 1402,
+      "endFrame": 1409
+    },
+    {
+      "word": "Wednesday's",
+      "start": 47.067,
+      "end": 47.497,
+      "startFrame": 1412,
+      "endFrame": 1425
+    },
+    {
+      "word": "print",
+      "start": 47.555,
+      "end": 47.799,
+      "startFrame": 1427,
+      "endFrame": 1434
+    },
+    {
+      "word": "can",
+      "start": 47.857,
+      "end": 47.973,
+      "startFrame": 1436,
+      "endFrame": 1439
+    },
+    {
+      "word": "reset",
+      "start": 48.078,
+      "end": 48.484,
+      "startFrame": 1442,
+      "endFrame": 1455
+    },
+    {
+      "word": "the",
+      "start": 48.519,
+      "end": 48.588,
+      "startFrame": 1456,
+      "endFrame": 1458
+    },
+    {
+      "word": "trade.",
+      "start": 48.623,
+      "end": 49.088,
+      "startFrame": 1459,
+      "endFrame": 1473
+    },
+    {
+      "word": "That's",
+      "start": 49.413,
+      "end": 49.622,
+      "startFrame": 1482,
+      "endFrame": 1489
+    },
+    {
+      "word": "your",
+      "start": 49.645,
+      "end": 49.749,
+      "startFrame": 1489,
+      "endFrame": 1492
+    },
+    {
+      "word": "daily",
+      "start": 49.784,
+      "end": 49.993,
+      "startFrame": 1494,
+      "endFrame": 1500
+    },
+    {
+      "word": "market",
+      "start": 50.028,
+      "end": 50.26,
+      "startFrame": 1501,
+      "endFrame": 1508
+    },
+    {
+      "word": "pulse.",
+      "start": 50.295,
+      "end": 50.725,
+      "startFrame": 1509,
+      "endFrame": 1522
+    },
+    {
+      "word": "See",
+      "start": 50.934,
+      "end": 51.085,
+      "startFrame": 1528,
+      "endFrame": 1533
+    },
+    {
+      "word": "you",
+      "start": 51.119,
+      "end": 51.189,
+      "startFrame": 1534,
+      "endFrame": 1536
+    },
+    {
+      "word": "tomorrow.",
+      "start": 51.224,
+      "end": 51.828,
+      "startFrame": 1537,
+      "endFrame": 1555
+    }
+  ],
+  "durationSeconds": 52.328,
+  "durationFrames": 1570
+}

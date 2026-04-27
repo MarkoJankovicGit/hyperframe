@@ -1,0 +1,70 @@
+<template>
+  <div data-composition-id="bloom-risk-reward-beat-2" data-width="1080" data-height="1920" data-start="0" data-duration="3.20">
+    <style>
+      [data-composition-id="bloom-risk-reward-beat-2"] {
+        position: absolute; inset: 0;
+        background: #FFFFFF;
+        font-family: "Inter Tight", system-ui, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      #b2-headline {
+        color: #1C2329;
+        font-weight: 800;
+        font-style: italic;
+        text-transform: uppercase;
+        font-size: 132px;
+        line-height: 1;
+        letter-spacing: -0.04em;
+        text-align: center;
+        clip-path: inset(0 100% 0 0);
+      }
+      #b2-line {
+        width: 600px;
+        height: 16px;
+        background: #1658FF;
+        margin-top: 40px;
+        transform: scaleX(0);
+        transform-origin: left center;
+      }
+    </style>
+
+    <div id="b2-headline">CALCULATION</div>
+    <div id="b2-line"></div>
+
+    <script>
+      (function() {
+        const W = [
+          { word: "It's", t: 2.16, e: 2.48 },
+          { word: "actually", t: 2.524, e: 2.876 },
+          { word: "a", t: 2.956, e: 3.036 },
+          { word: "calculation", t: 3.089, e: 3.672 }
+        ];
+        const offset = 2.30;
+        const _norm = s => s.toLowerCase().replace(/[^\p{L}\p{N}\s]/gu, "").trim();
+        function landOn(phrase, dur) {
+          const ws = _norm(phrase).split(/\s+/);
+          for (let i = 0; i <= W.length - ws.length; i++) {
+            let ok = true;
+            for (let j = 0; j < ws.length; j++) {
+              if (_norm(W[i + j].word) !== ws[j]) { ok = false; break; }
+            }
+            if (ok) return (W[i].t - offset) - dur;
+          }
+          return 0;
+        }
+
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        tl.to("#b2-headline", { clipPath: "inset(0 0% 0 0)", duration: 0.6, ease: "power3.out" }, landOn("calculation", 0.6));
+        tl.to("#b2-line", { scaleX: 1, duration: 0.5, ease: "expo.out" }, landOn("calculation", 0));
+
+        window.__timelines["bloom-risk-reward-beat-2"] = tl;
+      })();
+    </script>
+  </div>
+</template>

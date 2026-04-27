@@ -1,0 +1,211 @@
+<template>
+  <div class="scene-root" data-composition-id="bloom-diversification-beat-6" data-width="1080" data-height="1920" data-start="0" data-duration="11.12">
+    <style>
+
+      .scene-root {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        font-family: "Inter", system-ui, sans-serif;
+        box-sizing: border-box;
+      }
+      .scene-content {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        height: 100%;
+        padding: 118px 82px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 36px;
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        padding: 16px 32px;
+        background: rgba(28,35,41,0.18);
+        color: #fff;
+        font-size: 32px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .eyebrow.dark { background: #1C2329; color: #fff; }
+      .eyebrow.blue { background: #1658FF; color: #fff; }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: #1C2329;
+        color: #fff;
+        border-radius: 26px;
+        padding: 34px 50px 42px;
+        box-shadow: 0 24px 60px rgba(6,10,30,0.28);
+        max-width: 930px;
+      }
+      .badge-text {
+        font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        text-transform: uppercase;
+        letter-spacing: -0.012em;
+        line-height: 0.92;
+        color: #fff;
+        text-align: center;
+      }
+      .title-dark {
+        font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+        font-weight: 800;
+        font-style: italic;
+        text-transform: uppercase;
+        letter-spacing: -0.012em;
+        line-height: 0.93;
+        color: #1C2329;
+        text-align: center;
+      }
+      .subcopy {
+        color: #4A4F54;
+        font-size: 42px;
+        font-weight: 700;
+        line-height: 1.12;
+        text-align: center;
+        max-width: 860px;
+      }
+      .white-text { color: #fff; }
+      .green { color: #01CD74; }
+      .blue { color: #1658FF; }
+      .logo-orb {
+        width: 142px;
+        height: 142px;
+        border-radius: 50%;
+        background: #1C2329;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 22px 50px rgba(6,10,30,0.24);
+      }
+      .logo-orb img {
+        max-width: 82px;
+        max-height: 82px;
+        object-fit: contain;
+      }
+      .bloom-logo {
+        width: 190px;
+        height: 190px;
+        object-fit: contain;
+      }
+      .star-bg {
+        position: absolute;
+        width: 820px;
+        height: 820px;
+        opacity: 0.16;
+        object-fit: contain;
+        z-index: 0;
+      }
+      .card {
+        background: #fff;
+        border: 2px solid #E8E9EA;
+        border-radius: 34px;
+        box-shadow: 0 20px 60px rgba(6,10,30,0.12);
+      }
+      .dark-card {
+        background: #1C2329;
+        color: #fff;
+        border-radius: 34px;
+        box-shadow: 0 24px 64px rgba(6,10,30,0.26);
+      }
+      .sparkline {
+        width: 760px;
+        height: 220px;
+      }
+      .sparkline path {
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 18;
+      }
+
+      [data-composition-id="bloom-diversification-beat-6"] { background: #1658FF; }
+      #b6-logos { display:flex; gap:42px; }
+      #b6-stat { width: 760px; height: 260px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; }
+      #b6-stat span { font: italic 800 154px "Inter Tight", sans-serif; color:#fff; line-height:0.9; }
+      #b6-stat small { color:#fff; font-size:36px; font-weight:800; letter-spacing:0.12em; text-transform:uppercase; }
+    </style>
+    <div class="scene-content">
+      <div id="b6-top" class="eyebrow">One Industry</div>
+      <div id="b6-logos"><div class="logo-orb"><img src="../logos/AAPL.png" /></div><div class="logo-orb"><img src="../logos/META.png" /></div></div>
+      <div id="b6-badge" class="badge"><span class="badge-text" style="font-size:110px">TECH SLUMP</span></div>
+      <div id="b6-stat" class="dark-card"><span>-70%</span><small>Meta in 2022</small></div>
+    </div>
+    <script>
+      (function () {
+        const W = [{"word":"If","t":0.005,"e":0.539},
+        {"word":"you","t":0.579,"e":0.699},
+        {"word":"only","t":0.779,"e":1.099},
+        {"word":"own","t":1.159,"e":1.339},
+        {"word":"tech","t":1.403,"e":1.659},
+        {"word":"stocks","t":1.716,"e":2.058},
+        {"word":"like","t":2.106,"e":2.298},
+        {"word":"Apple","t":2.365,"e":2.7},
+        {"word":"and","t":2.74,"e":2.86},
+        {"word":"Meta,","t":2.94,"e":3.58},
+        {"word":"a","t":3.62,"e":3.66},
+        {"word":"tech","t":3.724,"e":3.98},
+        {"word":"slump","t":4.033,"e":4.298},
+        {"word":"can","t":4.358,"e":4.538},
+        {"word":"pull","t":4.586,"e":4.778},
+        {"word":"your","t":4.826,"e":5.018},
+        {"word":"whole","t":5.058,"e":5.258},
+        {"word":"portfolio","t":5.33,"e":5.978},
+        {"word":"down.","t":6.058,"e":6.538},
+        {"word":"In","t":6.805,"e":7.339},
+        {"word":"twenty","t":7.385,"e":7.661},
+        {"word":"twenty","t":7.707,"e":7.983},
+        {"word":"two,","t":8.043,"e":8.623},
+        {"word":"Meta","t":8.687,"e":8.943},
+        {"word":"dropped","t":8.983,"e":9.263},
+        {"word":"nearly","t":9.332,"e":9.746},
+        {"word":"seventy","t":9.816,"e":10.306},
+        {"word":"percent.","t":10.366,"e":10.866},
+        {"word":"But","t":11.006,"e":11.426}];
+
+        const _norm = (s) => s.toLowerCase().replace(/[^\p{L}\p{N}\s]/gu, "").trim();
+        function _findPhrase(phrase) {
+          const ws = _norm(phrase).split(/\s+/);
+          const out = [];
+          for (let i = 0; i <= W.length - ws.length; i++) {
+            let ok = true;
+            for (let j = 0; j < ws.length; j++) {
+              if (_norm(W[i + j].word) !== ws[j]) { ok = false; break; }
+            }
+            if (ok) out.push({ start: W[i].t, end: W[i + ws.length - 1].e });
+          }
+          if (out.length === 0) throw new Error('landOn: phrase "' + phrase + '" not found in beat W');
+          if (out.length > 1) throw new Error('landOn: phrase "' + phrase + '" matched ' + out.length + ' positions');
+          return out[0];
+        }
+        function landOn(phrase, dur) { return Math.max(0, _findPhrase(phrase).start - dur); }
+        function landAfter(phrase, dur) { return Math.max(0, _findPhrase(phrase).end - dur); }
+        function at(phrase) { return _findPhrase(phrase).start; }
+
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+        tl.set('[data-composition-id="bloom-diversification-beat-6"]', { opacity: 1 }, 0);
+        tl.fromTo("#b6-top", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.42, ease: "power2.out", overwrite: "auto" }, landOn("tech stocks", 0.42));
+        tl.fromTo("#b6-logos .logo-orb", { scale: 0.68, opacity: 0, y: 50 }, { scale: 1, opacity: 1, y: 0, duration: 0.48, stagger: 0.16, ease: "back.out(1.8)", overwrite: "auto" }, landOn("Apple and Meta", 0.48));
+        tl.fromTo("#b6-badge", { y: 70, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power3.out", overwrite: "auto" }, landOn("tech slump", 0.5));
+        tl.fromTo("#b6-stat", { y: 90, opacity: 0, scale: 0.82 }, { y: 0, opacity: 1, scale: 1, duration: 0.56, ease: "back.out(1.6)", overwrite: "auto" }, landOn("seventy percent", 0.56));
+        tl.to("#b6-logos .logo-orb", { y: 18, duration: 0.8, yoyo: true, repeat: 4, stagger: 0.1, ease: "sine.inOut", overwrite: "auto" }, 5.6);
+        tl.to('[data-composition-id="bloom-diversification-beat-6"]', { opacity: 0, duration: 0.2, ease: "none", overwrite: "auto" }, 10.92);
+        window.__timelines["bloom-diversification-beat-6"] = tl;
+      })();
+    </script>
+  </div>
+</template>

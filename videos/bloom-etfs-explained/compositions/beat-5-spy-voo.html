@@ -1,0 +1,207 @@
+<template>
+  <div id="beat5" class="scene"
+       data-composition-id="bloom-etfs-explained-beat-5"
+       data-width="1080" data-height="1920"
+       data-start="0" data-duration="8.30">
+    <style>
+      #beat5 {
+        position: absolute; inset: 0;
+        width: 1080px; height: 1920px;
+        overflow: hidden;
+        background: #F8F8F9;
+        font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        gap: 48px;
+      }
+      #beat5-eyebrow {
+        display: flex; align-items: center; gap: 12px;
+        background: #fff;
+        border: 1px solid #E8E9EA;
+        border-radius: 999px;
+        padding: 14px 28px;
+        font-family: "Inter", system-ui, sans-serif;
+        font-weight: 700; font-size: 26px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: #1C2329;
+        box-shadow: 0 14px 30px rgba(6,10,30,0.06);
+        opacity: 0;
+      }
+      #beat5-eyebrow .arrow { color: #01CD74; font-size: 30px; }
+      #beat5-orbs {
+        display: flex; gap: 80px;
+        align-items: center; justify-content: center;
+      }
+      #beat5-orbs .orb {
+        width: 240px; height: 240px;
+        background: #1C2329;
+        border-radius: 50%;
+        box-shadow: 0 30px 60px rgba(6,10,30,0.22);
+        display: flex; align-items: center; justify-content: center;
+        opacity: 0;
+      }
+      #beat5-orbs .orb img {
+        width: 150px; height: 150px;
+        object-fit: contain;
+      }
+      #beat5-bottom {
+        display: flex; flex-direction: column; align-items: center; gap: 24px;
+      }
+      #beat5-badge {
+        background: #1C2329;
+        color: #fff;
+        border-radius: 32px;
+        padding: 32px 56px;
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800; font-style: italic;
+        text-transform: uppercase;
+        letter-spacing: -0.018em;
+        line-height: 0.92;
+        font-size: 130px;
+        box-shadow: 0 24px 60px rgba(6,10,30,0.28);
+        opacity: 0;
+      }
+      #beat5-counter-wrap {
+        display: flex; flex-direction: column; align-items: center; gap: 6px;
+      }
+      #beat5-counter {
+        font-family: "Inter Tight", system-ui, sans-serif;
+        font-weight: 800; font-style: italic;
+        color: #1658FF;
+        font-size: 220px;
+        line-height: 0.9;
+        opacity: 0;
+      }
+      #beat5-counter-label {
+        font-family: "Inter", system-ui, sans-serif;
+        font-weight: 700; font-size: 28px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: #4A4F54;
+        opacity: 0;
+      }
+      #beat5-spark {
+        width: 720px; height: 80px;
+        margin-top: 8px;
+      }
+      #beat5-spark path {
+        stroke: #01CD74;
+        stroke-width: 6;
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-dasharray: 1100;
+        stroke-dashoffset: 1100;
+      }
+    </style>
+
+    <div id="beat5-eyebrow">
+      <span class="arrow">&#8593;</span>
+      <span>Tracks the Whole Market</span>
+    </div>
+
+    <div id="beat5-orbs">
+      <div class="orb" id="beat5-spy"><img src="../logos/SPY.png" /></div>
+      <div class="orb" id="beat5-voo"><img src="../logos/VOO.png" /></div>
+    </div>
+
+    <div id="beat5-bottom">
+      <div id="beat5-badge">S&amp;P 500</div>
+      <div id="beat5-counter-wrap">
+        <div id="beat5-counter">0</div>
+        <div id="beat5-counter-label">Companies Tracked</div>
+      </div>
+      <svg id="beat5-spark" viewBox="0 0 720 80" preserveAspectRatio="none">
+        <path d="M 10 60 L 100 50 L 190 55 L 280 40 L 370 32 L 460 28 L 550 18 L 640 14 L 710 10" />
+      </svg>
+    </div>
+
+    <script>
+      (function () {
+        const W = [{"w":"Some","s":0.047,"e":0.559},{"w":"ETFs","s":0.679,"e":1.119},{"w":"even","s":1.167,"e":1.359},{"w":"track","s":1.426,"e":1.761},{"w":"the","s":1.801,"e":1.921},{"w":"entire","s":2.001,"e":2.481},{"w":"stock","s":2.548,"e":2.883},{"w":"market,","s":2.929,"e":3.365},{"w":"like","s":3.413,"e":3.605},{"w":"SPY","s":3.792,"e":4.406},{"w":"and","s":4.466,"e":4.646},{"w":"VOO,","s":4.846,"e":5.606},{"w":"which","s":5.633,"e":5.768},{"w":"both","s":5.832,"e":6.088},{"w":"follow","s":6.134,"e":6.41},{"w":"the","s":6.45,"e":6.57},{"w":"S","s":6.69,"e":6.81},{"w":"and","s":6.85,"e":6.97},{"w":"P","s":7.05,"e":7.13},{"w":"500.","s":7.29,"e":8.011},{"w":"One","s":8.211,"e":8.811}];
+        function _norm(s){return s.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu,"");}
+        function _findPhrase(phrase){
+          const tokens=phrase.toLowerCase().split(/\s+/).map(_norm).filter(Boolean);
+          if(!tokens.length) throw new Error("landOn: empty phrase");
+          const hits=[];
+          for(let i=0;i<=W.length-tokens.length;i++){
+            let ok=true;
+            for(let j=0;j<tokens.length;j++){
+              if(_norm(W[i+j].w)!==tokens[j]){ok=false;break;}
+            }
+            if(ok) hits.push(i);
+          }
+          if(hits.length===0) throw new Error('landOn: phrase "'+phrase+'" not found');
+          if(hits.length>1) throw new Error('landOn: phrase "'+phrase+'" matches '+hits.length+' positions');
+          return {startIdx:hits[0], endIdx:hits[0]+tokens.length-1};
+        }
+        function at(p){return W[_findPhrase(p).startIdx].s;}
+        function landOn(p,d=0){return at(p)-d;}
+        function landAfter(p,d=0){return W[_findPhrase(p).endIdx].e-d;}
+
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        tl.fromTo("#beat5-eyebrow",
+          { opacity: 0, y: -16 },
+          { opacity: 1, y: 0, duration: 0.4, ease: "power2.out", overwrite: "auto" },
+          0.1);
+
+        // SPY orb lands on "SPY"
+        tl.fromTo("#beat5-spy",
+          { opacity: 0, x: -140, scale: 0.6 },
+          { opacity: 1, x: 0, scale: 1, duration: 0.5, ease: "back.out(1.7)", overwrite: "auto" },
+          landOn("SPY", 0.5));
+        tl.to("#beat5-spy",
+          { y: -8, duration: 1.6, yoyo: true, repeat: 2, ease: "sine.inOut", overwrite: "auto" },
+          landOn("SPY", 0) + 0.5);
+
+        // VOO orb lands on "VOO"
+        tl.fromTo("#beat5-voo",
+          { opacity: 0, x: 140, scale: 0.6 },
+          { opacity: 1, x: 0, scale: 1, duration: 0.5, ease: "back.out(1.7)", overwrite: "auto" },
+          landOn("VOO", 0.5));
+        tl.to("#beat5-voo",
+          { y: -8, duration: 1.6, yoyo: true, repeat: 2, ease: "sine.inOut", overwrite: "auto" },
+          landOn("VOO", 0) + 0.5);
+
+        // Badge "S&P 500" lands on "follow the"
+        tl.fromTo("#beat5-badge",
+          { opacity: 0, scale: 0.7, y: 30 },
+          { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "back.out(1.7)", overwrite: "auto" },
+          landOn("which both follow", 0.5));
+
+        // Counter ramps from 0 to 500 ending at end of "500."
+        const counterEnd = landAfter("S and P 500", 0);
+        const counterStart = counterEnd - 1.4;
+        const obj = { v: 0 };
+        tl.set("#beat5-counter", { opacity: 1 }, counterStart);
+        tl.set("#beat5-counter-label", { opacity: 1 }, counterStart);
+        tl.to(obj,
+          { v: 500, duration: 1.4, ease: "power3.out",
+            onUpdate: () => {
+              const el = document.getElementById("beat5-counter");
+              if (el) el.textContent = Math.round(obj.v);
+            },
+            overwrite: "auto" },
+          counterStart);
+
+        // Counter pulse on the final number
+        tl.fromTo("#beat5-counter",
+          { scale: 1 },
+          { scale: 1.08, duration: 0.18, yoyo: true, repeat: 1, ease: "power2.out", transformOrigin: "50% 50%", overwrite: "auto" },
+          counterEnd);
+
+        // Sparkline draws right after counter lands
+        tl.to("#beat5-spark path",
+          { strokeDashoffset: 0, duration: 0.8, ease: "power2.inOut", overwrite: "auto" },
+          counterEnd + 0.05);
+
+        tl.set("#beat5", { visibility: "hidden" }, 8.30);
+
+        window.__timelines["bloom-etfs-explained-beat-5"] = tl;
+      })();
+    </script>
+  </div>
+</template>

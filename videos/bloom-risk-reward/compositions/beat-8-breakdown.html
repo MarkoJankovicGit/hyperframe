@@ -1,0 +1,101 @@
+<template>
+  <div data-composition-id="bloom-risk-reward-beat-8" data-width="1080" data-height="1920" data-start="0" data-duration="4.80">
+    <style>
+      [data-composition-id="bloom-risk-reward-beat-8"] {
+        position: absolute; inset: 0;
+        background: #FFFFFF;
+        font-family: "Inter Tight", system-ui, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      .b8-card {
+        width: 800px;
+        background: #1C2329;
+        border-radius: 32px;
+        padding: 40px 60px;
+        margin: 20px 0;
+        display: flex;
+        align-items: center;
+        box-shadow: 0 24px 60px rgba(0,0,0,0.15);
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      .b8-icon {
+        width: 100px;
+        height: 100px;
+        margin-right: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .b8-icon svg {
+        width: 80px; height: 80px;
+      }
+      .b8-text {
+        color: #fff;
+        font-weight: 800;
+        font-style: italic;
+        text-transform: uppercase;
+        font-size: 60px;
+        line-height: 1;
+        letter-spacing: -0.01em;
+      }
+    </style>
+
+    <div id="b8-card-1" class="b8-card">
+      <div class="b8-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#01CD74" stroke-width="2">
+          <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+          <circle cx="12" cy="12" r="3"></circle>
+        </svg>
+      </div>
+      <div class="b8-text">1. HOW MUCH TO INVEST</div>
+    </div>
+    
+    <div id="b8-card-2" class="b8-card">
+      <div class="b8-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#FE566B" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </div>
+      <div class="b8-text">2. WHAT TO PICK</div>
+    </div>
+
+    <script>
+      (function() {
+        const W = [
+          { word: "how", t: 33.7, e: 33.9 },
+          { word: "much", t: 34.0, e: 34.2 },
+          { word: "invest,", t: 34.3, e: 34.8 },
+          { word: "what", t: 35.2, e: 35.4 },
+          { word: "pick.", t: 35.5, e: 36.0 }
+        ];
+        const offset = 31.30;
+        const _norm = s => s.toLowerCase().replace(/[^\p{L}\p{N}\s]/gu, "").trim();
+        function landOn(phrase, dur) {
+          const ws = _norm(phrase).split(/\s+/);
+          for (let i = 0; i <= W.length - ws.length; i++) {
+            let ok = true;
+            for (let j = 0; j < ws.length; j++) {
+              if (_norm(W[i + j].word) !== ws[j]) { ok = false; break; }
+            }
+            if (ok) return (W[i].t - offset) - dur;
+          }
+          return 0;
+        }
+
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        tl.fromTo("#b8-card-1", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "back.out(1.5)" }, landOn("how much", 0.5));
+        tl.fromTo("#b8-card-2", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "back.out(1.5)" }, landOn("what", 0.5));
+
+        window.__timelines["bloom-risk-reward-beat-8"] = tl;
+      })();
+    </script>
+  </div>
+</template>

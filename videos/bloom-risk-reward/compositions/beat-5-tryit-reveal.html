@@ -1,0 +1,148 @@
+<template>
+  <div data-composition-id="bloom-risk-reward-beat-5" data-width="1080" data-height="1920" data-start="0" data-duration="6.90">
+    <style>
+      [data-composition-id="bloom-risk-reward-beat-5"] {
+        position: absolute; inset: 0;
+        background: #F8F8F9;
+        font-family: "Inter Tight", system-ui, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      #b5-badge {
+        background: #1C2329;
+        padding: 24px 64px;
+        border-radius: 100px;
+        color: #fff;
+        font-weight: 800;
+        font-style: italic;
+        text-transform: uppercase;
+        font-size: 50px;
+        letter-spacing: 0.1em;
+        margin-bottom: 80px;
+        opacity: 0;
+      }
+      .b5-slot {
+        display: flex;
+        align-items: center;
+        width: 800px;
+        margin-bottom: 40px;
+        opacity: 0;
+      }
+      .b5-circle {
+        width: 80px;
+        height: 80px;
+        background: #1658FF;
+        border-radius: 50%;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 40px;
+        margin-right: 32px;
+      }
+      .b5-line {
+        flex-grow: 1;
+        height: 4px;
+        background-image: linear-gradient(to right, #1658FF 50%, transparent 50%);
+        background-size: 20px 4px;
+        margin-right: 32px;
+      }
+      .b5-slot-text {
+        color: #1C2329;
+        font-weight: 700;
+        font-size: 60px;
+        text-transform: uppercase;
+      }
+      #b5-counter-wrap {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        opacity: 0;
+      }
+      #b5-counter {
+        font-size: 220px;
+        font-weight: 800;
+        font-style: italic;
+        color: #1C2329;
+        line-height: 1;
+      }
+      #b5-label {
+        font-size: 40px;
+        font-weight: 700;
+        color: #4A4F54;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        margin-top: 20px;
+      }
+    </style>
+
+    <div id="b5-tryit-content">
+      <div id="b5-badge">TRY IT</div>
+      <div id="b5-slot-1" class="b5-slot">
+        <div class="b5-circle">1</div>
+        <div class="b5-line"></div>
+        <div class="b5-slot-text">INVEST $10</div>
+      </div>
+    </div>
+
+    <div id="b5-counter-wrap">
+      <div id="b5-counter">$0</div>
+      <div id="b5-label">POTENTIAL RISK</div>
+    </div>
+
+    <script>
+      (function() {
+        const W = [
+          { word: "Imagine", t: 18.10 + 0.3, e: 18.10 + 1.3 },
+          { word: "you", t: 19.4, e: 19.5 },
+          { word: "invest", t: 19.6, e: 19.8 },
+          { word: "ten", t: 19.9, e: 20.1 },
+          { word: "dollars", t: 20.2, e: 20.6 },
+          { word: "risk", t: 23.478, e: 23.8 },
+          { word: "ten", t: 23.9, e: 24.1 },
+          { word: "dollars.", t: 24.2, e: 24.7 }
+        ];
+        const offset = 17.90;
+        const _norm = s => s.toLowerCase().replace(/[^\p{L}\p{N}\s]/gu, "").trim();
+        function landOn(phrase, dur) {
+          const ws = _norm(phrase).split(/\s+/);
+          for (let i = 0; i <= W.length - ws.length; i++) {
+            let ok = true;
+            for (let j = 0; j < ws.length; j++) {
+              if (_norm(W[i + j].word) !== ws[j]) { ok = false; break; }
+            }
+            if (ok) return (W[i].t - offset) - dur;
+          }
+          return 0;
+        }
+
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        // Try-it entrance
+        tl.fromTo("#b5-badge", { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.7)" }, 0.3);
+        tl.fromTo("#b5-slot-1", { x: -40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "power2.out" }, landOn("ten dollars", 0.5));
+
+        // Reveal transition
+        tl.to("#b5-tryit-content", { opacity: 0, scale: 0.9, duration: 0.4, ease: "power2.in" }, landOn("risk", 0.6));
+        tl.fromTo("#b5-counter-wrap", { scale: 1.2, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.2)" }, landOn("risk", 0.4));
+
+        // Counter ramp
+        const val = { n: 0 };
+        tl.to(val, { 
+          n: 10, 
+          duration: 0.8, 
+          ease: "power2.out", 
+          onUpdate: () => { document.getElementById("b5-counter").textContent = "$" + Math.round(val.n); }
+        }, landOn("risk", 0.2));
+
+        window.__timelines["bloom-risk-reward-beat-5"] = tl;
+      })();
+    </script>
+  </div>
+</template>

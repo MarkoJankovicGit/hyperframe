@@ -1,0 +1,1282 @@
+{
+  "sceneId": "scene-01",
+  "text": "You might have heard certain things about investing from friends, family, or social media. There are a lot of common misconceptions about investing, so we're here to give you the facts. Myth one: Investing is hard and complicated, and it's only for Boomers. Anybody can invest, and we're here to make it easy! Over one million users are already learning and investing on Bloom. Myth two: I'm going to need a lot of money to start. On Bloom, you can start investing with just one dollar, and even small investments can become big over time. Myth three: I don't have time to invest now, so I'll just start later. You don't need a lot of time to get started! Bloom lets you learn and invest at your own pace, and the earlier you start, the more time you give your money to grow. Myth four: I'm going to lose a lot of money, and it's super risky. You can always choose safer investments, and Bloom will teach you how to pick what to invest in. Start your investing journey on Bloom today.",
+  "words": [
+    {
+      "word": "You",
+      "start": 0,
+      "end": 0.081,
+      "startFrame": 0,
+      "endFrame": 2
+    },
+    {
+      "word": "might",
+      "start": 0.108,
+      "end": 0.243,
+      "startFrame": 3,
+      "endFrame": 7
+    },
+    {
+      "word": "have",
+      "start": 0.275,
+      "end": 0.403,
+      "startFrame": 8,
+      "endFrame": 12
+    },
+    {
+      "word": "heard",
+      "start": 0.443,
+      "end": 0.643,
+      "startFrame": 13,
+      "endFrame": 19
+    },
+    {
+      "word": "certain",
+      "start": 0.683,
+      "end": 0.963,
+      "startFrame": 20,
+      "endFrame": 29
+    },
+    {
+      "word": "things",
+      "start": 1.02,
+      "end": 1.362,
+      "startFrame": 31,
+      "endFrame": 41
+    },
+    {
+      "word": "about",
+      "start": 1.389,
+      "end": 1.524,
+      "startFrame": 42,
+      "endFrame": 46
+    },
+    {
+      "word": "investing",
+      "start": 1.588,
+      "end": 2.164,
+      "startFrame": 48,
+      "endFrame": 65
+    },
+    {
+      "word": "from",
+      "start": 2.196,
+      "end": 2.324,
+      "startFrame": 66,
+      "endFrame": 70
+    },
+    {
+      "word": "friends,",
+      "start": 2.384,
+      "end": 3.044,
+      "startFrame": 72,
+      "endFrame": 91
+    },
+    {
+      "word": "family,",
+      "start": 3.113,
+      "end": 3.607,
+      "startFrame": 93,
+      "endFrame": 108
+    },
+    {
+      "word": "or",
+      "start": 3.66,
+      "end": 3.766,
+      "startFrame": 110,
+      "endFrame": 113
+    },
+    {
+      "word": "social",
+      "start": 3.823,
+      "end": 4.165,
+      "startFrame": 115,
+      "endFrame": 125
+    },
+    {
+      "word": "media.",
+      "start": 4.245,
+      "end": 4.725,
+      "startFrame": 127,
+      "endFrame": 142
+    },
+    {
+      "word": "There",
+      "start": 4.845,
+      "end": 5.445,
+      "startFrame": 145,
+      "endFrame": 163
+    },
+    {
+      "word": "are",
+      "start": 5.485,
+      "end": 5.605,
+      "startFrame": 165,
+      "endFrame": 168
+    },
+    {
+      "word": "a",
+      "start": 5.685,
+      "end": 5.765,
+      "startFrame": 171,
+      "endFrame": 173
+    },
+    {
+      "word": "lot",
+      "start": 5.805,
+      "end": 5.925,
+      "startFrame": 174,
+      "endFrame": 178
+    },
+    {
+      "word": "of",
+      "start": 5.978,
+      "end": 6.084,
+      "startFrame": 179,
+      "endFrame": 183
+    },
+    {
+      "word": "common",
+      "start": 6.13,
+      "end": 6.406,
+      "startFrame": 184,
+      "endFrame": 192
+    },
+    {
+      "word": "misconceptions",
+      "start": 6.463,
+      "end": 7.125,
+      "startFrame": 194,
+      "endFrame": 214
+    },
+    {
+      "word": "about",
+      "start": 7.165,
+      "end": 7.365,
+      "startFrame": 215,
+      "endFrame": 221
+    },
+    {
+      "word": "investing,",
+      "start": 7.429,
+      "end": 8.325,
+      "startFrame": 223,
+      "endFrame": 250
+    },
+    {
+      "word": "so",
+      "start": 8.405,
+      "end": 8.565,
+      "startFrame": 252,
+      "endFrame": 257
+    },
+    {
+      "word": "we're",
+      "start": 8.645,
+      "end": 8.886,
+      "startFrame": 259,
+      "endFrame": 267
+    },
+    {
+      "word": "here",
+      "start": 8.918,
+      "end": 9.046,
+      "startFrame": 268,
+      "endFrame": 271
+    },
+    {
+      "word": "to",
+      "start": 9.099,
+      "end": 9.205,
+      "startFrame": 273,
+      "endFrame": 276
+    },
+    {
+      "word": "give",
+      "start": 9.221,
+      "end": 9.285,
+      "startFrame": 277,
+      "endFrame": 279
+    },
+    {
+      "word": "you",
+      "start": 9.325,
+      "end": 9.445,
+      "startFrame": 280,
+      "endFrame": 283
+    },
+    {
+      "word": "the",
+      "start": 9.465,
+      "end": 9.525,
+      "startFrame": 284,
+      "endFrame": 286
+    },
+    {
+      "word": "facts.",
+      "start": 9.605,
+      "end": 10.165,
+      "startFrame": 288,
+      "endFrame": 305
+    },
+    {
+      "word": "Myth",
+      "start": 10.405,
+      "end": 11.365,
+      "startFrame": 312,
+      "endFrame": 341
+    },
+    {
+      "word": "one:",
+      "start": 11.445,
+      "end": 12.245,
+      "startFrame": 343,
+      "endFrame": 367
+    },
+    {
+      "word": "Investing",
+      "start": 12.301,
+      "end": 12.805,
+      "startFrame": 369,
+      "endFrame": 384
+    },
+    {
+      "word": "is",
+      "start": 12.885,
+      "end": 13.045,
+      "startFrame": 387,
+      "endFrame": 391
+    },
+    {
+      "word": "hard",
+      "start": 13.125,
+      "end": 13.445,
+      "startFrame": 394,
+      "endFrame": 403
+    },
+    {
+      "word": "and",
+      "start": 13.485,
+      "end": 13.605,
+      "startFrame": 405,
+      "endFrame": 408
+    },
+    {
+      "word": "complicated,",
+      "start": 13.665,
+      "end": 14.485,
+      "startFrame": 410,
+      "endFrame": 435
+    },
+    {
+      "word": "and",
+      "start": 14.525,
+      "end": 14.645,
+      "startFrame": 436,
+      "endFrame": 439
+    },
+    {
+      "word": "it's",
+      "start": 14.672,
+      "end": 14.806,
+      "startFrame": 440,
+      "endFrame": 444
+    },
+    {
+      "word": "only",
+      "start": 14.87,
+      "end": 15.126,
+      "startFrame": 446,
+      "endFrame": 454
+    },
+    {
+      "word": "for",
+      "start": 15.166,
+      "end": 15.286,
+      "startFrame": 455,
+      "endFrame": 459
+    },
+    {
+      "word": "Boomers.",
+      "start": 15.334,
+      "end": 16.487,
+      "startFrame": 460,
+      "endFrame": 495
+    },
+    {
+      "word": "Anybody",
+      "start": 16.647,
+      "end": 17.287,
+      "startFrame": 499,
+      "endFrame": 519
+    },
+    {
+      "word": "can",
+      "start": 17.347,
+      "end": 17.527,
+      "startFrame": 520,
+      "endFrame": 526
+    },
+    {
+      "word": "invest,",
+      "start": 17.607,
+      "end": 18.247,
+      "startFrame": 528,
+      "endFrame": 547
+    },
+    {
+      "word": "and",
+      "start": 18.287,
+      "end": 18.407,
+      "startFrame": 549,
+      "endFrame": 552
+    },
+    {
+      "word": "we're",
+      "start": 18.46,
+      "end": 18.647,
+      "startFrame": 554,
+      "endFrame": 559
+    },
+    {
+      "word": "here",
+      "start": 18.679,
+      "end": 18.807,
+      "startFrame": 560,
+      "endFrame": 564
+    },
+    {
+      "word": "to",
+      "start": 18.834,
+      "end": 18.888,
+      "startFrame": 565,
+      "endFrame": 567
+    },
+    {
+      "word": "make",
+      "start": 18.92,
+      "end": 19.048,
+      "startFrame": 568,
+      "endFrame": 571
+    },
+    {
+      "word": "it",
+      "start": 19.101,
+      "end": 19.207,
+      "startFrame": 573,
+      "endFrame": 576
+    },
+    {
+      "word": "easy!",
+      "start": 19.287,
+      "end": 19.687,
+      "startFrame": 579,
+      "endFrame": 591
+    },
+    {
+      "word": "Over",
+      "start": 19.863,
+      "end": 20.567,
+      "startFrame": 596,
+      "endFrame": 617
+    },
+    {
+      "word": "one",
+      "start": 20.607,
+      "end": 20.727,
+      "startFrame": 618,
+      "endFrame": 622
+    },
+    {
+      "word": "million",
+      "start": 20.797,
+      "end": 21.287,
+      "startFrame": 624,
+      "endFrame": 639
+    },
+    {
+      "word": "users",
+      "start": 21.367,
+      "end": 21.767,
+      "startFrame": 641,
+      "endFrame": 653
+    },
+    {
+      "word": "are",
+      "start": 21.807,
+      "end": 21.927,
+      "startFrame": 654,
+      "endFrame": 658
+    },
+    {
+      "word": "already",
+      "start": 21.987,
+      "end": 22.407,
+      "startFrame": 660,
+      "endFrame": 672
+    },
+    {
+      "word": "learning",
+      "start": 22.451,
+      "end": 22.803,
+      "startFrame": 674,
+      "endFrame": 684
+    },
+    {
+      "word": "and",
+      "start": 22.843,
+      "end": 22.963,
+      "startFrame": 685,
+      "endFrame": 689
+    },
+    {
+      "word": "investing",
+      "start": 23.019,
+      "end": 23.523,
+      "startFrame": 691,
+      "endFrame": 706
+    },
+    {
+      "word": "on",
+      "start": 23.603,
+      "end": 23.763,
+      "startFrame": 708,
+      "endFrame": 713
+    },
+    {
+      "word": "Bloom.",
+      "start": 23.83,
+      "end": 24.245,
+      "startFrame": 715,
+      "endFrame": 727
+    },
+    {
+      "word": "Myth",
+      "start": 24.517,
+      "end": 25.605,
+      "startFrame": 736,
+      "endFrame": 768
+    },
+    {
+      "word": "two:",
+      "start": 25.685,
+      "end": 26.085,
+      "startFrame": 771,
+      "endFrame": 783
+    },
+    {
+      "word": "I'm",
+      "start": 26.365,
+      "end": 26.765,
+      "startFrame": 791,
+      "endFrame": 803
+    },
+    {
+      "word": "going",
+      "start": 26.785,
+      "end": 26.885,
+      "startFrame": 804,
+      "endFrame": 807
+    },
+    {
+      "word": "to",
+      "start": 26.912,
+      "end": 26.966,
+      "startFrame": 807,
+      "endFrame": 809
+    },
+    {
+      "word": "need",
+      "start": 27.014,
+      "end": 27.206,
+      "startFrame": 810,
+      "endFrame": 816
+    },
+    {
+      "word": "a",
+      "start": 27.246,
+      "end": 27.286,
+      "startFrame": 817,
+      "endFrame": 819
+    },
+    {
+      "word": "lot",
+      "start": 27.366,
+      "end": 27.606,
+      "startFrame": 821,
+      "endFrame": 828
+    },
+    {
+      "word": "of",
+      "start": 27.633,
+      "end": 27.687,
+      "startFrame": 829,
+      "endFrame": 831
+    },
+    {
+      "word": "money",
+      "start": 27.727,
+      "end": 27.927,
+      "startFrame": 832,
+      "endFrame": 838
+    },
+    {
+      "word": "to",
+      "start": 27.98,
+      "end": 28.086,
+      "startFrame": 839,
+      "endFrame": 843
+    },
+    {
+      "word": "start.",
+      "start": 28.166,
+      "end": 29.006,
+      "startFrame": 845,
+      "endFrame": 870
+    },
+    {
+      "word": "On",
+      "start": 29.153,
+      "end": 29.447,
+      "startFrame": 875,
+      "endFrame": 883
+    },
+    {
+      "word": "Bloom,",
+      "start": 29.527,
+      "end": 30.007,
+      "startFrame": 886,
+      "endFrame": 900
+    },
+    {
+      "word": "you",
+      "start": 30.047,
+      "end": 30.167,
+      "startFrame": 901,
+      "endFrame": 905
+    },
+    {
+      "word": "can",
+      "start": 30.187,
+      "end": 30.247,
+      "startFrame": 906,
+      "endFrame": 907
+    },
+    {
+      "word": "start",
+      "start": 30.3,
+      "end": 30.565,
+      "startFrame": 909,
+      "endFrame": 917
+    },
+    {
+      "word": "investing",
+      "start": 30.613,
+      "end": 31.045,
+      "startFrame": 918,
+      "endFrame": 931
+    },
+    {
+      "word": "with",
+      "start": 31.077,
+      "end": 31.205,
+      "startFrame": 932,
+      "endFrame": 936
+    },
+    {
+      "word": "just",
+      "start": 31.269,
+      "end": 31.525,
+      "startFrame": 938,
+      "endFrame": 946
+    },
+    {
+      "word": "one",
+      "start": 31.585,
+      "end": 31.765,
+      "startFrame": 948,
+      "endFrame": 953
+    },
+    {
+      "word": "dollar,",
+      "start": 31.834,
+      "end": 32.648,
+      "startFrame": 955,
+      "endFrame": 979
+    },
+    {
+      "word": "and",
+      "start": 32.688,
+      "end": 32.808,
+      "startFrame": 981,
+      "endFrame": 984
+    },
+    {
+      "word": "even",
+      "start": 32.856,
+      "end": 33.048,
+      "startFrame": 986,
+      "endFrame": 991
+    },
+    {
+      "word": "small",
+      "start": 33.115,
+      "end": 33.45,
+      "startFrame": 993,
+      "endFrame": 1004
+    },
+    {
+      "word": "investments",
+      "start": 33.503,
+      "end": 34.086,
+      "startFrame": 1005,
+      "endFrame": 1023
+    },
+    {
+      "word": "can",
+      "start": 34.126,
+      "end": 34.246,
+      "startFrame": 1024,
+      "endFrame": 1027
+    },
+    {
+      "word": "become",
+      "start": 34.292,
+      "end": 34.568,
+      "startFrame": 1029,
+      "endFrame": 1037
+    },
+    {
+      "word": "big",
+      "start": 34.668,
+      "end": 34.968,
+      "startFrame": 1040,
+      "endFrame": 1049
+    },
+    {
+      "word": "over",
+      "start": 35.016,
+      "end": 35.208,
+      "startFrame": 1050,
+      "endFrame": 1056
+    },
+    {
+      "word": "time.",
+      "start": 35.288,
+      "end": 35.688,
+      "startFrame": 1059,
+      "endFrame": 1071
+    },
+    {
+      "word": "Myth",
+      "start": 36.008,
+      "end": 37.288,
+      "startFrame": 1080,
+      "endFrame": 1119
+    },
+    {
+      "word": "three:",
+      "start": 37.355,
+      "end": 37.77,
+      "startFrame": 1121,
+      "endFrame": 1133
+    },
+    {
+      "word": "I",
+      "start": 38.09,
+      "end": 38.41,
+      "startFrame": 1143,
+      "endFrame": 1152
+    },
+    {
+      "word": "don't",
+      "start": 38.45,
+      "end": 38.65,
+      "startFrame": 1154,
+      "endFrame": 1160
+    },
+    {
+      "word": "have",
+      "start": 38.682,
+      "end": 38.81,
+      "startFrame": 1160,
+      "endFrame": 1164
+    },
+    {
+      "word": "time",
+      "start": 38.858,
+      "end": 39.05,
+      "startFrame": 1166,
+      "endFrame": 1172
+    },
+    {
+      "word": "to",
+      "start": 39.103,
+      "end": 39.209,
+      "startFrame": 1173,
+      "endFrame": 1176
+    },
+    {
+      "word": "invest",
+      "start": 39.266,
+      "end": 39.608,
+      "startFrame": 1178,
+      "endFrame": 1188
+    },
+    {
+      "word": "now,",
+      "start": 39.688,
+      "end": 40.088,
+      "startFrame": 1191,
+      "endFrame": 1203
+    },
+    {
+      "word": "so",
+      "start": 40.168,
+      "end": 40.328,
+      "startFrame": 1205,
+      "endFrame": 1210
+    },
+    {
+      "word": "I'll",
+      "start": 40.408,
+      "end": 40.569,
+      "startFrame": 1212,
+      "endFrame": 1217
+    },
+    {
+      "word": "just",
+      "start": 40.601,
+      "end": 40.729,
+      "startFrame": 1218,
+      "endFrame": 1222
+    },
+    {
+      "word": "start",
+      "start": 40.782,
+      "end": 41.047,
+      "startFrame": 1223,
+      "endFrame": 1231
+    },
+    {
+      "word": "later.",
+      "start": 41.114,
+      "end": 41.529,
+      "startFrame": 1233,
+      "endFrame": 1246
+    },
+    {
+      "word": "You",
+      "start": 41.749,
+      "end": 42.409,
+      "startFrame": 1252,
+      "endFrame": 1272
+    },
+    {
+      "word": "don't",
+      "start": 42.429,
+      "end": 42.569,
+      "startFrame": 1273,
+      "endFrame": 1277
+    },
+    {
+      "word": "need",
+      "start": 42.601,
+      "end": 42.729,
+      "startFrame": 1278,
+      "endFrame": 1282
+    },
+    {
+      "word": "a",
+      "start": 42.789,
+      "end": 42.849,
+      "startFrame": 1284,
+      "endFrame": 1285
+    },
+    {
+      "word": "lot",
+      "start": 42.879,
+      "end": 42.969,
+      "startFrame": 1286,
+      "endFrame": 1289
+    },
+    {
+      "word": "of",
+      "start": 42.996,
+      "end": 43.05,
+      "startFrame": 1290,
+      "endFrame": 1292
+    },
+    {
+      "word": "time",
+      "start": 43.098,
+      "end": 43.29,
+      "startFrame": 1293,
+      "endFrame": 1299
+    },
+    {
+      "word": "to",
+      "start": 43.343,
+      "end": 43.449,
+      "startFrame": 1300,
+      "endFrame": 1303
+    },
+    {
+      "word": "get",
+      "start": 43.489,
+      "end": 43.609,
+      "startFrame": 1305,
+      "endFrame": 1308
+    },
+    {
+      "word": "started!",
+      "start": 43.669,
+      "end": 44.609,
+      "startFrame": 1310,
+      "endFrame": 1338
+    },
+    {
+      "word": "Bloom",
+      "start": 44.696,
+      "end": 45.131,
+      "startFrame": 1341,
+      "endFrame": 1354
+    },
+    {
+      "word": "lets",
+      "start": 45.179,
+      "end": 45.371,
+      "startFrame": 1355,
+      "endFrame": 1361
+    },
+    {
+      "word": "you",
+      "start": 45.411,
+      "end": 45.531,
+      "startFrame": 1362,
+      "endFrame": 1366
+    },
+    {
+      "word": "learn",
+      "start": 45.584,
+      "end": 45.849,
+      "startFrame": 1368,
+      "endFrame": 1375
+    },
+    {
+      "word": "and",
+      "start": 45.889,
+      "end": 46.009,
+      "startFrame": 1377,
+      "endFrame": 1380
+    },
+    {
+      "word": "invest",
+      "start": 46.078,
+      "end": 46.492,
+      "startFrame": 1382,
+      "endFrame": 1395
+    },
+    {
+      "word": "at",
+      "start": 46.545,
+      "end": 46.651,
+      "startFrame": 1396,
+      "endFrame": 1400
+    },
+    {
+      "word": "your",
+      "start": 46.683,
+      "end": 46.811,
+      "startFrame": 1400,
+      "endFrame": 1404
+    },
+    {
+      "word": "own",
+      "start": 46.871,
+      "end": 47.051,
+      "startFrame": 1406,
+      "endFrame": 1412
+    },
+    {
+      "word": "pace,",
+      "start": 47.163,
+      "end": 48.011,
+      "startFrame": 1415,
+      "endFrame": 1440
+    },
+    {
+      "word": "and",
+      "start": 48.051,
+      "end": 48.171,
+      "startFrame": 1442,
+      "endFrame": 1445
+    },
+    {
+      "word": "the",
+      "start": 48.191,
+      "end": 48.251,
+      "startFrame": 1446,
+      "endFrame": 1448
+    },
+    {
+      "word": "earlier",
+      "start": 48.311,
+      "end": 48.731,
+      "startFrame": 1449,
+      "endFrame": 1462
+    },
+    {
+      "word": "you",
+      "start": 48.771,
+      "end": 48.891,
+      "startFrame": 1463,
+      "endFrame": 1467
+    },
+    {
+      "word": "start,",
+      "start": 48.971,
+      "end": 49.691,
+      "startFrame": 1469,
+      "endFrame": 1491
+    },
+    {
+      "word": "the",
+      "start": 49.731,
+      "end": 49.851,
+      "startFrame": 1492,
+      "endFrame": 1496
+    },
+    {
+      "word": "more",
+      "start": 49.899,
+      "end": 50.091,
+      "startFrame": 1497,
+      "endFrame": 1503
+    },
+    {
+      "word": "time",
+      "start": 50.155,
+      "end": 50.411,
+      "startFrame": 1505,
+      "endFrame": 1512
+    },
+    {
+      "word": "you",
+      "start": 50.451,
+      "end": 50.571,
+      "startFrame": 1514,
+      "endFrame": 1517
+    },
+    {
+      "word": "give",
+      "start": 50.603,
+      "end": 50.731,
+      "startFrame": 1518,
+      "endFrame": 1522
+    },
+    {
+      "word": "your",
+      "start": 50.763,
+      "end": 50.891,
+      "startFrame": 1523,
+      "endFrame": 1527
+    },
+    {
+      "word": "money",
+      "start": 50.931,
+      "end": 51.131,
+      "startFrame": 1528,
+      "endFrame": 1534
+    },
+    {
+      "word": "to",
+      "start": 51.184,
+      "end": 51.29,
+      "startFrame": 1536,
+      "endFrame": 1539
+    },
+    {
+      "word": "grow.",
+      "start": 51.37,
+      "end": 51.77,
+      "startFrame": 1541,
+      "endFrame": 1553
+    },
+    {
+      "word": "Myth",
+      "start": 52.09,
+      "end": 53.37,
+      "startFrame": 1563,
+      "endFrame": 1601
+    },
+    {
+      "word": "four:",
+      "start": 53.45,
+      "end": 54.33,
+      "startFrame": 1604,
+      "endFrame": 1630
+    },
+    {
+      "word": "I'm",
+      "start": 54.37,
+      "end": 54.49,
+      "startFrame": 1631,
+      "endFrame": 1635
+    },
+    {
+      "word": "going",
+      "start": 54.53,
+      "end": 54.73,
+      "startFrame": 1636,
+      "endFrame": 1642
+    },
+    {
+      "word": "to",
+      "start": 54.757,
+      "end": 54.811,
+      "startFrame": 1643,
+      "endFrame": 1644
+    },
+    {
+      "word": "lose",
+      "start": 54.859,
+      "end": 55.051,
+      "startFrame": 1646,
+      "endFrame": 1652
+    },
+    {
+      "word": "a",
+      "start": 55.091,
+      "end": 55.131,
+      "startFrame": 1653,
+      "endFrame": 1654
+    },
+    {
+      "word": "lot",
+      "start": 55.191,
+      "end": 55.371,
+      "startFrame": 1656,
+      "endFrame": 1661
+    },
+    {
+      "word": "of",
+      "start": 55.424,
+      "end": 55.53,
+      "startFrame": 1663,
+      "endFrame": 1666
+    },
+    {
+      "word": "money,",
+      "start": 55.583,
+      "end": 56.008,
+      "startFrame": 1667,
+      "endFrame": 1680
+    },
+    {
+      "word": "and",
+      "start": 56.028,
+      "end": 56.088,
+      "startFrame": 1681,
+      "endFrame": 1683
+    },
+    {
+      "word": "it's",
+      "start": 56.141,
+      "end": 56.327,
+      "startFrame": 1684,
+      "endFrame": 1690
+    },
+    {
+      "word": "super",
+      "start": 56.394,
+      "end": 56.729,
+      "startFrame": 1692,
+      "endFrame": 1702
+    },
+    {
+      "word": "risky.",
+      "start": 56.809,
+      "end": 57.369,
+      "startFrame": 1704,
+      "endFrame": 1721
+    },
+    {
+      "word": "You",
+      "start": 57.609,
+      "end": 58.329,
+      "startFrame": 1728,
+      "endFrame": 1750
+    },
+    {
+      "word": "can",
+      "start": 58.389,
+      "end": 58.569,
+      "startFrame": 1752,
+      "endFrame": 1757
+    },
+    {
+      "word": "always",
+      "start": 58.626,
+      "end": 58.968,
+      "startFrame": 1759,
+      "endFrame": 1769
+    },
+    {
+      "word": "choose",
+      "start": 59.025,
+      "end": 59.367,
+      "startFrame": 1771,
+      "endFrame": 1781
+    },
+    {
+      "word": "safer",
+      "start": 59.434,
+      "end": 59.769,
+      "startFrame": 1783,
+      "endFrame": 1793
+    },
+    {
+      "word": "investments,",
+      "start": 59.836,
+      "end": 60.653,
+      "startFrame": 1795,
+      "endFrame": 1820
+    },
+    {
+      "word": "and",
+      "start": 60.693,
+      "end": 60.813,
+      "startFrame": 1821,
+      "endFrame": 1824
+    },
+    {
+      "word": "Bloom",
+      "start": 60.88,
+      "end": 61.215,
+      "startFrame": 1826,
+      "endFrame": 1836
+    },
+    {
+      "word": "will",
+      "start": 61.231,
+      "end": 61.295,
+      "startFrame": 1837,
+      "endFrame": 1839
+    },
+    {
+      "word": "teach",
+      "start": 61.348,
+      "end": 61.613,
+      "startFrame": 1840,
+      "endFrame": 1848
+    },
+    {
+      "word": "you",
+      "start": 61.633,
+      "end": 61.693,
+      "startFrame": 1849,
+      "endFrame": 1851
+    },
+    {
+      "word": "how",
+      "start": 61.733,
+      "end": 61.853,
+      "startFrame": 1852,
+      "endFrame": 1856
+    },
+    {
+      "word": "to",
+      "start": 61.88,
+      "end": 61.934,
+      "startFrame": 1856,
+      "endFrame": 1858
+    },
+    {
+      "word": "pick",
+      "start": 61.998,
+      "end": 62.254,
+      "startFrame": 1860,
+      "endFrame": 1868
+    },
+    {
+      "word": "what",
+      "start": 62.286,
+      "end": 62.414,
+      "startFrame": 1869,
+      "endFrame": 1872
+    },
+    {
+      "word": "to",
+      "start": 62.467,
+      "end": 62.573,
+      "startFrame": 1874,
+      "endFrame": 1877
+    },
+    {
+      "word": "invest",
+      "start": 62.63,
+      "end": 62.972,
+      "startFrame": 1879,
+      "endFrame": 1889
+    },
+    {
+      "word": "in.",
+      "start": 63.052,
+      "end": 63.292,
+      "startFrame": 1892,
+      "endFrame": 1899
+    },
+    {
+      "word": "Start",
+      "start": 63.492,
+      "end": 64.492,
+      "startFrame": 1905,
+      "endFrame": 1935
+    },
+    {
+      "word": "your",
+      "start": 64.508,
+      "end": 64.572,
+      "startFrame": 1935,
+      "endFrame": 1937
+    },
+    {
+      "word": "investing",
+      "start": 64.628,
+      "end": 65.132,
+      "startFrame": 1939,
+      "endFrame": 1954
+    },
+    {
+      "word": "journey",
+      "start": 65.182,
+      "end": 65.532,
+      "startFrame": 1955,
+      "endFrame": 1966
+    },
+    {
+      "word": "on",
+      "start": 65.612,
+      "end": 65.772,
+      "startFrame": 1968,
+      "endFrame": 1973
+    },
+    {
+      "word": "Bloom",
+      "start": 65.839,
+      "end": 66.174,
+      "startFrame": 1975,
+      "endFrame": 1985
+    },
+    {
+      "word": "today.",
+      "start": 66.241,
+      "end": 66.656,
+      "startFrame": 1987,
+      "endFrame": 2000
+    }
+  ],
+  "durationSeconds": 67.156,
+  "durationFrames": 2015
+}
