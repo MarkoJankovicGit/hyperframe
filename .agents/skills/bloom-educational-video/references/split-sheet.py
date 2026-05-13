@@ -1,5 +1,5 @@
 """
-Download a Kie sprite-sheet image and split it into N transparent PNG assets
+Download a Higgsfield sprite-sheet image and split it into N transparent PNG assets
 by detecting whitespace/magenta columns.
 
 Usage:
@@ -122,7 +122,7 @@ def split_columns(img: Image.Image, min_width: int = 60, pad: int = 20):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Split a Kie asset-sheet into transparent PNGs")
+    parser = argparse.ArgumentParser(description="Split a Higgsfield asset-sheet into transparent PNGs")
     parser.add_argument("url")
     parser.add_argument("--out-dir", default=".")
     parser.add_argument("--names", nargs="+", help="Per-asset filenames (without extension)")

@@ -50,7 +50,7 @@ This is Bloom's most recognizable visual handshake — use it for every major he
 ## Other components
 
 - **Logo orb / chip:** circular badge containing a brand logo. **Background must be dark (`#1C2329`)** so white-on-transparent logos like AAPL render visibly. Box-shadow soft and subtle.
-- **iPhone mockup:** captured Bloom mockup PNG (with real device frame and shadow) overlaid with HTML/CSS UI inside, OR Kie i2i-generated 3D iPhone (chroma-keyed from magenta). Real-photo-feel device frame is non-negotiable.
+- **iPhone mockup:** captured Bloom mockup PNG (with real device frame and shadow) overlaid with HTML/CSS UI inside, OR Higgsfield i2i-generated 3D iPhone (chroma-keyed from magenta). Real-photo-feel device frame is non-negotiable.
 - **CTA pill:** `border-radius: 300px` (full pill), black fill `#1C2329`, white Inter Tight 800 italic caps text
 - **Stat callout:** huge numeral (Inter Tight 800 italic, 180-220px), small uppercase label below in `Inter 600` with `letter-spacing: 0.22em`
 - **Ticker tape (Canvas 2D):** subtle stock symbols scrolling vertically over Bloom blue, 8-15% opacity. Round y-coords to integers to prevent jitter. Slow scroll (~20 px/s).
@@ -82,5 +82,5 @@ This is Bloom's most recognizable visual handshake — use it for every major he
 
 - **Stock logos:** `hyperframes/assets/logos/<TICKER>.png` — 29 tickers (AAPL, AMZN, BLOOM, COST, DIS, GOOGL, IBM, JPM, KO, MCD, META, MRNA, MSFT, NFLX, NKE, NOW, NVDA, PEP, QQQ, SAVE, SBUX, SPY, TSLA, TXN, V, VOO, WMT, ADNOC, POWERBI). Always copy needed logos into project-local `videos/<project>/logos/` for the renderer.
 - **Bloom marks:** `bloom-logo.png` (the flower icon), `bloom-star.png` (yellow 4-point star with cross center)
-- **3D-lite asset library:** generated as needed via Kie GPT Image 2 with the chunky-3D-lite prompt template (see `references/kie-prompts.md`)
-- **Bloom UI mockup references:** `videos/bloomapp-promo/capture/assets/690ba8a8c56264654608fd99-mock-cta-p-1080.png` (and similar) — pass these to Kie i2i as style refs when generating new "Bloom showing X" mockups
+- **3D-lite asset library:** generated as needed via the Higgsfield MCP `gpt_image_2` model with the chunky-3D-lite prompt template (see `references/higgsfield-prompts.md`)
+- **Bloom UI mockup references:** `videos/bloomapp-promo/capture/assets/690ba8a8c56264654608fd99-mock-cta-p-1080.png` (and similar) — upload via `mcp__higgsfield__media_upload` and pass the resulting UUIDs in `medias` for i2i style refs when generating new "Bloom showing X" mockups

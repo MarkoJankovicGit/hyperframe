@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"cd videos/buffett-indicator-2026-05-10 && rm -rf snapshots && npx hyperframes snapshot --at 50.5,52,54,56 2>&1 | tail -10\",\"description\":\"Snapshot scene 9\"}",
+  "error": "Exit code 1\n/usr/bin/bash: line 1: cd: videos/buffett-indicator-2026-05-10: No such file or directory",
+  "timestamp": "2026-05-11T17:36:52.920Z",
+  "retry_count": 1
+}

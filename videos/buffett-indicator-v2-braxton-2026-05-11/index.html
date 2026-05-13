@@ -1,0 +1,3358 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1080, height=1920" />
+  <title>Buffett Indicator v2 — Braxton style</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@400;700&family=VT323&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/SplitText.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/CustomEase.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --accent:      #1658FF;       /* Bloom blue */
+      --accent-neon: #2E7CFF;       /* neon-shifted variant for PS1 glow */
+      --magenta:     #FF2E9D;       /* Braxton-style rim accent */
+      --cyan-split:  #00E5FF;       /* chromatic-aberration cyan channel */
+      --red-split:   #FF2E2E;       /* chromatic-aberration red channel */
+      --bg-void:     #000000;       /* PS1 void — INTENTIONAL #000 for this register;
+                                       overrides editorial "no pure black" rule because the
+                                       Braxton aesthetic depends on true black voids. */
+    }
+    html, body {
+      width: 1080px; height: 1920px; overflow: hidden;
+      background: var(--bg-void);
+      font-family: "Inter", system-ui, sans-serif;
+      color: #fff;
+      image-rendering: pixelated; /* upscale assets nearest-neighbor for PS1 feel */
+    }
+
+    #root {
+      position: relative;
+      width: 1080px; height: 1920px;
+      overflow: hidden;
+      background: var(--bg-void);
+    }
+
+    /* ============================================================
+       SCENE 1 — PS1 Buffett bust + "has a recession signal."
+       Duration: 0.00 – 2.50s
+       ============================================================ */
+    .scene { position: absolute; inset: 0; width: 1080px; height: 1920px; overflow: hidden; }
+
+    /* Buffett portrait container — drives camera drift + jitter */
+    #s1-portrait-wrap {
+      position: absolute;
+      left: 50%; top: 50%;
+      width: 900px; height: 1610px;
+      transform-origin: 50% 50%;
+      opacity: 0;
+      will-change: transform, opacity;
+      /* GSAP owns translate via xPercent/yPercent (set on timeline init). */
+    }
+    #s1-portrait {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center 28%;
+      image-rendering: pixelated;
+      /* slight saturation boost to lean into Braxton's neon palette */
+      filter: saturate(1.15) contrast(1.05);
+    }
+
+    /* Scanlines overlay — CRT cue */
+    #s1-scanlines {
+      position: absolute; inset: 0;
+      pointer-events: none;
+      background-image: repeating-linear-gradient(
+        180deg,
+        rgba(0,0,0,0)        0px,
+        rgba(0,0,0,0)        2px,
+        rgba(0,0,0,0.35)     3px,
+        rgba(0,0,0,0.35)     4px
+      );
+      mix-blend-mode: multiply;
+      opacity: 0.65;
+      z-index: 30;
+    }
+
+    /* CRT vignette — radial darkening + slight magenta tint at corners */
+    #s1-vignette {
+      position: absolute; inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse at center,
+          rgba(0,0,0,0)   45%,
+          rgba(0,0,0,0.45) 75%,
+          rgba(0,0,0,0.95) 100%),
+        radial-gradient(ellipse at 50% 50%,
+          rgba(255,46,157,0.04) 30%,
+          rgba(0,0,0,0)         60%);
+      z-index: 31;
+    }
+
+    /* Subtle horizontal "tracking" line that drifts down — VHS/CRT cue */
+    #s1-tracker {
+      position: absolute;
+      left: 0; right: 0;
+      height: 6px;
+      top: -10%;
+      background: linear-gradient(180deg,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,0.05) 30%,
+        rgba(46,124,255,0.18) 50%,
+        rgba(255,255,255,0.05) 70%,
+        rgba(255,255,255,0) 100%);
+      mix-blend-mode: screen;
+      opacity: 0;
+      z-index: 33;
+    }
+
+    /* ============================================================
+       TYPOGRAPHY — chunky PS1 menu-card with chromatic split
+       ============================================================ */
+    #s1-text {
+      position: absolute;
+      left: 0; right: 0;
+      bottom: 200px;
+      text-align: center;
+      z-index: 50;
+    }
+
+    .s1-eyebrow {
+      font-family: "VT323", "JetBrains Mono", monospace;
+      font-size: 44px;
+      color: var(--accent-neon);
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      opacity: 0;
+      text-shadow:
+        2px 0 0 var(--red-split),
+       -2px 0 0 var(--cyan-split);
+    }
+
+    .s1-line {
+      font-family: "Inter", sans-serif;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      position: relative;
+      display: block;
+    }
+
+    .s1-line-1 { font-size: 96px; margin-bottom: 8px; }
+    .s1-line-2 { font-size: 160px; }
+    .s1-line-2 .accent {
+      display: inline-block;
+      color: #ff3a3a;
+      text-shadow:
+        0 0 0 currentColor;
+    }
+
+    /* chromatic-aberration "ghost" copies of each line — sit behind the real line,
+       offset horizontally, in red + cyan. The viewer reads them as a single
+       glitching word, not three layers. */
+    .s1-line .ghost-r,
+    .s1-line .ghost-c {
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      pointer-events: none;
+      mix-blend-mode: screen;
+    }
+    .s1-line .ghost-r { color: var(--red-split);  transform: translate(4px, 0); }
+    .s1-line .ghost-c { color: var(--cyan-split); transform: translate(-4px, 0); }
+
+    /* Initial state — each word group masked off; revealed via clip-path */
+    .s1-line-1, .s1-line-2 {
+      opacity: 0;
+    }
+
+    /* Glitch flash overlay — used on the "signal" punch */
+    #s1-flash {
+      position: absolute; inset: 0;
+      background: #ffffff;
+      opacity: 0;
+      mix-blend-mode: screen;
+      pointer-events: none;
+      z-index: 60;
+    }
+
+    /* Footer mono — quiet PS1 menu cue */
+    #s1-footer {
+      position: absolute;
+      left: 0; right: 0;
+      bottom: 90px;
+      text-align: center;
+      font-family: "VT323", monospace;
+      font-size: 32px;
+      letter-spacing: 0.4em;
+      color: rgba(255,255,255,0.42);
+      opacity: 0;
+      z-index: 50;
+    }
+
+
+    /* ============================================================
+       SCENE 2 — Neon perspective grid floor + "BUFFETT INDICATOR"
+       wordmark rising into frame. Tekken/PS1 menu energy.
+       Duration: 2.14 – 4.41s
+       ============================================================ */
+    #scene2 {
+      background: var(--bg-void);
+    }
+
+    /* Synthwave sky — magenta → deep blue gradient + scanline horizon glow */
+    #s2-sky {
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      height: 960px; /* upper half */
+      background:
+        radial-gradient(ellipse 60% 40% at 50% 100%,
+          rgba(46,124,255,0.45) 0%,
+          rgba(255,46,157,0.18) 28%,
+          rgba(0,0,0,0.0)       60%),
+        linear-gradient(180deg,
+          #08001a 0%,
+          #1a0233 40%,
+          #2a0140 75%,
+          #3a0a2c 100%);
+    }
+
+    /* Horizon glow strip — bright neon blue line where sky meets grid */
+    #s2-horizon {
+      position: absolute;
+      left: 0; right: 0;
+      top: 960px;
+      height: 8px;
+      background: linear-gradient(90deg,
+        rgba(46,124,255,0)   0%,
+        rgba(46,124,255,0.9) 30%,
+        #6ab0ff              50%,
+        rgba(46,124,255,0.9) 70%,
+        rgba(46,124,255,0)   100%);
+      box-shadow:
+        0 0 32px rgba(46,124,255,0.85),
+        0 0 64px rgba(46,124,255,0.5);
+    }
+
+    /* Distant low-poly mountain silhouettes — pure CSS triangles */
+    #s2-mountains {
+      position: absolute;
+      left: 0; right: 0;
+      top: 820px;
+      height: 140px;
+      pointer-events: none;
+    }
+    #s2-mountains svg { width: 100%; height: 100%; display: block; }
+
+    /* Perspective grid floor — receding to horizon */
+    #s2-floor-wrap {
+      position: absolute;
+      left: 0; right: 0;
+      top: 968px;
+      width: 1080px; height: 952px;
+      perspective: 600px;
+      perspective-origin: 50% 0%;
+      overflow: hidden;
+    }
+    #s2-floor {
+      position: absolute;
+      left: -540px; top: 0;
+      width: 2160px; height: 1800px;
+      transform: rotateX(70deg) translateZ(0);
+      transform-origin: 50% 0%;
+      background:
+        /* horizontal lines (depth) */
+        repeating-linear-gradient(
+          0deg,
+          rgba(46,124,255,0) 0px,
+          rgba(46,124,255,0) 58px,
+          rgba(46,124,255,0.9) 60px,
+          rgba(46,124,255,0.9) 62px
+        ),
+        /* vertical lines */
+        repeating-linear-gradient(
+          90deg,
+          rgba(46,124,255,0) 0px,
+          rgba(46,124,255,0) 58px,
+          rgba(46,124,255,0.75) 60px,
+          rgba(46,124,255,0.75) 62px
+        ),
+        /* base color */
+        linear-gradient(180deg, #02061a 0%, #060c2a 30%, #0a1240 100%);
+      will-change: background-position;
+    }
+
+    /* Wordmark "BUFFETT INDICATOR" — chunky chrome-style 3D look */
+    #s2-wordmark {
+      position: absolute;
+      left: 0; right: 0;
+      top: 720px;          /* sits just above horizon, anchored from horizon center */
+      text-align: center;
+      z-index: 40;
+      perspective: 1200px;
+    }
+    .s2-word {
+      display: block;
+      font-family: "Inter", sans-serif;
+      font-weight: 900;
+      font-size: 168px;
+      line-height: 0.92;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      text-transform: uppercase;
+      position: relative;
+      opacity: 0;
+      transform-origin: 50% 100%;
+      /* chunky 3D stacked drop — PS1 chrome wordmark */
+      text-shadow:
+        0   2px 0 #b8d4ff,
+        0   4px 0 #6ab0ff,
+        0   6px 0 #2e7cff,
+        0   8px 0 #1658ff,
+        0  10px 0 #0f47cc,
+        0  12px 0 #0833a8,
+        0  16px 18px rgba(46,124,255,0.55),
+        0   0  40px rgba(46,124,255,0.35);
+    }
+    .s2-word.indicator {
+      color: #2e7cff;  /* second word in neon blue */
+      text-shadow:
+        0   2px 0 #6ab0ff,
+        0   4px 0 #1658ff,
+        0   6px 0 #0f47cc,
+        0   8px 0 #0833a8,
+        0  10px 0 #051f6e,
+        0  12px 0 #021145,
+        0  16px 18px rgba(255,46,157,0.45),
+        0   0  40px rgba(46,124,255,0.55);
+    }
+
+    /* Eyebrow caption — mono cue */
+    #s2-eyebrow {
+      position: absolute;
+      left: 0; right: 0;
+      top: 1180px;
+      text-align: center;
+      font-family: "VT323", "JetBrains Mono", monospace;
+      font-size: 40px;
+      letter-spacing: 0.38em;
+      color: rgba(255,255,255,0.75);
+      text-shadow: 0 0 16px rgba(46,124,255,0.6);
+      opacity: 0;
+      z-index: 41;
+      text-transform: uppercase;
+    }
+
+    /* Scanlines + vignette reused (same style as scene 1) */
+    #s2-scanlines, #s2-vignette {
+      position: absolute; inset: 0;
+      pointer-events: none;
+      z-index: 50;
+    }
+    #s2-scanlines {
+      background-image: repeating-linear-gradient(
+        180deg,
+        rgba(0,0,0,0)    0px,
+        rgba(0,0,0,0)    2px,
+        rgba(0,0,0,0.28) 3px,
+        rgba(0,0,0,0.28) 4px
+      );
+      mix-blend-mode: multiply;
+      opacity: 0.55;
+    }
+    #s2-vignette {
+      background:
+        radial-gradient(ellipse at center,
+          rgba(0,0,0,0)   45%,
+          rgba(0,0,0,0.40) 78%,
+          rgba(0,0,0,0.92) 100%);
+    }
+
+    /* ============================================================
+       SCENE 3 — "compares total US stock market value to GDP"
+       Two low-poly towers on the same neon floor.
+       Duration: 4.41 – 7.85s
+       ============================================================ */
+    #scene3 { background: var(--bg-void); }
+
+    /* Reuse the scene-2 sky + floor + horizon look (copied here so the cut
+       is seamless — eye reads the floor as continuous). */
+    #s3-sky {
+      position: absolute; left: 0; right: 0; top: 0; height: 960px;
+      background:
+        radial-gradient(ellipse 60% 40% at 50% 100%,
+          rgba(46,124,255,0.45) 0%,
+          rgba(255,46,157,0.18) 28%,
+          rgba(0,0,0,0.0)       60%),
+        linear-gradient(180deg, #08001a 0%, #1a0233 40%, #2a0140 75%, #3a0a2c 100%);
+    }
+    #s3-horizon {
+      position: absolute; left: 0; right: 0; top: 960px; height: 8px;
+      background: linear-gradient(90deg,
+        rgba(46,124,255,0)   0%,
+        rgba(46,124,255,0.9) 30%,
+        #6ab0ff              50%,
+        rgba(46,124,255,0.9) 70%,
+        rgba(46,124,255,0)   100%);
+      box-shadow: 0 0 32px rgba(46,124,255,0.85), 0 0 64px rgba(46,124,255,0.5);
+    }
+    #s3-floor-wrap {
+      position: absolute; left: 0; right: 0; top: 968px;
+      width: 1080px; height: 952px;
+      perspective: 600px; perspective-origin: 50% 0%;
+      overflow: hidden;
+    }
+    #s3-floor {
+      position: absolute; left: -540px; top: 0;
+      width: 2160px; height: 1800px;
+      transform: rotateX(70deg) translateZ(0);
+      transform-origin: 50% 0%;
+      background:
+        repeating-linear-gradient(0deg,
+          rgba(46,124,255,0) 0px, rgba(46,124,255,0) 58px,
+          rgba(46,124,255,0.9) 60px, rgba(46,124,255,0.9) 62px),
+        repeating-linear-gradient(90deg,
+          rgba(46,124,255,0) 0px, rgba(46,124,255,0) 58px,
+          rgba(46,124,255,0.75) 60px, rgba(46,124,255,0.75) 62px),
+        linear-gradient(180deg, #02061a 0%, #060c2a 30%, #0a1240 100%);
+    }
+
+    /* Two towers — left taller (market cap $62T), right shorter (GDP $30T).
+       Heights chosen so the ratio (62/30 ≈ 2.07) reads at a glance. */
+    .s3-tower-wrap {
+      position: absolute;
+      bottom: 280px;        /* base sits on the floor near the front */
+      width: 280px;
+      transform-origin: 50% 100%;
+      opacity: 0;
+    }
+    #s3-tower-mcap { left: 160px; }
+    #s3-tower-gdp  { right: 160px; }
+
+    .s3-tower {
+      position: relative;
+      width: 100%;
+      transform-origin: 50% 100%;
+      /* chunky 3D extruded look using stacked box-shadow (right + bottom face) */
+      box-shadow:
+        18px 0   0 #0833a8,
+        24px 0   0 #051f6e,
+        30px 12px 24px rgba(0,0,0,0.6);
+      background:
+        /* horizontal "brick" segments — $100B chunks visualised */
+        repeating-linear-gradient(180deg,
+          #2e7cff 0px,    #2e7cff 38px,
+          #1658ff 40px,   #1658ff 78px,
+          #0f47cc 80px),
+        linear-gradient(90deg, #2e7cff 0%, #1658ff 100%);
+      border: 4px solid #6ab0ff;
+      border-right: 0;
+    }
+    #s3-tower-mcap .s3-tower { height: 1100px; }      /* tall — $62T */
+    #s3-tower-gdp  .s3-tower { height: 532px; }       /* short — $30T (ratio 62/30) */
+
+    /* Tower top cap — neon top face */
+    .s3-tower::before {
+      content: "";
+      position: absolute;
+      left: -4px; right: -22px;
+      top: -22px; height: 26px;
+      background: linear-gradient(180deg, #b8d4ff 0%, #6ab0ff 100%);
+      transform: skewX(-45deg);
+      transform-origin: 0 100%;
+      border: 4px solid #d8e6ff;
+      box-shadow: 0 0 24px rgba(46,124,255,0.8);
+    }
+
+    /* Tower label — chunky mono caps below the tower base */
+    .s3-tower-label {
+      position: absolute;
+      bottom: -90px;
+      left: 0; right: 0;
+      text-align: center;
+      font-family: "VT323", "JetBrains Mono", monospace;
+      font-size: 38px;
+      letter-spacing: 0.28em;
+      color: rgba(255,255,255,0.85);
+      text-shadow: 0 0 12px rgba(46,124,255,0.7);
+      text-transform: uppercase;
+    }
+
+    /* Big counter above tower — $ value */
+    .s3-tower-value {
+      position: absolute;
+      top: -130px;
+      left: -40px; right: -40px;
+      text-align: center;
+      font-family: "Inter", sans-serif;
+      font-weight: 900;
+      font-size: 88px;
+      letter-spacing: -0.01em;
+      color: #ffffff;
+      text-shadow:
+        0  2px 0 #b8d4ff,
+        0  4px 0 #6ab0ff,
+        0  6px 0 #2e7cff,
+        0  8px 0 #1658ff,
+        0 10px 18px rgba(46,124,255,0.6);
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: "tnum" 1;
+      opacity: 0;
+    }
+
+    /* Title eyebrow */
+    #s3-eyebrow {
+      position: absolute;
+      left: 0; right: 0; top: 180px;
+      text-align: center;
+      font-family: "VT323", "JetBrains Mono", monospace;
+      font-size: 44px;
+      letter-spacing: 0.36em;
+      color: rgba(255,255,255,0.85);
+      text-shadow: 0 0 18px rgba(46,124,255,0.7);
+      opacity: 0;
+      z-index: 41;
+      text-transform: uppercase;
+    }
+
+    /* "÷" divider between towers — appears at end */
+    #s3-divider {
+      position: absolute;
+      left: 50%; top: 700px;
+      transform: translateX(-50%);
+      font-family: "Inter", sans-serif;
+      font-weight: 900;
+      font-size: 240px;
+      color: #ff2e9d;
+      text-shadow:
+        0  4px 0 #c2186a,
+        0  8px 0 #82093f,
+        0 16px 36px rgba(255,46,157,0.6);
+      opacity: 0;
+      z-index: 42;
+      line-height: 1;
+    }
+
+    /* Scanlines + vignette */
+    #s3-scanlines, #s3-vignette {
+      position: absolute; inset: 0;
+      pointer-events: none;
+      z-index: 50;
+    }
+    #s3-scanlines {
+      background-image: repeating-linear-gradient(180deg,
+        rgba(0,0,0,0) 0px, rgba(0,0,0,0) 2px,
+        rgba(0,0,0,0.28) 3px, rgba(0,0,0,0.28) 4px);
+      mix-blend-mode: multiply;
+      opacity: 0.55;
+    }
+    #s3-vignette {
+      background:
+        radial-gradient(ellipse at center,
+          rgba(0,0,0,0)   45%,
+          rgba(0,0,0,0.40) 78%,
+          rgba(0,0,0,0.92) 100%);
+    }
+
+    /* ============================================================
+       SCENE 4 — "Buffett himself called it the best single measure"
+       Chunky PS1 CRT-TV on the neon floor. Buffett portrait inside.
+       Duration: 7.85 – 11.94s
+       ============================================================ */
+    #scene4 { background: var(--bg-void); }
+
+    /* Reuse sky + floor look (same recipe as scenes 2/3) */
+    #s4-sky {
+      position: absolute; left: 0; right: 0; top: 0; height: 960px;
+      background:
+        radial-gradient(ellipse 60% 40% at 50% 100%,
+          rgba(46,124,255,0.45) 0%,
+          rgba(255,46,157,0.18) 28%,
+          rgba(0,0,0,0)         60%),
+        linear-gradient(180deg, #08001a 0%, #1a0233 40%, #2a0140 75%, #3a0a2c 100%);
+    }
+    #s4-horizon {
+      position: absolute; left: 0; right: 0; top: 960px; height: 8px;
+      background: linear-gradient(90deg,
+        rgba(46,124,255,0) 0%,
+        rgba(46,124,255,0.9) 30%,
+        #6ab0ff 50%,
+        rgba(46,124,255,0.9) 70%,
+        rgba(46,124,255,0) 100%);
+      box-shadow: 0 0 32px rgba(46,124,255,0.85), 0 0 64px rgba(46,124,255,0.5);
+    }
+    #s4-floor-wrap {
+      position: absolute; left: 0; right: 0; top: 968px;
+      width: 1080px; height: 952px;
+      perspective: 600px; perspective-origin: 50% 0%;
+      overflow: hidden;
+    }
+    #s4-floor {
+      position: absolute; left: -540px; top: 0;
+      width: 2160px; height: 1800px;
+      transform: rotateX(70deg);
+      transform-origin: 50% 0%;
+      background:
+        repeating-linear-gradient(0deg,
+          rgba(46,124,255,0) 0px, rgba(46,124,255,0) 58px,
+          rgba(46,124,255,0.9) 60px, rgba(46,124,255,0.9) 62px),
+        repeating-linear-gradient(90deg,
+          rgba(46,124,255,0) 0px, rgba(46,124,255,0) 58px,
+          rgba(46,124,255,0.75) 60px, rgba(46,124,255,0.75) 62px),
+        linear-gradient(180deg, #02061a 0%, #060c2a 30%, #0a1240 100%);
+    }
+
+    /* CRT TV — chunky magenta plastic bezel, centered on the floor */
+    #s4-tv {
+      position: absolute;
+      left: 50%; top: 580px;
+      width: 760px; height: 820px;
+      transform-origin: 50% 100%;
+      /* extruded right + bottom face for 3D look */
+      filter: drop-shadow(28px 26px 0 #82093f)
+              drop-shadow(36px 34px 38px rgba(0,0,0,0.7));
+      opacity: 0;
+    }
+    .s4-tv-bezel {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(180deg, #ff58b3 0%, #ff2e9d 35%, #c2186a 100%);
+      border: 8px solid #ffb3dc;
+      border-radius: 38px;
+      box-shadow:
+        inset 0  6px 0 rgba(255,255,255,0.45),
+        inset 0 -8px 0 rgba(0,0,0,0.35),
+        inset 12px 0 0 rgba(255,255,255,0.12),
+        inset -12px 0 0 rgba(0,0,0,0.25);
+    }
+
+    /* TV inner screen — dark glass with the portrait inside */
+    .s4-tv-screen {
+      position: absolute;
+      left: 48px; right: 48px;
+      top: 56px;   height: 644px;
+      border-radius: 24px;
+      background: #0a0518;
+      overflow: hidden;
+      box-shadow:
+        inset 0 0 0 6px #1a0a2e,
+        inset 0 0 80px rgba(0,0,0,0.7),
+        inset 0 0 30px rgba(46,124,255,0.18);
+    }
+    .s4-tv-portrait {
+      position: absolute;
+      left: 50%; top: 50%;
+      width: 660px; height: 1180px;
+      transform: translate(-50%, -50%) scale(1.0);
+      object-fit: cover;
+      object-position: center 22%;
+      image-rendering: pixelated;
+      filter: saturate(1.1) contrast(1.05) brightness(0.95);
+    }
+    /* Curved-glass overlay — radial sheen + scanlines inside the screen */
+    .s4-tv-glass {
+      position: absolute; inset: 0;
+      pointer-events: none;
+      background:
+        repeating-linear-gradient(180deg,
+          rgba(0,0,0,0)    0px, rgba(0,0,0,0) 2px,
+          rgba(0,0,0,0.4)  3px, rgba(0,0,0,0.4) 4px),
+        radial-gradient(ellipse 80% 60% at 30% 20%,
+          rgba(255,255,255,0.15) 0%,
+          rgba(255,255,255,0)    50%);
+      mix-blend-mode: normal;
+    }
+    /* REC pip — red dot in upper-left of screen */
+    .s4-tv-rec {
+      position: absolute;
+      left: 80px; top: 88px;
+      display: flex; align-items: center; gap: 14px;
+      font-family: "VT323", monospace;
+      font-size: 30px;
+      letter-spacing: 0.25em;
+      color: #ff5b5b;
+      text-shadow: 0 0 10px rgba(255,0,40,0.8);
+      opacity: 0;
+      z-index: 5;
+    }
+    .s4-tv-rec::before {
+      content: "";
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: #ff2a2a;
+      box-shadow: 0 0 12px rgba(255,0,40,0.9);
+    }
+
+    /* TV bottom control strip — chunky knobs to sell the CRT silhouette */
+    .s4-tv-controls {
+      position: absolute;
+      left: 60px; right: 60px;
+      bottom: 28px; height: 90px;
+      display: flex; align-items: center; justify-content: flex-end; gap: 28px;
+    }
+    .s4-knob {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #ffd4ea 0%, #ff8cc6 40%, #c2186a 100%);
+      box-shadow:
+        inset 0 -6px 0 rgba(0,0,0,0.35),
+        inset 0  3px 0 rgba(255,255,255,0.6),
+        0 4px 0 rgba(0,0,0,0.4);
+      position: relative;
+    }
+    .s4-knob::after {
+      content: "";
+      position: absolute;
+      left: 50%; top: 12px;
+      width: 4px; height: 18px;
+      background: #4a042a;
+      transform: translateX(-50%) rotate(35deg);
+      transform-origin: 50% 100%;
+    }
+    .s4-knob.knob2::after { transform: translateX(-50%) rotate(-25deg); }
+    .s4-tv-brand {
+      position: absolute;
+      left: 60px; bottom: 50px;
+      font-family: "VT323", monospace;
+      font-size: 30px;
+      letter-spacing: 0.35em;
+      color: rgba(0,0,0,0.55);
+      text-transform: uppercase;
+    }
+
+    /* Source caption sitting under the TV */
+    #s4-source {
+      position: absolute;
+      left: 0; right: 0;
+      top: 1480px;
+      text-align: center;
+      font-family: "VT323", "JetBrains Mono", monospace;
+      font-size: 38px;
+      letter-spacing: 0.36em;
+      color: rgba(255,255,255,0.78);
+      text-shadow: 0 0 14px rgba(46,124,255,0.7);
+      opacity: 0;
+      z-index: 41;
+      text-transform: uppercase;
+    }
+
+    /* The chunky quote — italic Inter overlaid below the TV */
+    #s4-quote {
+      position: absolute;
+      left: 60px; right: 60px;
+      top: 1570px;
+      text-align: center;
+      font-family: "Inter", sans-serif;
+      font-style: italic;
+      font-weight: 900;
+      font-size: 92px;
+      line-height: 0.98;
+      color: #ffffff;
+      letter-spacing: -0.015em;
+      text-shadow:
+        0  3px 0 #b8d4ff,
+        0  6px 0 #2e7cff,
+        0  9px 0 #1658ff,
+        0 14px 20px rgba(46,124,255,0.55);
+      text-transform: uppercase;
+      z-index: 42;
+    }
+    .s4-quote-line { display: block; opacity: 0; }
+    .s4-quote-line .accent { color: #ff58b3; }
+
+    /* Eyebrow at top */
+    #s4-eyebrow {
+      position: absolute;
+      left: 0; right: 0; top: 130px;
+      text-align: center;
+      font-family: "VT323", monospace;
+      font-size: 42px;
+      letter-spacing: 0.38em;
+      color: rgba(255,255,255,0.78);
+      text-shadow: 0 0 14px rgba(46,124,255,0.7);
+      text-transform: uppercase;
+      opacity: 0;
+      z-index: 41;
+    }
+
+    /* Scanlines + vignette */
+    #s4-scanlines, #s4-vignette {
+      position: absolute; inset: 0;
+      pointer-events: none;
+      z-index: 50;
+    }
+    #s4-scanlines {
+      background-image: repeating-linear-gradient(180deg,
+        rgba(0,0,0,0) 0px, rgba(0,0,0,0) 2px,
+        rgba(0,0,0,0.28) 3px, rgba(0,0,0,0.28) 4px);
+      mix-blend-mode: multiply;
+      opacity: 0.55;
+    }
+    #s4-vignette {
+      background:
+        radial-gradient(ellipse at center,
+          rgba(0,0,0,0)   45%,
+          rgba(0,0,0,0.40) 78%,
+          rgba(0,0,0,0.92) 100%);
+    }
+
+    /* ============================================================
+       SCENE 5 — Dotcom crash + 7-year valley
+       Stormy mountain horizon, totally new palette (teal + blood-red).
+       Camera pans LEFT→RIGHT across the chart-as-mountain timeline.
+       Duration: 11.94 – 22.90s
+       ============================================================ */
+    #scene5 { background: #050a18; }
+
+    /* Stormy sky — teal/navy gradient with a bleeding red moonlight wash */
+    #s5-sky {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 78% 22%,
+          rgba(255,58,58,0.20) 0%,
+          rgba(194,24,106,0.10) 35%,
+          rgba(0,0,0,0)         65%),
+        linear-gradient(180deg,
+          #04141c 0%,
+          #052029 35%,
+          #073644 65%,
+          #0a3340 88%,
+          #050a18 100%);
+    }
+
+    /* Distant clouds — soft horizontal smears, slow parallax */
+    #s5-clouds {
+      position: absolute;
+      left: -10%; right: 0;
+      top: 14%; height: 460px;
+      width: 130%;
+      pointer-events: none;
+      opacity: 0.55;
+      background:
+        radial-gradient(ellipse 22% 6% at 18% 60%, rgba(120,160,180,0.45) 0%, rgba(0,0,0,0) 70%),
+        radial-gradient(ellipse 18% 5% at 38% 40%, rgba(120,160,180,0.35) 0%, rgba(0,0,0,0) 70%),
+        radial-gradient(ellipse 14% 4% at 58% 70%, rgba(120,160,180,0.30) 0%, rgba(0,0,0,0) 70%),
+        radial-gradient(ellipse 24% 7% at 78% 50%, rgba(120,160,180,0.40) 0%, rgba(0,0,0,0) 70%);
+    }
+
+    /* Blood moon — abstract sphere in the sky above the peak */
+    #s5-moon {
+      position: absolute;
+      left: 64%; top: 12%;
+      width: 220px; height: 220px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 35%,
+          #ffb3b3 0%,
+          #ff3a3a 30%,
+          #c2186a 70%,
+          #82093f 100%);
+      box-shadow:
+        0 0 60px rgba(255,58,58,0.55),
+        0 0 140px rgba(194,24,106,0.45),
+        inset -20px -30px 40px rgba(0,0,0,0.45);
+      opacity: 0;
+    }
+    #s5-moon::after {           /* tiny low-poly crater */
+      content: "";
+      position: absolute;
+      left: 56%; top: 42%;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.35);
+    }
+
+    /* CAMERA — wide horizontal world that we pan across.
+       Contains the timeline of mountain + labels. */
+    #s5-camera {
+      position: absolute;
+      left: 0; top: 0;
+      width: 3600px; height: 1920px;
+      will-change: transform;
+      /* GSAP owns x via tween */
+    }
+
+    /* Distant mountain ridge — far back, slow parallax via inner translateX tween */
+    #s5-distant {
+      position: absolute;
+      left: 0; top: 920px;
+      width: 100%; height: 280px;
+      pointer-events: none;
+    }
+    #s5-distant svg { width: 100%; height: 100%; display: block; }
+
+    /* Mid mountain ridge */
+    #s5-mid {
+      position: absolute;
+      left: 0; top: 1050px;
+      width: 100%; height: 320px;
+      pointer-events: none;
+    }
+    #s5-mid svg { width: 100%; height: 100%; display: block; }
+
+    /* THE chart-as-mountain — the protagonist ridge */
+    #s5-front {
+      position: absolute;
+      left: 0; top: 800px;
+      width: 100%; height: 880px;
+      pointer-events: none;
+    }
+    #s5-front svg { width: 100%; height: 100%; display: block; overflow: visible; }
+
+    /* Year tick markers (positioned in world space along the timeline) */
+    .s5-tick {
+      position: absolute;
+      bottom: 360px;
+      width: 4px; height: 28px;
+      background: rgba(255,255,255,0.55);
+      transform-origin: 50% 100%;
+      opacity: 0;
+    }
+    .s5-tick-label {
+      position: absolute;
+      bottom: 320px;
+      font-family: "VT323", monospace;
+      font-size: 32px;
+      color: rgba(255,255,255,0.65);
+      letter-spacing: 0.18em;
+      text-shadow: 0 0 8px rgba(0,0,0,0.7);
+      transform: translateX(-50%);
+      opacity: 0;
+    }
+
+    /* Inline data labels — sit at chart-point positions in world space */
+    .s5-data-label {
+      position: absolute;
+      font-family: "Inter", sans-serif;
+      font-weight: 700;
+      font-size: 48px;
+      color: #ff5b5b;
+      letter-spacing: 0.02em;
+      font-variant-numeric: tabular-nums;
+      text-shadow: 0 0 12px rgba(0,0,0,0.7);
+      line-height: 1.0;
+      opacity: 0;
+    }
+    .s5-data-label .sub {
+      font-size: 32px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.06em;
+    }
+
+    /* Fixed Y-axis labels — stay locked at left edge of viewport (outside camera) */
+    .s5-yaxis {
+      position: absolute;
+      left: 30px;
+      font-family: "VT323", monospace;
+      font-size: 28px;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.12em;
+      font-variant-numeric: tabular-nums;
+      opacity: 0;
+      z-index: 42;
+    }
+
+    /* Hero callout text — positioned in WORLD space on top of camera */
+    .s5-callout {
+      position: absolute;
+      font-family: "Inter", sans-serif;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: #ffffff;
+      opacity: 0;
+    }
+    #s5-call-peak {
+      top: 540px; left: 540px;
+      text-align: center;
+      width: 540px;
+      margin-left: -270px;     /* visual centering — GSAP owns transforms */
+    }
+    #s5-call-peak .label { font-size: 36px; color: #ff5b5b; letter-spacing: 0.32em; text-shadow: 0 0 14px rgba(255,58,58,0.7); }
+    #s5-call-peak .value { font-size: 152px; line-height: 0.95; text-shadow: 0 4px 0 #c2186a, 0 8px 0 #82093f, 0 12px 22px rgba(0,0,0,0.7); }
+
+    #s5-call-valley {
+      top: 1180px; left: 2790px;     /* lands at viewport center when camera x=-2250 */
+      text-align: center;
+      width: 720px;
+      margin-left: -360px;
+    }
+    #s5-call-valley .label { font-size: 36px; color: #ff5b5b; letter-spacing: 0.32em; }
+    #s5-call-valley .value { font-size: 200px; line-height: 0.92; text-shadow: 0 4px 0 #1658ff, 0 8px 0 #0833a8, 0 14px 24px rgba(0,0,0,0.7); }
+
+    /* Eyebrow at the top of the viewport — FIXED in viewport, NOT in world */
+    #s5-eyebrow {
+      position: absolute;
+      left: 0; right: 0; top: 130px;
+      text-align: center;
+      font-family: "VT323", monospace;
+      font-size: 42px;
+      letter-spacing: 0.38em;
+      color: rgba(255,255,255,0.78);
+      text-shadow: 0 0 14px rgba(255,58,58,0.55);
+      text-transform: uppercase;
+      opacity: 0;
+      z-index: 41;
+    }
+
+    /* Crash overlay — on "crash" word. Red bleed + horizontal tear band.
+       NO white — we keep the mood dark; only deepen the red. */
+    #s5-lightning {
+      position: absolute; inset: 0;
+      pointer-events: none;
+      background:
+        /* tear band — narrow horizontal slice of brighter red */
+        linear-gradient(180deg,
+          rgba(0,0,0,0)      0%,
+          rgba(0,0,0,0)      45%,
+          rgba(255,58,58,0.55) 47%,
+          rgba(255,46,157,0.55) 50%,
+          rgba(255,58,58,0.55) 53%,
+          rgba(0,0,0,0)      55%,
+          rgba(0,0,0,0)      100%),
+        /* deep red wash across the frame */
+        radial-gradient(ellipse at center,
+          rgba(194,24,106,0.55) 0%,
+          rgba(130,9,63,0.30)   55%,
+          rgba(0,0,0,0)          85%);
+      mix-blend-mode: multiply;
+      opacity: 0;
+      z-index: 60;
+    }
+
+    /* Scanlines + vignette — slightly stronger to lean into the storm */
+    #s5-scanlines, #s5-vignette {
+      position: absolute; inset: 0;
+      pointer-events: none;
+      z-index: 50;
+    }
+    #s5-scanlines {
+      background-image: repeating-linear-gradient(180deg,
+        rgba(0,0,0,0) 0px, rgba(0,0,0,0) 2px,
+        rgba(0,0,0,0.32) 3px, rgba(0,0,0,0.32) 4px);
+      mix-blend-mode: multiply;
+      opacity: 0.6;
+    }
+    #s5-vignette {
+      background:
+        radial-gradient(ellipse at center,
+          rgba(0,0,0,0)    40%,
+          rgba(0,0,0,0.55) 78%,
+          rgba(0,0,0,0.95) 100%);
+    }
+
+    /* ============================================================
+       SCENE 5 REIMAGINED — new minimalist styles
+       ============================================================ */
+    #s5-bg {
+      position: absolute;
+      left: 50%; top: 50%;
+      width: 1200px; height: 2150px;       /* slightly oversized for Ken-Burns headroom */
+      object-fit: cover;
+      object-position: center 35%;
+      image-rendering: pixelated;
+      filter: saturate(1.1) contrast(1.05);
+      z-index: 1;
+      /* GSAP owns xPercent/yPercent + scale */
+    }
+    #s5-bg-tint {
+      position: absolute; inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse at center,
+          rgba(0,0,0,0)    40%,
+          rgba(0,0,0,0.40) 80%,
+          rgba(0,0,0,0.92) 100%);
+      z-index: 2;
+    }
+
+    #s5-eyebrow-new {
+      position: absolute;
+      left: 0; right: 0; top: 130px;
+      text-align: center;
+      font-family: "VT323", monospace;
+      font-size: 42px;
+      letter-spacing: 0.38em;
+      color: rgba(255,255,255,0.85);
+      text-shadow: 0 0 14px rgba(0,0,0,0.7);
+      text-transform: uppercase;
+      opacity: 0;
+      z-index: 41;
+    }
+
+    /* Centered data stack — year, value, delta */
+    #s5-data {
+      position: absolute;
+      left: 0; right: 0;
+      top: 280px;
+      text-align: center;
+      z-index: 42;
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: "tnum" 1;
+    }
+    .s5-year-row {
+      font-family: "VT323", monospace;
+      font-size: 220px;
+      line-height: 0.9;
+      color: #ffffff;
+      letter-spacing: 0.04em;
+      text-shadow:
+        0 0 28px rgba(0,0,0,0.85),
+        0 0 60px rgba(255,58,58,0.35);
+      opacity: 0;
+    }
+    .s5-value-label {
+      margin-top: 32px;
+      font-family: "VT323", monospace;
+      font-size: 34px;
+      letter-spacing: 0.36em;
+      color: rgba(255,255,255,0.75);
+      text-transform: uppercase;
+      text-shadow: 0 0 12px rgba(0,0,0,0.7);
+      opacity: 0;
+    }
+    #s5-value {
+      margin-top: 6px;
+      font-family: "Inter", sans-serif;
+      font-weight: 900;
+      font-size: 156px;
+      line-height: 1.0;
+      color: #ffffff;
+      letter-spacing: -0.01em;
+      text-shadow:
+        0  3px 0 #b8d4ff,
+        0  6px 0 #2e7cff,
+        0 14px 24px rgba(0,0,0,0.7);
+      opacity: 0;
+    }
+    /* Color shift while in crash */
+    #s5-value.is-crashing {
+      color: #ff5b5b;
+      text-shadow:
+        0  3px 0 #c2186a,
+        0  6px 0 #82093f,
+        0 14px 24px rgba(0,0,0,0.7);
+    }
+    #s5-delta {
+      margin-top: 24px;
+      font-family: "Inter", sans-serif;
+      font-weight: 900;
+      font-size: 64px;
+      letter-spacing: 0.04em;
+      color: #ff5b5b;
+      text-shadow:
+        0  3px 0 #82093f,
+        0  6px 18px rgba(0,0,0,0.7);
+      opacity: 0;
+    }
+
+    /* Payoff — appears at the very end on "Seven years of nothing" */
+    #s5-payoff {
+      position: absolute;
+      left: 0; right: 0;
+      bottom: 220px;
+      text-align: center;
+      z-index: 43;
+    }
+    .s5-payoff-eyebrow {
+      font-family: "VT323", monospace;
+      font-size: 38px;
+      letter-spacing: 0.32em;
+      color: #ff5b5b;
+      text-shadow: 0 0 16px rgba(255,58,58,0.7);
+      text-transform: uppercase;
+      opacity: 0;
+    }
+    .s5-payoff-hero {
+      margin-top: 14px;
+      font-family: "Inter", sans-serif;
+      font-weight: 900;
+      font-size: 196px;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      text-transform: uppercase;
+      text-shadow:
+        0  4px 0 #c2186a,
+        0  8px 0 #82093f,
+        0 16px 28px rgba(0,0,0,0.8);
+      opacity: 0;
+    }
+
+    /* ============================================================
+       SCENE 6 — 209% payoff. Money-printer hero meme asset.
+       "Every public stock... more than double the entire economy."
+       Then 209% slams in.
+       Duration: 22.90 – 29.40s
+       ============================================================ */
+    #scene6 { background: #000000; }
+
+    /* Money printer — chunky PS1 hero asset, upper portion of frame */
+    #s6-printer-wrap {
+      position: absolute;
+      left: 50%; top: 80px;
+      width: 720px; height: auto;
+      opacity: 0;
+      z-index: 20;
+      filter:
+        drop-shadow(0 18px 32px rgba(0,0,0,0.7))
+        drop-shadow(0 0 80px rgba(46,124,255,0.25));
+    }
+    #s6-printer-wrap img {
+      display: block;
+      width: 100%; height: auto;
+      image-rendering: pixelated;
+    }
+
+    /* Subtle red beam halo behind the printer — keeps the alarm vibe */
+    #s6-aura {
+      position: absolute;
+      left: 50%; top: 100px;
+      width: 760px; height: 1200px;
+      background: radial-gradient(ellipse 50% 40% at 50% 30%,
+        rgba(255,46,46,0.30) 0%,
+        rgba(46,124,255,0.18) 35%,
+        rgba(0,0,0,0)          70%);
+      pointer-events: none;
+      z-index: 10;
+      opacity: 0;
+    }
+
+    #s6-eyebrow {
+      position: absolute;
+      left: 0; right: 0; top: 130px;
+      text-align: center;
+      font-family: "VT323", monospace;
+      font-size: 42px;
+      letter-spacing: 0.38em;
+      color: #ff5b5b;
+      text-shadow:
+        0 0 14px rgba(255,46,46,0.6),
+        0 0 32px rgba(0,0,0,0.7);
+      text-transform: uppercase;
+      opacity: 0;
+      z-index: 41;
+    }
+
+    /* Setup line — "MARKET CAP" tag with stat */
+    #s6-setup {
+      position: absolute;
+      left: 0; right: 0;
+      top: 1380px;       /* below the printer hero */
+      text-align: center;
+      z-index: 42;
+      opacity: 0;
+    }
+    .s6-setup-label {
+      font-family: "VT323", monospace;
+      font-size: 38px;
+      letter-spacing: 0.32em;
+      color: rgba(255,255,255,0.75);
+      text-transform: uppercase;
+      text-shadow: 0 0 14px rgba(0,0,0,0.7);
+    }
+    .s6-setup-value {
+      margin-top: 6px;
+      font-family: "Inter", sans-serif;
+      font-weight: 900;
+      font-size: 140px;
+      line-height: 1.0;
+      color: #ffffff;
+      letter-spacing: -0.01em;
+      font-variant-numeric: tabular-nums;
+      text-shadow:
+        0  3px 0 #ff5b5b,
+        0  6px 0 #c2186a,
+        0 12px 22px rgba(0,0,0,0.7);
+    }
+
+    /* The 209% hero — slammed in on "two hundred and nine percent".
+       Positioned below the printer so the layout reads: printer → number. */
+    #s6-hero {
+      position: absolute;
+      left: 0; right: 0;
+      top: 1320px;
+      text-align: center;
+      z-index: 50;
+    }
+    .s6-hero-label {
+      font-family: "VT323", monospace;
+      font-size: 48px;
+      letter-spacing: 0.36em;
+      color: #ff5b5b;
+      text-shadow: 0 0 18px rgba(255,46,46,0.85);
+      text-transform: uppercase;
+      opacity: 0;
+      margin-bottom: 14px;
+    }
+    .s6-hero-number {
+      font-family: "Inter", sans-serif;
+      font-weight: 900;
+      font-size: 300px;
+      line-height: 0.88;
+      letter-spacing: -0.03em;
+      color: #ffffff;
+      font-variant-numeric: tabular-nums;
+      text-shadow:
+        0   4px 0 #ff5b5b,
+        0   8px 0 #c2186a,
+        0  12px 0 #82093f,
+        0  16px 0 #4a0a1a,
+        0  22px 32px rgba(255,46,46,0.55),
+        0   0   60px rgba(255,46,46,0.35);
+      opacity: 0;
+    }
+    .s6-hero-sub {
+      margin-top: 20px;
+      font-family: "Inter", sans-serif;
+      font-weight: 700;
+      font-size: 56px;
+      letter-spacing: 0.04em;
+      color: #ffffff;
+      text-transform: uppercase;
+      text-shadow: 0 0 18px rgba(0,0,0,0.8);
+      opacity: 0;
+    }
+    .s6-hero-sub .accent { color: #ff5b5b; }
+
+    /* Red pulse overlay — pulses on the hero reveal */
+    #s6-pulse {
+      position: absolute; inset: 0;
+      pointer-events: none;
+      background: radial-gradient(ellipse at center,
+        rgba(255,46,46,0.55) 0%,
+        rgba(255,46,46,0.0)  55%);
+      mix-blend-mode: screen;
+      opacity: 0;
+      z-index: 45;
+    }
+
+    /* Scanlines */
+    #s6-scanlines {
+      position: absolute; inset: 0;
+      pointer-events: none;
+      background-image: repeating-linear-gradient(180deg,
+        rgba(0,0,0,0) 0px, rgba(0,0,0,0) 2px,
+        rgba(0,0,0,0.28) 3px, rgba(0,0,0,0.28) 4px);
+      mix-blend-mode: multiply;
+      opacity: 0.55;
+      z-index: 60;
+    }
+
+    /* ============================================================
+       SCENE 7 — Historical "this ratio was this high before" cards.
+       Three chunky 3D record-cards floating in a Braxton-style void,
+       each era-coded. Stamp slams down on "FLAT OR NEGATIVE."
+       Duration: 29.40 – 34.88s
+       ============================================================ */
+    #scene7 {
+      background: radial-gradient(ellipse at center,
+        #0a0612 0%,
+        #050308 50%,
+        #000000 100%);
+    }
+
+    /* Void debris — small floating low-poly cubes & dotted rings
+       to give the black void Glucose-style dream-space texture */
+    .s7-debris {
+      position: absolute;
+      pointer-events: none;
+      z-index: 5;
+      opacity: 0.55;
+    }
+    .s7-cube {
+      width: 28px; height: 28px;
+      border: 2px solid rgba(255,255,255,0.35);
+      background: rgba(255,255,255,0.05);
+      transform: rotate(45deg);
+      box-shadow:
+        4px 4px 0 rgba(46,124,255,0.4),
+        8px 8px 0 rgba(46,124,255,0.15);
+    }
+    .s7-ring {
+      width: 120px; height: 40px;
+      border: 2px dotted rgba(255,46,157,0.4);
+      border-radius: 50%;
+    }
+    .s7-star {
+      width: 6px; height: 6px;
+      background: #ffffff;
+      box-shadow: 0 0 12px rgba(255,255,255,0.7);
+      border-radius: 50%;
+    }
+
+    /* Top eyebrow */
+    #s7-eyebrow {
+      position: absolute;
+      left: 0; right: 0; top: 110px;
+      text-align: center;
+      font-family: "VT323", monospace;
+      font-size: 38px;
+      letter-spacing: 0.36em;
+      color: rgba(255,255,255,0.78);
+      text-shadow: 0 0 14px rgba(0,0,0,0.7);
+      text-transform: uppercase;
+      opacity: 0;
+      z-index: 41;
+    }
+
+    /* 3D record cards — PS1 inventory tiles rendered as gpt_image_2 PNGs
+       with chroma-key removed. Each card is an <img> floating in space. */
+    .s7-card {
+      position: absolute;
+      left: 50%;
+      width: 820px;
+      transform-origin: 50% 50%;
+      opacity: 0;
+      z-index: 20;
+      will-change: transform, opacity;
+      filter: drop-shadow(18px 22px 0 rgba(0,0,0,0.55))
+              drop-shadow(0 0 32px rgba(0,0,0,0.5));
+    }
+    .s7-card img {
+      display: block;
+      width: 100%;
+      height: auto;
+      image-rendering: pixelated;
+    }
+
+    #s7-card-1929 { top: 380px; }
+    #s7-card-1965 { top: 740px; }
+    #s7-card-1999 { top: 1100px; }
+
+    /* The diagonal "FLAT OR NEGATIVE." stamp — chunky chrome slam,
+       no blur, no screen blend — solid hit like the scene-1 wordmark.
+       Uses GSAP xPercent/yPercent for centering (CSS only has rotation). */
+    #s7-stamp {
+      position: absolute;
+      left: 50%; top: 50%;
+      width: 1100px;
+      text-align: center;
+      font-family: "Inter", sans-serif;
+      font-weight: 900;
+      font-size: 200px;
+      line-height: 0.92;
+      letter-spacing: -0.025em;
+      color: #ffffff;
+      text-transform: uppercase;
+      padding: 36px 40px;
+      border: 16px solid #ff3a3a;
+      background: rgba(20,0,0,0.55);
+      opacity: 0;
+      z-index: 50;
+      text-shadow:
+        0  4px 0 #ff3a3a,
+        0  8px 0 #c2186a,
+        0 12px 0 #82093f,
+        0 18px 32px rgba(0,0,0,0.7);
+      box-shadow:
+        0 12px 0 #ff3a3a,
+        0 22px 36px rgba(0,0,0,0.7);
+    }
+    #s7-stamp .stamp-sub {
+      display: block;
+      font-size: 44px;
+      letter-spacing: 0.32em;
+      margin-top: 14px;
+      color: #ff3a3a;
+      text-shadow: 0 4px 0 rgba(0,0,0,0.7);
+    }
+
+    /* Scanlines */
+    #s7-scanlines {
+      position: absolute; inset: 0;
+      pointer-events: none;
+      background-image: repeating-linear-gradient(180deg,
+        rgba(0,0,0,0) 0px, rgba(0,0,0,0) 2px,
+        rgba(0,0,0,0.28) 3px, rgba(0,0,0,0.28) 4px);
+      mix-blend-mode: multiply;
+      opacity: 0.5;
+      z-index: 70;
+    }
+
+    /* ============================================================
+       SCENE 8 — "Buffett's response: $380B record cash"
+       GIGACHAD Buffett portrait (sunglasses + smirk) fills upper frame,
+       chunky chromatic-split text below — mirrors scene 1 layout.
+       Duration: 34.88 – 41.89s (7.01s)
+       ============================================================ */
+    #scene8 { background: #000000; }
+
+    /* GIGACHAD portrait fills upper 65% */
+    #s8-portrait-wrap {
+      position: absolute;
+      left: 50%; top: 0;
+      width: 900px; height: 1280px;
+      opacity: 0;
+      will-change: transform, opacity;
+    }
+    #s8-portrait {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center 22%;
+      image-rendering: pixelated;
+      filter: saturate(1.18) contrast(1.05);
+      mask-image: linear-gradient(180deg, #000 0%, #000 75%, transparent 100%);
+      -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 75%, transparent 100%);
+    }
+
+    /* Eyebrow */
+    #s8-eyebrow {
+      position: absolute; left: 0; right: 0; top: 110px; text-align: center;
+      font-family: "VT323", monospace; font-size: 40px;
+      letter-spacing: 0.34em; color: var(--accent-neon);
+      text-shadow: 0 0 14px rgba(46,124,255,0.6),
+                   2px 0 0 var(--red-split),
+                  -2px 0 0 var(--cyan-split);
+      text-transform: uppercase; opacity: 0; z-index: 41;
+    }
+
+    /* Chunky chromatic-split text block — mirrors scene 1 vocabulary */
+    #s8-text {
+      position: absolute;
+      left: 0; right: 0;
+      bottom: 200px;
+      text-align: center;
+      z-index: 50;
+    }
+    .s8-line {
+      font-family: "Inter", sans-serif;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      position: relative;
+      display: block;
+    }
+    .s8-line-1 { font-size: 84px;  margin-bottom: 8px; }
+    .s8-line-2 { font-size: 160px; }
+    .s8-line-2 .accent {
+      color: #ffd76a;            /* gold accent on the dollar value */
+    }
+    .s8-line .ghost-r,
+    .s8-line .ghost-c {
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      pointer-events: none;
+      mix-blend-mode: screen;
+    }
+    .s8-line .ghost-r { color: var(--red-split);  transform: translate(4px, 0); }
+    .s8-line .ghost-c { color: var(--cyan-split); transform: translate(-4px, 0); }
+    .s8-line-1, .s8-line-2 { opacity: 0; }
+
+    #s8-footer {
+      position: absolute;
+      left: 0; right: 0;
+      bottom: 90px;
+      text-align: center;
+      font-family: "VT323", monospace;
+      font-size: 30px;
+      letter-spacing: 0.4em;
+      color: rgba(255,255,255,0.42);
+      text-transform: uppercase;
+      opacity: 0;
+      z-index: 50;
+    }
+
+    #s8-scanlines {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image: repeating-linear-gradient(180deg,
+        rgba(0,0,0,0) 0px, rgba(0,0,0,0) 2px,
+        rgba(0,0,0,0.35) 3px, rgba(0,0,0,0.35) 4px);
+      mix-blend-mode: multiply; opacity: 0.65; z-index: 70;
+    }
+    #s8-vignette {
+      position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse at center,
+          rgba(0,0,0,0)   45%,
+          rgba(0,0,0,0.45) 75%,
+          rgba(0,0,0,0.95) 100%);
+      z-index: 71;
+    }
+
+    /* ============================================================
+       SCENE 9 — Elimination beats: INDEX / BONDS / CASH
+       Three tiles, first two get rejected, third wins.
+       Duration: 41.89 – 48.02s (6.13s)
+       ============================================================ */
+    #scene9 { background: radial-gradient(ellipse at center, #0a0a12 0%, #04040a 60%, #000 100%); }
+
+    #s9-eyebrow {
+      position: absolute; left: 0; right: 0; top: 110px; text-align: center;
+      font-family: "VT323", monospace; font-size: 38px;
+      letter-spacing: 0.36em; color: rgba(255,255,255,0.78);
+      text-shadow: 0 0 14px rgba(0,0,0,0.7);
+      text-transform: uppercase; opacity: 0; z-index: 41;
+    }
+
+    /* Tile wrappers — same recipe as scene 7 */
+    .s9-tile {
+      position: absolute; left: 50%;
+      width: 820px;
+      transform-origin: 50% 50%;
+      opacity: 0;
+      z-index: 20;
+      filter: drop-shadow(18px 22px 0 rgba(0,0,0,0.55))
+              drop-shadow(0 0 32px rgba(0,0,0,0.5));
+    }
+    .s9-tile img {
+      display: block; width: 100%; height: auto;
+      image-rendering: pixelated;
+    }
+    #s9-tile-index { top: 280px; }
+    #s9-tile-bonds { top: 720px; }
+    #s9-tile-cash  { top: 1240px; }
+
+    /* Rejected stamp — chunky chrome red label, no screen blend.
+       Drops the diagonal X-lines entirely; just a slammed-in REJECTED tag. */
+    .s9-stamp-x {
+      position: absolute;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 25;
+    }
+    .s9-stamp-x .x-line {
+      position: absolute;
+      left: 0; right: 0;
+      top: 50%;
+      height: 22px;
+      background: #ff2e2e;
+      box-shadow: 0 0 18px rgba(255,46,46,0.85), 0 6px 0 #82093f;
+      transform: translateY(-50%) rotate(-8deg);
+    }
+    .s9-stamp-x .x-line.bar2 {
+      display: none;       /* single slash reads cleaner */
+    }
+    .s9-stamp-x .x-label {
+      position: absolute;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%) rotate(-4deg);
+      font-family: "Inter", sans-serif;
+      font-weight: 900;
+      font-size: 84px;
+      line-height: 0.92;
+      letter-spacing: 0.02em;
+      color: #ffffff;
+      text-transform: uppercase;
+      background: #ff2e2e;
+      padding: 14px 30px;
+      border: 6px solid #ffffff;
+      white-space: nowrap;
+      text-shadow:
+        0 3px 0 #82093f,
+        0 6px 14px rgba(0,0,0,0.7);
+      box-shadow:
+        0 8px 0 #82093f,
+        0 12px 24px rgba(0,0,0,0.7);
+    }
+
+    /* SELECTED halo for the winning cash tile */
+    .s9-selected-halo {
+      position: absolute;
+      left: 50%; top: 50%;
+      width: 130%; height: 160%;
+      transform: translate(-50%, -50%);
+      border: 10px solid #2dffb4;
+      border-radius: 18px;
+      box-shadow:
+        0 0 40px rgba(45,255,180,0.85),
+        0 0 100px rgba(45,255,180,0.5),
+        inset 0 0 40px rgba(45,255,180,0.35);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 25;
+    }
+    /* SELECTED — chunky chrome badge, matches scene-1 wordmark style */
+    .s9-selected-label {
+      position: absolute;
+      left: 50%;
+      top: -90px;
+      font-family: "Inter", sans-serif;
+      font-weight: 900;
+      font-size: 84px;
+      line-height: 1.0;
+      letter-spacing: 0.02em;
+      color: #001a10;
+      background: #2dffb4;
+      padding: 16px 38px;
+      box-shadow:
+        0 10px 0 #066c45,
+        0 18px 28px rgba(0,0,0,0.6),
+        0 0 32px rgba(45,255,180,0.7);
+      opacity: 0;
+      z-index: 26;
+      text-transform: uppercase;
+      border: 6px solid #ffffff;
+      white-space: nowrap;
+    }
+
+    #s9-scanlines {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image: repeating-linear-gradient(180deg,
+        rgba(0,0,0,0) 0px, rgba(0,0,0,0) 2px,
+        rgba(0,0,0,0.28) 3px, rgba(0,0,0,0.28) 4px);
+      mix-blend-mode: multiply; opacity: 0.5; z-index: 70;
+    }
+
+    /* ============================================================
+       SCENE 10 — Bloom CTA. Rotating PS1 coin in a void.
+       Duration: 48.02 – 52.60s (~4.58s)
+       ============================================================ */
+    #scene10 {
+      background:
+        radial-gradient(ellipse 60% 40% at 50% 50%,
+          rgba(22,88,255,0.22) 0%,
+          rgba(0,0,0,0)         55%),
+        radial-gradient(ellipse at center, #0a0a18 0%, #05050c 60%, #000 100%);
+    }
+
+    /* Rotating coin centerpiece — uses CSS rotation for the spin */
+    #s10-coin-wrap {
+      position: absolute;
+      left: 50%; top: 38%;
+      width: 540px; height: 540px;
+      transform-origin: 50% 50%;
+      opacity: 0;
+      perspective: 1200px;
+      z-index: 20;
+    }
+    #s10-coin {
+      width: 100%; height: 100%;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+    #s10-coin img {
+      width: 100%; height: 100%;
+      display: block;
+      object-fit: contain;
+      image-rendering: pixelated;
+      filter: drop-shadow(0 18px 32px rgba(0,0,0,0.7))
+              drop-shadow(0 0 60px rgba(46,124,255,0.5));
+    }
+
+    #s10-eyebrow {
+      position: absolute; left: 0; right: 0; top: 130px; text-align: center;
+      font-family: "VT323", monospace; font-size: 38px;
+      letter-spacing: 0.36em; color: rgba(255,255,255,0.78);
+      text-shadow: 0 0 14px rgba(0,0,0,0.7);
+      text-transform: uppercase; opacity: 0; z-index: 41;
+    }
+
+    #s10-line {
+      position: absolute; left: 60px; right: 60px;
+      top: 76%; text-align: center;
+      font-family: "Inter", sans-serif; font-weight: 900;
+      font-size: 80px; line-height: 0.95;
+      letter-spacing: -0.01em; color: #fff;
+      text-transform: uppercase;
+      text-shadow: 0 4px 0 #1658FF, 0 8px 22px rgba(0,0,0,0.7);
+      opacity: 0; z-index: 42;
+    }
+
+    #s10-wordmark {
+      position: absolute; left: 0; right: 0;
+      top: 84%; text-align: center;
+      font-family: "Inter", sans-serif; font-weight: 900;
+      font-size: 200px; line-height: 0.92;
+      letter-spacing: -0.03em; color: #fff;
+      text-transform: uppercase;
+      text-shadow:
+        0  4px 0 #2e7cff,
+        0  8px 0 #1658FF,
+        0 12px 0 #0833a8,
+        0 18px 32px rgba(46,124,255,0.55);
+      opacity: 0; z-index: 43;
+    }
+
+    #s10-cta {
+      position: absolute; left: 0; right: 0;
+      bottom: 130px; text-align: center;
+      font-family: "VT323", monospace; font-size: 38px;
+      letter-spacing: 0.32em; color: #2dffb4;
+      text-shadow: 0 0 18px rgba(45,255,180,0.7);
+      text-transform: uppercase; opacity: 0; z-index: 44;
+    }
+
+    #s10-scanlines {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image: repeating-linear-gradient(180deg,
+        rgba(0,0,0,0) 0px, rgba(0,0,0,0) 2px,
+        rgba(0,0,0,0.28) 3px, rgba(0,0,0,0.28) 4px);
+      mix-blend-mode: multiply; opacity: 0.5; z-index: 70;
+    }
+
+  </style>
+</head>
+<body>
+  <div id="root"
+       data-composition-id="buffett-indicator-v2"
+       data-width="1080" data-height="1920"
+       data-start="0" data-duration="52.60">
+
+    <!-- =========================================================
+         SCENE 1 — clip; duration 2.50s, track 0
+         ========================================================= -->
+    <div id="scene1" class="scene clip"
+         data-start="0" data-duration="2.14" data-track-index="0">
+
+      <div id="s1-portrait-wrap">
+        <img id="s1-portrait" src="assets/buffett-ps1-b.png" alt="">
+      </div>
+
+      <div id="s1-tracker"></div>
+      <div id="s1-scanlines"></div>
+      <div id="s1-vignette"></div>
+
+      <div id="s1-text">
+        <div class="s1-eyebrow" id="s1-eb">▮ PLAYER 1 ▮</div>
+
+        <div class="s1-line s1-line-1" id="s1-l1">
+          <span class="ghost-r" aria-hidden="true">WARREN BUFFETT</span>
+          <span class="ghost-c" aria-hidden="true">WARREN BUFFETT</span>
+          <span class="real">WARREN BUFFETT</span>
+        </div>
+
+        <div class="s1-line s1-line-2" id="s1-l2">
+          <span class="ghost-r" aria-hidden="true">HAS A<br><span class="accent">RECESSION</span><br>SIGNAL.</span>
+          <span class="ghost-c" aria-hidden="true">HAS A<br><span class="accent">RECESSION</span><br>SIGNAL.</span>
+          <span class="real">HAS A<br><span class="accent">RECESSION</span><br>SIGNAL.</span>
+        </div>
+      </div>
+
+      <div id="s1-footer">▷ INSERT COIN</div>
+
+      <div id="s1-flash"></div>
+
+    </div>
+
+    <!-- =========================================================
+         SCENE 2 — "Wall Street calls it the Buffett Indicator."
+         data-start=2.14, duration 2.27s, track 0
+         ========================================================= -->
+    <div id="scene2" class="scene clip"
+         data-start="2.14" data-duration="2.27" data-track-index="0">
+
+      <div id="s2-sky"></div>
+
+      <div id="s2-mountains">
+        <svg viewBox="0 0 1080 140" preserveAspectRatio="none">
+          <polygon fill="#0a0820" points="0,140 120,80 180,110 280,50 380,95 460,30 540,75 620,40 720,90 820,55 920,85 1020,45 1080,80 1080,140"/>
+          <polygon fill="#1a1040" opacity="0.7" points="0,140 80,105 160,125 240,85 340,115 420,70 520,100 600,75 680,108 780,80 880,112 960,75 1080,105 1080,140"/>
+        </svg>
+      </div>
+
+      <div id="s2-floor-wrap">
+        <div id="s2-floor"></div>
+      </div>
+
+      <div id="s2-horizon"></div>
+
+      <div id="s2-wordmark">
+        <span class="s2-word" id="s2-w1">BUFFETT</span>
+        <span class="s2-word indicator" id="s2-w2">INDICATOR</span>
+      </div>
+
+      <div id="s2-eyebrow">▮ WALL STREET CALLS IT ▮</div>
+
+      <div id="s2-scanlines"></div>
+      <div id="s2-vignette"></div>
+
+    </div>
+
+    <!-- =========================================================
+         SCENE 3 — Two towers on the floor: market cap vs GDP
+         data-start=4.41, duration 3.44s, track 0
+         ========================================================= -->
+    <div id="scene3" class="scene clip"
+         data-start="4.41" data-duration="3.44" data-track-index="0">
+
+      <div id="s3-sky"></div>
+      <div id="s3-floor-wrap"><div id="s3-floor"></div></div>
+      <div id="s3-horizon"></div>
+
+      <div id="s3-eyebrow">▮ MARKET CAP &nbsp;÷&nbsp; GDP ▮</div>
+
+      <div id="s3-divider">÷</div>
+
+      <div id="s3-tower-mcap" class="s3-tower-wrap">
+        <div class="s3-tower-value" id="s3-mcap-val">$0T</div>
+        <div class="s3-tower"></div>
+        <div class="s3-tower-label">MARKET CAP</div>
+      </div>
+
+      <div id="s3-tower-gdp" class="s3-tower-wrap">
+        <div class="s3-tower-value" id="s3-gdp-val">$0T</div>
+        <div class="s3-tower"></div>
+        <div class="s3-tower-label">GDP</div>
+      </div>
+
+      <div id="s3-scanlines"></div>
+      <div id="s3-vignette"></div>
+    </div>
+
+    <!-- =========================================================
+         SCENE 4 — Pull-quote inside a PS1 CRT TV
+         data-start=7.85, duration 4.09s, track 0
+         ========================================================= -->
+    <div id="scene4" class="scene clip"
+         data-start="7.85" data-duration="4.09" data-track-index="0">
+
+      <div id="s4-sky"></div>
+      <div id="s4-floor-wrap"><div id="s4-floor"></div></div>
+      <div id="s4-horizon"></div>
+
+      <div id="s4-eyebrow">▮ BUFFETT, FORTUNE 2001 ▮</div>
+
+      <div id="s4-tv">
+        <div class="s4-tv-bezel"></div>
+        <div class="s4-tv-screen">
+          <img class="s4-tv-portrait" src="assets/buffett-ps1-b.png" alt="">
+          <div class="s4-tv-glass"></div>
+          <div class="s4-tv-rec">REC</div>
+        </div>
+        <div class="s4-tv-brand">★ ORACLE</div>
+        <div class="s4-tv-controls">
+          <div class="s4-knob"></div>
+          <div class="s4-knob knob2"></div>
+        </div>
+      </div>
+
+      <div id="s4-source">▷ ON THE BUFFETT INDICATOR</div>
+
+      <div id="s4-quote">
+        <span class="s4-quote-line" id="s4-l1">"THE <span class="accent">BEST</span> SINGLE</span>
+        <span class="s4-quote-line" id="s4-l2">MEASURE."</span>
+      </div>
+
+      <div id="s4-scanlines"></div>
+      <div id="s4-vignette"></div>
+    </div>
+
+    <!-- =========================================================
+         SCENE 5 — REIMAGINED. Braxton-style dusk landscape with a
+         lonely investor in a graveyard of dotcom companies. The data
+         tells the story via counters + payoff text — no chart line,
+         no camera pan. Static composition; world ticks around the figure.
+         data-start=11.94, duration 10.96s, track 0
+         ========================================================= -->
+    <div id="scene5" class="scene clip"
+         data-start="11.94" data-duration="10.96" data-track-index="0">
+
+      <!-- Hero AI background: lonely figure, blood-red sun, tombstones -->
+      <img id="s5-bg" src="assets/dotcom-dusk-b.png" alt="">
+      <div id="s5-bg-tint"></div>
+
+      <div id="s5-eyebrow-new">▮ S&amp;P 500 · 2000 — 2007 ▮</div>
+
+      <!-- Centered data stack — year + portfolio counter -->
+      <div id="s5-data">
+        <div class="s5-year-row">
+          <span id="s5-year">2000</span>
+        </div>
+        <div class="s5-value-label">PORTFOLIO VALUE</div>
+        <div id="s5-value">$1,527</div>
+        <div id="s5-delta">▼ −49%</div>
+      </div>
+
+      <!-- Payoff at the end -->
+      <div id="s5-payoff">
+        <div class="s5-payoff-eyebrow">▾ SEVEN YEARS OF</div>
+        <div class="s5-payoff-hero">NOTHING.</div>
+      </div>
+
+      <!-- LEGACY OLD CAMERA — kept hidden so old CSS doesn't error. -->
+      <div id="s5-camera" style="display:none;">
+
+        <!-- Distant ridge (parallax-back) -->
+        <div id="s5-distant">
+          <svg viewBox="0 0 3600 280" preserveAspectRatio="none">
+            <polygon fill="#0d2a36" opacity="0.7"
+              points="0,280 0,220 140,180 280,200 420,140 580,170 760,130 920,160 1100,140 1260,170 1440,120 1620,150 1820,140 2020,170 2220,150 2420,180 2620,150 2820,170 3020,140 3220,160 3400,140 3600,170 3600,280"/>
+          </svg>
+        </div>
+
+        <!-- Mid ridge (parallax-mid) -->
+        <div id="s5-mid">
+          <svg viewBox="0 0 3600 320" preserveAspectRatio="none">
+            <polygon fill="#10404f" opacity="0.85"
+              points="0,320 0,240 200,180 360,210 540,150 720,210 900,170 1080,230 1260,200 1440,240 1640,210 1840,260 2040,220 2240,250 2440,220 2640,260 2840,230 3040,260 3240,230 3440,250 3600,230 3600,320"/>
+          </svg>
+        </div>
+
+        <!-- THE S&P 500 chart — real monthly-close data 2000–2007.
+             X-axis: time (1999 → late 2007). Y-axis: index value (180 = 1527 peak, 600 = 777 low).
+             Path traces the actual dotcom crash and 7-year recovery. -->
+        <div id="s5-front">
+          <svg viewBox="0 0 3600 880" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="s5-front-grad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%"   stop-color="rgba(255,58,58,0.55)"/>
+                <stop offset="40%"  stop-color="rgba(194,24,106,0.35)"/>
+                <stop offset="80%"  stop-color="rgba(58,10,44,0.15)"/>
+                <stop offset="100%" stop-color="rgba(5,10,24,0)"/>
+              </linearGradient>
+              <linearGradient id="s5-line-grad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%"   stop-color="#ff5b5b"/>
+                <stop offset="30%"  stop-color="#ff3a3a"/>
+                <stop offset="60%"  stop-color="#ff2e9d"/>
+                <stop offset="100%" stop-color="#6ab0ff"/>
+              </linearGradient>
+            </defs>
+
+            <!-- Dashed horizontal gridlines — Y-axis reference -->
+            <g stroke="rgba(255,255,255,0.10)" stroke-width="2" stroke-dasharray="14 16">
+              <line x1="0" y1="180" x2="3600" y2="180"/>
+              <line x1="0" y1="380" x2="3600" y2="380"/>
+              <line x1="0" y1="600" x2="3600" y2="600"/>
+              <line x1="0" y1="800" x2="3600" y2="800"/>
+            </g>
+
+            <!-- Vertical year guide lines (subtle) -->
+            <g stroke="rgba(255,255,255,0.07)" stroke-width="2">
+              <line x1="560"  y1="80" x2="560"  y2="850"/>
+              <line x1="880"  y1="80" x2="880"  y2="850"/>
+              <line x1="1200" y1="80" x2="1200" y2="850"/>
+              <line x1="1520" y1="80" x2="1520" y2="850"/>
+              <line x1="1840" y1="80" x2="1840" y2="850"/>
+              <line x1="2160" y1="80" x2="2160" y2="850"/>
+              <line x1="2480" y1="80" x2="2480" y2="850"/>
+              <line x1="2800" y1="80" x2="2800" y2="850"/>
+            </g>
+
+            <!-- Filled area under the chart line (S&P-route polygon) -->
+            <polygon fill="url(#s5-front-grad)"
+              points="0,880 0,320 280,254 500,180 760,296 880,392 1080,543 1200,600 1520,412 1840,356 2160,336 2480,241 2800,200 3060,180 3300,213 3600,260 3600,880"/>
+
+            <!-- The bright S&P 500 chart line — actual price path -->
+            <polyline fill="none" stroke="url(#s5-line-grad)" stroke-width="9"
+              stroke-linecap="round" stroke-linejoin="round"
+              points="0,320 280,254 500,180 760,296 880,392 1080,543 1200,600 1520,412 1840,356 2160,336 2480,241 2800,200 3060,180 3300,213 3600,260"/>
+
+            <!-- Peak marker dot — Mar 2000, S&P at 1527 -->
+            <circle cx="500" cy="180" r="20" fill="#ff5b5b" stroke="#ffffff" stroke-width="6"/>
+            <!-- Valley low marker — Oct 2002, S&P at 777 -->
+            <circle cx="1200" cy="600" r="16" fill="#ff2e9d" stroke="#ffffff" stroke-width="5"/>
+            <!-- Break-even marker — Oct 2007, S&P back to 1527 -->
+            <circle cx="3060" cy="180" r="18" fill="#6ab0ff" stroke="#ffffff" stroke-width="5"/>
+
+            <!-- Dashed horizontal "peak level" reference line — shows the 1527 watermark -->
+            <line x1="500" y1="180" x2="3060" y2="180"
+                  stroke="#ff5b5b" stroke-width="3" stroke-dasharray="12 12" opacity="0.55"/>
+          </svg>
+        </div>
+
+        <!-- Inline data labels on the chart — sit at chart points -->
+        <div class="s5-data-label" style="left: 460px;  top: 800px;">1,527</div>
+        <div class="s5-data-label" style="left: 1160px; top: 1450px; color:#ff2e9d;">−49%<br><span class="sub">777</span></div>
+        <div class="s5-data-label" style="left: 3020px; top: 800px; color:#6ab0ff;">BREAK-EVEN<br><span class="sub">1,527</span></div>
+
+        <!-- Year tick markers along the timeline
+             World x positions are calibrated to the front-mountain valley region. -->
+        <div class="s5-tick" style="left: 560px;"></div>
+        <div class="s5-tick-label" style="left: 560px;">2000</div>
+        <div class="s5-tick" style="left: 880px;"></div>
+        <div class="s5-tick-label" style="left: 880px;">'01</div>
+        <div class="s5-tick" style="left: 1200px;"></div>
+        <div class="s5-tick-label" style="left: 1200px;">'02</div>
+        <div class="s5-tick" style="left: 1520px;"></div>
+        <div class="s5-tick-label" style="left: 1520px;">'03</div>
+        <div class="s5-tick" style="left: 1840px;"></div>
+        <div class="s5-tick-label" style="left: 1840px;">'04</div>
+        <div class="s5-tick" style="left: 2160px;"></div>
+        <div class="s5-tick-label" style="left: 2160px;">'05</div>
+        <div class="s5-tick" style="left: 2480px;"></div>
+        <div class="s5-tick-label" style="left: 2480px;">'06</div>
+        <div class="s5-tick" style="left: 2800px;"></div>
+        <div class="s5-tick-label" style="left: 2800px;">'07</div>
+
+        <!-- Hero callouts -->
+        <div id="s5-call-peak" class="s5-callout">
+          <div class="label">▼ DOTCOM PEAK</div>
+          <div class="value">2000</div>
+        </div>
+
+        <div id="s5-call-valley" class="s5-callout">
+          <div class="label">▾ FLATLINE</div>
+          <div class="value">7 YEARS</div>
+        </div>
+
+      </div>
+
+      <!-- Fixed Y-axis labels (outside camera, stay at left edge of viewport) -->
+      <div class="s5-yaxis" style="top: 968px;">1,500 —</div>
+      <div class="s5-yaxis" style="top: 1168px;">1,000 —</div>
+      <div class="s5-yaxis" style="top: 1388px;">  750 —</div>
+
+      <div id="s5-lightning"></div>
+      <div id="s5-scanlines"></div>
+      <div id="s5-vignette"></div>
+    </div>
+
+    <!-- =========================================================
+         SCENE 6 — 209% payoff in the cyber-arena
+         data-start=22.90, duration 6.50s, track 0
+         ========================================================= -->
+    <div id="scene6" class="scene clip"
+         data-start="22.90" data-duration="6.50" data-track-index="0">
+
+      <div id="s6-aura"></div>
+      <div id="s6-printer-wrap">
+        <img src="assets/s6-printer.png" alt="Money printer">
+      </div>
+
+      <div id="s6-eyebrow">▮ TODAY · MARKET CAP / GDP ▮</div>
+
+      <div id="s6-setup">
+        <div class="s6-setup-label">EVERY US STOCK</div>
+        <div class="s6-setup-value">$62T</div>
+      </div>
+
+      <div id="s6-pulse"></div>
+
+      <div id="s6-hero">
+        <div class="s6-hero-label">BUFFETT INDICATOR · TODAY</div>
+        <div class="s6-hero-number">209%</div>
+        <div class="s6-hero-sub">OF <span class="accent">U.S. GDP</span></div>
+      </div>
+
+      <div id="s6-scanlines"></div>
+    </div>
+
+    <!-- =========================================================
+         SCENE 7 — Historical ratio cards + ink-stamp payoff
+         data-start=29.40, duration 5.48s, track 0
+         ========================================================= -->
+    <div id="scene7" class="scene clip"
+         data-start="29.40" data-duration="5.48" data-track-index="0">
+
+      <!-- Floating void debris -->
+      <div class="s7-debris s7-cube" style="left: 8%;  top: 18%;"></div>
+      <div class="s7-debris s7-cube" style="left: 88%; top: 30%; transform: rotate(20deg);"></div>
+      <div class="s7-debris s7-cube" style="left: 5%;  top: 78%; transform: rotate(60deg);"></div>
+      <div class="s7-debris s7-cube" style="left: 92%; top: 84%; transform: rotate(35deg);"></div>
+      <div class="s7-debris s7-ring" style="left: 12%; top: 50%;"></div>
+      <div class="s7-debris s7-ring" style="left: 78%; top: 62%; transform: rotate(-20deg);"></div>
+      <div class="s7-debris s7-star" style="left: 22%; top: 12%;"></div>
+      <div class="s7-debris s7-star" style="left: 70%; top: 8%;"></div>
+      <div class="s7-debris s7-star" style="left: 50%; top: 90%;"></div>
+      <div class="s7-debris s7-star" style="left: 15%; top: 95%;"></div>
+
+      <div id="s7-eyebrow">▮ HISTORICAL · WHEN RATIO ≥ 200% ▮</div>
+
+      <!-- 3 record cards — gpt_image_2 PS1 3D tiles, chroma-keyed -->
+      <div id="s7-card-1929" class="s7-card">
+        <img src="assets/s7-card-1929.png" alt="1929: next 25 years ~0%">
+      </div>
+
+      <div id="s7-card-1965" class="s7-card">
+        <img src="assets/s7-card-1965.png" alt="1965: next 17 years ~0%">
+      </div>
+
+      <div id="s7-card-1999" class="s7-card">
+        <img src="assets/s7-card-1999.png" alt="1999: next 12 years -15%">
+      </div>
+
+      <!-- Diagonal red ink-stamp -->
+      <div id="s7-stamp">
+        FLAT OR NEGATIVE.
+        <span class="stamp-sub">★ EVERY TIME ★</span>
+      </div>
+
+      <div id="s7-scanlines"></div>
+    </div>
+
+    <!-- =========================================================
+         SCENE 8 — Buffett's response: $380B vault
+         data-start=34.88, duration 7.01s, track 0
+         ========================================================= -->
+    <div id="scene8" class="scene clip"
+         data-start="34.88" data-duration="7.01" data-track-index="0">
+
+      <div id="s8-portrait-wrap">
+        <img id="s8-portrait" src="assets/buffett-gigachad.png" alt="">
+      </div>
+
+      <div id="s8-eyebrow">▮ THE ORACLE STAYS LIQUID ▮</div>
+
+      <div id="s8-text">
+        <div class="s8-line s8-line-1" id="s8-l1">
+          <span class="ghost-r" aria-hidden="true">RECORD CASH</span>
+          <span class="ghost-c" aria-hidden="true">RECORD CASH</span>
+          <span class="real">RECORD CASH</span>
+        </div>
+        <div class="s8-line s8-line-2" id="s8-l2">
+          <span class="ghost-r" aria-hidden="true"><span class="accent">$380B</span></span>
+          <span class="ghost-c" aria-hidden="true"><span class="accent">$380B</span></span>
+          <span class="real"><span class="accent">$380B</span></span>
+        </div>
+      </div>
+
+      <div id="s8-footer">▷ BERKSHIRE HATHAWAY · Q1 2026</div>
+
+      <div id="s8-scanlines"></div>
+      <div id="s8-vignette"></div>
+    </div>
+
+    <!-- =========================================================
+         SCENE 9 — Elimination beats: INDEX / BONDS / CASH
+         data-start=41.89, duration 6.13s, track 0
+         ========================================================= -->
+    <div id="scene9" class="scene clip"
+         data-start="41.89" data-duration="6.13" data-track-index="0">
+
+      <div id="s9-eyebrow">▮ BUFFETT'S PLAYBOOK ▮</div>
+
+      <div id="s9-tile-index" class="s9-tile">
+        <img src="assets/s9-tile-index.png" alt="Index">
+        <div class="s9-stamp-x">
+          <div class="x-line"></div>
+          <div class="x-line bar2"></div>
+          <div class="x-label">REJECTED</div>
+        </div>
+      </div>
+
+      <div id="s9-tile-bonds" class="s9-tile">
+        <img src="assets/s9-tile-bonds.png" alt="Bonds">
+        <div class="s9-stamp-x">
+          <div class="x-line"></div>
+          <div class="x-line bar2"></div>
+          <div class="x-label">REJECTED</div>
+        </div>
+      </div>
+
+      <div id="s9-tile-cash" class="s9-tile">
+        <img src="assets/s9-tile-cash.png" alt="Cash">
+        <div class="s9-selected-halo"></div>
+        <div class="s9-selected-label">SELECTED ✓</div>
+      </div>
+
+      <div id="s9-scanlines"></div>
+    </div>
+
+    <!-- =========================================================
+         SCENE 10 — Bloom CTA. Spinning PS1 coin.
+         data-start=48.02, duration 4.58s, track 0
+         ========================================================= -->
+    <div id="scene10" class="scene clip"
+         data-start="48.02" data-duration="4.58" data-track-index="0">
+
+      <div id="s10-eyebrow">▮ THE BUFFETT INDICATOR · END ▮</div>
+
+      <div id="s10-coin-wrap">
+        <div id="s10-coin">
+          <img src="assets/s10-coin.png" alt="Bloom coin">
+        </div>
+      </div>
+
+      <div id="s10-line">DON'T SELL EVERYTHING.</div>
+
+      <div id="s10-wordmark">BLOOM</div>
+      <div id="s10-cta">▷ TAP TO INSTALL</div>
+
+      <div id="s10-scanlines"></div>
+    </div>
+
+    <!-- Single root-level voiceover track — covers all scenes -->
+    <audio id="vo" class="clip"
+           data-start="0" data-duration="52.60" data-track-index="2"
+           src="assets/voiceover.mp3" data-volume="1"></audio>
+
+    <!-- Background music — Suno A: dark synthwave, 110bpm, instrumental.
+         data-volume kept low so VO stays clear. -->
+    <audio id="bgm" class="clip"
+           data-start="0" data-duration="52.60" data-track-index="3"
+           src="assets/music/braxton-bg-a.mp3" data-volume="0.15"></audio>
+
+    <!-- ============================================================
+         SFX track — track index 4. Only the intro riser for now.
+         ============================================================ -->
+    <audio id="sfx-riser-intro" class="clip"
+           data-start="0.0" data-duration="auto" data-track-index="4"
+           src="assets/sfx/Riser.wav" data-volume="0.55"></audio>
+
+  </div>
+
+  <script>
+    /* ============================================================
+       Eases — register once
+       ============================================================ */
+    gsap.registerPlugin(CustomEase, SplitText);
+    CustomEase.create("snapIn",  "0.22, 1, 0.36, 1");
+    CustomEase.create("settle",  "0.16, 1, 0.3, 1");
+    CustomEase.create("snapOut", "0.5, 0, 0.75, 0");
+    CustomEase.create("smooth",  "0.65, 0, 0.35, 1");
+
+    /* ============================================================
+       VO TIMING — anchored to spoken words via at()/landOn()
+       ============================================================ */
+    const SCENES = {
+      "scene-01": { offset: 0.00, words: [
+        { word: "Warren",    start: 0.000 },
+        { word: "Buffett",   start: 0.372 },
+        { word: "has",       start: 0.743 },
+        { word: "a",         start: 0.929 },
+        { word: "recession", start: 1.022 },
+        { word: "signal.",   start: 1.498 }
+      ]},
+      "scene-02": { offset: 2.14, words: [
+        { word: "Wall",       start: 0.000 },
+        { word: "Street",     start: 0.313 },
+        { word: "calls",      start: 0.627 },
+        { word: "it",         start: 0.906 },
+        { word: "the",        start: 0.998 },
+        { word: "Buffett",    start: 1.126 },
+        { word: "Indicator.", start: 1.463 }
+      ]},
+      "scene-03": { offset: 4.41, words: [
+        { word: "It",       start: 0.000 },
+        { word: "compares", start: 0.186 },
+        { word: "total",    start: 0.662 },
+        { word: "US",       start: 1.057 },
+        { word: "stock",    start: 1.370 },
+        { word: "market",   start: 1.695 },
+        { word: "value",    start: 1.997 },
+        { word: "to",       start: 2.357 },
+        { word: "GDP.",     start: 2.508 }
+      ]},
+      "scene-04": { offset: 7.85, words: [
+        { word: "Buffett",    start: 0.000 },
+        { word: "himself",    start: 0.441 },
+        { word: "called",     start: 0.987 },
+        { word: "it",         start: 1.312 },
+        { word: "the",        start: 1.416 },
+        { word: "best",       start: 1.567 },
+        { word: "single",     start: 1.881 },
+        { word: "measure",    start: 2.229 },
+        { word: "of",         start: 2.589 },
+        { word: "market",     start: 2.775 },
+        { word: "valuation.", start: 3.135 }
+      ]},
+      "scene-08": { offset: 34.88, words: [
+        { word: "Buffett's", start: 0.000 },
+        { word: "response",  start: 0.453 },
+        { word: "is",        start: 0.998 },
+        { word: "the",       start: 1.173 },
+        { word: "same",      start: 1.300 },
+        { word: "as",        start: 1.602 },
+        { word: "it",        start: 1.753 },
+        { word: "was",       start: 1.869 },
+        { word: "then.",     start: 2.113 },
+        { word: "Record",    start: 2.740 },
+        { word: "cash",      start: 3.100 },
+        { word: "at",        start: 3.483 },
+        { word: "Berkshire", start: 3.657 },
+        { word: "over",      start: 4.435 },
+        { word: "three",     start: 4.702 },
+        { word: "hundred",   start: 5.004 },
+        { word: "and",       start: 5.364 },
+        { word: "eighty",    start: 5.503 },
+        { word: "billion",   start: 5.828 },
+        { word: "dollars.",  start: 6.246 }
+      ]},
+      "scene-09": { offset: 41.89, words: [
+        { word: "Not",      start: 0.000 },
+        { word: "buying",   start: 0.313 },
+        { word: "the",      start: 0.627 },
+        { word: "index.",   start: 0.766 },
+        { word: "Not",      start: 1.474 },
+        { word: "rotating", start: 1.718 },
+        { word: "into",     start: 2.287 },
+        { word: "bonds.",   start: 2.519 },
+        { word: "Sitting",  start: 3.204 },
+        { word: "in",       start: 3.541 },
+        { word: "cash,",    start: 3.669 },
+        { word: "waiting",  start: 4.203 },
+        { word: "for",      start: 4.528 },
+        { word: "prices",   start: 4.690 },
+        { word: "to",       start: 5.143 },
+        { word: "come",     start: 5.271 },
+        { word: "to",       start: 5.503 },
+        { word: "him.",     start: 5.619 }
+      ]},
+      "scene-10": { offset: 48.02, words: [
+        { word: "This",        start: 0.000 },
+        { word: "doesn't",     start: 0.255 },
+        { word: "mean",        start: 0.534 },
+        { word: "sell",        start: 0.766 },
+        { word: "everything.", start: 1.068 },
+        { word: "For",         start: 1.997 },
+        { word: "more",        start: 2.194 },
+        { word: "investing",   start: 2.415 },
+        { word: "knowledge,",  start: 2.891 },
+        { word: "check",       start: 3.402 },
+        { word: "out",         start: 3.692 },
+        { word: "Bloom.",      start: 3.878 }
+      ]},
+      "scene-07": { offset: 29.40, words: [
+        { word: "The",       start: 0.000 },
+        { word: "only",      start: 0.244 },
+        { word: "other",     start: 0.546 },
+        { word: "times",     start: 0.778 },
+        { word: "this",      start: 1.173 },
+        { word: "ratio",     start: 1.405 },
+        { word: "has",       start: 1.869 },
+        { word: "been",      start: 2.032 },
+        { word: "this",      start: 2.229 },
+        { word: "high,",     start: 2.461 },
+        { word: "the",       start: 2.995 },
+        { word: "next",      start: 3.193 },
+        { word: "decade",    start: 3.495 },
+        { word: "was",       start: 3.924 },
+        { word: "flat",      start: 4.110 },
+        { word: "or",        start: 4.481 },
+        { word: "negative.", start: 4.714 }
+      ]},
+      "scene-06": { offset: 22.90, words: [
+        { word: "Right",    start: 0.000 },
+        { word: "now,",     start: 0.290 },
+        { word: "every",    start: 0.627 },
+        { word: "public",   start: 0.975 },
+        { word: "stock",    start: 1.347 },
+        { word: "in",       start: 1.649 },
+        { word: "America",  start: 1.753 },
+        { word: "is",       start: 2.264 },
+        { word: "worth",    start: 2.426 },
+        { word: "more",     start: 2.682 },
+        { word: "than",     start: 2.879 },
+        { word: "double",   start: 3.088 },
+        { word: "the",      start: 3.437 },
+        { word: "entire",   start: 3.576 },
+        { word: "economy.", start: 4.098 },
+        { word: "Two",      start: 4.876 },
+        { word: "hundred",  start: 5.085 },
+        { word: "and",      start: 5.364 },
+        { word: "nine",     start: 5.492 },
+        { word: "percent.", start: 5.735 }
+      ]},
+      "scene-05": { offset: 11.94, words: [
+        { word: "When",     start: 0.000 },
+        { word: "it",       start: 0.244 },
+        { word: "crossed",  start: 0.360 },
+        { word: "two",      start: 0.731 },
+        { word: "hundred",  start: 1.010 },
+        { word: "percent",  start: 1.358 },
+        { word: "before",   start: 1.834 },
+        { word: "the",      start: 2.159 },
+        { word: "dotcom",   start: 2.287 },
+        { word: "crash,",   start: 2.775 },
+        { word: "anyone",   start: 3.506 },
+        { word: "who",      start: 3.889 },
+        { word: "bought",   start: 4.052 },
+        { word: "the",      start: 4.342 },
+        { word: "S",        start: 4.540 },
+        { word: "and",      start: 4.760 },
+        { word: "P",        start: 4.911 },
+        { word: "that",     start: 5.178 },
+        { word: "year",     start: 5.399 },
+        { word: "didn't",   start: 5.863 },
+        { word: "break",    start: 6.211 },
+        { word: "even",     start: 6.641 },
+        { word: "until",    start: 7.117 },
+        { word: "two",      start: 7.465 },
+        { word: "thousand", start: 7.686 },
+        { word: "seven.",   start: 8.104 },
+        { word: "Seven",    start: 9.102 },
+        { word: "years",    start: 9.555 },
+        { word: "of",       start: 10.019 },
+        { word: "nothing.", start: 10.240 }
+      ]}
+    };
+
+    function _norm(s) { return s.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu, ""); }
+    function _findPhrase(sceneId, phrase) {
+      const W = SCENES[sceneId].words;
+      const tokens = phrase.toLowerCase().split(/\s+/).map(_norm).filter(Boolean);
+      const hits = [];
+      for (let i = 0; i <= W.length - tokens.length; i++) {
+        let ok = true;
+        for (let j = 0; j < tokens.length; j++) {
+          if (_norm(W[i+j].word) !== tokens[j]) { ok = false; break; }
+        }
+        if (ok) hits.push(i);
+      }
+      if (hits.length === 0) throw new Error(`at: phrase "${phrase}" not found in ${sceneId}`);
+      if (hits.length > 1)   throw new Error(`at: phrase "${phrase}" matches ${hits.length} occurrences in ${sceneId}`);
+      return W[hits[0]].start;
+    }
+    function at(sceneId, phrase)              { return SCENES[sceneId].offset + _findPhrase(sceneId, phrase); }
+    function landOn(sceneId, phrase, dur = 0) { return at(sceneId, phrase) - dur; }
+
+    /* ============================================================
+       Timeline — paused; registered on window.__timelines
+       ============================================================ */
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["buffett-indicator-v2"] = tl;
+
+    /* ============================================================
+       PS1 jitter — every ~0.08s snap the portrait by 1-2px on
+       a tiny grid. Looks like vertex-snap / wobble. We pre-bake
+       random offsets into the timeline so playback is deterministic
+       (no Math.random at runtime).
+       ============================================================ */
+    const JITTER_STEP = 0.08;
+    const JITTER_SEQ = [
+      [0,0],[1,-1],[-1,0],[0,1],[1,1],[-1,-1],[0,0],[1,0],
+      [-1,1],[0,-1],[1,1],[-1,0],[0,0],[1,-1],[-1,1],[0,0],
+      [1,0],[-1,-1],[0,1],[1,0],[-1,0],[0,0],[1,-1],[-1,0],
+      [0,1],[1,1],[-1,-1],[0,0],[1,0],[-1,1],[0,-1],[1,0]
+    ];
+
+    function applyPS1Jitter(target, startTime, totalDuration) {
+      const steps = Math.floor(totalDuration / JITTER_STEP);
+      for (let i = 0; i < steps; i++) {
+        const [jx, jy] = JITTER_SEQ[i % JITTER_SEQ.length];
+        tl.set(target, { x: jx, y: jy }, startTime + i * JITTER_STEP);
+      }
+    }
+
+    /* ============================================================
+       SCENE 1 CHOREOGRAPHY
+       ============================================================ */
+    const s = "scene-01";
+
+    // Lock CSS-centering via xPercent/yPercent so GSAP-owned transforms
+    // don't blow away translate(-50%, -50%).
+    gsap.set("#s1-portrait-wrap", { xPercent: -50, yPercent: -50, scale: 1.08, opacity: 0 });
+
+    // 0.0s — Portrait fades in from black, slightly oversized then settling
+    tl.to("#s1-portrait-wrap",
+      { opacity: 1, scale: 1.0, duration: 0.45, ease: "snapIn", overwrite: "auto" },
+      0
+    );
+
+    // Slow continuous "camera" push across the whole scene (Ken Burns).
+    // Starts AFTER the fade-in lands so the two scale tweens don't overlap.
+    tl.to("#s1-portrait-wrap",
+      { scale: 1.04, duration: 2.05, ease: "none", overwrite: "auto" },
+      0.45
+    );
+
+    // PS1 vertex jitter applied to portrait wrap (kicks in once visible).
+    // Uses x/y in pixels — independent of xPercent centering and scale tween.
+    applyPS1Jitter("#s1-portrait-wrap", 0.50, 2.00);
+
+    // 0.15s — eyebrow "PLAYER 1" stamps in
+    tl.to("#s1-eb", { opacity: 1, duration: 0.20, ease: "snapIn" }, 0.15);
+
+    // VHS tracker line sweeps down — once during scene
+    tl.fromTo("#s1-tracker",
+      { top: "-10%", opacity: 0 },
+      { top: "110%", opacity: 1, duration: 1.30, ease: "none" },
+      0.30
+    );
+    tl.to("#s1-tracker", { opacity: 0, duration: 0.20, overwrite: "auto" }, 1.65);
+
+    // On "Warren Buffett" → line 1 stamps in
+    tl.fromTo("#s1-l1",
+      { opacity: 0, y: 24, scale: 0.94 },
+      { opacity: 1, y: 0, scale: 1.0, duration: 0.34, ease: "snapIn" },
+      at(s, "Warren Buffett") - 0.12
+    );
+
+    // On "has a recession" → line 2 stamps in
+    tl.fromTo("#s1-l2",
+      { opacity: 0, y: 32, scale: 0.92 },
+      { opacity: 1, y: 0, scale: 1.0, duration: 0.42, ease: "snapIn" },
+      at(s, "has a recession") - 0.10
+    );
+
+    // Footer mono cue
+    tl.to("#s1-footer", { opacity: 1, duration: 0.30, ease: "snapIn" }, at(s, "has a recession") + 0.25);
+
+    // PUNCH on "signal" — chromatic split jolts wider, flash, portrait scale punch
+    tl.to("#s1-flash", { opacity: 0.45, duration: 0.06, ease: "snapIn", overwrite: "auto" }, at(s, "signal."));
+    tl.to("#s1-flash", { opacity: 0.0,  duration: 0.18, ease: "snapOut", overwrite: "auto" }, at(s, "signal.") + 0.08);
+
+    // widen chromatic ghosts on punch
+    tl.to([".s1-line-1 .ghost-r", ".s1-line-2 .ghost-r"],
+          { x: 12, duration: 0.10, ease: "snapIn" }, at(s, "signal."));
+    tl.to([".s1-line-1 .ghost-c", ".s1-line-2 .ghost-c"],
+          { x: -12, duration: 0.10, ease: "snapIn" }, at(s, "signal."));
+    tl.to([".s1-line-1 .ghost-r", ".s1-line-2 .ghost-r"],
+          { x: 4, duration: 0.30, ease: "snapOut" }, at(s, "signal.") + 0.12);
+    tl.to([".s1-line-1 .ghost-c", ".s1-line-2 .ghost-c"],
+          { x: -4, duration: 0.30, ease: "snapOut" }, at(s, "signal.") + 0.12);
+
+    // Portrait micro-punch on signal — overwrite the Ken Burns scale at this moment
+    tl.to("#s1-portrait-wrap",
+      { scale: 1.07, duration: 0.10, ease: "snapIn", overwrite: "auto" }, at(s, "signal."));
+    tl.to("#s1-portrait-wrap",
+      { scale: 1.04, duration: 0.40, ease: "snapOut", overwrite: "auto" }, at(s, "signal.") + 0.12);
+
+    /* ============================================================
+       SCENE 2 CHOREOGRAPHY
+       Tekken/PS1 menu energy — neon grid floor + chunky wordmark
+       ============================================================ */
+    const s2 = "scene-02";
+
+    // Pre-state — both wordmark words below the horizon, sky/floor in place
+    gsap.set(["#s2-w1", "#s2-w2"], {
+      yPercent: 100,      // start below their text-baseline (off the horizon)
+      scale: 0.85,
+      opacity: 0,
+      rotationX: -15
+    });
+    gsap.set("#s2-floor", { backgroundPosition: "0px 0px, 0px 0px, 0px 0px" });
+    gsap.set("#s2-eyebrow", { opacity: 0, y: 16 });
+    gsap.set("#s2-horizon", { opacity: 0, scaleX: 0.2 });
+    gsap.set("#s2-sky",     { opacity: 0 });
+
+    // 2.14s — sky fades in fast
+    tl.to("#s2-sky", { opacity: 1, duration: 0.30, ease: "snapIn" }, 2.14);
+
+    // Horizon glow expands outward — paints the line of light
+    tl.to("#s2-horizon",
+      { opacity: 1, scaleX: 1, duration: 0.55, ease: "snapIn", overwrite: "auto" },
+      2.14
+    );
+
+    // Floor grid scrolls toward camera the entire scene
+    // Animate backgroundPosition Y on the horizontal-lines layer; 60px = one grid step
+    tl.fromTo("#s2-floor",
+      { backgroundPositionY: "0px" },
+      { backgroundPositionY: "240px", duration: 2.27, ease: "none", overwrite: "auto" },
+      2.14
+    );
+
+    // On "Wall Street" — eyebrow stamps in
+    tl.to("#s2-eyebrow",
+      { opacity: 1, y: 0, duration: 0.30, ease: "snapIn" },
+      at(s2, "Wall Street") - 0.10
+    );
+
+    // On "Buffett" — first word rises out of the horizon
+    tl.to("#s2-w1",
+      { yPercent: 0, scale: 1.0, rotationX: 0, opacity: 1,
+        duration: 0.55, ease: "snapIn", overwrite: "auto" },
+      at(s2, "Buffett") - 0.18
+    );
+
+    // On "Indicator" — second word rises, slight delay-cascade off the first
+    tl.to("#s2-w2",
+      { yPercent: 0, scale: 1.0, rotationX: 0, opacity: 1,
+        duration: 0.60, ease: "snapIn", overwrite: "auto" },
+      at(s2, "Indicator.") - 0.20
+    );
+
+    // Tiny "land" punch on each word — snap-down feeling
+    tl.to("#s2-w1", { scale: 1.04, duration: 0.10, ease: "snapIn", overwrite: "auto" },
+      at(s2, "Buffett") + 0.35);
+    tl.to("#s2-w1", { scale: 1.0,  duration: 0.30, ease: "snapOut", overwrite: "auto" },
+      at(s2, "Buffett") + 0.45);
+
+    tl.to("#s2-w2", { scale: 1.04, duration: 0.10, ease: "snapIn", overwrite: "auto" },
+      at(s2, "Indicator.") + 0.40);
+    tl.to("#s2-w2", { scale: 1.0,  duration: 0.30, ease: "snapOut", overwrite: "auto" },
+      at(s2, "Indicator.") + 0.50);
+
+    // Subtle horizon flicker on the Indicator landing — extra Tekken pop
+    tl.to("#s2-horizon",
+      { opacity: 0.6, duration: 0.06, ease: "snapIn", overwrite: "auto" },
+      at(s2, "Indicator.") + 0.40);
+    tl.to("#s2-horizon",
+      { opacity: 1.0, duration: 0.20, ease: "snapOut", overwrite: "auto" },
+      at(s2, "Indicator.") + 0.46);
+
+    /* ============================================================
+       SCENE 3 CHOREOGRAPHY
+       Two-tower comparison: $62T market cap vs $30T GDP
+       ============================================================ */
+    const s3 = "scene-03";
+
+    // Floor scrolls continuously through scene 3 (same direction as scene 2)
+    tl.fromTo("#s3-floor",
+      { backgroundPositionY: "0px" },
+      { backgroundPositionY: "360px", duration: 3.44, ease: "none", overwrite: "auto" },
+      4.41
+    );
+
+    // Pre-state — towers start collapsed at the base, hidden
+    gsap.set(".s3-tower-wrap", { opacity: 0, scaleY: 0.02 });
+    gsap.set(".s3-tower-value", { opacity: 0, y: 30 });
+    gsap.set("#s3-divider", { opacity: 0, scale: 0.5, rotation: -8 });
+    gsap.set("#s3-eyebrow", { opacity: 0, y: 16 });
+
+    // On "It compares" — eyebrow stamps in
+    tl.to("#s3-eyebrow",
+      { opacity: 1, y: 0, duration: 0.30, ease: "snapIn", overwrite: "auto" },
+      at(s3, "It compares") - 0.10
+    );
+
+    // On "total US stock market" — left tower rises (market cap)
+    tl.to("#s3-tower-mcap",
+      { opacity: 1, scaleY: 1, duration: 0.70, ease: "snapIn", overwrite: "auto" },
+      at(s3, "total US") - 0.10
+    );
+
+    // Counter ticks during the rise: $0T → $62T
+    const mcapProxy = { v: 0 };
+    tl.to(mcapProxy, {
+      v: 62,
+      duration: 0.70,
+      ease: "snapIn",
+      onUpdate: () => {
+        const el = document.getElementById("s3-mcap-val");
+        if (el) el.textContent = "$" + Math.round(mcapProxy.v) + "T";
+      }
+    }, at(s3, "total US") - 0.05);
+
+    // Value pops in on top of tower as tower lands
+    tl.to("#s3-mcap-val",
+      { opacity: 1, y: 0, duration: 0.30, ease: "snapIn", overwrite: "auto" },
+      at(s3, "market") - 0.05
+    );
+
+    // On "to GDP" — right tower rises
+    tl.to("#s3-tower-gdp",
+      { opacity: 1, scaleY: 1, duration: 0.65, ease: "snapIn", overwrite: "auto" },
+      at(s3, "to") - 0.05
+    );
+
+    const gdpProxy = { v: 0 };
+    tl.to(gdpProxy, {
+      v: 30,
+      duration: 0.65,
+      ease: "snapIn",
+      onUpdate: () => {
+        const el = document.getElementById("s3-gdp-val");
+        if (el) el.textContent = "$" + Math.round(gdpProxy.v) + "T";
+      }
+    }, at(s3, "to") + 0.00);
+
+    tl.to("#s3-gdp-val",
+      { opacity: 1, y: 0, duration: 0.28, ease: "snapIn", overwrite: "auto" },
+      at(s3, "GDP.") - 0.05
+    );
+
+    // Divider "÷" pops in at the end — the ratio metaphor
+    tl.to("#s3-divider",
+      { opacity: 1, scale: 1, rotation: 0, duration: 0.30, ease: "snapIn", overwrite: "auto" },
+      at(s3, "GDP.") + 0.30
+    );
+    tl.to("#s3-divider",
+      { scale: 1.08, duration: 0.10, ease: "snapIn", overwrite: "auto" },
+      at(s3, "GDP.") + 0.60
+    );
+    tl.to("#s3-divider",
+      { scale: 1.0,  duration: 0.30, ease: "snapOut", overwrite: "auto" },
+      at(s3, "GDP.") + 0.70
+    );
+
+    /* ============================================================
+       SCENE 4 CHOREOGRAPHY
+       PS1 CRT TV with Buffett portrait. Quote burns in below.
+       ============================================================ */
+    const s4 = "scene-04";
+
+    // Pre-state
+    gsap.set("#s4-tv", { xPercent: -50, opacity: 0, scaleY: 0.04, scaleX: 1.10, transformOrigin: "50% 100%" });
+    gsap.set(".s4-tv-portrait", { opacity: 0 });
+    gsap.set(".s4-tv-rec", { opacity: 0 });
+    gsap.set(".s4-quote-line", { opacity: 0, y: 28, scale: 0.94 });
+    gsap.set("#s4-eyebrow", { opacity: 0, y: 14 });
+    gsap.set("#s4-source", { opacity: 0, y: 14 });
+
+    // Floor keeps scrolling for continuity
+    tl.fromTo("#s4-floor",
+      { backgroundPositionY: "0px" },
+      { backgroundPositionY: "420px", duration: 4.09, ease: "none", overwrite: "auto" },
+      7.85
+    );
+
+    // On "Buffett himself" — eyebrow stamps in + TV powers on (horizontal-line collapse)
+    tl.to("#s4-eyebrow",
+      { opacity: 1, y: 0, duration: 0.30, ease: "snapIn", overwrite: "auto" },
+      at(s4, "Buffett himself") - 0.10
+    );
+    // TV CRT power-on: scaleY expands from a thin horizontal line
+    tl.to("#s4-tv",
+      { opacity: 1, scaleY: 1, scaleX: 1, duration: 0.45, ease: "snapIn", overwrite: "auto" },
+      at(s4, "Buffett himself") - 0.05
+    );
+    // Portrait fades in inside the screen ~0.15s after TV opens
+    tl.to(".s4-tv-portrait",
+      { opacity: 1, duration: 0.35, ease: "snapIn", overwrite: "auto" },
+      at(s4, "Buffett himself") + 0.30
+    );
+
+    // REC pip blinks in
+    tl.to(".s4-tv-rec",
+      { opacity: 1, duration: 0.20, ease: "snapIn", overwrite: "auto" },
+      at(s4, "called it")
+    );
+    // REC pulse
+    tl.to(".s4-tv-rec",
+      { opacity: 0.55, duration: 0.30, ease: "snapIn", yoyo: true, repeat: 3, overwrite: "auto" },
+      at(s4, "called it") + 0.25
+    );
+
+    // Source caption beneath the TV
+    tl.to("#s4-source",
+      { opacity: 1, y: 0, duration: 0.30, ease: "snapIn", overwrite: "auto" },
+      at(s4, "called it") + 0.10
+    );
+
+    // Quote line 1 on "best single"
+    tl.to("#s4-l1",
+      { opacity: 1, y: 0, scale: 1.0, duration: 0.40, ease: "snapIn", overwrite: "auto" },
+      at(s4, "best single") - 0.08
+    );
+
+    // Quote line 2 on "measure"
+    tl.to("#s4-l2",
+      { opacity: 1, y: 0, scale: 1.0, duration: 0.42, ease: "snapIn", overwrite: "auto" },
+      at(s4, "measure") - 0.05
+    );
+
+    // Subtle TV camera-drift across the scene
+    tl.to("#s4-tv",
+      { y: -16, duration: 4.0, ease: "none", overwrite: "auto" },
+      7.95
+    );
+
+    /* ============================================================
+       SCENE 5 CHOREOGRAPHY — REIMAGINED
+       Static Braxton-style dusk landscape. The world freezes while
+       year + portfolio counters tick around the figure. Subtle Ken-Burns
+       zoom on the background. Payoff at end: "SEVEN YEARS OF NOTHING."
+       ============================================================ */
+    const s5 = "scene-05";
+
+    // Pre-state — bg + Ken-Burns, all overlays hidden
+    gsap.set("#s5-bg",        { xPercent: -50, yPercent: -50, scale: 1.0, opacity: 0 });
+    gsap.set("#s5-eyebrow-new", { opacity: 0, y: 12 });
+    gsap.set(".s5-year-row",  { opacity: 0, scale: 0.9 });
+    gsap.set(".s5-value-label", { opacity: 0, y: 10 });
+    gsap.set("#s5-value",     { opacity: 0, y: 14, scale: 0.95 });
+    gsap.set("#s5-delta",     { opacity: 0, y: 14, scale: 0.85 });
+    gsap.set(".s5-payoff-eyebrow", { opacity: 0, y: 18 });
+    gsap.set(".s5-payoff-hero",    { opacity: 0, y: 32, scale: 0.92 });
+
+    // BG fades in + slow continuous Ken-Burns zoom across the whole scene
+    tl.to("#s5-bg",
+      { opacity: 1, duration: 0.50, ease: "snapIn", overwrite: "auto" },
+      11.94
+    );
+    tl.to("#s5-bg",
+      { scale: 1.10, duration: 10.5, ease: "none", overwrite: "auto" },
+      11.94
+    );
+
+    // Eyebrow + year + value pop in fast
+    tl.to("#s5-eyebrow-new",
+      { opacity: 1, y: 0, duration: 0.40, ease: "snapIn", overwrite: "auto" },
+      at(s5, "When it") - 0.10
+    );
+    tl.to(".s5-year-row",
+      { opacity: 1, scale: 1.0, duration: 0.40, ease: "snapIn", overwrite: "auto" },
+      at(s5, "When it") + 0.05
+    );
+    tl.to(".s5-value-label",
+      { opacity: 1, y: 0, duration: 0.30, ease: "snapIn", overwrite: "auto" },
+      at(s5, "crossed") + 0.05
+    );
+    tl.to("#s5-value",
+      { opacity: 1, y: 0, scale: 1.0, duration: 0.40, ease: "snapIn", overwrite: "auto" },
+      at(s5, "two hundred") - 0.05
+    );
+
+    // The world ticks around the figure. Proxy object drives DOM text.
+    const s5Proxy = { year: 2000, value: 1527 };
+    const yearEl  = document.getElementById("s5-year");
+    const valEl   = document.getElementById("s5-value");
+    function _writeYear() { if (yearEl) yearEl.textContent = String(Math.round(s5Proxy.year)); }
+    function _writeVal()  {
+      if (!valEl) return;
+      const n = Math.round(s5Proxy.value);
+      valEl.textContent = "$" + n.toLocaleString();
+    }
+
+    // Year ticks 2000 → 2007 continuously through the spoken arc
+    tl.to(s5Proxy,
+      { year: 2007,
+        duration: 8.0,
+        ease: "none",
+        onUpdate: _writeYear,
+        overwrite: "auto"
+      },
+      at(s5, "dotcom") - 0.20
+    );
+
+    // Value trajectory: 1527 → 777 → 1527
+    // Phase 1: crash drop on "dotcom crash" word
+    tl.to(s5Proxy,
+      { value: 777,
+        duration: 2.0,
+        ease: "snapIn",
+        onUpdate: _writeVal,
+        overwrite: "auto",
+        onStart: () => valEl && valEl.classList.add("is-crashing")
+      },
+      at(s5, "dotcom") + 0.05
+    );
+
+    // Crash glitch: red multiply overlay + value shake + delta stamp.
+    // No white flash — the multiply DEEPENS reds instead of washing the frame.
+    tl.to("#s5-lightning",
+      { opacity: 1.0, duration: 0.08, ease: "snapIn", overwrite: "auto" },
+      at(s5, "crash,")
+    );
+    tl.to("#s5-lightning",
+      { opacity: 0.0, duration: 0.55, ease: "snapOut", overwrite: "auto" },
+      at(s5, "crash,") + 0.10
+    );
+
+    // Hard horizontal shake on the value number — sells the "tear" without a flash
+    tl.fromTo("#s5-value",
+      { x: 0 },
+      { x: -8,
+        duration: 0.04, ease: "snapIn",
+        yoyo: true, repeat: 5,
+        overwrite: "auto",
+        onComplete: () => { const el = document.getElementById("s5-value"); if (el) el.style.transform = ""; }
+      },
+      at(s5, "crash,")
+    );
+
+    tl.to("#s5-delta",
+      { opacity: 1, y: 0, scale: 1.0, duration: 0.35, ease: "snapIn", overwrite: "auto" },
+      at(s5, "crash,") + 0.10
+    );
+
+    // Phase 2: slow climb back from 777 → 1527 across the "break even / until 2007" arc
+    tl.to(s5Proxy,
+      { value: 1527,
+        duration: 4.5,
+        ease: "snapIn",
+        onUpdate: _writeVal,
+        overwrite: "auto",
+        onComplete: () => valEl && valEl.classList.remove("is-crashing")
+      },
+      at(s5, "break") - 0.05
+    );
+
+    // Delta fades out as value recovers
+    tl.to("#s5-delta",
+      { opacity: 0, y: -10, duration: 0.50, ease: "snapOut", overwrite: "auto" },
+      at(s5, "two thousand") - 0.10
+    );
+
+    // PAYOFF — "Seven years of nothing"
+    // Fade the year/value stack + eyebrow out as the payoff takes over
+    tl.to(["#s5-data", "#s5-eyebrow-new"],
+      { opacity: 0, y: -40, duration: 0.50, ease: "snapOut", overwrite: "auto" },
+      at(s5, "Seven years") - 0.25
+    );
+    tl.to(".s5-payoff-eyebrow",
+      { opacity: 1, y: 0, duration: 0.35, ease: "snapIn", overwrite: "auto" },
+      at(s5, "Seven years") - 0.10
+    );
+    tl.to(".s5-payoff-hero",
+      { opacity: 1, y: 0, scale: 1.0, duration: 0.50, ease: "snapIn", overwrite: "auto" },
+      at(s5, "nothing.") - 0.18
+    );
+    // Punch on "nothing"
+    tl.to(".s5-payoff-hero",
+      { scale: 1.04, duration: 0.10, ease: "snapIn", overwrite: "auto" },
+      at(s5, "nothing.") + 0.05
+    );
+    tl.to(".s5-payoff-hero",
+      { scale: 1.0, duration: 0.30, ease: "snapOut", overwrite: "auto" },
+      at(s5, "nothing.") + 0.15
+    );
+
+    /* ============================================================
+       SCENE 6 CHOREOGRAPHY
+       Cyber-arena cathedral. 209% slams in as the hero number.
+       Setup beat ($62T market cap) → ratio reveal → 209% payoff.
+       ============================================================ */
+    const s6 = "scene-06";
+
+    // Pre-state
+    gsap.set("#s6-printer-wrap", { xPercent: -50, y: 80, opacity: 0, scale: 0.9 });
+    gsap.set("#s6-aura",         { xPercent: -50, opacity: 0 });
+    gsap.set("#s6-eyebrow",      { opacity: 0, y: 12 });
+    gsap.set("#s6-setup",        { opacity: 0, y: 18 });
+    gsap.set(".s6-hero-label",   { opacity: 0, y: 14 });
+    gsap.set(".s6-hero-number",  { opacity: 0, scale: 1.4, y: 32 });
+    gsap.set(".s6-hero-sub",     { opacity: 0, y: 18 });
+    gsap.set("#s6-pulse",        { opacity: 0 });
+
+    // 22.90s — printer drops in from top, aura fades up
+    tl.to("#s6-aura",
+      { opacity: 1, duration: 0.50, ease: "snapIn", overwrite: "auto" },
+      22.90
+    );
+    tl.to("#s6-printer-wrap",
+      { y: 0, opacity: 1, scale: 1.0, duration: 0.55, ease: "snapIn", overwrite: "auto" },
+      22.90
+    );
+    // Slow Ken-Burns push on printer hero
+    tl.to("#s6-printer-wrap",
+      { scale: 1.06, duration: 6.0, ease: "none", overwrite: "auto" },
+      23.40
+    );
+    tl.to("#s6-eyebrow",
+      { opacity: 1, y: 0, duration: 0.35, ease: "snapIn", overwrite: "auto" },
+      at(s6, "Right now,") - 0.10
+    );
+    // Whole-scene 6 zoom — compounds with the printer Ken-Burns for momentum
+    gsap.set("#scene6", { transformOrigin: "50% 35%" });
+    tl.fromTo("#scene6",
+      { scale: 1.0 },
+      { scale: 1.04, duration: 6.4, ease: "none", overwrite: "auto" },
+      22.90
+    );
+    // Printer rumble on "more than double" — small shake to sell the BRR
+    tl.fromTo("#s6-printer-wrap",
+      { x: 0 },
+      { x: -6, duration: 0.05, ease: "snapIn",
+        yoyo: true, repeat: 7, overwrite: "auto",
+        onComplete: () => { const el = document.getElementById("s6-printer-wrap"); if (el) gsap.set(el, { x: 0 }); }
+      },
+      at(s6, "more than") + 0.05
+    );
+
+    // On "every public stock" — setup pops in
+    tl.to("#s6-setup",
+      { opacity: 1, y: 0, duration: 0.45, ease: "snapIn", overwrite: "auto" },
+      at(s6, "every public") - 0.10
+    );
+
+    // On "more than double" — setup fades out as the hero starts to arrive
+    tl.to("#s6-setup",
+      { opacity: 0, y: -22, duration: 0.40, ease: "snapOut", overwrite: "auto" },
+      at(s6, "more than") - 0.15
+    );
+
+    // Hero label "BUFFETT INDICATOR · TODAY" arrives on "double the entire"
+    tl.to(".s6-hero-label",
+      { opacity: 1, y: 0, duration: 0.35, ease: "snapIn", overwrite: "auto" },
+      at(s6, "double") + 0.05
+    );
+
+    // 209% SLAMS in on "Two hundred and nine percent"
+    tl.to(".s6-hero-number",
+      { opacity: 1, scale: 1.0, y: 0, duration: 0.55, ease: "snapIn", overwrite: "auto" },
+      at(s6, "Two hundred") - 0.20
+    );
+
+    // Red pulse on the number landing
+    tl.to("#s6-pulse",
+      { opacity: 1.0, duration: 0.18, ease: "snapIn", overwrite: "auto" },
+      at(s6, "Two hundred") - 0.10
+    );
+    tl.to("#s6-pulse",
+      { opacity: 0.0, duration: 0.65, ease: "snapOut", overwrite: "auto" },
+      at(s6, "Two hundred") + 0.10
+    );
+
+    // Sub-line "OF U.S. GDP"
+    tl.to(".s6-hero-sub",
+      { opacity: 1, y: 0, duration: 0.35, ease: "snapIn", overwrite: "auto" },
+      at(s6, "percent.") - 0.15
+    );
+
+    // Punch on "percent"
+    tl.to(".s6-hero-number",
+      { scale: 1.06, duration: 0.10, ease: "snapIn", overwrite: "auto" },
+      at(s6, "percent.")
+    );
+    tl.to(".s6-hero-number",
+      { scale: 1.0, duration: 0.35, ease: "snapOut", overwrite: "auto" },
+      at(s6, "percent.") + 0.10
+    );
+
+    /* ============================================================
+       SCENE 7 CHOREOGRAPHY
+       3 era-coded record cards slam into a Braxton void, then the
+       diagonal "FLAT OR NEGATIVE" ink-stamp punches across them.
+       ============================================================ */
+    const s7 = "scene-07";
+
+    // Pre-state — cards above the frame, scaled up, hidden + rotated
+    gsap.set("#s7-card-1929", { xPercent: -50, x: -120, y: -1500, rotation: -16, scale: 1.15, opacity: 0 });
+    gsap.set("#s7-card-1965", { xPercent: -50, x:  100, y: -1500, rotation:  10, scale: 1.15, opacity: 0 });
+    gsap.set("#s7-card-1999", { xPercent: -50, x:  -60, y: -1500, rotation: -8,  scale: 1.15, opacity: 0 });
+    gsap.set("#s7-stamp",     { xPercent: -50, yPercent: -50, opacity: 0, scale: 1.7, rotation: -9 });
+    gsap.set("#s7-eyebrow",   { opacity: 0, y: 12 });
+    gsap.set(".s7-debris",    { opacity: 0 });
+
+    // 29.40s — eyebrow + debris fade in + Ken-Burns push on whole scene
+    tl.to("#s7-eyebrow",
+      { opacity: 1, y: 0, duration: 0.30, ease: "snapIn", overwrite: "auto" },
+      at(s7, "The only") - 0.10
+    );
+    tl.to(".s7-debris",
+      { opacity: 0.55, duration: 0.45, ease: "snapIn", stagger: 0.04, overwrite: "auto" },
+      29.40
+    );
+    // Slow camera push across whole scene 7
+    gsap.set("#scene7", { transformOrigin: "50% 45%" });
+    tl.fromTo("#scene7",
+      { scale: 1.0 },
+      { scale: 1.045, duration: 5.4, ease: "none", overwrite: "auto" },
+      29.40
+    );
+
+    // Card 1 (1929) slams in on "other times"
+    tl.to("#s7-card-1929",
+      { y: 0, x: -120, rotation: -8, scale: 1.0, opacity: 1,
+        duration: 0.45, ease: "snapIn", overwrite: "auto" },
+      at(s7, "other times") - 0.10
+    );
+
+    // Card 2 (1965) slams in on "this ratio"
+    tl.to("#s7-card-1965",
+      { y: 0, x: 100, rotation: 5, scale: 1.0, opacity: 1,
+        duration: 0.45, ease: "snapIn", overwrite: "auto" },
+      at(s7, "this ratio") - 0.10
+    );
+
+    // Card 3 (1999) slams in on "next decade"
+    tl.to("#s7-card-1999",
+      { y: 0, x: -60, rotation: -6, scale: 1.0, opacity: 1,
+        duration: 0.45, ease: "snapIn", overwrite: "auto" },
+      at(s7, "next decade") - 0.10
+    );
+
+    // Stamp slams down on "FLAT" + tiny screen-flash + cards recoil/dim
+    tl.to("#s7-stamp",
+      { opacity: 1, scale: 1.0, duration: 0.18, ease: "snapIn", overwrite: "auto" },
+      at(s7, "flat") - 0.04
+    );
+    // Cards recoil slightly on stamp impact
+    tl.to(["#s7-card-1929", "#s7-card-1965", "#s7-card-1999"],
+      { scale: 0.96, duration: 0.08, ease: "snapIn", overwrite: "auto" },
+      at(s7, "flat")
+    );
+    tl.to(["#s7-card-1929", "#s7-card-1965", "#s7-card-1999"],
+      { scale: 1.0, filter: "brightness(0.7)", duration: 0.35, ease: "snapOut", overwrite: "auto" },
+      at(s7, "flat") + 0.10
+    );
+
+    // Stamp settle (tiny scale-up/down for impact)
+    tl.to("#s7-stamp",
+      { scale: 1.04, duration: 0.10, ease: "snapIn", overwrite: "auto" },
+      at(s7, "negative.")
+    );
+    tl.to("#s7-stamp",
+      { scale: 1.0, duration: 0.30, ease: "snapOut", overwrite: "auto" },
+      at(s7, "negative.") + 0.10
+    );
+
+    /* ============================================================
+       SCENE 8 CHOREOGRAPHY — GIGACHAD BUFFETT EDITION
+       Mirrors scene 1: portrait fills upper frame, chunky chromatic
+       text below punches in on spoken words.
+       ============================================================ */
+    const s8 = "scene-08";
+
+    gsap.set("#s8-portrait-wrap", { xPercent: -50, opacity: 0, scale: 1.08 });
+    gsap.set("#s8-eyebrow", { opacity: 0, y: 12 });
+    gsap.set("#s8-l1",      { opacity: 0, y: 24, scale: 0.94 });
+    gsap.set("#s8-l2",      { opacity: 0, y: 32, scale: 0.92 });
+    gsap.set("#s8-footer",  { opacity: 0 });
+
+    // Portrait fades in + slight settle
+    tl.to("#s8-portrait-wrap",
+      { opacity: 1, scale: 1.0, duration: 0.50, ease: "snapIn", overwrite: "auto" },
+      at(s8, "Buffett's response") - 0.10
+    );
+    // Slow continuous Ken-Burns push on portrait
+    tl.to("#s8-portrait-wrap",
+      { scale: 1.05, duration: 6.5, ease: "none", overwrite: "auto" },
+      35.5
+    );
+    // Whole-scene 8 camera push (compounds with portrait push for stronger zoom)
+    gsap.set("#scene8", { transformOrigin: "50% 45%" });
+    tl.fromTo("#scene8",
+      { scale: 1.0 },
+      { scale: 1.035, duration: 6.8, ease: "none", overwrite: "auto" },
+      34.88
+    );
+
+    // Eyebrow stamps
+    tl.to("#s8-eyebrow",
+      { opacity: 1, y: 0, duration: 0.30, ease: "snapIn", overwrite: "auto" },
+      at(s8, "Buffett's response") + 0.10
+    );
+
+    // Line 1 "RECORD CASH" on "Record cash"
+    tl.to("#s8-l1",
+      { opacity: 1, y: 0, scale: 1.0, duration: 0.34, ease: "snapIn", overwrite: "auto" },
+      at(s8, "Record cash") - 0.12
+    );
+
+    // Line 2 "$380B" lands on "eighty billion" — punch hit
+    tl.to("#s8-l2",
+      { opacity: 1, y: 0, scale: 1.0, duration: 0.45, ease: "snapIn", overwrite: "auto" },
+      at(s8, "eighty billion") - 0.10
+    );
+
+    // PUNCH on "dollars" — chromatic split widens, portrait micro-punch
+    tl.to([".s8-line-1 .ghost-r", ".s8-line-2 .ghost-r"],
+      { x: 12, duration: 0.10, ease: "snapIn", overwrite: "auto" },
+      at(s8, "dollars."));
+    tl.to([".s8-line-1 .ghost-c", ".s8-line-2 .ghost-c"],
+      { x: -12, duration: 0.10, ease: "snapIn", overwrite: "auto" },
+      at(s8, "dollars."));
+    tl.to([".s8-line-1 .ghost-r", ".s8-line-2 .ghost-r"],
+      { x: 4, duration: 0.30, ease: "snapOut", overwrite: "auto" },
+      at(s8, "dollars.") + 0.12);
+    tl.to([".s8-line-1 .ghost-c", ".s8-line-2 .ghost-c"],
+      { x: -4, duration: 0.30, ease: "snapOut", overwrite: "auto" },
+      at(s8, "dollars.") + 0.12);
+
+    tl.to("#s8-l2",
+      { scale: 1.06, duration: 0.10, ease: "snapIn", overwrite: "auto" },
+      at(s8, "dollars."));
+    tl.to("#s8-l2",
+      { scale: 1.0, duration: 0.30, ease: "snapOut", overwrite: "auto" },
+      at(s8, "dollars.") + 0.10);
+
+    // Footer fade-in
+    tl.to("#s8-footer",
+      { opacity: 1, duration: 0.30, ease: "snapIn", overwrite: "auto" },
+      at(s8, "dollars.") + 0.20
+    );
+
+    /* ============================================================
+       SCENE 9 CHOREOGRAPHY
+       Three tiles slam in, INDEX + BONDS get rejected, CASH wins.
+       ============================================================ */
+    const s9 = "scene-09";
+
+    gsap.set("#s9-tile-index", { xPercent: -50, x: -80, y: -800, rotation: -12, scale: 1.1, opacity: 0 });
+    gsap.set("#s9-tile-bonds", { xPercent: -50, x:  60, y: -800, rotation:  8,  scale: 1.1, opacity: 0 });
+    gsap.set("#s9-tile-cash",  { xPercent: -50, x: -40, y: -800, rotation: -6, scale: 1.1, opacity: 0 });
+    gsap.set("#s9-tile-index .s9-stamp-x", { opacity: 0, scale: 1.6 });
+    gsap.set("#s9-tile-bonds .s9-stamp-x", { opacity: 0, scale: 1.6 });
+    gsap.set(".s9-selected-halo",  { opacity: 0, scale: 1.1 });
+    gsap.set(".s9-selected-label", { xPercent: -50, opacity: 0, y: 18, scale: 0.85 });
+    gsap.set("#s9-eyebrow",        { opacity: 0, y: 12 });
+
+    tl.to("#s9-eyebrow",
+      { opacity: 1, y: 0, duration: 0.30, ease: "snapIn", overwrite: "auto" },
+      at(s9, "Not buying") - 0.20
+    );
+    // Slow camera push across whole scene 9
+    gsap.set("#scene9", { transformOrigin: "50% 50%" });
+    tl.fromTo("#scene9",
+      { scale: 1.0 },
+      { scale: 1.045, duration: 6.0, ease: "none", overwrite: "auto" },
+      41.89
+    );
+
+    // Index tile slams in on "Not buying the index"
+    tl.to("#s9-tile-index",
+      { y: 0, x: -80, rotation: -6, scale: 1, opacity: 1,
+        duration: 0.40, ease: "snapIn", overwrite: "auto" },
+      at(s9, "Not buying") - 0.05
+    );
+    // X stamp on "index"
+    tl.to("#s9-tile-index .s9-stamp-x",
+      { opacity: 1, scale: 1.0, duration: 0.18, ease: "snapIn", overwrite: "auto" },
+      at(s9, "index.") + 0.05
+    );
+
+    // Bonds tile on "Not rotating"
+    tl.to("#s9-tile-bonds",
+      { y: 0, x: 60, rotation: 5, scale: 1, opacity: 1,
+        duration: 0.40, ease: "snapIn", overwrite: "auto" },
+      at(s9, "Not rotating") - 0.05
+    );
+    tl.to("#s9-tile-bonds .s9-stamp-x",
+      { opacity: 1, scale: 1.0, duration: 0.18, ease: "snapIn", overwrite: "auto" },
+      at(s9, "bonds.") + 0.05
+    );
+
+    // Cash tile on "Sitting in cash"
+    tl.to("#s9-tile-cash",
+      { y: 0, x: -40, rotation: -4, scale: 1.05, opacity: 1,
+        duration: 0.50, ease: "snapIn", overwrite: "auto" },
+      at(s9, "Sitting in") - 0.05
+    );
+    // Selected halo + badge on "cash"
+    tl.to(".s9-selected-halo",
+      { opacity: 1, scale: 1, duration: 0.40, ease: "snapIn", overwrite: "auto" },
+      at(s9, "cash,") + 0.05
+    );
+    tl.to(".s9-selected-label",
+      { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: "snapIn", overwrite: "auto" },
+      at(s9, "cash,") + 0.20
+    );
+
+    /* ============================================================
+       SCENE 10 CHOREOGRAPHY
+       Spinning Bloom coin in a void + CTA outro.
+       ============================================================ */
+    const s10 = "scene-10";
+
+    gsap.set("#s10-coin-wrap",  { xPercent: -50, opacity: 0, scale: 0.85 });
+    gsap.set("#s10-coin",       { rotationY: 0 });
+    gsap.set("#s10-eyebrow",    { opacity: 0, y: 12 });
+    gsap.set("#s10-line",       { opacity: 0, y: 14 });
+    gsap.set("#s10-wordmark",   { opacity: 0, y: 24, scale: 0.9 });
+    gsap.set("#s10-cta",        { opacity: 0, y: 12 });
+
+    // Eyebrow + coin fade in
+    tl.to("#s10-eyebrow",
+      { opacity: 1, y: 0, duration: 0.30, ease: "snapIn", overwrite: "auto" },
+      at(s10, "This doesn't") - 0.10
+    );
+    tl.to("#s10-coin-wrap",
+      { opacity: 1, scale: 1, duration: 0.50, ease: "snapIn", overwrite: "auto" },
+      at(s10, "This doesn't")
+    );
+
+    // Coin spins continuously throughout scene 10
+    tl.to("#s10-coin",
+      { rotationY: 720, duration: 4.4, ease: "none", overwrite: "auto" },
+      at(s10, "This doesn't")
+    );
+
+    // First line: "DON'T SELL EVERYTHING."
+    tl.to("#s10-line",
+      { opacity: 1, y: 0, duration: 0.35, ease: "snapIn", overwrite: "auto" },
+      at(s10, "This doesn't") + 0.05
+    );
+    // Fades out before next beat
+    tl.to("#s10-line",
+      { opacity: 0, y: -20, duration: 0.35, ease: "snapOut", overwrite: "auto" },
+      at(s10, "For more") - 0.15
+    );
+
+    // BLOOM wordmark slams on "Bloom"
+    tl.to("#s10-wordmark",
+      { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "snapIn", overwrite: "auto" },
+      at(s10, "Bloom.") - 0.25
+    );
+    tl.to("#s10-wordmark",
+      { scale: 1.05, duration: 0.10, ease: "snapIn", overwrite: "auto" },
+      at(s10, "Bloom.") + 0.10
+    );
+    tl.to("#s10-wordmark",
+      { scale: 1.0, duration: 0.30, ease: "snapOut", overwrite: "auto" },
+      at(s10, "Bloom.") + 0.20
+    );
+
+    // CTA tag
+    tl.to("#s10-cta",
+      { opacity: 1, y: 0, duration: 0.35, ease: "snapIn", overwrite: "auto" },
+      at(s10, "Bloom.") + 0.50
+    );
+
+  </script>
+</body>
+</html>

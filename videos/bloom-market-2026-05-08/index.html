@@ -1,0 +1,1772 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Bloom Daily Market Update — May 8, 2026</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      body { margin: 0; background: #050505; font-family: "Inter Tight","Inter",system-ui,sans-serif; }
+      * { box-sizing: border-box; }
+      .beat { position: absolute; inset: 0; width: 1080px; height: 1920px; overflow: hidden; opacity: 0; }
+      .stage {
+        position: absolute; inset: 0; z-index: 2;
+        display: flex; align-items: center; justify-content: center;
+      }
+
+      /* ============================================================
+         BEAT 1 — TITLE
+         ============================================================ */
+      #beat-title { background: #1658FF; }
+      #beat-title canvas { position: absolute; inset: 0; z-index: 1; width: 1080px; height: 1920px; }
+      #beat-title .title-frame {
+        position: absolute;
+        top: 56px; left: 56px; right: 56px; bottom: 56px;
+        border: 2px solid rgba(255,255,255,0.20);
+        border-radius: 28px;
+        z-index: 2; opacity: 0;
+      }
+      #beat-title .title-stack {
+        position: relative; z-index: 3;
+        display: flex; flex-direction: column;
+        align-items: center; gap: 30px;
+      }
+      #beat-title .title-eyebrow {
+        background: #1C2329; color: #fff;
+        border-radius: 999px;
+        padding: 16px 38px;
+        font: 800 28px "Inter",system-ui,sans-serif;
+        letter-spacing: 0.34em; text-transform: uppercase;
+        opacity: 0;
+      }
+      #beat-title .title-headline {
+        font: italic 800 156px "Inter Tight",system-ui,sans-serif;
+        line-height: 0.94; color: #fff;
+        letter-spacing: -0.028em;
+        text-transform: uppercase; text-align: center;
+        opacity: 0;
+      }
+      #beat-title .title-headline .accent { color: #FFC847; display: block; }
+      #beat-title .title-meta {
+        font: 700 24px "Inter",system-ui,sans-serif;
+        letter-spacing: 0.42em; text-transform: uppercase;
+        color: rgba(255,255,255,0.78);
+        opacity: 0;
+      }
+
+      /* ============================================================
+         BEAT 2 — RUSSELL kinetic slam
+         ============================================================ */
+      #beat-russell { background: #1658FF; }
+      #beat-russell .rl-stack {
+        display: flex; flex-direction: column;
+        align-items: center; gap: 22px;
+      }
+      #beat-russell .rl-eye {
+        background: #1C2329; color: #fff;
+        border-radius: 999px;
+        padding: 14px 32px;
+        font: 800 26px "Inter",system-ui,sans-serif;
+        letter-spacing: 0.34em; text-transform: uppercase;
+        opacity: 0;
+      }
+      #beat-russell .rl-name {
+        font: italic 800 156px "Inter Tight",system-ui,sans-serif;
+        line-height: 0.92;
+        letter-spacing: -0.035em;
+        color: #fff;
+        text-transform: uppercase;
+        text-align: center;
+        white-space: nowrap;
+        opacity: 0;
+      }
+      #beat-russell .rl-pill {
+        background: #01CD74; color: #fff;
+        border-radius: 999px;
+        padding: 22px 56px;
+        font: italic 800 96px "Inter Tight",system-ui,sans-serif;
+        letter-spacing: -0.012em;
+        box-shadow: 0 26px 56px rgba(1,205,116,0.45);
+        opacity: 0;
+      }
+      #beat-russell .rl-sub {
+        font: 700 28px "Inter",system-ui,sans-serif;
+        letter-spacing: 0.42em; text-transform: uppercase;
+        color: rgba(255,255,255,0.85);
+        opacity: 0;
+      }
+
+      /* ============================================================
+         BEAT 3/4 — RICH IDX CARDS (Dow / SPX)
+         ============================================================ */
+      .idx-stage {
+        background:
+          radial-gradient(ellipse 80% 50% at 50% 78%, rgba(22,88,255,0.14) 0%, rgba(22,88,255,0) 70%),
+          #F8F8F9;
+      }
+      .idx-stage-inner {
+        position: absolute; inset: 0;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        gap: 36px; padding: 100px 0;
+      }
+      .idx-eyebrow {
+        background: #1C2329; color: #fff;
+        border-radius: 999px;
+        padding: 14px 32px;
+        font: 800 24px "Inter",system-ui,sans-serif;
+        letter-spacing: 0.34em; text-transform: uppercase;
+        box-shadow: 0 18px 30px rgba(6,10,30,0.20);
+        opacity: 0;
+      }
+      .idx-card {
+        width: 920px;
+        background: #FFFFFF;
+        border: 1px solid #E8E9EA;
+        border-radius: 42px;
+        box-shadow: 0 30px 76px rgba(6,10,30,0.16), 0 8px 16px rgba(6,10,30,0.06);
+        color: #1C2329;
+        padding: 38px 46px 32px;
+        opacity: 0;
+      }
+      .idx-card .idx-head {
+        display: flex; align-items: center; justify-content: space-between;
+        gap: 22px;
+      }
+      .idx-card .idx-id { display: flex; align-items: center; gap: 24px; }
+      .idx-card .idx-orb {
+        width: 108px; height: 108px;
+        border-radius: 50%;
+        background: #1C2329;
+        display: flex; align-items: center; justify-content: center;
+        box-shadow: 0 16px 36px rgba(6,10,30,0.20);
+        flex-shrink: 0;
+      }
+      .idx-card .idx-orb .orb-text {
+        font: italic 800 32px "Inter Tight",system-ui,sans-serif;
+        color: #fff; letter-spacing: -0.012em;
+      }
+      .idx-card .idx-name {
+        font: italic 800 88px "Inter Tight",system-ui,sans-serif;
+        line-height: 0.94;
+        letter-spacing: -0.022em;
+        text-transform: uppercase;
+        color: #1C2329;
+      }
+      .idx-card .idx-sub {
+        margin-top: 6px;
+        font: 700 22px "Inter",system-ui,sans-serif;
+        color: #4A4F54;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+      }
+      .idx-card .idx-pill {
+        border-radius: 999px;
+        padding: 14px 24px;
+        font: italic 800 38px "Inter Tight",system-ui,sans-serif;
+        letter-spacing: -0.012em;
+        white-space: nowrap;
+      }
+      .idx-card .idx-pill.up {
+        background: rgba(1,205,116,0.14); color: #01CD74;
+        box-shadow: 0 10px 22px rgba(1,205,116,0.18);
+      }
+      .idx-card .idx-pill.down {
+        background: rgba(255,82,82,0.14); color: #FF5252;
+        box-shadow: 0 10px 22px rgba(255,82,82,0.18);
+      }
+      .idx-card .idx-price {
+        margin-top: 30px;
+        font: italic 800 148px "Inter Tight",system-ui,sans-serif;
+        letter-spacing: -0.030em;
+        line-height: 1;
+        color: #1C2329;
+        font-variant-numeric: tabular-nums;
+      }
+      .idx-card .idx-chart {
+        display: block;
+        width: 100%;
+        height: 200px;
+        margin-top: 14px;
+      }
+      .idx-card .idx-chart path {
+        fill: none;
+        stroke-width: 5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .idx-card .idx-chart path.up   { stroke: #01CD74; }
+      .idx-card .idx-chart path.down { stroke: #FF5252; }
+
+      /* Stamp slam (50K / RECORD HIGH) */
+      .idx-stamp-frame {
+        position: absolute; inset: 0;
+        display: flex; align-items: center; justify-content: center;
+        pointer-events: none;
+        z-index: 10;
+      }
+      .idx-stamp {
+        display: inline-flex; flex-direction: column;
+        align-items: center; gap: 6px;
+        border: 8px solid #FF5252;
+        padding: 32px 64px;
+        font: italic 800 124px "Inter Tight",system-ui,sans-serif;
+        line-height: 0.92;
+        letter-spacing: -0.025em;
+        color: #1C2329;
+        background: rgba(255,255,255,0.92);
+        text-transform: uppercase;
+        transform: rotate(-8deg);
+        box-shadow: 0 0 0 8px rgba(255,82,82,0.10), 0 30px 60px rgba(6,10,30,0.18);
+        opacity: 0;
+      }
+      .idx-stamp.green-border { border-color: #01CD74; box-shadow: 0 0 0 8px rgba(1,205,116,0.10), 0 30px 60px rgba(6,10,30,0.18); }
+      .idx-stamp span { display: block; }
+
+      /* ============================================================
+         BEAT 5 — IRAN PEACE FRAMEWORK kinetic
+         ============================================================ */
+      #beat-iran { background: linear-gradient(180deg, #0a1428 0%, #1C2940 100%); }
+      #beat-iran::before {
+        content: ''; position: absolute; inset: 0;
+        background:
+          radial-gradient(circle at 30% 30%, rgba(91,183,255,0.12) 0%, transparent 50%),
+          radial-gradient(circle at 70% 70%, rgba(255,200,71,0.10) 0%, transparent 50%);
+        z-index: 1;
+      }
+      #beat-iran .ir-stack {
+        position: relative; z-index: 3;
+        display: flex; flex-direction: column;
+        align-items: center; gap: 30px;
+      }
+      #beat-iran .ir-eye {
+        background: #FFC847; color: #1C2329;
+        border-radius: 999px;
+        padding: 14px 32px;
+        font: 800 24px "Inter",system-ui,sans-serif;
+        letter-spacing: 0.34em; text-transform: uppercase;
+        opacity: 0;
+      }
+      #beat-iran .ir-h1 {
+        font: italic 800 132px "Inter Tight",system-ui,sans-serif;
+        line-height: 0.92;
+        letter-spacing: -0.035em;
+        color: #fff;
+        text-transform: uppercase;
+        text-align: center;
+        opacity: 0;
+      }
+      #beat-iran .ir-h1 .accent { color: #FFC847; display: block; }
+      #beat-iran .ir-pill {
+        background: #fff; color: #1C2329;
+        border-radius: 999px;
+        padding: 18px 44px;
+        font: italic 800 56px "Inter Tight",system-ui,sans-serif;
+        letter-spacing: -0.012em;
+        text-transform: uppercase;
+        box-shadow: 0 22px 44px rgba(0,0,0,0.45);
+        opacity: 0;
+      }
+      #beat-iran .ir-pill .num { color: #1658FF; }
+
+      /* ============================================================
+         BEAT 6 — STRAIT OF HORMUZ
+         ============================================================ */
+      #beat-hormuz { background: #0a1428; }
+      #beat-hormuz svg.hz-svg {
+        position: absolute; inset: 0; width: 100%; height: 100%;
+        z-index: 1; pointer-events: none;
+      }
+      #beat-hormuz .hz-stack {
+        position: relative; z-index: 3;
+        display: flex; flex-direction: column;
+        align-items: center; gap: 26px;
+      }
+      #beat-hormuz .hz-eye {
+        font: 700 26px "Inter",system-ui,sans-serif;
+        letter-spacing: 0.42em; text-transform: uppercase;
+        color: rgba(255,255,255,0.85);
+        opacity: 0;
+      }
+      #beat-hormuz .hz-h1 {
+        font: italic 800 152px "Inter Tight",system-ui,sans-serif;
+        line-height: 0.92;
+        letter-spacing: -0.035em;
+        color: #fff;
+        text-transform: uppercase;
+        text-align: center;
+        opacity: 0;
+      }
+      #beat-hormuz .hz-h1 .accent { color: #5BB7FF; display: block; }
+
+      /* ============================================================
+         BEAT 7 — WTI under $95
+         ============================================================ */
+      #beat-wti { background: linear-gradient(180deg, #0a1428 0%, #1C2329 100%); }
+      #beat-wti .wti-eye {
+        position: absolute; top: 240px; left: 0; right: 0;
+        text-align: center;
+        font: 700 28px "Inter",system-ui,sans-serif;
+        letter-spacing: 0.42em; text-transform: uppercase;
+        color: rgba(255,255,255,0.9);
+        opacity: 0;
+      }
+      #beat-wti .wti-oil {
+        position: absolute;
+        left: 50%; top: 700px;
+        transform: translateX(-50%);
+        width: 540px; height: auto;
+        filter:
+          drop-shadow(0 70px 90px rgba(0,0,0,0.65))
+          drop-shadow(0 0 60px rgba(255,140,40,0.25));
+        opacity: 0;
+      }
+      #beat-wti .wti-pill {
+        position: absolute;
+        left: 50%; top: 1340px;
+        transform: translateX(-50%);
+        background: #FF5252; color: #fff;
+        border-radius: 999px;
+        padding: 22px 56px;
+        font: italic 800 84px "Inter Tight",system-ui,sans-serif;
+        letter-spacing: -0.012em;
+        box-shadow: 0 26px 56px rgba(255,82,82,0.45);
+        white-space: nowrap;
+        opacity: 0;
+      }
+      #beat-wti .wti-tag {
+        position: absolute;
+        left: 50%; top: 1540px;
+        transform: translateX(-50%);
+        font: 800 28px "Inter",system-ui,sans-serif;
+        letter-spacing: 0.42em; text-transform: uppercase;
+        color: rgba(255,255,255,0.78);
+        opacity: 0;
+        white-space: nowrap;
+      }
+
+      /* ============================================================
+         BEAT 8 — CHIPS (Micron + Broadcom)
+         ============================================================ */
+      #beat-chips { background: #F8F8F9; }
+      #beat-chips .chips-stage {
+        position: absolute; inset: 0;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        gap: 32px; padding: 120px 0;
+      }
+      #beat-chips .chips-eye {
+        background: #1C2329; color: #fff;
+        border-radius: 999px;
+        padding: 14px 32px;
+        font: 800 24px "Inter",system-ui,sans-serif;
+        letter-spacing: 0.34em; text-transform: uppercase;
+        opacity: 0;
+      }
+      #beat-chips .chip-row {
+        width: 920px;
+        background: #fff;
+        border-radius: 32px;
+        border: 1px solid #E8E9EA;
+        box-shadow: 0 24px 50px rgba(6,10,30,0.10);
+        padding: 34px 40px;
+        display: flex; align-items: center; justify-content: space-between;
+        gap: 22px;
+        opacity: 0;
+      }
+      #beat-chips .chip-id { display: flex; align-items: center; gap: 24px; }
+      #beat-chips .chip-orb {
+        width: 100px; height: 100px;
+        border-radius: 50%;
+        background: #1C2329;
+        display: flex; align-items: center; justify-content: center;
+        font: italic 800 28px "Inter Tight",system-ui,sans-serif;
+        color: #fff;
+        flex-shrink: 0;
+      }
+      #beat-chips .chip-name {
+        font: italic 800 76px "Inter Tight",system-ui,sans-serif;
+        line-height: 0.94;
+        letter-spacing: -0.022em;
+        text-transform: uppercase;
+        color: #1C2329;
+      }
+      #beat-chips .chip-sub {
+        margin-top: 4px;
+        font: 700 22px "Inter",system-ui,sans-serif;
+        color: #4A4F54;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+      }
+      #beat-chips .chip-pill {
+        background: rgba(255,82,82,0.14); color: #FF5252;
+        border-radius: 999px;
+        padding: 14px 28px;
+        font: italic 800 48px "Inter Tight",system-ui,sans-serif;
+        letter-spacing: -0.012em;
+        white-space: nowrap;
+        box-shadow: 0 10px 22px rgba(255,82,82,0.18);
+      }
+
+      /* ============================================================
+         BEAT 9 — PRESSURE (gauge dropping → CANCELLED rate hike doc)
+         Evolved from oil-barrel/fed-pillar PNG reuse
+         ============================================================ */
+      #beat-pressure {
+        background:
+          radial-gradient(ellipse 80% 60% at 50% 50%, #14253D 0%, #0a1428 60%, #050a14 100%);
+      }
+      #beat-pressure .pp-bg-panel {
+        position: absolute;
+        width: 600px; height: 600px;
+        filter: blur(60px);
+        opacity: 0;
+        z-index: 1;
+        pointer-events: none;
+      }
+      #beat-pressure .pp-bg-panel--tl {
+        top: 180px; left: -160px;
+        background: radial-gradient(circle, rgba(91,183,255,0.30), transparent 70%);
+      }
+      #beat-pressure .pp-bg-panel--br {
+        bottom: 200px; right: -160px;
+        background: radial-gradient(circle, rgba(255,200,71,0.22), transparent 70%);
+      }
+      #beat-pressure .pp-eye {
+        position: absolute; top: 220px; left: 0; right: 0;
+        text-align: center;
+        font: 700 26px "Inter",system-ui,sans-serif;
+        letter-spacing: 0.42em; text-transform: uppercase;
+        color: rgba(255,255,255,0.9);
+        opacity: 0;
+        z-index: 6;
+      }
+
+      /* Shot 1 — gauge dial */
+      #beat-pressure .pp-gauge {
+        position: absolute;
+        left: 50%; top: 460px;
+        transform: translateX(-50%);
+        width: 720px; height: 720px;
+        opacity: 0;
+        z-index: 4;
+      }
+      #beat-pressure .pp-gauge svg { width: 100%; height: 100%; overflow: visible; display: block; }
+      #beat-pressure .pp-arc-bg { fill: none; stroke: rgba(255,255,255,0.10); stroke-width: 36; stroke-linecap: round; }
+      #beat-pressure .pp-arc-fill { fill: none; stroke: #FFC847; stroke-width: 36; stroke-linecap: round; filter: drop-shadow(0 0 18px rgba(255,200,71,0.35)); }
+      #beat-pressure .pp-tick { stroke: rgba(255,255,255,0.42); stroke-width: 3; stroke-linecap: round; }
+      #beat-pressure .pp-tick.major { stroke: rgba(255,255,255,0.78); stroke-width: 5; }
+      #beat-pressure .pp-needle { stroke: #FF5252; stroke-width: 10; stroke-linecap: round; filter: drop-shadow(0 0 10px rgba(255,82,82,0.6)); }
+      #beat-pressure .pp-hub-outer { fill: #1C2329; }
+      #beat-pressure .pp-hub-inner { fill: #FF5252; }
+      #beat-pressure .pp-gauge-label {
+        fill: #fff;
+        font: 800 26px "Inter",system-ui,sans-serif;
+        letter-spacing: 0.34em;
+        text-transform: uppercase;
+      }
+      #beat-pressure .pp-gauge-unit {
+        fill: rgba(255,255,255,0.6);
+        font: 700 18px "Inter",system-ui,sans-serif;
+        letter-spacing: 0.34em;
+      }
+      #beat-pressure .pp-gauge-num {
+        fill: #FFC847;
+        font: italic 800 80px "Inter Tight",system-ui,sans-serif;
+        letter-spacing: -0.025em;
+        font-variant-numeric: tabular-nums;
+      }
+
+      /* Shot 2 — RATE HIKE document with CANCELLED stamp */
+      #beat-pressure .pp-doc {
+        position: absolute;
+        left: 50%; top: 480px;
+        transform: translateX(-50%) rotate(-3deg);
+        width: 660px;
+        background: #F4ECD4;
+        border-radius: 14px;
+        padding: 56px 52px 60px;
+        box-shadow:
+          0 80px 100px rgba(0,0,0,0.65),
+          0 30px 50px rgba(0,0,0,0.40),
+          inset 0 -3px 0 rgba(0,0,0,0.06);
+        opacity: 0;
+        z-index: 4;
+      }
+      #beat-pressure .pp-doc-eye {
+        font: 700 22px "Inter",system-ui,sans-serif;
+        letter-spacing: 0.34em; text-transform: uppercase;
+        color: #6A6258;
+      }
+      #beat-pressure .pp-doc-h {
+        font: italic 800 116px "Inter Tight",system-ui,sans-serif;
+        letter-spacing: -0.035em;
+        text-transform: uppercase;
+        color: #1C2329;
+        line-height: 0.88;
+        margin-top: 26px;
+      }
+      #beat-pressure .pp-doc-lines { margin-top: 38px; display: flex; flex-direction: column; gap: 18px; }
+      #beat-pressure .pp-doc-line { height: 12px; background: rgba(28,35,41,0.18); border-radius: 6px; }
+      #beat-pressure .pp-doc-line.s1 { width: 96%; }
+      #beat-pressure .pp-doc-line.s2 { width: 88%; }
+      #beat-pressure .pp-doc-line.s3 { width: 72%; }
+
+      #beat-pressure .pp-stamp {
+        position: absolute;
+        left: 50%; top: 980px;
+        transform: translate(-50%, 0) rotate(-12deg);
+        border: 10px solid #FF5252;
+        padding: 16px 60px;
+        font: italic 800 144px "Inter Tight",system-ui,sans-serif;
+        letter-spacing: -0.025em;
+        color: #FF5252;
+        background: rgba(255,82,82,0.10);
+        text-transform: uppercase;
+        opacity: 0;
+        box-shadow: 0 0 0 6px rgba(255,82,82,0.18);
+        white-space: nowrap;
+        z-index: 6;
+      }
+      #beat-pressure .pp-bottom-label {
+        position: absolute;
+        left: 50%; top: 1620px;
+        transform: translateX(-50%);
+        font: 800 32px "Inter Tight",system-ui,sans-serif;
+        letter-spacing: 0.34em; text-transform: uppercase;
+        color: rgba(255,255,255,0.88);
+        opacity: 0;
+        white-space: nowrap;
+        z-index: 6;
+      }
+
+      /* ============================================================
+         BEAT 10 — CRACKS (shattered washer drum + lightning crack)
+         Evolved from chart-shatter pattern reuse
+         ============================================================ */
+      #beat-cracks {
+        background: radial-gradient(ellipse 70% 55% at 50% 55%, #FFFFFF 0%, #EEF1F5 100%);
+        color: #1C2329;
+      }
+      #beat-cracks .cr-stage {
+        position: absolute; inset: 0;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: flex-start;
+        gap: 28px; padding: 130px 0 80px;
+      }
+      #beat-cracks .cr-pill {
+        background: #FF5252; color: #fff;
+        border-radius: 999px;
+        padding: 16px 38px;
+        font: italic 800 60px "Inter Tight",system-ui,sans-serif;
+        letter-spacing: -0.012em;
+        box-shadow: 0 22px 44px rgba(255,82,82,0.42);
+        opacity: 0;
+        white-space: nowrap;
+      }
+      #beat-cracks .cr-washer-wrap {
+        width: 760px; height: 820px;
+        position: relative;
+      }
+      #beat-cracks .cr-washer-svg {
+        width: 100%; height: 100%;
+        display: block;
+        overflow: visible;
+      }
+      #beat-cracks .cr-shadow { fill: rgba(28,35,41,0.10); }
+      #beat-cracks .cr-body {
+        fill: #FFFFFF;
+        stroke: #1C2329; stroke-width: 6;
+        opacity: 0;
+      }
+      #beat-cracks .cr-controls { fill: rgba(28,35,41,0.06); stroke: #1C2329; stroke-width: 3; opacity: 0; }
+      #beat-cracks .cr-knob { fill: #1C2329; opacity: 0; }
+      #beat-cracks .cr-knob-dot { fill: #FF5252; opacity: 0; }
+      #beat-cracks .cr-display-bg { fill: #1C2329; opacity: 0; }
+      #beat-cracks .cr-display { fill: #FF5252; font: italic 800 26px "Inter Tight",system-ui,sans-serif; letter-spacing: -0.015em; opacity: 0; }
+      #beat-cracks .cr-port-rim { fill: #1C2329; opacity: 0; }
+      #beat-cracks .cr-port-glass {
+        fill: url(#cr-port-grad);
+        stroke: rgba(28,35,41,0.30); stroke-width: 2;
+        opacity: 0;
+      }
+      #beat-cracks .cr-shockwave {
+        fill: none;
+        stroke: #1C2329; stroke-width: 4;
+        stroke-linecap: round;
+        opacity: 0;
+      }
+      #beat-cracks .cr-crack {
+        fill: none;
+        stroke: #FF5252; stroke-width: 18;
+        stroke-linecap: round; stroke-linejoin: round;
+        filter: drop-shadow(0 0 12px rgba(255,82,82,0.55));
+      }
+      #beat-cracks .cr-shard {
+        fill: #FFFFFF;
+        stroke: #1C2329; stroke-width: 3;
+        opacity: 0;
+      }
+      #beat-cracks .cr-headline {
+        text-align: center;
+        margin-top: 8px;
+      }
+      #beat-cracks .cr-h1 {
+        font: italic 800 152px "Inter Tight",system-ui,sans-serif;
+        line-height: 0.9;
+        letter-spacing: -0.035em;
+        color: #FF5252;
+        text-transform: uppercase;
+        opacity: 0;
+      }
+      #beat-cracks .cr-h2 {
+        margin-top: 10px;
+        font: 800 30px "Inter",system-ui,sans-serif;
+        letter-spacing: 0.34em; text-transform: uppercase;
+        color: #4A4F54;
+        opacity: 0;
+      }
+
+      /* ============================================================
+         BEATS 11 / 12 / 13 — SIGNAL HEROES
+         ============================================================ */
+      .signal-bg-bullish {
+        background:
+          radial-gradient(ellipse 65% 55% at 50% 50%, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 55%),
+          #01CD74;
+        position: relative;
+      }
+      .signal-bg-cautious { background: #FFC847; }
+      .signal-bg-focused { background: #1658FF; }
+
+      .signal-stack {
+        display: flex; flex-direction: column;
+        align-items: center; gap: 26px;
+      }
+      .signal-icon {
+        font: italic 800 200px "Inter Tight",system-ui,sans-serif;
+        line-height: 0.85;
+        letter-spacing: -0.04em;
+        opacity: 0;
+        text-shadow: 0 18px 38px rgba(0,0,0,0.18);
+      }
+      .signal-bg-bullish .signal-icon { color: #fff; }
+      .signal-bg-cautious .signal-icon { color: #1C2329; }
+      .signal-bg-focused .signal-icon { color: #FFC847; }
+      .signal-stance {
+        font: italic 800 160px "Inter Tight",system-ui,sans-serif;
+        line-height: 0.92;
+        letter-spacing: -0.035em;
+        text-transform: uppercase;
+        opacity: 0;
+      }
+      .signal-bg-bullish .signal-stance {
+        color: #fff;
+        text-shadow:
+          -10px 0 20px rgba(255,255,255,0.55),
+          -22px 0 40px rgba(255,255,255,0.35),
+          -38px 0 60px rgba(255,255,255,0.20);
+      }
+      .signal-bg-cautious .signal-stance { color: #1C2329; }
+      .signal-bg-focused .signal-stance { color: #fff; }
+      .signal-target {
+        background: #1C2329; color: #fff;
+        padding: 18px 44px;
+        border-radius: 999px;
+        font: italic 800 42px "Inter Tight",system-ui,sans-serif;
+        letter-spacing: -0.012em;
+        text-transform: uppercase;
+        opacity: 0;
+        box-shadow: 0 22px 44px rgba(6,10,30,0.25);
+        white-space: nowrap;
+      }
+      #beat-bullish .bottom-eyebrow {
+        position: absolute;
+        top: 240px; left: 0; right: 0;
+        text-align: center;
+        font: 800 28px "Inter",system-ui,sans-serif;
+        letter-spacing: 0.42em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.9);
+        opacity: 0;
+      }
+
+      /* ============================================================
+         BEAT 14 — SIGN OFF
+         ============================================================ */
+      #beat-signoff { background: #1658FF; }
+      #beat-signoff .pulse-svg {
+        position: absolute; left: 0; right: 0;
+        top: 50%; transform: translateY(-50%);
+        width: 1080px; height: 220px;
+        z-index: 2;
+        pointer-events: none;
+      }
+      #beat-signoff .pulse-line {
+        fill: none;
+        stroke: #FFC847;
+        stroke-width: 7;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        filter: drop-shadow(0 0 18px rgba(255,200,71,0.7));
+      }
+      #beat-signoff .so-overlay {
+        position: absolute; inset: 0; z-index: 3;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+      }
+      #beat-signoff .so-logo {
+        z-index: 4;
+        opacity: 0; transform: scale(0.6);
+      }
+      #beat-signoff .so-logo img {
+        width: 280px; height: 280px; object-fit: contain;
+        filter: drop-shadow(0 16px 36px rgba(6,10,30,0.32));
+      }
+      #beat-signoff .so-tagline {
+        margin-top: 36px;
+        font: italic 800 96px "Inter Tight",system-ui,sans-serif;
+        line-height: 0.96;
+        color: #fff;
+        letter-spacing: -0.028em;
+        text-transform: uppercase;
+        text-align: center;
+        opacity: 0;
+        z-index: 4;
+      }
+      #beat-signoff .so-tagline .accent { color: #FFC847; }
+      #beat-signoff .so-host {
+        margin-top: 26px;
+        background: #1C2329; color: #fff;
+        border-radius: 999px;
+        padding: 16px 32px;
+        font: italic 800 28px "Inter Tight",system-ui,sans-serif;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        opacity: 0;
+        z-index: 4;
+      }
+
+      /* Cut-point flash + grain */
+      .beat { z-index: 1; }
+      #tx-flash {
+        position: absolute; inset: 0;
+        background: #FFFFFF;
+        opacity: 0;
+        z-index: 90;
+        pointer-events: none;
+        will-change: opacity;
+      }
+      #tx-flash.warm { background: linear-gradient(180deg, #FFFFFF 0%, #FFE9C2 100%); }
+      #tx-flash.cool { background: linear-gradient(180deg, #FFFFFF 0%, #C7E0FF 100%); }
+      #tx-flash.chroma {
+        background:
+          radial-gradient(circle at 30% 50%, rgba(255,82,82,0.55) 0%, transparent 40%),
+          radial-gradient(circle at 70% 50%, rgba(0,200,255,0.55) 0%, transparent 40%),
+          #FFFFFF;
+      }
+
+      /* shimmer-sweep */
+      .shimmer-sweep-target { position: relative; display: inline-block; }
+      .shimmer-sweep-target .shimmer-mask {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        pointer-events: none;
+        background: linear-gradient(
+          var(--shimmer-angle, 110deg),
+          transparent 0%,
+          transparent calc(var(--shimmer-pos, -20%) - var(--shimmer-width, 18%) / 2),
+          var(--shimmer-color, rgba(255,255,255,0.7)) var(--shimmer-pos, -20%),
+          transparent calc(var(--shimmer-pos, -20%) + var(--shimmer-width, 18%) / 2),
+          transparent 100%
+        );
+        mix-blend-mode: overlay;
+      }
+
+      @keyframes hf-grain-noise {
+        0%, 100% { transform: translate(0, 0); }
+        25% { transform: translate(-5%, -5%); }
+        50% { transform: translate(5%, 0); }
+        75% { transform: translate(-5%, 5%); }
+      }
+      #grain-overlay {
+        position: absolute; inset: 0;
+        z-index: 95;
+        pointer-events: none;
+        mix-blend-mode: overlay;
+        opacity: 0.18;
+      }
+      #grain-overlay .grain-texture {
+        position: absolute; inset: -50%; width: 200%; height: 200%;
+        background-image:
+          radial-gradient(circle at 25% 25%, rgba(255,255,255,0.5) 1px, transparent 1.5px),
+          radial-gradient(circle at 75% 75%, rgba(0,0,0,0.5) 1px, transparent 1.5px);
+        background-size: 4px 4px, 5px 5px;
+        animation: hf-grain-noise 0.4s steps(8) infinite;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"
+      data-composition-id="bloom-market-2026-05-08"
+      data-width="1080"
+      data-height="1920"
+      data-start="0"
+      data-duration="57.6">
+
+      <audio id="narration" class="clip"
+        data-start="0" data-duration="57.6" data-track-index="0"
+        src="assets/voiceover/scene-01.mp3" data-volume="1"></audio>
+
+      <!-- BEAT 1 — TITLE (0 - 2.45s) -->
+      <div id="beat-title" class="beat clip"
+        data-start="0" data-duration="2.45" data-track-index="1">
+        <canvas id="b1-canvas" width="1080" height="1920"></canvas>
+        <div class="title-frame" id="b1-frame"></div>
+        <div class="stage">
+          <div class="title-stack">
+            <div class="title-eyebrow" id="b1-eye">MAY 8 &middot; 2026</div>
+            <div class="title-headline" id="b1-head">
+              TODAY'S<br/>MARKET<span class="accent">IN 30s</span>
+            </div>
+            <div class="title-meta" id="b1-meta">DAILY PULSE &middot; BLOOM</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BEAT 2 — RUSSELL +1.5% (2.45 - 6.0s) -->
+      <div id="beat-russell" class="beat clip"
+        data-start="2.45" data-duration="3.55" data-track-index="1">
+        <div class="stage">
+          <div class="rl-stack">
+            <div class="rl-eye" id="b2-eye">SMALL CAPS LEAD</div>
+            <div class="rl-name" id="b2-name">RUSSELL 2000</div>
+            <div class="rl-pill" id="b2-pill">&uarr; +1.5%</div>
+            <div class="rl-sub" id="b2-sub">RUT &middot; TODAY</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BEAT 3 — DOW -0.6% with 50K stamp (6.0 - 11.1s) -->
+      <div id="beat-dow" class="beat clip idx-stage"
+        data-start="6.0" data-duration="5.1" data-track-index="1">
+        <div class="idx-stage-inner">
+          <div class="idx-eyebrow" id="b3-eye">DOW LAGS</div>
+          <div class="idx-card" id="b3-card">
+            <div class="idx-head">
+              <div class="idx-id">
+                <div class="idx-orb"><span class="orb-text">DJI</span></div>
+                <div>
+                  <div class="idx-name">DOW</div>
+                  <div class="idx-sub">DOW JONES IND</div>
+                </div>
+              </div>
+              <div class="idx-pill down">&darr; -0.6%</div>
+            </div>
+            <div class="idx-price" id="b3-price">0.00</div>
+            <svg class="idx-chart" viewBox="0 0 824 200" preserveAspectRatio="none">
+              <path id="b3-line" class="down" d="M 0 60 L 80 70 L 160 65 L 240 80 L 320 90 L 400 96 L 480 90 L 560 110 L 640 130 L 720 145 L 824 160"/>
+            </svg>
+          </div>
+        </div>
+        <div class="idx-stamp-frame">
+          <div class="idx-stamp" id="b3-stamp"><span>NEAR</span><span>50K</span></div>
+        </div>
+      </div>
+
+      <!-- BEAT 4 — SPX -0.4% with FRESH RECORD stamp (11.1 - 16.95s) -->
+      <div id="beat-spx" class="beat clip idx-stage"
+        data-start="11.1" data-duration="5.85" data-track-index="1">
+        <div class="idx-stage-inner">
+          <div class="idx-eyebrow" id="b4-eye">S&amp;P 500 PULLS BACK</div>
+          <div class="idx-card" id="b4-card">
+            <div class="idx-head">
+              <div class="idx-id">
+                <div class="idx-orb"><span class="orb-text">SPX</span></div>
+                <div>
+                  <div class="idx-name">S&amp;P&nbsp;500</div>
+                  <div class="idx-sub">S AND P 500</div>
+                </div>
+              </div>
+              <div class="idx-pill down">&darr; -0.4%</div>
+            </div>
+            <div class="idx-price" id="b4-price">0.00</div>
+            <svg class="idx-chart" viewBox="0 0 824 200" preserveAspectRatio="none">
+              <path id="b4-line" class="down" d="M 0 30 L 80 25 L 160 20 L 240 15 L 320 12 L 400 28 L 480 50 L 560 70 L 640 85 L 720 100 L 824 115"/>
+            </svg>
+          </div>
+        </div>
+        <div class="idx-stamp-frame">
+          <div class="idx-stamp green-border" id="b4-stamp"><span>FRESH</span><span>RECORD</span></div>
+        </div>
+      </div>
+
+      <!-- BEAT 5 — IRAN PEACE FRAMEWORK (16.95 - 22.6s) -->
+      <div id="beat-iran" class="beat clip"
+        data-start="16.95" data-duration="5.65" data-track-index="1">
+        <div class="stage">
+          <div class="ir-stack">
+            <div class="ir-eye" id="b5-eye">THE BIG STORY</div>
+            <div class="ir-h1" id="b5-h1">
+              U.S.&ndash;IRAN<span class="accent">PEACE FRAMEWORK</span>
+            </div>
+            <div class="ir-pill" id="b5-pill"><span class="num">14</span>&nbsp;&middot;&nbsp;POINT&nbsp;PROPOSAL</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BEAT 6 — STRAIT OF HORMUZ (22.6 - 25.85s) -->
+      <div id="beat-hormuz" class="beat clip"
+        data-start="22.6" data-duration="3.25" data-track-index="1">
+        <svg class="hz-svg" viewBox="0 0 1080 1920" preserveAspectRatio="none">
+          <path id="hz-land-top" d="M -50 600 C 200 540, 480 620, 700 540 C 880 480, 1020 520, 1130 480 L 1130 0 L -50 0 Z"
+                fill="#1C2329" opacity="0"/>
+          <path id="hz-land-bot" d="M -50 1280 C 220 1200, 460 1340, 720 1240 C 900 1180, 1020 1240, 1130 1200 L 1130 1920 L -50 1920 Z"
+                fill="#1C2329" opacity="0"/>
+          <path id="hz-arrow" d="M 240 960 L 840 960 M 800 920 L 840 960 L 800 1000"
+                fill="none" stroke="#5BB7FF" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" opacity="0"/>
+        </svg>
+        <div class="stage">
+          <div class="hz-stack">
+            <div class="hz-eye" id="b6-eye">REOPENING THE</div>
+            <div class="hz-h1" id="b6-h1">
+              STRAIT OF<span class="accent">HORMUZ</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BEAT 7 — WTI under $95 (25.85 - 29.3s) -->
+      <div id="beat-wti" class="beat clip"
+        data-start="25.85" data-duration="3.45" data-track-index="1">
+        <div class="wti-eye" id="b7-eye">WTI CRUDE</div>
+        <img class="wti-oil" id="b7-oil" src="generated-assets/oil-barrel.png" alt=""/>
+        <div class="wti-pill" id="b7-pill">&darr; UNDER&nbsp;$95</div>
+        <div class="wti-tag" id="b7-tag">DRAGGED LOWER</div>
+      </div>
+
+      <!-- BEAT 8 — CHIPS DRAG (29.3 - 34.0s) -->
+      <div id="beat-chips" class="beat clip"
+        data-start="29.3" data-duration="4.7" data-track-index="1">
+        <div class="chips-stage">
+          <div class="chips-eye" id="b8-eye">CHIPS DRAGGED DOWN</div>
+          <div class="chip-row" id="b8-r1">
+            <div class="chip-id">
+              <div class="chip-orb">MU</div>
+              <div>
+                <div class="chip-name">MICRON</div>
+                <div class="chip-sub">MEMORY &middot; CHIPS</div>
+              </div>
+            </div>
+            <div class="chip-pill" id="b8-r1-pill">&darr; -3.2%</div>
+          </div>
+          <div class="chip-row" id="b8-r2">
+            <div class="chip-id">
+              <div class="chip-orb">AVGO</div>
+              <div>
+                <div class="chip-name">BROADCOM</div>
+                <div class="chip-sub">SEMIS &middot; AI</div>
+              </div>
+            </div>
+            <div class="chip-pill" id="b8-r2-pill">&darr; -2.7%</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BEAT 9 — PRESSURE: gauge dial drops → CANCELLED rate-hike doc (34.5 - 40.7s) -->
+      <div id="beat-pressure" class="beat clip"
+        data-start="34.5" data-duration="6.2" data-track-index="1">
+        <div class="pp-bg-panel pp-bg-panel--tl"></div>
+        <div class="pp-bg-panel pp-bg-panel--br"></div>
+        <div class="pp-eye" id="b9-eye">SECOND-ORDER EFFECT</div>
+
+        <!-- Shot 1 — Oil-price gauge dial (SVG) -->
+        <div class="pp-gauge" id="b9-gauge">
+          <svg viewBox="0 0 720 720">
+            <!-- BG arc (270° span, lower-open) -->
+            <path class="pp-arc-bg"   d="M 167.6 552.4 A 240 240 0 1 1 552.4 552.4"/>
+            <!-- Fill arc (animated stroke-dashoffset for sweep — represents price level) -->
+            <path class="pp-arc-fill" id="b9-arc" d="M 167.6 552.4 A 240 240 0 1 1 552.4 552.4"/>
+
+            <!-- Tick marks (every 27°, 11 ticks across 270°) -->
+            <g>
+              <line class="pp-tick major" x1="167.6" y1="552.4" x2="186.5" y2="533.5"/>
+              <line class="pp-tick"       x1="120.0" y1="479.6" x2="142.0" y2="468.4"/>
+              <line class="pp-tick major" x1="105.6" y1="395.0" x2="129.6" y2="390.0"/>
+              <line class="pp-tick"       x1="125.7" y1="307.0" x2="148.0" y2="316.5"/>
+              <line class="pp-tick major" x1="178.0" y1="241.0" x2="195.0" y2="258.5"/>
+              <line class="pp-tick"       x1="259.0" y1="208.0" x2="269.5" y2="231.0"/>
+              <line class="pp-tick major" x1="360.0" y1="200.0" x2="360.0" y2="226.5"/>
+              <line class="pp-tick"       x1="461.0" y1="208.0" x2="450.5" y2="231.0"/>
+              <line class="pp-tick major" x1="542.0" y1="241.0" x2="525.0" y2="258.5"/>
+              <line class="pp-tick"       x1="594.3" y1="307.0" x2="572.0" y2="316.5"/>
+              <line class="pp-tick major" x1="614.4" y1="395.0" x2="590.4" y2="390.0"/>
+              <line class="pp-tick"       x1="600.0" y1="479.6" x2="578.0" y2="468.4"/>
+              <line class="pp-tick major" x1="552.4" y1="552.4" x2="533.5" y2="533.5"/>
+            </g>
+
+            <!-- Center number readout -->
+            <text class="pp-gauge-label" x="360" y="380" text-anchor="middle">WTI</text>
+            <text class="pp-gauge-num"   x="360" y="470" text-anchor="middle" id="b9-num">$95.00</text>
+            <text class="pp-gauge-unit"  x="360" y="510" text-anchor="middle">USD / BBL</text>
+
+            <!-- Needle (rotates around center 360,360) -->
+            <g id="b9-needle-grp" style="transform-origin: 360px 360px; transform: rotate(60deg);">
+              <line class="pp-needle" x1="360" y1="360" x2="360" y2="160"/>
+            </g>
+
+            <!-- Hub -->
+            <circle class="pp-hub-outer" cx="360" cy="360" r="32"/>
+            <circle class="pp-hub-inner" cx="360" cy="360" r="14"/>
+          </svg>
+        </div>
+
+        <!-- Shot 2 — RATE HIKE document -->
+        <div class="pp-doc" id="b9-doc">
+          <div class="pp-doc-eye">MONETARY POLICY DECISION</div>
+          <div class="pp-doc-h">RATE<br/>HIKE</div>
+          <div class="pp-doc-lines">
+            <div class="pp-doc-line s1"></div>
+            <div class="pp-doc-line s2"></div>
+            <div class="pp-doc-line s3"></div>
+          </div>
+        </div>
+
+        <!-- CANCELLED stamp slammed across the doc -->
+        <div class="pp-stamp" id="b9-stamp">CANCELLED</div>
+        <div class="pp-bottom-label" id="b9-fed-label">BETS OFF THE TABLE</div>
+      </div>
+
+      <!-- BEAT 10 — CRACKS: shattered washer + lightning crack (40.7 - 47.2s) -->
+      <div id="beat-cracks" class="beat clip"
+        data-start="40.7" data-duration="6.5" data-track-index="1">
+        <div class="cr-stage">
+          <div class="cr-pill" id="b8c-pill">WHR &nbsp;&darr;-12%</div>
+
+          <div class="cr-washer-wrap">
+            <svg class="cr-washer-svg" viewBox="0 0 760 820" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="cr-port-grad" cx="40%" cy="35%" r="70%">
+                  <stop offset="0%"  stop-color="#3A4757"/>
+                  <stop offset="55%" stop-color="#1C2329"/>
+                  <stop offset="100%" stop-color="#0a1014"/>
+                </radialGradient>
+              </defs>
+
+              <!-- ground shadow -->
+              <ellipse class="cr-shadow" cx="380" cy="780" rx="280" ry="22"/>
+
+              <!-- washer body (rounded rectangle with rounded top corners) -->
+              <rect class="cr-body" x="120" y="80" width="520" height="680" rx="32" ry="32"/>
+
+              <!-- top control panel -->
+              <rect class="cr-controls" x="148" y="108" width="464" height="106" rx="14"/>
+              <!-- LED display -->
+              <rect class="cr-display-bg" x="172" y="132" width="170" height="58" rx="8"/>
+              <text class="cr-display" id="cr-display" x="257" y="170" text-anchor="middle">ERR -12</text>
+              <!-- knobs -->
+              <circle class="cr-knob" cx="430" cy="161" r="32"/>
+              <circle class="cr-knob-dot" cx="430" cy="143" r="5"/>
+              <circle class="cr-knob" cx="528" cy="161" r="32"/>
+              <circle class="cr-knob-dot" cx="510" cy="161" r="5"/>
+
+              <!-- shockwave rings (radiating from porthole center 380, 460) -->
+              <g id="cr-shockwaves">
+                <circle class="cr-shockwave" cx="380" cy="460" r="220"/>
+                <circle class="cr-shockwave" cx="380" cy="460" r="290"/>
+                <circle class="cr-shockwave" cx="380" cy="460" r="360"/>
+              </g>
+
+              <!-- porthole rim -->
+              <circle class="cr-port-rim" cx="380" cy="460" r="178"/>
+              <!-- porthole glass -->
+              <circle class="cr-port-glass" cx="380" cy="460" r="148"/>
+
+              <!-- jagged red lightning crack splitting top → bottom through porthole and body -->
+              <path class="cr-crack" id="cr-crack"
+                d="M 380 60 L 348 200 L 410 280 L 340 380 L 422 460 L 336 540 L 410 640 L 360 740 L 388 800"/>
+
+              <!-- floating broken shards (around the washer) -->
+              <g id="cr-shards">
+                <polygon class="cr-shard" points="80,180 130,200 110,260 60,240"/>
+                <polygon class="cr-shard" points="650,140 700,170 680,220 630,200"/>
+                <polygon class="cr-shard" points="90,520 140,540 120,580 70,560"/>
+                <polygon class="cr-shard" points="660,560 705,575 695,625 645,615"/>
+                <polygon class="cr-shard" points="180,760 220,780 200,810 160,795"/>
+                <polygon class="cr-shard" points="540,770 580,785 565,815 530,805"/>
+              </g>
+            </svg>
+          </div>
+
+          <div class="cr-headline">
+            <div class="cr-h1" id="b8c-h1">CONSUMER</div>
+            <div class="cr-h2" id="b8c-h2">already cracking</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BEAT 11 — BULLISH (47.6 - 50.0s) -->
+      <div id="beat-bullish" class="beat clip signal-bg-bullish"
+        data-start="47.6" data-duration="2.4" data-track-index="1">
+        <div class="bottom-eyebrow" id="b11-eye">THE BOTTOM LINE</div>
+        <div class="stage">
+          <div class="signal-stack">
+            <div class="signal-icon" id="b11-icon">&uarr;</div>
+            <div class="signal-stance shimmer-sweep-target" id="b11-stance">BULLISH</div>
+            <div class="signal-target" id="b11-tgt">SMALL CAPS</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BEAT 12 — CAUTIOUS (50.0 - 52.2s) -->
+      <div id="beat-cautious" class="beat clip signal-bg-cautious"
+        data-start="50.0" data-duration="2.2" data-track-index="1">
+        <div class="stage">
+          <div class="signal-stack">
+            <div class="signal-icon" id="b12-icon">!</div>
+            <div class="signal-stance shimmer-sweep-target" id="b12-stance">CAUTIOUS</div>
+            <div class="signal-target" id="b12-tgt">SEMIS &middot; AFTER THE RUN</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BEAT 13 — FOCUSED (52.2 - 54.45s) -->
+      <div id="beat-focused" class="beat clip signal-bg-focused"
+        data-start="52.2" data-duration="2.25" data-track-index="1">
+        <div class="stage">
+          <div class="signal-stack">
+            <div class="signal-icon" id="b13-icon">&#9678;</div>
+            <div class="signal-stance shimmer-sweep-target" id="b13-stance">FOCUSED</div>
+            <div class="signal-target" id="b13-tgt">IRAN'S RESPONSE</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BEAT 14 — SIGN OFF (54.45 - 57.6s) -->
+      <div id="beat-signoff" class="beat clip"
+        data-start="54.45" data-duration="3.15" data-track-index="1">
+        <svg class="pulse-svg" viewBox="0 0 1080 220" preserveAspectRatio="none">
+          <path id="b14-pulse" class="pulse-line"
+            d="M 0 110 L 240 110 L 280 110 L 320 60 L 360 160 L 400 30 L 440 180 L 480 80 L 520 110 L 1080 110"/>
+        </svg>
+        <div class="so-overlay">
+          <div class="so-logo" id="b14-logo">
+            <img src="assets/logos/BLOOM.png" alt="Bloom" onerror="this.style.display='none';"/>
+          </div>
+          <div class="so-tagline" id="b14-tag">SEE&nbsp;YOU<br/><span class="accent">TOMORROW.</span></div>
+          <div class="so-host" id="b14-host">DAILY MARKET PULSE &middot; BLOOM</div>
+        </div>
+      </div>
+
+      <div id="tx-flash"></div>
+      <div id="grain-overlay"><div class="grain-texture"></div></div>
+    </div>
+
+    <script>
+      document.querySelectorAll(".shimmer-sweep-target").forEach((el) => {
+        if (!el.querySelector(".shimmer-mask")) {
+          const mask = document.createElement("div");
+          mask.className = "shimmer-mask";
+          el.appendChild(mask);
+        }
+      });
+
+      window.__timelines = window.__timelines || {};
+
+      function mulberry32(seed) {
+        return function () {
+          let t = (seed += 0x6d2b79f5);
+          t = Math.imul(t ^ (t >>> 15), t | 1);
+          t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+          return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        };
+      }
+      function setupDraw(pathEl) {
+        if (!pathEl) return 0;
+        const len = pathEl.getTotalLength();
+        pathEl.style.strokeDasharray = len;
+        pathEl.style.strokeDashoffset = len;
+        return len;
+      }
+      function shuffleSeq(n, rand) {
+        const a = []; for (let i = 0; i < n; i++) a.push(i);
+        for (let i = a.length - 1; i > 0; i--) {
+          const j = Math.floor(rand() * (i + 1));
+          const tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+        }
+        return a;
+      }
+
+      const LOGO_TICKERS = [
+        "AAPL","NVDA","TSLA","META","GOOGL","AMZN","MSFT",
+        "SPY","QQQ","JPM","V","WMT","DIS","KO","PEP",
+        "NFLX","NKE","SBUX","COST","IBM","MCD","NOW","TXN","VOO"
+      ];
+      const LOGO_IMAGES = LOGO_TICKERS.map(function (tk) {
+        const img = new Image(); img.src = "assets/logos/" + tk + ".png"; return img;
+      });
+      function isReady(img) { return img && img.complete && img.naturalWidth > 0; }
+
+      const tl = gsap.timeline({ paused: true });
+      const fmt2 = new Intl.NumberFormat("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+      [
+        ["#beat-title",     0.0,   2.45],
+        ["#beat-russell",   2.45,  6.0],
+        ["#beat-dow",       6.0,  11.1],
+        ["#beat-spx",      11.1,  16.95],
+        ["#beat-iran",     16.95, 22.6],
+        ["#beat-hormuz",   22.6,  25.85],
+        ["#beat-wti",      25.85, 29.3],
+        ["#beat-chips",    29.3,  34.0],
+        ["#beat-pressure", 34.5,  40.7],
+        ["#beat-cracks",   40.7,  47.2],
+        ["#beat-bullish",  47.6,  50.0],
+        ["#beat-cautious", 50.0,  52.2],
+        ["#beat-focused",  52.2,  54.45],
+        ["#beat-signoff",  54.45, 57.6]
+      ].forEach(function (b) {
+        tl.set(b[0], { opacity: 1 }, b[1]);
+        if (b[2] < 57.6) tl.set(b[0], { opacity: 0 }, b[2]);
+      });
+
+      /* Flash transitions */
+      (function () {
+        const flash = document.getElementById("tx-flash");
+        if (!flash) return;
+        function pulseAt(t, variant, peak) {
+          tl.call(() => { flash.className = variant || ""; }, null, t - 0.11);
+          tl.fromTo("#tx-flash",
+            { opacity: 0 },
+            { opacity: peak ?? 0.85, duration: 0.10, ease: "power2.in" }, t - 0.10);
+          tl.to("#tx-flash",
+            { opacity: 0, duration: 0.20, ease: "power2.out" }, t);
+        }
+        pulseAt(2.45,  "warm",   0.7);
+        pulseAt(16.95, "cool",   0.85);
+        pulseAt(34.5,  "chroma", 0.7);
+        pulseAt(47.6,  "warm",   0.85);
+      })();
+
+      /* Signal triplet pushes */
+      (function () {
+        tl.fromTo("#beat-cautious", { x: 1080 }, { x: 0, duration: 0.45, ease: "power3.out" }, 50.0);
+        tl.fromTo("#beat-focused",  { x: 1080 }, { x: 0, duration: 0.45, ease: "power3.out" }, 52.2);
+      })();
+
+      /* BEAT 1 — TITLE */
+      (function () {
+        const start = 0.0;
+        const cvs = document.getElementById("b1-canvas");
+        const ctx = cvs ? cvs.getContext("2d") : null;
+        const rand = mulberry32(5082);
+        const COLS = 5, PER_COL = 8, SPACING = 260, RADIUS = 76, SPEED = 70;
+        const COL_HEIGHT = PER_COL * SPACING;
+        const COL_W = 1080 / COLS;
+        const order = shuffleSeq(LOGO_IMAGES.length, rand);
+        let cursor = 0;
+        const columns = [];
+        for (let c = 0; c < COLS; c++) {
+          const items = [];
+          for (let i = 0; i < PER_COL; i++) {
+            items.push({ idx: order[cursor % order.length], opacity: 0.32 + rand() * 0.18 });
+            cursor++;
+          }
+          columns.push({
+            cx: COL_W * c + COL_W / 2,
+            dir: (c % 2 === 0) ? 1 : -1,
+            seedOffset: rand() * SPACING,
+            items: items
+          });
+        }
+        function drawOrb(cx, cy, opacity, idx) {
+          ctx.fillStyle = "rgba(220, 230, 255, " + Math.min(1, opacity * 1.4) + ")";
+          ctx.beginPath(); ctx.arc(cx, cy, RADIUS, 0, Math.PI * 2); ctx.fill();
+          const img = LOGO_IMAGES[idx];
+          if (isReady(img)) {
+            const inner = RADIUS * 1.18;
+            ctx.save();
+            ctx.beginPath(); ctx.arc(cx, cy, RADIUS - 2, 0, Math.PI * 2); ctx.clip();
+            ctx.globalAlpha = Math.min(1, opacity * 1.5);
+            ctx.drawImage(img, cx - inner / 2, cy - inner / 2, inner, inner);
+            ctx.globalAlpha = 1; ctx.restore();
+          }
+        }
+        function drawVignette() {
+          if (!ctx) return;
+          const grd = ctx.createRadialGradient(540, 960, 200, 540, 960, 1100);
+          grd.addColorStop(0, "rgba(0,0,0,0)");
+          grd.addColorStop(0.7, "rgba(0,0,0,0.10)");
+          grd.addColorStop(1, "rgba(0,0,0,0.42)");
+          ctx.fillStyle = grd;
+          ctx.fillRect(0, 0, 1080, 1920);
+        }
+        function drawBg(t) {
+          if (!ctx) return;
+          ctx.clearRect(0, 0, 1080, 1920);
+          for (let c = 0; c < COLS; c++) {
+            const col = columns[c];
+            const baseShift = col.dir * t * SPEED + col.seedOffset;
+            for (let i = 0; i < PER_COL; i++) {
+              const item = col.items[i];
+              let y = ((i * SPACING + baseShift) % COL_HEIGHT + COL_HEIGHT) % COL_HEIGHT;
+              y = y - SPACING;
+              if (y < -RADIUS * 2 || y > 1920 + RADIUS * 2) continue;
+              drawOrb(col.cx, y, item.opacity, item.idx);
+            }
+          }
+          drawVignette();
+        }
+        const p = { t: 0 };
+        tl.to(p, { t: 2.45, duration: 2.45, ease: "none", onUpdate: function () { drawBg(p.t); } }, start);
+
+        tl.fromTo("#b1-frame",
+          { opacity: 0, scale: 1.06 },
+          { opacity: 1, scale: 1, duration: 0.55, ease: "power2.out" }, start + 0.05);
+        tl.fromTo("#b1-eye",
+          { opacity: 0, scale: 0.7, y: -22 },
+          { opacity: 1, scale: 1, y: 0, duration: 0.45, ease: "back.out(1.7)" }, start + 0.20);
+        tl.fromTo("#b1-head",
+          { opacity: 0, y: 36, scale: 0.95 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "power3.out" }, start + 0.50);
+        tl.fromTo("#b1-meta",
+          { opacity: 0, y: 14 },
+          { opacity: 1, y: 0, duration: 0.4 }, start + 1.20);
+      })();
+
+      /* BEAT 2 — RUSSELL */
+      (function () {
+        const start = 2.45;
+        tl.fromTo("#b2-eye",
+          { opacity: 0, y: -16 },
+          { opacity: 1, y: 0, duration: 0.4 }, start + 0.10);
+        tl.fromTo("#b2-name",
+          { opacity: 0, y: 50, scale: 0.92 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "back.out(1.7)" }, start + 0.20);
+        tl.fromTo("#b2-pill",
+          { opacity: 0, scale: 0.4, y: 30 },
+          { opacity: 1, scale: 1, y: 0, duration: 0.55, ease: "back.out(1.9)" }, start + 1.78);
+        tl.to("#b2-pill",
+          { scale: 1.06, duration: 0.5, yoyo: true, repeat: 2, ease: "sine.inOut", overwrite: "auto" },
+          start + 2.45);
+        tl.fromTo("#b2-sub",
+          { opacity: 0, y: 14 },
+          { opacity: 1, y: 0, duration: 0.4 }, start + 2.20);
+      })();
+
+      /* BEAT 3 — DOW */
+      (function () {
+        const start = 6.0;
+        const pEl = document.getElementById("b3-price");
+        const proxy = { v: 50000 };
+        const line = document.getElementById("b3-line");
+        setupDraw(line);
+
+        tl.fromTo("#b3-eye",
+          { opacity: 0, y: -16 },
+          { opacity: 1, y: 0, duration: 0.4 }, start + 0.10);
+        tl.fromTo("#b3-card",
+          { opacity: 0, y: 60, scale: 0.96 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "power3.out" }, start + 0.30);
+        tl.to(proxy, {
+          v: 49702.18,
+          duration: 1.4, ease: "power2.out",
+          onUpdate: function () { if (pEl) pEl.textContent = fmt2.format(proxy.v); }
+        }, start + 0.55);
+        tl.to("#b3-line",
+          { strokeDashoffset: 0, duration: 1.6, ease: "power2.out" }, start + 0.65);
+        tl.to("#b3-card",
+          { rotation: 0.4, duration: 1.5, yoyo: true, repeat: 1, ease: "sine.inOut", overwrite: "auto" },
+          start + 2.0);
+
+        tl.to("#b3-card",
+          { y: -180, opacity: 0, duration: 0.45, ease: "power2.in" }, start + 3.85);
+        tl.to("#b3-eye",
+          { opacity: 0, y: -10, duration: 0.35, ease: "power2.in" }, start + 3.85);
+
+        tl.fromTo("#b3-stamp",
+          { opacity: 0, scale: 1.4, rotation: -16 },
+          { opacity: 1, scale: 1.0, rotation: -8, duration: 0.32, ease: "back.out(1.5)" },
+          start + 4.05);
+        tl.to("#b3-stamp",
+          { scale: 1.05, rotation: -7.5, duration: 0.16, yoyo: true, repeat: 1, ease: "sine.inOut", overwrite: "auto" },
+          start + 4.45);
+      })();
+
+      /* BEAT 4 — SPX */
+      (function () {
+        const start = 11.1;
+        const pEl = document.getElementById("b4-price");
+        const proxy = { v: 5800 };
+        const line = document.getElementById("b4-line");
+        setupDraw(line);
+
+        tl.fromTo("#b4-eye",
+          { opacity: 0, y: -16 },
+          { opacity: 1, y: 0, duration: 0.4 }, start + 0.10);
+        tl.fromTo("#b4-card",
+          { opacity: 0, y: 60, scale: 0.96 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "power3.out" }, start + 0.40);
+        tl.to(proxy, {
+          v: 6024.85,
+          duration: 1.5, ease: "power2.out",
+          onUpdate: function () { if (pEl) pEl.textContent = fmt2.format(proxy.v); }
+        }, start + 0.85);
+        tl.to("#b4-line",
+          { strokeDashoffset: 0, duration: 1.7, ease: "power2.out" }, start + 1.0);
+        tl.to("#b4-card",
+          { rotation: 0.4, duration: 1.5, yoyo: true, repeat: 1, ease: "sine.inOut", overwrite: "auto" },
+          start + 2.5);
+
+        tl.to("#b4-card",
+          { y: -180, opacity: 0, duration: 0.45, ease: "power2.in" }, start + 3.85);
+        tl.to("#b4-eye",
+          { opacity: 0, y: -10, duration: 0.35, ease: "power2.in" }, start + 3.85);
+        tl.fromTo("#b4-stamp",
+          { opacity: 0, scale: 1.4, rotation: -16 },
+          { opacity: 1, scale: 1.0, rotation: -8, duration: 0.32, ease: "back.out(1.5)" },
+          start + 4.0);
+        tl.to("#b4-stamp",
+          { scale: 1.05, rotation: -7.5, duration: 0.16, yoyo: true, repeat: 1, ease: "sine.inOut", overwrite: "auto" },
+          start + 4.45);
+      })();
+
+      /* BEAT 5 — IRAN */
+      (function () {
+        const start = 16.95;
+        tl.fromTo("#b5-eye",
+          { opacity: 0, y: -16 },
+          { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, start + 0.05);
+        tl.fromTo("#b5-h1",
+          { opacity: 0, y: 50, scale: 0.94 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "power3.out" }, start + 1.0);
+        tl.to("#b5-h1",
+          { scale: 1.02, duration: 0.4, yoyo: true, repeat: 1, ease: "sine.inOut", overwrite: "auto" },
+          start + 1.85);
+        tl.fromTo("#b5-pill",
+          { opacity: 0, scale: 0.4, y: 30 },
+          { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "back.out(1.8)" }, start + 4.0);
+        tl.to("#b5-pill",
+          { scale: 1.05, duration: 0.3, yoyo: true, repeat: 1, ease: "sine.inOut", overwrite: "auto" },
+          start + 4.7);
+      })();
+
+      /* BEAT 6 — HORMUZ */
+      (function () {
+        const start = 22.6;
+        const arrow = document.getElementById("hz-arrow");
+        setupDraw(arrow);
+        tl.fromTo("#hz-land-top",
+          { opacity: 0, y: -60 },
+          { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, start + 0.05);
+        tl.fromTo("#hz-land-bot",
+          { opacity: 0, y: 60 },
+          { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, start + 0.05);
+        tl.fromTo("#b6-eye",
+          { opacity: 0, y: -10 },
+          { opacity: 1, y: 0, duration: 0.4 }, start + 0.20);
+        tl.fromTo("#b6-h1",
+          { opacity: 0, y: 50, scale: 0.94 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "power3.out" }, start + 1.6);
+        tl.set("#hz-arrow", { opacity: 1 }, start + 2.0);
+        tl.to("#hz-arrow",
+          { strokeDashoffset: 0, duration: 1.0, ease: "power2.out" }, start + 2.0);
+      })();
+
+      /* BEAT 7 — WTI */
+      (function () {
+        const start = 25.85;
+        tl.fromTo("#b7-eye",
+          { opacity: 0, y: -16 },
+          { opacity: 1, y: 0, duration: 0.4 }, start + 0.10);
+        tl.fromTo("#b7-oil",
+          { opacity: 0, x: -800, rotation: -10 },
+          { opacity: 1, x: 0, rotation: 0, duration: 0.65, ease: "power3.out" },
+          start + 0.40);
+        tl.to("#b7-oil",
+          { y: -20, rotation: 2, duration: 1.0, yoyo: true, repeat: 1, ease: "sine.inOut", overwrite: "auto" },
+          start + 1.20);
+        tl.fromTo("#b7-pill",
+          { opacity: 0, scale: 0.4, y: 30 },
+          { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "back.out(1.9)" },
+          start + 2.10);
+        tl.to("#b7-pill",
+          { scale: 1.06, duration: 0.3, yoyo: true, repeat: 1, ease: "sine.inOut", overwrite: "auto" },
+          start + 2.65);
+        tl.fromTo("#b7-tag",
+          { opacity: 0, y: 14 },
+          { opacity: 1, y: 0, duration: 0.4 }, start + 2.55);
+      })();
+
+      /* BEAT 8 — CHIPS */
+      (function () {
+        const start = 29.3;
+        tl.fromTo("#b8-eye",
+          { opacity: 0, y: -16 },
+          { opacity: 1, y: 0, duration: 0.4 }, start + 0.10);
+        tl.fromTo("#b8-r1",
+          { opacity: 0, x: -1200, scale: 0.96 },
+          { opacity: 1, x: 0, scale: 1, duration: 0.55, ease: "power3.out" },
+          start + 2.10);
+        tl.to("#b8-r1-pill",
+          { scale: 1.08, duration: 0.3, yoyo: true, repeat: 1, ease: "sine.inOut", overwrite: "auto" },
+          start + 2.70);
+        tl.fromTo("#b8-r2",
+          { opacity: 0, x: 1200, scale: 0.96 },
+          { opacity: 1, x: 0, scale: 1, duration: 0.55, ease: "power3.out" },
+          start + 3.05);
+        tl.to("#b8-r2-pill",
+          { scale: 1.08, duration: 0.3, yoyo: true, repeat: 1, ease: "sine.inOut", overwrite: "auto" },
+          start + 3.65);
+      })();
+
+      /* BEAT 9 — PRESSURE (gauge → CANCELLED doc) */
+      (function () {
+        const start = 34.5;
+
+        // Set up arc draw for the fill arc (so it can sweep in)
+        const arc = document.getElementById("b9-arc");
+        const arcLen = setupDraw(arc);
+
+        // Counter for WTI number ($95 → $93.10 to mirror gauge drop)
+        const numEl = document.getElementById("b9-num");
+        const numProxy = { v: 95.00 };
+
+        tl.fromTo("#beat-pressure .pp-bg-panel",
+          { opacity: 0 },
+          { opacity: 0.55, duration: 0.7, stagger: 0.10 }, start + 0.10);
+        tl.fromTo("#b9-eye",
+          { opacity: 0, y: -10 },
+          { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, start + 0.15);
+
+        // ===== SHOT 1: Gauge enters & needle drops on "cheaper oil" / "cools inflation" =====
+        // Gauge enters at +1.0
+        tl.fromTo("#b9-gauge",
+          { opacity: 0, scale: 0.7, rotation: -8 },
+          { opacity: 1, scale: 1, rotation: 0, duration: 0.7, ease: "back.out(1.4)" },
+          start + 1.0);
+        // Arc fill sweeps in (settling at "high" position) on entry
+        tl.fromTo("#b9-arc",
+          { strokeDashoffset: arcLen },
+          { strokeDashoffset: arcLen * 0.30, duration: 0.9, ease: "power2.out" },
+          start + 1.20);
+        // Needle drops: from +60deg (high right) to -110deg (low left) on "cools inflation" (+2.49)
+        tl.to("#b9-needle-grp",
+          { rotation: -110, duration: 1.30, ease: "power3.inOut",
+            onUpdate: function () {
+              const el = document.getElementById("b9-needle-grp");
+              if (el) el.style.transform = "rotate(" + this.targets()[0].rotation + "deg)";
+            }
+          },
+          start + 2.0);
+        // Counter ticks down with needle
+        tl.to(numProxy,
+          { v: 93.10, duration: 1.30, ease: "power3.inOut",
+            onUpdate: function () { if (numEl) numEl.textContent = "$" + numProxy.v.toFixed(2); }
+          },
+          start + 2.0);
+        // Arc fill recedes (tracks the price drop)
+        tl.to("#b9-arc",
+          { strokeDashoffset: arcLen * 0.78, duration: 1.30, ease: "power3.inOut" },
+          start + 2.0);
+
+        // Gauge exits to LEFT
+        tl.to("#b9-gauge",
+          { x: -1300, opacity: 0, duration: 0.55, ease: "power2.in" },
+          start + 3.55);
+
+        // ===== SHOT 2: Document slides up + CANCELLED stamp slams =====
+        // Doc slides up from below on "pulls rate-hike bets" (+4.01)
+        tl.fromTo("#b9-doc",
+          { opacity: 0, y: 1300, rotation: -3, scale: 0.92 },
+          { opacity: 1, y: 0, rotation: -3, scale: 1, duration: 0.7, ease: "power3.out" },
+          start + 3.85);
+        // Tiny idle bob on doc
+        tl.to("#b9-doc",
+          { y: -8, rotation: -2.4, duration: 0.8, yoyo: true, repeat: 1, ease: "sine.inOut", overwrite: "auto" },
+          start + 4.85);
+        // CANCELLED stamp SLAMS in on "rate-hike" (+4.38) with overshoot
+        tl.fromTo("#b9-stamp",
+          { opacity: 0, scale: 1.8, rotation: -22 },
+          { opacity: 1, scale: 1, rotation: -12, duration: 0.36, ease: "back.out(1.6)" },
+          start + 4.40);
+        // Stamp double-tap impact
+        tl.to("#b9-stamp",
+          { scale: 1.04, rotation: -11.5, duration: 0.18, yoyo: true, repeat: 1, ease: "sine.inOut", overwrite: "auto" },
+          start + 4.85);
+        // Bottom label on "off the table" (+5.17)
+        tl.fromTo("#b9-fed-label",
+          { opacity: 0, y: 16, letterSpacing: "0.50em" },
+          { opacity: 1, y: 0, letterSpacing: "0.34em", duration: 0.5, ease: "power2.out" },
+          start + 5.15);
+      })();
+
+      /* BEAT 10 — CRACKS (shattered washer + lightning + shockwaves) */
+      (function () {
+        const start = 40.7;
+        const crack = document.getElementById("cr-crack");
+        setupDraw(crack);
+
+        // Pill on "Whirlpool's" (+0.26)
+        tl.fromTo("#b8c-pill",
+          { opacity: 0, scale: 0.5, y: -20 },
+          { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "back.out(1.8)" },
+          start + 0.20);
+
+        // Washer body fades + drops in on "12%" (+0.90)
+        tl.fromTo("#beat-cracks .cr-body",
+          { opacity: 0, y: -40, scale: 0.94 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "power3.out" },
+          start + 0.55);
+        // Controls + display + knobs cascade in
+        tl.fromTo(["#beat-cracks .cr-controls",
+                   "#beat-cracks .cr-display-bg",
+                   "#beat-cracks #cr-display",
+                   "#beat-cracks .cr-knob",
+                   "#beat-cracks .cr-knob-dot"],
+          { opacity: 0 },
+          { opacity: 1, duration: 0.35, stagger: 0.05 },
+          start + 0.85);
+        // Porthole rim + glass
+        tl.fromTo("#beat-cracks .cr-port-rim",
+          { opacity: 0, scale: 0.6, transformOrigin: "380px 460px" },
+          { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" },
+          start + 1.10);
+        tl.fromTo("#beat-cracks .cr-port-glass",
+          { opacity: 0, scale: 0.6, transformOrigin: "380px 460px" },
+          { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" },
+          start + 1.30);
+
+        // Subtle washer wobble (idle continuous animation through whole beat)
+        tl.to("#beat-cracks .cr-washer-wrap",
+          { rotation: 0.6, duration: 1.2, yoyo: true, repeat: 4, ease: "sine.inOut", overwrite: "auto" },
+          start + 1.6);
+
+        // Lightning CRACK strikes through on "plunge" / "recession-level" (+1.63)
+        tl.to("#cr-crack",
+          { strokeDashoffset: 0, duration: 0.55, ease: "power3.out" },
+          start + 1.55);
+        // Crack flash pulse
+        tl.to("#cr-crack",
+          { opacity: 0.55, duration: 0.10, yoyo: true, repeat: 1, ease: "sine.inOut", overwrite: "auto" },
+          start + 2.10);
+
+        // Shockwave rings expand on "recession-level" (+2.20)
+        tl.fromTo("#beat-cracks #cr-shockwaves circle:nth-child(1)",
+          { opacity: 0, scale: 0.4, transformOrigin: "380px 460px" },
+          { opacity: 0.30, scale: 1.0, duration: 1.0, ease: "power2.out" },
+          start + 2.10);
+        tl.fromTo("#beat-cracks #cr-shockwaves circle:nth-child(2)",
+          { opacity: 0, scale: 0.4, transformOrigin: "380px 460px" },
+          { opacity: 0.20, scale: 1.0, duration: 1.0, ease: "power2.out" },
+          start + 2.30);
+        tl.fromTo("#beat-cracks #cr-shockwaves circle:nth-child(3)",
+          { opacity: 0, scale: 0.4, transformOrigin: "380px 460px" },
+          { opacity: 0.12, scale: 1.0, duration: 1.0, ease: "power2.out" },
+          start + 2.50);
+
+        // Shards burst out on "appliance demand" (+3.04)
+        tl.fromTo("#beat-cracks #cr-shards .cr-shard",
+          { opacity: 0, scale: 0.3, transformOrigin: "center" },
+          { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.7)", stagger: 0.06 },
+          start + 2.95);
+        // Shards drift slightly
+        tl.to("#beat-cracks #cr-shards .cr-shard",
+          { y: 18, rotation: 6, duration: 1.4, ease: "sine.inOut", stagger: 0.04, yoyo: true, repeat: 1, overwrite: "auto" },
+          start + 3.5);
+
+        // CONSUMER headline slams on "consumer's" (+4.68)
+        tl.fromTo("#b8c-h1",
+          { opacity: 0, scale: 1.4, rotation: -4 },
+          { opacity: 1, scale: 1, rotation: 0, duration: 0.45, ease: "back.out(1.5)" },
+          start + 4.60);
+        // small impact pulse
+        tl.to("#b8c-h1",
+          { scale: 1.04, duration: 0.18, yoyo: true, repeat: 1, ease: "sine.inOut", overwrite: "auto" },
+          start + 5.05);
+        // Subline on "already cracking" (+5.33)
+        tl.fromTo("#b8c-h2",
+          { opacity: 0, letterSpacing: "0.50em" },
+          { opacity: 1, letterSpacing: "0.34em", duration: 0.55, ease: "power2.out" },
+          start + 5.25);
+      })();
+
+      /* BEAT 11 — BULLISH */
+      (function () {
+        const start = 47.6;
+        tl.fromTo("#b11-eye",
+          { opacity: 0, y: -16 },
+          { opacity: 1, y: 0, duration: 0.4 }, start + 0.05);
+        tl.fromTo("#b11-icon",
+          { opacity: 0, scale: 0.4, rotate: -12 },
+          { opacity: 1, scale: 1, rotate: 0, duration: 0.45, ease: "back.out(1.7)" }, start + 0.40);
+        tl.fromTo("#b11-stance",
+          { opacity: 0, y: 40, scale: 0.94 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "power3.out" }, start + 0.95);
+        tl.fromTo("#b11-stance",
+          { "--shimmer-pos": "-20%" },
+          { "--shimmer-pos": "120%", duration: 1.0, ease: "power2.inOut" },
+          start + 1.30);
+        tl.fromTo("#b11-tgt",
+          { opacity: 0, y: 24, scale: 0.85 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.7)" }, start + 1.50);
+      })();
+
+      /* BEAT 12 — CAUTIOUS */
+      (function () {
+        const start = 50.0;
+        tl.fromTo("#b12-icon",
+          { opacity: 0, scale: 0.4, rotate: -12 },
+          { opacity: 1, scale: 1, rotate: 0, duration: 0.45, ease: "back.out(1.7)" }, start + 0.10);
+        tl.fromTo("#b12-stance",
+          { opacity: 0, y: 40, scale: 0.94 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "power3.out" }, start + 0.20);
+        tl.fromTo("#b12-stance",
+          { "--shimmer-pos": "-20%" },
+          { "--shimmer-pos": "120%", duration: 0.9, ease: "power2.inOut" },
+          start + 0.55);
+        tl.fromTo("#b12-tgt",
+          { opacity: 0, y: 24, scale: 0.85 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(1.7)" }, start + 0.85);
+      })();
+
+      /* BEAT 13 — FOCUSED */
+      (function () {
+        const start = 52.2;
+        tl.fromTo("#b13-icon",
+          { opacity: 0, scale: 0.4, rotate: 30 },
+          { opacity: 1, scale: 1, rotate: 0, duration: 0.5, ease: "back.out(1.7)" }, start + 0.10);
+        tl.fromTo("#b13-stance",
+          { opacity: 0, y: 40, scale: 0.94 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "power3.out" }, start + 0.30);
+        tl.fromTo("#b13-stance",
+          { "--shimmer-pos": "-20%" },
+          { "--shimmer-pos": "120%", duration: 1.0, ease: "power2.inOut" },
+          start + 0.70);
+        tl.fromTo("#b13-tgt",
+          { opacity: 0, y: 24, scale: 0.85 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.7)" }, start + 0.85);
+      })();
+
+      /* BEAT 14 — SIGN OFF */
+      (function () {
+        const start = 54.45;
+        const pulse = document.getElementById("b14-pulse");
+        setupDraw(pulse);
+
+        tl.fromTo("#b14-logo",
+          { opacity: 0, scale: 0.5 },
+          { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.8)" }, start + 0.10);
+        tl.to("#b14-pulse",
+          { strokeDashoffset: 0, duration: 1.4, ease: "power2.out" }, start + 0.50);
+        tl.fromTo("#b14-tag",
+          { opacity: 0, y: 30, scale: 0.96 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "power3.out" }, start + 1.55);
+        tl.fromTo("#b14-host",
+          { opacity: 0, y: 14 },
+          { opacity: 1, y: 0, duration: 0.4 }, start + 2.20);
+      })();
+
+      window.__timelines["bloom-market-2026-05-08"] = tl;
+    </script>
+  </body>
+</html>

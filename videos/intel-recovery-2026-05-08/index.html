@@ -1,0 +1,2257 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1080, height=1920" />
+  <title>Intel Recovery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/SplitText.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/CustomEase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.137.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.137.0/examples/js/loaders/GLTFLoader.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 1080px; height: 1920px; overflow: hidden;
+      background: #000;
+      font-family: "Inter", system-ui, sans-serif;
+      color: #fff;
+    }
+
+    #root {
+      position: relative;
+      width: 1080px; height: 1920px;
+      overflow: hidden;
+    }
+
+    .scene {
+      position: absolute; inset: 0;
+      width: 1080px; height: 1920px;
+      overflow: hidden;
+      opacity: 0;
+      visibility: hidden;
+    }
+    #scene1 { opacity: 1; visibility: visible; }
+
+    /* White-flash punctuation between scenes 4 → 5 (rescue → deals).
+       Sits on top of all scenes via z-index. Animated by GSAP. */
+    #flash-overlay {
+      position: absolute; inset: 0;
+      background: #FFFFFF;
+      opacity: 0;
+      z-index: 200;
+      pointer-events: none;
+    }
+
+    /* ── Scene container ─────────────────────────────────────────── */
+    .scene-content {
+      position: absolute; inset: 0;
+      padding: 80px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      box-sizing: border-box;
+      background: #000;
+    }
+
+    /* ============================================================
+       Per-scene palette undertones — subtle 5-10% color cast at top
+       fading to pure black at the bottom. Each scene gets its own
+       narrative-mood color signature without violating the no-glow
+       rule (these are ambient backdrops, not haloes around elements).
+       ============================================================ */
+    #scene1  .scene-content { background: linear-gradient(180deg, #001a08 0%, #000 65%); }
+    #scene3  .scene-content { background: linear-gradient(180deg, #0a0a0e 0%, #000 65%); }
+    #scene4  .scene-content { background: linear-gradient(180deg, #100c05 0%, #000 65%); }
+    #scene5  .scene-content { background: linear-gradient(180deg, #001a08 0%, #000 65%); }
+    #scene8  .scene-content { background: linear-gradient(180deg, #001416 0%, #000 65%); }
+    #scene9  .scene-content { background: #f0ead7; }
+    #scene10 .scene-content { background: linear-gradient(180deg, #0a0a1f 0%, #000 65%); }
+
+    /* ============================================================
+       Photographic backdrops for the otherwise-typography-only scenes.
+       Each scene gets a heavily blurred + dimmed photo behind the
+       hero content, with a semi-transparent palette gradient on top
+       that ties the photo into the scene's narrative color. The photo
+       reads as ambient context, not foreground.
+       ============================================================ */
+    .scene-bg-photo {
+      position: absolute; inset: 0;
+      background-size: cover;
+      background-position: center;
+      filter: blur(6px) brightness(0.45) saturate(0.85);
+      z-index: 0;
+      pointer-events: none;
+    }
+    #scene2 .scene-bg-photo { background-image: url("assets/bg-bottom.png"); }
+    #scene6 .scene-bg-photo { background-image: url("assets/bg-discipline.png"); }
+    #scene7 .scene-bg-photo { background-image: url("assets/bg-proof.png"); }
+
+    /* Semi-transparent gradient overlays for the photo-backdrop scenes
+       so the photo shows through with the scene's color cast on top. */
+    #scene2 .scene-content {
+      background: linear-gradient(180deg, rgba(26,8,8,0.40) 0%, rgba(0,0,0,0.82) 65%);
+    }
+    #scene6 .scene-content {
+      background: linear-gradient(180deg, rgba(10,14,20,0.40) 0%, rgba(0,0,0,0.82) 65%);
+    }
+    #scene7 .scene-content {
+      background: linear-gradient(180deg, rgba(0,26,8,0.40) 0%, rgba(0,0,0,0.82) 65%);
+    }
+
+    /* ============================================================
+       SCENE 1 — RISE
+       ============================================================ */
+    #intel-chip-canvas {
+      width: 620px;
+      height: 620px;
+      display: block;
+    }
+
+    .number-slot {
+      position: relative;
+      width: 100%;
+      height: 340px;
+      margin-top: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #counter {
+      position: absolute;
+      left: 0; right: 0;
+      text-align: center;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 140px;
+      color: #FFFFFF;
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
+      opacity: 0;
+    }
+
+    #payoff {
+      position: absolute;
+      left: 0; right: 0;
+      text-align: center;
+      font-family: "Inter", system-ui;
+      font-weight: 900;
+      font-size: 270px;
+      color: #00FF88;
+      letter-spacing: -0.04em;
+      line-height: 0.95;
+      opacity: 0;
+    }
+
+    #subtitle {
+      font-family: "Inter", system-ui;
+      font-weight: 700;
+      font-size: 42px;
+      letter-spacing: 0.32em;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      margin-top: 40px;
+      opacity: 0;
+    }
+
+    /* ============================================================
+       SCENE 2 — BOTTOM
+       ============================================================ */
+    .s2-stack {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 240px;
+      gap: 40px;
+    }
+
+    .chart-wrap {
+      position: relative;
+      width: 920px; height: 540px;
+      opacity: 0;
+    }
+
+    #intc-chart {
+      width: 920px; height: 540px;
+      display: block;
+    }
+
+    .chart-line {
+      stroke: #DC2626;
+      stroke-width: 6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+
+    .chart-grid {
+      stroke: rgba(255,255,255,0.08);
+      stroke-width: 1.5;
+      stroke-dasharray: 4 8;
+    }
+
+    .chart-axis-label {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 32px;
+      font-weight: 500;
+      fill: rgba(255,255,255,0.85);
+      letter-spacing: 0.04em;
+    }
+
+    .marker-dot {
+      fill: #DC2626;
+      opacity: 0;
+    }
+
+    .marker-pulse {
+      fill: none;
+      stroke: #DC2626;
+      stroke-width: 2;
+      opacity: 0;
+    }
+
+    #chart-caption {
+      position: absolute;
+      right: 12px;
+      bottom: 30px;
+      text-align: right;
+      opacity: 0;
+    }
+
+    #chart-caption .price {
+      font-family: "Inter", system-ui;
+      font-weight: 800;
+      font-size: 78px;
+      color: #FFFFFF;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+
+    #chart-caption .date {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 32px;
+      color: #DC2626;
+      letter-spacing: 0.10em;
+      margin-top: 14px;
+    }
+
+    /* Q2 LOSSES word stack */
+    .word-stack {
+      position: relative;
+      width: 100%;
+      margin-top: 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ws-line {
+      font-family: "Inter", system-ui;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      line-height: 1;
+    }
+
+    #ws-q2 {
+      font-size: 64px;
+      color: #FFFFFF;
+      letter-spacing: 0.06em;
+    }
+
+    #ws-losses {
+      font-size: 64px;
+      color: #FFFFFF;
+      letter-spacing: 0.06em;
+    }
+
+    #ws-amount {
+      font-size: 220px;
+      font-weight: 900;
+      color: #DC2626;
+      letter-spacing: -0.04em;
+      line-height: 0.9;
+      margin-top: 16px;
+    }
+
+    /* ============================================================
+       SCENE 3 — CUTS
+       ============================================================ */
+    .s3-portrait-wrap {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: #000;
+    }
+
+    #s3-portrait {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 1080px; height: auto;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+      filter: brightness(0.78) contrast(1.05);
+      will-change: transform;
+    }
+
+    /* Vignette to darken the bottom edges so text overlays are readable */
+    .s3-vignette {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, transparent 0%, transparent 35%, rgba(0,0,0,0.85) 100%);
+      pointer-events: none;
+    }
+
+    .s3-text-stack {
+      position: absolute;
+      left: 0; right: 0;
+      bottom: 180px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #s3-eyebrow {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 36px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      opacity: 0;
+    }
+
+    #s3-percent {
+      font-family: "Inter", system-ui;
+      font-weight: 900;
+      font-size: 360px;
+      letter-spacing: -0.04em;
+      line-height: 0.9;
+      color: #DC2626;
+      margin-top: 16px;
+      opacity: 0;
+    }
+
+    #s3-subtitle {
+      font-family: "Inter", system-ui;
+      font-weight: 800;
+      font-size: 56px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      margin-top: 20px;
+      opacity: 0;
+    }
+
+    /* ============================================================
+       SCENE 4 — RESCUE  (Trump press conference, US 10% stake)
+       Same editorial portrait+text-stack pattern as scene 3, but the
+       hero number is WHITE (institutional rescue register) instead
+       of red, marking the narrative pivot.
+       ============================================================ */
+    .s4-portrait-wrap {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: #000;
+    }
+
+    #s4-portrait {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 1080px; height: auto;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+      filter: brightness(0.78) contrast(1.05);
+      will-change: transform;
+    }
+
+    .s4-vignette {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, transparent 0%, transparent 35%, rgba(0,0,0,0.85) 100%);
+      pointer-events: none;
+    }
+
+    .s4-text-stack {
+      position: absolute;
+      left: 0; right: 0;
+      bottom: 280px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #s4-eyebrow {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 36px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      opacity: 0;
+    }
+
+    #s4-percent {
+      font-family: "Inter", system-ui;
+      font-weight: 900;
+      font-size: 380px;
+      letter-spacing: -0.04em;
+      line-height: 0.9;
+      color: #FFFFFF;
+      margin-top: 18px;
+      opacity: 0;
+    }
+
+    #s4-subtitle {
+      font-family: "Inter", system-ui;
+      font-weight: 800;
+      font-size: 56px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      margin-top: 18px;
+      opacity: 0;
+    }
+
+    #s4-detail {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 32px;
+      letter-spacing: 0.10em;
+      color: rgba(255,255,255,0.7);
+      margin-top: 24px;
+      opacity: 0;
+    }
+
+    /* Lower-third broadcast chyron (CNBC/Bloomberg TV style) */
+    #s4-chyron {
+      position: absolute;
+      left: 0; right: 0;
+      bottom: 50px;
+      background: rgba(8, 8, 8, 0.95);
+      border-top: 5px solid #DC2626;
+      display: flex; flex-direction: column;
+      justify-content: center;
+      padding: 22px 40px;
+      opacity: 0;
+      transform: translateX(-1300px);
+      box-shadow: 0 -10px 28px rgba(0,0,0,0.45);
+    }
+    .s4-chyron-row1 {
+      display: flex; align-items: center; gap: 22px;
+      height: 84px;
+    }
+    #s4-chyron-pip {
+      background: #DC2626; color: #fff;
+      font-family: "Inter", system-ui;
+      font-weight: 900;
+      font-size: 36px;
+      letter-spacing: 0.10em;
+      padding: 12px 20px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      flex: 0 0 auto;
+    }
+    .s4-chyron-headline {
+      font-family: "Inter", system-ui;
+      font-weight: 800;
+      font-size: 48px;
+      color: #fff;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+    .s4-chyron-row2 {
+      display: flex; align-items: center; gap: 18px;
+      margin-top: 14px;
+    }
+    .s4-chyron-meta {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 26px;
+      color: rgba(255,255,255,0.68);
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+    }
+    .s4-chyron-sep {
+      color: rgba(255,255,255,0.30);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 26px;
+    }
+
+    /* ============================================================
+       SCENE 5 — DEALS  (SoftBank + Nvidia stacked rows)
+       ============================================================ */
+    .s5-stack {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 80px;
+      gap: 48px;
+    }
+
+    .s5-row {
+      display: flex; align-items: center;
+      width: 920px;
+      gap: 32px;
+    }
+
+    .s5-logo-wrap {
+      flex: 0 0 460px;
+      display: flex; align-items: center; justify-content: flex-start;
+      height: 180px;
+    }
+    .s5-logo {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      object-position: left center;
+    }
+
+    .s5-amount {
+      flex: 1;
+      text-align: right;
+      font-family: "Inter", system-ui;
+      font-weight: 900;
+      font-size: 200px;
+      color: #00FF88;
+      letter-spacing: -0.04em;
+      line-height: 0.9;
+    }
+
+    .s5-divider {
+      width: 920px;
+      height: 1px;
+      background: rgba(255,255,255,0.18);
+    }
+
+    #s5-footer {
+      margin-top: 48px;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 36px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      opacity: 0;
+    }
+
+    /* ============================================================
+       SCENE 6 — DISCIPLINE  (Tan's cut list)
+       ============================================================ */
+    .s6-stack {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 80px;
+      gap: 24px;
+    }
+
+    #s6-eyebrow {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 40px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 24px;
+      opacity: 0;
+    }
+
+    .s6-list {
+      display: flex; flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .s6-item {
+      position: relative;
+      width: max-content;
+      max-width: 100%;
+      font-family: "Inter", system-ui;
+      font-weight: 800;
+      font-size: 96px;
+      letter-spacing: -0.01em;
+      color: #FFFFFF;
+      padding: 8px 12px;
+      opacity: 0;
+      --strike: 0%;
+    }
+
+    /* Strikethrough line drawn via pseudo-element. The width is driven by
+       the --strike CSS variable, which GSAP animates from 0% → 100%. */
+    .s6-item::after {
+      content: "";
+      position: absolute;
+      top: 50%; left: 0;
+      height: 6px;
+      background: #DC2626;
+      width: var(--strike);
+      transform: translateY(-3px);
+    }
+
+    #s6-payoff {
+      margin-top: 56px;
+      font-family: "Inter", system-ui;
+      font-weight: 900;
+      font-size: 108px;
+      letter-spacing: -0.02em;
+      line-height: 0.95;
+      color: #FFFFFF;
+      text-align: center;
+      opacity: 0;
+    }
+
+    /* ============================================================
+       SCENE 7 — PROOF  (Q1 2026 earnings beat)
+       ============================================================ */
+    .s7-stack {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 80px;
+      gap: 24px;
+    }
+
+    #s7-eyebrow {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 40px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+      opacity: 0;
+    }
+
+    #s7-amount {
+      font-family: "Inter", system-ui;
+      font-weight: 900;
+      font-size: 240px;
+      color: #00FF88;
+      letter-spacing: -0.04em;
+      line-height: 0.9;
+      margin-top: 24px;
+      opacity: 0;
+      white-space: nowrap;
+    }
+
+    #s7-subtitle {
+      font-family: "Inter", system-ui;
+      font-weight: 800;
+      font-size: 64px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      margin-top: 32px;
+      opacity: 0;
+    }
+
+    #s7-detail {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 36px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      margin-top: 18px;
+      opacity: 0;
+    }
+
+    /* 6-quarter EPS-beat sparkline — visualizes "6th straight beat" */
+    .s7-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 18px;
+      height: 160px;
+      margin-top: 32px;
+    }
+
+    .s7-bar {
+      width: 64px;
+      background: rgba(0,255,136,0.40);
+      border-radius: 6px 6px 0 0;
+      transform-origin: bottom center;
+      transform: scaleY(0);
+    }
+
+    .s7-bar.latest {
+      background: #00FF88;
+    }
+
+    /* ============================================================
+       SCENE 8 — AI  (data center +22%, partners on Xeon 6)
+       ============================================================ */
+    .s8-stack {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 80px;
+      gap: 24px;
+    }
+
+    #s8-eyebrow {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 40px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+      opacity: 0;
+    }
+
+    #s8-amount {
+      font-family: "Inter", system-ui;
+      font-weight: 900;
+      font-size: 280px;
+      color: #00FF88;
+      letter-spacing: -0.04em;
+      line-height: 0.9;
+      margin-top: 16px;
+      opacity: 0;
+      white-space: nowrap;
+    }
+
+    #s8-subtitle {
+      font-family: "Inter", system-ui;
+      font-weight: 800;
+      font-size: 56px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      margin-top: 20px;
+      opacity: 0;
+    }
+
+    /* Partner logo circles — NVDA + GOOGL as hero badges */
+    .s8-partners {
+      display: flex;
+      align-items: center;
+      gap: 60px;
+      margin-top: 36px;
+    }
+
+    .s8-partner {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      opacity: 0;
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.12);
+    }
+
+    .s8-partner img {
+      width: 70%;
+      height: 70%;
+      object-fit: contain;
+    }
+
+    /* The connector dot between partner circles */
+    .s8-partner-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+      flex-shrink: 0;
+      opacity: 0;
+    }
+
+    #s8-detail {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 36px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.8);
+      margin-top: 32px;
+      opacity: 0;
+    }
+
+    /* ============================================================
+       SCENE 9 — APPLE NEWSPRINT CLIPPING (Vox-style faux-NYT)
+       ============================================================ */
+    .s9-stack {
+      position: absolute; inset: 0;
+      overflow: hidden;
+      background: #f0ead7;
+    }
+
+    #s9-paper-bg {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.95;
+      mix-blend-mode: multiply;
+    }
+
+    #s9-halftone {
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 620px; height: 620px;
+      background-image:
+        radial-gradient(circle, #1a1a1a 1.6px, transparent 2.0px);
+      background-size: 14px 14px;
+      -webkit-mask-image: linear-gradient(135deg, transparent 0%, transparent 38%, rgba(0,0,0,0.85) 100%);
+              mask-image: linear-gradient(135deg, transparent 0%, transparent 38%, rgba(0,0,0,0.85) 100%);
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    #s9-date {
+      position: absolute;
+      top: 100px; left: 80px;
+      background: #005C2E;
+      color: #FFFFFF;
+      font-family: "Inter", system-ui;
+      font-weight: 700;
+      font-size: 30px;
+      letter-spacing: 0.04em;
+      padding: 12px 22px;
+      border-radius: 8px;
+      opacity: 0;
+      transform: rotate(-1.5deg);
+      box-shadow: 0 4px 0 rgba(10,10,10,0.08);
+    }
+
+    #s9-headline {
+      position: absolute;
+      top: 220px; left: 70px; right: 70px;
+      font-family: "Playfair Display", "Times New Roman", serif;
+      font-weight: 900;
+      font-size: 124px;
+      line-height: 1.02;
+      letter-spacing: -0.018em;
+      color: #0a0a0a;
+      margin: 0;
+    }
+
+    #s9-headline .hl-line, #s9-headline .hl-line2 {
+      display: block;
+      opacity: 0;
+    }
+
+    #s9-headline .hl-line2 {
+      position: relative;
+      display: inline-block;
+      padding: 0 6px;
+    }
+
+    #s9-hl-bg {
+      position: absolute;
+      left: -6px; right: -8px;
+      top: 18px; bottom: 8px;
+      background: #00DA70;
+      border-radius: 14px 6px 12px 8px / 8px 12px 6px 14px;
+      transform: rotate(-1.0deg);
+      transform-origin: left center;
+      z-index: 0;
+      clip-path: inset(0 100% 0 0);
+    }
+
+    #s9-hl-text {
+      position: relative;
+      z-index: 1;
+    }
+
+    #s9-eyebrow {
+      position: absolute;
+      top: 760px; left: 80px;
+      font-family: "Playfair Display", "Times New Roman", serif;
+      font-style: italic;
+      font-weight: 700;
+      font-size: 36px;
+      color: #0a0a0a;
+      letter-spacing: 0;
+      text-transform: none;
+      opacity: 0;
+    }
+
+    #s9-source-rule {
+      position: absolute;
+      top: 822px; left: 80px;
+      width: 0;
+      height: 2px;
+      background: #0a0a0a;
+    }
+
+    #s9-tim {
+      position: absolute;
+      bottom: 360px; right: 40px;
+      width: 480px;
+      height: auto;
+      mix-blend-mode: multiply;
+      opacity: 0;
+      transform: rotate(2deg);
+      filter: drop-shadow(0 8px 18px rgba(10,10,10,0.20));
+    }
+
+    #s9-arrow {
+      position: absolute;
+      bottom: 720px; left: 90px;
+      width: 380px; height: 320px;
+      pointer-events: none;
+    }
+
+    #s9-arrow path {
+      stroke: #0a0a0a;
+      stroke-width: 7;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    #s9-amount {
+      position: absolute;
+      bottom: 150px; left: 80px;
+      font-family: "Playfair Display", "Times New Roman", serif;
+      font-weight: 900;
+      font-size: 200px;
+      color: #0a0a0a;
+      letter-spacing: -0.025em;
+      line-height: 0.92;
+      margin: 0;
+      opacity: 0;
+      white-space: nowrap;
+    }
+
+    #s9-subtitle {
+      position: absolute;
+      bottom: 80px; left: 80px;
+      font-family: "Inter", system-ui;
+      font-weight: 800;
+      font-size: 44px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #00B860;
+      opacity: 0;
+    }
+
+    /* ============================================================
+       SCENE 10 — OUTRO  (Bloom CTA bookend)
+       ============================================================ */
+    .s10-stack {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 80px;
+      gap: 32px;
+    }
+
+    #s10-recap {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 32px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      text-align: center;
+      margin-bottom: 48px;
+      opacity: 0;
+    }
+
+    #s10-bloom-logo {
+      width: 420px;
+      height: auto;
+      object-fit: contain;
+      opacity: 0;
+    }
+
+    #s10-wordmark {
+      font-family: "Inter", system-ui;
+      font-weight: 900;
+      font-size: 180px;
+      letter-spacing: -0.03em;
+      line-height: 0.9;
+      color: #FFFFFF;
+      margin-top: 24px;
+      opacity: 0;
+    }
+
+    #s10-cta {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 38px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.75);
+      text-align: center;
+      margin-top: 16px;
+      opacity: 0;
+    }
+
+  </style>
+</head>
+<body>
+  <div data-composition-id="intel-recovery" data-start="0" data-duration="51.85" data-width="1080" data-height="1920">
+    <!-- Audio tracks — VO at 1.1× speed (slightly slower than the 1.2× draft for clarity).
+         Clip durations trim trailing silence each ElevenLabs MP3 has after its last word.
+           scene-01 ends at 5.016s → clip  0.00 –  5.10s
+           scene-02 ends at 5.387s → clip  5.10 – 10.55s
+           scene-03 ends at 3.251s → clip 10.55 – 13.85s
+           scene-04 ends at 7.012s → clip 13.85 – 20.95s
+           scene-05 ends at 4.690s → clip 20.95 – 25.70s
+           scene-06 ends at 4.087s → clip 25.70 – 29.85s
+           scene-07 ends at 7.059s → clip 29.85 – 37.00s
+           scene-08 ends at 6.084s → clip 37.00 – 43.15s
+           scene-09 ends at 4.923s → clip 43.15 – 48.15s
+           scene-10 ends at 2.647s → clip 48.15 – 50.85s
+           outro hold (visual lingers on Bloom logo): → 51.85s -->
+    <audio id="vo1" class="clip"
+           data-start="0"      data-duration="5.10" data-track-index="2"
+           src="scene-01.mp3" data-volume="1"></audio>
+    <audio id="vo2" class="clip"
+           data-start="5.10"   data-duration="5.45" data-track-index="2"
+           src="scene-02.mp3" data-volume="1"></audio>
+    <audio id="vo3" class="clip"
+           data-start="10.55"  data-duration="3.29" data-track-index="2"
+           src="scene-03.mp3" data-volume="1"></audio>
+    <audio id="vo4" class="clip"
+           data-start="13.85"  data-duration="7.10" data-track-index="2"
+           src="scene-04.mp3" data-volume="1"></audio>
+    <audio id="vo5" class="clip"
+           data-start="20.95"  data-duration="4.75" data-track-index="2"
+           src="scene-05.mp3" data-volume="1"></audio>
+    <audio id="vo6" class="clip"
+           data-start="25.70"  data-duration="4.15" data-track-index="2"
+           src="scene-06.mp3" data-volume="1"></audio>
+    <audio id="vo7" class="clip"
+           data-start="29.85"  data-duration="7.15" data-track-index="2"
+           src="scene-07.mp3" data-volume="1"></audio>
+    <audio id="vo8" class="clip"
+           data-start="37.00"  data-duration="6.15" data-track-index="2"
+           src="scene-08.mp3" data-volume="1"></audio>
+    <audio id="vo9" class="clip"
+           data-start="43.15"  data-duration="5.00" data-track-index="2"
+           src="scene-09.mp3" data-volume="1"></audio>
+    <audio id="vo10" class="clip"
+           data-start="48.15"  data-duration="2.70" data-track-index="2"
+           src="scene-10.mp3" data-volume="1"></audio>
+
+    <!-- Background music bed — ducked far below VO so narration dominates the midrange.
+         data-media-start="10" skips the silent intro of forward-momentum.mp3 (music
+         begins playing from its 10s mark at video t=0). -->
+    <audio id="bgm" class="clip"
+           data-start="0" data-duration="51.85" data-track-index="3"
+           data-media-start="10"
+           src="assets/music/forward-momentum.mp3" data-volume="0.16"></audio>
+
+    <div id="root" class="clip"
+         data-start="0" data-duration="51.85" data-track-index="0"
+
+      <!-- ============================================================
+           SCENE 1 — RISE  (0 – 6.0s)
+           ============================================================ -->
+      <div id="scene1" class="scene">
+        <div class="scene-content">
+          <canvas id="intel-chip-canvas" width="1240" height="1240"></canvas>
+
+          <div class="number-slot">
+            <div id="counter">$18.97</div>
+            <div id="payoff">+480%</div>
+          </div>
+
+          <div id="subtitle">NINE MONTHS</div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SCENE 2 — BOTTOM  (6.0 – 12.5s)
+           ============================================================ -->
+      <div id="scene2" class="scene">
+        <div class="scene-bg-photo"></div>
+        <div class="scene-content">
+          <div class="s2-stack">
+            <div class="chart-wrap" id="chart-wrap">
+              <svg id="intc-chart" viewBox="0 0 920 540" xmlns="http://www.w3.org/2000/svg">
+                <!-- Grid lines -->
+                <line class="chart-grid" x1="120" y1="120" x2="860" y2="120" />
+                <line class="chart-grid" x1="120" y1="240" x2="860" y2="240" />
+                <line class="chart-grid" x1="120" y1="360" x2="860" y2="360" />
+                <line class="chart-grid" x1="120" y1="480" x2="860" y2="480" />
+
+                <!-- Y-axis labels -->
+                <text class="chart-axis-label" x="100" y="132" text-anchor="end">$28</text>
+                <text class="chart-axis-label" x="100" y="252" text-anchor="end">$24</text>
+                <text class="chart-axis-label" x="100" y="372" text-anchor="end">$20</text>
+                <text class="chart-axis-label" x="100" y="492" text-anchor="end">$18</text>
+
+                <!-- X-axis labels -->
+                <text class="chart-axis-label" x="160" y="535" text-anchor="middle">JAN</text>
+                <text class="chart-axis-label" x="320" y="535" text-anchor="middle">MAR</text>
+                <text class="chart-axis-label" x="480" y="535" text-anchor="middle">MAY</text>
+                <text class="chart-axis-label" x="640" y="535" text-anchor="middle">JUL</text>
+                <text class="chart-axis-label" x="820" y="535" text-anchor="middle">AUG</text>
+
+                <!-- INTC price line — declining trend Jan→Aug 2025 -->
+                <path id="chart-line"
+                      class="chart-line"
+                      stroke-dasharray="900"
+                      stroke-dashoffset="900"
+                      d="M 160 220 L 224 200 L 287 240 L 351 215 L 414 260 L 478 250 L 542 285 L 605 320 L 669 360 L 732 410 L 780 450 L 820 478" />
+
+                <!-- $18.97 marker pulse + dot -->
+                <circle class="marker-pulse" id="marker-pulse" cx="820" cy="478" r="14" />
+                <circle class="marker-dot"   id="marker-dot"   cx="820" cy="478" r="11" />
+              </svg>
+
+              <div id="chart-caption">
+                <div class="price">$18.97</div>
+                <div class="date">AUG 1, 2025</div>
+              </div>
+            </div>
+
+            <div class="word-stack">
+              <div class="ws-line" id="ws-q2">Q2</div>
+              <div class="ws-line" id="ws-losses">LOSSES</div>
+              <div class="ws-line" id="ws-amount">$2.9 BILLION</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SCENE 3 — CUTS  (12.5 – 16.5s)
+           ============================================================ -->
+      <div id="scene3" class="scene">
+        <div class="s3-portrait-wrap">
+          <img id="s3-portrait" src="assets/lipbu-tan.png" alt="Lip-Bu Tan" />
+          <div class="s3-vignette"></div>
+        </div>
+
+        <div class="s3-text-stack">
+          <div id="s3-eyebrow">LIP-BU TAN · CEO</div>
+          <div id="s3-percent">−15%</div>
+          <div id="s3-subtitle">WORKFORCE CUT</div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SCENE 4 — RESCUE  (14.60 – 22.45s)
+           ============================================================ -->
+      <div id="scene4" class="scene">
+        <div class="s4-portrait-wrap">
+          <img id="s4-portrait" src="assets/trump-podium.png" alt="US press conference" />
+          <div class="s4-vignette"></div>
+        </div>
+
+        <div class="s4-text-stack">
+          <div id="s4-percent">10%</div>
+          <div id="s4-subtitle">STAKE</div>
+        </div>
+
+        <div id="s4-chyron">
+          <div class="s4-chyron-row1">
+            <span id="s4-chyron-pip">BREAKING</span>
+            <span class="s4-chyron-headline">US TAKES 10% INTEL STAKE</span>
+          </div>
+          <div class="s4-chyron-row2">
+            <span class="s4-chyron-meta">AUG 22, 2025</span>
+            <span class="s4-chyron-sep">·</span>
+            <span class="s4-chyron-meta">TREASURY DEPT</span>
+            <span class="s4-chyron-sep">·</span>
+            <span class="s4-chyron-meta">$8.9B · $20.47/SH</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SCENE 5 — DEALS  (18.78 – 23.43s)
+           ============================================================ -->
+      <div id="scene5" class="scene">
+        <div class="scene-content">
+          <div class="s5-stack">
+            <div class="s5-row" id="s5-row-softbank">
+              <div class="s5-logo-wrap">
+                <img class="s5-logo" src="assets/softbank-logo.png" alt="SoftBank" />
+              </div>
+              <div class="s5-amount" id="s5-amount-softbank">$2B</div>
+            </div>
+
+            <div class="s5-divider" id="s5-divider"></div>
+
+            <div class="s5-row" id="s5-row-nvidia">
+              <div class="s5-logo-wrap">
+                <img class="s5-logo" src="assets/nvidia-logo.png" alt="Nvidia" />
+              </div>
+              <div class="s5-amount" id="s5-amount-nvidia">$5B</div>
+            </div>
+
+            <div id="s5-footer">BUILDING CHIPS WITH INTEL</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SCENE 6 — DISCIPLINE  (23.43 – 26.73s)
+           ============================================================ -->
+      <div id="scene6" class="scene">
+        <div class="scene-bg-photo"></div>
+        <div class="scene-content">
+          <div class="s6-stack">
+            <div id="s6-eyebrow">CEO LIP-BU TAN · CUTS</div>
+            <div class="s6-list">
+              <div class="s6-item" id="s6-item-1">EUROPE'S FABS</div>
+              <div class="s6-item" id="s6-item-2">OHIO SLOWED</div>
+            </div>
+            <div id="s6-payoff">NO BLANK CHECKS.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SCENE 7 — PROOF  (26.73 – 32.55s)
+           ============================================================ -->
+      <div id="scene7" class="scene">
+        <div class="scene-bg-photo"></div>
+        <div class="scene-content">
+          <div class="s7-stack">
+            <div id="s7-eyebrow">Q1 2026 EARNINGS</div>
+            <div id="s7-amount">+$1.2B</div>
+            <div id="s7-subtitle">REVENUE BEAT</div>
+            <div class="s7-bars" id="s7-bars">
+              <div class="s7-bar" style="height: 60px;"></div>
+              <div class="s7-bar" style="height: 80px;"></div>
+              <div class="s7-bar" style="height: 95px;"></div>
+              <div class="s7-bar" style="height: 115px;"></div>
+              <div class="s7-bar" style="height: 130px;"></div>
+              <div class="s7-bar latest" style="height: 160px;"></div>
+            </div>
+            <div id="s7-detail">6TH STRAIGHT BEAT</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SCENE 8 — AI  (32.55 – 37.80s)
+           ============================================================ -->
+      <div id="scene8" class="scene">
+        <div class="scene-content">
+          <div class="s8-stack">
+            <div id="s8-eyebrow">DATA CENTER · Q1 2026</div>
+            <div id="s8-amount">+22%</div>
+            <div id="s8-subtitle">REVENUE GROWTH</div>
+            <div class="s8-partners">
+              <div class="s8-partner" id="s8-partner-nvda"><img src="assets/logos/NVDA.png" alt="Nvidia" /></div>
+              <div class="s8-partner-dot"></div>
+              <div class="s8-partner" id="s8-partner-googl"><img src="assets/logos/GOOGL.png" alt="Google" /></div>
+            </div>
+            <div id="s8-detail">RUNNING ON XEON 6</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SCENE 9 — APPLE  (43.15 – 48.15s)
+           ============================================================ -->
+      <div id="scene9" class="scene">
+        <div class="scene-content">
+          <div class="s9-stack">
+            <img id="s9-paper-bg" src="assets/paper-bg.png" alt="" />
+            <div id="s9-halftone"></div>
+
+            <div id="s9-date">MAY 1, 2026</div>
+
+            <h1 id="s9-headline">
+              <span class="hl-line">Apple in Talks to</span>
+              <span class="hl-line2"><span id="s9-hl-bg"></span><span id="s9-hl-text">Make Chips at Intel</span></span>
+            </h1>
+
+            <div id="s9-eyebrow">The Wall Street Journal</div>
+            <div id="s9-source-rule"></div>
+
+            <svg id="s9-arrow" viewBox="0 0 380 320" preserveAspectRatio="none">
+              <path id="s9-arrow-line" d="M 30 30 Q 200 60 300 200"
+                stroke-dasharray="500" stroke-dashoffset="500" />
+              <path id="s9-arrow-head" d="M 282 178 L 305 205 L 280 218"
+                stroke-dasharray="80" stroke-dashoffset="80" />
+            </svg>
+
+            <img id="s9-tim" src="assets/tim-cook-cutout.png" alt="Tim Cook" />
+
+            <div id="s9-amount">$113.01</div>
+            <div id="s9-subtitle">ALL-TIME HIGH</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SCENE 10 — OUTRO  (48.15 – 51.85s)  Brand bookend / CTA
+           ============================================================ -->
+      <div id="scene10" class="scene">
+        <div class="scene-content">
+          <div class="s10-stack">
+            <div id="s10-recap">+480% IN 9 MONTHS · INTC</div>
+            <img id="s10-bloom-logo" src="assets/bloom-logo.png" alt="Bloom" />
+            <div id="s10-wordmark">BLOOM</div>
+            <div id="s10-cta">FOR MORE INVESTING KNOWLEDGE</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- White-flash punctuation overlay, animated by GSAP at scene 4→5 cut -->
+      <div id="flash-overlay"></div>
+
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+
+      /* ============================================================
+         VO TIMING — `at(scene, phrase)` and `landOn(scene, phrase, dur)`
+         Resolve a phrase from the VO transcript to a composition-
+         absolute time. Throws on zero matches OR on multiple matches
+         (caller must pass a longer phrase to disambiguate).
+         Data baked from scripts/intel-recovery-2026-05-08.json + the
+         per-scene timing JSON files in assets/voiceover/.
+         ============================================================ */
+      const SCENES = {
+        "scene-01": { offset: 0.0, words: [
+          { word: "In",            start: 0.000 },
+          { word: "nine",          start: 0.232 },
+          { word: "months,",       start: 0.557 },
+          { word: "Intel",         start: 1.022 },
+          { word: "went",          start: 1.486 },
+          { word: "from",          start: 1.730 },
+          { word: "left-for-dead", start: 1.985 },
+          { word: "to",            start: 2.926 },
+          { word: "the",           start: 3.088 },
+          { word: "comeback",      start: 3.216 },
+          { word: "story",         start: 3.692 },
+          { word: "of",            start: 4.063 },
+          { word: "the",           start: 4.191 },
+          { word: "decade.",       start: 4.319 }
+        ]},
+        "scene-02": { offset: 5.10, words: [
+          { word: "Last",           start: 0.000 },
+          { word: "August,",        start: 0.395 },
+          { word: "Intel",          start: 0.894 },
+          { word: "hit",            start: 1.300 },
+          { word: "nineteen",       start: 1.498 },
+          { word: "dollars.",       start: 1.904 },
+          { word: "Q2",             start: 2.740 },
+          { word: "losses:",        start: 3.170 },
+          { word: "two-point-nine", start: 3.889 },
+          { word: "billion.",       start: 4.690 }
+        ]},
+        "scene-03": { offset: 10.55, words: [
+          { word: "CEO",     start: 0.000 },
+          { word: "Lip-Bu",  start: 0.557 },
+          { word: "Tan",     start: 1.068 },
+          { word: "cut",     start: 1.370 },
+          { word: "fifteen", start: 1.625 },
+          { word: "percent", start: 2.020 },
+          { word: "of",      start: 2.403 },
+          { word: "the",     start: 2.496 },
+          { word: "staff.",  start: 2.612 }
+        ]},
+        "scene-04": { offset: 13.85, words: [
+          { word: "Then",                       start: 0.000 },
+          { word: "August",                     start: 0.476 },
+          { word: "22nd",                       start: 0.894 },
+          { word: "the",                        start: 1.776 },
+          { word: "US",                         start: 1.950 },
+          { word: "government",                 start: 2.322 },
+          { word: "bought",                     start: 2.740 },
+          { word: "ten",                        start: 2.995 },
+          { word: "percent",                    start: 3.216 },
+          { word: "of",                         start: 3.611 },
+          { word: "Intel.",                     start: 3.715 },
+          { word: "At",                         start: 4.516 },
+          { word: "twenty-dollars-forty-seven", start: 4.737 },
+          { word: "a",                          start: 6.293 },
+          { word: "share.",                     start: 6.432 }
+        ]},
+        "scene-05": { offset: 20.95, words: [
+          { word: "SoftBank:", start: 0.000 },
+          { word: "two",       start: 0.650 },
+          { word: "billion.",  start: 0.871 },
+          { word: "Nvidia:",   start: 1.300 },
+          { word: "five",      start: 1.939 },
+          { word: "billion",   start: 2.229 },
+          { word: "and",       start: 2.833 },
+          { word: "they're",   start: 3.007 },
+          { word: "building",  start: 3.216 },
+          { word: "chips",     start: 3.587 },
+          { word: "with",      start: 3.866 },
+          { word: "Intel.",    start: 4.063 }
+        ]},
+        "scene-06": { offset: 25.70, words: [
+          { word: "Tan",      start: 0.000 },
+          { word: "killed",   start: 0.360 },
+          { word: "Europe's", start: 0.697 },
+          { word: "fabs.",    start: 1.045 },
+          { word: "Slowed",   start: 1.637 },
+          { word: "Ohio.",    start: 2.032 },
+          { word: "No",       start: 2.717 },
+          { word: "more",     start: 2.879 },
+          { word: "blank",    start: 3.065 },
+          { word: "checks.",  start: 3.402 }
+        ]},
+        "scene-07": { offset: 29.85, words: [
+          { word: "Q1",                start: 0.000 },
+          { word: "twenty-twenty-six", start: 0.569 },
+          { word: "Intel",             start: 1.892 },
+          { word: "beat",              start: 2.392 },
+          { word: "revenue",           start: 2.705 },
+          { word: "by",                start: 3.146 },
+          { word: "one-point-two",     start: 3.344 },
+          { word: "billion.",          start: 4.203 },
+          { word: "The",               start: 5.352 },
+          { word: "sixth",             start: 5.573 },
+          { word: "straight",          start: 6.002 },
+          { word: "beat.",             start: 6.444 }
+        ]},
+        "scene-08": { offset: 37.00, words: [
+          { word: "Data",       start: 0.000 },
+          { word: "center",     start: 0.348 },
+          { word: "revenue",    start: 0.639 },
+          { word: "up",         start: 1.057 },
+          { word: "twenty-two", start: 1.254 },
+          { word: "percent.",   start: 1.846 },
+          { word: "Nvidia,",    start: 2.566 },
+          { word: "Google",     start: 3.181 },
+          { word: "running",    start: 3.773 },
+          { word: "on",         start: 4.075 },
+          { word: "Intel's",    start: 4.226 },
+          { word: "Xeon",       start: 4.807 },
+          { word: "6.",         start: 5.387 }
+        ]},
+        "scene-09": { offset: 43.15, words: [
+          { word: "Last",     start: 0.000 },
+          { word: "week",     start: 0.383 },
+          { word: "Apple,",   start: 0.871 },
+          { word: "in",       start: 1.312 },
+          { word: "talks",    start: 1.474 },
+          { word: "to",       start: 1.765 },
+          { word: "make",     start: 1.869 },
+          { word: "chips",    start: 2.055 },
+          { word: "at",       start: 2.310 },
+          { word: "Intel.",   start: 2.438 },
+          { word: "The",      start: 3.053 },
+          { word: "stock",    start: 3.216 },
+          { word: "hit",      start: 3.553 },
+          { word: "an",       start: 3.692 },
+          { word: "all-time", start: 3.820 },
+          { word: "high.",    start: 4.400 }
+        ]},
+        "scene-10": { offset: 48.15, words: [
+          { word: "For",       start: 0.000 },
+          { word: "more",      start: 0.255 },
+          { word: "investing", start: 0.464 },
+          { word: "knowledge", start: 0.940 },
+          { word: "check",     start: 1.614 },
+          { word: "out",       start: 1.869 },
+          { word: "Bloom.",    start: 2.020 }
+        ]}
+      };
+
+      function _norm(s) { return s.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu, ""); }
+      function _findPhrase(sceneId, phrase) {
+        const scene = SCENES[sceneId];
+        if (!scene) throw new Error(`at: unknown scene "${sceneId}"`);
+        const W = scene.words;
+        const tokens = phrase.toLowerCase().split(/\s+/).map(_norm).filter(Boolean);
+        if (!tokens.length) throw new Error("at: empty phrase");
+        const hits = [];
+        for (let i = 0; i <= W.length - tokens.length; i++) {
+          let ok = true;
+          for (let j = 0; j < tokens.length; j++) {
+            if (_norm(W[i + j].word) !== tokens[j]) { ok = false; break; }
+          }
+          if (ok) hits.push(i);
+        }
+        if (hits.length === 0) {
+          throw new Error(`at: phrase "${phrase}" not found in ${sceneId}`);
+        }
+        if (hits.length > 1) {
+          const times = hits.map(i => (scene.offset + W[i].start).toFixed(3) + "s").join(", ");
+          throw new Error(`at: phrase "${phrase}" matches ${hits.length} occurrences in ${sceneId} at [${times}]. Use a longer phrase to disambiguate.`);
+        }
+        return W[hits[0]].start;
+      }
+      // Composition-absolute time of the START of `phrase` in `sceneId`.
+      function at(sceneId, phrase) {
+        return SCENES[sceneId].offset + _findPhrase(sceneId, phrase);
+      }
+      // Composition-absolute time minus duration — animation FINISHES on the word.
+      function landOn(sceneId, phrase, duration = 0) {
+        return at(sceneId, phrase) - duration;
+      }
+
+      // House motion curves — bezierIn for entrances, bezierOut for exits.
+      // Never use back/elastic/bounce overshoots.
+      gsap.registerPlugin(CustomEase);
+      CustomEase.create("bezierIn",  "0.1, 0.7, 0.5, 1");
+      CustomEase.create("bezierOut", "0.5, 0, 0.9, 0.3");
+
+      /* ============================================================
+         THREE.JS — Intel chip 3D model (scene 1)
+         Loads the Meshy-generated GLB and renders it to #intel-chip-canvas.
+         Rotation is driven by GSAP onUpdate so the renderer stays in sync
+         with the deterministic timeline (no requestAnimationFrame loop).
+         ============================================================ */
+      const chipCanvas = document.getElementById("intel-chip-canvas");
+      const chipRenderer = new THREE.WebGLRenderer({
+        canvas: chipCanvas, alpha: true, antialias: true
+      });
+      chipRenderer.setPixelRatio(1);
+      chipRenderer.setSize(1240, 1240, false);
+      chipRenderer.outputEncoding = THREE.sRGBEncoding;
+      chipRenderer.toneMapping = THREE.ACESFilmicToneMapping;
+      chipRenderer.toneMappingExposure = 1.05;
+
+      const chipScene = new THREE.Scene();
+      const chipCam = new THREE.PerspectiveCamera(28, 1, 0.1, 100);
+      chipCam.position.set(0, 2.6, 3.8);
+      chipCam.lookAt(0, 0, 0);
+
+      // Lighting — clean studio: key + fill + rim, no environment
+      const keyLight  = new THREE.DirectionalLight(0xffffff, 1.6);
+      keyLight.position.set(3, 4, 4);
+      chipScene.add(keyLight);
+      const fillLight = new THREE.DirectionalLight(0xc8d8ff, 0.55);
+      fillLight.position.set(-4, 2, 2);
+      chipScene.add(fillLight);
+      const rimLight  = new THREE.DirectionalLight(0xffffff, 0.7);
+      rimLight.position.set(0, 3, -4);
+      chipScene.add(rimLight);
+      chipScene.add(new THREE.AmbientLight(0xffffff, 0.25));
+
+      // Pivot group rotates; the loaded model is added inside it.
+      const chipPivot = new THREE.Group();
+      chipScene.add(chipPivot);
+
+      // Render once now so the canvas isn't blank before GLB loads.
+      chipRenderer.render(chipScene, chipCam);
+
+      const chipLoader = new THREE.GLTFLoader();
+      chipLoader.load(
+        "assets/intel-chip.glb",
+        (gltf) => {
+          const model = gltf.scene;
+          // Center + uniform scale so the chip fits the camera frustum.
+          const box = new THREE.Box3().setFromObject(model);
+          const size = box.getSize(new THREE.Vector3());
+          const maxDim = Math.max(size.x, size.y, size.z);
+          model.scale.setScalar(2.0 / maxDim);
+          const box2 = new THREE.Box3().setFromObject(model);
+          const center = box2.getCenter(new THREE.Vector3());
+          model.position.sub(center);
+          chipPivot.add(model);
+          chipRenderer.render(chipScene, chipCam);
+        },
+        undefined,
+        (err) => { console.warn("Intel chip GLB failed to load:", err); }
+      );
+
+      // SplitText — character-level reveals on the scene 2 word stack.
+      // type: "words,chars" preserves word boundaries so text wraps at spaces,
+      // not in the middle of a word.
+      const splitQ2       = new SplitText("#ws-q2",       { type: "words,chars" });
+      const splitLosses   = new SplitText("#ws-losses",   { type: "words,chars" });
+      const splitAmount   = new SplitText("#ws-amount",   { type: "words,chars" });
+      const splitS3Eye    = new SplitText("#s3-eyebrow",  { type: "words,chars" });
+      const splitS3Pct    = new SplitText("#s3-percent",  { type: "words,chars" });
+      const splitS3Sub    = new SplitText("#s3-subtitle", { type: "words,chars" });
+      const splitS4Pct    = new SplitText("#s4-percent",  { type: "words,chars" });
+      const splitS4Sub    = new SplitText("#s4-subtitle", { type: "words,chars" });
+      const splitS5SbAmt  = new SplitText("#s5-amount-softbank", { type: "words,chars" });
+      const splitS5NvAmt  = new SplitText("#s5-amount-nvidia",   { type: "words,chars" });
+      const splitS5Foot   = new SplitText("#s5-footer",  { type: "words,chars" });
+      const splitS6Eye    = new SplitText("#s6-eyebrow", { type: "words,chars" });
+      const splitS6It1    = new SplitText("#s6-item-1",  { type: "words,chars" });
+      const splitS6It2    = new SplitText("#s6-item-2",  { type: "words,chars" });
+      const splitS6Pay    = new SplitText("#s6-payoff",  { type: "words,chars" });
+      const splitS7Eye    = new SplitText("#s7-eyebrow",  { type: "words,chars" });
+      const splitS7Amt    = new SplitText("#s7-amount",   { type: "words,chars" });
+      const splitS7Sub    = new SplitText("#s7-subtitle", { type: "words,chars" });
+      const splitS7Det    = new SplitText("#s7-detail",   { type: "words,chars" });
+      const splitS8Eye    = new SplitText("#s8-eyebrow",  { type: "words,chars" });
+      const splitS8Amt    = new SplitText("#s8-amount",   { type: "words,chars" });
+      const splitS8Sub    = new SplitText("#s8-subtitle", { type: "words,chars" });
+      const splitS8Det    = new SplitText("#s8-detail",   { type: "words,chars" });
+      const splitS9Eye    = new SplitText("#s9-eyebrow",  { type: "words,chars" });
+      const splitS9Amt    = new SplitText("#s9-amount",   { type: "words,chars" });
+      const splitS9Sub    = new SplitText("#s9-subtitle", { type: "words,chars" });
+      const splitS10Recap = new SplitText("#s10-recap",    { type: "words,chars" });
+      const splitS10Word  = new SplitText("#s10-wordmark", { type: "words,chars" });
+      const splitS10Cta   = new SplitText("#s10-cta",      { type: "words,chars" });
+      gsap.set([
+        splitQ2.chars, splitLosses.chars, splitAmount.chars,
+        splitS3Eye.chars, splitS3Pct.chars, splitS3Sub.chars,
+        splitS4Pct.chars, splitS4Sub.chars,
+        splitS5SbAmt.chars, splitS5NvAmt.chars, splitS5Foot.chars,
+        splitS6Eye.chars, splitS6It1.chars, splitS6It2.chars, splitS6Pay.chars,
+        splitS7Eye.chars, splitS7Amt.chars, splitS7Sub.chars, splitS7Det.chars,
+        splitS8Eye.chars, splitS8Amt.chars, splitS8Sub.chars, splitS8Det.chars,
+        splitS9Eye.chars, splitS9Amt.chars, splitS9Sub.chars,
+        splitS10Recap.chars, splitS10Word.chars, splitS10Cta.chars
+      ], { opacity: 0, y: 14 });
+      // Make parents visible — char-level opacity now drives the entrance.
+      gsap.set([
+        "#s3-eyebrow", "#s3-percent", "#s3-subtitle",
+        "#s4-percent", "#s4-subtitle",
+        "#s5-amount-softbank", "#s5-amount-nvidia", "#s5-footer",
+        "#s6-eyebrow", "#s6-item-1", "#s6-item-2", "#s6-payoff",
+        "#s7-eyebrow", "#s7-amount", "#s7-subtitle", "#s7-detail",
+        "#s8-eyebrow", "#s8-amount", "#s8-subtitle", "#s8-detail",
+        "#s9-eyebrow", "#s9-amount", "#s9-subtitle",
+        "#s10-recap", "#s10-wordmark", "#s10-cta"
+      ], { opacity: 1 });
+
+      const tl = gsap.timeline({ paused: true });
+
+      /* ============================================================
+         CAMERA DRIFT — slow scale + lateral push on each scene's
+         content container. Reads as "filmed" rather than slideshow.
+         ============================================================ */
+      tl.fromTo("#scene1 .scene-content",
+        { scale: 1.00, y: 0 },
+        { scale: 1.04, y: -16, duration: 6.0, ease: "none" },
+        0
+      );
+      tl.fromTo("#scene2 .scene-content",
+        { scale: 1.00, y: 0 },
+        { scale: 1.04, y: -16, duration: 5.45, ease: "none" },
+        at("scene-02", "Last")
+      );
+
+      /* ============================================================
+         SCENE 1 — RISE (timeline t = 0.0 – 6.0)
+         VO sync: "Intel"=1.06s, "left-for-dead"=1.97s, "comeback"=3.26s, "story"=3.77s
+         ============================================================ */
+      // Logo enters as the word "Intel" arrives (lead-in 0.21s for entrance)
+      tl.from("#intel-chip-canvas", {
+        scale: 0.82, opacity: 0, duration: 0.7, ease: "bezierIn"
+      }, at("scene-01", "Intel") - 0.21);
+
+      // Continuous slow rotation of the 3D chip across scene 1.
+      tl.fromTo(chipPivot.rotation,
+        { y: -0.45 },
+        {
+          y: 0.75, duration: 4.5, ease: "none",
+          onUpdate: () => chipRenderer.render(chipScene, chipCam)
+        },
+        0.6
+      );
+
+      // Counter ticks $18.97 → $113.01 across the phrase "left-for-dead"
+      const counterState = { val: 18.97 };
+      tl.to("#counter", {
+        opacity: 1, duration: 0.3, ease: "bezierIn"
+      }, at("scene-01", "left-for-dead") - 0.12);
+      tl.to(counterState, {
+        val: 113.01, duration: 1.4, ease: "bezierIn",
+        onUpdate: () => {
+          const el = document.querySelector("#counter");
+          if (el) el.textContent = "$" + counterState.val.toFixed(2);
+        }
+      }, at("scene-01", "left-for-dead") - 0.02);
+
+      // Counter exits as the payoff is about to slam
+      tl.to("#counter", {
+        opacity: 0, scale: 0.85, duration: 0.35, ease: "bezierOut"
+      }, at("scene-01", "comeback") - 0.01);
+
+      // +480% reacts to the spoken "comeback" (lands ~0.14s after the word)
+      tl.fromTo("#payoff",
+        { scale: 1.20, opacity: 0 },
+        { scale: 1.0, opacity: 1, duration: 0.55, ease: "bezierIn" },
+        at("scene-01", "comeback") + 0.14
+      );
+
+      // Subtitle slides in just after "story"
+      tl.fromTo("#subtitle",
+        { y: 28, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.5, ease: "bezierIn" },
+        at("scene-01", "story") + 0.18
+      );
+
+      /* ============================================================
+         SCENE 1 → SCENE 2 transition (t = 5.7 – 6.0s)
+         Crossfade: scene1 fades out, scene2 fades in
+         ============================================================ */
+      tl.set("#scene2", { visibility: "visible" }, at("scene-02", "Last") - 0.3);
+      tl.to("#scene1", { opacity: 0, duration: 0.4, ease: "bezierOut" }, at("scene-02", "Last") - 0.3);
+      tl.to("#scene2", { opacity: 1, duration: 0.4, ease: "bezierIn"  }, at("scene-02", "Last") - 0.3);
+      tl.set("#scene1", { visibility: "hidden" }, at("scene-02", "Last") + 0.1);
+
+      /* ============================================================
+         SCENE 2 — BOTTOM (timeline t = 6.0 – 12.5)
+         VO scene-relative → composition timeline:
+           "Last August"    0.00s → 6.00s
+           "Intel hit"      0.95s → 6.95s
+           "nineteen"       1.62s → 7.62s   ← marker drops
+           "dollars"        2.07s → 8.07s   ← caption fades in
+           "Q2"             3.01s → 9.01s   ← ws-q2
+           "losses"         3.47s → 9.47s   ← ws-losses
+           "two-point-nine" 4.23s → 10.23s  ← ws-amount slam
+           "billion"        5.09s → 11.09s
+         ============================================================ */
+
+      // Chart wrapper fades in just after "Last" (0.1s lead-in)
+      tl.to("#chart-wrap", {
+        opacity: 1, duration: 0.3, ease: "bezierIn"
+      }, at("scene-02", "Last") + 0.1);
+
+      // Chart line draws on across "Last August Intel hit nineteen"
+      tl.to("#chart-line", {
+        strokeDashoffset: 0, duration: 1.5, ease: "bezierIn"
+      }, at("scene-02", "Last") + 0.15);
+
+      // Marker dot lands on the spoken "nineteen"
+      tl.to("#marker-dot", {
+        opacity: 1, duration: 0.3, ease: "bezierIn"
+      }, at("scene-02", "nineteen") - 0.07);
+
+      // Marker pulse ring expands once
+      tl.fromTo("#marker-pulse",
+        { opacity: 0.8, attr: { r: 11 }, strokeWidth: 4 },
+        { opacity: 0, attr: { r: 36 }, strokeWidth: 1, duration: 0.7, ease: "bezierOut" },
+        at("scene-02", "nineteen") - 0.02
+      );
+
+      // Caption "$18.97 / AUG 1, 2025" — leads into "dollars"
+      tl.fromTo("#chart-caption",
+        { opacity: 0, y: 12 },
+        { opacity: 1, y: 0, duration: 0.4, ease: "bezierIn" },
+        at("scene-02", "dollars") - 0.12
+      );
+
+      // Word stack — char-by-char SplitText reveals, synced word-for-word.
+      tl.to(splitQ2.chars, {
+        opacity: 1, y: 0, duration: 0.3, stagger: 0.025, ease: "bezierIn"
+      }, at("scene-02", "Q2") - 0.01);
+
+      tl.to(splitLosses.chars, {
+        opacity: 1, y: 0, duration: 0.3, stagger: 0.025, ease: "bezierIn"
+      }, at("scene-02", "losses") - 0.02);
+
+      // "$2.9 BILLION" rapid-fire char stagger on "two-point-nine"
+      tl.to(splitAmount.chars, {
+        opacity: 1, y: 0, duration: 0.4, stagger: 0.03, ease: "bezierIn"
+      }, at("scene-02", "two-point-nine") - 0.03);
+
+      /* ============================================================
+         SCENE 2 → SCENE 3 transition (t = 12.1 – 12.5s)
+         ============================================================ */
+      tl.set("#scene3", { visibility: "visible" }, at("scene-03", "CEO") - 0.4);
+      tl.to("#scene2", { opacity: 0, duration: 0.4, ease: "bezierOut" }, at("scene-03", "CEO") - 0.4);
+      tl.to("#scene3", { opacity: 1, duration: 0.4, ease: "bezierIn"  }, at("scene-03", "CEO") - 0.4);
+      tl.set("#scene2", { visibility: "hidden" }, at("scene-03", "CEO"));
+
+      /* ============================================================
+         SCENE 3 — CUTS (timeline t = 12.5 – 16.5)
+         VO scene-relative → composition timeline:
+           "CEO"      0.00s → 12.50s
+           "Lip-Bu"   0.58s → 13.08s
+           "Tan"      1.02s → 13.52s
+           "cut"      1.38s → 13.88s
+           "fifteen"  1.66s → 14.16s   ← −15% slams in
+           "percent"  2.07s → 14.57s
+           "staff"    2.59s → 15.09s   ← subtitle
+         ============================================================ */
+
+      // Slow ken-burns push-in on the portrait across scene 3
+      tl.fromTo("#s3-portrait",
+        { scale: 1.00 },
+        { scale: 1.06, duration: 3.30, ease: "none" },
+        at("scene-03", "CEO")
+      );
+
+      // Eyebrow "LIP-BU TAN · CEO" — char stagger leading into "Lip-Bu"
+      tl.to(splitS3Eye.chars, {
+        opacity: 1, y: 0, duration: 0.35, stagger: 0.022, ease: "bezierIn"
+      }, at("scene-03", "Lip-Bu") - 0.03);
+
+      // "−15%" big red number — fast char stagger leading into "fifteen"
+      tl.to(splitS3Pct.chars, {
+        opacity: 1, y: 0, duration: 0.4, stagger: 0.04, ease: "bezierIn"
+      }, at("scene-03", "fifteen") - 0.06);
+
+      // "WORKFORCE CUT" subtitle — char stagger leading into "staff"
+      tl.to(splitS3Sub.chars, {
+        opacity: 1, y: 0, duration: 0.35, stagger: 0.022, ease: "bezierIn"
+      }, at("scene-03", "staff") - 0.04);
+
+      /* ============================================================
+         SCENE 3 → SCENE 4 transition  —  HARD CUT (no fade)
+         Two consecutive editorial portraits read as B-roll alternation
+         when cut hard, instead of blending into one beat via crossfade.
+         ============================================================ */
+      tl.set("#scene4", { visibility: "visible", opacity: 1 }, at("scene-04", "Then"));
+      tl.set("#scene3", { visibility: "hidden", opacity: 0 }, at("scene-04", "Then"));
+
+      /* ============================================================
+         SCENE 4 — RESCUE (timeline t = 14.60 – 22.45)
+         VO scene-relative → composition timeline:
+           "Then"            0.00s → 14.60s
+           "August"          0.45s → 15.05s
+           "22nd"            0.91s → 15.51s
+           "US government"   2.08s → 16.68s
+           "ten percent"     3.20s → 17.80s   ← 10% slams
+           "Intel."          4.12s → 18.72s   ← STAKE subtitle
+           "twenty-dollars-forty-seven"  5.56s → 20.16s ← detail line
+           "share."          7.08s → 21.68s
+         ============================================================ */
+
+      // Scene 4 camera drift (white/silver register, pulls slightly to the right)
+      tl.fromTo("#scene4 .scene-content",
+        { scale: 1.00, x: 0 },
+        { scale: 1.05, x: 14, duration: 7.10, ease: "none" },
+        at("scene-04", "Then")
+      );
+
+      // Slow ken-burns push-in on the portrait
+      tl.fromTo("#s4-portrait",
+        { scale: 1.00 },
+        { scale: 1.06, duration: 7.10, ease: "none" },
+        at("scene-04", "Then")
+      );
+
+      // "10%" big white display — fast char stagger on "ten percent"
+      tl.to(splitS4Pct.chars, {
+        opacity: 1, y: 0, duration: 0.4, stagger: 0.04, ease: "bezierIn"
+      }, at("scene-04", "ten") - 0.05);
+
+      // "STAKE" subtitle — char stagger leading into "Intel."
+      tl.to(splitS4Sub.chars, {
+        opacity: 1, y: 0, duration: 0.35, stagger: 0.022, ease: "bezierIn"
+      }, at("scene-04", "Intel") - 0.04);
+
+      // Lower-third broadcast chyron — slides in ~0.7s after the 10% slam
+      // so the viewer absorbs the hero number before the news graphic stamps it
+      const s4ChyronStart = at("scene-04", "ten") + 0.65;
+      tl.to("#s4-chyron", {
+        x: 0, opacity: 1, duration: 0.50, ease: "bezierIn"
+      }, s4ChyronStart);
+      // Pip pulse — runs from chyron landing until scene cut.
+      // Pulse spans s4ChyronStart+0.45 → scene 5 cut (~20.90s) ≈ 2.75s of runtime.
+      // Each yoyo half-cycle = 0.65s → Math.floor(2.75 / 0.65) - 1 = 3 repeats (4 plays total).
+      tl.to("#s4-chyron-pip", {
+        opacity: 0.50, duration: 0.65, ease: "sine.inOut",
+        yoyo: true, repeat: 3
+      }, s4ChyronStart + 0.45);
+
+      /* ============================================================
+         SCENE 4 → SCENE 5 transition  —  MATCH-CUT on motion peak
+         Outgoing "10%" + STAKE accelerate outward (scale up + fade) on
+         the last 6 frames. Cut at apex, scene 5's $2B/SoftBank logo
+         enter immediately decelerating — eye rides motion through cut.
+         ============================================================ */
+      const cut45 = at("scene-05", "SoftBank") - 0.05;
+      // Outgoing motion: scene 4 hero numbers accelerate out
+      tl.to(["#s4-percent", "#s4-subtitle"], {
+        scale: 1.18, opacity: 0, duration: 0.20, ease: "bezierOut",
+        transformOrigin: "50% 50%"
+      }, cut45 - 0.20);
+      // Cut at the apex of the outgoing motion
+      tl.set("#scene5", { visibility: "visible", opacity: 1 }, cut45);
+      tl.set("#scene4", { visibility: "hidden", opacity: 0 }, cut45);
+
+      /* ============================================================
+         SCENE 5 — DEALS (timeline t = 18.78 – 23.43)
+         "SoftBank: two billion." 0.00–1.16s → 18.78–19.94s
+         "Nvidia: five billion"   1.39–2.65s → 20.17–21.43s
+         "building chips with Intel"  3.30–4.60s → 22.08–23.38s
+         ============================================================ */
+
+      // Soft camera drift on scene 5
+      tl.fromTo("#scene5 .scene-content",
+        { scale: 1.00, y: 0 },
+        { scale: 1.04, y: -16, duration: 4.75, ease: "none" },
+        at("scene-05", "SoftBank")
+      );
+
+      // SoftBank row: logo slides in from left, $2B chars stagger
+      tl.fromTo("#s5-row-softbank .s5-logo",
+        { opacity: 0, x: -30 },
+        { opacity: 1, x: 0, duration: 0.5, ease: "bezierIn" },
+        at("scene-05", "SoftBank") - 0.05
+      );
+      tl.to(splitS5SbAmt.chars, {
+        opacity: 1, y: 0, duration: 0.4, stagger: 0.04, ease: "bezierIn"
+      }, at("scene-05", "two billion") - 0.05);
+
+      // Divider draws in subtly
+      tl.fromTo("#s5-divider",
+        { scaleX: 0, transformOrigin: "left center" },
+        { scaleX: 1, duration: 0.5, ease: "bezierIn" },
+        at("scene-05", "Nvidia") - 0.25
+      );
+
+      // Nvidia row: logo slides in from left, $5B chars stagger
+      tl.fromTo("#s5-row-nvidia .s5-logo",
+        { opacity: 0, x: -30 },
+        { opacity: 1, x: 0, duration: 0.5, ease: "bezierIn" },
+        at("scene-05", "Nvidia") - 0.05
+      );
+      tl.to(splitS5NvAmt.chars, {
+        opacity: 1, y: 0, duration: 0.4, stagger: 0.04, ease: "bezierIn"
+      }, at("scene-05", "five billion") - 0.05);
+
+      // Footer "BUILDING CHIPS WITH INTEL" — leads into "building"
+      tl.to(splitS5Foot.chars, {
+        opacity: 1, y: 0, duration: 0.4, stagger: 0.018, ease: "bezierIn"
+      }, at("scene-05", "building") - 0.05);
+
+      /* ============================================================
+         SCENE 5 → SCENE 6 transition  —  WHIP-PAN
+         Subject change: corporate deal logos (SoftBank/Nvidia) → CEO portrait.
+         Camera "whips" left-to-right with directional motion blur, white flash
+         at the apex masks the cut. Reads as "the camera turned" — a kinetic
+         subject change rather than a flat crossfade.
+         ============================================================ */
+      const cut56 = at("scene-06", "Tan");
+      // Pre-state: scene 6 staged off-screen RIGHT with opposite skew + blur
+      tl.set("#scene6", {
+        visibility: "visible",
+        x: 1080, skewX: -10, filter: "blur(12px)", opacity: 1,
+        transformOrigin: "50% 50%"
+      }, cut56 - 0.18);
+      // Outgoing: scene 5 whips LEFT, accelerating (bezierOut)
+      tl.to("#scene5", {
+        x: -1080, skewX: 10, filter: "blur(12px)",
+        duration: 0.18, ease: "bezierOut",
+        transformOrigin: "50% 50%"
+      }, cut56 - 0.18);
+      // White flash peaks at the apex of the motion (masks the cut)
+      tl.to("#flash-overlay", {
+        opacity: 0.85, duration: 0.06, ease: "bezierOut"
+      }, cut56 - 0.06);
+      tl.set("#scene5", { visibility: "hidden" }, cut56);
+      tl.to("#flash-overlay", {
+        opacity: 0, duration: 0.12, ease: "bezierIn"
+      }, cut56);
+      // Incoming: scene 6 whips IN from right, decelerating (bezierIn)
+      tl.to("#scene6", {
+        x: 0, skewX: 0, filter: "blur(0px)",
+        duration: 0.22, ease: "bezierIn"
+      }, cut56);
+
+      /* ============================================================
+         SCENE 6 — DISCIPLINE (timeline t = 23.43 – 26.73)
+         "Tan killed Europe's fabs."  0.00–1.22s → 23.43–24.65
+         "Slowed Ohio."               1.36–2.08s → 24.79–25.51
+         "No more blank checks."      2.17–3.25s → 25.60–26.68
+         ============================================================ */
+
+      // Soft camera drift
+      tl.fromTo("#scene6 .scene-content",
+        { scale: 1.00, y: 0 },
+        { scale: 1.04, y: -16, duration: 4.15, ease: "none" },
+        at("scene-06", "Tan")
+      );
+
+      // Eyebrow rolls in on "Tan"
+      tl.to(splitS6Eye.chars, {
+        opacity: 1, y: 0, duration: 0.35, stagger: 0.020, ease: "bezierIn"
+      }, at("scene-06", "Tan") - 0.05);
+
+      // Item 1 "EUROPE'S FABS" lands on "Europe's", strikethrough sweeps on "fabs."
+      tl.to(splitS6It1.chars, {
+        opacity: 1, y: 0, duration: 0.35, stagger: 0.022, ease: "bezierIn"
+      }, at("scene-06", "Europe's") - 0.05);
+      tl.to("#s6-item-1", {
+        "--strike": "100%", duration: 0.4, ease: "bezierIn"
+      }, at("scene-06", "fabs") - 0.05);
+
+      // Item 2 "OHIO SLOWED" lands on "Slowed", strikethrough on "Ohio"
+      tl.to(splitS6It2.chars, {
+        opacity: 1, y: 0, duration: 0.35, stagger: 0.022, ease: "bezierIn"
+      }, at("scene-06", "Slowed") - 0.05);
+      tl.to("#s6-item-2", {
+        "--strike": "100%", duration: 0.4, ease: "bezierIn"
+      }, at("scene-06", "Ohio") - 0.05);
+
+      // Payoff "NO BLANK CHECKS." char stagger lands on "No more blank checks"
+      tl.to(splitS6Pay.chars, {
+        opacity: 1, y: 0, duration: 0.45, stagger: 0.025, ease: "bezierIn"
+      }, at("scene-06", "No more") - 0.05);
+
+      /* ============================================================
+         SCENE 6 → SCENE 7 transition
+         ============================================================ */
+      tl.set("#scene7", { visibility: "visible" }, at("scene-07", "Q1") - 0.4);
+      tl.to("#scene6", { opacity: 0, duration: 0.4, ease: "bezierOut" }, at("scene-07", "Q1") - 0.4);
+      tl.to("#scene7", { opacity: 1, duration: 0.4, ease: "bezierIn"  }, at("scene-07", "Q1") - 0.4);
+      tl.set("#scene6", { visibility: "hidden" }, at("scene-07", "Q1"));
+
+      /* ============================================================
+         SCENE 7 — PROOF (timeline t = 26.73 – 32.55)
+         "Q1 twenty-twenty-six"     0.00–1.16s → 26.73–27.89
+         "Intel beat revenue"       1.44–2.40s → 28.17–29.13
+         "one-point-two billion"    2.60–3.68s → 29.33–30.41
+         "The sixth straight beat." 4.26–5.76s → 30.99–32.49
+         ============================================================ */
+
+      tl.fromTo("#scene7 .scene-content",
+        { scale: 1.00, y: 0 },
+        { scale: 1.04, y: -16, duration: 7.15, ease: "none" },
+        at("scene-07", "Q1")
+      );
+
+      tl.to(splitS7Eye.chars, {
+        opacity: 1, y: 0, duration: 0.4, stagger: 0.022, ease: "bezierIn"
+      }, at("scene-07", "Q1") - 0.05);
+
+      // +$1.2B big emerald payoff on "one-point-two"
+      tl.to(splitS7Amt.chars, {
+        opacity: 1, y: 0, duration: 0.5, stagger: 0.05, ease: "bezierIn"
+      }, at("scene-07", "one-point-two") - 0.05);
+
+      // REVENUE BEAT subtitle on "billion"
+      tl.to(splitS7Sub.chars, {
+        opacity: 1, y: 0, duration: 0.4, stagger: 0.022, ease: "bezierIn"
+      }, at("scene-07", "billion") - 0.05);
+
+      // 6 quarterly bars grow in stagger, visualizing the streak.
+      // Latest (emerald) bar arrives as the climax — synced to "sixth"
+      tl.to(".s7-bar", {
+        scaleY: 1, duration: 0.45, stagger: 0.07, ease: "bezierIn"
+      }, at("scene-07", "sixth") - 0.40);
+
+      // 6TH STRAIGHT BEAT detail on "sixth straight"
+      tl.to(splitS7Det.chars, {
+        opacity: 1, y: 0, duration: 0.4, stagger: 0.020, ease: "bezierIn"
+      }, at("scene-07", "sixth") - 0.05);
+
+      /* ============================================================
+         SCENE 7 → SCENE 8 transition
+         ============================================================ */
+      tl.set("#scene8", { visibility: "visible" }, at("scene-08", "Data") - 0.4);
+      tl.to("#scene7", { opacity: 0, duration: 0.4, ease: "bezierOut" }, at("scene-08", "Data") - 0.4);
+      tl.to("#scene8", { opacity: 1, duration: 0.4, ease: "bezierIn"  }, at("scene-08", "Data") - 0.4);
+      tl.set("#scene7", { visibility: "hidden" }, at("scene-08", "Data"));
+
+      /* ============================================================
+         SCENE 8 — AI (timeline t = 32.55 – 37.80)
+         "Data center revenue"  0.00–0.95s → 32.55–33.50
+         "twenty-two percent"   1.16–2.03s → 33.71–34.58 ← +22% slams
+         "Nvidia, Google"       2.30–3.23s → 34.85–35.78
+         "running on Xeon 6"    3.39–5.20s → 35.94–37.75
+         ============================================================ */
+
+      tl.fromTo("#scene8 .scene-content",
+        { scale: 1.00, y: 0 },
+        { scale: 1.04, y: -16, duration: 6.15, ease: "none" },
+        at("scene-08", "Data")
+      );
+
+      // Eyebrow lands on "Data center"
+      tl.to(splitS8Eye.chars, {
+        opacity: 1, y: 0, duration: 0.4, stagger: 0.022, ease: "bezierIn"
+      }, at("scene-08", "Data center") - 0.05);
+
+      // +22% lands on "twenty-two"
+      tl.to(splitS8Amt.chars, {
+        opacity: 1, y: 0, duration: 0.5, stagger: 0.045, ease: "bezierIn"
+      }, at("scene-08", "twenty-two") - 0.05);
+
+      // REVENUE GROWTH subtitle on "percent"
+      tl.to(splitS8Sub.chars, {
+        opacity: 1, y: 0, duration: 0.4, stagger: 0.022, ease: "bezierIn"
+      }, at("scene-08", "percent") - 0.05);
+
+      // NVDA partner circle pops in on the spoken "Nvidia"
+      tl.fromTo("#s8-partner-nvda",
+        { opacity: 0, scale: 0.7 },
+        { opacity: 1, scale: 1.0, duration: 0.5, ease: "bezierIn" },
+        at("scene-08", "Nvidia") - 0.10
+      );
+
+      // Connector dot fades in between the two circles
+      tl.to(".s8-partner-dot", {
+        opacity: 1, duration: 0.3, ease: "bezierIn"
+      }, at("scene-08", "Nvidia") + 0.20);
+
+      // GOOGL partner circle pops in on the spoken "Google"
+      tl.fromTo("#s8-partner-googl",
+        { opacity: 0, scale: 0.7 },
+        { opacity: 1, scale: 1.0, duration: 0.5, ease: "bezierIn" },
+        at("scene-08", "Google") - 0.10
+      );
+
+      // RUNNING ON XEON 6 mono closer on "Xeon"
+      tl.to(splitS8Det.chars, {
+        opacity: 1, y: 0, duration: 0.45, stagger: 0.022, ease: "bezierIn"
+      }, at("scene-08", "Xeon") - 0.10);
+
+      /* ============================================================
+         SCENE 8 → SCENE 9 transition  —  ZOOM-BLUR MATCH-CUT
+         The biggest editorial pivot in the reel: abstract corporate finance
+         data ($5T market cap) → physical news clipping (Apple deal headline).
+         The zoom-blur masks the cut and reads as "punching through the data
+         into the actual news of the moment." Sam Kolder / Mr. Beast style.
+         ============================================================ */
+      const cut89 = at("scene-09", "Last");
+      // Outgoing: scene 8 zooms in + blurs out + fades (accelerating, bezierOut)
+      tl.to("#scene8", {
+        scale: 1.9, filter: "blur(16px)", opacity: 0,
+        duration: 0.22, ease: "bezierOut",
+        transformOrigin: "50% 50%"
+      }, cut89 - 0.22);
+      // Cut at apex of the outgoing motion
+      tl.set("#scene8", { visibility: "hidden" }, cut89);
+      tl.set("#scene9", {
+        visibility: "visible",
+        scale: 1.9, filter: "blur(16px)", opacity: 0,
+        transformOrigin: "50% 50%"
+      }, cut89);
+      // Incoming: scene 9 zooms out from large + blur clears + fades in (decelerating, bezierIn)
+      tl.to("#scene9", {
+        scale: 1.0, filter: "blur(0px)", opacity: 1,
+        duration: 0.30, ease: "bezierIn"
+      }, cut89);
+
+      /* ============================================================
+         SCENE 9 — APPLE (timeline t = 37.80 – 42.15)
+         "Last week"          0.00–0.55s → 37.80–38.35
+         "Apple"              0.78s     → 38.58 ← Apple logo lands
+         "make chips at Intel" 1.68–2.54s → 39.48–40.34
+         "all-time high"      3.36–4.27s → 41.16–42.07 ← $113.01 + ALL-TIME HIGH
+         ============================================================ */
+
+      tl.fromTo("#scene9 .scene-content",
+        { scale: 1.00, y: 0 },
+        { scale: 1.04, y: -16, duration: 5.00, ease: "none" },
+        at("scene-09", "Last")
+      );
+
+      // Date pill slides in (rotated, like a stamp)
+      tl.fromTo("#s9-date",
+        { x: -80, opacity: 0, rotation: -10 },
+        { x: 0, opacity: 1, rotation: -1.5, duration: 0.5, ease: "bezierIn" },
+        at("scene-09", "Last") - 0.05
+      );
+
+      // Headline line 1: "Apple in Talks to" — block fade-up on "Apple"
+      tl.fromTo("#s9-headline .hl-line",
+        { opacity: 0, y: 22 },
+        { opacity: 1, y: 0, duration: 0.55, ease: "bezierIn" },
+        at("scene-09", "Apple") - 0.08
+      );
+
+      // Headline line 2: "Make Chips at Intel" — block fade-up on "make chips"
+      tl.fromTo("#s9-headline .hl-line2",
+        { opacity: 0, y: 22 },
+        { opacity: 1, y: 0, duration: 0.55, ease: "bezierIn" },
+        at("scene-09", "make chips at") - 0.08
+      );
+
+      // Highlighter paints in left→right under "Make Chips at Intel" — lands on "Intel"
+      tl.to("#s9-hl-bg", {
+        clipPath: "inset(0 0% 0 0)",
+        duration: 0.45,
+        ease: "bezierIn"
+      }, at("scene-09", "Intel") - 0.10);
+
+      // Masthead "The Wall Street Journal" — char stagger after the Intel highlight lands
+      tl.to(splitS9Eye.chars, {
+        opacity: 1, y: 0, duration: 0.4, stagger: 0.020, ease: "bezierIn"
+      }, at("scene-09", "Intel") + 0.30);
+
+      // Source rule expands under masthead
+      tl.fromTo("#s9-source-rule",
+        { width: 0 },
+        { width: 920, duration: 0.45, ease: "bezierIn" },
+        at("scene-09", "Intel") + 0.45
+      );
+
+      // Tim Cook slides in (knocked-out cutout, slight rotation)
+      tl.fromTo("#s9-tim",
+        { opacity: 0, x: 60, scale: 0.92 },
+        { opacity: 1, x: 0, scale: 1.0, duration: 0.7, ease: "bezierIn" },
+        at("scene-09", "The stock") - 0.10
+      );
+
+      // Halftone dot gradient fades in (newsprint texture in lower-right)
+      tl.to("#s9-halftone", {
+        opacity: 0.55, duration: 0.8, ease: "bezierIn"
+      }, at("scene-09", "The stock") - 0.05);
+
+      // Hand-drawn arrow draws on, pointing toward Tim Cook
+      tl.to("#s9-arrow-line", {
+        strokeDashoffset: 0, duration: 0.55, ease: "bezierIn"
+      }, at("scene-09", "The stock") + 0.05);
+      tl.to("#s9-arrow-head", {
+        strokeDashoffset: 0, duration: 0.20, ease: "bezierIn"
+      }, at("scene-09", "The stock") + 0.55);
+
+      // $113.01 big payoff on "all-time" (now black serif on cream)
+      tl.to(splitS9Amt.chars, {
+        opacity: 1, y: 0, duration: 0.5, stagger: 0.04, ease: "bezierIn"
+      }, at("scene-09", "all-time") - 0.05);
+
+      // ALL-TIME HIGH subtitle on "high."
+      tl.to(splitS9Sub.chars, {
+        opacity: 1, y: 0, duration: 0.4, stagger: 0.022, ease: "bezierIn"
+      }, at("scene-09", "high") - 0.05);
+
+      /* ============================================================
+         SCENE 9 → SCENE 10 transition
+         ============================================================ */
+      // Delay scene 9→10 transition so the bookend has time to fully reveal
+      tl.set("#scene10", { visibility: "visible" }, at("scene-10", "For") - 0.18);
+      tl.to("#scene9", { opacity: 0, duration: 0.35, ease: "bezierOut" }, at("scene-10", "For") - 0.18);
+      tl.to("#scene10", { opacity: 1, duration: 0.35, ease: "bezierIn"  }, at("scene-10", "For") - 0.18);
+      tl.set("#scene9", { visibility: "hidden" }, at("scene-10", "For") + 0.20);
+
+      /* ============================================================
+         SCENE 10 — OUTRO (timeline t = 42.15 – 45.80)
+         "For more investing knowledge"  0.00–1.09s → 42.15–43.24
+         "Bloom."                        1.65–2.23s → 43.80–44.38   ← logo lands
+         visual holds through 45.80 for brand impact after audio ends
+         ============================================================ */
+
+      // Soft camera drift across outro
+      tl.fromTo("#scene10 .scene-content",
+        { scale: 1.00, y: 0 },
+        { scale: 1.04, y: -12, duration: 3.70, ease: "none" },
+        at("scene-10", "For")
+      );
+
+      // Recap "+480% IN 9 MONTHS · INTC" lands first — quiet bookend payoff
+      // that closes the loop with scene 1's opening claim
+      tl.to(splitS10Recap.chars, {
+        opacity: 1, y: 0, duration: 0.45, stagger: 0.018, ease: "bezierIn"
+      }, at("scene-10", "For") - 0.05);
+
+      // Bloom logo enters as the spoken "Bloom" lands — punchy scale + fade
+      tl.fromTo("#s10-bloom-logo",
+        { opacity: 0, scale: 0.82 },
+        { opacity: 1, scale: 1.0, duration: 0.6, ease: "bezierIn" },
+        at("scene-10", "Bloom") - 0.18
+      );
+
+      // BLOOM wordmark chars land slightly after the logo settles
+      tl.to(splitS10Word.chars, {
+        opacity: 1, y: 0, duration: 0.5, stagger: 0.03, ease: "bezierIn"
+      }, at("scene-10", "Bloom") + 0.05);
+
+      // CTA "FOR MORE INVESTING KNOWLEDGE" — char stagger leading the line
+      tl.to(splitS10Cta.chars, {
+        opacity: 1, y: 0, duration: 0.45, stagger: 0.018, ease: "bezierIn"
+      }, at("scene-10", "Bloom") + 0.35);
+
+      window.__timelines["intel-recovery"] = tl;
+    </script>
+  </div>
+</body>
+</html>

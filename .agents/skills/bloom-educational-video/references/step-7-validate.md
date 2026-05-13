@@ -85,7 +85,7 @@ Pick the midpoint of each beat from STORYBOARD.md. Snapshots render at 1920×108
 
 **Positioning & layout**
 - Are elements where the storyboard says they should be? Compare snapshot to the beat's `Concept` description
-- Is there too much dead space? If >40% of the frame is flat solid color with nothing on it, the beat is sparse — likely needs a sub-element entrance or a Kie illustration assigned
+- Is there too much dead space? If >40% of the frame is flat solid color with nothing on it, the beat is sparse — likely needs a sub-element entrance or a Higgsfield-generated illustration assigned
 - Are elements overlapping incorrectly? Text-over-text, content bleeding past 1080px width edge, badge overlapping the logo
 - Headlines fit within 1080px width (no horizontal overflow)
 - Logo orbs use `#1C2329` dark fill (white-on-transparent ticker logos vanish on light bg)

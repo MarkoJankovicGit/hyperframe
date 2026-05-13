@@ -12,6 +12,6 @@
   "type": "commonjs",
   "devDependencies": {
     "@elevenlabs/elevenlabs-js": "^2.44.0",
-    "hyperframes": "^0.4.26"
+    "hyperframes": "^0.5.3"
   }
 }

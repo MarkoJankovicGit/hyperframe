@@ -42,4 +42,4 @@ For showing actual Bloom app screens.
 
 ## When generating new Register A assets
 
-Use Pattern 1 in `../kie-prompts.md` (3-per-sheet, single-subject) and **always include the Bloom premium 3D block**. View these references first to ground the model output. If the result drifts toward stock-illustration cheesy or photorealistic-but-soulless, regenerate with stronger style cues.
+Use Pattern 1 in `../higgsfield-prompts.md` (3-per-sheet, single-subject) and **always include the Bloom premium 3D block**. View these references first to ground the model output. If the result drifts toward stock-illustration cheesy or photorealistic-but-soulless, regenerate with stronger style cues.

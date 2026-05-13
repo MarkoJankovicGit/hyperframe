@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"pwd && curl -sS -o generated-assets/refs/myth3-calendar.png \\\"https://d8j0ntlcm91z4.cloudfront.net/user_38r3d6A4sr7LFjjSjoPMC8vrjTA/hf_20260511_174657_e72088d7-653c-4166-a067-d1e52f180d4a....",
+  "error": "Exit code 23\n/c/Users/User/git/bloom-hyperframes/videos/bloom-investing-myths-v2/generated-assets/refs\ncurl: (23) client returned ERROR on write of 16384 bytes",
+  "timestamp": "2026-05-11T17:47:47.975Z",
+  "retry_count": 2
+}

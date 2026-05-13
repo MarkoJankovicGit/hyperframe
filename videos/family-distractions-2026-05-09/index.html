@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Family distractions — polaroid stack demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    html, body {
+      margin: 0; padding: 0;
+      background: #000; color: #fff;
+      font-family: "Inter", system-ui, sans-serif;
+    }
+
+    #root {
+      position: relative;
+      width: 1080px; height: 1920px;
+      background: #1a1208;
+      overflow: hidden;
+    }
+
+    /* Cork-board backdrop (photographic) */
+    #bg-cork {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    #bg-vignette {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.45) 100%);
+      pointer-events: none;
+    }
+
+    .scene {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+    }
+
+    /* Eyebrow at top */
+    #eyebrow {
+      position: absolute;
+      top: 100px; left: 0; right: 0;
+      text-align: center;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 32px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,235,200,0.50);
+      opacity: 0;
+    }
+
+    /* Headline at bottom (pivot text) */
+    #headline {
+      position: absolute;
+      bottom: 200px; left: 0; right: 0;
+      text-align: center;
+      font-family: "Inter", system-ui;
+      font-weight: 900;
+      font-size: 110px;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      color: #FFFFFF;
+      opacity: 0;
+    }
+
+    #subhead-bottom {
+      position: absolute;
+      bottom: 130px; left: 0; right: 0;
+      text-align: center;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      opacity: 0;
+    }
+
+    /* Polaroids — instant photo cards, aged white */
+    .polaroid {
+      position: absolute;
+      width: 460px;
+      height: 600px;
+      background: #f5efde;
+      padding: 22px 22px 90px 22px;
+      box-sizing: border-box;
+      box-shadow:
+        0 18px 40px rgba(0,0,0,0.55),
+        0 4px 10px rgba(0,0,0,0.35);
+      display: flex; flex-direction: column;
+      transform-origin: 50% 50%;
+    }
+    .polaroid-img-wrap {
+      width: 100%; height: 416px;
+      background: #1a1208;
+      overflow: hidden;
+      position: relative;
+    }
+    .polaroid-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .polaroid-caption {
+      margin-top: 22px;
+      text-align: center;
+      font-family: "Kalam", "Inter", system-ui;
+      font-weight: 700;
+      font-size: 30px;
+      color: #1a1208;
+      letter-spacing: 0.04em;
+    }
+    .polaroid-meta {
+      margin-top: 4px;
+      text-align: center;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 18px;
+      color: rgba(26,18,8,0.55);
+      letter-spacing: 0.16em;
+    }
+
+    /* Position each polaroid in its final scattered state.
+       Rotation/y are owned by GSAP from gsap.set() onward — no CSS transform here. */
+    #polaroid-1 { left:  90px; top: 540px; z-index: 3; }
+    #polaroid-2 { left: 320px; top: 750px; z-index: 4; }
+    #polaroid-3 { left: 530px; top: 510px; z-index: 5; }
+
+    /* Tape strip on top of each polaroid for that "stuck on cork-board" feel */
+    .tape {
+      position: absolute;
+      top: -16px; left: 50%;
+      width: 120px; height: 32px;
+      background: rgba(220, 200, 130, 0.40);
+      transform: translateX(-50%) rotate(-2deg);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.20);
+    }
+
+    /* Diagonal red stamp for the "DISTRACTION" pivot */
+    #stamp {
+      position: absolute;
+      left: 50%; top: 920px;
+      transform: translate(-50%, -50%) rotate(-12deg) scale(1.4);
+      font-family: "Inter", system-ui;
+      font-weight: 900;
+      font-size: 140px;
+      color: #DC2626;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border: 8px solid #DC2626;
+      padding: 18px 32px;
+      border-radius: 8px;
+      opacity: 0;
+      z-index: 20;
+      mix-blend-mode: multiply;
+      filter: blur(0.4px);
+      text-shadow: 1px 1px 0 rgba(0,0,0,0.20);
+    }
+  </style>
+</head>
+<body>
+  <div id="root" data-composition-id="family-distractions-2026-05-09" data-start="0" data-duration="5.85" data-width="1080" data-height="1920">
+    <div class="scene" id="scene1">
+      <img id="bg-cork" src="assets/cork-board.png" alt="" />
+      <div id="bg-vignette"></div>
+
+      <div id="eyebrow">A SHORT HISTORY OF THE WEALTHY</div>
+
+      <!-- Polaroid 1: Rothschild -->
+      <div class="polaroid" id="polaroid-1">
+        <span class="tape"></span>
+        <div class="polaroid-img-wrap">
+          <img class="polaroid-img" src="assets/rothschild.png" alt="Rothschild" />
+        </div>
+        <div class="polaroid-caption">Rothschild</div>
+        <div class="polaroid-meta">EUROPE · 1820</div>
+      </div>
+
+      <!-- Polaroid 2: Rockefeller -->
+      <div class="polaroid" id="polaroid-2">
+        <span class="tape"></span>
+        <div class="polaroid-img-wrap">
+          <img class="polaroid-img" src="assets/rockefeller.png" alt="Rockefeller" />
+        </div>
+        <div class="polaroid-caption">Rockefeller</div>
+        <div class="polaroid-meta">USA · 1900</div>
+      </div>
+
+      <!-- Polaroid 3: Medici -->
+      <div class="polaroid" id="polaroid-3">
+        <span class="tape"></span>
+        <div class="polaroid-img-wrap">
+          <img class="polaroid-img" src="assets/medici.png" alt="Medici" />
+        </div>
+        <div class="polaroid-caption">Medici</div>
+        <div class="polaroid-meta">FLORENCE · 1450</div>
+      </div>
+
+      <!-- Pivot stamp -->
+      <div id="stamp">DISTRACTION</div>
+
+      <!-- Bottom headline (the pivot copy) -->
+      <div id="headline">Mostly distractions.</div>
+      <div id="subhead-bottom">FOLLOW THE INDEX FUNDS INSTEAD</div>
+    </div>
+
+    <!-- Audio clips -->
+    <audio id="vo1" class="clip" data-track-index="2" data-start="0"    data-duration="2.418"
+      src="assets/voiceover/family-distractions-2026-05-09/scene-01.mp3" data-volume="1"></audio>
+    <audio id="vo2" class="clip" data-track-index="2" data-start="2.42" data-duration="2.00"
+      src="assets/voiceover/family-distractions-2026-05-09/scene-02.mp3" data-volume="1"></audio>
+    <audio id="vo3" class="clip" data-track-index="2" data-start="4.42" data-duration="1.397"
+      src="assets/voiceover/family-distractions-2026-05-09/scene-03.mp3" data-volume="1"></audio>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/CustomEase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/SplitText.min.js"></script>
+
+  <script>
+    gsap.registerPlugin(CustomEase, SplitText);
+    CustomEase.create("bezierIn",  "0.1, 0.7, 0.5, 1");
+    CustomEase.create("bezierOut", "0.5, 0, 0.9, 0.3");
+
+    const SCENES = {
+      "scene-01": { offset: 0.00, words: [
+        { word: "Rothschild",  start: 0.000 },
+        { word: "Rockefeller", start: 0.894 },
+        { word: "Medici",      start: 1.625 }
+      ]},
+      "scene-02": { offset: 2.42, words: [
+        { word: "Three",      start: 0.000 },
+        { word: "families",   start: 0.348 },
+        { word: "Endless",    start: 1.033 },
+        { word: "theories",   start: 1.451 }
+      ]},
+      "scene-03": { offset: 4.42, words: [
+        { word: "Mostly",        start: 0.000 },
+        { word: "distractions",  start: 0.441 }
+      ]}
+    };
+
+    function _norm(s) { return s.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu, ""); }
+    function _findPhrase(sceneId, phrase) {
+      const W = SCENES[sceneId].words;
+      const tokens = phrase.toLowerCase().split(/\s+/).map(_norm).filter(Boolean);
+      const hits = [];
+      for (let i = 0; i <= W.length - tokens.length; i++) {
+        let ok = true;
+        for (let j = 0; j < tokens.length; j++) {
+          if (_norm(W[i+j].word) !== tokens[j]) { ok = false; break; }
+        }
+        if (ok) hits.push(i);
+      }
+      if (hits.length === 0) throw new Error(`at: phrase "${phrase}" not found in ${sceneId}`);
+      if (hits.length > 1) throw new Error(`at: phrase "${phrase}" matches ${hits.length} occurrences in ${sceneId}.`);
+      return W[hits[0]].start;
+    }
+    function at(sceneId, phrase) { return SCENES[sceneId].offset + _findPhrase(sceneId, phrase); }
+
+    document.fonts.ready.then(() => {
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["family-distractions-2026-05-09"] = tl;
+
+      // Camera zoom — slow push-in across the full composition for "filmed" feel
+      tl.fromTo("#scene1",
+        { scale: 1.00, transformOrigin: "50% 50%" },
+        { scale: 1.05, transformOrigin: "50% 50%", duration: 5.85, ease: "none" },
+        0
+      );
+
+      // Pre-state: polaroids start above the frame, more rotated than final
+      gsap.set("#polaroid-1", { y: -1500, rotation: -22 });
+      gsap.set("#polaroid-2", { y: -1500, rotation: 18 });
+      gsap.set("#polaroid-3", { y: -1500, rotation: -20 });
+
+      // Eyebrow + headline + subhead pre-hide
+      gsap.set(["#eyebrow", "#headline", "#subhead-bottom"], { opacity: 0 });
+
+      const splitEyebrow = new SplitText("#eyebrow",   { type: "words,chars" });
+      const splitHead    = new SplitText("#headline",  { type: "words,chars" });
+      const splitSubB    = new SplitText("#subhead-bottom", { type: "words,chars" });
+      gsap.set([splitEyebrow.chars, splitHead.chars, splitSubB.chars],
+        { opacity: 0, y: 14 });
+      gsap.set(["#eyebrow", "#headline", "#subhead-bottom"], { opacity: 1 });
+
+      /* === SCENE 1: three polaroids drop in === */
+      // Eyebrow appears slightly before first polaroid
+      tl.to(splitEyebrow.chars, {
+        opacity: 1, y: 0, duration: 0.4, stagger: 0.018, ease: "bezierIn"
+      }, at("scene-01", "Rothschild") - 0.30);
+
+      // Polaroid 1: drops on "Rothschild"
+      tl.to("#polaroid-1", {
+        y: 0, rotation: -6, duration: 0.55, ease: "bezierIn"
+      }, at("scene-01", "Rothschild") - 0.10);
+
+      // Polaroid 2: drops on "Rockefeller"
+      tl.to("#polaroid-2", {
+        y: 0, rotation: 3, duration: 0.55, ease: "bezierIn"
+      }, at("scene-01", "Rockefeller") - 0.10);
+
+      // Polaroid 3: drops on "Medici"
+      tl.to("#polaroid-3", {
+        y: 0, rotation: -4, duration: 0.55, ease: "bezierIn"
+      }, at("scene-01", "Medici") - 0.10);
+
+      /* === SCENE 2: settle (no wobble — polaroids stay put) === */
+
+      /* === SCENE 3: DISTRACTION stamp slams + headline reveal === */
+      // Stamp slams in on "distractions"
+      tl.fromTo("#stamp",
+        { scale: 1.6, opacity: 0, rotation: -8 },
+        { scale: 1.0, opacity: 0.92, rotation: -12, duration: 0.32, ease: "bezierIn" },
+        at("scene-03", "distractions") - 0.05
+      );
+
+      // Polaroids tilt further from the stamp impact
+      tl.to("#polaroid-1", {
+        rotation: -10, x: -8, duration: 0.30, ease: "bezierIn"
+      }, at("scene-03", "distractions") - 0.05);
+      tl.to("#polaroid-2", {
+        rotation: 6, y: 6, duration: 0.30, ease: "bezierIn"
+      }, at("scene-03", "distractions") - 0.05);
+      tl.to("#polaroid-3", {
+        rotation: -7, x: 6, duration: 0.30, ease: "bezierIn"
+      }, at("scene-03", "distractions") - 0.05);
+
+      // Bottom headline char-stagger
+      tl.to(splitHead.chars, {
+        opacity: 1, y: 0, duration: 0.40, stagger: 0.030, ease: "bezierIn"
+      }, at("scene-03", "Mostly") - 0.05);
+      tl.to(splitSubB.chars, {
+        opacity: 1, y: 0, duration: 0.35, stagger: 0.018, ease: "bezierIn"
+      }, at("scene-03", "distractions") + 0.10);
+    });
+  </script>
+</body>
+</html>

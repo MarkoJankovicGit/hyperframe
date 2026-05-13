@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1777307187695,
+  "lastScanned": 1778616917143,
   "projectRoot": "C:\\Users\\User\\git\\bloom-hyperframes",
   "techStack": {
     "languages": [
@@ -39,7 +39,10 @@
       "assets",
       "scripts"
     ],
-    "gitBranches": null
+    "gitBranches": {
+      "defaultBranch": "main",
+      "branchingStrategy": null
+    }
   },
   "customNotes": [],
   "directoryMap": {
@@ -47,7 +50,7 @@
       "path": "assets",
       "purpose": "Static assets",
       "fileCount": 2,
-      "lastAccessed": 1777307187661,
+      "lastAccessed": 1778616917064,
       "keyFiles": [
         "bloom-logo.png",
         "timeline.js"
@@ -56,15 +59,21 @@
     "compositions": {
       "path": "compositions",
       "purpose": null,
-      "fileCount": 0,
-      "lastAccessed": 1777307187662,
-      "keyFiles": []
+      "fileCount": 51,
+      "lastAccessed": 1778616917066,
+      "keyFiles": [
+        "app-showcase.html",
+        "apple-money-count.html",
+        "blue-sweater-intro-video.html",
+        "chromatic-radial-split.html",
+        "cinematic-zoom.html"
+      ]
     },
     "market-time": {
       "path": "market-time",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1777307187669,
+      "lastAccessed": 1778616917078,
       "keyFiles": [
         "index.html"
       ]
@@ -73,7 +82,7 @@
       "path": "renders",
       "purpose": null,
       "fileCount": 11,
-      "lastAccessed": 1777307187670,
+      "lastAccessed": 1778616917080,
       "keyFiles": [
         "hyperframes_2026-04-21_00-11-26.meta.json",
         "hyperframes_2026-04-21_00-11-27.meta.json",
@@ -82,38 +91,71 @@
         "hyperframes_2026-04-21_22-04-33.meta.json"
       ]
     },
+    "research": {
+      "path": "research",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1778616917080,
+      "keyFiles": [
+        "jeron-braxton-gallery.html"
+      ]
+    },
     "scripts": {
       "path": "scripts",
       "purpose": "Build/utility scripts",
-      "fileCount": 15,
-      "lastAccessed": 1777307187670,
+      "fileCount": 25,
+      "lastAccessed": 1778616917081,
       "keyFiles": [
+        "amd-vs-intel-2026-05-09.json",
         "bloom-compound-interest-test.json",
         "bloom-compound-interest.json",
         "bloom-diversification.json",
-        "bloom-etfs-explained.json",
-        "bloom-investing-101.json"
+        "bloom-etfs-explained.json"
       ]
     },
     "skills": {
       "path": "skills",
       "purpose": null,
       "fileCount": 0,
-      "lastAccessed": 1777307187670,
+      "lastAccessed": 1778616917082,
       "keyFiles": []
+    },
+    "snapshots": {
+      "path": "snapshots",
+      "purpose": null,
+      "fileCount": 3,
+      "lastAccessed": 1778616917082,
+      "keyFiles": [
+        "frame-00-at-37.0s.png",
+        "frame-01-at-39.0s.png",
+        "frame-02-at-41.0s.png"
+      ]
+    },
+    "sound-effects": {
+      "path": "sound-effects",
+      "purpose": null,
+      "fileCount": 108,
+      "lastAccessed": 1778616917083,
+      "keyFiles": [
+        "0c71821d00731db40d675dd2c90b167a570b6969.wav",
+        "0c9912a39335e24430d1e35b98e33eca554da7ae.wav",
+        "0cf8cbebbf300d6db3da779a6fc09103d2dc2e89.wav",
+        "11L-Video_game_power-up-1745488464125.mp3",
+        "65e831585e46d38b8fba1b96c86fa0812eb7bcb7 (2).wav"
+      ]
     },
     "videos": {
       "path": "videos",
       "purpose": null,
       "fileCount": 0,
-      "lastAccessed": 1777307187671,
+      "lastAccessed": 1778616917084,
       "keyFiles": []
     },
     "assets\\models": {
       "path": "assets\\models",
       "purpose": "Data models",
       "fileCount": 2,
-      "lastAccessed": 1777307187672,
+      "lastAccessed": 1778616917087,
       "keyFiles": [
         "cash-stack.glb",
         "flowers.glb"
@@ -123,7 +165,7 @@
       "path": "compositions\\components",
       "purpose": "UI components",
       "fileCount": 5,
-      "lastAccessed": 1777307187672,
+      "lastAccessed": 1778616917088,
       "keyFiles": [
         "brand-tokens.html",
         "grain-overlay.html",
@@ -134,39 +176,81 @@
       "path": "market-time\\assets",
       "purpose": "Static assets",
       "fileCount": 0,
-      "lastAccessed": 1777307187673,
+      "lastAccessed": 1778616917091,
       "keyFiles": []
     }
   },
   "hotPaths": [
     {
       "path": "videos\\bloom-compound-interest\\index.html",
-      "accessCount": 17,
-      "lastAccessed": 1777240862479,
+      "accessCount": 23,
+      "lastAccessed": 1778514697544,
       "type": "file"
     },
     {
       "path": ".claude\\skills\\bloom-educational-video\\DESIGN.md",
-      "accessCount": 4,
-      "lastAccessed": 1777218078419,
-      "type": "file"
-    },
-    {
-      "path": ".claude\\skills\\bloom-educational-video\\references\\timing-helpers.md",
-      "accessCount": 4,
-      "lastAccessed": 1777218078782,
+      "accessCount": 10,
+      "lastAccessed": 1778514917725,
       "type": "file"
     },
     {
       "path": ".claude\\skills\\bloom-educational-video\\references\\animation-patterns.md",
-      "accessCount": 4,
-      "lastAccessed": 1777218079173,
+      "accessCount": 9,
+      "lastAccessed": 1778514927468,
+      "type": "file"
+    },
+    {
+      "path": ".claude\\skills\\bloom-educational-video\\references\\step-5-assets.md",
+      "accessCount": 7,
+      "lastAccessed": 1778514919171,
       "type": "file"
     },
     {
       "path": ".claude\\skills\\bloom-educational-video\\references\\techniques.md",
+      "accessCount": 7,
+      "lastAccessed": 1778514926204,
+      "type": "file"
+    },
+    {
+      "path": ".claude\\skills\\bloom-educational-video\\references\\beat-library.md",
+      "accessCount": 6,
+      "lastAccessed": 1778514913012,
+      "type": "file"
+    },
+    {
+      "path": ".claude\\skills\\bloom-educational-video\\references\\step-7-validate.md",
+      "accessCount": 6,
+      "lastAccessed": 1778514920269,
+      "type": "file"
+    },
+    {
+      "path": ".claude\\skills\\bloom-educational-video\\references\\timing-helpers.md",
+      "accessCount": 6,
+      "lastAccessed": 1778514926607,
+      "type": "file"
+    },
+    {
+      "path": ".claude\\skills\\bloom-educational-video\\references\\composition-rules.md",
+      "accessCount": 4,
+      "lastAccessed": 1778514913593,
+      "type": "file"
+    },
+    {
+      "path": ".claude\\skills\\bloom-educational-video\\references\\step-1-setup.md",
+      "accessCount": 4,
+      "lastAccessed": 1778514914000,
+      "type": "file"
+    },
+    {
+      "path": ".claude\\skills\\bloom-educational-video\\references\\step-3-vo.md",
+      "accessCount": 4,
+      "lastAccessed": 1778514918041,
+      "type": "file"
+    },
+    {
+      "path": ".claude\\skills\\bloom-educational-video\\references\\kie-prompts.md",
       "accessCount": 2,
-      "lastAccessed": 1777218041809,
+      "lastAccessed": 1778171917778,
       "type": "file"
     },
     {
@@ -380,48 +464,6 @@
       "type": "file"
     },
     {
-      "path": ".claude\\skills\\bloom-educational-video\\references\\step-1-setup.md",
-      "accessCount": 1,
-      "lastAccessed": 1777217097692,
-      "type": "file"
-    },
-    {
-      "path": ".claude\\skills\\bloom-educational-video\\references\\beat-library.md",
-      "accessCount": 1,
-      "lastAccessed": 1777217098456,
-      "type": "file"
-    },
-    {
-      "path": ".claude\\skills\\bloom-educational-video\\references\\step-3-vo.md",
-      "accessCount": 1,
-      "lastAccessed": 1777217099178,
-      "type": "file"
-    },
-    {
-      "path": ".claude\\skills\\bloom-educational-video\\references\\composition-rules.md",
-      "accessCount": 1,
-      "lastAccessed": 1777217099494,
-      "type": "file"
-    },
-    {
-      "path": ".claude\\skills\\bloom-educational-video\\references\\step-5-assets.md",
-      "accessCount": 1,
-      "lastAccessed": 1777217100340,
-      "type": "file"
-    },
-    {
-      "path": ".claude\\skills\\bloom-educational-video\\references\\step-7-validate.md",
-      "accessCount": 1,
-      "lastAccessed": 1777217101145,
-      "type": "file"
-    },
-    {
-      "path": ".claude\\skills\\bloom-educational-video\\references\\kie-prompts.md",
-      "accessCount": 1,
-      "lastAccessed": 1777217122016,
-      "type": "file"
-    },
-    {
       "path": "scripts\\bloom-etfs-explained.json",
       "accessCount": 1,
       "lastAccessed": 1777217204287,
@@ -440,5 +482,13 @@
       "type": "file"
     }
   ],
-  "userDirectives": []
+  "userDirectives": [
+    {
+      "timestamp": 1778175461801,
+      "directive": "Never render hyperframes videos (`npx hyperframes render ...`) unless the user explicitly asks for it. Renders are expensive (60-90s of compute and significant disk). For visual verification use `npx hyperframes snapshot` (single frames) or read existing `renders/*.mp4` files via ffmpeg extraction.",
+      "context": "",
+      "source": "explicit",
+      "priority": "high"
+    }
+  ]
 }

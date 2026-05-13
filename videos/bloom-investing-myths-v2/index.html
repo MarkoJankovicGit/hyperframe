@@ -1,0 +1,1062 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Bloom Lesson — Investing Myths V2</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/CustomEase.min.js"></script>
+    <style>
+      body { margin: 0; background: #1C2329; font-family: "Inter Tight", "Inter", system-ui, sans-serif; }
+      #root, #root * { box-sizing: border-box; }
+
+      /* Tabular numerals on every animated number / stat — editorial baseline. */
+      #beat3-counter, #beat5-hero .dollar, .myth-eyebrow .pill,
+      #beat7-chart text, [data-tnum] {
+        font-variant-numeric: tabular-nums;
+        font-feature-settings: "tnum" 1;
+      }
+
+      /* Grain overlay — single biggest "filmed not rendered" lever. */
+      #grain {
+        position: absolute; inset: 0;
+        pointer-events: none;
+        opacity: 0.14;
+        mix-blend-mode: soft-light;
+        z-index: 9999;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+      }
+
+      .scene {
+        position: absolute; inset: 0;
+        width: 1080px; height: 1920px;
+        overflow: hidden;
+        visibility: hidden;
+      }
+
+      /* ───── BEAT 1 — Hook (blue) ───── */
+      #beat1 { background: #1658FF; color: #FFF1E5; }
+      #beat1-noise { position: absolute; inset: 0; opacity: 0.5; }
+      #beat1-bloom-corner {
+        position: absolute; top: 60px; left: 60px;
+        width: 110px; height: 110px;
+        display: flex; align-items: center; justify-content: center;
+        background: #1C2329; border-radius: 28px;
+        box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+      }
+      #beat1-bloom-corner img { width: 78px; height: 78px; }
+      #beat1-eyebrow {
+        position: absolute; top: 230px; left: 0; right: 0;
+        display: flex; justify-content: center;
+        font: 700 italic 38px "Inter Tight", sans-serif;
+        letter-spacing: 0.22em; text-transform: uppercase;
+        color: rgba(255,255,255,0.85);
+      }
+      #beat1-cards {
+        position: absolute; top: 360px; left: 0; right: 0;
+        display: flex; flex-direction: column; align-items: center;
+        gap: 36px;
+      }
+      .b1-card {
+        width: 760px; padding: 36px 44px;
+        background: #FFF1E5; color: #1C2329;
+        border-radius: 38px;
+        box-shadow: 0 24px 60px rgba(6,10,30,0.32);
+        display: flex; flex-direction: column; gap: 8px;
+        opacity: 0;
+      }
+      .b1-card .b1-from {
+        font: 700 28px "Inter", sans-serif;
+        color: #1658FF; letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      .b1-card .b1-msg {
+        font: 700 italic 56px "Inter Tight", sans-serif;
+        letter-spacing: -0.012em; line-height: 1.05;
+        color: #1C2329; text-transform: uppercase;
+      }
+      .b1-card.left  { align-self: flex-start; margin-left: 80px; border-bottom-left-radius: 12px; }
+      .b1-card.right { align-self: flex-end;   margin-right: 80px; border-bottom-right-radius: 12px; }
+      #beat1-headline {
+        position: absolute; left: 0; right: 0; bottom: 320px;
+        display: flex; justify-content: center; opacity: 0;
+      }
+      #beat1-headline .badge {
+        display: inline-flex; align-items: center; justify-content: center;
+        background: #1C2329; color: #FFF1E5;
+        border-radius: 30px; padding: 38px 64px;
+        box-shadow: 0 24px 60px rgba(6,10,30,0.42);
+      }
+      #beat1-headline .badge-text {
+        font: 700 italic 110px "Inter Tight", sans-serif;
+        letter-spacing: -0.02em; line-height: 0.95; text-transform: uppercase;
+        text-align: center;
+      }
+      #beat1-sub {
+        position: absolute; left: 0; right: 0; bottom: 240px;
+        display: flex; justify-content: center;
+        font: 700 italic 36px "Inter Tight", sans-serif;
+        letter-spacing: 0.22em; text-transform: uppercase;
+        color: rgba(255,255,255,0.85); opacity: 0;
+      }
+
+      /* ───── Shared "myth specimen" card style (B2/B4/B6/B8) ───── */
+      .myth-grid {
+        position: absolute; inset: 0;
+        background-image: linear-gradient(#1C2329 1px, transparent 1px), linear-gradient(90deg, #1C2329 1px, transparent 1px);
+        background-size: 80px 80px; opacity: 0.04;
+      }
+      .myth-eyebrow {
+        position: absolute; top: 320px; left: 0; right: 0;
+        display: flex; justify-content: center; gap: 24px; align-items: center; opacity: 0;
+      }
+      .myth-eyebrow .pill {
+        background: #1C2329; color: #FFF1E5;
+        padding: 18px 36px; border-radius: 999px;
+        font: 700 italic 40px "Inter Tight",sans-serif;
+        letter-spacing: 0.18em; text-transform: uppercase;
+      }
+      .myth-eyebrow .label {
+        font: 700 italic 44px "Inter Tight",sans-serif;
+        letter-spacing: 0.04em; text-transform: uppercase; color: #4A4F54;
+      }
+      .myth-headline {
+        position: absolute; left: 0; right: 0;
+        display: flex; flex-direction: column; align-items: center; gap: 28px;
+      }
+      .myth-headline .badge {
+        display: inline-flex; align-items: center; justify-content: center;
+        background: #1C2329; color: #FFF1E5;
+        border-radius: 32px; padding: 44px 60px;
+        box-shadow: 0 24px 60px rgba(6,10,30,0.30); opacity: 0;
+      }
+      .myth-headline .badge-text {
+        font: 700 italic 130px "Inter Tight",sans-serif;
+        letter-spacing: -0.02em; line-height: 0.95; text-transform: uppercase; text-align: center;
+      }
+      .myth-sub {
+        position: absolute; left: 0; right: 0;
+        display: flex; justify-content: center;
+        font: 700 italic 70px "Inter Tight",sans-serif;
+        letter-spacing: -0.012em; text-transform: uppercase; color: #1C2329; opacity: 0; text-align: center;
+      }
+      .myth-stamp {
+        position: absolute; left: 50%; width: 480px; height: 480px;
+        margin-left: -240px; opacity: 0; transform-origin: center;
+      }
+
+      #beat2 { background: #FFFFFF; color: #1C2329; }
+      #beat2-headline { top: 540px; }
+      #beat2-sub      { top: 1120px; font-size: 76px; }
+      #beat2-stamp    { top: 760px; }
+
+      #beat4 { background: #FFFFFF; color: #1C2329; }
+      #beat4-headline { top: 560px; }
+      #beat4-sub      { top: 1140px; }
+      #beat4-stamp    { top: 760px; }
+
+      #beat6 { background: #F8F8F9; color: #1C2329; }
+      #beat6-headline { top: 520px; }
+      #beat6-sub      { top: 1100px; }
+      #beat6-stamp    { top: 720px; }
+      #beat6-grid { opacity: 0.05 !important; }
+      #beat6-clock {
+        position: absolute; bottom: 240px; left: 0; right: 0;
+        display: flex; justify-content: center; opacity: 0;
+      }
+
+      #beat8 { background: #FFFFFF; color: #1C2329; }
+      #beat8-headline { top: 540px; }
+      #beat8-sub      { top: 1240px; }
+      #beat8-stamp    { top: 1300px; }
+      #beat8-spark {
+        position: absolute; top: 940px; left: 0; right: 0;
+        display: flex; justify-content: center;
+      }
+
+      /* ───── Shared bust-corner styles ───── */
+      .bust-bloom-corner {
+        position: absolute;
+        width: 110px; height: 110px;
+        display: flex; align-items: center; justify-content: center;
+        background: #1C2329; border-radius: 28px;
+      }
+      .bust-bloom-corner img { width: 78px; height: 78px; }
+      .bust-wrong-pill {
+        position: absolute; top: 90px; left: 80px;
+        background: #1C2329; color: #FFF1E5;
+        padding: 14px 32px; border-radius: 20px;
+        font: 700 italic 50px "Inter Tight",sans-serif;
+        letter-spacing: -0.012em; text-transform: uppercase;
+        opacity: 0;
+      }
+
+      /* ───── BEAT 3 — Bust 1 ───── */
+      #beat3 { background: #1658FF; color: #FFF1E5; }
+      #beat3-particles { position: absolute; inset: 0; }
+      #beat3-bloom-corner { top: 60px; left: 60px; }
+      #beat3-wrong {
+        position: absolute; top: 280px; left: 0; right: 0;
+        display: flex; justify-content: center; align-items: center; gap: 28px;
+        opacity: 0;
+      }
+      #beat3-wrong .badge {
+        display: inline-flex; background: #1C2329; color: #FFF1E5;
+        padding: 26px 58px; border-radius: 26px;
+        font: 700 italic 96px "Inter Tight",sans-serif;
+        letter-spacing: -0.012em; text-transform: uppercase;
+        box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+      }
+      #beat3-check {
+        width: 140px; height: 140px;
+        display: flex; align-items: center; justify-content: center;
+        background: #01CD74; border-radius: 36px;
+        box-shadow: 0 18px 40px rgba(1,205,116,0.45);
+      }
+      #beat3-eyebrow {
+        position: absolute; top: 570px; left: 0; right: 0;
+        display: flex; justify-content: center;
+        font: 700 italic 42px "Inter Tight",sans-serif;
+        letter-spacing: 0.22em; text-transform: uppercase;
+        color: rgba(255,255,255,0.92); opacity: 0;
+      }
+      #beat3-counter-wrap {
+        position: absolute; top: 720px; left: 0; right: 0;
+        display: flex; flex-direction: column; align-items: center;
+      }
+      #beat3-counter {
+        font: 700 italic 280px "Inter Tight",sans-serif;
+        letter-spacing: -0.04em; line-height: 0.9;
+        color: #FFF1E5; opacity: 0;
+      }
+      #beat3-counter .plus { color: #01CD74; }
+      #beat3-label {
+        margin-top: 28px;
+        font: 700 italic 56px "Inter Tight",sans-serif;
+        letter-spacing: 0.04em; text-transform: uppercase;
+        color: #FFF1E5; opacity: 0; text-align: center;
+      }
+      #beat3-sub {
+        position: absolute; bottom: 220px; left: 0; right: 0;
+        display: flex; justify-content: center;
+        font: 700 italic 64px "Inter Tight",sans-serif;
+        letter-spacing: -0.012em; text-transform: uppercase;
+        color: #FFF1E5; text-align: center; opacity: 0;
+      }
+
+      /* ───── BEAT 5 — Bust 2 ($1) ───── */
+      #beat5 { background: #1658FF; color: #FFF1E5; }
+      #beat5-particles { position: absolute; inset: 0; }
+      #beat5-bloom-corner { bottom: 80px; right: 80px; }
+      #beat5-eyebrow {
+        position: absolute; top: 380px; left: 0; right: 0;
+        display: flex; justify-content: center;
+        font: 700 italic 48px "Inter Tight",sans-serif;
+        letter-spacing: 0.22em; text-transform: uppercase; color: #FFF1E5; opacity: 0;
+      }
+      #beat5-hero {
+        position: absolute; top: 520px; left: 0; right: 0; height: 720px;
+        display: flex; align-items: center; justify-content: center;
+      }
+      #beat5-hero .dollar {
+        font: 700 italic 600px "Inter Tight",sans-serif;
+        letter-spacing: -0.06em; line-height: 0.85;
+        color: #FFF1E5; opacity: 0;
+      }
+      #beat5-spark {
+        position: absolute; top: 540px; right: 80px;
+        width: 520px; height: 380px;
+        pointer-events: none;
+      }
+      #beat5-sub {
+        position: absolute; bottom: 280px; left: 0; right: 0;
+        display: flex; justify-content: center;
+      }
+      #beat5-sub .badge {
+        display: inline-flex; align-items: center; justify-content: center;
+        background: #1C2329; color: #FFF1E5;
+        border-radius: 28px; padding: 28px 48px;
+        font: 700 italic 64px "Inter Tight",sans-serif;
+        letter-spacing: -0.012em; text-transform: uppercase;
+        box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+        opacity: 0;
+      }
+
+      /* ───── BEAT 7 — Bust 3 (timeline chart) ───── */
+      #beat7 { background: #1658FF; color: #FFF1E5; }
+      #beat7-particles { position: absolute; inset: 0; }
+      #beat7-bloom-corner { top: 60px; right: 60px; }
+      #beat7-eyebrow {
+        position: absolute; top: 360px; left: 0; right: 0;
+        display: flex; justify-content: center;
+        font: 700 italic 50px "Inter Tight",sans-serif;
+        letter-spacing: 0.22em; text-transform: uppercase; color: #FFF1E5; opacity: 0;
+      }
+      #beat7-chart {
+        position: absolute; top: 540px; left: 60px; right: 60px; height: 600px;
+      }
+      #beat7-headline {
+        position: absolute; top: 1200px; left: 0; right: 0;
+        display: flex; justify-content: center;
+      }
+      #beat7-headline .badge {
+        display: inline-flex; background: #1C2329; color: #FFF1E5;
+        border-radius: 30px; padding: 36px 56px;
+        font: 700 italic 96px "Inter Tight",sans-serif;
+        letter-spacing: -0.02em; line-height: 0.95; text-transform: uppercase;
+        box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+        opacity: 0;
+      }
+      #beat7-sub {
+        position: absolute; bottom: 240px; left: 0; right: 0;
+        display: flex; justify-content: center;
+        font: 700 italic 56px "Inter Tight",sans-serif;
+        letter-spacing: 0.04em; text-transform: uppercase; color: #FFF1E5; opacity: 0; text-align: center;
+      }
+
+      /* ───── BEAT 9 — Bust 4 (shield) ───── */
+      #beat9 { background: #F8F8F9; color: #1C2329; }
+      #beat9-glow { display: none; }
+      #beat9-bloom-corner { top: 60px; right: 60px; }
+      #beat9-shield-wrap {
+        position: absolute; top: 320px; left: 0; right: 0; height: 720px;
+        display: flex; align-items: center; justify-content: center;
+      }
+      #beat9-headline {
+        position: absolute; top: 1140px; left: 0; right: 0;
+        display: flex; justify-content: center;
+      }
+      #beat9-headline .badge {
+        display: inline-flex; background: #1C2329; color: #FFF1E5;
+        border-radius: 30px; padding: 36px 56px;
+        font: 700 italic 110px "Inter Tight",sans-serif;
+        letter-spacing: -0.02em; line-height: 0.95; text-transform: uppercase;
+        box-shadow: 0 24px 60px rgba(6,10,30,0.30); opacity: 0;
+      }
+      #beat9-sub {
+        position: absolute; top: 1430px; left: 0; right: 0;
+        display: flex; justify-content: center;
+        font: 700 italic 60px "Inter Tight",sans-serif;
+        letter-spacing: 0.04em; text-transform: uppercase; color: #1C2329; opacity: 0; text-align: center;
+      }
+
+      /* ───── BEAT 10 — CTA close ───── */
+      #beat10 { background: #1658FF; color: #FFF1E5; }
+      #beat10-particles { position: absolute; inset: 0; }
+      #beat10-star {
+        position: absolute; top: 50%; left: 50%;
+        width: 900px; height: 900px;
+        margin: -450px 0 0 -450px;
+        display: flex; align-items: center; justify-content: center;
+        opacity: 0;
+      }
+      #beat10-star svg { width: 100%; height: 100%; opacity: 0.7; }
+      #beat10-logo {
+        position: absolute; top: 50%; left: 50%;
+        width: 280px; height: 280px;
+        margin: -200px 0 0 -140px;
+        display: flex; align-items: center; justify-content: center;
+        background: #fff; border-radius: 60px;
+        box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+        opacity: 0;
+      }
+      #beat10-logo img { width: 200px; height: 200px; }
+      #beat10-pill-wrap {
+        position: absolute; top: 50%; left: 0; right: 0;
+        margin-top: 180px;
+        display: flex; justify-content: center;
+      }
+      #beat10-pill {
+        display: inline-flex; align-items: center; justify-content: center;
+        background: #1C2329; color: #FFF1E5;
+        border-radius: 999px; padding: 36px 64px;
+        font: 700 italic 96px "Inter Tight",sans-serif;
+        letter-spacing: -0.012em; text-transform: uppercase;
+        box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+        opacity: 0;
+      }
+      #beat10-tagline {
+        position: absolute; top: 50%; left: 0; right: 0;
+        margin-top: 360px;
+        display: flex; justify-content: center;
+        font: 700 italic 44px "Inter Tight",sans-serif;
+        letter-spacing: 0.22em; text-transform: uppercase; color: #FFF1E5; opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"
+         data-composition-id="bloom-investing-myths-v2"
+         data-width="1080" data-height="1920"
+         data-start="0" data-duration="67.00">
+
+      <audio id="narration" class="clip"
+             data-start="0" data-duration="67.00" data-track-index="0" data-volume="1"
+             src="narration.mp3"></audio>
+
+      <div id="grain"></div>
+
+      <!-- ───── BEAT 1 — Hook ───── -->
+      <div id="beat1" class="scene">
+        <canvas id="beat1-noise" width="1080" height="1920"></canvas>
+        <div id="beat1-bloom-corner"><img src="bloom-logo.png" alt="" /></div>
+        <div id="beat1-eyebrow">YOU MIGHT HAVE HEARD</div>
+        <div id="beat1-cards">
+          <div class="b1-card left"  id="beat1-card-1"><div class="b1-from">FROM A FRIEND</div><div class="b1-msg">"Investing is risky"</div></div>
+          <div class="b1-card right" id="beat1-card-2"><div class="b1-from">FROM FAMILY</div>     <div class="b1-msg">"You'll lose it all"</div></div>
+          <div class="b1-card left"  id="beat1-card-3"><div class="b1-from">SOCIAL MEDIA</div>    <div class="b1-msg">"Get rich quick"</div></div>
+        </div>
+        <div id="beat1-headline">
+          <div class="badge"><div class="badge-text">Just<br/>The Facts</div></div>
+        </div>
+        <div id="beat1-sub">BLOOM CLEARS IT UP</div>
+      </div>
+
+      <!-- ───── BEAT 2 — Myth 1 ───── -->
+      <div id="beat2" class="scene">
+        <div id="beat2-grid" class="myth-grid"></div>
+        <div id="beat2-eyebrow" class="myth-eyebrow">
+          <span class="pill">Myth 01</span>
+        </div>
+        <div id="beat2-headline" class="myth-headline">
+          <div class="badge"><div class="badge-text">Investing<br/>Is Hard</div></div>
+        </div>
+        <div id="beat2-sub" class="myth-sub">ONLY FOR BOOMERS</div>
+        <svg id="beat2-stamp" class="myth-stamp" viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="240" cy="240" r="210" fill="none" stroke="#fe566b" stroke-width="14"/>
+          <circle cx="240" cy="240" r="180" fill="none" stroke="#fe566b" stroke-width="6"/>
+          <text x="240" y="270" text-anchor="middle" font-family="Inter Tight, sans-serif" font-style="italic" font-weight="800" font-size="160" letter-spacing="-6" fill="#fe566b">MYTH</text>
+        </svg>
+      </div>
+
+      <!-- ───── BEAT 3 — Bust 1 ───── -->
+      <div id="beat3" class="scene">
+        <canvas id="beat3-particles" width="1080" height="1920"></canvas>
+        <div id="beat3-bloom-corner" class="bust-bloom-corner"><img src="bloom-logo.png" alt="" /></div>
+        <div id="beat3-wrong">
+          <div class="badge">Wrong.</div>
+          <div id="beat3-check">
+            <svg viewBox="0 0 100 100" width="80" height="80">
+              <path d="M 18 52 L 42 76 L 84 28" stroke="#fff" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                    pathLength="100" stroke-dasharray="100" stroke-dashoffset="100" id="beat3-check-path"/>
+            </svg>
+          </div>
+        </div>
+        <div id="beat3-eyebrow">EVERYONE'S DOING IT</div>
+        <div id="beat3-counter-wrap">
+          <div id="beat3-counter">0<span class="plus">+</span></div>
+          <div id="beat3-label">USERS LEARNING ON BLOOM</div>
+        </div>
+        <div id="beat3-sub">ANYBODY CAN INVEST</div>
+      </div>
+
+      <!-- ───── BEAT 4 — Myth 2 ───── -->
+      <div id="beat4" class="scene">
+        <div id="beat4-grid" class="myth-grid"></div>
+        <div id="beat4-eyebrow" class="myth-eyebrow">
+          <span class="pill">Myth 02</span>
+        </div>
+        <div id="beat4-headline" class="myth-headline">
+          <div class="badge"><div class="badge-text">You Need<br/>Big Money</div></div>
+        </div>
+        <div id="beat4-sub" class="myth-sub">JUST TO START</div>
+        <svg id="beat4-stamp" class="myth-stamp" viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="240" cy="240" r="210" fill="none" stroke="#fe566b" stroke-width="14"/>
+          <circle cx="240" cy="240" r="180" fill="none" stroke="#fe566b" stroke-width="6"/>
+          <text x="240" y="270" text-anchor="middle" font-family="Inter Tight, sans-serif" font-style="italic" font-weight="800" font-size="160" letter-spacing="-6" fill="#fe566b">MYTH</text>
+        </svg>
+      </div>
+
+      <!-- ───── BEAT 5 — Bust 2 ($1) ───── -->
+      <div id="beat5" class="scene">
+        <canvas id="beat5-particles" width="1080" height="1920"></canvas>
+        <div id="beat5-wrong" class="bust-wrong-pill">Wrong.</div>
+        <div id="beat5-eyebrow">START WITH JUST</div>
+        <div id="beat5-hero"><div class="dollar">$1</div></div>
+        <svg id="beat5-spark" viewBox="0 0 520 380" xmlns="http://www.w3.org/2000/svg">
+          <path id="beat5-spark-path"
+            d="M 20 320 C 80 310 140 300 200 250 S 320 110 380 70 S 480 30 500 24"
+            stroke="#01CD74" stroke-width="14" fill="none" stroke-linecap="round"
+            pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/>
+          <circle id="beat5-spark-tip" cx="500" cy="24" r="18" fill="#01CD74" opacity="0"/>
+        </svg>
+        <div id="beat5-sub"><div class="badge">Grow It Big Over Time</div></div>
+        <div id="beat5-bloom-corner" class="bust-bloom-corner"><img src="bloom-logo.png" alt=""/></div>
+      </div>
+
+      <!-- ───── BEAT 6 — Myth 3 (gray) ───── -->
+      <div id="beat6" class="scene">
+        <div id="beat6-grid" class="myth-grid"></div>
+        <div id="beat6-eyebrow" class="myth-eyebrow">
+          <span class="pill">Myth 03</span>
+        </div>
+        <div id="beat6-headline" class="myth-headline">
+          <div class="badge"><div class="badge-text">No Time<br/>To Invest</div></div>
+        </div>
+        <div id="beat6-sub" class="myth-sub">I'LL JUST START LATER</div>
+        <div id="beat6-clock">
+          <svg viewBox="0 0 220 220" width="200" height="200">
+            <circle cx="110" cy="110" r="98" fill="none" stroke="#1C2329" stroke-width="10"/>
+            <circle cx="110" cy="110" r="6"  fill="#1C2329"/>
+            <line id="beat6-hand" x1="110" y1="110" x2="110" y2="38"
+                  stroke="#fe566b" stroke-width="10" stroke-linecap="round"
+                  transform="rotate(0 110 110)"/>
+          </svg>
+        </div>
+        <svg id="beat6-stamp" class="myth-stamp" viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="240" cy="240" r="210" fill="none" stroke="#fe566b" stroke-width="14"/>
+          <circle cx="240" cy="240" r="180" fill="none" stroke="#fe566b" stroke-width="6"/>
+          <text x="240" y="270" text-anchor="middle" font-family="Inter Tight, sans-serif" font-style="italic" font-weight="800" font-size="160" letter-spacing="-6" fill="#fe566b">MYTH</text>
+        </svg>
+      </div>
+
+      <!-- ───── BEAT 7 — Bust 3 (chart) ───── -->
+      <div id="beat7" class="scene">
+        <canvas id="beat7-particles" width="1080" height="1920"></canvas>
+        <div id="beat7-bloom-corner" class="bust-bloom-corner"><img src="bloom-logo.png" alt=""/></div>
+        <div id="beat7-wrong" class="bust-wrong-pill">Wrong.</div>
+        <div id="beat7-eyebrow">TIME = GROWTH</div>
+        <svg id="beat7-chart" viewBox="0 0 960 600" width="960" height="600" preserveAspectRatio="xMidYMid meet" data-layout-allow-overflow xmlns="http://www.w3.org/2000/svg">
+          <line x1="60" y1="540" x2="900" y2="540" stroke="rgba(255,255,255,0.32)" stroke-width="4" stroke-dasharray="14 14"/>
+          <path id="beat7-curve"
+            d="M 80 500 C 240 490 360 470 500 380 S 720 130 880 80"
+            stroke="#01CD74" stroke-width="16" fill="none" stroke-linecap="round"
+            pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/>
+          <g id="beat7-m1" opacity="0">
+            <circle cx="80" cy="500" r="26" fill="#fff" stroke="#01CD74" stroke-width="6"/>
+            <text x="80" y="436" text-anchor="middle" font-family="Inter Tight, sans-serif" font-style="italic" font-weight="800" font-size="42" fill="#fff">$1</text>
+          </g>
+          <g id="beat7-m2" opacity="0">
+            <circle cx="500" cy="380" r="32" fill="#fff" stroke="#01CD74" stroke-width="6"/>
+            <text x="500" y="334" text-anchor="middle" font-family="Inter Tight, sans-serif" font-style="italic" font-weight="800" font-size="42" fill="#fff">$$$</text>
+          </g>
+          <g id="beat7-m3" opacity="0">
+            <circle cx="880" cy="80" r="42" fill="#01CD74" stroke="#fff" stroke-width="6"/>
+            <text x="880" y="170" text-anchor="middle" font-family="Inter Tight, sans-serif" font-style="italic" font-weight="800" font-size="46" fill="#fff">BIG</text>
+          </g>
+          <circle id="beat7-dot" cx="80" cy="500" r="18" fill="#fff" opacity="0"/>
+        </svg>
+        <div id="beat7-headline"><div class="badge">Start Earlier</div></div>
+        <div id="beat7-sub">MORE TIME, MORE GROWTH</div>
+      </div>
+
+      <!-- ───── BEAT 8 — Myth 4 ───── -->
+      <div id="beat8" class="scene">
+        <div id="beat8-grid" class="myth-grid"></div>
+        <div id="beat8-eyebrow" class="myth-eyebrow">
+          <span class="pill">Myth 04</span>
+        </div>
+        <div id="beat8-headline" class="myth-headline">
+          <div class="badge"><div class="badge-text">I'll Lose<br/>It All</div></div>
+        </div>
+        <div id="beat8-spark">
+          <svg viewBox="0 0 800 220" width="800" height="220">
+            <path id="beat8-down"
+              d="M 30 30 C 140 60 240 90 340 130 S 540 200 770 200"
+              stroke="#fe566b" stroke-width="14" fill="none" stroke-linecap="round"
+              pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/>
+            <polygon id="beat8-arrow" points="770,180 800,200 770,220" fill="#fe566b" opacity="0"/>
+          </svg>
+        </div>
+        <div id="beat8-sub" class="myth-sub">INVESTING IS RISKY</div>
+        <svg id="beat8-stamp" class="myth-stamp" viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="240" cy="240" r="210" fill="none" stroke="#fe566b" stroke-width="14"/>
+          <circle cx="240" cy="240" r="180" fill="none" stroke="#fe566b" stroke-width="6"/>
+          <text x="240" y="270" text-anchor="middle" font-family="Inter Tight, sans-serif" font-style="italic" font-weight="800" font-size="160" letter-spacing="-6" fill="#fe566b">MYTH</text>
+        </svg>
+      </div>
+
+      <!-- ───── BEAT 9 — Bust 4 (shield) ───── -->
+      <div id="beat9" class="scene">
+        <div id="beat9-bloom-corner" class="bust-bloom-corner"><img src="bloom-logo.png" alt=""/></div>
+        <div id="beat9-wrong" class="bust-wrong-pill">Wrong.</div>
+        <div id="beat9-shield-wrap">
+          <svg viewBox="0 0 600 700" width="600" height="700">
+            <defs>
+              <linearGradient id="beat9-shield-fill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#1658FF" stop-opacity="0.10"/>
+                <stop offset="1" stop-color="#1658FF" stop-opacity="0.30"/>
+              </linearGradient>
+            </defs>
+            <path id="beat9-shield-bg"
+              d="M 300 30 L 540 130 L 540 360 C 540 500 460 600 300 670 C 140 600 60 500 60 360 L 60 130 Z"
+              fill="url(#beat9-shield-fill)" opacity="0"/>
+            <path id="beat9-shield-stroke"
+              d="M 300 30 L 540 130 L 540 360 C 540 500 460 600 300 670 C 140 600 60 500 60 360 L 60 130 Z"
+              fill="none" stroke="#1658FF" stroke-width="14" stroke-linejoin="round"
+              pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/>
+            <g id="beat9-check" opacity="0">
+              <circle cx="300" cy="350" r="120" fill="#01CD74"/>
+              <path d="M 240 348 L 290 396 L 366 308" stroke="#fff" stroke-width="22" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+          </svg>
+        </div>
+        <div id="beat9-headline"><div class="badge">Choose Safer</div></div>
+        <div id="beat9-sub">BLOOM SHOWS YOU HOW</div>
+      </div>
+
+      <!-- ───── BEAT 10 — CTA close ───── -->
+      <div id="beat10" class="scene">
+        <canvas id="beat10-particles" width="1080" height="1920"></canvas>
+        <div id="beat10-star">
+          <svg viewBox="-100 -100 200 200" xmlns="http://www.w3.org/2000/svg">
+            <g fill="#EFC42C">
+              <path d="M 0 -90 L 18 -18 L 90 0 L 18 18 L 0 90 L -18 18 L -90 0 L -18 -18 Z"/>
+              <circle cx="0" cy="0" r="14" fill="#1C2329"/>
+              <path d="M -8 -8 L 8 8 M -8 8 L 8 -8" stroke="#EFC42C" stroke-width="3"/>
+            </g>
+          </svg>
+        </div>
+        <div id="beat10-logo"><img src="bloom-logo.png" alt=""/></div>
+        <div id="beat10-pill-wrap"><div id="beat10-pill">Get Bloom</div></div>
+        <div id="beat10-tagline">INVEST WITH CONFIDENCE</div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        // ─────── Editorial easing — NO overshoot eases ───────
+        gsap.registerPlugin(CustomEase);
+        CustomEase.create("snapIn",  "0.22, 1, 0.36, 1");   // 90% of element entrances
+        CustomEase.create("settle",  "0.16, 1, 0.3, 1");    // hero reveals, big stats
+        CustomEase.create("snapOut", "0.5, 0, 0.75, 0");    // exits
+
+        // ─────── Master timeline ───────
+        window.__timelines = window.__timelines || {};
+        const ROOT = gsap.timeline({ paused: true });
+        window.__timelines["bloom-investing-myths-v2"] = ROOT;
+
+        function mulberry32(seed){return function(){let t=(seed+=0x6d2b79f5);t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296;};}
+
+        // Camera drift directions per beat (refresh the eye scene-to-scene).
+        const DRIFTS = [
+          { x: -16, y:   0, scale: 1.04 },
+          { x:  16, y:  -8, scale: 1.03 },
+          { x: -12, y:   8, scale: 1.04 },
+          { x:  14, y:   0, scale: 1.03 },
+          { x: -10, y:  -8, scale: 1.05 },
+          { x:  12, y:   8, scale: 1.03 },
+          { x: -14, y:  -6, scale: 1.04 },
+          { x:  10, y:   8, scale: 1.03 },
+          { x: -12, y:  -8, scale: 1.04 },
+          { x:   0, y:   0, scale: 1.05 },
+        ];
+
+        // ─────── Per-beat helpers + scope ───────
+        function makeBeat(beatId, beatStart, beatDur, words) {
+          const W = words;
+          const _norm = s => s.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu, "");
+          function _findPhrase(p) {
+            const t = p.toLowerCase().split(/\s+/).map(_norm).filter(Boolean);
+            const hits = [];
+            for (let i = 0; i <= W.length - t.length; i++) {
+              let ok = true;
+              for (let j = 0; j < t.length; j++) {
+                if (_norm(W[i+j].w) !== t[j]) { ok = false; break; }
+              }
+              if (ok) hits.push(i);
+            }
+            if (!hits.length) throw new Error('landOn ['+beatId+']: "'+p+'" not found');
+            if (hits.length > 1) throw new Error('landOn ['+beatId+']: "'+p+'" matches '+hits.length);
+            return { s: W[hits[0]].s, e: W[hits[0]+t.length-1].e };
+          }
+          const at        = p     => _findPhrase(p).s;
+          const landOn    = (p,d=0) => _findPhrase(p).s - d;
+          const landAfter = (p,d=0) => _findPhrase(p).e - d;
+
+          // proxy that offsets every position by beatStart (so callers can write beat-relative positions)
+          const tl = {
+            fromTo: (sel, from, to, pos=0) => ROOT.fromTo(sel, from, to, beatStart + pos),
+            to:     (sel, vars, pos=0)     => ROOT.to(sel, vars, beatStart + pos),
+            set:    (sel, vars, pos=0)     => ROOT.set(sel, vars, beatStart + pos),
+            call:   (fn, args, pos=0)      => ROOT.call(fn, args, beatStart + pos),
+          };
+
+          // visibility window for the beat
+          tl.set("#"+beatId, { visibility: "visible" }, 0);
+          tl.set("#"+beatId, { visibility: "hidden"  }, beatDur);
+
+          // Camera drift on the whole beat container — "filmed not rendered" baseline.
+          const beatNum = parseInt(beatId.replace("beat", ""), 10);
+          const d = DRIFTS[(beatNum - 1) % DRIFTS.length];
+          ROOT.fromTo("#" + beatId,
+            { scale: 1.00, x: 0, y: 0 },
+            { scale: d.scale, x: d.x, y: d.y, duration: beatDur, ease: "none", overwrite: false },
+            beatStart);
+
+          return { tl, landOn, landAfter, at, beatStart, beatDur };
+        }
+
+        // ═════════════════════════════════════════════════════════════
+        // BEAT 1 — Hook (0.00 → 9.50)
+        // ═════════════════════════════════════════════════════════════
+        {
+          const W = [{"w":"You","s":0,"e":0.159},{"w":"might","s":0.186,"e":0.321},{"w":"have","s":0.337,"e":0.401},{"w":"heard","s":0.441,"e":0.641},{"w":"things","s":0.687,"e":0.963},{"w":"about","s":0.99,"e":1.125},{"w":"investing","s":1.197,"e":1.845},{"w":"from","s":1.893,"e":2.085},{"w":"friends,","s":2.135,"e":2.725},{"w":"family,","s":2.782,"e":3.284},{"w":"or","s":3.337,"e":3.443},{"w":"social","s":3.5,"e":3.842},{"w":"media.","s":3.909,"e":4.324},{"w":"There","s":4.471,"e":5.206},{"w":"are","s":5.246,"e":5.366},{"w":"a","s":5.446,"e":5.526},{"w":"lot","s":5.586,"e":5.766},{"w":"of","s":5.793,"e":5.847},{"w":"misconceptions","s":5.904,"e":6.646},{"w":"out","s":6.706,"e":6.886},{"w":"there.","s":6.926,"e":7.526},{"w":"So","s":7.606,"e":7.766},{"w":"we're","s":7.899,"e":8.246},{"w":"here","s":8.294,"e":8.486},{"w":"to","s":8.539,"e":8.645},{"w":"give","s":8.677,"e":8.805},{"w":"you","s":8.825,"e":8.885},{"w":"the","s":8.905,"e":8.965},{"w":"facts.","s":9.045,"e":9.525}];
+          const { tl, landOn, landAfter } = makeBeat("beat1", 0.00, 9.50, W);
+
+          const rand = mulberry32(2024);
+          const noise = document.getElementById('beat1-noise');
+          const nctx = noise.getContext('2d');
+          const dots = [];
+          for (let i=0;i<80;i++) dots.push({x:rand()*1080, y:rand()*1920, r:0.8+rand()*1.6, vy:0.3+rand()*0.7, alpha:0.18+rand()*0.22});
+          function drawNoise(t){
+            nctx.clearRect(0,0,1080,1920);
+            for (const d of dots){
+              const y = (d.y + d.vy*60*t) % 1920;
+              nctx.fillStyle = 'rgba(255,255,255,'+d.alpha+')';
+              nctx.beginPath(); nctx.arc(Math.round(d.x), Math.round(y), d.r, 0, Math.PI*2); nctx.fill();
+            }
+          }
+          drawNoise(0);
+          const noiseProxy = { t:0 };
+          tl.to(noiseProxy, { t: 9.5, duration: 9.5, ease:"none", onUpdate: () => drawNoise(noiseProxy.t) }, 0);
+
+          tl.fromTo("#beat1-bloom-corner", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "snapIn", overwrite: "auto" }, 0.05);
+          tl.fromTo("#beat1-eyebrow", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "snapIn", overwrite: "auto" }, landOn("might have", 0.45));
+
+          tl.fromTo("#beat1-card-1", { x: -800, opacity: 0, rotation: -6 }, { x: 0, opacity: 1, rotation: -2, duration: 0.55, ease: "snapIn", overwrite: "auto" }, landOn("friends,", 0.55));
+          tl.to("#beat1-card-1", { y: -8, duration: 1.6, yoyo: true, repeat: 3, ease: "sine.inOut", overwrite: "auto" }, landOn("friends,", 0) + 0.6);
+
+          tl.fromTo("#beat1-card-2", { x: 800, opacity: 0, rotation: 6 }, { x: 0, opacity: 1, rotation: 2, duration: 0.55, ease: "snapIn", overwrite: "auto" }, landOn("family,", 0.55));
+          tl.to("#beat1-card-2", { y: -8, duration: 1.4, yoyo: true, repeat: 3, ease: "sine.inOut", overwrite: "auto" }, landOn("family,", 0) + 0.6);
+
+          tl.fromTo("#beat1-card-3", { x: -800, opacity: 0, rotation: -4 }, { x: 0, opacity: 1, rotation: -1, duration: 0.55, ease: "snapIn", overwrite: "auto" }, landOn("social media", 0.55));
+          tl.to("#beat1-card-3", { y: -8, duration: 1.5, yoyo: true, repeat: 2, ease: "sine.inOut", overwrite: "auto" }, landOn("social media", 0) + 0.6);
+
+          tl.to(["#beat1-card-1","#beat1-card-2","#beat1-card-3"], {
+            x: (i)=> [-1100, 1100, -1100][i], opacity: 0, rotation: (i)=>[-18,18,-18][i],
+            duration: 0.55, ease: "snapOut", stagger: 0.06, overwrite: "auto"
+          }, landOn("misconceptions", 0.55));
+
+          tl.to("#beat1-eyebrow", { opacity: 0, duration: 0.2, ease: "snapOut", overwrite: "auto" }, landOn("So we're", 0.4));
+          tl.fromTo("#beat1-sub", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "snapIn", overwrite: "auto" }, landOn("So we're", 0.2));
+
+          tl.fromTo("#beat1-headline", { scale: 0.6, opacity: 0, y: 40 }, { scale: 1, opacity: 1, y: 0, duration: 0.55, ease: "settle", overwrite: "auto" }, landOn("give you the", 0.5));
+          tl.to("#beat1-headline", { scale: 1.025, duration: 0.9, yoyo: true, repeat: 1, ease: "sine.inOut", overwrite: "auto" }, landOn("give you the", 0) + 0.55);
+          tl.to("#beat1-bloom-corner", { scale: 1.08, duration: 0.18, yoyo: true, repeat: 1, ease: "snapIn", overwrite: "auto" }, landAfter("the facts.", 0));
+        }
+
+        // ═════════════════════════════════════════════════════════════
+        // BEAT 2 — Myth 1 (9.50 → 15.40, dur 5.90)
+        // ═════════════════════════════════════════════════════════════
+        {
+          const W = [{"w":"Myth","s":0.22,"e":0.985},{"w":"one:","s":1.06,"e":1.825},{"w":"investing","s":1.88,"e":2.345},{"w":"is","s":2.42,"e":2.585},{"w":"hard","s":2.65,"e":2.905},{"w":"and","s":2.945,"e":3.065},{"w":"complicated,","s":3.13,"e":3.945},{"w":"and","s":3.965,"e":4.025},{"w":"it's","s":4.08,"e":4.265},{"w":"only","s":4.31,"e":4.505},{"w":"for","s":4.545,"e":4.665},{"w":"Boomers.","s":4.73,"e":5.9}];
+          const { tl, landOn } = makeBeat("beat2", 9.50, 5.90, W);
+
+          tl.fromTo("#beat2-eyebrow", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "snapIn", overwrite: "auto" }, landOn("Myth one", 0.4));
+          tl.fromTo("#beat2-headline .badge", { scale: 0.7, opacity: 0, y: 40 }, { scale: 1, opacity: 1, y: 0, duration: 0.5, ease: "snapIn", overwrite: "auto" }, landOn("Myth one", 0.5));
+          tl.to("#beat2-headline .badge", { scale: 1.012, duration: 1.5, yoyo: true, repeat: 2, ease: "sine.inOut", overwrite: "auto" }, landOn("Myth one", 0) + 0.6);
+          tl.fromTo("#beat2-sub", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "snapIn", overwrite: "auto" }, landOn("only for", 0.45));
+          tl.fromTo("#beat2-stamp", { scale: 2.4, opacity: 0, rotation: -25 }, { scale: 1, opacity: 0.92, rotation: -12, duration: 0.32, ease: "settle", overwrite: "auto" }, landOn("Boomers.", 0.32));
+          tl.to("#beat2-stamp", { scale: 1.04, duration: 0.12, yoyo: true, repeat: 3, ease: "power1.inOut", overwrite: "auto" }, landOn("Boomers.", 0) + 0.15);
+        }
+
+        // ═════════════════════════════════════════════════════════════
+        // BEAT 3 — Bust 1 (15.40 → 24.30, dur 8.90)
+        // ═════════════════════════════════════════════════════════════
+        {
+          const W = [{"w":"Wrong.","s":0.105,"e":0.685},{"w":"Anybody","s":0.905,"e":1.645},{"w":"can","s":1.705,"e":1.885},{"w":"invest,","s":1.954,"e":2.528},{"w":"and","s":2.568,"e":2.688},{"w":"Bloom","s":2.781,"e":3.246},{"w":"makes","s":3.299,"e":3.564},{"w":"it","s":3.591,"e":3.645},{"w":"easy.","s":3.709,"e":4.125},{"w":"Over","s":4.285,"e":4.925},{"w":"one","s":4.985,"e":5.165},{"w":"million","s":5.215,"e":5.565},{"w":"users","s":5.645,"e":6.045},{"w":"are","s":6.105,"e":6.285},{"w":"already","s":6.335,"e":6.685},{"w":"learning","s":6.729,"e":7.081},{"w":"and","s":7.121,"e":7.241},{"w":"investing","s":7.305,"e":7.881},{"w":"on","s":7.988,"e":8.202},{"w":"Bloom.","s":8.269,"e":8.764}];
+          const { tl, landOn, landAfter } = makeBeat("beat3", 15.40, 8.90, W);
+
+          const rand = mulberry32(7777);
+          const pc = document.getElementById('beat3-particles');
+          const pctx = pc.getContext('2d');
+          const burstAtRel = landAfter("one million", 0) - 15.40;
+          const sparks = [];
+          for (let i=0;i<60;i++){
+            const ang = rand()*Math.PI*2;
+            const sp  = 200 + rand()*420;
+            sparks.push({x:540, y:980, vx:Math.cos(ang)*sp, vy:Math.sin(ang)*sp, life:0.9+rand()*0.7, hue:rand()<0.4?'rgba(1,205,116,':'rgba(255,255,255,'});
+          }
+          function drawParticles(t){
+            pctx.clearRect(0,0,1080,1920);
+            const dt = t - burstAtRel;
+            if (dt < 0 || dt > 1.8) return;
+            for (const s of sparks){
+              if (dt > s.life) continue;
+              const x = s.x + s.vx*dt;
+              const y = s.y + s.vy*dt + 200*dt*dt;
+              const a = (1 - dt/s.life) * 0.9;
+              pctx.fillStyle = s.hue + a + ')';
+              pctx.beginPath(); pctx.arc(Math.round(x), Math.round(y), 5, 0, Math.PI*2); pctx.fill();
+            }
+          }
+          const pProxy = { t: 0 };
+          tl.to(pProxy, { t: 8.9, duration: 8.9, ease:"none", onUpdate: () => drawParticles(pProxy.t) }, 0);
+
+          tl.fromTo("#beat3-bloom-corner", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "snapIn", overwrite: "auto" }, 0.05);
+          tl.to("#beat3-bloom-corner", { scale: 1.04, duration: 1.4, yoyo: true, repeat: 4, ease: "sine.inOut", overwrite: "auto" }, 0.5);
+
+          tl.fromTo("#beat3-wrong", { y: -40, opacity: 0, scale: 0.8 }, { y: 0, opacity: 1, scale: 1, duration: 0.45, ease: "snapIn", overwrite: "auto" }, landOn("Wrong.", 0.45));
+          tl.to("#beat3-check-path", { strokeDashoffset: 0, duration: 0.45, ease: "snapIn", overwrite: "auto" }, landOn("Wrong.", 0.0));
+
+          tl.fromTo("#beat3-sub", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "snapIn", overwrite: "auto" }, landOn("Anybody can", 0.45));
+          tl.fromTo("#beat3-eyebrow", { y: -20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "snapIn", overwrite: "auto" }, landOn("Bloom makes", 0.4));
+
+          const counterEl = document.getElementById('beat3-counter');
+          const counterLand = landAfter("one million", 0);
+          const counterDur = 1.4;
+          const counterStart = counterLand - counterDur;
+          tl.fromTo("#beat3-counter", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.3, ease: "snapIn", overwrite: "auto" }, counterStart - 0.1);
+          const counterProxy = { v: 0 };
+          function fmtCounter(v){
+            const n = Math.round(v);
+            if (n < 1000) return n + '<span class="plus">+</span>';
+            if (n < 1000000) return Math.round(n/1000) + 'K<span class="plus">+</span>';
+            return (n/1000000).toFixed(n>=1000000?(n%1000000===0?0:1):0) + 'M<span class="plus">+</span>';
+          }
+          tl.to(counterProxy, {
+            v: 1000000, duration: counterDur, ease: "settle",
+            onUpdate: () => { counterEl.innerHTML = fmtCounter(counterProxy.v); },
+            overwrite: "auto"
+          }, counterStart);
+
+          tl.fromTo("#beat3-label", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "snapIn", overwrite: "auto" }, counterLand - 0.1);
+          tl.to("#beat3-counter", { scale: 1.08, duration: 0.18, yoyo: true, repeat: 1, ease: "snapIn", overwrite: "auto" }, counterLand);
+          tl.to("#beat3-check", { scale: 1.12, duration: 0.18, yoyo: true, repeat: 1, ease: "snapIn", overwrite: "auto" }, landAfter("on Bloom.", 0.18));
+        }
+
+        // ═════════════════════════════════════════════════════════════
+        // BEAT 4 — Myth 2 (24.30 → 27.95, dur 3.65)
+        // ═════════════════════════════════════════════════════════════
+        {
+          const W = [{"w":"Myth","s":0.09,"e":0.984},{"w":"two:","s":1.084,"e":1.464},{"w":"you","s":1.584,"e":1.944},{"w":"need","s":1.992,"e":2.184},{"w":"a","s":2.224,"e":2.264},{"w":"lot","s":2.324,"e":2.504},{"w":"of","s":2.531,"e":2.585},{"w":"money","s":2.638,"e":2.903},{"w":"to","s":2.956,"e":3.062},{"w":"start.","s":3.129,"e":3.544}];
+          const { tl, landOn } = makeBeat("beat4", 24.30, 3.65, W);
+
+          tl.fromTo("#beat4-eyebrow", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35, ease: "snapIn", overwrite: "auto" }, landOn("Myth two", 0.35));
+          tl.fromTo("#beat4-headline .badge", { scale: 0.7, opacity: 0, y: 40 }, { scale: 1, opacity: 1, y: 0, duration: 0.45, ease: "snapIn", overwrite: "auto" }, landOn("Myth two", 0.45));
+          tl.to("#beat4-headline .badge", { scale: 1.012, duration: 1.2, yoyo: true, repeat: 1, ease: "sine.inOut", overwrite: "auto" }, landOn("Myth two", 0) + 0.6);
+          tl.fromTo("#beat4-sub", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "snapIn", overwrite: "auto" }, landOn("lot of money", 0.4));
+          tl.fromTo("#beat4-stamp", { scale: 2.4, opacity: 0, rotation: -25 }, { scale: 1, opacity: 0.92, rotation: -12, duration: 0.3, ease: "settle", overwrite: "auto" }, landOn("to start.", 0.3));
+          tl.to("#beat4-stamp", { scale: 1.04, duration: 0.12, yoyo: true, repeat: 3, ease: "power1.inOut", overwrite: "auto" }, landOn("to start.", 0) + 0.15);
+        }
+
+        // ═════════════════════════════════════════════════════════════
+        // BEAT 5 — Bust 2 ($1) (27.95 → 36.40, dur 8.45)
+        // ═════════════════════════════════════════════════════════════
+        {
+          const W = [{"w":"Wrong.","s":0.107,"e":1.492},{"w":"On","s":1.599,"e":1.813},{"w":"Bloom,","s":1.88,"e":2.455},{"w":"you","s":2.495,"e":2.615},{"w":"can","s":2.655,"e":2.775},{"w":"start","s":2.815,"e":3.015},{"w":"investing","s":3.071,"e":3.575},{"w":"with","s":3.607,"e":3.735},{"w":"just","s":3.815,"e":4.135},{"w":"one","s":4.215,"e":4.455},{"w":"dollar.","s":4.524,"e":5.098},{"w":"Even","s":5.242,"e":5.818},{"w":"small","s":5.885,"e":6.22},{"w":"amounts","s":6.26,"e":6.54},{"w":"can","s":6.58,"e":6.7},{"w":"grow","s":6.764,"e":7.02},{"w":"big","s":7.12,"e":7.42},{"w":"over","s":7.484,"e":7.74},{"w":"time.","s":7.82,"e":8.22}];
+          const { tl, landOn, landAfter } = makeBeat("beat5", 27.95, 8.45, W);
+
+          const rand = mulberry32(5151);
+          const pc = document.getElementById('beat5-particles');
+          const pctx = pc.getContext('2d');
+          const burstAtRel = landAfter("over time.", 0) - 27.95;
+          const sparks = [];
+          for (let i=0;i<55;i++){
+            const ang = rand()*Math.PI*2;
+            const sp = 200 + rand()*420;
+            sparks.push({x: 980, y: 220, vx:Math.cos(ang)*sp, vy:Math.sin(ang)*sp, life:0.9+rand()*0.7, hue: rand()<0.6?'rgba(1,205,116,':'rgba(255,255,255,'});
+          }
+          const dots=[];
+          for (let i=0;i<70;i++) dots.push({x:rand()*1080, y:rand()*1920, r:0.8+rand()*1.6, vy:0.3+rand()*0.6, alpha:0.16+rand()*0.20});
+          function draw5(t){
+            pctx.clearRect(0,0,1080,1920);
+            for (const d of dots){
+              const y = (d.y + d.vy*60*t) % 1920;
+              pctx.fillStyle = 'rgba(255,255,255,'+d.alpha+')';
+              pctx.beginPath(); pctx.arc(Math.round(d.x), Math.round(y), d.r, 0, Math.PI*2); pctx.fill();
+            }
+            const dt = t - burstAtRel;
+            if (dt >= 0 && dt < 1.6) {
+              for (const s of sparks){
+                if (dt > s.life) continue;
+                const x = s.x + s.vx*dt, y = s.y + s.vy*dt + 220*dt*dt;
+                const a = (1 - dt/s.life) * 0.9;
+                pctx.fillStyle = s.hue + a + ')';
+                pctx.beginPath(); pctx.arc(Math.round(x), Math.round(y), 5, 0, Math.PI*2); pctx.fill();
+              }
+            }
+          }
+          const proxy = { t: 0 };
+          tl.to(proxy, { t: 8.45, duration: 8.45, ease: "none", onUpdate: () => draw5(proxy.t) }, 0);
+
+          tl.fromTo("#beat5-bloom-corner", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "snapIn", overwrite: "auto" }, 0.05);
+          tl.to("#beat5-bloom-corner", { scale: 1.05, duration: 1.4, yoyo: true, repeat: 3, ease: "sine.inOut", overwrite: "auto" }, 0.5);
+
+          tl.fromTo("#beat5-wrong", { x: -60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.35, ease: "snapIn", overwrite: "auto" }, landOn("Wrong.", 0.35));
+          tl.fromTo("#beat5-eyebrow", { y: -20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "snapIn", overwrite: "auto" }, landOn("On Bloom", 0.4));
+
+          tl.fromTo("#beat5-hero .dollar",
+            { scale: 2.0, opacity: 0, filter: "blur(40px)" },
+            { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.55, ease: "settle", overwrite: "auto" },
+            landOn("one dollar", 0.5));
+          tl.to("#beat5-hero .dollar", { scale: 1.025, duration: 1.5, yoyo: true, repeat: 1, ease: "sine.inOut", overwrite: "auto" }, landOn("one dollar", 0) + 0.6);
+
+          const sparkLand = landAfter("over time.", 0) - 27.95;
+          const sparkDur = 1.0;
+          tl.to("#beat5-spark-path", { strokeDashoffset: 0, duration: sparkDur, ease: "snapIn", overwrite: "auto" }, sparkLand - sparkDur);
+          tl.fromTo("#beat5-spark-tip", { scale: 0, opacity: 0 }, { scale: 1.4, opacity: 1, duration: 0.25, ease: "settle", overwrite: "auto" }, sparkLand - 0.05);
+          tl.to("#beat5-spark-tip", { scale: 1, duration: 0.18, ease: "snapIn", overwrite: "auto" }, sparkLand + 0.2);
+
+          tl.fromTo("#beat5-sub .badge", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "snapIn", overwrite: "auto" }, landOn("grow big", 0.45));
+        }
+
+        // ═════════════════════════════════════════════════════════════
+        // BEAT 6 — Myth 3 (36.40 → 41.50, dur 5.10)
+        // ═════════════════════════════════════════════════════════════
+        {
+          const W = [{"w":"Myth","s":0.046,"e":1.07},{"w":"three:","s":1.137,"e":1.552},{"w":"I","s":1.832,"e":2.112},{"w":"don't","s":2.152,"e":2.392},{"w":"have","s":2.416,"e":2.512},{"w":"time","s":2.56,"e":2.752},{"w":"to","s":2.779,"e":2.833},{"w":"invest","s":2.902,"e":3.316},{"w":"now,","s":3.396,"e":3.796},{"w":"so","s":3.876,"e":4.036},{"w":"I'll","s":4.156,"e":4.357},{"w":"start","s":4.41,"e":4.675},{"w":"later.","s":4.728,"e":5.073}];
+          const { tl, landOn } = makeBeat("beat6", 36.40, 5.10, W);
+
+          tl.fromTo("#beat6-eyebrow", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35, ease: "snapIn", overwrite: "auto" }, landOn("Myth three", 0.35));
+          tl.fromTo("#beat6-headline .badge", { scale: 0.7, opacity: 0, y: 40 }, { scale: 1, opacity: 1, y: 0, duration: 0.45, ease: "snapIn", overwrite: "auto" }, landOn("Myth three", 0.45));
+          tl.to("#beat6-headline .badge", { scale: 1.012, duration: 1.4, yoyo: true, repeat: 1, ease: "sine.inOut", overwrite: "auto" }, landOn("Myth three", 0) + 0.6);
+          tl.fromTo("#beat6-sub", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "snapIn", overwrite: "auto" }, landOn("don't have", 0.4));
+
+          tl.fromTo("#beat6-clock", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "snapIn", overwrite: "auto" }, landOn("don't have", 0.0));
+          tl.fromTo("#beat6-hand", { rotation: 0, transformOrigin: "110px 110px" }, { rotation: 360, transformOrigin: "110px 110px", duration: 4.2, ease: "sine.inOut", overwrite: "auto" }, landOn("don't have", 0.0));
+
+          tl.fromTo("#beat6-stamp", { scale: 2.4, opacity: 0, rotation: -25 }, { scale: 1, opacity: 0.92, rotation: -12, duration: 0.32, ease: "settle", overwrite: "auto" }, landOn("start later.", 0.32));
+          tl.to("#beat6-stamp", { scale: 1.04, duration: 0.12, yoyo: true, repeat: 3, ease: "power1.inOut", overwrite: "auto" }, landOn("start later.", 0) + 0.15);
+        }
+
+        // ═════════════════════════════════════════════════════════════
+        // BEAT 7 — Bust 3 (chart) (41.50 → 50.10, dur 8.60)
+        // ═════════════════════════════════════════════════════════════
+        {
+          const W = [{"w":"Wrong.","s":0.193,"e":1.793},{"w":"Bloom","s":1.86,"e":2.195},{"w":"lets","s":2.243,"e":2.435},{"w":"you","s":2.455,"e":2.515},{"w":"learn","s":2.582,"e":2.917},{"w":"and","s":2.957,"e":3.077},{"w":"invest","s":3.146,"e":3.56},{"w":"at","s":3.613,"e":3.719},{"w":"your","s":3.751,"e":3.879},{"w":"own","s":3.919,"e":4.039},{"w":"pace.","s":4.135,"e":4.599},{"w":"The","s":4.719,"e":5.079},{"w":"earlier","s":5.129,"e":5.479},{"w":"you","s":5.519,"e":5.639},{"w":"start,","s":5.719,"e":6.279},{"w":"the","s":6.299,"e":6.359},{"w":"more","s":6.423,"e":6.679},{"w":"time","s":6.743,"e":6.999},{"w":"your","s":7.031,"e":7.159},{"w":"money","s":7.212,"e":7.477},{"w":"has","s":7.537,"e":7.717},{"w":"to","s":7.744,"e":7.798},{"w":"grow.","s":7.878,"e":8.358}];
+          const { tl, landOn, landAfter } = makeBeat("beat7", 41.50, 8.60, W);
+
+          const rand = mulberry32(3133);
+          const pc = document.getElementById('beat7-particles');
+          const pctx = pc.getContext('2d');
+          const dots=[];
+          for (let i=0;i<60;i++) dots.push({x:rand()*1080, y:rand()*1920, r:0.8+rand()*1.6, vy:0.3+rand()*0.6, alpha:0.16+rand()*0.20});
+          function draw7(t){
+            pctx.clearRect(0,0,1080,1920);
+            for (const d of dots){
+              const y=(d.y+d.vy*60*t)%1920;
+              pctx.fillStyle='rgba(255,255,255,'+d.alpha+')';
+              pctx.beginPath(); pctx.arc(Math.round(d.x), Math.round(y), d.r, 0, Math.PI*2); pctx.fill();
+            }
+          }
+          const proxy={t:0};
+          tl.to(proxy,{t:8.6,duration:8.6,ease:"none",onUpdate:()=>draw7(proxy.t)},0);
+
+          tl.fromTo("#beat7-bloom-corner", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "snapIn", overwrite: "auto" }, 0.05);
+          tl.to("#beat7-bloom-corner", { scale: 1.05, duration: 1.4, yoyo: true, repeat: 3, ease: "sine.inOut", overwrite: "auto" }, 0.5);
+
+          tl.fromTo("#beat7-wrong", { x: -60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.35, ease: "snapIn", overwrite: "auto" }, landOn("Wrong.", 0.35));
+          tl.fromTo("#beat7-eyebrow", { y: -20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "snapIn", overwrite: "auto" }, landOn("your own", 0.4));
+
+          const curveLand = landAfter("earlier you start,", 0) - 41.50;
+          const curveDur = 1.2;
+          const curveStart = curveLand - curveDur;
+          tl.fromTo("#beat7-m1", { opacity: 0, scale: 0.5, transformOrigin: "80px 500px" }, { opacity: 1, scale: 1, duration: 0.3, ease: "snapIn", overwrite: "auto" }, curveStart);
+          tl.to("#beat7-curve", { strokeDashoffset: 0, duration: curveDur, ease: "snapIn", overwrite: "auto" }, curveStart);
+
+          tl.fromTo("#beat7-dot", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "snapIn", overwrite: "auto" }, curveStart);
+          tl.to("#beat7-dot", { attr: { cx: 500, cy: 380 }, duration: curveDur*0.55, ease: "snapOut", overwrite: "auto" }, curveStart);
+          tl.to("#beat7-dot", { attr: { cx: 880, cy: 80 }, duration: curveDur*0.45, ease: "snapIn", overwrite: "auto" }, curveStart + curveDur*0.55);
+
+          tl.fromTo("#beat7-m2", { opacity: 0, scale: 0.4, transformOrigin: "500px 380px" }, { opacity: 1, scale: 1, duration: 0.3, ease: "snapIn", overwrite: "auto" }, curveStart + curveDur*0.55);
+          tl.fromTo("#beat7-m3", { opacity: 0, scale: 0.4, transformOrigin: "880px 80px" }, { opacity: 1, scale: 1, duration: 0.35, ease: "snapIn", overwrite: "auto" }, curveStart + curveDur);
+          tl.to("#beat7-m3", { scale: 1.08, transformOrigin: "880px 80px", duration: 1.3, yoyo: true, repeat: 1, ease: "sine.inOut", overwrite: "auto" }, curveLand + 0.2);
+
+          tl.fromTo("#beat7-headline .badge", { y: 50, opacity: 0, scale: 0.85 }, { y: 0, opacity: 1, scale: 1, duration: 0.45, ease: "snapIn", overwrite: "auto" }, landOn("more time", 0.45));
+          tl.fromTo("#beat7-sub", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "snapIn", overwrite: "auto" }, landOn("money has to", 0.4));
+        }
+
+        // ═════════════════════════════════════════════════════════════
+        // BEAT 8 — Myth 4 (49.90 → 56.05, dur 6.15)
+        // ═════════════════════════════════════════════════════════════
+        {
+          const W = [{"w":"Myth","s":0.21,"e":1.234},{"w":"four:","s":1.314,"e":2.194},{"w":"I'll","s":2.234,"e":2.355},{"w":"lose","s":2.419,"e":2.675},{"w":"all","s":2.735,"e":2.915},{"w":"my","s":2.968,"e":3.074},{"w":"money.","s":3.141,"e":3.916},{"w":"Investing","s":3.96,"e":4.356},{"w":"is","s":4.409,"e":4.515},{"w":"super","s":4.582,"e":4.917},{"w":"risky.","s":5.01,"e":6.142}];
+          const { tl, landOn, landAfter } = makeBeat("beat8", 49.90, 6.15, W);
+
+          tl.fromTo("#beat8-eyebrow", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35, ease: "snapIn", overwrite: "auto" }, landOn("Myth four", 0.35));
+          tl.fromTo("#beat8-headline .badge", { scale: 0.7, opacity: 0, y: 40 }, { scale: 1, opacity: 1, y: 0, duration: 0.45, ease: "snapIn", overwrite: "auto" }, landOn("Myth four", 0.45));
+          tl.to("#beat8-headline .badge", { scale: 1.012, duration: 1.4, yoyo: true, repeat: 1, ease: "sine.inOut", overwrite: "auto" }, landOn("Myth four", 0) + 0.6);
+
+          const downLand = landAfter("lose all my", 0) - 49.90;
+          const downDur = 0.7;
+          tl.to("#beat8-down", { strokeDashoffset: 0, duration: downDur, ease: "snapOut", overwrite: "auto" }, downLand - downDur);
+          tl.fromTo("#beat8-arrow", { opacity: 0, scale: 0.5, transformOrigin: "770px 200px" }, { opacity: 1, scale: 1, duration: 0.25, ease: "snapIn", overwrite: "auto" }, downLand - 0.05);
+
+          tl.fromTo("#beat8-sub", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "snapIn", overwrite: "auto" }, landOn("super risky.", 0.4));
+          tl.fromTo("#beat8-stamp", { scale: 2.4, opacity: 0, rotation: -25 }, { scale: 1, opacity: 0.92, rotation: 8, duration: 0.32, ease: "settle", overwrite: "auto" }, landOn("super risky.", 0.32));
+          tl.to("#beat8-stamp", { scale: 1.04, duration: 0.12, yoyo: true, repeat: 3, ease: "power1.inOut", overwrite: "auto" }, landOn("super risky.", 0) + 0.15);
+        }
+
+        // ═════════════════════════════════════════════════════════════
+        // BEAT 9 — Bust 4 (shield) (55.85 → 62.40, dur 6.55)
+        // ═════════════════════════════════════════════════════════════
+        {
+          const W = [{"w":"Wrong.","s":0.42,"e":1.135},{"w":"You","s":1.255,"e":1.615},{"w":"can","s":1.635,"e":1.695},{"w":"always","s":1.764,"e":2.178},{"w":"choose","s":2.235,"e":2.577},{"w":"safer","s":2.644,"e":2.979},{"w":"investments,","s":3.032,"e":3.855},{"w":"and","s":3.895,"e":4.015},{"w":"Bloom","s":4.068,"e":4.333},{"w":"teaches","s":4.383,"e":4.733},{"w":"you","s":4.773,"e":4.893},{"w":"exactly","s":4.973,"e":5.533},{"w":"what","s":5.581,"e":5.773},{"w":"to","s":5.8,"e":5.854},{"w":"pick.","s":5.934,"e":6.414}];
+          const { tl, landOn, landAfter } = makeBeat("beat9", 55.85, 6.55, W);
+
+          tl.fromTo("#beat9-bloom-corner", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "snapIn", overwrite: "auto" }, 0.05);
+          tl.to("#beat9-bloom-corner", { scale: 1.05, duration: 1.3, yoyo: true, repeat: 2, ease: "sine.inOut", overwrite: "auto" }, 0.5);
+
+          tl.fromTo("#beat9-wrong", { x: -60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.35, ease: "snapIn", overwrite: "auto" }, landOn("Wrong.", 0.35));
+
+          const shieldLand = landAfter("safer investments,", 0) - 55.85;
+          const shieldDur = 0.9;
+          tl.to("#beat9-shield-bg", { opacity: 1, duration: 0.4, ease: "snapIn", overwrite: "auto" }, shieldLand - shieldDur);
+          tl.to("#beat9-shield-stroke", { strokeDashoffset: 0, duration: shieldDur, ease: "snapIn", overwrite: "auto" }, shieldLand - shieldDur);
+
+          tl.fromTo("#beat9-check", { opacity: 0, scale: 0, transformOrigin: "300px 350px" }, { opacity: 1, scale: 1, duration: 0.4, ease: "settle", overwrite: "auto" }, shieldLand);
+          tl.to("#beat9-check", { scale: 1.06, transformOrigin: "300px 350px", duration: 1.2, yoyo: true, repeat: 1, ease: "sine.inOut", overwrite: "auto" }, shieldLand + 0.5);
+
+          tl.fromTo("#beat9-headline .badge", { y: 50, opacity: 0, scale: 0.85 }, { y: 0, opacity: 1, scale: 1, duration: 0.45, ease: "snapIn", overwrite: "auto" }, landOn("safer investments,", 0.45));
+          tl.fromTo("#beat9-sub", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "snapIn", overwrite: "auto" }, landOn("Bloom teaches", 0.4));
+
+          tl.to("#beat9-shield-stroke", { strokeWidth: 18, duration: 0.18, yoyo: true, repeat: 1, ease: "snapIn", overwrite: "auto" }, landOn("what to pick.", 0));
+        }
+
+        // ═════════════════════════════════════════════════════════════
+        // BEAT 10 — CTA close (62.20 → 67.00, dur 4.80)
+        // ═════════════════════════════════════════════════════════════
+        {
+          const W = [{"w":"Stop","s":0.036,"e":0.74},{"w":"guessing.","s":0.793,"e":1.297},{"w":"Get","s":1.437,"e":1.857},{"w":"Bloom","s":1.924,"e":2.259},{"w":"and","s":2.319,"e":2.499},{"w":"start","s":2.566,"e":2.901},{"w":"investing","s":2.949,"e":3.381},{"w":"today.","s":3.461,"e":4.021}];
+          const { tl, landOn, landAfter } = makeBeat("beat10", 62.20, 4.80, W);
+
+          const rand = mulberry32(9090);
+          const pc = document.getElementById('beat10-particles');
+          const pctx = pc.getContext('2d');
+          const burstAtRel = landAfter("today.", 0) - 62.20;
+          const sparks = [];
+          for (let i=0;i<70;i++){
+            const ang=rand()*Math.PI*2, sp=240+rand()*460;
+            sparks.push({x:540, y:760, vx:Math.cos(ang)*sp, vy:Math.sin(ang)*sp, life:0.9+rand()*0.7, hue: rand()<0.4?'rgba(239,196,44,':'rgba(255,255,255,'});
+          }
+          const dots=[];
+          for (let i=0;i<70;i++) dots.push({x:rand()*1080, y:rand()*1920, r:0.8+rand()*1.6, vy:0.3+rand()*0.6, alpha:0.16+rand()*0.20});
+          function draw10(t){
+            pctx.clearRect(0,0,1080,1920);
+            for (const d of dots){
+              const y=(d.y+d.vy*60*t)%1920;
+              pctx.fillStyle='rgba(255,255,255,'+d.alpha+')';
+              pctx.beginPath(); pctx.arc(Math.round(d.x), Math.round(y), d.r, 0, Math.PI*2); pctx.fill();
+            }
+            const dt = t - burstAtRel;
+            if (dt >= 0 && dt < 1.6) {
+              for (const s of sparks){
+                if (dt > s.life) continue;
+                const x = s.x + s.vx*dt, y = s.y + s.vy*dt + 200*dt*dt;
+                const a = (1 - dt/s.life) * 0.9;
+                pctx.fillStyle = s.hue + a + ')';
+                pctx.beginPath(); pctx.arc(Math.round(x), Math.round(y), 6, 0, Math.PI*2); pctx.fill();
+              }
+            }
+          }
+          const proxy={t:0};
+          tl.to(proxy,{t:4.8,duration:4.8,ease:"none",onUpdate:()=>draw10(proxy.t)},0);
+
+          tl.fromTo("#beat10-star", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "snapIn", overwrite: "auto" }, 0);
+          tl.fromTo("#beat10-star", { rotation: 0, transformOrigin: "50% 50%" }, { rotation: 90, transformOrigin: "50% 50%", duration: 4.8, ease: "sine.inOut", overwrite: "auto" }, 0);
+
+          tl.fromTo("#beat10-logo", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.55, ease: "settle", overwrite: "auto" }, landOn("Stop guessing.", 0.55));
+          tl.to("#beat10-logo", { scale: 1.05, duration: 1.2, yoyo: true, repeat: 1, ease: "sine.inOut", overwrite: "auto" }, landOn("Stop guessing.", 0) + 0.6);
+
+          tl.fromTo("#beat10-pill", { y: 60, opacity: 0, scale: 0.85 }, { y: 0, opacity: 1, scale: 1, duration: 0.45, ease: "settle", overwrite: "auto" }, landOn("Get Bloom", 0.45));
+          tl.to("#beat10-pill", { scale: 1.04, duration: 0.9, yoyo: true, repeat: 1, ease: "sine.inOut", overwrite: "auto" }, landOn("Get Bloom", 0) + 0.5);
+
+          tl.fromTo("#beat10-tagline", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "snapIn", overwrite: "auto" }, landOn("start investing", 0.4));
+          tl.to("#beat10-logo", { scale: 1.1, duration: 0.18, yoyo: true, repeat: 1, ease: "snapIn", overwrite: "auto" }, landAfter("today.", 0.18));
+        }
+      })();
+    </script>
+  </body>
+</html>

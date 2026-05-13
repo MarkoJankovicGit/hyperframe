@@ -1,18 +1,62 @@
 # Step 4 — Write the Storyboard
 
 Per-beat creative direction with real timings. Save as `videos/bloom-<slug>/STORYBOARD.md`.
-MANDATORY: Read references/composition-rules.md.
-HARD GATE: Validate the sequence against the 15 Rules (e.g., no consecutive same-bg, no emojis).
+
+**MANDATORY pre-reads:**
+- [compositions-library.md](compositions-library.md) — pick or invent a composition per beat
+- [editorial-baseline.md](editorial-baseline.md) — process rules that apply to every beat
+- [composition-rules.md](composition-rules.md) — sequence-level rules (no consecutive same-bg, etc.)
+
+HARD GATE: Validate the sequence against the rules in composition-rules.md AND the no-verbatim-repetition rule in editorial-baseline.md.
+
 ## Inputs
 
 - `SCRIPT.md` (from Step 2) — the assembled beat list with names + VO lines + bg colors
 - `transcript.json` (from Step 3) — word-level timestamps
-- [beat-library.md](beat-library.md) — visual scaffolds for each beat type
-- [composition-rules.md](composition-rules.md) — already validated in Step 2; reconfirm if you tweak timing
-- [techniques.md](techniques.md) — 11 visual techniques with code patterns. **Pick 2-3 per beat** and name them in the beat block (Step 6 sub-agents will read those names and follow the patterns)
+- [beat-library.md](beat-library.md) — beat TYPES (Hook / Concept / Stat-reveal / etc.)
+- [compositions-library.md](compositions-library.md) — beat COMPOSITIONS (specific visual treatments — `hero-stat`, `convo-cascade`, `growth-curve`, etc.)
+- [editorial-baseline.md](editorial-baseline.md) — process-level rules (grain, no `#FFF`/`#000`, camera drift, no overshoot, no glows, etc.)
+- [composition-rules.md](composition-rules.md) — sequence-level rules
+- [techniques.md](techniques.md) — 11 generic visual techniques (path-draw, kinetic typo, etc.) — pick 2-3 per beat as building blocks
 - [DESIGN.md](../DESIGN.md) — brand cheat sheet
 
-> **Output reminder:** every beat in this storyboard becomes its own file at `compositions/beat-<N>-<short-name>.html` in Step 6 (one fresh sub-agent per beat). Pick a `<short-name>` for each beat now (e.g. `hook`, `myth1`, `bust1`, `cta`) — Step 6 needs them.
+## Composition selection — the evolution mechanism
+
+For each beat in the storyboard, you MUST do one of two things:
+
+### Path A — use an EXISTING composition
+1. Scan [compositions-library.md](compositions-library.md).
+2. Find an entry whose "When to use" matches this beat's moment.
+3. Note its `name` (e.g. `hero-stat`, `convo-cascade`) in the beat block's **Composition** field.
+4. Reskin per topic (different copy, different supporting elements) — but keep the layout zones, choreography pattern, and CSS notes from the library entry.
+
+### Path B — INVENT a new composition
+If nothing in the library fits the beat's moment, invent. Do NOT force a bad fit.
+
+1. Write a one-sentence visual hypothesis ("iPhone lock-screen with three notification banners stacked, each from a different source of bad advice").
+2. Generate a visual reference via Higgsfield gpt_image_2:
+   ```
+   mcp__higgsfield__generate_image({
+     model: "gpt_image_2",
+     aspect_ratio: "9:16",
+     resolution: "1k",
+     quality: "low",
+     prompt: "Vertical 1080x1920 frame for a short-form Bloom in-app educational video.
+       Scene: <one-sentence>. Aesthetic: clean, designed, in-app polish — Bloom blue
+       #1658FF accent, warm cream surfaces, near-black ink, subtle paper grain.
+       Editorial Inter Tight italic 700 typography. No glow on type. No status pills.
+       No SaaS feature-card grids. Mood: trusted-older-sibling, confident."
+   })
+   ```
+3. Use the returned image as a **visual reference** (not a final asset). In the beat block, mark the **Composition** field as `INVENT: <provisional-name>` and link to the generated image.
+4. In Step 6, translate the layout to native HTML/CSS/SVG/GSAP.
+5. **After the lesson ships, document the new composition** back into [compositions-library.md](compositions-library.md) using the entry template at the top of that file. The library grows by ≥1 entry per lesson when invention is needed.
+
+### No verbatim composition repetition
+
+After picking compositions for all beats, audit the storyboard. If two beats use the same composition AND the same gestalt (same hero element in the same screen position), redesign one. Reskinning the same composition for two different beats is fine when the gestalt visibly differs (different palette, different supporting layout, different framing) — verbatim re-use is not.
+
+> **Output reminder:** the lesson is built as a SINGLE `index.html` (no `compositions/` folder). Pick a `<short-name>` per beat anyway (e.g. `hook`, `myth1`, `bust1`, `cta`) — Step 6 uses it as the `<div id="beatN">` suffix and as the `makeBeat` id.
 
 ## Format
 
@@ -28,8 +72,8 @@ HARD GATE: Validate the sequence against the 15 Rules (e.g., no consecutive same
 ## Asset inventory
 - `bloom-logo.png`
 - `logos/<TICKERS>.png` — list which logos are used
-- `generated-assets/<files>.png` — list any Kie-generated assets
-- `kie skill` - generate any needed assets missing from our asset library
+- `generated-assets/<files>.png` — list any Higgsfield-generated assets
+- `mcp__higgsfield__generate_image` — generate any needed assets missing from our asset library
 
 ## Beat plan (real timings from transcript)
 
@@ -83,10 +127,10 @@ Here is an example but dont be biased by it.
 | `bloom-logo.png` | Brand mark | Beat 1 + Beat N (last) | Opener corner-mark + close-out hero |
 | `logos/AAPL.png` | Stock logo | Beat 5 (Brand-reveal) | Slot 1 fill, dark `#1C2329` orb |
 | `logos/NFLX.png` | Stock logo | Beat 5 (Brand-reveal) | Slot 4 fill |
-| `generated-assets/piggy-bank.png` | Kie 3D-lite | Beat 3 (Reframe) | Hero illustration, idle yoyo rotation |
-| `generated-assets/broken-piggy.png` | Kie 3D-lite | Beat 2 (Myth) | Problem-state hero, replaced by piggy-bank visually rhyming in Beat 3 |
-| `generated-assets/iphone-bloom.png` | Kie i2i | Beat 6 (Payoff) | Bloom UI proof |
-| `generated-assets/tiny-icon.png` | Kie cutout | SKIP | Doesn't add value, would clutter |
+| `generated-assets/piggy-bank.png` | Higgsfield 3D-lite | Beat 3 (Reframe) | Hero illustration, idle yoyo rotation |
+| `generated-assets/broken-piggy.png` | Higgsfield 3D-lite | Beat 2 (Myth) | Problem-state hero, replaced by piggy-bank visually rhyming in Beat 3 |
+| `generated-assets/iphone-bloom.png` | Higgsfield i2i | Beat 6 (Payoff) | Bloom UI proof |
+| `generated-assets/tiny-icon.png` | Higgsfield cutout | SKIP | Doesn't add value, would clutter |
 
 **Minimum utilization rules**:
 - **`bloom-logo.png` MUST appear in the FIRST and LAST beats** — opener and close-out
@@ -112,7 +156,8 @@ For each beat, fill in this template using the matching scaffold from [beat-libr
 
 **Mood anchor:** <cultural reference — e.g. "Apple keynote stat-reveal", "iMessage thread", "vintage textbook chart">
 
-**Sub-comp file:** `compositions/beat-<N>-<short-name>.html`
+**Composition (from [compositions-library.md](compositions-library.md)):** `<library-name>` (e.g. `hero-stat`, `convo-cascade`, `growth-curve`) **OR** `INVENT: <provisional-name>` with link to Higgsfield reference image
+**Beat short-name:** `<short-name>` (e.g. `hook`, `myth1`, `bust1`, `cta`) — used as `#beat<N>-<shortname>` selector prefix in Step 6
 **Techniques used (from [techniques.md](techniques.md)):** e.g. "#2 Canvas 2D ticker tape + #4 per-word kinetic typography"
 
 **Layers:**

@@ -1,4 +1,41 @@
 .env
 node_modules/
+
+# Renders / large media output
 renders/
+**/renders/
 assets/voiceover/
+
+# Video files
+*.mp4
+*.mov
+*.webm
+*.mkv
+*.avi
+
+# Audio files (large)
+*.wav
+*.flac
+*.aiff
+
+# 3D models / textures (often large)
+*.glb
+*.gltf
+*.fbx
+*.obj
+*.usdz
+*.hdr
+*.exr
+
+# Image source files (large)
+*.psd
+*.ai
+*.tiff
+
+# Archives
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+*.rar

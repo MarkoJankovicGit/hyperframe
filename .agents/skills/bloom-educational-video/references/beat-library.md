@@ -104,7 +104,7 @@ A library of discrete beat types. Each Bloom lesson assembles 4-13 beats from th
 - "Bloom can / Bloom shows / Bloom does"
 - Brand reveal followed by "you can [verb] all of them"
 **Bg:** `#1658FF` Bloom blue
-**Scaffold:** 3D iPhone (Kie i2i + chroma-key) showing the Bloom UI with the relevant content (portfolio, chart, lesson plan, dividend calendar, etc.) + soft green radial glow + black CTA pill at bottom ("INVEST ON BLOOM" / "SEE IT ON BLOOM")
+**Scaffold:** 3D iPhone (Higgsfield i2i + chroma-key) showing the Bloom UI with the relevant content (portfolio, chart, lesson plan, dividend calendar, etc.) + soft green radial glow + black CTA pill at bottom ("INVEST ON BLOOM" / "SEE IT ON BLOOM")
 **Duration:** 3-5s
 **Asset:** Generate via Step 5 with i2i, OR build the iPhone UI in HTML/CSS over a captured Bloom phone-frame PNG.
 

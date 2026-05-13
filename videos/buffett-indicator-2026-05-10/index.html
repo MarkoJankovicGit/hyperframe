@@ -1,0 +1,2120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1080, height=1920" />
+  <title>Buffett Indicator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Inter:wght@400;700&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/SplitText.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/CustomEase.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --accent:     #1658FF;   /* Bloom blue */
+      --accent-dk:  #0F47CC;
+      --accent-soft: rgba(22,88,255,0.18);
+      --ink:        #0e0905;
+      --ink-mute:   #6B6B68;
+      --bg-dark:    #0F0F0F;   /* near-black, never pure #000 */
+      --bg-dark-2:  #14110d;
+      --paper:      #ebe5d2;
+      --paper-warm: #f0e5b8;
+    }
+    html, body {
+      width: 1080px; height: 1920px; overflow: hidden;
+      background: var(--bg-dark);
+      font-family: "Inter", system-ui, sans-serif;
+      color: #fff;
+    }
+
+    #root {
+      position: relative;
+      width: 1080px; height: 1920px;
+      overflow: hidden;
+    }
+
+    .scene {
+      position: absolute; inset: 0;
+      width: 1080px; height: 1920px;
+      overflow: hidden;
+      opacity: 0;
+      visibility: hidden;
+    }
+    #scene1 { opacity: 1; visibility: visible; }
+
+    .scene-content {
+      position: absolute; inset: 0;
+      padding: 80px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      box-sizing: border-box;
+      background: var(--bg-dark);
+    }
+
+    /* Per-scene palette undertones (warmer near-black, never pure #000) */
+    #scene1  .scene-content { background: linear-gradient(180deg, #14141c 0%, #0F0F0F 60%); }
+    #scene2  .scene-content { background: #0F0F0F; }
+    #scene3  .scene-content { background: linear-gradient(180deg, #10141c 0%, #0F0F0F 65%); }
+    #scene4  .scene-content { background: linear-gradient(180deg, #131210 0%, #0F0F0F 65%); }
+    #scene5  .scene-content {
+      background:
+        repeating-linear-gradient(180deg, transparent 0, transparent 79px, rgba(26,18,8,0.04) 79px, rgba(26,18,8,0.04) 80px),
+        #FFF1E5;
+    }
+    #scene6  .scene-content { background: linear-gradient(180deg, #0a1426 0%, #0F0F0F 65%); }
+    #scene7  .scene-content { background: #0F0F0F; overflow: hidden; }
+    #scene8  .scene-content { background: #0F0F0F; overflow: hidden; }
+    #_scene9_legacy_unused {
+      background:
+        repeating-linear-gradient(180deg, transparent 0, transparent 79px, rgba(26,18,8,0.06) 79px, rgba(26,18,8,0.06) 80px),
+        #f0e5b8;
+      overflow: hidden;
+    }
+    #scene10 .scene-content { background: linear-gradient(180deg, #0a1230 0%, #0F0F0F 65%); }
+
+    /* Tabular numerals on every number — prevents horizontal jitter
+       as digits change width during counter animations. Editorial baseline. */
+    .s3-value,
+    #s5-price,
+    .s6-bar-amount,
+    #s6-payoff,
+    #s6-history .s6-stat-value,
+    .s7-stat {
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: "tnum" 1;
+    }
+
+    /* ============================================================
+       GRAIN OVERLAY — every composition (Law #9)
+       feTurbulence SVG, soft-light blend, top of stack but ignores
+       pointer events. Track index 40 in DOM order.
+       ============================================================ */
+    #grain {
+      position: absolute; inset: 0;
+      pointer-events: none;
+      opacity: 0.16;
+      mix-blend-mode: soft-light;
+      z-index: 9999;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    }
+
+    /* Hide the small top-of-frame mono caps eyebrow titles across all scenes.
+       Kept in DOM so SplitText/chars() calls don't error; just visually suppressed. */
+    #s1-eyebrow, #s5-eyebrow, #s6-eyebrow, #s8-eyebrow { display: none !important; }
+
+    /* ============================================================
+       SCENE 1 — Buffett portrait + headline
+       ============================================================ */
+    #s1-portrait {
+      position: absolute;
+      left: 50%; top: 0;
+      transform: translateX(-50%);
+      width: 1080px; height: 1280px;
+      object-fit: cover; object-position: center top;
+      filter: grayscale(1) contrast(1.05);
+      opacity: 0;
+      mask-image: linear-gradient(180deg, #000 0%, #000 70%, transparent 100%);
+      -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 70%, transparent 100%);
+    }
+    #s1-vignette {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at center 35%, transparent 30%, rgba(0,0,0,0.55) 75%, #000 100%);
+      opacity: 0;
+      pointer-events: none;
+    }
+    #s1-stack {
+      position: absolute;
+      left: 80px; right: 80px; bottom: 220px;
+      text-align: left;
+    }
+    #s1-eyebrow {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 700; font-size: 26px;
+      letter-spacing: 0.22em;
+      color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      opacity: 0;
+    }
+    #s1-line1, #s1-line2 {
+      font-family: "Inter", system-ui;
+      font-weight: 700;
+      letter-spacing: -0.018em;
+      line-height: 0.95;
+      text-transform: uppercase;
+      color: #fff;
+    }
+    #s1-line1 { font-size: 100px; }
+    #s1-line2 { font-size: 130px; margin-top: 6px; }
+
+    /* ============================================================
+       SCENE 2 — Title card (text-only)
+       ============================================================ */
+    .s2-stack {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+    }
+    #s2-eyebrow {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 700; font-size: 30px;
+      letter-spacing: 0.30em;
+      color: rgba(255,255,255,0.50);
+      text-transform: uppercase;
+      margin-bottom: 64px;
+      opacity: 0;
+    }
+    #s2-the {
+      font-family: "Inter", system-ui;
+      font-weight: 700; font-size: 84px;
+      letter-spacing: -0.02em;
+      line-height: 0.95;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    #s2-buffett, #s2-indicator {
+      font-family: "Inter", system-ui;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 0.92;
+      color: #fff;
+      text-transform: uppercase;
+    }
+    #s2-buffett   { font-size: 180px; }
+    #s2-indicator { font-size: 180px; margin-top: 4px; position: relative; display: inline-block; padding-bottom: 14px; }
+    #s2-marker {
+      position: absolute;
+      left: 4px; right: 4px;
+      bottom: 0;
+      height: 14px;
+      background: #1658FF;
+      transform-origin: left center;
+      transform: scaleX(0);
+      pointer-events: none;
+    }
+
+    /* ============================================================
+       SCENE 3 — Market Cap / GDP fraction
+       ============================================================ */
+    .s3-stack {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 36px; text-align: center;
+    }
+    .s3-row { width: 880px; text-align: center; }
+    .s3-label {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 700; font-size: 30px;
+      letter-spacing: 0.22em;
+      color: rgba(255,255,255,0.65);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      opacity: 0;
+    }
+    .s3-value {
+      font-family: "Inter", system-ui;
+      font-weight: 700; font-size: 168px;
+      letter-spacing: -0.03em;
+      line-height: 0.95;
+      color: #fff;
+      opacity: 0;
+    }
+    #s3-bar {
+      width: 720px; height: 4px;
+      background: #fff;
+      transform-origin: left;
+      transform: scaleX(0);
+      margin: 8px 0;
+    }
+    #s3-eq-row {
+      display: flex; align-items: center; gap: 28px;
+      margin-top: 36px;
+      opacity: 0;
+    }
+    #s3-equals {
+      font-family: "Inter", system-ui;
+      font-weight: 700; font-size: 72px;
+      color: #1658FF;
+    }
+    #s3-name {
+      font-family: "Inter", system-ui;
+      font-weight: 700; font-size: 64px;
+      letter-spacing: -0.018em;
+      color: #1658FF;
+      text-transform: uppercase;
+    }
+
+    /* ============================================================
+       SCENE 4 — Pull-quote
+       ============================================================ */
+    .s4-stack {
+      position: absolute;
+      left: 100px; right: 100px;
+      top: 50%;
+      transform: translateY(-50%);
+      text-align: left;
+    }
+    #s4-eyebrow {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 700; font-size: 26px;
+      letter-spacing: 0.22em;
+      color: rgba(255,255,255,0.50);
+      text-transform: uppercase;
+      margin-bottom: 32px;
+      opacity: 0;
+    }
+    #s4-openquote {
+      font-family: "Playfair Display", serif;
+      font-weight: 700; font-size: 220px;
+      line-height: 0.7;
+      color: #fff;
+      margin-bottom: -40px;
+      opacity: 0;
+    }
+    #s4-body {
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-weight: 700;
+      font-size: 80px;
+      line-height: 1.06;
+      color: #fff;
+      letter-spacing: -0.005em;
+    }
+    #s4-attr {
+      display: flex; align-items: center; gap: 22px;
+      margin-top: 56px;
+      opacity: 0;
+    }
+    #s4-thumb {
+      width: 92px; height: 92px;
+      border-radius: 50%;
+      object-fit: cover; object-position: 50% 30%;
+      filter: grayscale(1) contrast(1.05);
+    }
+    #s4-attr-text {
+      font-family: "Inter", system-ui;
+      font-weight: 700; font-size: 32px;
+      letter-spacing: 0.02em;
+      color: #fff;
+      text-transform: uppercase;
+    }
+    #s4-attr-sub {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 700; font-size: 20px;
+      letter-spacing: 0.20em;
+      color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+
+    /* ============================================================
+       SCENE 5 — Editorial chart (Bloomberg style)
+       Full-bleed cream ground, no card chrome, no pills, no chips.
+       The chart line is the composition.
+       ============================================================ */
+    #s5-eyebrow {
+      position: absolute;
+      left: 80px; right: 80px;
+      top: 130px;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 700; font-size: 32px;
+      letter-spacing: 0.22em;
+      color: var(--accent-dk);
+      text-transform: uppercase;
+      text-align: left;
+      z-index: 2;
+    }
+    /* #s5-card kept as a transparent layout stage (JS still references it). */
+    #s5-card {
+      position: absolute;
+      left: 80px; right: 80px;
+      top: 200px; bottom: 100px;
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+      padding: 0;
+      box-shadow: none;
+      box-sizing: border-box;
+      display: flex; flex-direction: column;
+      font-family: "Inter", system-ui;
+      color: var(--ink);
+      opacity: 0;
+    }
+    /* Hide retired ticker/exchange/expand/ranges/stats/bottom UI in DOM */
+    #s5-card .s5-header,
+    #s5-card .s5-expand,
+    #s5-card .s5-ranges,
+    #s5-card .s5-stats,
+    #s5-card .s5-bottom { display: none !important; }
+
+    /* Big tabular-num price */
+    #s5-card .s5-price-row {
+      display: flex; align-items: flex-start;
+      margin-top: 0;
+    }
+    #s5-card .s5-price {
+      font-family: "Inter", system-ui;
+      font-weight: 700;
+      font-size: 280px;
+      color: var(--ink);
+      letter-spacing: -0.045em;
+      line-height: 0.9;
+    }
+    /* delta row — small editorial caption under the price */
+    #s5-card .s5-delta {
+      margin-top: 24px;
+      display: flex; align-items: center; gap: 16px;
+      font-size: 34px; font-weight: 700;
+      opacity: 0;
+    }
+    #s5-card .s5-delta-arrow {
+      width: 0; height: 0;
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-bottom: 18px solid var(--accent);
+    }
+    #s5-card .s5-delta-val {
+      color: var(--accent-dk);
+      font-family: "Inter", system-ui;
+      letter-spacing: -0.005em;
+    }
+    #s5-card .s5-delta-period {
+      color: rgba(14,9,5,0.55);
+      font-weight: 400;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 28px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    /* chart fills remaining vertical space, full-bleed */
+    #s5-card .s5-chart-wrap {
+      position: relative;
+      margin-top: 64px;
+      flex: 1;
+      min-height: 720px;
+    }
+    #s5-card .s5-chart {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      overflow: visible;
+    }
+    #s5-card .s5-chart-line {
+      fill: none;
+      stroke: var(--accent);
+      stroke-width: 8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    #s5-card .s5-chart-area { opacity: 0; }
+    #s5-card .s5-chart-dot {
+      fill: var(--accent);
+      opacity: 0;
+    }
+    #s5-card .s5-chart-axis {
+      position: absolute;
+      left: 0; right: 0;
+      bottom: 0;
+      height: 0;
+      border-bottom: 2px solid rgba(14,9,5,0.45);
+      opacity: 0;
+    }
+
+    /* source citation — small, mono, bottom-left */
+    #s5-source {
+      position: absolute;
+      left: 80px; right: 80px;
+      bottom: 60px;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 400;
+      font-size: 22px;
+      letter-spacing: 0.18em;
+      color: rgba(14,9,5,0.55);
+      text-transform: uppercase;
+      text-align: left;
+      z-index: 2;
+      opacity: 0;
+    }
+
+    /* payoff overlay (slams over the dimmed chart on "Seven years of nothing") */
+    #s5-payoff {
+      position: absolute;
+      left: 80px; right: 80px;
+      top: 50%;
+      transform: translateY(-50%);
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 5;
+    }
+    #s5-payoff-1 {
+      font-family: "Inter", system-ui;
+      font-weight: 700; font-size: 180px;
+      letter-spacing: -0.035em;
+      line-height: 0.92;
+      color: var(--ink);
+      text-transform: uppercase;
+    }
+    #s5-payoff-2 {
+      font-family: "Inter", system-ui;
+      font-weight: 700; font-size: 180px;
+      letter-spacing: -0.035em;
+      line-height: 0.92;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    /* ============================================================
+       SCENE 6 — 209% payoff (stronger / danger-zone framing)
+       ============================================================ */
+    #s6-eyebrow {
+      position: absolute;
+      left: 80px; right: 80px;
+      top: 110px;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 700; font-size: 26px;
+      letter-spacing: 0.32em;
+      color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+      text-align: center;
+    }
+    /* Each beat is independently absolute-positioned at viewport center.
+       Beats overlap in space; visibility is controlled by container opacity.
+       This ensures a faded-out beat does NOT take layout space and push
+       the next beat off-center. */
+    .s6-beat {
+      position: absolute;
+      left: 80px; right: 80px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex; flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    #s6-setup {
+      font-family: "Inter", system-ui;
+      font-weight: 700; font-size: 92px;
+      letter-spacing: -0.025em;
+      line-height: 0.95;
+      color: #fff;
+      text-transform: uppercase;
+      text-align: center;
+    }
+    #s6-bars {
+      width: 920px;
+      display: flex; flex-direction: column; gap: 26px;
+    }
+    .s6-bar-row { display: grid; grid-template-columns: 240px 1fr 180px; align-items: center; gap: 22px; }
+    .s6-bar-label {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 700; font-size: 26px;
+      letter-spacing: 0.20em;
+      color: rgba(255,255,255,0.75);
+      text-transform: uppercase;
+      text-align: right;
+      opacity: 0;
+    }
+    .s6-bar-track {
+      height: 36px; border-radius: 6px;
+      background: rgba(255,255,255,0.06);
+      position: relative; overflow: hidden;
+    }
+    .s6-bar-fill {
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 100%;
+      transform-origin: left;
+      transform: scaleX(0);
+      border-radius: 6px;
+    }
+    .s6-bar-amount {
+      font-family: "Inter Tight", "Inter", system-ui;
+      font-weight: 700; font-style: italic;
+      font-size: 40px;
+      color: #fff;
+      letter-spacing: -0.02em;
+      text-align: left;
+      opacity: 0;
+    }
+    #s6-bar-mc { background: #1658FF; }
+    #s6-bar-gdp { background: rgba(255,255,255,0.85); }
+    /* hero payoff stack (now flowed inside #s6-beat-3, no longer absolutely positioned) */
+    #s6-payoff-wrap {
+      display: flex; flex-direction: column;
+      align-items: center;
+    }
+    #s6-payoff {
+      font-family: "Inter", system-ui;
+      font-style: normal;
+      font-weight: 700; font-size: 280px;
+      letter-spacing: -0.04em;
+      line-height: 0.92;
+      color: #1658FF;
+      opacity: 0;
+    }
+    #s6-payoff-sub {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 700; font-size: 32px;
+      letter-spacing: 0.32em;
+      color: rgba(255,255,255,0.65);
+      text-transform: uppercase;
+      margin-top: -24px;
+      opacity: 0;
+    }
+    #s6-danger {
+      margin-top: 32px;
+      display: inline-flex; align-items: center; gap: 14px;
+      background: rgba(220,38,38,0.16);
+      border: 1.5px solid rgba(220,38,38,0.55);
+      border-radius: 999px;
+      padding: 14px 28px;
+      font-family: "Inter Tight", "Inter", system-ui;
+      font-weight: 700; font-style: italic;
+      font-size: 32px;
+      color: #FCA5A5;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0;
+    }
+    #s6-danger::before {
+      content: "";
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: #DC2626;
+      box-shadow: 0 0 0 6px rgba(220,38,38,0.18);
+    }
+    /* historical comparison row (flows inside #s6-beat-3 beneath the payoff) */
+    #s6-history {
+      margin-top: 64px;
+      display: flex; justify-content: center; gap: 60px;
+      opacity: 0;
+    }
+    #s6-history .s6-stat-label {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 700; font-size: 34px;
+      letter-spacing: 0.16em;
+      color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+      text-align: center;
+    }
+    #s6-history .s6-stat-value {
+      margin-top: 18px;
+      font-family: "Inter Tight", "Inter", system-ui;
+      font-weight: 700; font-style: italic;
+      font-size: 88px;
+      color: #fff;
+      letter-spacing: -0.022em;
+      text-align: center;
+    }
+    #s6-history .s6-stat-value.danger { color: var(--accent); }
+    #s6-source {
+      position: absolute; left: 80px; right: 80px; bottom: 110px;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 700; font-size: 18px;
+      letter-spacing: 0.22em;
+      color: rgba(255,255,255,0.40);
+      text-transform: uppercase;
+      text-align: center;
+      opacity: 0;
+    }
+
+    /* ============================================================
+       SCENE 7 — Vox vertical timeline (cream paper)
+       ============================================================ */
+    /* Legacy timeline elements (rail, dots, scrim, masthead) — neutralized.
+       Scene 7 is now a forward-10Y bar chart. */
+    #s7-paper, #s7-masthead, #s7-footer, #s7-rail, .s7-dot,
+    #s7-strip-clip, #s7-strip, #s7-scrim-top, #s7-scrim-bot { display: none !important; }
+
+    /* Scene 7 — emergency pure-typography composition (scene-1 energy).
+       Chart dropped. Just a bold statement filling the canvas. */
+    #s7-kicker {
+      position: absolute;
+      left: 80px; right: 80px;
+      top: 220px;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 700; font-size: 36px;
+      letter-spacing: 0.22em;
+      color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+      text-align: left;
+      z-index: 2;
+    }
+    #s7-hero {
+      position: absolute;
+      left: 80px; right: 80px;
+      top: 50%; transform: translateY(-50%);
+      z-index: 2;
+    }
+    #s7-hero-line1, #s7-hero-line2, #s7-hero-line3 {
+      font-family: "Inter", system-ui;
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      line-height: 0.92;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      text-align: left;
+    }
+    #s7-hero-line1 { font-size: 160px; }
+    #s7-hero-line2 { font-size: 160px; margin-top: 4px; }
+    #s7-hero-line3 { font-size: 160px; margin-top: 4px; }
+    #s7-hero-neg { color: #DC2626; }
+    #s7-masthead {
+      position: absolute;
+      left: 80px; right: 80px;
+      top: 100px;
+      text-align: center;
+      z-index: 7;
+    }
+    #s7-masthead-text {
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-weight: 700;
+      font-size: 32px;
+      color: #F3EFE0;
+      letter-spacing: 0.04em;
+    }
+    #s7-rule {
+      width: 240px; height: 1.5px;
+      background: rgba(243,239,224,0.30);
+      margin: 22px auto 0;
+      transform-origin: center;
+      transform: scaleX(0);
+    }
+    #s7-strip-clip {
+      position: absolute;
+      left: 0; right: 0;
+      top: 280px; bottom: 220px;
+      overflow: hidden;
+      z-index: 4;
+    }
+    #s7-strip {
+      position: absolute;
+      left: 0; right: 0;
+      top: 0;
+    }
+    #s7-rail {
+      position: absolute;
+      left: 100px; top: 0;
+      width: 1.5px; height: 4200px;
+      background: rgba(243,239,224,0.20);
+    }
+    .s7-event {
+      position: absolute;
+      left: 0; right: 0;
+      transform: translateY(-50%);
+    }
+    .s7-dot {
+      position: absolute;
+      left: 88px;
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: transparent;
+      border: 2px solid rgba(243,239,224,0.45);
+      transform: translateY(-50%);
+      top: 50%;
+      transition: none;
+    }
+    .s7-event.active .s7-dot {
+      background: #F3EFE0;
+      border-color: #F3EFE0;
+    }
+    .s7-event.payoff.active .s7-dot {
+      background: #1658FF;
+      border-color: #1658FF;
+      box-shadow: 0 0 0 8px rgba(22,88,255,0.22);
+    }
+    .s7-event-content {
+      margin-left: 180px;
+      max-width: 760px;
+    }
+    .s7-date {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 700; font-size: 32px;
+      letter-spacing: 0.18em;
+      color: rgba(255,255,255,0.45);
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .s7-headline {
+      font-family: "Inter", system-ui;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 120px;
+      line-height: 0.92;
+      color: #FFFFFF;
+      letter-spacing: -0.025em;
+      text-transform: uppercase;
+    }
+    .s7-stat { display: none !important; }
+    .s7-event.payoff .s7-date { color: #1658FF; }
+    .s7-event.payoff .s7-headline { color: #FFFFFF; }
+    .s7-event.payoff .s7-stat { color: rgba(255,255,255,0.65); }
+    /* event content shifts left now that rail+dot are removed */
+    .s7-event-content {
+      margin-left: 80px !important;
+    }
+    #s7-scrim-top {
+      position: absolute; left: 0; right: 0; top: 0; height: 360px;
+      background: linear-gradient(180deg, #0F0F0F 0%, #0F0F0F 35%, rgba(15,15,15,0.85) 60%, transparent 100%);
+      z-index: 6; pointer-events: none;
+    }
+    #s7-scrim-bot {
+      position: absolute; left: 0; right: 0; bottom: 0; height: 240px;
+      background: linear-gradient(0deg, #0F0F0F 0%, rgba(15,15,15,0.80) 60%, transparent 100%);
+      z-index: 6; pointer-events: none;
+    }
+    #s7-footer {
+      position: absolute;
+      left: 80px; right: 80px;
+      bottom: 100px;
+      text-align: center;
+      z-index: 7;
+    }
+    #s7-footer-text {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 700; font-size: 20px;
+      letter-spacing: 0.30em;
+      color: rgba(243,239,224,0.40);
+      text-transform: uppercase;
+    }
+
+    /* ============================================================
+       SCENE 8 — Newsprint clipping (Vox-style editorial pivot)
+       Cream paper canvas + serif headline + green highlighter swipe
+       + date pill + masthead. Strong tonal pivot from dark scenes.
+       ============================================================ */
+    /* halftone newsprint texture — REPLACED by gradient orb */
+    #s8-halftone {
+      display: none;
+      position: absolute;
+      left: -300px; bottom: -200px;
+      width: 1200px; height: 1200px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 60% 60%, #1658FF 0%, #3a1f7a 45%, transparent 72%);
+      filter: blur(80px);
+      opacity: 0.45;
+      pointer-events: none;
+      mask-image: none;
+      -webkit-mask-image: none;
+      background-size: auto;
+      z-index: 0;
+    }
+    #s8-halftone::after {
+      content: "";
+      position: absolute; inset: 0;
+      border-radius: 50%;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/></svg>");
+      mix-blend-mode: overlay;
+      opacity: 0.7;
+    }
+    /* date pill — REPLACED by mono uppercase eyebrow (no pill, no rotation) */
+    #s8-date-pill { display: none !important; }
+    #s8-masthead-wrap { display: none !important; }
+    #s8-old-date-pill-unused {
+      position: absolute;
+      left: 90px; top: 170px;
+      background: transparent;
+      color: rgba(243,239,224,0.55);
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 700;
+      font-size: 28px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      padding: 0;
+      border-radius: 0;
+      transform: none;
+      box-shadow: none;
+      opacity: 0;
+      z-index: 2;
+    }
+    #s8-headline-stack {
+      position: absolute;
+      left: 90px; right: 90px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .s8-h-line {
+      font-family: "Inter", system-ui;
+      font-weight: 700;
+      color: #FFFFFF;
+      font-size: 132px;
+      line-height: 0.95;
+      letter-spacing: -0.018em;
+      text-transform: uppercase;
+      text-align: left;
+      position: relative;
+      z-index: 2;
+    }
+    .s8-h-line.line2 { margin-top: 6px; }
+    .s8-h-highlight-wrap {
+      position: relative;
+      display: inline-block;
+      white-space: nowrap;
+      padding: 0 10px;
+    }
+    /* Hard-edged Bloom-blue block highlight (no rotation, no rounded corners).
+       Wipes in left → right via clip-path. */
+    #s8-highlighter {
+      position: absolute;
+      left: 0; right: 0;
+      top: 12%;
+      bottom: 8%;
+      background: #1658FF;
+      border-radius: 0;
+      transform: none;
+      clip-path: inset(0 100% 0 0);
+      -webkit-clip-path: inset(0 100% 0 0);
+      z-index: 1;
+    }
+    .s8-h-highlight-text {
+      position: relative;
+      z-index: 2;
+      color: #FFFFFF;
+    }
+    /* arrow — hidden, hand-drawn craft doesn't fit institutional motion */
+    #s8-arrow {
+      display: none !important;
+    }
+    #s8-masthead-wrap {
+      position: absolute;
+      left: 90px; right: 90px;
+      bottom: 160px;
+      text-align: left;
+      z-index: 2;
+    }
+    /* WSJ masthead REPLACED by mono uppercase source line — no fake newspaper branding */
+    #s8-masthead {
+      font-family: "JetBrains Mono", monospace;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 30px;
+      color: rgba(243,239,224,0.65);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0;
+    }
+    #s8-rule {
+      width: 0;
+      height: 1.5px;
+      background: rgba(243,239,224,0.30);
+      margin-top: 14px;
+    }
+    #s8-citation {
+      margin-top: 14px;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 400;
+      font-size: 26px;
+      letter-spacing: 0.18em;
+      color: rgba(243,239,224,0.50);
+      text-transform: uppercase;
+      opacity: 0;
+    }
+    #s8-chyron {
+      position: absolute;
+      left: 0; right: 0;
+      bottom: 80px;
+      background: rgba(8,8,8,0.95);
+      border-top: 5px solid #DC2626;
+      padding: 22px 40px;
+      box-shadow: 0 -10px 28px rgba(0,0,0,0.45);
+    }
+    .s8-chyron-row1 {
+      display: flex; align-items: center; gap: 22px;
+      margin-bottom: 12px;
+    }
+    #s8-pip {
+      background: #DC2626;
+      color: #fff;
+      font-family: "Inter", system-ui;
+      font-weight: 700; font-size: 32px;
+      letter-spacing: 0.10em;
+      padding: 10px 18px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    #s8-headline {
+      font-family: "Inter", system-ui;
+      font-weight: 700; font-size: 42px;
+      letter-spacing: 0.02em;
+      color: #fff;
+      text-transform: uppercase;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .s8-chyron-row2 {
+      display: flex; gap: 14px;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 700; font-size: 22px;
+      letter-spacing: 0.10em;
+      color: rgba(255,255,255,0.65);
+      text-transform: uppercase;
+    }
+    .s8-sep { color: rgba(255,255,255,0.30); }
+
+    /* ============================================================
+       SCENE 9 — Three-beat elimination sequence (cinematic motion graphics)
+       Beat 1: BUY THE S&P 500 → red slash, exit
+       Beat 2: ROTATE TO BONDS → red slash, exit
+       Beat 3: SITTING IN CASH → cash-vault photograph + $380B counter
+       Only one beat visible at a time. Beats stack at top:0/left:0/inset:0.
+       ============================================================ */
+    .s9-beat {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      overflow: hidden;
+    }
+    .s9-bg-chart {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .s9-beat-kicker { display: none !important; }
+    .s9-beat-headline {
+      position: absolute;
+      left: 80px; right: 80px;
+      top: 50%; transform: translateY(-50%);
+      font-family: "Inter", system-ui;
+      font-weight: 700;
+      font-size: 180px;
+      line-height: 0.92;
+      letter-spacing: -0.035em;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      text-align: left;
+    }
+    /* Red "NOT" prefix — leads each rejected headline */
+    .s9-not {
+      color: #DC2626;
+      display: inline-block;
+    }
+    /* Slash overlay removed — red "NOT" prefix carries the rejection */
+    .s9-slash { display: none !important; }
+
+    /* BEAT 3 — Cash vault photograph payoff */
+    #s9-cash-img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: grayscale(1) contrast(1.08);
+      transform: scale(1.0);
+      opacity: 1;
+    }
+    #s9-cash-scrim {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(15,15,15,0.40) 0%, rgba(15,15,15,0.20) 25%, rgba(15,15,15,0.65) 55%, rgba(15,15,15,0.95) 100%);
+      pointer-events: none;
+    }
+    #s9-cash-stack {
+      position: absolute;
+      left: 80px; right: 80px;
+      bottom: 220px;
+    }
+    /* Kicker dropped — headline + counter carry the composition */
+    #s9-cash-kicker { display: none !important; }
+    #s9-cash-headline {
+      font-family: "Inter", system-ui;
+      font-weight: 700;
+      font-size: 200px;
+      line-height: 0.88;
+      letter-spacing: -0.035em;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      margin-bottom: 36px;
+    }
+    #s9-cash-counter {
+      font-family: "Inter", system-ui;
+      font-weight: 700;
+      font-size: 180px;
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      color: #1658FF;
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: "tnum" 1;
+      opacity: 0;
+    }
+
+    /* Legacy scene-9 selectors — neutralized so nothing leaks through */
+    #s9-red-margin, #s9-halftone-9, #s9-headline, #s9-list,
+    #s9-annotation-wrap, #s9-masthead-wrap { display: none !important; }
+    /* Legacy decoration killed */
+    #s9-red-margin { display: none !important; }
+    #s9-halftone-9 { display: none !important; }
+    #s9-annotation-wrap { display: none !important; }
+    #s9-masthead-wrap { display: none !important; }
+
+    #s9-headline {
+      position: absolute;
+      left: 80px;
+      right: 80px;
+      top: 200px;
+      font-family: "Inter", system-ui;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 130px;
+      line-height: 0.92;
+      letter-spacing: -0.025em;
+      color: #FFFFFF;
+      text-transform: uppercase;
+    }
+    .s9-h-line { display: block; }
+    .s9-h-not {
+      font-style: normal;
+      color: #DC2626;
+    }
+    #s9-list {
+      position: absolute;
+      left: 80px;
+      right: 80px;
+      top: 820px;
+      display: flex; flex-direction: column;
+      gap: 28px;
+    }
+    .s9-item {
+      position: relative;
+      font-family: "Inter", system-ui;
+      font-weight: 700;
+      font-size: 72px;
+      line-height: 1.0;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      letter-spacing: -0.018em;
+      display: flex;
+      align-items: baseline;
+      gap: 26px;
+      opacity: 0;
+    }
+    .s9-num {
+      font-family: "Inter", system-ui;
+      font-weight: 700;
+      color: rgba(255,255,255,0.45);
+      flex-shrink: 0;
+    }
+    .s9-text {
+      position: relative;
+      display: inline-block;
+    }
+    /* Thin geometric strikethrough — hard edges, no rotation, animated wipe */
+    .s9-strike {
+      position: absolute;
+      left: -6px; right: -6px;
+      top: 50%;
+      height: 6px;
+      background: #DC2626;
+      border-radius: 0;
+      transform: translateY(-50%);
+      transform-origin: left center;
+      clip-path: inset(0 100% 0 0);
+      -webkit-clip-path: inset(0 100% 0 0);
+      pointer-events: none;
+    }
+    /* "NO." kicker hidden — strike alone reads */
+    .s9-no { display: none !important; }
+
+    /* Active item — Bloom blue, larger, no underline blob */
+    .s9-item.cash {
+      font-size: 92px;
+      font-weight: 700;
+      color: #1658FF;
+      margin-top: 24px;
+    }
+    .s9-item.cash .s9-num { color: #1658FF; }
+    /* Underline blob killed — color alone is the accent */
+    .s9-underline { display: none !important; }
+    .s9-check { display: none !important; }
+
+    /* ============================================================
+       SCENE 10 — Bloom CTA bookend (intel-style)
+       ============================================================ */
+    .s10-stack {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 80px;
+      gap: 32px;
+    }
+    #s10-recap {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 700; font-size: 30px;
+      letter-spacing: 0.22em;
+      color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 48px;
+      opacity: 0;
+    }
+    #s10-bloom-logo {
+      width: 360px; height: auto;
+      object-fit: contain;
+      opacity: 0;
+    }
+    #s10-wordmark {
+      font-family: "Inter", system-ui;
+      font-weight: 700; font-size: 180px;
+      letter-spacing: -0.03em;
+      line-height: 0.9;
+      color: #fff;
+      margin-top: 24px;
+      opacity: 0;
+    }
+    #s10-cta {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 700; font-size: 36px;
+      letter-spacing: 0.18em;
+      color: rgba(255,255,255,0.75);
+      text-transform: uppercase;
+      text-align: center;
+      margin-top: 16px;
+      opacity: 0;
+    }
+
+  </style>
+</head>
+<body>
+  <div data-composition-id="buffett-indicator" data-start="0" data-duration="53.0" data-width="1080" data-height="1920">
+    <!-- Single combined VO (concat of 10 scenes with silence padding to preserve per-scene offsets).
+         Track 2: voiceover. Track 3: ambient bgm under the VO. -->
+    <audio id="vo"  class="clip" data-start="0" data-duration="53.00" data-track-index="2"
+           src="voiceover.mp3" data-volume="1"></audio>
+    <audio id="bgm" class="clip" data-start="0" data-duration="53.00" data-track-index="3"
+           data-media-start="10"
+           src="assets/music/forward-momentum.mp3" data-volume="0.16"></audio>
+
+    <div id="root">
+      <div id="grain"></div>
+
+      <!-- ============================================================
+           SCENE 1 — HOOK (0.00 – 3.10s)
+           ============================================================ -->
+      <div id="scene1" class="scene">
+        <div class="scene-content">
+          <img id="s1-portrait" src="assets/buffett-portrait.png" alt="" />
+          <div id="s1-vignette"></div>
+          <div id="s1-stack">
+            <div id="s1-eyebrow">A SIGNAL · MAY 2026</div>
+            <div id="s1-line1">Warren Buffett</div>
+            <div id="s1-line2">has a recession signal.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SCENE 2 — TITLE (3.10 – 6.30s)
+           ============================================================ -->
+      <div id="scene2" class="scene">
+        <div class="scene-content">
+          <div class="s2-stack">
+            <div id="s2-eyebrow">WALL STREET CALLS IT</div>
+            <div id="s2-the">The</div>
+            <div id="s2-buffett">BUFFETT</div>
+            <div id="s2-indicator">INDICATOR<span id="s2-marker"></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SCENE 3 — DEFINITION (6.30 – 10.80s)
+           ============================================================ -->
+      <div id="scene3" class="scene">
+        <div class="scene-content">
+          <div class="s3-stack">
+            <div class="s3-row">
+              <div class="s3-label" id="s3-mc-label">TOTAL US MARKET CAP</div>
+              <div class="s3-value" id="s3-mc-value">$62T</div>
+            </div>
+            <div id="s3-bar"></div>
+            <div class="s3-row">
+              <div class="s3-label" id="s3-gdp-label">US GDP</div>
+              <div class="s3-value" id="s3-gdp-value">$30T</div>
+            </div>
+            <div id="s3-eq-row">
+              <div id="s3-equals">=</div>
+              <div id="s3-name">BUFFETT INDICATOR</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SCENE 4 — PULL-QUOTE (10.80 – 16.00s)
+           ============================================================ -->
+      <div id="scene4" class="scene">
+        <div class="scene-content">
+          <div class="s4-stack">
+            <div id="s4-eyebrow">BUFFETT, FORTUNE 2001</div>
+            <div id="s4-openquote">&ldquo;</div>
+            <div id="s4-body">The best single measure of where market valuations stand at any given moment.</div>
+            <div id="s4-attr">
+              <img id="s4-thumb" src="assets/buffett-portrait.png" alt="" />
+              <div>
+                <div id="s4-attr-text">Warren Buffett</div>
+                <div id="s4-attr-sub">CHAIRMAN · BERKSHIRE HATHAWAY</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SCENE 5 — DOTCOM CHART (16.00 – 28.00s)
+           ============================================================ -->
+      <div id="scene5" class="scene">
+        <div class="scene-content">
+          <div id="s5-eyebrow">BUFFETT INDICATOR · 1995–2007</div>
+          <div id="s5-card">
+            <div class="s5-header">
+              <div class="s5-logo"><span>BI</span></div>
+              <div>
+                <div class="s5-name">Buffett Indicator</div>
+                <div class="s5-exchange">Wilshire 5000 &middot; US GDP</div>
+              </div>
+            </div>
+            <div class="s5-price-row">
+              <div class="s5-price" id="s5-price">0%</div>
+              <div class="s5-expand">
+                <svg viewBox="0 0 24 24"><path d="M4 14v6h6M20 10V4h-6M4 20l7-7M20 4l-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+            </div>
+            <div class="s5-delta" id="s5-delta">
+              <span class="s5-delta-arrow"></span>
+              <span class="s5-delta-val">+95% to 2000 peak</span>
+              <span class="s5-delta-period">Mar 1995 – Mar 2000</span>
+            </div>
+            <div class="s5-chart-wrap">
+              <svg class="s5-chart" viewBox="0 0 800 460" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="s5-area-grad" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%"   stop-color="#1658FF" stop-opacity="0.30"/>
+                    <stop offset="100%" stop-color="#1658FF" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <!-- Filled area under the line, baseline at y=460 (chart bottom) -->
+                <path id="s5-chart-area" class="s5-chart-area"
+                      fill="url(#s5-area-grad)"
+                      d="M 0,360 C 60,330 110,290 170,160 C 200,90 230,70 260,80 C 290,95 320,150 360,210 C 400,275 440,320 480,355 C 520,380 560,400 600,395 C 640,390 680,365 720,330 C 760,300 780,280 800,260 L 800,460 L 0,460 Z" />
+                <!-- The line itself -->
+                <path id="s5-chart-line" class="s5-chart-line"
+                      d="M 0,360 C 60,330 110,290 170,160 C 200,90 230,70 260,80 C 290,95 320,150 360,210 C 400,275 440,320 480,355 C 520,380 560,400 600,395 C 640,390 680,365 720,330 C 760,300 780,280 800,260" />
+                <circle id="s5-chart-dot" class="s5-chart-dot" cx="800" cy="260" r="10"/>
+              </svg>
+              <div class="s5-chart-axis" id="s5-chart-axis"></div>
+            </div>
+            <div class="s5-ranges" id="s5-ranges">
+              <div class="s5-range">1Y</div>
+              <div class="s5-range">3Y</div>
+              <div class="s5-range">5Y</div>
+              <div class="s5-range">10Y</div>
+              <div class="s5-range active">12Y</div>
+              <div class="s5-range">MAX</div>
+            </div>
+          </div>
+          <div id="s5-source">SOURCE · WILSHIRE 5000 / US BUREAU OF ECONOMIC ANALYSIS</div>
+          <div id="s5-payoff">
+            <div id="s5-payoff-1">SEVEN YEARS</div>
+            <div id="s5-payoff-2">OF NOTHING.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SCENE 6 — 209% PAYOFF (28.00 – 35.50s)
+           ============================================================ -->
+      <div id="scene6" class="scene">
+        <div class="scene-content">
+          <div id="s6-eyebrow">BUFFETT INDICATOR · MAY 2026</div>
+
+          <!-- BEAT 1 removed — was redundant with beat 2 (bars already label
+               MARKET CAP / US GDP). Cutting it gives beat 3 (209%) longer
+               stillness before the next-scene wipe. -->
+
+          <!-- BEAT 2: bar comparison (visible from scene start) -->
+          <div class="s6-beat" id="s6-beat-2">
+            <div id="s6-bars">
+              <div class="s6-bar-row">
+                <div class="s6-bar-label">MARKET CAP</div>
+                <div class="s6-bar-track"><div id="s6-bar-mc" class="s6-bar-fill"></div></div>
+                <div class="s6-bar-amount" id="s6-mc-amt">$62T</div>
+              </div>
+              <div class="s6-bar-row">
+                <div class="s6-bar-label">US GDP</div>
+                <div class="s6-bar-track"><div id="s6-bar-gdp" class="s6-bar-fill"></div></div>
+                <div class="s6-bar-amount" id="s6-gdp-amt">$30T</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BEAT 3: 209% payoff + historical context (vertically centered, no decorative pill) -->
+          <div class="s6-beat" id="s6-beat-3">
+            <div id="s6-payoff-wrap">
+              <div id="s6-payoff">209%</div>
+              <div id="s6-payoff-sub">OF GDP</div>
+            </div>
+            <div id="s6-history">
+              <div>
+                <div class="s6-stat-label">Long-run avg</div>
+                <div class="s6-stat-value">80%</div>
+              </div>
+              <div>
+                <div class="s6-stat-label">Dotcom peak</div>
+                <div class="s6-stat-value">146%</div>
+              </div>
+              <div>
+                <div class="s6-stat-label">Today</div>
+                <div class="s6-stat-value danger">209%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SCENE 7 — VERTICAL TIMELINE (35.50 – 42.00s)
+           ============================================================ -->
+      <div id="scene7" class="scene">
+        <div class="scene-content">
+          <div id="s7-kicker">HISTORICALLY · AT 200%+</div>
+          <div id="s7-hero">
+            <div id="s7-hero-line1">THE NEXT</div>
+            <div id="s7-hero-line2">DECADE WAS</div>
+            <div id="s7-hero-line3">FLAT OR<br/><span id="s7-hero-neg">NEGATIVE.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SCENE 8 — NEWSPRINT CLIPPING (42.00 – 50.00s)
+           Vox-style editorial pivot. Cream paper, italic Playfair
+           headline, green highlighter swipe on the hero number, dated
+           pill stamp, masthead bottom. Strong tonal break from the
+           dark scenes around it.
+           ============================================================ -->
+      <div id="scene8" class="scene">
+        <div class="scene-content">
+          <div id="s8-halftone"></div>
+          <div id="s8-date-pill">May 2026 · Berkshire Hathaway</div>
+
+          <div id="s8-headline-stack">
+            <div class="s8-h-line">Berkshire's cash</div>
+            <div class="s8-h-line line2">
+              pile tops
+              <span class="s8-h-highlight-wrap">
+                <span id="s8-highlighter"></span>
+                <span class="s8-h-highlight-text">$380B.</span>
+              </span>
+            </div>
+          </div>
+
+          <!-- Hand-drawn editorial arrow pointing at the highlighted figure -->
+          <svg id="s8-arrow" viewBox="0 0 220 200">
+            <path id="s8-arrow-curve" d="M 30 30 C 80 60, 140 100, 180 160" />
+            <path id="s8-arrow-head" d="M 165 138 L 182 162 L 156 170" />
+          </svg>
+
+          <div id="s8-masthead-wrap">
+            <div id="s8-masthead">Source · Bloomberg Intelligence</div>
+            <div id="s8-rule"></div>
+            <div id="s8-citation">13F filing · Q1 2026 · all-time high</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SCENE 9 — EDITORIAL LEGAL-PAD CHECKLIST (50.00 – 57.20s)
+           Vox-style producer's notepad. Italic Playfair headline +
+           handwritten Caveat list with red marker strikethroughs on
+           rejected options, green underline + checkmark on the chosen
+           one. Hand-drawn arrow + annotation underneath.
+           ============================================================ -->
+      <div id="scene9" class="scene">
+        <div class="scene-content">
+          <!-- Three full-canvas beats, only one visible at a time.
+               Beats 1 & 2 are rejected options with sparkline + red slash exit.
+               Beat 3 is the cash vault photo + $380B counter payoff. -->
+
+          <!-- BEAT 1 — "Not buying the index" -->
+          <div class="s9-beat" id="s9-beat-1">
+            <svg class="s9-bg-chart" viewBox="0 0 1080 1920" preserveAspectRatio="none">
+              <path id="s9-bg-line-1" d="M 0,1200 C 120,1150 240,1050 360,1100 C 480,1150 600,900 720,950 C 840,1000 960,700 1080,600"
+                fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <div class="s9-beat-headline">
+              <span class="s9-not">NOT</span><br/>BUYING<br/>THE INDEX.
+            </div>
+          </div>
+
+          <!-- BEAT 2 — "Not rotating into bonds" -->
+          <div class="s9-beat" id="s9-beat-2">
+            <svg class="s9-bg-chart" viewBox="0 0 1080 1920" preserveAspectRatio="none">
+              <path id="s9-bg-line-2" d="M 0,700 C 180,720 360,760 540,820 C 720,880 900,960 1080,1080"
+                fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <div class="s9-beat-headline">
+              <span class="s9-not">NOT</span><br/>ROTATING<br/>TO BONDS.
+            </div>
+          </div>
+
+          <!-- BEAT 3 — "Sitting in cash" — photograph + counter payoff -->
+          <div class="s9-beat" id="s9-beat-3">
+            <img id="s9-cash-img" src="assets/cash-vault.png" alt="" />
+            <div id="s9-cash-scrim"></div>
+            <div id="s9-cash-stack">
+              <div id="s9-cash-headline">SITTING<br/>IN CASH.</div>
+              <div id="s9-cash-counter">$0B</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SCENE 10 — BLOOM CTA BOOKEND (57.20 – 63.50s)
+           ============================================================ -->
+      <div id="scene10" class="scene">
+        <div class="scene-content">
+          <div class="s10-stack">
+            <div id="s10-recap">209% · MARKET CAP TO GDP · MAY 2026</div>
+            <img id="s10-bloom-logo" src="assets/bloom-logo.png" alt="Bloom" />
+            <div id="s10-wordmark">BLOOM</div>
+            <div id="s10-cta">FOR MORE INVESTING KNOWLEDGE</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+
+      /* ============================================================
+         VO TIMING — at(scene, phrase) / landOn(scene, phrase, dur)
+         Data baked from assets/voiceover/buffett-indicator-2026-05-10/
+         per-scene timing.json files. Offsets match the audio data-start
+         attributes above (NOT the raw VO durations — the audio clips have
+         leading 0s and trailing breath padding).
+         ============================================================ */
+      const SCENES = {
+        "scene-01": { offset: 0.00, words: [
+          { word: "Warren",    start: 0.000 },
+          { word: "Buffett",   start: 0.372 },
+          { word: "has",       start: 0.743 },
+          { word: "a",         start: 0.929 },
+          { word: "recession", start: 1.022 },
+          { word: "signal.",   start: 1.498 }
+        ]},
+        "scene-02": { offset: 2.14, words: [
+          { word: "Wall",       start: 0.000 },
+          { word: "Street",     start: 0.313 },
+          { word: "calls",      start: 0.627 },
+          { word: "it",         start: 0.906 },
+          { word: "the",        start: 0.998 },
+          { word: "Buffett",    start: 1.126 },
+          { word: "Indicator.", start: 1.463 }
+        ]},
+        "scene-03": { offset: 4.41, words: [
+          { word: "It",       start: 0.000 },
+          { word: "compares", start: 0.186 },
+          { word: "total",    start: 0.662 },
+          { word: "US",       start: 1.057 },
+          { word: "stock",    start: 1.370 },
+          { word: "market",   start: 1.695 },
+          { word: "value",    start: 1.997 },
+          { word: "to",       start: 2.357 },
+          { word: "GDP.",     start: 2.508 }
+        ]},
+        "scene-04": { offset: 7.85, words: [
+          { word: "Buffett",    start: 0.000 },
+          { word: "himself",    start: 0.441 },
+          { word: "called",     start: 0.987 },
+          { word: "it",         start: 1.312 },
+          { word: "the",        start: 1.416 },
+          { word: "best",       start: 1.567 },
+          { word: "single",     start: 1.881 },
+          { word: "measure",    start: 2.229 },
+          { word: "of",         start: 2.589 },
+          { word: "market",     start: 2.775 },
+          { word: "valuation.", start: 3.135 }
+        ]},
+        "scene-05": { offset: 11.94, words: [
+          { word: "When",     start: 0.000 },
+          { word: "it",       start: 0.244 },
+          { word: "crossed",  start: 0.360 },
+          { word: "two",      start: 0.731 },
+          { word: "hundred",  start: 1.010 },
+          { word: "percent",  start: 1.358 },
+          { word: "before",   start: 1.834 },
+          { word: "the",      start: 2.159 },
+          { word: "dotcom",   start: 2.287 },
+          { word: "crash,",   start: 2.775 },
+          { word: "anyone",   start: 3.506 },
+          { word: "who",      start: 3.889 },
+          { word: "bought",   start: 4.052 },
+          { word: "the",      start: 4.342 },
+          { word: "S",        start: 4.540 },
+          { word: "and",      start: 4.760 },
+          { word: "P",        start: 4.911 },
+          { word: "that",     start: 5.178 },
+          { word: "year",     start: 5.399 },
+          { word: "didn't",   start: 5.863 },
+          { word: "break",    start: 6.211 },
+          { word: "even",     start: 6.641 },
+          { word: "until",    start: 7.117 },
+          { word: "two",      start: 7.465 },
+          { word: "thousand", start: 7.686 },
+          { word: "seven.",   start: 8.104 },
+          { word: "Seven",    start: 9.102 },
+          { word: "years",    start: 9.555 },
+          { word: "of",       start: 10.019 },
+          { word: "nothing.", start: 10.240 }
+        ]},
+        "scene-06": { offset: 22.90, words: [
+          { word: "Right",    start: 0.000 },
+          { word: "now,",     start: 0.290 },
+          { word: "every",    start: 0.627 },
+          { word: "public",   start: 0.975 },
+          { word: "stock",    start: 1.347 },
+          { word: "in",       start: 1.649 },
+          { word: "America",  start: 1.753 },
+          { word: "is",       start: 2.264 },
+          { word: "worth",    start: 2.426 },
+          { word: "more",     start: 2.682 },
+          { word: "than",     start: 2.879 },
+          { word: "double",   start: 3.088 },
+          { word: "the",      start: 3.437 },
+          { word: "entire",   start: 3.576 },
+          { word: "economy.", start: 4.098 },
+          { word: "Two",      start: 4.876 },
+          { word: "hundred",  start: 5.085 },
+          { word: "and",      start: 5.364 },
+          { word: "nine",     start: 5.492 },
+          { word: "percent.", start: 5.735 }
+        ]},
+        "scene-07": { offset: 29.40, words: [
+          { word: "The",      start: 0.000 },
+          { word: "only",     start: 0.244 },
+          { word: "other",    start: 0.546 },
+          { word: "times",    start: 0.778 },
+          { word: "this",     start: 1.173 },
+          { word: "ratio",    start: 1.405 },
+          { word: "has",      start: 1.869 },
+          { word: "been",     start: 2.032 },
+          { word: "this",     start: 2.229 },
+          { word: "high,",    start: 2.461 },
+          { word: "the",      start: 2.995 },
+          { word: "next",     start: 3.193 },
+          { word: "decade",   start: 3.495 },
+          { word: "was",      start: 3.924 },
+          { word: "flat",     start: 4.110 },
+          { word: "or",       start: 4.481 },
+          { word: "negative.", start: 4.714 }
+        ]},
+        "scene-08": { offset: 34.88, words: [
+          { word: "Buffett's",  start: 0.000 },
+          { word: "response",   start: 0.453 },
+          { word: "is",         start: 0.998 },
+          { word: "the",        start: 1.173 },
+          { word: "same",       start: 1.300 },
+          { word: "as",         start: 1.602 },
+          { word: "it",         start: 1.753 },
+          { word: "was",        start: 1.869 },
+          { word: "then.",      start: 2.113 },
+          { word: "Record",     start: 2.740 },
+          { word: "cash",       start: 3.100 },
+          { word: "at",         start: 3.483 },
+          { word: "Berkshire",  start: 3.657 },
+          { word: "over",       start: 4.435 },
+          { word: "three",      start: 4.702 },
+          { word: "hundred",    start: 5.004 },
+          { word: "and",        start: 5.364 },
+          { word: "eighty",     start: 5.503 },
+          { word: "billion",    start: 5.828 },
+          { word: "dollars.",   start: 6.246 }
+        ]},
+        "scene-09": { offset: 41.89, words: [
+          { word: "Not",      start: 0.000 },
+          { word: "buying",   start: 0.313 },
+          { word: "the",      start: 0.627 },
+          { word: "index.",   start: 0.766 },
+          { word: "Not",      start: 1.474 },
+          { word: "rotating", start: 1.718 },
+          { word: "into",     start: 2.287 },
+          { word: "bonds.",   start: 2.519 },
+          { word: "Sitting",  start: 3.204 },
+          { word: "in",       start: 3.541 },
+          { word: "cash,",    start: 3.669 },
+          { word: "waiting",  start: 4.203 },
+          { word: "for",      start: 4.528 },
+          { word: "prices",   start: 4.690 },
+          { word: "to",       start: 5.143 },
+          { word: "come",     start: 5.271 },
+          { word: "to",       start: 5.503 },
+          { word: "him.",     start: 5.619 }
+        ]},
+        "scene-10": { offset: 48.02, words: [
+          { word: "This",        start: 0.000 },
+          { word: "doesn't",     start: 0.255 },
+          { word: "mean",        start: 0.534 },
+          { word: "sell",        start: 0.766 },
+          { word: "everything.", start: 1.068 },
+          { word: "For",         start: 1.997 },
+          { word: "more",        start: 2.194 },
+          { word: "investing",   start: 2.415 },
+          { word: "knowledge,",  start: 2.891 },
+          { word: "check",       start: 3.402 },
+          { word: "out",         start: 3.692 },
+          { word: "Bloom.",      start: 3.878 }
+        ]}
+      };
+
+      function _norm(s) { return s.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu, ""); }
+      function _findPhrase(sceneId, phrase) {
+        const scene = SCENES[sceneId];
+        if (!scene) throw new Error(`at: unknown scene "${sceneId}"`);
+        const W = scene.words;
+        const tokens = phrase.toLowerCase().split(/\s+/).map(_norm).filter(Boolean);
+        if (!tokens.length) throw new Error("at: empty phrase");
+        const hits = [];
+        for (let i = 0; i <= W.length - tokens.length; i++) {
+          let ok = true;
+          for (let j = 0; j < tokens.length; j++) {
+            if (_norm(W[i + j].word) !== tokens[j]) { ok = false; break; }
+          }
+          if (ok) hits.push(i);
+        }
+        if (hits.length === 0) {
+          throw new Error(`at: phrase "${phrase}" not found in ${sceneId}`);
+        }
+        if (hits.length > 1) {
+          throw new Error(`at: phrase "${phrase}" matches ${hits.length} occurrences in ${sceneId}. Use a longer phrase.`);
+        }
+        return W[hits[0]].start;
+      }
+      function at(sceneId, phrase)              { return SCENES[sceneId].offset + _findPhrase(sceneId, phrase); }
+      function landOn(sceneId, phrase, dur = 0) { return at(sceneId, phrase) - dur; }
+
+      /* ============================================================
+         GSAP setup
+         ============================================================ */
+      gsap.registerPlugin(SplitText, CustomEase);
+      // Editorial easing system (Bloomberg / Vox / FT)
+      CustomEase.create("snapIn",  "0.22, 1, 0.36, 1");
+      CustomEase.create("settle",  "0.16, 1, 0.3, 1");
+      CustomEase.create("snapOut", "0.5, 0, 0.75, 0");
+      CustomEase.create("smooth",  "0.65, 0, 0.35, 1");
+      // Back-compat aliases — existing tweens still reference bezierIn / bezierOut
+      CustomEase.create("bezierIn",  "0.22, 1, 0.36, 1");
+      CustomEase.create("bezierOut", "0.5, 0, 0.75, 0");
+
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["buffett-indicator"] = tl;
+
+      // Helper: WORD-block reveal (editorial — never char-by-char).
+      // Words rise + fade in together with 0.12s stagger. Character-stagger
+      // is a Johnny-Harris archive move, not Bloomberg/Vox. Function name is
+      // kept as `chars` for back-compat with existing call sites.
+      // Accepts EITHER a selector string OR an Element node.
+      function chars(selectorOrEl, time, opts = {}) {
+        const el = typeof selectorOrEl === "string"
+          ? document.querySelector(selectorOrEl)
+          : selectorOrEl;
+        if (!el) return;
+        const split = new SplitText(el, { type: "words" });
+        gsap.set(el, { opacity: 1 });
+        gsap.set(split.words, { opacity: 0, y: opts.y ?? 24 });
+        tl.to(split.words, {
+          opacity: 1, y: 0,
+          duration: opts.duration ?? 0.50,
+          stagger: opts.stagger ?? 0.12,
+          ease: opts.ease ?? "snapIn"
+        }, time);
+      }
+      // Camera drift: subtle scale + y on a scene's content container
+      function drift(sceneSel, startTime, totalDur, dy = -16, ds = 0.04) {
+        tl.fromTo(`${sceneSel} .scene-content`,
+          { scale: 1.00, y: 0 },
+          { scale: 1 + ds, y: dy, duration: totalDur, ease: "none" },
+          startTime
+        );
+      }
+      // Crossfade scene N → N+1 at given time
+      function crossfade(fromSel, toSel, time, dur = 0.4) {
+        tl.set(toSel, { visibility: "visible" }, time);
+        tl.to(fromSel, { opacity: 0, duration: dur, ease: "bezierOut" }, time);
+        tl.to(toSel,   { opacity: 1, duration: dur, ease: "bezierIn"  }, time);
+        tl.set(fromSel, { visibility: "hidden" }, time + dur + 0.05);
+      }
+      // Counter animator on textContent
+      function counter(selector, from, to, time, dur = 0.9, suffix = "") {
+        const el = document.querySelector(selector);
+        if (!el) return;
+        const obj = { v: from };
+        tl.to(obj, {
+          v: to, duration: dur, ease: "snapIn",
+          onUpdate: () => { el.textContent = Math.round(obj.v) + suffix; }
+        }, time);
+      }
+
+      // Scene visibility init: only scene1 visible at t=0
+      const allScenes = ["#scene1","#scene2","#scene3","#scene4","#scene5","#scene6","#scene7","#scene8","#scene9","#scene10"];
+      tl.set(allScenes.slice(1).join(", "), { opacity: 0, visibility: "hidden" }, 0);
+
+      // ============================================================
+      // SCENE 1 — Buffett portrait + headline
+      // ============================================================
+      tl.to("#s1-portrait", { opacity: 1, duration: 0.55, ease: "bezierIn" }, 0.0);
+      tl.to("#s1-vignette", { opacity: 1, duration: 0.55, ease: "bezierIn" }, 0.0);
+      chars("#s1-eyebrow", 0.05, { stagger: 0.018, duration: 0.30 });
+      chars("#s1-line1", at("scene-01", "Warren Buffett") - 0.10, { stagger: 0.022, duration: 0.32, y: 18 });
+      chars("#s1-line2", at("scene-01", "recession signal") - 0.20, { stagger: 0.022, duration: 0.32, y: 18 });
+      drift("#scene1", 0, 2.14, -12, 0.025);
+
+      crossfade("#scene1", "#scene2", at("scene-02", "Wall Street") - 0.20);
+
+      // ============================================================
+      // SCENE 2 — Title card
+      // ============================================================
+      chars("#s2-eyebrow",   at("scene-02", "Wall Street") - 0.10, { stagger: 0.018, duration: 0.30 });
+      chars("#s2-the",       at("scene-02", "the Buffett") - 0.10, { stagger: 0.025, duration: 0.30, y: 22 });
+      chars("#s2-buffett",   at("scene-02", "Buffett Indicator") - 0.20, { stagger: 0.025, duration: 0.32, y: 22 });
+      chars("#s2-indicator", at("scene-02", "Indicator") - 0.05, { stagger: 0.030, duration: 0.34, y: 22 });
+      // Marker swipe under INDICATOR
+      tl.to("#s2-marker", { scaleX: 1, duration: 0.45, ease: "bezierIn" },
+        at("scene-02", "Indicator") + 0.30);
+      drift("#scene2", at("scene-02", "Wall Street") - 0.20, 2.28, -10, 0.025);
+
+      crossfade("#scene2", "#scene3", at("scene-03", "It compares") - 0.18);
+
+      // ============================================================
+      // SCENE 3 — Definition fraction
+      // ============================================================
+      chars("#s3-mc-label", at("scene-03", "total") - 0.20, { stagger: 0.018, duration: 0.30 });
+      tl.to("#s3-mc-value", { opacity: 1, duration: 0.30 }, at("scene-03", "market") - 0.15);
+      counter("#s3-mc-value", 0, 62, at("scene-03", "market") - 0.10, 0.55, "T");
+      // Pre-fix the prefix $ before counter starts
+      tl.set("#s3-mc-value", { textContent: "$0T" }, at("scene-03", "market") - 0.16);
+      tl.to({}, { duration: 0.55, onUpdate: () => {
+        const t = document.querySelector("#s3-mc-value");
+        if (t && !t.textContent.startsWith("$")) t.textContent = "$" + t.textContent;
+      } }, at("scene-03", "market") - 0.10);
+
+      tl.to("#s3-bar", { scaleX: 1, duration: 0.40, ease: "bezierIn" }, at("scene-03", "GDP") - 0.40);
+      chars("#s3-gdp-label", at("scene-03", "GDP") - 0.30, { stagger: 0.018, duration: 0.30 });
+      tl.to("#s3-gdp-value", { opacity: 1, duration: 0.30 }, at("scene-03", "GDP") - 0.10);
+      tl.set("#s3-gdp-value", { textContent: "$0T" }, at("scene-03", "GDP") - 0.10);
+      counter("#s3-gdp-value", 0, 30, at("scene-03", "GDP") - 0.05, 0.55, "T");
+      tl.to({}, { duration: 0.55, onUpdate: () => {
+        const t = document.querySelector("#s3-gdp-value");
+        if (t && !t.textContent.startsWith("$")) t.textContent = "$" + t.textContent;
+      } }, at("scene-03", "GDP") - 0.05);
+
+      tl.to("#s3-eq-row", { opacity: 1, y: 0, duration: 0.50, ease: "bezierIn" }, at("scene-03", "GDP") + 0.55);
+      drift("#scene3", at("scene-03", "It compares") - 0.18, 3.44, -16, 0.030);
+
+      crossfade("#scene3", "#scene4", at("scene-04", "Buffett himself") - 0.18);
+
+      // ============================================================
+      // SCENE 4 — Pull quote
+      // ============================================================
+      chars("#s4-eyebrow", at("scene-04", "Buffett himself") - 0.05, { stagger: 0.018, duration: 0.30 });
+      tl.to("#s4-openquote", { opacity: 1, duration: 0.30, ease: "bezierIn" }, at("scene-04", "called it") - 0.10);
+      // Body words by phrase
+      {
+        const split = new SplitText("#s4-body", { type: "words" });
+        gsap.set(split.words, { opacity: 0, y: 12 });
+        // Stagger the body across 'best single measure of where market valuations'
+        tl.to(split.words, {
+          opacity: 1, y: 0,
+          duration: 0.32, stagger: 0.085,
+          ease: "bezierIn"
+        }, at("scene-04", "best") - 0.10);
+      }
+      tl.to("#s4-attr", { opacity: 1, duration: 0.45, ease: "bezierIn" }, at("scene-04", "valuation") + 0.20);
+      drift("#scene4", at("scene-04", "Buffett himself") - 0.18, 4.09, -14, 0.030);
+
+      crossfade("#scene4", "#scene5", at("scene-05", "When it") - 0.18);
+
+      // ============================================================
+      // SCENE 5 — Robinhood-style price card
+      // ============================================================
+      chars("#s5-eyebrow", at("scene-05", "When it") - 0.10, { stagger: 0.014, duration: 0.30 });
+
+      // Card frame fades + lifts in
+      tl.fromTo("#s5-card",
+        { opacity: 0, y: 40, scale: 0.97 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "settle" },
+        at("scene-05", "When it") - 0.05);
+
+      // Price counter 0% → 165% (lands as the line peaks at "two hundred percent")
+      const s5priceEl = document.getElementById("s5-price");
+      const s5priceProxy = { v: 0 };
+      tl.to(s5priceProxy, {
+        v: 165,
+        duration: 1.10,
+        ease: "snapIn",
+        onUpdate: () => { if (s5priceEl) s5priceEl.textContent = Math.round(s5priceProxy.v) + "%"; }
+      }, at("scene-05", "crossed") - 0.10);
+
+      // Sparkline draw-on (line + area + dashed axis)
+      const s5line = document.getElementById("s5-chart-line");
+      if (s5line) {
+        const len = s5line.getTotalLength();
+        gsap.set(s5line, { strokeDasharray: len, strokeDashoffset: len });
+        tl.to(s5line, { strokeDashoffset: 0, duration: 1.50, ease: "smooth" },
+          at("scene-05", "two hundred") - 0.40);
+      }
+      tl.to("#s5-chart-area", { opacity: 1, duration: 0.55, ease: "snapIn" },
+        at("scene-05", "two hundred") - 0.20);
+      tl.to("#s5-chart-axis", { opacity: 1, duration: 0.40, ease: "snapIn" },
+        at("scene-05", "two hundred") - 0.40);
+      tl.to("#s5-chart-dot", { opacity: 1, duration: 0.30, ease: "snapIn" },
+        at("scene-05", "dotcom") + 0.20);
+
+      // Delta row appears as the price lands
+      tl.fromTo("#s5-delta",
+        { opacity: 0, y: 14 },
+        { opacity: 1, y: 0, duration: 0.45, ease: "snapIn" },
+        at("scene-05", "dotcom") - 0.05);
+
+      // Source citation fades in late (editorial credibility marker, no chips)
+      tl.fromTo("#s5-source",
+        { opacity: 0, y: 8 },
+        { opacity: 1, y: 0, duration: 0.40, ease: "snapIn" },
+        at("scene-05", "anyone") - 0.10);
+
+      // Payoff "SEVEN YEARS / OF NOTHING." — slams over a dimmed card
+      tl.to("#s5-card", { opacity: 0.20, duration: 0.45, ease: "bezierOut", overwrite: "auto" },
+        at("scene-05", "Seven years") - 0.25);
+      tl.to("#s5-payoff", { opacity: 1, duration: 0.30 }, at("scene-05", "Seven years") - 0.15);
+      chars("#s5-payoff-1", at("scene-05", "Seven years") - 0.10, { stagger: 0.030, duration: 0.40, y: 22 });
+      chars("#s5-payoff-2", at("scene-05", "of nothing") - 0.10, { stagger: 0.030, duration: 0.40, y: 22 });
+      drift("#scene5", at("scene-05", "When it") - 0.18, 10.96, -16, 0.030);
+
+      crossfade("#scene5", "#scene6", at("scene-06", "Right now") - 0.18);
+
+      // ============================================================
+      // SCENE 6 — 209% payoff (3 absolutely-centered beats, true transitions)
+      //
+      // Each beat is its own absolute-positioned container at top:50%; transform translateY(-50%).
+      // Beat containers stack in the same screen position; only one is visible at a time.
+      // A faded-out beat takes NO layout space → next beat stays perfectly centered.
+      // ============================================================
+      chars("#s6-eyebrow", at("scene-06", "Right now") - 0.15, { stagger: 0.014, duration: 0.30 });
+
+      // Beat 1 cut. Beat 2 visible from scene start; beat 3 hidden until payoff.
+      tl.set("#s6-beat-2", { opacity: 1 }, 0);
+      tl.set("#s6-beat-3", { opacity: 0 }, 0);
+
+      // ── BEAT 2 — Bar comparison ──
+      // Labels reveal early (anchored to the opening words), bars fill on "double"
+      tl.fromTo(".s6-bar-row:nth-child(1) .s6-bar-label",
+        { opacity: 0, y: 12 },
+        { opacity: 1, y: 0, duration: 0.30, ease: "bezierIn" },
+        at("scene-06", "every") - 0.05);
+      tl.fromTo(".s6-bar-row:nth-child(2) .s6-bar-label",
+        { opacity: 0, y: 12 },
+        { opacity: 1, y: 0, duration: 0.30, ease: "bezierIn" },
+        at("scene-06", "America") - 0.05);
+      tl.to("#s6-bar-mc",  { scaleX: 1.00, duration: 0.60, ease: "bezierIn" }, at("scene-06", "double") - 0.10);
+      tl.to("#s6-mc-amt",  { opacity: 1, duration: 0.30 }, at("scene-06", "double") + 0.30);
+      tl.to("#s6-bar-gdp", { scaleX: 0.48, duration: 0.55, ease: "bezierIn" }, at("scene-06", "double") + 0.25);
+      tl.to("#s6-gdp-amt", { opacity: 1, duration: 0.30 }, at("scene-06", "double") + 0.65);
+      // Fade out before beat 3 lands
+      tl.to("#s6-beat-2",
+        { opacity: 0, duration: 0.40, ease: "bezierOut" },
+        at("scene-06", "Two hundred") - 0.55);
+
+      // ── BEAT 3 — 209% payoff + danger pill + history row ──
+      tl.to("#s6-beat-3", { opacity: 1, duration: 0.35, ease: "bezierIn" },
+        at("scene-06", "Two hundred") - 0.30);
+      // Hero number slam + counter
+      tl.fromTo("#s6-payoff",
+        { opacity: 0, scale: 1.18 },
+        { opacity: 1, scale: 1.00, duration: 0.45, ease: "bezierIn" },
+        at("scene-06", "Two hundred") - 0.10);
+      tl.set("#s6-payoff", { textContent: "0%" }, at("scene-06", "Two hundred") - 0.10);
+      counter("#s6-payoff", 0, 209, at("scene-06", "Two hundred") - 0.05, 1.00, "%");
+      tl.fromTo("#s6-payoff",
+        { scale: 1.00 },
+        { scale: 1.06, duration: 0.20, ease: "bezierIn", yoyo: true, repeat: 1, overwrite: "auto" },
+        at("scene-06", "percent") + 0.05
+      );
+      tl.to("#s6-payoff-sub", { opacity: 1, duration: 0.30 }, at("scene-06", "percent") + 0.25);
+      // Historical context row reveals below the payoff (no pill, no source — cleaner)
+      tl.fromTo("#s6-history",
+        { opacity: 0, y: 16 },
+        { opacity: 1, y: 0, duration: 0.50, ease: "bezierIn" },
+        at("scene-06", "percent") + 0.55);
+
+      drift("#scene6", at("scene-06", "Right now") - 0.18, 6.50, -18, 0.035);
+
+      crossfade("#scene6", "#scene7", at("scene-07", "The only") - 0.18);
+
+      // ============================================================
+      // SCENE 7 — Pure-typography statement (scene-1 energy)
+      //   Kicker + 3-line hero, anchored to VO words.
+      // ============================================================
+      const S7_START = at("scene-07", "The only") - 0.10;
+      chars("#s7-kicker",      S7_START,                                 { stagger: 0.010, duration: 0.32 });
+      chars("#s7-hero-line1",  at("scene-07", "ratio") - 0.20,           { stagger: 0.10,  duration: 0.50, y: 28 });
+      chars("#s7-hero-line2",  at("scene-07", "this high") - 0.10,       { stagger: 0.10,  duration: 0.50, y: 28 });
+      chars("#s7-hero-line3",  at("scene-07", "flat or") - 0.10,         { stagger: 0.10,  duration: 0.55, y: 32 });
+
+      crossfade("#scene7", "#scene8", at("scene-08", "Buffett's response") - 0.18);
+
+      // ============================================================
+      // SCENE 8 — Berkshire chyron
+      // ============================================================
+      // Date pill rotates in on "Buffett's response"
+      tl.fromTo("#s8-date-pill",
+        { opacity: 0, x: -60, rotation: -8 },
+        { opacity: 1, x: 0, rotation: -1.8, duration: 0.50, ease: "bezierIn" },
+        at("scene-08", "Buffett's response") - 0.10);
+
+      // Headline line 1 char-stagger on "same"
+      chars(".s8-h-line:nth-child(3)", at("scene-08", "same") - 0.10,
+        { stagger: 0.022, duration: 0.36, y: 20 });
+      // Headline line 2 char-stagger on "Berkshire" — but only the wrapper text,
+      // not the highlighter span (which animates via clip-path separately)
+      chars(".s8-h-line.line2", at("scene-08", "Berkshire") - 0.10,
+        { stagger: 0.020, duration: 0.36, y: 20 });
+
+      // Highlighter swipe lands on "three hundred" (paints left → right)
+      tl.to("#s8-highlighter",
+        { clipPath: "inset(0 0% 0 0)", webkitClipPath: "inset(0 0% 0 0)",
+          duration: 0.50, ease: "bezierIn" },
+        at("scene-08", "three hundred") + 0.00);
+
+      // Hand-drawn arrow draws on, pointing at the highlighted figure
+      const s8curve = document.getElementById("s8-arrow-curve");
+      const s8head  = document.getElementById("s8-arrow-head");
+      if (s8curve && s8head) {
+        const cL = s8curve.getTotalLength();
+        const hL = s8head.getTotalLength();
+        gsap.set(s8curve, { strokeDasharray: cL, strokeDashoffset: cL });
+        gsap.set(s8head,  { strokeDasharray: hL, strokeDashoffset: hL });
+        tl.set("#s8-arrow", { opacity: 1 }, at("scene-08", "three hundred") + 0.10);
+        tl.to(s8curve, { strokeDashoffset: 0, duration: 0.60, ease: "snapIn" },
+          at("scene-08", "three hundred") + 0.10);
+        tl.to(s8head,  { strokeDashoffset: 0, duration: 0.25, ease: "snapIn" },
+          at("scene-08", "three hundred") + 0.65);
+      }
+
+      // Masthead reveal + hairline rule paint-in + citation
+      chars("#s8-masthead", at("scene-08", "billion") + 0.05,
+        { stagger: 0.018, duration: 0.32 });
+      tl.to("#s8-rule",
+        { width: "100%", duration: 0.55, ease: "bezierIn" },
+        at("scene-08", "billion") + 0.35);
+      tl.to("#s8-citation", { opacity: 1, duration: 0.40 },
+        at("scene-08", "dollars") + 0.10);
+
+      drift("#scene8", at("scene-08", "Buffett's response") - 0.18, 7.01, -14, 0.025);
+
+      crossfade("#scene8", "#scene9", at("scene-09", "Not buying") - 0.18);
+
+      // ============================================================
+      // SCENE 9 — Three-beat elimination sequence
+      //   Beat 1 ("Not buying the index"): BUY THE S&P 500 + chart bg, red slash, exit
+      //   Beat 2 ("Not rotating into bonds"): ROTATE TO BONDS + chart bg, red slash, exit
+      //   Beat 3 ("Sitting in cash"): cash-vault photo + SITTING IN CASH + $380B counter
+      // ============================================================
+
+      // Init: all 3 beats hidden
+      tl.set("#s9-beat-1, #s9-beat-2, #s9-beat-3", { opacity: 0 }, 0);
+
+      // Pre-init bg chart line stroke-dashoffset for draw-on
+      const s9Line1 = document.getElementById("s9-bg-line-1");
+      const s9Line2 = document.getElementById("s9-bg-line-2");
+      if (s9Line1) {
+        const len1 = s9Line1.getTotalLength();
+        gsap.set(s9Line1, { strokeDasharray: len1, strokeDashoffset: len1 });
+      }
+      if (s9Line2) {
+        const len2 = s9Line2.getTotalLength();
+        gsap.set(s9Line2, { strokeDasharray: len2, strokeDashoffset: len2 });
+      }
+
+      const S9_START = at("scene-09", "Not buying") - 0.10;
+      const S9_BEAT2_START = at("scene-09", "Not rotating") - 0.35;
+      const S9_BEAT3_START = at("scene-09", "Sitting in cash") - 0.35;
+
+      // ── BEAT 1 — "Not buying the index" ──
+      tl.to("#s9-beat-1", { opacity: 1, duration: 0.30, ease: "snapIn" }, S9_START);
+      chars("#s9-beat-1 .s9-beat-headline", S9_START + 0.05, { stagger: 0.10, duration: 0.45, y: 30 });
+      if (s9Line1) {
+        tl.to(s9Line1, { strokeDashoffset: 0, duration: 1.10, ease: "smooth" }, S9_START + 0.10);
+      }
+      // Exit: slide up-left + motion blur + fade
+      tl.to("#s9-beat-1",
+        { opacity: 0, x: -120, y: -60, filter: "blur(8px)",
+          duration: 0.40, ease: "snapOut" },
+        S9_BEAT2_START - 0.10);
+
+      // ── BEAT 2 — "Not rotating into bonds" ──
+      tl.to("#s9-beat-2", { opacity: 1, duration: 0.30, ease: "snapIn" }, S9_BEAT2_START);
+      chars("#s9-beat-2 .s9-beat-headline", S9_BEAT2_START + 0.05, { stagger: 0.10, duration: 0.45, y: 30 });
+      if (s9Line2) {
+        tl.to(s9Line2, { strokeDashoffset: 0, duration: 1.00, ease: "smooth" }, S9_BEAT2_START + 0.10);
+      }
+      tl.to("#s9-beat-2",
+        { opacity: 0, x: -120, y: -60, filter: "blur(8px)",
+          duration: 0.40, ease: "snapOut" },
+        S9_BEAT3_START - 0.10);
+
+      // ── BEAT 3 — "Sitting in cash" — photo + counter payoff ──
+      // Photo lands as the answer (no text first)
+      gsap.set("#s9-cash-img", { scale: 1.10, opacity: 0 });
+      tl.to("#s9-beat-3", { opacity: 1, duration: 0.40, ease: "snapIn" }, S9_BEAT3_START);
+      tl.to("#s9-cash-img",
+        { opacity: 1, scale: 1.0, duration: 1.20, ease: "smooth" },
+        S9_BEAT3_START);
+      // Subtle ongoing Ken Burns drift
+      tl.to("#s9-cash-img",
+        { scale: 1.05, duration: 3.5, ease: "none" },
+        S9_BEAT3_START + 0.5);
+      // Typographic stack lands after photo settles (kicker dropped)
+      chars("#s9-cash-headline", at("scene-09", "Sitting in cash") + 0.10, { stagger: 0.10, duration: 0.55, y: 30 });
+      // $380B counter ticks up on "waiting for prices"
+      const s9CashCounterEl = document.getElementById("s9-cash-counter");
+      const s9CashProxy = { v: 0 };
+      tl.set("#s9-cash-counter", { opacity: 1, textContent: "$0B" }, at("scene-09", "waiting for") - 0.05);
+      tl.to(s9CashProxy, {
+        v: 380, duration: 1.30, ease: "snapIn",
+        onUpdate: () => { if (s9CashCounterEl) s9CashCounterEl.textContent = "$" + Math.round(s9CashProxy.v) + "B"; }
+      }, at("scene-09", "waiting for"));
+
+      drift("#scene9", S9_START - 0.18, 6.13, -10, 0.020);
+
+      crossfade("#scene9", "#scene10", at("scene-10", "This doesn't") - 0.18);
+
+      // ============================================================
+      // SCENE 10 — Bloom CTA bookend
+      // ============================================================
+      tl.to("#s10-recap", { opacity: 1, duration: 0.45, ease: "bezierIn" },
+        at("scene-10", "This doesn't") - 0.05);
+      // Logo lands when "Bloom" word is spoken
+      gsap.set("#s10-bloom-logo", { opacity: 0, scale: 1.10 });
+      tl.to("#s10-bloom-logo",
+        { opacity: 1, scale: 1.00, duration: 0.55, ease: "bezierIn" },
+        at("scene-10", "Bloom") - 0.18);
+      // Wordmark char-stagger after logo
+      chars("#s10-wordmark", at("scene-10", "Bloom") + 0.05, { stagger: 0.028, duration: 0.34, y: 18 });
+      tl.to("#s10-cta", { opacity: 1, duration: 0.45, ease: "bezierIn" },
+        at("scene-10", "Bloom") + 0.40);
+      drift("#scene10", at("scene-10", "This doesn't") - 0.18, 4.50, -14, 0.030);
+
+      // Final fade-out hold ends naturally at composition end (63.5s)
+    </script>
+  </div>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "framework": "hyperframes",
+  "version": "1.0",
+  "paths": {
+    "blocks": "compositions",
+    "components": "compositions/components",
+    "assets": "assets"
+  }
+}

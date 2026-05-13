@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Timeline scroll — technique demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,900&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: #000; color: #fff; font-family: "Inter", system-ui, sans-serif; }
+
+    #root {
+      position: relative;
+      width: 1080px; height: 1920px;
+      background: #ebe5d2;     /* cream paper base color, paper-bg img on top */
+      overflow: hidden;
+    }
+    #paper-bg {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      mix-blend-mode: multiply;
+      opacity: 0.95;
+      z-index: 1;
+    }
+
+    /* Persistent eyebrow + footer (don't scroll with the strip) */
+    #header {
+      position: absolute;
+      top: 90px; left: 0; right: 0;
+      text-align: center;
+      font-family: "Playfair Display", "Times New Roman", serif;
+      font-style: italic;
+      font-weight: 700;
+      font-size: 38px;
+      letter-spacing: 0.02em;
+      color: #1a1208;
+      z-index: 20;
+    }
+    #header-rule {
+      position: absolute;
+      top: 162px; left: 50%;
+      width: 240px; height: 1px;
+      background: rgba(26,18,8,0.30);
+      transform: translateX(-50%);
+      z-index: 20;
+    }
+    #footer-tag {
+      position: absolute;
+      bottom: 70px; left: 0; right: 0;
+      text-align: center;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 20px;
+      letter-spacing: 0.30em;
+      text-transform: uppercase;
+      color: rgba(26,18,8,0.45);
+      z-index: 20;
+    }
+
+    /* Cream-paper scrims fade events at viewport edges (multiply OK now) */
+    #scrim-top {
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      height: 480px;
+      background: linear-gradient(180deg,
+        #ebe5d2 0%,
+        #ebe5d2 35%,
+        rgba(235,229,210,0.85) 60%,
+        transparent 100%);
+      z-index: 15; pointer-events: none;
+    }
+    #scrim-bottom {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 360px;
+      background: linear-gradient(0deg, #ebe5d2 0%, transparent 100%);
+      z-index: 15; pointer-events: none;
+    }
+
+    /* The scrolling strip — taller now to accommodate full-width-photo cards.
+       z-index above #paper-bg so the rail and dots sit on top of the paper texture. */
+    #strip {
+      position: absolute;
+      left: 0; top: 0;
+      width: 1080px;
+      height: 6400px;
+      will-change: transform;
+      z-index: 5;
+    }
+
+    /* Vertical rail down the LEFT side of the viewport — dark line on cream */
+    #rail {
+      position: absolute;
+      left: 80px; top: 0;
+      width: 3px;
+      height: 6400px;
+      background: rgba(26,18,8,0.55);
+    }
+
+    /* Each event — positioned by its CENTER (translateY -50%) so the
+       content lands vertically centered in the viewport when scrolled to. */
+    .event {
+      position: absolute;
+      left: 0; right: 0;
+      width: 1080px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transform: translateY(-50%);
+    }
+
+    .dot {
+      position: absolute;
+      left: 56px; top: 50%;
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      background: #ebe5d2;
+      border: 3px solid rgba(26,18,8,0.45);
+      transform: translateY(-50%);
+      z-index: 5;
+    }
+
+    /* Active dot: filled in with editorial red (no glow) */
+    .event.active .dot {
+      border-color: #B83227;
+      background: #B83227;
+    }
+    .event.payoff.active .dot {
+      border-color: #1E7A3E;
+      background: #1E7A3E;
+    }
+
+    .event-content {
+      width: 880px;
+      margin-left: 80px;        /* leaves room for the rail on the left */
+      padding: 0 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+      text-align: center;
+    }
+    .event-text {
+      width: 100%;
+    }
+
+    /* Photo BELOW the text — magazine clipping with thin dark border */
+    .event-photo-wrap {
+      width: 740px;
+      height: 460px;
+      border: 1px solid rgba(26,18,8,0.40);
+      box-shadow: 0 12px 24px rgba(26,18,8,0.18);
+      transform: rotate(-1deg);
+      transform-origin: 50% 50%;
+      opacity: 0;
+      overflow: hidden;
+      position: relative;
+      margin: 0 auto;
+    }
+    .event:nth-of-type(odd) .event-photo-wrap { transform: rotate(1deg); }
+    .event-photo {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: contrast(1.02) saturate(0.80);
+    }
+    .event-photo-caption {
+      position: absolute;
+      bottom: 14px; left: 18px; right: 18px;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 16px;
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.92);
+      text-shadow: 0 2px 4px rgba(0,0,0,0.85);
+    }
+
+    .date {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 700;
+      font-size: 50px;
+      letter-spacing: 0.04em;
+      color: #B83227;
+      line-height: 1;
+      margin-bottom: 14px;
+      opacity: 0;
+    }
+
+    .headline {
+      font-family: "Playfair Display", "Times New Roman", serif;
+      font-style: italic;
+      font-weight: 900;
+      font-size: 96px;
+      letter-spacing: -0.01em;
+      line-height: 0.98;
+      color: #1a1208;
+      margin-bottom: 18px;
+      opacity: 0;
+    }
+
+    .stat {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 26px;
+      letter-spacing: 0.04em;
+      color: rgba(26,18,8,0.65);
+      opacity: 0;
+      line-height: 1.3;
+    }
+    .stat .neg { color: #B83227; font-weight: 700; }
+
+    /* Payoff event — no photo, just editorial typography in dark green */
+    .event.payoff .event-content { display: block; }
+    .event.payoff .date {
+      color: #1E7A3E;
+      font-size: 36px;
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+    }
+    .event.payoff .headline {
+      color: #1E7A3E;
+      font-style: italic;
+      font-size: 130px;
+    }
+    .event.payoff .stat {
+      color: rgba(26,18,8,0.78);
+      font-style: italic;
+      font-family: "Playfair Display", serif;
+      font-weight: 700;
+      font-size: 34px;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="root" data-composition-id="timeline-scroll-2026-05-10" data-start="0" data-duration="10.4" data-width="1080" data-height="1920">
+
+    <img id="paper-bg" src="assets/paper-bg.png" alt="" />
+
+    <div id="header">A Short History of Crashes</div>
+    <div id="header-rule"></div>
+
+    <div id="scrim-top"></div>
+    <div id="scrim-bottom"></div>
+
+    <div id="strip">
+      <div id="rail"></div>
+
+      <div class="event" id="event-1" style="top: 700px;">
+        <div class="dot"></div>
+        <div class="event-content">
+          <div class="event-text">
+            <div class="date">1987</div>
+            <div class="headline">Black Monday</div>
+            <div class="stat"><span class="neg">−22.6%</span> in one day<br/>DOW JONES INDUSTRIAL</div>
+          </div>
+          <div class="event-photo-wrap">
+            <img class="event-photo" src="assets/crash-1987.png" alt="" />
+            <div class="event-photo-caption">NYSE · OCT 19, 1987</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="event" id="event-2" style="top: 1900px;">
+        <div class="dot"></div>
+        <div class="event-content">
+          <div class="event-text">
+            <div class="date">2000</div>
+            <div class="headline">Dot-com Bust</div>
+            <div class="stat"><span class="neg">−78%</span> over 30 months<br/>NASDAQ COMPOSITE</div>
+          </div>
+          <div class="event-photo-wrap">
+            <img class="event-photo" src="assets/crash-2000.png" alt="" />
+            <div class="event-photo-caption">SILICON VALLEY · 2001</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="event" id="event-3" style="top: 3100px;">
+        <div class="dot"></div>
+        <div class="event-content">
+          <div class="event-text">
+            <div class="date">2008</div>
+            <div class="headline">Financial Crisis</div>
+            <div class="stat"><span class="neg">−57%</span> peak to trough<br/>S&amp;P 500</div>
+          </div>
+          <div class="event-photo-wrap">
+            <img class="event-photo" src="assets/crash-2008.png" alt="" />
+            <div class="event-photo-caption">WALL ST · SEP 15, 2008</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="event" id="event-4" style="top: 4300px;">
+        <div class="dot"></div>
+        <div class="event-content">
+          <div class="event-text">
+            <div class="date">2020</div>
+            <div class="headline">COVID Crash</div>
+            <div class="stat"><span class="neg">−34%</span> in 33 days<br/>S&amp;P 500</div>
+          </div>
+          <div class="event-photo-wrap">
+            <img class="event-photo" src="assets/crash-2020.png" alt="" />
+            <div class="event-photo-caption">TIMES SQUARE · MAR 2020</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="event payoff" id="event-5" style="top: 5500px;">
+        <div class="dot"></div>
+        <div class="event-content">
+          <div class="event-text">
+            <div class="date">100% Recovery</div>
+            <div class="headline">Every one.</div>
+            <div class="stat">Markets always came back.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="footer-tag">DOW · S&amp;P · NASDAQ</div>
+
+    <audio id="vo1" class="clip" data-track-index="2" data-start="0"     data-duration="1.768"
+      src="assets/voiceover/timeline-scroll-2026-05-10/scene-01.mp3" data-volume="1"></audio>
+    <audio id="vo2" class="clip" data-track-index="2" data-start="2.10"  data-duration="1.815"
+      src="assets/voiceover/timeline-scroll-2026-05-10/scene-02.mp3" data-volume="1"></audio>
+    <audio id="vo3" class="clip" data-track-index="2" data-start="4.20"  data-duration="2.465"
+      src="assets/voiceover/timeline-scroll-2026-05-10/scene-03.mp3" data-volume="1"></audio>
+    <audio id="vo4" class="clip" data-track-index="2" data-start="6.95"  data-duration="1.861"
+      src="assets/voiceover/timeline-scroll-2026-05-10/scene-04.mp3" data-volume="1"></audio>
+    <audio id="vo5" class="clip" data-track-index="2" data-start="9.10"  data-duration="1.304"
+      src="assets/voiceover/timeline-scroll-2026-05-10/scene-05.mp3" data-volume="1"></audio>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/CustomEase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/SplitText.min.js"></script>
+
+  <script>
+    gsap.registerPlugin(CustomEase, SplitText);
+    CustomEase.create("bezierIn",  "0.1, 0.7, 0.5, 1");
+    CustomEase.create("bezierOut", "0.5, 0, 0.9, 0.3");
+
+    const SCENES = {
+      "scene-01": { offset: 0.00, words: [
+        { word: "Eighty-seven", start: 0.000 },
+        { word: "Black",        start: 0.778 },
+        { word: "Monday",       start: 1.126 }
+      ]},
+      "scene-02": { offset: 2.10, words: [
+        { word: "Two",        start: 0.000 },
+        { word: "thousand",   start: 0.267 },
+        { word: "Dot-com",    start: 0.766 },
+        { word: "bust",       start: 1.265 }
+      ]},
+      "scene-03": { offset: 4.20, words: [
+        { word: "Two",        start: 0.000 },
+        { word: "thousand",   start: 0.267 },
+        { word: "eight",      start: 0.650 },
+        { word: "Financial",  start: 1.091 },
+        { word: "crisis",     start: 1.660 }
+      ]},
+      "scene-04": { offset: 6.95, words: [
+        { word: "Twenty-twenty", start: 0.000 },
+        { word: "COVID",         start: 0.859 },
+        { word: "crash",         start: 1.242 }
+      ]},
+      "scene-05": { offset: 9.10, words: [
+        { word: "Every",      start: 0.000 },
+        { word: "one",        start: 0.360 },
+        { word: "Recovered",  start: 0.673 }
+      ]}
+    };
+
+    function _norm(s) { return s.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu, ""); }
+    function _findPhrase(sceneId, phrase) {
+      const W = SCENES[sceneId].words;
+      const tokens = phrase.toLowerCase().split(/\s+/).map(_norm).filter(Boolean);
+      const hits = [];
+      for (let i = 0; i <= W.length - tokens.length; i++) {
+        let ok = true;
+        for (let j = 0; j < tokens.length; j++) {
+          if (_norm(W[i+j].word) !== tokens[j]) { ok = false; break; }
+        }
+        if (ok) hits.push(i);
+      }
+      if (hits.length === 0) throw new Error(`at: phrase "${phrase}" not found in ${sceneId}`);
+      if (hits.length > 1) throw new Error(`at: phrase "${phrase}" matches ${hits.length} occurrences in ${sceneId}.`);
+      return W[hits[0]].start;
+    }
+    function at(sceneId, phrase) { return SCENES[sceneId].offset + _findPhrase(sceneId, phrase); }
+
+    /* ============================================================
+       Layout math:
+       - Viewport center: y = 960 (of 1080×1920)
+       - Each event sits at its data-y position WITHIN the strip
+       - To bring an event at strip-y to viewport center, set strip translateY = 960 - strip-y
+       ============================================================ */
+    const VIEWPORT_CENTER_Y = 960;
+    const eventStripY = {
+      "#event-1": 700,
+      "#event-2": 1900,
+      "#event-3": 3100,
+      "#event-4": 4300,
+      "#event-5": 5500
+    };
+    function stripPosFor(eventSel) {
+      return VIEWPORT_CENTER_Y - eventStripY[eventSel];
+    }
+
+    document.fonts.ready.then(() => {
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true, defaults: { overwrite: "auto" } });
+      window.__timelines["timeline-scroll-2026-05-10"] = tl;
+
+      // Pre-state: strip positioned so event 1 lands at viewport center.
+      gsap.set("#strip", { y: stripPosFor("#event-1") });
+
+      // Pre-state: all event content + photos hidden (revealed per event).
+      gsap.set([".date", ".headline", ".stat"], { opacity: 0, y: 14 });
+      gsap.set(".event-photo-wrap", { opacity: 0, scale: 0.92 });
+
+      /* ============================================================
+         Helper: reveal an event at its scroll position with char-stagger.
+         Call after the strip has scrolled to bring the event to center.
+         ============================================================ */
+      function revealEvent(eventSel, atTime) {
+        // Activate dot styling
+        tl.add(() => {
+          const el = document.querySelector(eventSel);
+          if (el) el.classList.add("active");
+        }, atTime);
+        // Char-stagger reveal date → headline → stat
+        const split = {
+          date:     new SplitText(eventSel + " .date",     { type: "words,chars" }),
+          headline: new SplitText(eventSel + " .headline", { type: "words,chars" }),
+          stat:     new SplitText(eventSel + " .stat",     { type: "words,chars" })
+        };
+        gsap.set([split.date.chars, split.headline.chars, split.stat.chars],
+          { opacity: 0, y: 14 });
+        gsap.set([eventSel + " .date", eventSel + " .headline", eventSel + " .stat"],
+          { opacity: 1 });
+
+        tl.to(split.date.chars, {
+          opacity: 1, y: 0, duration: 0.35, stagger: 0.022, ease: "bezierIn"
+        }, atTime);
+        tl.to(split.headline.chars, {
+          opacity: 1, y: 0, duration: 0.40, stagger: 0.025, ease: "bezierIn"
+        }, atTime + 0.15);
+        tl.to(split.stat.chars, {
+          opacity: 1, y: 0, duration: 0.35, stagger: 0.018, ease: "bezierIn"
+        }, atTime + 0.40);
+
+        // Photo (if present — payoff has no photo) reveals slightly after the headline
+        const photo = document.querySelector(eventSel + " .event-photo-wrap");
+        if (photo) {
+          tl.to(eventSel + " .event-photo-wrap", {
+            opacity: 1, scale: 1.0, duration: 0.50, ease: "bezierIn"
+          }, atTime + 0.20);
+        }
+      }
+
+      /* ============================================================
+         Event 1 — 1987 Black Monday (already at viewport center)
+         Just reveal contents on "Eighty-seven" word.
+         ============================================================ */
+      revealEvent("#event-1", at("scene-01", "Eighty-seven") + 0.05);
+
+      /* ============================================================
+         Scroll to Event 2 — anchored to "Two thousand" (scene-02)
+         The scroll itself is the visual punchline of the technique
+         ============================================================ */
+      tl.to("#strip", {
+        y: stripPosFor("#event-2"),
+        duration: 0.65, ease: "bezierIn"
+      }, at("scene-02", "Two") - 0.20);
+      revealEvent("#event-2", at("scene-02", "Dot-com") - 0.05);
+
+      /* === Scroll to Event 3 — 2008 Financial Crisis === */
+      tl.to("#strip", {
+        y: stripPosFor("#event-3"),
+        duration: 0.65, ease: "bezierIn"
+      }, at("scene-03", "Two") - 0.20);
+      revealEvent("#event-3", at("scene-03", "Financial") - 0.05);
+
+      /* === Scroll to Event 4 — 2020 COVID Crash === */
+      tl.to("#strip", {
+        y: stripPosFor("#event-4"),
+        duration: 0.65, ease: "bezierIn"
+      }, at("scene-04", "Twenty-twenty") - 0.20);
+      revealEvent("#event-4", at("scene-04", "COVID") - 0.05);
+
+      /* === Scroll to Payoff — every crash recovered === */
+      tl.to("#strip", {
+        y: stripPosFor("#event-5"),
+        duration: 0.75, ease: "bezierIn"
+      }, at("scene-05", "Every") - 0.20);
+      revealEvent("#event-5", at("scene-05", "Every") + 0.10);
+    });
+  </script>
+</body>
+</html>

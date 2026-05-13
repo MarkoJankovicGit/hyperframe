@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"cd videos/bloom-investing-myths && npx hyperframes validate 2>&1 | tail -60\",\"description\":\"Validate composition in headless Chrome\"}",
+  "error": "Exit code 1\n/usr/bin/bash: line 1: cd: videos/bloom-investing-myths: No such file or directory",
+  "timestamp": "2026-05-11T15:47:57.493Z",
+  "retry_count": 1
+}

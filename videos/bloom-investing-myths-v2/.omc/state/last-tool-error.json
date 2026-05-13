@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"cd videos/bloom-investing-myths-v2 && rm -rf compositions beat-slices.json vo-words.json && ls && echo \\\"---LINT---\\\" && npx hyperframes lint . 2>&1 | tail -5 && echo \\\"---VALIDATE---\\\" &&...",
+  "error": "Exit code 1\n/usr/bin/bash: line 1: cd: videos/bloom-investing-myths-v2: No such file or directory",
+  "timestamp": "2026-05-11T16:30:07.384Z",
+  "retry_count": 1
+}

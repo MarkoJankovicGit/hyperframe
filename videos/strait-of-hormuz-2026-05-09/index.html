@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Strait of Hormuz — map zoom demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: #000; color: #fff;
+      font-family: "Inter", system-ui, sans-serif;
+    }
+
+    #root {
+      position: relative;
+      width: 1080px; height: 1920px;
+      overflow: hidden;
+      background: #0a1929;
+    }
+
+    /* Camera wrapper — owns the zoom transform.
+       Map composed naturally; pin position calibrated by visual inspection of
+       the AI-rendered map's "Strait of Hormuz" label position.
+       transform-origin set to the pin position so the strait stays fixed during zoom. */
+    #camera {
+      position: absolute; inset: 0;
+      transform-origin: 68% 50%;   /* ← visually calibrated to strait water position on this map */
+      will-change: transform;
+    }
+
+    .map {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Subtle paper-depth overlay for the map */
+    .paper-depth {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.06), transparent 50%),
+        linear-gradient(180deg, rgba(255,255,255,0.08), rgba(0,0,0,0.18));
+      mix-blend-mode: overlay;
+      pointer-events: none;
+    }
+
+    /* Tactical-corner brackets for "surveillance frame" feel */
+    .corner {
+      position: absolute;
+      width: 64px; height: 64px;
+      border-color: rgba(255,255,255,0.62);
+      opacity: 0;
+      z-index: 6;
+    }
+    .corner.tl { left: 60px; top: 60px;   border-top: 4px solid; border-left: 4px solid; }
+    .corner.tr { right: 60px; top: 60px;  border-top: 4px solid; border-right: 4px solid; }
+    .corner.bl { left: 60px; bottom: 60px; border-bottom: 4px solid; border-left: 4px solid; }
+    .corner.br { right: 60px; bottom: 60px; border-bottom: 4px solid; border-right: 4px solid; }
+
+    /* Soft dark scrim at top, behind eyebrow only */
+    #top-scrim {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 220px;
+      background: linear-gradient(180deg,
+        rgba(8,12,20,0.65) 0%,
+        rgba(8,12,20,0.30) 60%,
+        transparent 100%);
+      pointer-events: none;
+      z-index: 7;
+      opacity: 0;
+    }
+
+    /* Same for bottom payoff */
+    #bottom-scrim {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 460px;
+      background: linear-gradient(0deg,
+        rgba(8,12,20,0.88) 0%,
+        rgba(8,12,20,0.55) 60%,
+        transparent 100%);
+      pointer-events: none;
+      z-index: 7;
+      opacity: 0;
+    }
+
+    /* Eyebrow at top */
+    #eyebrow {
+      position: absolute;
+      top: 130px; left: 0; right: 0;
+      text-align: center;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 600;
+      font-size: 28px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+      opacity: 0;
+      z-index: 8;
+    }
+
+    /* Big stat banner under eyebrow — positioned over the dark Persian Gulf body */
+    #stat {
+      position: absolute;
+      top: 720px; left: 0; right: 0;
+      text-align: center;
+      font-family: "Inter", system-ui;
+      font-weight: 900;
+      font-size: 240px;
+      letter-spacing: -0.04em;
+      line-height: 0.95;
+      color: #FFFFFF;
+      opacity: 0;
+      z-index: 8;
+      text-shadow: 0 6px 24px rgba(0,0,0,0.65);
+    }
+    #stat-label {
+      position: absolute;
+      top: 1000px; left: 0; right: 0;
+      text-align: center;
+      font-family: "Inter", system-ui;
+      font-weight: 800;
+      font-size: 48px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      opacity: 0;
+      z-index: 8;
+      text-shadow: 0 4px 14px rgba(0,0,0,0.65);
+    }
+
+    /* SCRIBBLE — lives INSIDE the camera, percentage-positioned at the Strait
+       location on the map image. Always tracks the Strait regardless of camera
+       zoom level because it transforms with the map. Stroke widths shrunk to
+       compensate for the camera's 2.3x zoom (so they read at correct visual size). */
+    #scribble-pin {
+      position: absolute;
+      left: 68%; top: 50%;                      /* ← matches camera transform-origin = strait water passage */
+      width: 160px; height: 130px;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      opacity: 0;
+    }
+    .scribble {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      overflow: visible;
+    }
+    .scribble path {
+      fill: none;
+      stroke: #FF3B30;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter: drop-shadow(0 4px 8px rgba(255,59,48,0.45));
+    }
+    #scribble-outer {
+      stroke-width: 5;
+      stroke-dasharray: 1500;
+      stroke-dashoffset: 1500;
+    }
+    #scribble-inner {
+      stroke-width: 3;
+      opacity: 0.78;
+      stroke-dasharray: 1380;
+      stroke-dashoffset: 1380;
+    }
+
+    /* LABEL — stays OUTSIDE the camera, fixed viewport position so it remains
+       readable at constant size. Positioned above where the Strait visually
+       lands after the camera zoom completes. */
+    #label-floating {
+      position: absolute;
+      left: 68%; top: 760px;                    /* ← above where the strait pin lands after zoom.
+                                                     Pin at (74%×1080, 43%×1920) = (800, 826);
+                                                     label sits ~180px above it via xPercent:-50 centering. */
+      padding: 18px 28px 20px;
+      border-radius: 14px;
+      background: #0a0a0a;
+      color: #FFFFFF;
+      box-shadow:
+        0 18px 44px rgba(0,0,0,0.55),
+        inset 0 0 0 1px rgba(255,255,255,0.10);
+      font-family: "Inter", system-ui;
+      font-weight: 900;
+      font-size: 44px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      text-align: center;
+      white-space: nowrap;
+      opacity: 0;
+      z-index: 10;
+    }
+    #label-floating::after {
+      content: "";
+      position: absolute;
+      left: 50%; bottom: -14px;
+      width: 28px; height: 28px;
+      background: #0a0a0a;
+      transform: translateX(-50%) rotate(45deg);
+    }
+
+    /* Iran-side red wash overlay (highlights northern side of strait).
+       Multiply blend tints light land areas with red — opposite of screen which
+       hides red on light pixels. */
+    #iran-wash {
+      position: absolute;
+      left: 0; top: 0;
+      width: 100%; height: 60%;
+      background: radial-gradient(ellipse at 60% 75%,
+        rgba(220,38,38,0.85) 0%,
+        rgba(220,38,38,0.45) 35%,
+        rgba(220,38,38,0.10) 65%,
+        transparent 85%);
+      mix-blend-mode: multiply;
+      opacity: 0;
+      z-index: 7;
+      pointer-events: none;
+    }
+
+    /* Bottom payoff banner */
+    #payoff {
+      position: absolute;
+      bottom: 220px; left: 0; right: 0;
+      text-align: center;
+      font-family: "Inter", system-ui;
+      font-weight: 900;
+      font-size: 130px;
+      letter-spacing: -0.02em;
+      line-height: 0.95;
+      color: #FFFFFF;
+      opacity: 0;
+      z-index: 9;
+      text-shadow: 0 6px 18px rgba(0,0,0,0.65);
+    }
+    #payoff-sub {
+      position: absolute;
+      bottom: 160px; left: 0; right: 0;
+      text-align: center;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+      color: rgba(255,90,80,0.85);
+      opacity: 0;
+      z-index: 9;
+    }
+
+    /* Footer attribution */
+    #attribution {
+      position: absolute;
+      right: 32px; bottom: 28px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 20px;
+      color: rgba(255,255,255,0.32);
+      z-index: 11;
+      letter-spacing: 0.06em;
+    }
+  </style>
+</head>
+<body>
+  <div id="root" data-composition-id="strait-of-hormuz-2026-05-09" data-start="0" data-duration="7.85" data-width="1080" data-height="1920">
+
+    <!-- Camera wrapper - owns the map zoom. Pin/scribble lives INSIDE so it
+         stays locked to the Strait location regardless of zoom level. -->
+    <div id="camera">
+      <img class="map" src="assets/gulf-map.png" alt="Persian Gulf region map" />
+      <div class="paper-depth"></div>
+
+      <!-- Scribble pin — pinned at the Strait's pixel position on the map.
+           Oval shape (wider than tall) to match the elongated waterway. -->
+      <div id="scribble-pin">
+        <svg class="scribble" viewBox="0 0 220 150" aria-hidden="true" preserveAspectRatio="none">
+          <!-- Two overlapping ovals: outer + inner, marker-doubled-up look -->
+          <path id="scribble-outer"
+            d="M 20 80 C 8 40 60 18 110 16 C 170 14 208 42 204 86 C 198 124 140 138 90 132 C 36 126 28 110 20 80 Z" />
+          <path id="scribble-inner"
+            d="M 28 84 C 18 46 64 24 112 22 C 168 20 202 50 198 88 C 192 122 138 132 88 126 C 38 120 32 110 28 84 Z" />
+        </svg>
+      </div>
+    </div>
+
+    <!-- Top + bottom dark scrims for text legibility over the map -->
+    <div id="top-scrim"></div>
+    <div id="bottom-scrim"></div>
+
+    <!-- Iran-side red wash (above camera, but in viewport coords) -->
+    <div id="iran-wash"></div>
+
+    <!-- Tactical corner brackets -->
+    <div class="corner tl"></div>
+    <div class="corner tr"></div>
+    <div class="corner bl"></div>
+    <div class="corner br"></div>
+
+    <!-- Top: eyebrow + big stat -->
+    <div id="eyebrow">GLOBAL OIL FLOW</div>
+    <div id="stat">20%</div>
+    <div id="stat-label">of world oil</div>
+
+    <!-- Floating label - sits at fixed viewport position, above where the
+         Strait visually lands after the camera zoom completes. -->
+    <div id="label-floating">STRAIT OF HORMUZ</div>
+
+    <!-- Bottom: payoff -->
+    <div id="payoff">Prices triple.</div>
+    <div id="payoff-sub">SCENARIO · IRAN BLOCKS STRAIT</div>
+
+    <div id="attribution">REGION · PERSIAN GULF</div>
+
+    <!-- Audio clips (gapless with 0.30s breathing room between scenes) -->
+    <audio id="vo1" class="clip" data-track-index="2" data-start="0"    data-duration="2.00"
+      src="assets/voiceover/strait-of-hormuz-2026-05-09/scene-01.mp3" data-volume="1"></audio>
+    <audio id="vo2" class="clip" data-track-index="2" data-start="2.30" data-duration="1.583"
+      src="assets/voiceover/strait-of-hormuz-2026-05-09/scene-02.mp3" data-volume="1"></audio>
+    <audio id="vo3" class="clip" data-track-index="2" data-start="4.18" data-duration="1.443"
+      src="assets/voiceover/strait-of-hormuz-2026-05-09/scene-03.mp3" data-volume="1"></audio>
+    <audio id="vo4" class="clip" data-track-index="2" data-start="5.92" data-duration="1.861"
+      src="assets/voiceover/strait-of-hormuz-2026-05-09/scene-04.mp3" data-volume="1"></audio>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/CustomEase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/SplitText.min.js"></script>
+
+  <script>
+    gsap.registerPlugin(CustomEase, SplitText);
+    CustomEase.create("bezierIn",  "0.1, 0.7, 0.5, 1");
+    CustomEase.create("bezierOut", "0.5, 0, 0.9, 0.3");
+
+    const SCENES = {
+      "scene-01": { offset: 0.00, words: [
+        { word: "Twenty",   start: 0.000 },
+        { word: "percent",  start: 0.372 },
+        { word: "of",       start: 0.778 },
+        { word: "the",      start: 0.894 },
+        { word: "world's",  start: 1.010 },
+        { word: "oil",      start: 1.405 }
+      ]},
+      "scene-02": { offset: 2.30, words: [
+        { word: "All",      start: 0.000 },
+        { word: "flows",    start: 0.244 },
+        { word: "through",  start: 0.569 },
+        { word: "one",      start: 0.836 },
+        { word: "strait",   start: 1.033 }
+      ]},
+      "scene-03": { offset: 4.18, words: [
+        { word: "Iran",     start: 0.000 },
+        { word: "controls", start: 0.360 },
+        { word: "one",      start: 0.766 },
+        { word: "side",     start: 0.964 }
+      ]},
+      "scene-04": { offset: 5.92, words: [
+        { word: "Close",    start: 0.000 },
+        { word: "it",       start: 0.360 },
+        { word: "and",      start: 0.685 },
+        { word: "prices",   start: 0.882 },
+        { word: "triple",   start: 1.300 }
+      ]}
+    };
+
+    function _norm(s) { return s.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu, ""); }
+    function _findPhrase(sceneId, phrase) {
+      const W = SCENES[sceneId].words;
+      const tokens = phrase.toLowerCase().split(/\s+/).map(_norm).filter(Boolean);
+      const hits = [];
+      for (let i = 0; i <= W.length - tokens.length; i++) {
+        let ok = true;
+        for (let j = 0; j < tokens.length; j++) {
+          if (_norm(W[i+j].word) !== tokens[j]) { ok = false; break; }
+        }
+        if (ok) hits.push(i);
+      }
+      if (hits.length === 0) throw new Error(`at: phrase "${phrase}" not found in ${sceneId}`);
+      if (hits.length > 1) throw new Error(`at: phrase "${phrase}" matches ${hits.length} occurrences in ${sceneId}.`);
+      return W[hits[0]].start;
+    }
+    function at(sceneId, phrase) { return SCENES[sceneId].offset + _findPhrase(sceneId, phrase); }
+
+    document.fonts.ready.then(() => {
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true, defaults: { overwrite: "auto" } });
+      window.__timelines["strait-of-hormuz-2026-05-09"] = tl;
+
+      // Pre-state: camera starts wide, no zoom
+      gsap.set("#camera", { scale: 1.00 });
+      gsap.set("#label-floating", { xPercent: -50, scale: 0.78, opacity: 0 });
+
+      const splitEye    = new SplitText("#eyebrow",   { type: "words,chars" });
+      const splitStat   = new SplitText("#stat",      { type: "chars" });
+      const splitStatL  = new SplitText("#stat-label", { type: "words,chars" });
+      const splitPayoff = new SplitText("#payoff",    { type: "words,chars" });
+      const splitPayS   = new SplitText("#payoff-sub", { type: "words,chars" });
+      gsap.set([splitEye.chars, splitStat.chars, splitStatL.chars,
+                splitPayoff.chars, splitPayS.chars],
+        { opacity: 0, y: 14 });
+      gsap.set(["#eyebrow", "#stat", "#stat-label", "#payoff", "#payoff-sub"], { opacity: 1 });
+
+      /* === SCENE 1: wide map view + big "20%" stat slams === */
+      // Top scrim fades in for stat legibility
+      tl.to("#top-scrim", {
+        opacity: 1, duration: 0.5, ease: "bezierIn"
+      }, at("scene-01", "Twenty") - 0.20);
+
+      // Eyebrow appears
+      tl.to(splitEye.chars, {
+        opacity: 1, y: 0, duration: 0.4, stagger: 0.018, ease: "bezierIn"
+      }, at("scene-01", "Twenty") - 0.10);
+
+      // Corners fade in
+      tl.to(".corner", {
+        opacity: 0.62, duration: 0.35, stagger: 0.04, ease: "bezierIn"
+      }, at("scene-01", "Twenty"));
+
+      // Big "20%" stat — char-stagger on "percent"
+      tl.to(splitStat.chars, {
+        opacity: 1, y: 0, duration: 0.45, stagger: 0.05, ease: "bezierIn"
+      }, at("scene-01", "Twenty") + 0.05);
+
+      // "of world oil" label
+      tl.to(splitStatL.chars, {
+        opacity: 1, y: 0, duration: 0.35, stagger: 0.022, ease: "bezierIn"
+      }, at("scene-01", "world's") - 0.10);
+
+      /* === SCENE 2: zoom into Strait + pin + label === */
+      // Stat + top scrim fade out as camera starts to zoom (pivots focus to map)
+      tl.to(["#stat", "#stat-label", "#eyebrow", "#top-scrim"], {
+        opacity: 0, duration: 0.35, ease: "bezierOut"
+      }, at("scene-02", "All") - 0.10);
+
+      // Camera zoom — happens across most of scene 2
+      tl.to("#camera", {
+        scale: 2.30, duration: 1.65, ease: "bezierIn"
+      }, at("scene-02", "All") - 0.05);
+
+      // Scribble pin appears (inside camera, locked to Strait pixel coords)
+      tl.to("#scribble-pin", {
+        opacity: 1, duration: 0.20, ease: "bezierIn"
+      }, at("scene-02", "strait") - 0.20);
+      tl.to("#scribble-outer", {
+        strokeDashoffset: 0, duration: 0.55, ease: "bezierIn"
+      }, at("scene-02", "strait") - 0.10);
+      tl.to("#scribble-inner", {
+        strokeDashoffset: 0, duration: 0.45, ease: "bezierIn"
+      }, at("scene-02", "strait") + 0.10);
+      // Floating label (outside camera, viewport-fixed, constant readable size)
+      tl.to("#label-floating", {
+        opacity: 1, scale: 1.0, xPercent: -50, duration: 0.30, ease: "bezierIn"
+      }, at("scene-02", "strait") + 0.20);
+
+      /* === SCENE 3: Iran red wash highlights northern side === */
+      tl.to("#iran-wash", {
+        opacity: 0.95, duration: 0.45, ease: "bezierIn"
+      }, at("scene-03", "Iran") - 0.05);
+
+      // Subtle camera shift — small drift upward to look "at Iran"
+      tl.to("#camera", {
+        y: 28, duration: 1.20, ease: "bezierIn"
+      }, at("scene-03", "Iran"));
+
+      // Label nudge as if reacting to the threat
+      tl.to("#label-floating", {
+        y: -6, xPercent: -50, duration: 0.30, yoyo: true, repeat: 1, ease: "sine.inOut"
+      }, at("scene-03", "controls"));
+
+      /* === SCENE 4: payoff "Prices triple." === */
+      // Annotation softens slightly + bottom scrim fades in to make room for payoff
+      tl.to(["#scribble-pin", "#label-floating"], {
+        opacity: 0.55, duration: 0.35, ease: "bezierOut"
+      }, at("scene-04", "Close") - 0.05);
+      tl.to("#bottom-scrim", {
+        opacity: 1, duration: 0.40, ease: "bezierIn"
+      }, at("scene-04", "Close") - 0.10);
+
+      // Payoff char-stagger lands on "triple"
+      tl.to(splitPayoff.chars, {
+        opacity: 1, y: 0, duration: 0.45, stagger: 0.040, ease: "bezierIn"
+      }, at("scene-04", "prices") - 0.05);
+      tl.to(splitPayS.chars, {
+        opacity: 1, y: 0, duration: 0.35, stagger: 0.022, ease: "bezierIn"
+      }, at("scene-04", "triple") + 0.10);
+
+      // Final small zoom-out gesture for breathing room
+      tl.to("#camera", {
+        scale: 2.20, duration: 1.40, ease: "sine.inOut"
+      }, at("scene-04", "Close"));
+    });
+  </script>
+</body>
+</html>

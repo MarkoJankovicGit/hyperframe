@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Match-cut on motion peak — technique demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: #000; color: #fff;
+      font-family: "Inter", system-ui, sans-serif;
+    }
+
+    #root {
+      position: relative;
+      width: 1080px; height: 1920px;
+      background: #000;
+      overflow: hidden;
+    }
+
+    /* Persistent eyebrow at top — gives visual continuity across the match-cuts */
+    #eyebrow {
+      position: absolute;
+      top: 140px; left: 0; right: 0;
+      text-align: center;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 30px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      z-index: 10;
+      opacity: 0;
+    }
+
+    /* Persistent footer ticker */
+    #footer {
+      position: absolute;
+      bottom: 100px; left: 0; right: 0;
+      text-align: center;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 22px;
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.30);
+      z-index: 10;
+      opacity: 0;
+    }
+
+    .scene {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      visibility: hidden;
+      opacity: 1;
+    }
+    #scene1 { visibility: visible; }
+
+    .bg {
+      position: absolute;
+      inset: 0;
+    }
+
+    /* Per-scene palette tint backdrops */
+    #scene1 .bg { background: radial-gradient(ellipse at 50% 45%, #102740 0%, #000 70%); }
+    #scene2 .bg { background: radial-gradient(ellipse at 50% 45%, #0a3030 0%, #000 70%); }
+    #scene3 .bg { background: radial-gradient(ellipse at 50% 45%, #2a2008 0%, #000 70%); }
+    #scene4 .bg { background: radial-gradient(ellipse at 50% 45%, #08401d 0%, #000 70%); }
+    #scene5 .bg { background: radial-gradient(ellipse at 50% 45%, #003a18 0%, #000 70%); }
+
+    /* Time label above the hero number */
+    .time-label {
+      position: absolute;
+      left: 0; right: 0;
+      top: 720px;
+      text-align: center;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 600;
+      font-size: 56px;
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.78);
+    }
+
+    /* Hero number — the center element where match-cuts happen */
+    .hero-number {
+      position: absolute;
+      left: 0; right: 0;
+      top: 870px;
+      text-align: center;
+      font-family: "Inter", system-ui;
+      font-weight: 900;
+      font-size: 260px;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: #FFFFFF;
+      transform-origin: 50% 50%;
+    }
+
+    #scene1 .hero-number { color: #88B4FF; }   /* cool blue */
+    #scene2 .hero-number { color: #5FE3CC; }   /* mint */
+    #scene3 .hero-number { color: #FFC857; }   /* amber */
+    #scene4 .hero-number { color: #56F09F; }   /* emerald */
+    #scene5 .hero-number { color: #00FF88; font-size: 130px; top: 880px; }   /* payoff text */
+
+    .magnitude-tag {
+      position: absolute;
+      left: 0; right: 0;
+      top: 1180px;
+      text-align: center;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+    }
+  </style>
+</head>
+<body>
+  <div id="root" data-composition-id="match-cut-curve-2026-05-10" data-start="0" data-duration="7.55" data-width="1080" data-height="1920">
+
+    <!-- Persistent eyebrow + footer (live across all match-cuts) -->
+    <div id="eyebrow">$100 INVESTED · 10% ANNUAL</div>
+    <div id="footer">COMPOUND INTEREST · DEMO</div>
+
+    <!-- 5 scenes; only #scene1 visible initially -->
+    <div class="scene" id="scene1">
+      <div class="bg"></div>
+      <div class="time-label">YEAR 0</div>
+      <div class="hero-number">$100</div>
+      <div class="magnitude-tag">STARTING BALANCE</div>
+    </div>
+
+    <div class="scene" id="scene2">
+      <div class="bg"></div>
+      <div class="time-label">YEAR 20</div>
+      <div class="hero-number">$673</div>
+      <div class="magnitude-tag">6.7×</div>
+    </div>
+
+    <div class="scene" id="scene3">
+      <div class="bg"></div>
+      <div class="time-label">YEAR 40</div>
+      <div class="hero-number">$4,526</div>
+      <div class="magnitude-tag">45×</div>
+    </div>
+
+    <div class="scene" id="scene4">
+      <div class="bg"></div>
+      <div class="time-label">YEAR 60</div>
+      <div class="hero-number">$30,448</div>
+      <div class="magnitude-tag">304×</div>
+    </div>
+
+    <div class="scene" id="scene5">
+      <div class="bg"></div>
+      <div class="time-label">THE LESSON</div>
+      <div class="hero-number">Compound interest.</div>
+      <div class="magnitude-tag">10% ANNUAL · 60 YEARS</div>
+    </div>
+
+    <audio id="vo1" class="clip" data-track-index="2" data-start="0"    data-duration="1.954"
+      src="assets/voiceover/match-cut-curve-2026-05-10/scene-01.mp3" data-volume="1"></audio>
+    <audio id="vo2" class="clip" data-track-index="2" data-start="2.10" data-duration="0.886"
+      src="assets/voiceover/match-cut-curve-2026-05-10/scene-02.mp3" data-volume="1"></audio>
+    <audio id="vo3" class="clip" data-track-index="2" data-start="3.15" data-duration="0.839"
+      src="assets/voiceover/match-cut-curve-2026-05-10/scene-03.mp3" data-volume="1"></audio>
+    <audio id="vo4" class="clip" data-track-index="2" data-start="4.15" data-duration="0.932"
+      src="assets/voiceover/match-cut-curve-2026-05-10/scene-04.mp3" data-volume="1"></audio>
+    <audio id="vo5" class="clip" data-track-index="2" data-start="5.25" data-duration="2.000"
+      src="assets/voiceover/match-cut-curve-2026-05-10/scene-05.mp3" data-volume="1"></audio>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/CustomEase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/SplitText.min.js"></script>
+
+  <script>
+    gsap.registerPlugin(CustomEase, SplitText);
+    CustomEase.create("bezierIn",  "0.1, 0.7, 0.5, 1");
+    CustomEase.create("bezierOut", "0.5, 0, 0.9, 0.3");
+
+    /* ============================================================
+       The match-cut technique:
+       - Outgoing scene's hero scales UP + fades OUT (accelerating, bezierOut)
+       - At the apex (peak motion), tl.set swaps scene visibility
+       - Incoming scene's hero starts AT scale 1.5 + opacity 0,
+         tweens DOWN to scale 1.0 + opacity 1 (decelerating, bezierIn)
+       - The cut hides inside the motion — viewer's eye sees one continuous
+         scaling pulse instead of two separate scenes
+       ============================================================ */
+
+    document.fonts.ready.then(() => {
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true, defaults: { overwrite: "auto" } });
+      window.__timelines["match-cut-curve-2026-05-10"] = tl;
+
+      // Pre-state: scenes 2-5 hidden initially. The whole scene container
+      // gets scale + blur transitions so EVERYTHING zooms together (cinematic).
+      gsap.set(["#scene2 .hero-number", "#scene3 .hero-number",
+                "#scene4 .hero-number", "#scene5 .hero-number"],
+        { scale: 1.0, opacity: 1 });
+      gsap.set(["#scene2 .time-label", "#scene3 .time-label",
+                "#scene4 .time-label", "#scene5 .time-label",
+                "#scene2 .magnitude-tag", "#scene3 .magnitude-tag",
+                "#scene4 .magnitude-tag", "#scene5 .magnitude-tag"],
+        { opacity: 1, y: 0 });
+      gsap.set(["#scene1 .hero-number"], { opacity: 0, scale: 1.2 });
+      gsap.set(["#scene1 .time-label", "#scene1 .magnitude-tag"],
+        { opacity: 0, y: 18 });
+
+      /* === SCENE 1 enters === */
+      // Eyebrow + footer fade in (persist across all scenes)
+      tl.to("#eyebrow", { opacity: 1, duration: 0.45, ease: "bezierIn" }, 0.05);
+      tl.to("#footer",  { opacity: 1, duration: 0.45, ease: "bezierIn" }, 0.10);
+
+      // Scene 1 hero $100 enters decelerating
+      tl.to("#scene1 .time-label", {
+        opacity: 1, y: 0, duration: 0.40, ease: "bezierIn"
+      }, 0.20);
+      tl.to("#scene1 .hero-number", {
+        scale: 1.0, opacity: 1, duration: 0.55, ease: "bezierIn"
+      }, 0.30);
+      tl.to("#scene1 .magnitude-tag", {
+        opacity: 1, y: 0, duration: 0.40, ease: "bezierIn"
+      }, 0.55);
+
+      /* === Helper: zoom-blur match-cut between two scenes ===
+         Outgoing: entire scene scales 1 → 1.9 + filter blur 0 → 16px + opacity 1 → 0,
+                   accelerating ease (bezierOut), 0.22s
+         Cut at apex: tl.set swaps visibility
+         Incoming: entire scene starts at scale 1.9 + blur 16px + opacity 0,
+                   tweens to scale 1.0 + blur 0 + opacity 1,
+                   decelerating ease (bezierIn), 0.30s
+         The blur + scale BOTH cross the cut — viewer's eye perceives one
+         continuous "zoom punch" through the transition (Sam Kolder style). */
+      function zoomBlurCut(outgoing, incoming, cutTime) {
+        // Outgoing: zoom in + blur out + fade
+        tl.to(outgoing, {
+          scale: 1.9, filter: "blur(16px)", opacity: 0,
+          duration: 0.22, ease: "bezierOut",
+          transformOrigin: "50% 50%"
+        }, cutTime - 0.22);
+        // Cut at apex
+        tl.set(outgoing, { visibility: "hidden" }, cutTime);
+        tl.set(incoming, {
+          visibility: "visible",
+          scale: 1.9, filter: "blur(16px)", opacity: 0,
+          transformOrigin: "50% 50%"
+        }, cutTime);
+        // Incoming: zoom out + blur clear + fade in
+        tl.to(incoming, {
+          scale: 1.0, filter: "blur(0px)", opacity: 1,
+          duration: 0.30, ease: "bezierIn"
+        }, cutTime);
+      }
+
+      /* === Apply zoom-blur cuts at each transition === */
+      zoomBlurCut("#scene1", "#scene2", 2.10);
+      zoomBlurCut("#scene2", "#scene3", 3.15);
+      zoomBlurCut("#scene3", "#scene4", 4.15);
+      zoomBlurCut("#scene4", "#scene5", 5.25);
+    });
+  </script>
+</body>
+</html>

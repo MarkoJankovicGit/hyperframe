@@ -94,7 +94,7 @@ The viewer subconsciously connects the two and gets a payoff: "the broken piggy 
 **When NOT to force it:**
 - The script doesn't have a natural pair
 - The asset would need to be twisted to fit ("our wallet is empty in Myth 2, full in Bust 2" — feels manufactured if the VO doesn't say so)
-- You're adding an extra Kie generation just to make it happen
+- You're adding an extra Higgsfield generation just to make it happen
 
 Default is: each beat gets its own fresh visual treatment. Visual rhymes are a happy accident when they fit, not a checkbox.
 

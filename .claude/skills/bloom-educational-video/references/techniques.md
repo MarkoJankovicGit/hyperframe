@@ -140,7 +140,7 @@ Vector animations that play inside a composition. Use for icons, character anima
 </script>
 ```
 
-For Bloom, prefer the Kie-generated 3D-lite assets over Lottie unless you have a specific reason — the visual register is more consistent.
+For Bloom, prefer the Higgsfield-generated 3D-lite assets over Lottie unless you have a specific reason — the visual register is more consistent.
 
 ---
 

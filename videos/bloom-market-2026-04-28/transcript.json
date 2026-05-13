@@ -1,0 +1,652 @@
+{
+  "sceneId": "scene-01",
+  "text": "Today's market, in thirty seconds. Tech is leading. The Nasdaq and S and P 500 are pushing to fresh highs, powered by semiconductor strength and AI earnings. But the rally is narrow. The Dow has lagged. Investors are watching for cracks under the surface. The other big story is oil. Higher energy keeps inflation sticky, which makes the Fed's path harder to read. The bottom line: bullish on mega-cap tech, cautious on the rest of the market, and focused on oil, earnings, and rate expectations. That's your daily pulse. See you tomorrow.",
+  "words": [
+    {
+      "word": "Today's",
+      "start": 0,
+      "end": 0.453,
+      "startFrame": 0,
+      "endFrame": 14
+    },
+    {
+      "word": "market,",
+      "start": 0.522,
+      "end": 1.01,
+      "startFrame": 16,
+      "endFrame": 30
+    },
+    {
+      "word": "in",
+      "start": 1.126,
+      "end": 1.254,
+      "startFrame": 34,
+      "endFrame": 38
+    },
+    {
+      "word": "thirty",
+      "start": 1.312,
+      "end": 1.591,
+      "startFrame": 39,
+      "endFrame": 48
+    },
+    {
+      "word": "seconds.",
+      "start": 1.649,
+      "end": 2.334,
+      "startFrame": 49,
+      "endFrame": 70
+    },
+    {
+      "word": "Tech",
+      "start": 2.775,
+      "end": 3.088,
+      "startFrame": 83,
+      "endFrame": 93
+    },
+    {
+      "word": "is",
+      "start": 3.158,
+      "end": 3.297,
+      "startFrame": 95,
+      "endFrame": 99
+    },
+    {
+      "word": "leading.",
+      "start": 3.39,
+      "end": 3.878,
+      "startFrame": 102,
+      "endFrame": 116
+    },
+    {
+      "word": "The",
+      "start": 4.261,
+      "end": 4.377,
+      "startFrame": 128,
+      "endFrame": 131
+    },
+    {
+      "word": "Nasdaq",
+      "start": 4.458,
+      "end": 5.085,
+      "startFrame": 134,
+      "endFrame": 153
+    },
+    {
+      "word": "and",
+      "start": 5.155,
+      "end": 5.248,
+      "startFrame": 155,
+      "endFrame": 157
+    },
+    {
+      "word": "S",
+      "start": 5.364,
+      "end": 5.573,
+      "startFrame": 161,
+      "endFrame": 167
+    },
+    {
+      "word": "and",
+      "start": 5.666,
+      "end": 5.759,
+      "startFrame": 170,
+      "endFrame": 173
+    },
+    {
+      "word": "P",
+      "start": 5.828,
+      "end": 5.909,
+      "startFrame": 175,
+      "endFrame": 177
+    },
+    {
+      "word": "500",
+      "start": 6.118,
+      "end": 6.641,
+      "startFrame": 184,
+      "endFrame": 199
+    },
+    {
+      "word": "are",
+      "start": 6.699,
+      "end": 6.885,
+      "startFrame": 201,
+      "endFrame": 207
+    },
+    {
+      "word": "pushing",
+      "start": 6.908,
+      "end": 7.198,
+      "startFrame": 207,
+      "endFrame": 216
+    },
+    {
+      "word": "to",
+      "start": 7.233,
+      "end": 7.291,
+      "startFrame": 217,
+      "endFrame": 219
+    },
+    {
+      "word": "fresh",
+      "start": 7.361,
+      "end": 7.628,
+      "startFrame": 221,
+      "endFrame": 229
+    },
+    {
+      "word": "highs,",
+      "start": 7.686,
+      "end": 8.29,
+      "startFrame": 231,
+      "endFrame": 249
+    },
+    {
+      "word": "powered",
+      "start": 8.464,
+      "end": 8.847,
+      "startFrame": 254,
+      "endFrame": 265
+    },
+    {
+      "word": "by",
+      "start": 8.893,
+      "end": 8.998,
+      "startFrame": 267,
+      "endFrame": 270
+    },
+    {
+      "word": "semiconductor",
+      "start": 9.079,
+      "end": 9.857,
+      "startFrame": 272,
+      "endFrame": 296
+    },
+    {
+      "word": "strength",
+      "start": 9.915,
+      "end": 10.263,
+      "startFrame": 297,
+      "endFrame": 308
+    },
+    {
+      "word": "and",
+      "start": 10.333,
+      "end": 10.519,
+      "startFrame": 310,
+      "endFrame": 316
+    },
+    {
+      "word": "AI",
+      "start": 10.6,
+      "end": 11.041,
+      "startFrame": 318,
+      "endFrame": 331
+    },
+    {
+      "word": "earnings.",
+      "start": 11.111,
+      "end": 11.773,
+      "startFrame": 333,
+      "endFrame": 353
+    },
+    {
+      "word": "But",
+      "start": 12.376,
+      "end": 12.527,
+      "startFrame": 371,
+      "endFrame": 376
+    },
+    {
+      "word": "the",
+      "start": 12.562,
+      "end": 12.632,
+      "startFrame": 377,
+      "endFrame": 379
+    },
+    {
+      "word": "rally",
+      "start": 12.701,
+      "end": 13.026,
+      "startFrame": 381,
+      "endFrame": 391
+    },
+    {
+      "word": "is",
+      "start": 13.108,
+      "end": 13.224,
+      "startFrame": 393,
+      "endFrame": 397
+    },
+    {
+      "word": "narrow.",
+      "start": 13.305,
+      "end": 13.816,
+      "startFrame": 399,
+      "endFrame": 414
+    },
+    {
+      "word": "The",
+      "start": 14.06,
+      "end": 14.176,
+      "startFrame": 422,
+      "endFrame": 425
+    },
+    {
+      "word": "Dow",
+      "start": 14.269,
+      "end": 14.559,
+      "startFrame": 428,
+      "endFrame": 437
+    },
+    {
+      "word": "has",
+      "start": 14.64,
+      "end": 14.791,
+      "startFrame": 439,
+      "endFrame": 444
+    },
+    {
+      "word": "lagged.",
+      "start": 14.907,
+      "end": 15.464,
+      "startFrame": 447,
+      "endFrame": 464
+    },
+    {
+      "word": "Investors",
+      "start": 15.79,
+      "end": 16.393,
+      "startFrame": 474,
+      "endFrame": 492
+    },
+    {
+      "word": "are",
+      "start": 16.44,
+      "end": 16.602,
+      "startFrame": 493,
+      "endFrame": 498
+    },
+    {
+      "word": "watching",
+      "start": 16.649,
+      "end": 17.008,
+      "startFrame": 499,
+      "endFrame": 510
+    },
+    {
+      "word": "for",
+      "start": 17.055,
+      "end": 17.159,
+      "startFrame": 512,
+      "endFrame": 515
+    },
+    {
+      "word": "cracks",
+      "start": 17.217,
+      "end": 17.6,
+      "startFrame": 517,
+      "endFrame": 528
+    },
+    {
+      "word": "under",
+      "start": 17.658,
+      "end": 17.856,
+      "startFrame": 530,
+      "endFrame": 536
+    },
+    {
+      "word": "the",
+      "start": 17.914,
+      "end": 17.983,
+      "startFrame": 537,
+      "endFrame": 539
+    },
+    {
+      "word": "surface.",
+      "start": 18.042,
+      "end": 18.75,
+      "startFrame": 541,
+      "endFrame": 563
+    },
+    {
+      "word": "The",
+      "start": 19.353,
+      "end": 19.481,
+      "startFrame": 581,
+      "endFrame": 584
+    },
+    {
+      "word": "other",
+      "start": 19.551,
+      "end": 19.725,
+      "startFrame": 587,
+      "endFrame": 592
+    },
+    {
+      "word": "big",
+      "start": 19.783,
+      "end": 19.946,
+      "startFrame": 593,
+      "endFrame": 598
+    },
+    {
+      "word": "story",
+      "start": 20.004,
+      "end": 20.375,
+      "startFrame": 600,
+      "endFrame": 611
+    },
+    {
+      "word": "is",
+      "start": 20.456,
+      "end": 20.584,
+      "startFrame": 614,
+      "endFrame": 618
+    },
+    {
+      "word": "oil.",
+      "start": 20.7,
+      "end": 21.188,
+      "startFrame": 621,
+      "endFrame": 636
+    },
+    {
+      "word": "Higher",
+      "start": 21.432,
+      "end": 21.768,
+      "startFrame": 643,
+      "endFrame": 653
+    },
+    {
+      "word": "energy",
+      "start": 21.85,
+      "end": 22.198,
+      "startFrame": 656,
+      "endFrame": 666
+    },
+    {
+      "word": "keeps",
+      "start": 22.256,
+      "end": 22.535,
+      "startFrame": 668,
+      "endFrame": 676
+    },
+    {
+      "word": "inflation",
+      "start": 22.581,
+      "end": 23.08,
+      "startFrame": 677,
+      "endFrame": 692
+    },
+    {
+      "word": "sticky,",
+      "start": 23.173,
+      "end": 23.742,
+      "startFrame": 695,
+      "endFrame": 712
+    },
+    {
+      "word": "which",
+      "start": 23.858,
+      "end": 24.067,
+      "startFrame": 716,
+      "endFrame": 722
+    },
+    {
+      "word": "makes",
+      "start": 24.114,
+      "end": 24.311,
+      "startFrame": 723,
+      "endFrame": 729
+    },
+    {
+      "word": "the",
+      "start": 24.346,
+      "end": 24.415,
+      "startFrame": 730,
+      "endFrame": 732
+    },
+    {
+      "word": "Fed's",
+      "start": 24.485,
+      "end": 24.752,
+      "startFrame": 735,
+      "endFrame": 743
+    },
+    {
+      "word": "path",
+      "start": 24.81,
+      "end": 25.1,
+      "startFrame": 744,
+      "endFrame": 753
+    },
+    {
+      "word": "harder",
+      "start": 25.17,
+      "end": 25.46,
+      "startFrame": 755,
+      "endFrame": 764
+    },
+    {
+      "word": "to",
+      "start": 25.518,
+      "end": 25.588,
+      "startFrame": 766,
+      "endFrame": 768
+    },
+    {
+      "word": "read.",
+      "start": 25.681,
+      "end": 26.122,
+      "startFrame": 770,
+      "endFrame": 784
+    },
+    {
+      "word": "The",
+      "start": 26.505,
+      "end": 26.621,
+      "startFrame": 795,
+      "endFrame": 799
+    },
+    {
+      "word": "bottom",
+      "start": 26.668,
+      "end": 26.958,
+      "startFrame": 800,
+      "endFrame": 809
+    },
+    {
+      "word": "line:",
+      "start": 27.016,
+      "end": 27.399,
+      "startFrame": 810,
+      "endFrame": 822
+    },
+    {
+      "word": "bullish",
+      "start": 27.643,
+      "end": 28.073,
+      "startFrame": 829,
+      "endFrame": 842
+    },
+    {
+      "word": "on",
+      "start": 28.154,
+      "end": 28.328,
+      "startFrame": 845,
+      "endFrame": 850
+    },
+    {
+      "word": "mega-cap",
+      "start": 28.398,
+      "end": 28.932,
+      "startFrame": 852,
+      "endFrame": 868
+    },
+    {
+      "word": "tech,",
+      "start": 29.001,
+      "end": 29.431,
+      "startFrame": 870,
+      "endFrame": 883
+    },
+    {
+      "word": "cautious",
+      "start": 29.675,
+      "end": 30.127,
+      "startFrame": 890,
+      "endFrame": 904
+    },
+    {
+      "word": "on",
+      "start": 30.197,
+      "end": 30.313,
+      "startFrame": 906,
+      "endFrame": 909
+    },
+    {
+      "word": "the",
+      "start": 30.348,
+      "end": 30.418,
+      "startFrame": 910,
+      "endFrame": 913
+    },
+    {
+      "word": "rest",
+      "start": 30.487,
+      "end": 30.72,
+      "startFrame": 915,
+      "endFrame": 922
+    },
+    {
+      "word": "of",
+      "start": 30.766,
+      "end": 30.824,
+      "startFrame": 923,
+      "endFrame": 925
+    },
+    {
+      "word": "the",
+      "start": 30.871,
+      "end": 30.94,
+      "startFrame": 926,
+      "endFrame": 928
+    },
+    {
+      "word": "market,",
+      "start": 30.987,
+      "end": 31.521,
+      "startFrame": 930,
+      "endFrame": 946
+    },
+    {
+      "word": "and",
+      "start": 31.764,
+      "end": 32.09,
+      "startFrame": 953,
+      "endFrame": 963
+    },
+    {
+      "word": "focused",
+      "start": 32.264,
+      "end": 32.67,
+      "startFrame": 968,
+      "endFrame": 980
+    },
+    {
+      "word": "on",
+      "start": 32.717,
+      "end": 32.821,
+      "startFrame": 982,
+      "endFrame": 985
+    },
+    {
+      "word": "oil,",
+      "start": 32.914,
+      "end": 33.414,
+      "startFrame": 987,
+      "endFrame": 1002
+    },
+    {
+      "word": "earnings,",
+      "start": 33.564,
+      "end": 34.099,
+      "startFrame": 1007,
+      "endFrame": 1023
+    },
+    {
+      "word": "and",
+      "start": 34.133,
+      "end": 34.284,
+      "startFrame": 1024,
+      "endFrame": 1029
+    },
+    {
+      "word": "rate",
+      "start": 34.4,
+      "end": 34.621,
+      "startFrame": 1032,
+      "endFrame": 1039
+    },
+    {
+      "word": "expectations.",
+      "start": 34.679,
+      "end": 35.782,
+      "startFrame": 1040,
+      "endFrame": 1073
+    },
+    {
+      "word": "That's",
+      "start": 36.107,
+      "end": 36.362,
+      "startFrame": 1083,
+      "endFrame": 1091
+    },
+    {
+      "word": "your",
+      "start": 36.386,
+      "end": 36.502,
+      "startFrame": 1092,
+      "endFrame": 1095
+    },
+    {
+      "word": "daily",
+      "start": 36.548,
+      "end": 36.815,
+      "startFrame": 1096,
+      "endFrame": 1104
+    },
+    {
+      "word": "pulse.",
+      "start": 36.873,
+      "end": 37.361,
+      "startFrame": 1106,
+      "endFrame": 1121
+    },
+    {
+      "word": "See",
+      "start": 37.64,
+      "end": 37.814,
+      "startFrame": 1129,
+      "endFrame": 1134
+    },
+    {
+      "word": "you",
+      "start": 37.849,
+      "end": 37.918,
+      "startFrame": 1135,
+      "endFrame": 1138
+    },
+    {
+      "word": "tomorrow.",
+      "start": 37.953,
+      "end": 38.684,
+      "startFrame": 1139,
+      "endFrame": 1161
+    }
+  ],
+  "durationSeconds": 39.184,
+  "durationFrames": 1176
+}

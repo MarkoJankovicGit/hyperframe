@@ -1,10 +1,10 @@
-# Step 5 — Generate Missing Assets via Kie
+# Step 5 — Generate Missing Assets via Higgsfield
 
-For any beat that needs a custom illustration not in the logo library, use Kie GPT Image 2.
+For any beat that needs a custom illustration not in the logo library, use the Higgsfield MCP (`mcp__higgsfield__generate_image`) with the `gpt_image_2` model.
 
 ## Reuse before regenerating
 
-Before opening Kie for a given subject, check whether it already exists:
+Before generating a new subject, check whether it already exists:
 - Stock logos in `videos/bloom-<slug>/logos/` (downloaded ticker marks)
 - 3D-lite cutouts from prior videos — `bloomapp-promo/generated-assets/`, `bloom-investing-myths/generated-assets/` (piggy-bank, vault, shield, briefcase, money-stack, etc. — copy-able)
 - Bloom marks (`bloom-logo.png`, `bloom-star.png`)
@@ -29,43 +29,63 @@ The only hard rule: **don't generate something we already have.** Beyond that, f
 
 For Beat 4 "examples" — generate 3-6 everyday objects in one call, then split with `split-sheet.py`.
 
-Use **GPT Image 2 text-to-image** at `16:9` landscape, `2K`. Magenta `#FF00FF` background for chroma keying.
+Use **`gpt_image_2` text-to-image** at `16:9` landscape, `1k` `low` (cheap iteration), or bump to `2k` once the prompt is locked. Magenta `#FF00FF` background for chroma keying.
 
-See [kie-prompts.md](kie-prompts.md) for the prompt template.
+See [higgsfield-prompts.md](higgsfield-prompts.md) for the prompt template.
 
-```bash
-python ~/.claude/skills/kie-image/scripts/generate.py \
-  --model gpt-image-2-text-to-image \
-  --aspect-ratio 16:9 \
-  --resolution 2K \
-  --prompt "<sprite-sheet prompt with N items>"
+```json
+{
+  "tool": "mcp__higgsfield__generate_image",
+  "params": {
+    "model": "gpt_image_2",
+    "aspect_ratio": "16:9",
+    "resolution": "1k",
+    "quality": "low",
+    "prompt": "<sprite-sheet prompt with N items>"
+  }
+}
 ```
 
-Then download + split:
+Poll with `mcp__higgsfield__job_status` (sync mode), grab `results.rawUrl`, then split:
 
 ```bash
 cd hyperframes/videos/bloom-<slug>/generated-assets
-python split-sheet.py "<URL>" --names item1 item2 item3 --bg magenta
+python split-sheet.py "<rawUrl>" --names item1 item2 item3 --bg magenta
 ```
 
 (`split-sheet.py` does magenta key + bbox crop per cell. See the script in `references/split-sheet.py`.)
 
 ### Pattern B — 3D iPhone with Bloom UI inside (i2i + chroma-key)
 
-For Beat 6 payoff — use **GPT Image 2 image-to-image** with captured Bloom mockups as style references. Always specify magenta background outside the device.
+For Beat 6 payoff — use **`gpt_image_2` image-to-image** with captured Bloom mockups as style references. Always specify magenta background outside the device.
+
+Upload the refs first to get reusable UUIDs:
 
 ```bash
-python ~/.claude/skills/kie-image/scripts/generate.py \
-  --model gpt-image-2-image-to-image \
-  --aspect-ratio 9:16 \
-  --resolution 2K \
-  --input-files \
-    "hyperframes/videos/bloomapp-promo/capture/assets/690ba8a8c56264654608fd99-mock-cta-p-1080.png" \
-    "hyperframes/videos/bloomapp-promo/capture/assets/690ba188fa21cc9a599feb66-mockup-safe-p-8.png" \
-  --prompt "<Bloom 3D iPhone prompt with topic-specific UI inside>"
+mcp__higgsfield__media_upload --path hyperframes/videos/bloomapp-promo/capture/assets/690ba8a8c56264654608fd99-mock-cta-p-1080.png
+mcp__higgsfield__media_upload --path hyperframes/videos/bloomapp-promo/capture/assets/690ba188fa21cc9a599feb66-mockup-safe-p-8.png
 ```
 
-Then chroma-key the magenta:
+Then generate:
+
+```json
+{
+  "tool": "mcp__higgsfield__generate_image",
+  "params": {
+    "model": "gpt_image_2",
+    "aspect_ratio": "9:16",
+    "resolution": "1k",
+    "quality": "medium",
+    "prompt": "<Bloom 3D iPhone prompt with topic-specific UI inside>",
+    "medias": [
+      { "value": "<uuid-1>", "role": "image" },
+      { "value": "<uuid-2>", "role": "image" }
+    ]
+  }
+}
+```
+
+Then chroma-key the magenta on the downloaded raw:
 
 ```bash
 cd hyperframes/videos/bloom-<slug>/generated-assets
@@ -78,12 +98,17 @@ Result is a transparent PNG of a 3D iPhone with the requested Bloom UI inside.
 
 For one-off symbolic illustrations (e.g., a magnifying-glass-with-sparks). Use text-to-image with magenta bg, then chroma-key.
 
-```bash
-python ~/.claude/skills/kie-image/scripts/generate.py \
-  --model gpt-image-2-text-to-image \
-  --aspect-ratio 1:1 \
-  --resolution 2K \
-  --prompt "<single-object prompt with magenta background>"
+```json
+{
+  "tool": "mcp__higgsfield__generate_image",
+  "params": {
+    "model": "gpt_image_2",
+    "aspect_ratio": "1:1",
+    "resolution": "1k",
+    "quality": "low",
+    "prompt": "<single-object prompt with magenta background>"
+  }
+}
 ```
 
 ## Critical rules
@@ -96,7 +121,7 @@ python ~/.claude/skills/kie-image/scripts/generate.py \
 
 ## Style consistency
 
-Every Kie call must include the Bloom **style block** (in [kie-prompts.md](kie-prompts.md)):
+Every Higgsfield call must include the Bloom **style block** (in [higgsfield-prompts.md](higgsfield-prompts.md)):
 
 > Chunky 3D-lite illustration style — soft rounded forms, subtle gradient shading, saturated vibrant colors with bright blue #1658FF and green #01CD74 accents. No hard flat fills, no line-art outlines, soft ambient shadows. Centered subject. Playful but sophisticated, iOS-style 3D object rendering aesthetic.
 

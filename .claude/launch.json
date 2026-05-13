@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "market-2026-04-28",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["hyperframes", "preview", "videos/bloom-market-2026-04-28", "--port", "3007"],
+      "port": 3007
+    }
+  ]
+}

@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AMD vs Intel — split-screen comparison</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    html, body {
+      margin: 0; padding: 0;
+      background: #000; color: #fff;
+      font-family: "Inter", system-ui, sans-serif;
+    }
+
+    #root {
+      position: relative;
+      width: 1080px; height: 1920px;
+      background: #000;
+      overflow: hidden;
+    }
+
+    .scene {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+    }
+
+    .scene-content {
+      position: absolute;
+      inset: 0;
+    }
+
+    /* Horizontal halves — top: AMD (cool tint), bottom: INTEL (warm tint) */
+    #side-amd {
+      position: absolute;
+      left: 0; top: 200px;
+      width: 1080px; height: 760px;
+      background: linear-gradient(180deg, #0a1320 0%, #050810 100%);
+    }
+    #side-intc {
+      position: absolute;
+      left: 0; top: 960px;
+      width: 1080px; height: 760px;
+      background: linear-gradient(180deg, #1a0e08 0%, #0a0604 100%);
+    }
+
+    /* Horizontal divider */
+    #divider {
+      position: absolute;
+      left: 80px; top: 960px;
+      width: 920px; height: 1px;
+      background: rgba(255,255,255,0.22);
+      transform-origin: left center;
+      transform: scaleX(0);
+    }
+
+    /* "VS" badge floating on the divider */
+    #vs-badge {
+      position: absolute;
+      left: 480px; top: 900px;
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: #000;
+      border: 2px solid rgba(255,255,255,0.30);
+      display: flex; align-items: center; justify-content: center;
+      font-family: "Inter", system-ui;
+      font-weight: 900;
+      font-size: 44px;
+      letter-spacing: 0.06em;
+      color: #FFFFFF;
+      opacity: 0;
+      z-index: 5;
+    }
+
+    /* Headline at top */
+    #headline {
+      position: absolute;
+      top: 100px; left: 0; right: 0;
+      text-align: center;
+      font-family: "Inter", system-ui;
+      font-weight: 900;
+      font-size: 130px;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      color: #FFFFFF;
+      opacity: 0;
+    }
+
+    #headline-2 {
+      position: absolute;
+      top: 130px; left: 0; right: 0;
+      text-align: center;
+      font-family: "Inter", system-ui;
+      font-weight: 900;
+      font-size: 88px;
+      letter-spacing: -0.01em;
+      line-height: 1;
+      color: #FFFFFF;
+      opacity: 0;
+    }
+
+    #headline-sub {
+      position: absolute;
+      top: 240px; left: 0; right: 0;
+      text-align: center;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 32px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      opacity: 0;
+    }
+
+    /* Side stacks — Bloomberg-style ticker card layout */
+    .side-stack {
+      position: absolute;
+      width: 1080px; height: 760px;
+      box-sizing: border-box;
+    }
+
+    #stack-amd  { top: 200px; }
+    #stack-intc { top: 960px; }
+
+    /* Logo circle at top-right of each half */
+    .side-logo-circle {
+      position: absolute;
+      top: 50px; right: 80px;
+      width: 132px; height: 132px;
+      border-radius: 50%;
+      background: #0d0d0d;
+      border: 2px solid rgba(255,255,255,0.18);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.45);
+    }
+    .side-logo {
+      max-width: 70%;
+      max-height: 70%;
+      object-fit: contain;
+      filter: brightness(1.05);
+    }
+
+    /* Side label (top-left ticker name) */
+    .side-label {
+      position: absolute;
+      top: 80px; left: 80px;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 700;
+      font-size: 50px;
+      letter-spacing: 0.22em;
+      color: rgba(255,255,255,0.92);
+      opacity: 0;
+    }
+
+    /* Tiny pill subtitle under label */
+    .side-sublabel {
+      position: absolute;
+      top: 158px; left: 80px;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 22px;
+      letter-spacing: 0.16em;
+      color: rgba(255,255,255,0.45);
+      text-transform: uppercase;
+      opacity: 0;
+    }
+
+    /* Big hero number (left side, mid) */
+    .side-number {
+      position: absolute;
+      left: 80px;
+      top: 240px;
+      font-family: "Inter", system-ui;
+      font-weight: 900;
+      font-size: 200px;
+      letter-spacing: -0.05em;
+      line-height: 1;
+      white-space: nowrap;
+      opacity: 0;
+    }
+    .side-number.down { color: #FF5E5E; }
+    .side-number.flat { color: rgba(255,255,255,0.85); }
+    .side-number.up   { color: #00FF88; }
+
+    /* Chart card (bottom of each half, full-width with padding) */
+    .side-chart-card {
+      position: absolute;
+      left: 80px; right: 80px;
+      bottom: 60px;
+      height: 240px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 18px 24px;
+      box-sizing: border-box;
+      opacity: 0;
+    }
+
+    .side-chart {
+      width: 100%; height: 100%;
+      display: block;
+    }
+
+    .side-chart .gridline {
+      stroke: rgba(255,255,255,0.08);
+      stroke-width: 1;
+      stroke-dasharray: 3, 5;
+    }
+    .side-chart .axis-baseline {
+      stroke: rgba(255,255,255,0.18);
+      stroke-width: 1;
+    }
+    .side-chart .axis-label {
+      fill: rgba(255,255,255,0.42);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.10em;
+    }
+
+    .side-chart .area {
+      fill-opacity: 0.10;
+    }
+    .side-chart .area.down { fill: #FF5E5E; }
+    .side-chart .area.flat { fill: rgba(255,255,255,0.4); }
+    .side-chart .area.up   { fill: #00FF88; }
+
+    .side-chart .line {
+      fill: none;
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .side-chart .line.down { stroke: #FF5E5E; }
+    .side-chart .line.flat { stroke: rgba(255,255,255,0.75); }
+    .side-chart .line.up   { stroke: #00FF88; }
+
+    .side-chart .endpoint {
+      stroke-width: 3;
+      fill: #0a0a0a;
+    }
+    .side-chart .endpoint.down { stroke: #FF5E5E; }
+    .side-chart .endpoint.flat { stroke: rgba(255,255,255,0.85); }
+    .side-chart .endpoint.up   { stroke: #00FF88; }
+
+    /* Footer ticker */
+    #footer-ticker {
+      position: absolute;
+      bottom: 80px; left: 0; right: 0;
+      text-align: center;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 26px;
+      letter-spacing: 0.20em;
+      color: rgba(255,255,255,0.40);
+      text-transform: uppercase;
+      opacity: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="root" data-composition-id="amd-vs-intel-2026-05-09" data-start="0" data-duration="11.26" data-width="1080" data-height="1920">
+    <div class="scene" id="scene1">
+      <div class="scene-content">
+        <!-- Two palette-tinted halves -->
+        <div id="side-amd"></div>
+        <div id="side-intc"></div>
+
+        <!-- Vertical divider -->
+        <div id="divider"></div>
+
+        <!-- Headline (two stacked, swapped via opacity for deterministic capture) -->
+        <div id="headline">2024</div>
+        <div id="headline-2">9 MONTHS LATER</div>
+        <div id="headline-sub">A TALE OF TWO CHIPS</div>
+
+        <!-- AMD half (top row) -->
+        <div class="side-stack" id="stack-amd">
+          <div class="side-label" id="label-amd">AMD</div>
+          <div class="side-sublabel" id="sublabel-amd">NYSE · 2024</div>
+          <div class="side-logo-circle" id="logo-circle-amd">
+            <img class="side-logo" src="assets/amd-logo.svg" alt="AMD" />
+          </div>
+          <div class="side-number down" id="num-amd">−18%</div>
+          <div class="side-chart-card" id="chart-card-amd">
+            <svg class="side-chart" viewBox="0 0 600 200" preserveAspectRatio="none">
+              <!-- horizontal gridlines -->
+              <line class="gridline" x1="40" y1="50"  x2="590" y2="50" />
+              <line class="gridline" x1="40" y1="95"  x2="590" y2="95" />
+              <line class="gridline" x1="40" y1="140" x2="590" y2="140" />
+              <line class="axis-baseline" x1="40" y1="170" x2="590" y2="170" />
+              <!-- area fill -->
+              <path class="area down" id="area-amd"
+                d="M 40 40 Q 180 50 320 75 Q 460 95 590 115 L 590 170 L 40 170 Z" />
+              <!-- chart line -->
+              <path class="line down" id="chart-amd"
+                d="M 40 40 Q 180 50 320 75 Q 460 95 590 115"
+                stroke-dasharray="700" stroke-dashoffset="700" />
+              <!-- axis month labels -->
+              <text class="axis-label" x="40"  y="190" text-anchor="start">JAN</text>
+              <text class="axis-label" x="225" y="190" text-anchor="middle">APR</text>
+              <text class="axis-label" x="410" y="190" text-anchor="middle">JUL</text>
+              <text class="axis-label" x="590" y="190" text-anchor="end">DEC</text>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Intel half (bottom row) -->
+        <div class="side-stack" id="stack-intc">
+          <div class="side-label" id="label-intc">INTC</div>
+          <div class="side-sublabel" id="sublabel-intc">NASDAQ · 2024</div>
+          <div class="side-logo-circle" id="logo-circle-intc">
+            <img class="side-logo" src="assets/intel-logo.png" alt="Intel" />
+          </div>
+          <div class="side-number down" id="num-intc">−60%</div>
+          <div class="side-chart-card" id="chart-card-intc">
+            <svg class="side-chart" viewBox="0 0 600 200" preserveAspectRatio="none">
+              <line class="gridline" x1="40" y1="50"  x2="590" y2="50" />
+              <line class="gridline" x1="40" y1="95"  x2="590" y2="95" />
+              <line class="gridline" x1="40" y1="140" x2="590" y2="140" />
+              <line class="axis-baseline" x1="40" y1="170" x2="590" y2="170" />
+              <path class="area down" id="area-intc"
+                d="M 40 25 Q 200 45 350 90 Q 490 130 590 160 L 590 170 L 40 170 Z" />
+              <path class="line down" id="chart-intc"
+                d="M 40 25 Q 200 45 350 90 Q 490 130 590 160"
+                stroke-dasharray="700" stroke-dashoffset="700" />
+              <text class="axis-label" x="40"  y="190" text-anchor="start">JAN</text>
+              <text class="axis-label" x="225" y="190" text-anchor="middle">APR</text>
+              <text class="axis-label" x="410" y="190" text-anchor="middle">JUL</text>
+              <text class="axis-label" x="590" y="190" text-anchor="end">DEC</text>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Center VS badge -->
+        <div id="vs-badge">VS</div>
+
+        <!-- Footer ticker -->
+        <div id="footer-ticker">CHART · YEAR-OVER-YEAR · % CHANGE</div>
+      </div>
+    </div>
+
+    <!-- Audio clips (gapless) -->
+    <audio id="vo1" class="clip" data-track-index="2" data-start="0"    data-duration="2.418"
+      src="assets/voiceover/amd-vs-intel-2026-05-09/scene-01.mp3" data-volume="1"></audio>
+    <audio id="vo2" class="clip" data-track-index="2" data-start="2.42" data-duration="2.79"
+      src="assets/voiceover/amd-vs-intel-2026-05-09/scene-02.mp3" data-volume="1"></audio>
+    <audio id="vo3" class="clip" data-track-index="2" data-start="5.21" data-duration="2.047"
+      src="assets/voiceover/amd-vs-intel-2026-05-09/scene-03.mp3" data-volume="1"></audio>
+    <audio id="vo4" class="clip" data-track-index="2" data-start="7.26" data-duration="3.997"
+      src="assets/voiceover/amd-vs-intel-2026-05-09/scene-04.mp3" data-volume="1"></audio>
+  </div>
+
+  <!-- GSAP -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/CustomEase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/SplitText.min.js"></script>
+
+  <script>
+    gsap.registerPlugin(CustomEase, SplitText);
+    CustomEase.create("bezierIn",  "0.1, 0.7, 0.5, 1");
+    CustomEase.create("bezierOut", "0.5, 0, 0.9, 0.3");
+
+    /* ============================================================
+       SCENES — VO timing (offsets are gapless, +0.05s trim)
+       ============================================================ */
+    const SCENES = {
+      "scene-01": { offset: 0.00, words: [
+        { word: "Twenty",       start: 0.000 },
+        { word: "twenty-four",  start: 0.372 },
+        { word: "Chip",         start: 1.149 },
+        { word: "stocks",       start: 1.393 },
+        { word: "were",         start: 1.707 },
+        { word: "brutal",       start: 1.869 }
+      ]},
+      "scene-02": { offset: 2.42, words: [
+        { word: "AMD",          start: 0.000 },
+        { word: "down",         start: 0.755 },
+        { word: "eighteen",     start: 1.010 },
+        { word: "Intel",        start: 1.451 },
+        { word: "down",         start: 1.904 },
+        { word: "sixty",        start: 2.148 }
+      ]},
+      "scene-03": { offset: 5.21, words: [
+        { word: "Nine",         start: 0.000 },
+        { word: "months",       start: 0.313 },
+        { word: "later",        start: 0.580 },
+        { word: "Everything",   start: 1.068 },
+        { word: "flipped",      start: 1.498 }
+      ]},
+      "scene-04": { offset: 7.26, words: [
+        { word: "Intel",        start: 0.000 },
+        { word: "up",           start: 0.615 },
+        { word: "four-eighty",  start: 0.859 },
+        { word: "percent",      start: 1.405 },
+        { word: "AMD",          start: 2.438 },
+        { word: "flat",         start: 3.181 }
+      ]}
+    };
+
+    function _norm(s) { return s.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu, ""); }
+    function _findPhrase(sceneId, phrase) {
+      const W = SCENES[sceneId].words;
+      const tokens = phrase.toLowerCase().split(/\s+/).map(_norm).filter(Boolean);
+      const hits = [];
+      for (let i = 0; i <= W.length - tokens.length; i++) {
+        let ok = true;
+        for (let j = 0; j < tokens.length; j++) {
+          if (_norm(W[i+j].word) !== tokens[j]) { ok = false; break; }
+        }
+        if (ok) hits.push(i);
+      }
+      if (hits.length === 0) throw new Error(`at: phrase "${phrase}" not found in ${sceneId}`);
+      if (hits.length > 1) throw new Error(`at: phrase "${phrase}" matches ${hits.length} occurrences in ${sceneId}.`);
+      return W[hits[0]].start;
+    }
+    function at(sceneId, phrase) { return SCENES[sceneId].offset + _findPhrase(sceneId, phrase); }
+
+    /* ============================================================
+       Build the timeline
+       ============================================================ */
+    document.fonts.ready.then(() => {
+      // Pre-state: hide everything that animates in
+      gsap.set([
+        "#logo-circle-amd", "#logo-circle-intc",
+        "#sublabel-amd", "#sublabel-intc",
+        "#num-amd", "#num-intc",
+        "#chart-card-amd", "#chart-card-intc",
+        "#label-amd", "#label-intc",
+        "#footer-ticker"
+      ], { opacity: 0 });
+
+      const splitHead  = new SplitText("#headline",   { type: "words,chars" });
+      const splitHead2 = new SplitText("#headline-2", { type: "words,chars" });
+      const splitSub   = new SplitText("#headline-sub", { type: "words,chars" });
+      const splitAmdLab  = new SplitText("#label-amd",  { type: "chars" });
+      const splitIntcLab = new SplitText("#label-intc", { type: "chars" });
+      gsap.set([splitHead.chars, splitHead2.chars, splitSub.chars,
+                splitAmdLab.chars, splitIntcLab.chars],
+        { opacity: 0, y: 18 });
+      gsap.set(["#headline", "#headline-2", "#headline-sub", "#label-amd", "#label-intc"],
+        { opacity: 1 });
+
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["amd-vs-intel-2026-05-09"] = tl;
+
+      /* === SCENE 1: setup the comparison === */
+      // Divider paints across on "Twenty"
+      tl.to("#divider", {
+        scaleX: 1, duration: 0.65, ease: "bezierIn"
+      }, at("scene-01", "Twenty") - 0.05);
+
+      // VS badge pops on "twenty-four" — use fromTo so we can include initial scale
+      tl.fromTo("#vs-badge",
+        { scale: 0.6, opacity: 0 },
+        { scale: 1.0, opacity: 1, duration: 0.55, ease: "bezierIn" },
+        at("scene-01", "twenty-four") - 0.05
+      );
+
+      // Headline "2024" char stagger on "twenty-four"
+      tl.to(splitHead.chars, {
+        opacity: 1, y: 0, duration: 0.4, stagger: 0.045, ease: "bezierIn"
+      }, at("scene-01", "twenty-four") + 0.05);
+
+      // Sub "A TALE OF TWO CHIPS" on "Chip stocks"
+      tl.to(splitSub.chars, {
+        opacity: 1, y: 0, duration: 0.35, stagger: 0.020, ease: "bezierIn"
+      }, at("scene-01", "Chip stocks") - 0.05);
+
+      // Side labels reveal on "brutal" — both at same beat (the comparison axis is set)
+      tl.to(splitAmdLab.chars, {
+        opacity: 1, y: 0, duration: 0.35, stagger: 0.025, ease: "bezierIn"
+      }, at("scene-01", "brutal") - 0.05);
+      tl.to(splitIntcLab.chars, {
+        opacity: 1, y: 0, duration: 0.35, stagger: 0.025, ease: "bezierIn"
+      }, at("scene-01", "brutal") + 0.05);
+
+      // Footer ticker on "brutal"
+      tl.to("#footer-ticker", {
+        opacity: 1, duration: 0.5, ease: "bezierIn"
+      }, at("scene-01", "brutal") - 0.05);
+
+      /* === SCENE 2: AMD: -18, Intel: -60 === */
+      // AMD logo circle + sublabel + number + chart card reveal on "AMD"
+      tl.fromTo("#logo-circle-amd",
+        { opacity: 0, scale: 0.7 },
+        { opacity: 1, scale: 1.0, duration: 0.45, ease: "bezierIn" },
+        at("scene-02", "AMD") - 0.10
+      );
+      tl.to("#sublabel-amd", {
+        opacity: 1, duration: 0.40, ease: "bezierIn"
+      }, at("scene-02", "AMD") - 0.05);
+      tl.fromTo("#num-amd",
+        { scale: 1.18, opacity: 0 },
+        { scale: 1.0, opacity: 1, duration: 0.45, ease: "bezierIn" },
+        at("scene-02", "eighteen") - 0.08
+      );
+      tl.to("#chart-card-amd", {
+        opacity: 1, duration: 0.40, ease: "bezierIn"
+      }, at("scene-02", "AMD") - 0.05);
+      tl.to("#chart-amd", {
+        strokeDashoffset: 0, duration: 0.85, ease: "bezierIn"
+      }, at("scene-02", "AMD") - 0.05);
+
+      // Intel logo circle + sublabel + number + chart card reveal on "Intel"
+      tl.fromTo("#logo-circle-intc",
+        { opacity: 0, scale: 0.7 },
+        { opacity: 1, scale: 1.0, duration: 0.45, ease: "bezierIn" },
+        at("scene-02", "Intel") - 0.10
+      );
+      tl.to("#sublabel-intc", {
+        opacity: 1, duration: 0.40, ease: "bezierIn"
+      }, at("scene-02", "Intel") - 0.05);
+      tl.fromTo("#num-intc",
+        { scale: 1.18, opacity: 0 },
+        { scale: 1.0, opacity: 1, duration: 0.45, ease: "bezierIn" },
+        at("scene-02", "sixty") - 0.08
+      );
+      tl.to("#chart-card-intc", {
+        opacity: 1, duration: 0.40, ease: "bezierIn"
+      }, at("scene-02", "Intel") - 0.05);
+      tl.to("#chart-intc", {
+        strokeDashoffset: 0, duration: 0.95, ease: "bezierIn"
+      }, at("scene-02", "Intel") - 0.05);
+
+      /* === SCENE 3: morph headline + clear numbers === */
+      // Numbers + charts fade out on "Everything"
+      tl.to(["#num-amd", "#num-intc"], {
+        opacity: 0, scale: 0.92, duration: 0.30, ease: "bezierOut"
+      }, at("scene-03", "Everything") - 0.05);
+      tl.to("#chart-amd", {
+        strokeDashoffset: 700, duration: 0.40, ease: "bezierOut"
+      }, at("scene-03", "Everything") - 0.05);
+      tl.to("#chart-intc", {
+        strokeDashoffset: 700, duration: 0.40, ease: "bezierOut"
+      }, at("scene-03", "Everything") - 0.05);
+
+      // Headline morph: "2024" exits up
+      tl.to(splitHead.chars, {
+        opacity: 0, y: -22, duration: 0.30, stagger: 0.02, ease: "bezierOut"
+      }, at("scene-03", "Nine") - 0.05);
+
+      // "9 MONTHS LATER" enters char-by-char
+      tl.to(splitHead2.chars, {
+        opacity: 1, y: 0, duration: 0.4, stagger: 0.025, ease: "bezierIn"
+      }, at("scene-03", "months") - 0.05);
+
+      /* === SCENE 4: AMD flat, Intel up 480 ===
+         Note: callbacks fire while line is invisible (strokeDashoffset 700) and
+         number is opacity 0 — the visible-state swap happens in the next tween. */
+      // Sublabel update for the second period (drop both, then re-fade)
+      tl.to(["#sublabel-amd", "#sublabel-intc"], {
+        opacity: 0, duration: 0.20, ease: "bezierOut"
+      }, at("scene-03", "Everything") - 0.05);
+
+      // Intel: swap number text + class + path + area (callback at silent moment)
+      tl.add(() => {
+        const numI = document.querySelector("#num-intc");
+        numI.textContent = "+480%";
+        numI.classList.remove("down");
+        numI.classList.add("up");
+        const chartI = document.querySelector("#chart-intc");
+        chartI.classList.remove("down");
+        chartI.classList.add("up");
+        chartI.setAttribute("d", "M 40 160 Q 180 145 320 95 Q 460 50 590 20");
+        const areaI = document.querySelector("#area-intc");
+        areaI.classList.remove("down");
+        areaI.classList.add("up");
+        areaI.setAttribute("d", "M 40 160 Q 180 145 320 95 Q 460 50 590 20 L 590 170 L 40 170 Z");
+        const subI = document.querySelector("#sublabel-intc");
+        subI.textContent = "NASDAQ · 2026";
+      }, at("scene-04", "Intel") - 0.05);
+
+      // Intel sublabel re-fades, number + chart re-enter
+      tl.to("#sublabel-intc", {
+        opacity: 1, duration: 0.40, ease: "bezierIn"
+      }, at("scene-04", "Intel") + 0.02);
+      tl.fromTo("#num-intc",
+        { scale: 1.18, opacity: 0 },
+        { scale: 1.0, opacity: 1, duration: 0.45, ease: "bezierIn" },
+        at("scene-04", "four-eighty") - 0.08
+      );
+      tl.to("#chart-intc", {
+        strokeDashoffset: 0, duration: 0.95, ease: "bezierIn"
+      }, at("scene-04", "Intel") + 0.05);
+
+      // AMD: swap to flat
+      tl.add(() => {
+        const numA = document.querySelector("#num-amd");
+        numA.textContent = "0%";
+        numA.classList.remove("down");
+        numA.classList.add("flat");
+        const chartA = document.querySelector("#chart-amd");
+        chartA.classList.remove("down");
+        chartA.classList.add("flat");
+        chartA.setAttribute("d", "M 40 95 Q 180 92 320 96 Q 460 98 590 94");
+        const areaA = document.querySelector("#area-amd");
+        areaA.classList.remove("down");
+        areaA.classList.add("flat");
+        areaA.setAttribute("d", "M 40 95 Q 180 92 320 96 Q 460 98 590 94 L 590 170 L 40 170 Z");
+        const subA = document.querySelector("#sublabel-amd");
+        subA.textContent = "NYSE · 2026";
+      }, at("scene-04", "AMD") - 0.05);
+
+      tl.to("#sublabel-amd", {
+        opacity: 1, duration: 0.40, ease: "bezierIn"
+      }, at("scene-04", "AMD") + 0.02);
+      tl.fromTo("#num-amd",
+        { scale: 1.18, opacity: 0 },
+        { scale: 1.0, opacity: 1, duration: 0.45, ease: "bezierIn" },
+        at("scene-04", "flat") - 0.08
+      );
+      tl.to("#chart-amd", {
+        strokeDashoffset: 0, duration: 0.85, ease: "bezierIn"
+      }, at("scene-04", "AMD") + 0.05);
+    });
+  </script>
+</body>
+</html>
