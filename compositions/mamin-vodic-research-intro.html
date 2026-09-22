@@ -25,7 +25,7 @@
     .wordmark small { display:block; margin-top:6px; color:var(--muted); font-size:14px; font-weight:700; }
     .phase { padding:13px 18px; border:1px solid var(--line); border-radius:999px; background:rgba(255,255,255,.7); color:var(--navy2); font-size:15px; font-weight:800; letter-spacing:.07em; text-transform:uppercase; box-shadow:0 12px 34px rgba(36,52,95,.06); }
     .scene { position:absolute; z-index:4; inset:180px 72px 110px; }
-    .intro { display:grid; grid-template-rows:auto 1fr; height:100%; }
+    .intro { display:grid; grid-template-rows:auto 1fr; }
     .intro-copy { padding:74px 34px 0; }
     .kicker { display:inline-flex; align-items:center; gap:12px; color:var(--coral); font-size:21px; font-weight:850; letter-spacing:.11em; text-transform:uppercase; }
     .kicker i { width:11px; height:11px; border-radius:50%; background:var(--coral); box-shadow:0 0 0 7px rgba(242,105,115,.12); }
@@ -59,7 +59,7 @@
     .question { margin:24px 20px 0; padding:24px 30px; border-radius:26px; background:var(--navy); color:white; text-align:center; font-size:24px; line-height:1.35; font-weight:680; box-shadow:0 22px 55px rgba(36,52,95,.18); }
     .question em { color:#ffd5ca; font-style:normal; }
     .ecosystem { opacity:0; visibility:hidden; }
-    .ecosystem-copy { position:absolute; z-index:12; left:150px; right:150px; top:500px; text-align:center; }
+    .ecosystem-copy { position:absolute; z-index:12; left:150px; right:150px; top:250px; text-align:center; }
     .ecosystem-number { display:block; color:var(--coral); font-size:180px; line-height:.85; letter-spacing:-.09em; font-weight:800; }
     .ecosystem-copy h2 { margin:28px 0 0; font-size:55px; line-height:1.04; letter-spacing:-.05em; }
     .ecosystem-copy p { margin:20px 0 0; color:var(--muted); font-size:25px; line-height:1.38; }
@@ -108,7 +108,7 @@
   const tl = gsap.timeline({ paused:true, defaults:{ ease:"power3.out" } });
   tl.set([".survey", ".ecosystem", ".final-message"], { autoAlpha:0 });
   tl.set(".intro", { autoAlpha:1 });
-  tl.set(".app-tile", { opacity:0, scale:.45, x:0, y:0, rotation:0 });
+  tl.set(".app-tile", { opacity:0, scale:.35, x:0, y:0, rotation:-8 });
   tl.set(".ring", { opacity:0, scale:.55 });
   tl.set(".next-dot", { scale:0 });
   tl.fromTo(".header", { opacity:0, y:-18 }, { opacity:1, y:0, duration:.55 }, .08);
@@ -134,7 +134,7 @@
   tl.fromTo(".app-tile", { opacity:0, scale:.35, rotation:-8 }, { opacity:1, scale:1, rotation:0, duration:.58, stagger:.045, ease:"back.out(1.8)" }, 3.64);
   tl.fromTo(".ecosystem-number", { scale:.7 }, { scale:1, duration:.55, ease:"back.out(2)" }, 3.72);
   tl.to(".ring", { rotation:9, duration:1.15, ease:"sine.inOut" }, 4.25);
-  tl.to(".ecosystem-copy", { opacity:.16, scale:.9, duration:.38 }, 5.12);
+  tl.to(".ecosystem-copy", { opacity:0, scale:.9, duration:.38 }, 5.12);
   tl.to(".note", { opacity:0, duration:.3 }, 5.08);
   tl.to(".ring", { opacity:.18, scale:1.16, duration:.55 }, 5.08);
   tl.to(".app-tile", { opacity:.14, scale:.82, duration:.42, stagger:.02 }, 5.08);
