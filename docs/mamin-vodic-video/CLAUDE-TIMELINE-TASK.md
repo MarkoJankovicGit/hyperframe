@@ -14,6 +14,11 @@ Napravi jednu samostalnu HyperFrames kompoziciju koja za 7 sekundi jasno prikazu
 
 Pre pisanja koda pročitaj `AGENTS.md` i `CLAUDE.md`, zatim koristi `/hyperframes` i `/gsap` veštine.
 
+Pre nego što napraviš svoju komponentu, otvori postojeću
+`compositions/mamin-vodic-app-collapse.html` u HyperFrames preview-u. Proveri približno kadrove
+`0.8s`, `2.8s`, `4.8s`, `6.5s` i `7.8s`. Nemoj menjati taj fajl: ako primetiš problem,
+zapiši tačan kadar i opis problema u završnom izveštaju.
+
 ## Fajl
 
 Napravi samo:
