@@ -1,0 +1,113 @@
+{
+  "sceneId": "scene-05",
+  "text": "And the repetitive work? It runs itself — so your people get their time back.",
+  "words": [
+    {
+      "word": "And",
+      "start": 0,
+      "end": 0.197,
+      "startFrame": 0,
+      "endFrame": 6
+    },
+    {
+      "word": "the",
+      "start": 0.244,
+      "end": 0.313,
+      "startFrame": 7,
+      "endFrame": 9
+    },
+    {
+      "word": "repetitive",
+      "start": 0.372,
+      "end": 0.848,
+      "startFrame": 11,
+      "endFrame": 25
+    },
+    {
+      "word": "work?",
+      "start": 0.882,
+      "end": 1.242,
+      "startFrame": 26,
+      "endFrame": 37
+    },
+    {
+      "word": "It",
+      "start": 1.393,
+      "end": 1.509,
+      "startFrame": 42,
+      "endFrame": 45
+    },
+    {
+      "word": "runs",
+      "start": 1.567,
+      "end": 1.788,
+      "startFrame": 47,
+      "endFrame": 54
+    },
+    {
+      "word": "itself",
+      "start": 1.834,
+      "end": 2.206,
+      "startFrame": 55,
+      "endFrame": 66
+    },
+    {
+      "word": "—",
+      "start": 2.38,
+      "end": 2.45,
+      "startFrame": 71,
+      "endFrame": 74
+    },
+    {
+      "word": "so",
+      "start": 2.659,
+      "end": 2.763,
+      "startFrame": 80,
+      "endFrame": 83
+    },
+    {
+      "word": "your",
+      "start": 2.821,
+      "end": 2.937,
+      "startFrame": 85,
+      "endFrame": 88
+    },
+    {
+      "word": "people",
+      "start": 2.984,
+      "end": 3.251,
+      "startFrame": 90,
+      "endFrame": 98
+    },
+    {
+      "word": "get",
+      "start": 3.286,
+      "end": 3.402,
+      "startFrame": 99,
+      "endFrame": 102
+    },
+    {
+      "word": "their",
+      "start": 3.437,
+      "end": 3.576,
+      "startFrame": 103,
+      "endFrame": 107
+    },
+    {
+      "word": "time",
+      "start": 3.622,
+      "end": 3.866,
+      "startFrame": 109,
+      "endFrame": 116
+    },
+    {
+      "word": "back.",
+      "start": 3.901,
+      "end": 4.458,
+      "startFrame": 117,
+      "endFrame": 134
+    }
+  ],
+  "durationSeconds": 4.958,
+  "durationFrames": 149
+}

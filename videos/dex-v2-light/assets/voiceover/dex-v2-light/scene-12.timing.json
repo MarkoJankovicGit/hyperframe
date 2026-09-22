@@ -1,0 +1,64 @@
+{
+  "sceneId": "scene-12",
+  "text": "Your partner for custom development and intelligent automation.",
+  "words": [
+    {
+      "word": "Your",
+      "start": 0,
+      "end": 0.221,
+      "startFrame": 0,
+      "endFrame": 7
+    },
+    {
+      "word": "partner",
+      "start": 0.29,
+      "end": 0.639,
+      "startFrame": 9,
+      "endFrame": 19
+    },
+    {
+      "word": "for",
+      "start": 0.697,
+      "end": 0.801,
+      "startFrame": 21,
+      "endFrame": 24
+    },
+    {
+      "word": "custom",
+      "start": 0.871,
+      "end": 1.184,
+      "startFrame": 26,
+      "endFrame": 36
+    },
+    {
+      "word": "development",
+      "start": 1.254,
+      "end": 1.765,
+      "startFrame": 38,
+      "endFrame": 53
+    },
+    {
+      "word": "and",
+      "start": 1.834,
+      "end": 2.02,
+      "startFrame": 55,
+      "endFrame": 61
+    },
+    {
+      "word": "intelligent",
+      "start": 2.078,
+      "end": 2.601,
+      "startFrame": 62,
+      "endFrame": 78
+    },
+    {
+      "word": "automation.",
+      "start": 2.635,
+      "end": 3.529,
+      "startFrame": 79,
+      "endFrame": 106
+    }
+  ],
+  "durationSeconds": 4.029,
+  "durationFrames": 121
+}

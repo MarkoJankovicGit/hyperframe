@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/CustomEase.min.js"></script>
+    <style>
+      /* ============================================================
+         DEX — Digital EXperience · Dark Premium · DYNAMIC · 1920×1080
+         navy #1F2739 / deep #141A28 / white / periwinkle #88A7DB
+         steel #405D8E / violet #7A00DF / violet-soft #8969C3 · Roobert
+         ============================================================ */
+      @font-face { font-family: "Roobert"; src: url("capture/assets/fonts/RoobertTRIAL-Light.woff") format("woff"); font-weight: 300; font-display: block; }
+      @font-face { font-family: "Roobert"; src: url("capture/assets/fonts/RoobertTRIAL-Regular.woff") format("woff"); font-weight: 400; font-display: block; }
+      @font-face { font-family: "Roobert"; src: url("capture/assets/fonts/RoobertTRIAL-Medium.woff") format("woff"); font-weight: 500; font-display: block; }
+      @font-face { font-family: "Roobert"; src: url("capture/assets/fonts/RoobertTRIAL-Bold.woff") format("woff"); font-weight: 700; font-display: block; }
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: #1F2739; color: #fff; font-family: "Roobert", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+      #stage { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: hidden; background: #1F2739; }
+
+      /* ---- persistent background ---- */
+      #bg-grid { position: absolute; inset: -60px; z-index: 0; pointer-events: none; background-image: radial-gradient(rgba(136,167,219,0.5) 1.2px, transparent 1.2px); background-size: 46px 46px; opacity: 0.06; }
+      .glow { position: absolute; border-radius: 50%; filter: blur(110px); pointer-events: none; z-index: 0; }
+      #glow-a { width: 1100px; height: 1100px; left: -220px; top: -320px; background: radial-gradient(circle, rgba(137,105,195,0.55), transparent 68%); }
+      #glow-b { width: 1000px; height: 1000px; right: -260px; bottom: -340px; background: radial-gradient(circle, rgba(136,167,219,0.42), transparent 68%); }
+      #rays { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+      .ray { position: absolute; left: 50%; top: -30%; width: 240px; height: 160%; transform-origin: top center; background: linear-gradient(to bottom, rgba(136,167,219,0.10), transparent 70%); filter: blur(22px); opacity: 0.5; }
+      #particles { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+      .pt { position: absolute; border-radius: 50%; background: radial-gradient(circle, rgba(190,205,240,0.9), rgba(136,167,219,0.3) 60%, transparent 70%); }
+      #grain { position: absolute; inset: 0; z-index: 41; pointer-events: none; opacity: 0.05; mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size: 320px 320px; }
+      #vignette { position: absolute; inset: 0; z-index: 40; pointer-events: none; background: radial-gradient(ellipse 80% 70% at 50% 46%, transparent 52%, rgba(10,14,22,0.55) 100%); }
+      #flash { position: absolute; inset: 0; z-index: 60; pointer-events: none; background: #eef3ff; opacity: 0; }
+
+      /* ---- scene base ---- */
+      .scene { position: absolute; inset: 0; width: 1920px; height: 1080px; z-index: 10; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 110px 150px; opacity: 0; visibility: hidden; }
+
+      /* ---- typography ---- */
+      .eyebrow { font-weight: 500; font-size: 26px; letter-spacing: 0.34em; text-transform: uppercase; color: #88A7DB; }
+      .accent { color: #b58bff; }
+      .muted { color: rgba(255,255,255,0.6); font-weight: 300; }
+      .w { display: inline-block; will-change: transform, opacity; }
+      .hl { position: relative; display: inline-block; }
+      .hl > .bar { position: absolute; left: -4px; right: -4px; bottom: 4px; height: 42%; background: linear-gradient(90deg, rgba(122,0,223,0.0), rgba(137,105,195,0.55), rgba(122,0,223,0.0)); border-radius: 4px; transform: scaleX(0); transform-origin: left center; z-index: -1; }
+      .glass { background: linear-gradient(160deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02)); border: 1px solid rgba(255,255,255,0.12); border-radius: 22px; box-shadow: 0 30px 70px -30px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08); backdrop-filter: blur(4px); }
+      .iso { filter: drop-shadow(0 26px 40px rgba(0,0,0,0.5)); }
+      .floor { position: absolute; border-radius: 50%; background: radial-gradient(ellipse, rgba(137,105,195,0.45), transparent 70%); filter: blur(26px); pointer-events: none; }
+      .orbit { position: absolute; left: 50%; top: 50%; pointer-events: none; }
+      .orbit .od { position: absolute; width: 9px; height: 9px; border-radius: 50%; background: #b58bff; box-shadow: 0 0 14px 3px rgba(181,139,255,0.8); }
+      .glint { position: absolute; top: 0; bottom: 0; width: 140px; background: linear-gradient(105deg, transparent, rgba(255,255,255,0.45), transparent); filter: blur(8px); transform: skewX(-14deg); pointer-events: none; mix-blend-mode: screen; }
+
+      /* ===== SCENE 1 — HOOK ===== */
+      #s1 .s1-core { position: absolute; width: 980px; left: 50%; top: 50%; margin: -560px 0 0 -490px; opacity: 0.16; filter: blur(3px); z-index: 1; }
+      #s1 .s1-wrap { position: relative; z-index: 12; display: flex; flex-direction: column; align-items: center; gap: 46px; }
+      #s1 .s1-head { font-size: 70px; font-weight: 300; color: rgba(255,255,255,0.92); text-align: center; max-width: 1250px; line-height: 1.12; }
+      #s1 .s1-head b { font-weight: 700; }
+      #s1 .s1-chips { display: flex; gap: 26px; }
+      #s1 .chip { padding: 20px 40px; border-radius: 16px; font-size: 30px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #cfe0ff; }
+      #s1 .s1-rule { width: 0; height: 1px; background: linear-gradient(90deg, transparent, #88A7DB, transparent); margin-top: 4px; }
+
+      /* ===== SCENE 2 — LOGO ===== */
+      #s2 .s2-bloom { position: absolute; width: 1200px; height: 1200px; left: 50%; top: 50%; margin: -600px 0 0 -600px; background: radial-gradient(circle, rgba(137,105,195,0.5), rgba(136,167,219,0.12) 42%, transparent 66%); filter: blur(30px); z-index: 11; }
+      #s2 .s2-logo { position: relative; z-index: 13; width: 720px; }
+      #s2 .s2-tag { position: relative; z-index: 13; margin-top: 40px; font-size: 30px; font-weight: 500; letter-spacing: 0.5em; text-transform: uppercase; color: #aebfe0; }
+
+      /* ===== SCENE 3 — HERITAGE ===== */
+      #s3 { flex-direction: row; gap: 60px; justify-content: space-between; padding: 110px 150px; }
+      #s3 .s3-left { flex: 1; display: flex; flex-direction: column; gap: 30px; max-width: 880px; }
+      #s3 .s3-head { font-size: 76px; font-weight: 700; line-height: 1.0; letter-spacing: -0.02em; }
+      #s3 .s3-sub { font-size: 30px; font-weight: 300; color: rgba(255,255,255,0.66); line-height: 1.4; max-width: 720px; }
+      #s3 .s3-line { display: flex; align-items: center; gap: 20px; margin-top: 14px; }
+      #s3 .s3-track { position: relative; width: 520px; height: 2px; background: rgba(255,255,255,0.12); border-radius: 2px; overflow: hidden; }
+      #s3 .s3-fill { position: absolute; inset: 0; width: 0; background: linear-gradient(90deg, #405D8E, #88A7DB); }
+      #s3 .s3-30 { font-size: 30px; font-weight: 700; color: #88A7DB; white-space: nowrap; }
+      #s3 .s3-stage { position: relative; width: 720px; height: 720px; flex-shrink: 0; }
+      #s3 .s3-core { position: absolute; inset: 0; width: 720px; height: 720px; object-fit: contain; z-index: 2; }
+      #s3 .s3-floor { width: 520px; height: 120px; left: 100px; bottom: 70px; }
+
+      /* ===== SCENE 4 — PRODUCTS ===== */
+      #s4 .s4-eyebrow { margin-bottom: 56px; }
+      #s4 .s4-grid { display: flex; gap: 34px; }
+      #s4 .card { position: relative; width: 360px; height: 470px; padding: 36px 30px 34px; display: flex; flex-direction: column; align-items: center; text-align: center; opacity: 0; overflow: hidden; }
+      #s4 .card img { width: 220px; height: 220px; object-fit: contain; margin-top: 6px; }
+      #s4 .card .c-title { margin-top: auto; font-size: 30px; font-weight: 700; line-height: 1.1; }
+      #s4 .card .c-sub { margin-top: 12px; font-size: 19px; font-weight: 300; color: rgba(255,255,255,0.55); letter-spacing: 0.04em; }
+
+      /* ===== SCENE 5 — RPA ===== */
+      #s5 .s5-stage { position: absolute; left: 50%; top: 50%; width: 720px; height: 720px; margin: -380px 0 0 -360px; z-index: 12; }
+      #s5 .s5-rpa { position: absolute; left: 50%; top: 50%; width: 560px; margin: -280px 0 0 -280px; z-index: 12; }
+      #s5 .s5-ring { position: absolute; inset: 0; z-index: 11; }
+      #s5 .s5-arm { position: absolute; left: 50%; top: 50%; width: 2px; height: 300px; margin-left: -1px; transform-origin: top center; z-index: 13; }
+      #s5 .s5-dot { position: absolute; width: 18px; height: 18px; border-radius: 50%; background: #b58bff; box-shadow: 0 0 24px 6px rgba(181,139,255,0.8); left: 50%; bottom: -9px; margin-left: -9px; }
+      #s5 .s5-text { position: absolute; z-index: 14; bottom: 140px; left: 0; right: 0; text-align: center; }
+      #s5 .s5-text .e { font-size: 26px; letter-spacing: 0.3em; text-transform: uppercase; color: #88A7DB; }
+      #s5 .s5-text .h { font-size: 60px; font-weight: 700; margin-top: 12px; }
+      #s5 .s5-top { position: absolute; z-index: 14; top: 120px; left: 0; right: 0; text-align: center; font-size: 26px; letter-spacing: 0.3em; text-transform: uppercase; color: #88A7DB; }
+
+      /* ===== SCENE 6 — SCALE ===== */
+      #s6 .s6-orb { position: absolute; width: 760px; left: 50%; top: 50%; margin: -440px 0 0 -380px; opacity: 0.22; filter: blur(2px); z-index: 1; }
+      #s6 .s6-wrap { position: relative; z-index: 12; display: flex; flex-direction: column; align-items: center; gap: 64px; }
+      #s6 .s6-stats { display: flex; gap: 40px; }
+      #s6 .stat { position: relative; width: 380px; height: 280px; display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; overflow: hidden; }
+      #s6 .stat .num { font-size: 120px; font-weight: 700; line-height: 1; color: #fff; }
+      #s6 .stat .num .plus { color: #b58bff; }
+      #s6 .stat .lbl { margin-top: 18px; font-size: 24px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: #88A7DB; }
+      #s6 .s6-tag { font-size: 30px; font-weight: 300; color: rgba(255,255,255,0.6); letter-spacing: 0.04em; }
+
+      /* ===== SCENE 7 — LEADERSHIP ===== */
+      #s7 .s7-hex { position: absolute; width: 900px; height: 900px; left: 50%; top: 50%; margin: -450px 0 0 -450px; z-index: 1; opacity: 0.05; background: conic-gradient(from 0deg, #88A7DB, #7A00DF, #88A7DB); border-radius: 38% 62% 55% 45% / 48% 44% 56% 52%; filter: blur(8px); }
+      #s7 .s7-wrap { position: relative; z-index: 12; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 18px; }
+      #s7 .s7-e { font-size: 28px; letter-spacing: 0.34em; text-transform: uppercase; color: #88A7DB; }
+      #s7 .s7-head { font-size: 130px; font-weight: 700; line-height: 0.95; letter-spacing: -0.02em; }
+      #s7 .s7-pillars { display: flex; gap: 26px; margin-top: 22px; font-size: 34px; font-weight: 500; }
+      #s7 .s7-pillars span { color: #b58bff; display: inline-block; }
+      #s7 .s7-dot { color: rgba(255,255,255,0.3) !important; }
+      #s7 .s7-underline { width: 0; height: 3px; background: linear-gradient(90deg, transparent, #7A00DF, #88A7DB, transparent); margin-top: 8px; }
+
+      /* ===== SCENE 8 — SIGNOFF ===== */
+      #s8 .s8-phrase { position: absolute; z-index: 13; font-size: 64px; font-weight: 300; text-align: center; color: rgba(255,255,255,0.92); max-width: 1200px; line-height: 1.15; }
+      #s8 .s8-phrase b { font-weight: 700; }
+      #s8 .s8-bloom { position: absolute; width: 1100px; height: 1100px; left: 50%; top: 50%; margin: -550px 0 0 -550px; background: radial-gradient(circle, rgba(137,105,195,0.45), rgba(136,167,219,0.1) 44%, transparent 66%); filter: blur(28px); z-index: 11; opacity: 0; }
+      #s8 .s8-logo { position: absolute; z-index: 13; width: 640px; left: 50%; top: 50%; margin: -150px 0 0 -320px; opacity: 0; }
+      #s8 .s8-tag { position: absolute; z-index: 13; top: 50%; left: 0; right: 0; margin-top: 130px; text-align: center; font-size: 28px; font-weight: 500; letter-spacing: 0.5em; text-transform: uppercase; color: #aebfe0; opacity: 0; }
+    </style>
+  </head>
+  <body>
+    <div id="stage" data-composition-id="dex-presentation" data-width="1920" data-height="1080" data-start="0" data-duration="53.7">
+      <div id="bg-grid"></div>
+      <div class="glow" id="glow-a"></div>
+      <div class="glow" id="glow-b"></div>
+      <div id="rays"><div class="ray" style="margin-left:-520px"></div><div class="ray" style="margin-left:-40px"></div><div class="ray" style="margin-left:420px"></div></div>
+      <div id="particles"></div>
+
+      <!-- SCENE 1 — HOOK -->
+      <section class="scene" id="s1">
+        <img class="s1-core iso" src="generated-assets/data-core-bg.png" alt="" />
+        <div class="s1-wrap">
+          <div class="eyebrow">Southeast Europe</div>
+          <div class="s1-head"><span class="w">Behind</span> <span class="w">the</span> <span class="w">software</span> <span class="w">that</span> <span class="w">runs</span><br /><span class="w">the</span> <span class="w">region's</span> <span class="w"><b>most</b></span> <span class="w"><b>demanding</b></span> <span class="w">business</span></div>
+          <div class="s1-chips">
+            <div class="chip glass">Banks</div>
+            <div class="chip glass">Institutions</div>
+            <div class="chip glass">Enterprises</div>
+          </div>
+          <div class="s1-rule"></div>
+        </div>
+      </section>
+
+      <!-- SCENE 2 — LOGO -->
+      <section class="scene" id="s2">
+        <div class="s2-bloom"></div>
+        <img class="s2-logo" src="assets/dex-logo-white.svg" alt="DEX" />
+        <div class="s2-tag">Digital&nbsp;EXperience</div>
+      </section>
+
+      <!-- SCENE 3 — HERITAGE -->
+      <section class="scene" id="s3">
+        <div class="s3-left">
+          <div class="eyebrow">Three decades of engineering</div>
+          <div class="s3-head"><span class="w">We</span> <span class="w">build</span> <span class="w">the</span> <span class="w">systems</span> <span class="w">that</span> <span class="hl"><span class="bar"></span><span class="w accent">run</span> <span class="w accent">serious</span> <span class="w accent">business</span></span></div>
+          <div class="s3-sub">Innovative software, engineered to automate the work that holds companies back.</div>
+          <div class="s3-line">
+            <div class="s3-track"><div class="s3-fill"></div></div>
+            <div class="s3-30">30+ years</div>
+          </div>
+        </div>
+        <div class="s3-stage">
+          <div class="floor s3-floor"></div>
+          <img class="s3-core iso" src="generated-assets/data-core.png" alt="" />
+          <div class="orbit" id="s3-orbit"></div>
+          <div class="glint" id="s3-glint" style="left:90px;width:160px;height:100%"></div>
+        </div>
+      </section>
+
+      <!-- SCENE 4 — PRODUCTS -->
+      <section class="scene" id="s4">
+        <div class="eyebrow s4-eyebrow">Products &amp; solutions</div>
+        <div class="s4-grid">
+          <div class="card glass" id="c1"><img src="generated-assets/platform.png" alt="" /><div class="c-title">Digital Experience<br />Platform</div><div class="c-sub">Modular web framework</div><div class="glint cg" style="left:-160px"></div></div>
+          <div class="card glass" id="c2"><img src="generated-assets/custom-dev.png" alt="" /><div class="c-title">Custom Software<br />Development</div><div class="c-sub">End to end</div><div class="glint cg" style="left:-160px"></div></div>
+          <div class="card glass" id="c3"><img src="generated-assets/hr.png" alt="" /><div class="c-title">HR Software</div><div class="c-sub">People &amp; compliance</div><div class="glint cg" style="left:-160px"></div></div>
+          <div class="card glass" id="c4"><img src="generated-assets/dms.png" alt="" /><div class="c-title">Document<br />Management</div><div class="c-sub">Secure &amp; organized</div><div class="glint cg" style="left:-160px"></div></div>
+        </div>
+      </section>
+
+      <!-- SCENE 5 — RPA -->
+      <section class="scene" id="s5">
+        <div class="s5-top">Intelligent automation</div>
+        <div class="s5-stage">
+          <div class="s5-ring">
+            <svg width="720" height="720" viewBox="0 0 720 720" fill="none">
+              <circle class="s5-loop" cx="360" cy="360" r="300" stroke="rgba(136,167,219,0.55)" stroke-width="2" stroke-dasharray="1885" stroke-dashoffset="1885" />
+              <circle class="s5-loop2" cx="360" cy="360" r="300" stroke="rgba(181,139,255,0.9)" stroke-width="3" stroke-dasharray="80 1805" stroke-dashoffset="0" />
+            </svg>
+          </div>
+          <div class="s5-arm"><div class="s5-dot"></div></div>
+          <img class="s5-rpa iso" src="generated-assets/rpa.png" alt="" />
+        </div>
+        <div class="s5-text">
+          <div class="e">Robotic Process Automation</div>
+          <div class="h">The repetitive work <span class="accent" id="s5-runs">runs itself</span></div>
+        </div>
+      </section>
+
+      <!-- SCENE 6 — SCALE -->
+      <section class="scene" id="s6">
+        <img class="s6-orb iso" src="generated-assets/network-orb.png" alt="" />
+        <div class="s6-wrap">
+          <div class="s6-stats">
+            <div class="stat glass"><div class="num"><span class="v" data-to="100">0</span><span class="plus">+</span></div><div class="lbl">IT Experts</div></div>
+            <div class="stat glass"><div class="num"><span class="v" data-to="50">0</span><span class="plus">+</span></div><div class="lbl">Clients</div></div>
+            <div class="stat glass"><div class="num"><span class="v" data-to="30">0</span><span class="plus">+</span></div><div class="lbl">Years</div></div>
+          </div>
+          <div class="s6-tag">Trusted right across the region</div>
+        </div>
+      </section>
+
+      <!-- SCENE 7 — LEADERSHIP -->
+      <section class="scene" id="s7">
+        <div class="s7-hex"></div>
+        <div class="s7-wrap">
+          <div class="s7-e">Why companies choose DEX</div>
+          <div class="s7-head"><span class="w">The</span> <span class="w">region's</span> <span class="w">leader</span></div>
+          <div class="s7-pillars"><span>custom development</span><span class="s7-dot">·</span><span>intelligent automation</span></div>
+          <div class="s7-underline"></div>
+        </div>
+      </section>
+
+      <!-- SCENE 8 — SIGNOFF -->
+      <section class="scene" id="s8">
+        <div class="s8-bloom"></div>
+        <div class="s8-phrase" id="s8p"><span class="w">We</span> <span class="w">don't</span> <span class="w">just</span> <span class="w">deliver</span> <span class="w">software.</span><br /><span class="w">We</span> <span class="w">become</span> <span class="w">your</span> <span class="w"><b>digital</b></span> <span class="w"><b>colleague</b></span><span class="w"><b>.</b></span></div>
+        <img class="s8-logo" src="assets/dex-logo-white-b.svg" alt="DEX" />
+        <div class="s8-tag">Digital&nbsp;EXperience</div>
+      </section>
+
+      <div id="grain"></div>
+      <div id="vignette"></div>
+      <div id="flash"></div>
+
+      <!-- VOICEOVER -->
+      <audio id="vo-1" class="clip" data-start="0"      data-duration="auto" data-track-index="2" src="assets/voiceover/dex-presentation/scene-01.mp3" data-volume="1"></audio>
+      <audio id="vo-2" class="clip" data-start="9.133"  data-duration="auto" data-track-index="2" src="assets/voiceover/dex-presentation/scene-02.mp3" data-volume="1"></audio>
+      <audio id="vo-3" class="clip" data-start="11.767" data-duration="auto" data-track-index="2" src="assets/voiceover/dex-presentation/scene-03.mp3" data-volume="1"></audio>
+      <audio id="vo-4" class="clip" data-start="21.633" data-duration="auto" data-track-index="2" src="assets/voiceover/dex-presentation/scene-04.mp3" data-volume="1"></audio>
+      <audio id="vo-5" class="clip" data-start="29.567" data-duration="auto" data-track-index="2" src="assets/voiceover/dex-presentation/scene-05.mp3" data-volume="1"></audio>
+      <audio id="vo-6" class="clip" data-start="36.533" data-duration="auto" data-track-index="2" src="assets/voiceover/dex-presentation/scene-06.mp3" data-volume="1"></audio>
+      <audio id="vo-7" class="clip" data-start="42.10"  data-duration="auto" data-track-index="2" src="assets/voiceover/dex-presentation/scene-07.mp3" data-volume="1"></audio>
+      <audio id="vo-8" class="clip" data-start="47.80"  data-duration="auto" data-track-index="2" src="assets/voiceover/dex-presentation/scene-08.mp3" data-volume="1"></audio>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        if (window.CustomEase) { CustomEase.create("dex", "0.16,1,0.3,1"); }
+        const E = window.CustomEase ? "dex" : "power3.out";
+        const tl = gsap.timeline({ paused: true });
+        const DUR = 53.7;
+
+        // mulberry32 seeded PRNG (deterministic — no Math.random)
+        function mb(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+        const rnd = mb(20260526);
+
+        /* ---------- ambient background (seekable) ---------- */
+        tl.to("#glow-a", { x: 90, y: 60, scale: 1.12, duration: DUR, ease: "sine.inOut", yoyo: true, repeat: 1 }, 0);
+        tl.to("#glow-b", { x: -70, y: -50, scale: 1.1, duration: DUR, ease: "sine.inOut", yoyo: true, repeat: 1 }, 0);
+        tl.to("#bg-grid", { backgroundPosition: "140px 90px", duration: DUR, ease: "none" }, 0);
+        tl.fromTo("#grain", { backgroundPosition: "0 0" }, { backgroundPosition: "320px 200px", duration: 4, ease: "none", repeat: Math.ceil(DUR / 4) }, 0);
+        // light rays — slow sway
+        gsap.utils.toArray("#rays .ray").forEach((r, i) => {
+          const base = -18 + i * 16;
+          gsap.set(r, { rotation: base });
+          tl.to(r, { rotation: base + 10, duration: DUR, ease: "sine.inOut", yoyo: true, repeat: 1 }, 0);
+          tl.to(r, { opacity: 0.22, duration: 5 + i, ease: "sine.inOut", yoyo: true, repeat: Math.ceil(DUR / (5 + i)) }, i);
+        });
+        // floating particles
+        const pc = document.getElementById("particles");
+        for (let i = 0; i < 30; i++) {
+          const d = document.createElement("div"); d.className = "pt";
+          const x = rnd() * 1920, y = rnd() * 1080, s = 2 + rnd() * 4, o = 0.1 + rnd() * 0.28;
+          d.style.cssText = `left:${x}px;top:${y}px;width:${s}px;height:${s}px;opacity:${o}`;
+          pc.appendChild(d);
+          tl.to(d, { y: `-=${80 + rnd() * 130}`, x: `+=${-40 + rnd() * 80}`, duration: DUR, ease: "sine.inOut" }, 0);
+          const per = 2.2 + rnd() * 2.4, reps = Math.ceil(DUR / per);
+          tl.to(d, { opacity: o * 0.2, duration: per, yoyo: true, repeat: reps, ease: "sine.inOut" }, rnd() * 2);
+        }
+
+        // scene-3 orbiting accents around the data-core
+        const orb = document.getElementById("s3-orbit");
+        [0, 120, 240].forEach((deg) => {
+          const od = document.createElement("div"); od.className = "od";
+          const r = 345, a = (deg * Math.PI) / 180;
+          od.style.left = (Math.cos(a) * r - 4.5) + "px";
+          od.style.top = (Math.sin(a) * r - 4.5) + "px";
+          orb.appendChild(od);
+        });
+        tl.fromTo("#s3-orbit", { rotation: 0, autoAlpha: 0 }, { rotation: 150, autoAlpha: 1, duration: 8.2, ease: "sine.inOut" }, 12.8);
+
+        // helpers — transitions on .scene use opacity+blur (one transform = camera scale only)
+        function enter(s, t) { tl.fromTo(s, { autoAlpha: 0, filter: "blur(16px)" }, { autoAlpha: 1, filter: "blur(0px)", duration: 0.55, ease: "power2.out" }, t); }
+        function exit(s, t) { tl.to(s, { autoAlpha: 0, filter: "blur(18px)", duration: 0.45, ease: "power2.in" }, t); tl.set(s, { opacity: 0, visibility: "hidden", filter: "blur(0px)" }, t + 0.45); }
+        function cam(s, t, dur, to = 1.05) { tl.fromTo(s, { scale: 1.0 }, { scale: to, duration: dur, ease: "none" }, t); }
+        function flash(t, peak = 0.42) { tl.to("#flash", { opacity: peak, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.inOut" }, t); }
+
+        /* ============ SCENE 1 — HOOK [0–9.133] ============ */
+        enter("#s1", 0.0); cam("#s1", 0.0, 9.6, 1.06);
+        tl.fromTo("#s1 .eyebrow", { y: 24, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.7, ease: E }, 0.3);
+        tl.fromTo("#s1 .s1-head .w", { yPercent: 120, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 0.7, ease: E, stagger: 0.06 }, 0.7);
+        tl.fromTo("#s1 .chip", { y: 40, autoAlpha: 0, scale: 0.9 }, { y: 0, autoAlpha: 1, scale: 1, duration: 0.7, ease: "back.out(1.6)", stagger: 0.16 }, 2.0);
+        tl.fromTo("#s1 .s1-rule", { width: 0 }, { width: 560, duration: 1.0, ease: "power2.out" }, 2.6);
+        tl.to("#s1 .s1-core", { scale: 1.14, rotation: 3, duration: 9.0, ease: "none" }, 0);   // bg parallax (slower layer)
+        exit("#s1", 8.55);
+
+        /* ============ SCENE 2 — LOGO [9.133–11.767] ============ */
+        enter("#s2", 9.05); cam("#s2", 9.05, 2.7, 1.04);
+        tl.fromTo("#s2 .s2-bloom", { scale: 0.4, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 0.9, ease: "power2.out" }, 9.1);
+        tl.fromTo("#s2 .s2-logo", { scale: 1.16, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 0.7, ease: "back.out(1.7)" }, 9.13);  // punch on "DEX"
+        flash(9.18, 0.5);
+        tl.fromTo("#s2 .s2-tag", { y: 16, autoAlpha: 0, letterSpacing: "0.85em" }, { y: 0, autoAlpha: 1, letterSpacing: "0.5em", duration: 0.7, ease: E }, 10.0);
+        tl.to("#s2 .s2-bloom", { scale: 1.08, duration: 1.3, ease: "sine.inOut", overwrite: "auto" }, 10.05);
+        exit("#s2", 11.35);
+
+        /* ============ SCENE 3 — HERITAGE [11.767–21.633] ============ */
+        enter("#s3", 11.75); cam("#s3", 11.75, 9.7, 1.045);
+        tl.fromTo("#s3 .eyebrow", { y: 22, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.6, ease: E }, 12.0);
+        tl.fromTo("#s3 .s3-head .w", { yPercent: 110, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 0.6, ease: E, stagger: 0.05 }, 12.25);
+        tl.fromTo("#s3 .s3-sub", { y: 26, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.8, ease: E }, 13.0);
+        tl.fromTo("#s3 .s3-line", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5 }, 13.3);
+        tl.fromTo("#s3 .s3-fill", { width: "0%" }, { width: "100%", duration: 1.8, ease: "power2.out" }, 13.4);
+        tl.fromTo("#s3 .s3-30", { autoAlpha: 0, x: -10 }, { autoAlpha: 1, x: 0, duration: 0.5 }, 14.9);
+        // highlight sweep on "run serious business" (VO "run" ~14.53)
+        tl.fromTo("#s3 .hl .bar", { scaleX: 0 }, { scaleX: 1, duration: 0.55, ease: "power2.inOut" }, 14.5);
+        // hero asset: rise + continuous float (parallax — faster layer than bg)
+        tl.fromTo("#s3 .s3-core", { x: 90, autoAlpha: 0, scale: 0.9 }, { x: 0, autoAlpha: 1, scale: 1, duration: 1.1, ease: E }, 12.3);
+        tl.to("#s3 .s3-core", { y: -18, duration: 3.4, ease: "sine.inOut", yoyo: true, repeat: 2 }, 13.6);
+        tl.fromTo("#s3 .s3-floor", { autoAlpha: 0, scaleX: 0.7 }, { autoAlpha: 1, scaleX: 1, duration: 1.0 }, 12.6);
+        // glint sweep across hero
+        tl.set("#s3-glint", { autoAlpha: 1 }, 13.4);
+        tl.fromTo("#s3-glint", { left: -200 }, { left: 760, duration: 1.5, ease: "power1.inOut" }, 13.4);
+        tl.set("#s3-glint", { autoAlpha: 0 }, 14.95);
+        exit("#s3", 21.0);
+
+        /* ============ SCENE 4 — PRODUCTS [21.633–29.567] ============ */
+        enter("#s4", 21.65); cam("#s4", 21.65, 7.9, 1.04);
+        tl.fromTo("#s4 .s4-eyebrow", { y: 20, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.6, ease: E }, 21.8);
+        tl.fromTo("#s4 .card", { y: 70, autoAlpha: 0, scale: 0.9, rotationY: 18 }, { y: 0, autoAlpha: 1, scale: 1, rotationY: 0, duration: 0.7, ease: "back.out(1.2)", stagger: 0.2 }, 22.05);
+        tl.fromTo(["#c1 img","#c2 img","#c3 img","#c4 img"], { scale: 0.7, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 0.6, ease: "back.out(1.6)", stagger: 0.2 }, 22.3);
+        // each card lifts + glint when named (VO onsets)
+        const cardT = { "#c1": 22.1, "#c2": 24.18, "#c3": 26.35, "#c4": 27.62 };
+        Object.entries(cardT).forEach(([id, t]) => {
+          tl.to(id, { y: -24, duration: 0.45, ease: "power2.out", yoyo: true, repeat: 1 }, t);
+          tl.fromTo(`${id} .cg`, { left: -200, autoAlpha: 0.9 }, { left: 360, autoAlpha: 0, duration: 0.8, ease: "power1.inOut" }, t);
+        });
+        exit("#s4", 29.0);
+
+        /* ============ SCENE 5 — RPA [29.567–36.533] ============ */
+        enter("#s5", 29.6); cam("#s5", 29.6, 6.9, 1.05);
+        tl.fromTo("#s5 .s5-top", { y: -16, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.6, ease: E }, 29.9);
+        tl.fromTo("#s5 .s5-rpa", { scale: 0.78, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 0.9, ease: "back.out(1.4)" }, 29.9);
+        tl.fromTo("#s5 .s5-loop", { strokeDashoffset: 1885 }, { strokeDashoffset: 0, duration: 1.2, ease: "power2.out" }, 30.3);
+        tl.fromTo("#s5 .s5-ring", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5 }, 30.3);
+        // flowing energy pulse along loop + orbiting dot
+        tl.to("#s5 .s5-loop2", { strokeDashoffset: -1885, duration: 2.4, ease: "none", repeat: 2 }, 30.6);
+        tl.fromTo("#s5 .s5-arm", { rotation: 0 }, { rotation: 720, duration: 6.0, ease: "none" }, 30.4);
+        tl.to("#s5 .s5-rpa", { rotation: 5, duration: 3.0, ease: "sine.inOut", yoyo: true, repeat: 1 }, 30.8);
+        tl.fromTo("#s5 .s5-text .e", { y: 14, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.6, ease: E }, 31.0);
+        tl.fromTo("#s5 .s5-text .h", { y: 22, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.7, ease: E }, 31.3);
+        // "runs itself" glow on VO word (~33.25)
+        tl.fromTo("#s5-runs", { textShadow: "0 0 0px rgba(181,139,255,0)" }, { textShadow: "0 0 26px rgba(181,139,255,0.95)", duration: 0.35, yoyo: true, repeat: 1, ease: "power2.out" }, 33.2);
+        exit("#s5", 36.0);
+
+        /* ============ SCENE 6 — SCALE [36.533–42.10] ============ */
+        enter("#s6", 36.55); cam("#s6", 36.55, 5.5, 1.04);
+        tl.fromTo("#s6 .s6-orb", { scale: 0.85, autoAlpha: 0 }, { scale: 1, autoAlpha: 0.22, duration: 1.0, ease: "power2.out" }, 36.6);
+        tl.to("#s6 .s6-orb", { rotation: 14, duration: 5.2, ease: "sine.inOut" }, 36.6);
+        tl.fromTo("#s6 .stat", { y: 50, autoAlpha: 0, scale: 0.9 }, { y: 0, autoAlpha: 1, scale: 1, duration: 0.6, ease: "back.out(1.4)", stagger: 0.2 }, 36.8);
+        // count-ups land on spoken numbers; pop + glow on landing
+        const numT = [37.1, 38.55, 39.2];
+        document.querySelectorAll("#s6 .v").forEach((el, i) => {
+          const to = +el.getAttribute("data-to"); const o = { n: 0 };
+          tl.to(o, { n: to, duration: 0.9, ease: "power2.out", onUpdate: () => { el.textContent = Math.round(o.n); } }, numT[i] - 0.9);
+          const num = el.parentElement;
+          tl.fromTo(num, { scale: 1, textShadow: "0 0 0 rgba(255,255,255,0)" }, { scale: 1.14, textShadow: "0 0 30px rgba(181,139,255,0.6)", duration: 0.16, yoyo: true, repeat: 1, ease: "power2.out" }, numT[i]);
+        });
+        tl.fromTo("#s6 .s6-tag", { y: 18, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.6, ease: E }, 39.8);
+        exit("#s6", 41.55);
+
+        /* ============ SCENE 7 — LEADERSHIP [42.10–47.80] ============ */
+        enter("#s7", 42.1); cam("#s7", 42.1, 5.6, 1.05);
+        tl.fromTo("#s7 .s7-hex", { rotation: 0, autoAlpha: 0 }, { rotation: 42, autoAlpha: 0.06, duration: 5.6, ease: "none" }, 42.1);
+        tl.fromTo("#s7 .s7-e", { y: 18, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.6, ease: E }, 42.4);
+        tl.fromTo("#s7 .s7-head .w", { yPercent: 115, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 0.7, ease: E, stagger: 0.08 }, 42.7);  // "region's leader" ~43.3-43.8
+        tl.fromTo("#s7 .s7-pillars span", { y: 20, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.6, ease: E, stagger: 0.18 }, 44.3);
+        // pillar glow pulses on VO onsets (custom dev 44.32, intelligent automation 45.63)
+        tl.fromTo("#s7 .s7-pillars span:nth-child(1)", { textShadow: "0 0 0 rgba(181,139,255,0)" }, { textShadow: "0 0 24px rgba(181,139,255,0.9)", duration: 0.3, yoyo: true, repeat: 1 }, 44.32);
+        tl.fromTo("#s7 .s7-pillars span:nth-child(3)", { textShadow: "0 0 0 rgba(181,139,255,0)" }, { textShadow: "0 0 24px rgba(181,139,255,0.9)", duration: 0.3, yoyo: true, repeat: 1 }, 45.63);
+        tl.fromTo("#s7 .s7-underline", { width: 0 }, { width: 640, duration: 0.9, ease: "power2.out" }, 44.0);
+        exit("#s7", 47.25);
+
+        /* ============ SCENE 8 — SIGNOFF [47.80–53.70] ============ */
+        enter("#s8", 47.8); cam("#s8", 47.8, 5.9, 1.03);
+        tl.fromTo("#s8 .s8-phrase .w", { yPercent: 110, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 0.55, ease: E, stagger: 0.05 }, 48.0);
+        tl.to("#s8 .s8-phrase", { autoAlpha: 0, y: -24, duration: 0.6, ease: "power2.in" }, 50.5);
+        tl.set("#s8 .s8-phrase", { opacity: 0, visibility: "hidden" }, 51.1);
+        // logo lock on "DEX" (~51.0)
+        tl.to("#s8 .s8-bloom", { autoAlpha: 1, scale: 1.05, duration: 0.6, ease: "power2.out" }, 50.7);
+        tl.fromTo("#s8 .s8-logo", { scale: 1.14, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 0.7, ease: "back.out(1.6)" }, 51.0);
+        flash(51.05, 0.5);
+        tl.fromTo("#s8 .s8-tag", { autoAlpha: 0, letterSpacing: "0.85em" }, { autoAlpha: 1, letterSpacing: "0.5em", duration: 0.8, ease: E }, 51.6);
+        tl.to("#s8 .s8-bloom", { scale: 1.12, duration: 2.0, ease: "sine.inOut", overwrite: "auto" }, 51.6);
+
+        window.__timelines["dex-presentation"] = tl;
+      </script>
+    </div>
+  </body>
+</html>

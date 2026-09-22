@@ -1,0 +1,127 @@
+{
+  "sceneId": "scene-03",
+  "text": "We sit with you. We learn how you work. Then we build it — line by line.",
+  "words": [
+    {
+      "word": "We",
+      "start": 0,
+      "end": 0.163,
+      "startFrame": 0,
+      "endFrame": 5
+    },
+    {
+      "word": "sit",
+      "start": 0.221,
+      "end": 0.395,
+      "startFrame": 7,
+      "endFrame": 12
+    },
+    {
+      "word": "with",
+      "start": 0.441,
+      "end": 0.569,
+      "startFrame": 13,
+      "endFrame": 17
+    },
+    {
+      "word": "you.",
+      "start": 0.615,
+      "end": 0.848,
+      "startFrame": 18,
+      "endFrame": 25
+    },
+    {
+      "word": "We",
+      "start": 0.998,
+      "end": 1.138,
+      "startFrame": 30,
+      "endFrame": 34
+    },
+    {
+      "word": "learn",
+      "start": 1.196,
+      "end": 1.393,
+      "startFrame": 36,
+      "endFrame": 42
+    },
+    {
+      "word": "how",
+      "start": 1.44,
+      "end": 1.544,
+      "startFrame": 43,
+      "endFrame": 46
+    },
+    {
+      "word": "you",
+      "start": 1.602,
+      "end": 1.695,
+      "startFrame": 48,
+      "endFrame": 51
+    },
+    {
+      "word": "work.",
+      "start": 1.765,
+      "end": 2.148,
+      "startFrame": 53,
+      "endFrame": 64
+    },
+    {
+      "word": "Then",
+      "start": 2.322,
+      "end": 2.496,
+      "startFrame": 70,
+      "endFrame": 75
+    },
+    {
+      "word": "we",
+      "start": 2.543,
+      "end": 2.635,
+      "startFrame": 76,
+      "endFrame": 79
+    },
+    {
+      "word": "build",
+      "start": 2.705,
+      "end": 2.961,
+      "startFrame": 81,
+      "endFrame": 89
+    },
+    {
+      "word": "it",
+      "start": 3.019,
+      "end": 3.111,
+      "startFrame": 91,
+      "endFrame": 93
+    },
+    {
+      "word": "—",
+      "start": 3.181,
+      "end": 3.228,
+      "startFrame": 95,
+      "endFrame": 97
+    },
+    {
+      "word": "line",
+      "start": 3.344,
+      "end": 3.611,
+      "startFrame": 100,
+      "endFrame": 108
+    },
+    {
+      "word": "by",
+      "start": 3.646,
+      "end": 3.762,
+      "startFrame": 109,
+      "endFrame": 113
+    },
+    {
+      "word": "line.",
+      "start": 3.843,
+      "end": 4.505,
+      "startFrame": 115,
+      "endFrame": 135
+    }
+  ],
+  "durationSeconds": 5.005,
+  "durationFrames": 150
+}

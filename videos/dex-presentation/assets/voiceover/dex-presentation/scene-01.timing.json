@@ -1,0 +1,148 @@
+{
+  "sceneId": "scene-01",
+  "text": "Behind Southeast Europe's most demanding software — the banks, the institutions, the enterprises — you'll often find the same name.",
+  "words": [
+    {
+      "word": "Behind",
+      "start": 0,
+      "end": 0.488,
+      "startFrame": 0,
+      "endFrame": 15
+    },
+    {
+      "word": "Southeast",
+      "start": 0.58,
+      "end": 1.138,
+      "startFrame": 17,
+      "endFrame": 34
+    },
+    {
+      "word": "Europe's",
+      "start": 1.207,
+      "end": 1.567,
+      "startFrame": 36,
+      "endFrame": 47
+    },
+    {
+      "word": "most",
+      "start": 1.625,
+      "end": 1.811,
+      "startFrame": 49,
+      "endFrame": 54
+    },
+    {
+      "word": "demanding",
+      "start": 1.858,
+      "end": 2.438,
+      "startFrame": 56,
+      "endFrame": 73
+    },
+    {
+      "word": "software",
+      "start": 2.508,
+      "end": 3.111,
+      "startFrame": 75,
+      "endFrame": 93
+    },
+    {
+      "word": "—",
+      "start": 3.146,
+      "end": 3.239,
+      "startFrame": 94,
+      "endFrame": 97
+    },
+    {
+      "word": "the",
+      "start": 3.367,
+      "end": 3.471,
+      "startFrame": 101,
+      "endFrame": 104
+    },
+    {
+      "word": "banks,",
+      "start": 3.553,
+      "end": 4.029,
+      "startFrame": 107,
+      "endFrame": 121
+    },
+    {
+      "word": "the",
+      "start": 4.075,
+      "end": 4.18,
+      "startFrame": 122,
+      "endFrame": 125
+    },
+    {
+      "word": "institutions,",
+      "start": 4.238,
+      "end": 5.108,
+      "startFrame": 127,
+      "endFrame": 153
+    },
+    {
+      "word": "the",
+      "start": 5.155,
+      "end": 5.271,
+      "startFrame": 155,
+      "endFrame": 158
+    },
+    {
+      "word": "enterprises",
+      "start": 5.341,
+      "end": 6.107,
+      "startFrame": 160,
+      "endFrame": 183
+    },
+    {
+      "word": "—",
+      "start": 6.281,
+      "end": 6.339,
+      "startFrame": 188,
+      "endFrame": 190
+    },
+    {
+      "word": "you'll",
+      "start": 6.49,
+      "end": 6.699,
+      "startFrame": 195,
+      "endFrame": 201
+    },
+    {
+      "word": "often",
+      "start": 6.769,
+      "end": 7.059,
+      "startFrame": 203,
+      "endFrame": 212
+    },
+    {
+      "word": "find",
+      "start": 7.117,
+      "end": 7.384,
+      "startFrame": 214,
+      "endFrame": 222
+    },
+    {
+      "word": "the",
+      "start": 7.43,
+      "end": 7.512,
+      "startFrame": 223,
+      "endFrame": 225
+    },
+    {
+      "word": "same",
+      "start": 7.581,
+      "end": 7.93,
+      "startFrame": 227,
+      "endFrame": 238
+    },
+    {
+      "word": "name.",
+      "start": 7.988,
+      "end": 8.638,
+      "startFrame": 240,
+      "endFrame": 259
+    }
+  ],
+  "durationSeconds": 9.138,
+  "durationFrames": 274
+}

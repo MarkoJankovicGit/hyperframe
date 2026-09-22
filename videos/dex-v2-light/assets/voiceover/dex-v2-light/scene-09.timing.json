@@ -1,0 +1,57 @@
+{
+  "sceneId": "scene-09",
+  "text": "Platforms, custom development, document systems, and automation.",
+  "words": [
+    {
+      "word": "Platforms,",
+      "start": 0,
+      "end": 0.801,
+      "startFrame": 0,
+      "endFrame": 24
+    },
+    {
+      "word": "custom",
+      "start": 0.906,
+      "end": 1.219,
+      "startFrame": 27,
+      "endFrame": 37
+    },
+    {
+      "word": "development,",
+      "start": 1.277,
+      "end": 1.834,
+      "startFrame": 38,
+      "endFrame": 55
+    },
+    {
+      "word": "document",
+      "start": 1.939,
+      "end": 2.403,
+      "startFrame": 58,
+      "endFrame": 72
+    },
+    {
+      "word": "systems,",
+      "start": 2.45,
+      "end": 2.937,
+      "startFrame": 74,
+      "endFrame": 88
+    },
+    {
+      "word": "and",
+      "start": 2.972,
+      "end": 3.146,
+      "startFrame": 89,
+      "endFrame": 94
+    },
+    {
+      "word": "automation.",
+      "start": 3.193,
+      "end": 3.947,
+      "startFrame": 96,
+      "endFrame": 118
+    }
+  ],
+  "durationSeconds": 4.447,
+  "durationFrames": 133
+}

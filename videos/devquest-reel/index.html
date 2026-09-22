@@ -1,0 +1,942 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      /* ===========================================================
+         DevQuest — "Learn by Playing"  ·  1080×1920 @ 30fps
+         Dark-fantasy pixel RPG · void #13111C · gold #DBB44C
+         Silkscreen HUD type · Geist UI type · pixel sprites
+         =========================================================== */
+      @font-face { font-family: "Geist"; font-style: normal; font-weight: 100 900; font-display: block;
+        src: url("assets/fonts/geist_v5_gyByhwUxId8gMEwcGFU.woff2") format("woff2"); }
+      @font-face { font-family: "Geist Mono"; font-style: normal; font-weight: 100 900; font-display: block;
+        src: url("assets/fonts/geistmono_v6_or3nQ6H-1_WfwkMZI_qYFrcdmg.woff2") format("woff2"); }
+      @font-face { font-family: "Silkscreen"; font-style: normal; font-weight: 400; font-display: block;
+        src: url("assets/fonts/silkscreen_v6_m8JXjfVPf62XiF7kO-i9YLNlaw.woff2") format("woff2"); }
+      @font-face { font-family: "Silkscreen"; font-style: normal; font-weight: 700; font-display: block;
+        src: url("assets/fonts/silkscreen_v6_m8JUjfVPf62XiF7kO-i9aAhAfmyi2A.woff2") format("woff2"); }
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #13111C; color: #E8EAF0;
+        font-family: "Geist", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+      #stage { position: absolute; inset: 0; width: 1080px; height: 1920px; overflow: hidden; background: #13111C; }
+
+      .px { image-rendering: pixelated; }
+      .beat { position: absolute; inset: 0; width: 1080px; height: 1920px; z-index: 10; opacity: 0; visibility: hidden; }
+
+      /* --- shared HUD / pixel components --- */
+      .silk { font-family: "Silkscreen", monospace; }
+      .plate { display: inline-block; font-family: "Silkscreen", monospace; font-weight: 700; letter-spacing: 0.06em;
+        background: #242842; border: 4px solid #343858; box-shadow: 0 6px 0 #0c0a14; padding: 14px 26px; color: #E8EAF0; }
+      .plate.gold { color: #DBB44C; border-color: #A67C20; }
+      .gem { position: absolute; width: 22px; height: 22px; background: #22D3EE; box-shadow: 0 0 18px rgba(34,211,238,0.55); }
+      .gem.g2 { background: #DBB44C; box-shadow: 0 0 18px rgba(219,180,76,0.55); }
+
+      /* --- global atmosphere --- */
+      #stars { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+      .star { position: absolute; background: #9298B0; opacity: 0.35; }
+      #scan { position: absolute; inset: 0; z-index: 41; pointer-events: none; opacity: 0.045;
+        background: repeating-linear-gradient(180deg, rgba(232,234,240,0.5) 0px, rgba(232,234,240,0.5) 2px, rgba(19,17,28,0) 2px, rgba(19,17,28,0) 6px); }
+      #vig { position: absolute; inset: 0; z-index: 42; pointer-events: none;
+        background: radial-gradient(ellipse 92% 86% at 50% 46%, rgba(0,0,0,0) 52%, rgba(0,0,0,0.55) 100%); }
+      #flash { position: absolute; inset: 0; z-index: 60; pointer-events: none; background: #fff; opacity: 0; }
+
+      .torch { position: absolute; width: 150px; z-index: 4; }
+      .torchglow { position: absolute; width: 340px; height: 340px; border-radius: 50%; z-index: 3;
+        background: radial-gradient(circle, rgba(255,164,60,0.32), rgba(255,164,60,0) 70%); }
+
+      /* =================== B1 — HOOK =================== */
+      #b1-logo { position: absolute; top: 84px; left: 50%; margin-left: -44px; width: 88px; z-index: 6; }
+      #b1 .content { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+        padding: 200px 80px 260px; gap: 0; z-index: 5; }
+      #b1-duckwrap { position: relative; width: 560px; height: 560px; display: flex; align-items: center; justify-content: center; }
+      #b1-glow { position: absolute; width: 640px; height: 640px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(167,139,250,0.30), rgba(167,139,250,0) 68%); }
+      #b1-duck { position: relative; width: 470px; }
+      #b1-spark { position: absolute; inset: 0; z-index: 7; pointer-events: none; }
+      .sparkle { position: absolute; background: #DBB44C; opacity: 0; }
+      #b1-title { margin-top: 70px; text-align: center; line-height: 1.04; }
+      #b1-title .l1, #b1-title .l2 { font-weight: 900; font-size: 86px; letter-spacing: -0.02em; color: #E8EAF0; }
+      #b1-title .l3 { font-family: "Silkscreen", monospace; font-weight: 700; font-size: 122px; color: #DBB44C; margin-top: 18px;
+        text-shadow: 0 0 42px rgba(219,180,76,0.45); }
+      #b1-title .kw { display: inline-block; }
+      #b1-press { position: absolute; bottom: 120px; left: 0; right: 0; text-align: center; z-index: 6;
+        font-family: "Silkscreen", monospace; font-size: 30px; letter-spacing: 0.22em; color: #9298B0; }
+
+      /* =================== B2 — EVERY LESSON IS A QUEST =================== */
+      #b2 { background: #13111C; }
+      #b2-tiles { position: absolute; inset: 0; opacity: 0.10; z-index: 1;
+        background-image: url("assets/devquest/demo/wall-tile-1.png"); background-size: 270px; image-rendering: pixelated; }
+      #b2 .content { position: absolute; inset: 0; z-index: 5; display: flex; flex-direction: column; align-items: center;
+        justify-content: center; padding: 190px 70px 210px; gap: 56px; }
+      #b2-framewrap { position: relative; width: 880px; height: 880px; }
+      #b2-heroframe { position: absolute; inset: 0; border: 8px solid #A67C20; box-shadow: 0 0 0 8px #1a1208, 0 24px 60px rgba(0,0,0,0.6);
+        overflow: hidden; background: #1A1D2E; }
+      #b2-hero { width: 100%; height: 100%; object-fit: cover; }
+      /* boring lecture mockup sits over the hero frame, then shatters */
+      #b2-lecture { position: absolute; inset: 0; background: #2b2b31; border: 2px solid #47474f; z-index: 6;
+        display: flex; flex-direction: column; }
+      #b2-lecture .bar { height: 66px; background: #38383f; display: flex; align-items: center; gap: 12px; padding: 0 24px;
+        font-family: "Geist Mono", monospace; font-size: 24px; color: #8a8a92; }
+      #b2-lecture .dot { width: 18px; height: 18px; border-radius: 50%; background: #55555e; }
+      #b2-lecture .body { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; }
+      #b2-lecture .play { width: 0; height: 0; border-left: 74px solid #6a6a72; border-top: 46px solid rgba(0,0,0,0);
+        border-bottom: 46px solid rgba(0,0,0,0); }
+      #b2-lecture .timeline { position: absolute; bottom: 40px; left: 40px; right: 40px; height: 10px; background: #45454d; }
+      #b2-lecture .timeline i { position: absolute; left: 0; top: 0; bottom: 0; width: 18%; background: #77777f; }
+      #b2-lecture .tl-label { position: absolute; bottom: 62px; right: 40px; font-family: "Geist Mono", monospace;
+        font-size: 24px; color: #8a8a92; }
+      #b2-lecture .slides { position: absolute; top: 70px; left: 60px; right: 60px; display: flex; flex-direction: column; gap: 16px; }
+      #b2-lecture .slides i { display: block; height: 16px; background: #3d3d45; }
+      #b2-lecture .slides i:nth-child(2) { width: 82%; }
+      #b2-lecture .slides i:nth-child(3) { width: 64%; }
+      #b2-lecture .spd { position: absolute; bottom: 62px; left: 40px; font-family: "Geist Mono", monospace;
+        font-size: 24px; color: #8a8a92; }
+      #b2-chunks { position: absolute; inset: 0; z-index: 7; pointer-events: none; }
+      .chunk { position: absolute; width: 148px; height: 148px; background: #2b2b31; border: 1px solid #47474f; opacity: 0; }
+      #b2-title { text-align: center; line-height: 1.25; }
+      #b2-title .row { display: block; }
+      #b2-title .w { display: inline-block; font-family: "Silkscreen", monospace; font-weight: 700; font-size: 56px;
+        color: #E8EAF0; margin: 0 10px; }
+      #b2-title .w.gold { color: #DBB44C; text-shadow: 0 0 34px rgba(219,180,76,0.5); }
+
+      /* =================== B3 — WORLD MAP =================== */
+      #b3 { background: #0c0a14; }
+      #b3-mapwrap { position: absolute; top: 0; left: 0; width: 3440px; height: 1920px; z-index: 2; }
+      #b3-map { position: absolute; inset: 0; width: 3440px; height: 1920px; }
+      #b3-bridges { position: absolute; inset: 0; z-index: 3; }
+      .realm-plate { position: absolute; z-index: 4; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+      /* plates ride the panning map and exit the canvas by design */
+      .realm-plate .icon { width: 96px; height: 96px; object-fit: contain; filter: drop-shadow(0 6px 0 rgba(0,0,0,0.5)); }
+      .realm-plate .tag { font-family: "Silkscreen", monospace; font-weight: 700; font-size: 34px; padding: 10px 20px;
+        background: #16131f; border: 4px solid #343858; box-shadow: 0 6px 0 #0c0a14; }
+      #rp-python .tag { color: #4ADE80; border-color: #2b7a4b; }
+      #rp-sysdes .tag { color: #22D3EE; border-color: #16697a; }
+      #rp-db .tag { color: #DBB44C; border-color: #A67C20; }
+      #b3-titleplate { position: absolute; top: 120px; left: 0; right: 0; display: flex; justify-content: center; z-index: 8; }
+      #b3-titleplate .plate { font-size: 40px; }
+      #b3 .gem { z-index: 9; }
+      #b3-sub { position: absolute; bottom: 150px; left: 0; right: 0; text-align: center; z-index: 8;
+        font-weight: 700; font-size: 34px; color: #9298B0; letter-spacing: 0.02em; }
+
+      /* =================== B4 — STUDENT FLOW =================== */
+      #b4 { background: #1A1D2E; }
+      #b4-tiles { position: absolute; left: 0; right: 0; bottom: 0; height: 420px; opacity: 0.12; z-index: 1;
+        background-image: url("assets/devquest/demo/wall-tile-2.png"); background-size: 270px; image-rendering: pixelated; }
+      #b4-glow { position: absolute; top: 380px; left: 50%; width: 1100px; height: 1100px; margin-left: -550px; z-index: 1;
+        background: radial-gradient(circle, rgba(129,140,248,0.16), rgba(129,140,248,0) 68%); border-radius: 50%; }
+      #b4-hud { position: absolute; top: 120px; left: 0; right: 0; display: flex; justify-content: space-between;
+        padding: 0 80px; z-index: 8; }
+      .hudchip { display: flex; align-items: center; gap: 14px; background: #242842; border: 4px solid #343858;
+        box-shadow: 0 6px 0 #0c0a14; padding: 12px 22px; font-family: "Silkscreen", monospace; font-weight: 700;
+        font-size: 30px; color: #E8EAF0; }
+      .hudchip img { width: 44px; height: 44px; object-fit: contain; }
+      #b4-xpnum { color: #4ADE80; min-width: 64px; text-align: right; font-variant-numeric: tabular-nums; }
+      #b4 .content { position: absolute; inset: 0; z-index: 5; display: flex; flex-direction: column; align-items: center;
+        justify-content: center; padding: 240px 90px 240px; gap: 46px; }
+      #b4-framewrap { position: relative; width: 900px; height: 980px; }
+      #b4-frame { position: absolute; inset: 0; border: 8px solid #343858; box-shadow: 0 0 0 8px #0c0a14, 0 26px 70px rgba(0,0,0,0.55);
+        background: #13111C; overflow: hidden; }
+      #b4-strip { position: absolute; top: 0; left: 0; width: 2652px; height: 100%; display: flex; }
+      #b4-strip img { width: 884px; height: 100%; object-fit: cover; object-position: center top; flex: 0 0 884px; }
+      #b4-phase { position: absolute; top: -34px; left: -14px; z-index: 9; }
+      #b4-phase .plate { font-size: 32px; position: absolute; left: 0; top: 0; white-space: nowrap; }
+      #b4-code { position: absolute; left: 34px; right: 34px; bottom: 34px; z-index: 8; background: #10131f;
+        border: 4px solid #343858; padding: 22px 26px; font-family: "Geist Mono", monospace; font-size: 29px; color: #4ADE80; white-space: nowrap; }
+      #b4-code .ch { display: inline-block; opacity: 0; white-space: pre; }
+      #b4-greenflash { position: absolute; inset: 0; background: #4ADE80; opacity: 0; z-index: 10; }
+      #b4-confetti { position: absolute; inset: 0; z-index: 11; pointer-events: none; }
+      .conf { position: absolute; width: 20px; height: 20px; opacity: 0; }
+      #b4-xpfly { position: absolute; z-index: 12; left: 50%; top: 46%; display: flex; align-items: center; gap: 12px;
+        font-family: "Silkscreen", monospace; font-weight: 700; font-size: 52px; color: #4ADE80; opacity: 0;
+        text-shadow: 0 0 30px rgba(74,222,128,0.6); }
+      #b4-xpfly img { width: 64px; height: 64px; }
+      #b4-sub { text-align: center; font-weight: 700; font-size: 36px; color: #9298B0; }
+      #b4-sub b { color: #E8EAF0; }
+
+      /* =================== B5 — RPG PROGRESSION =================== */
+      #b5 { background: #13111C; }
+      #b5-glow { position: absolute; top: 420px; left: 50%; width: 1200px; height: 1200px; margin-left: -600px; z-index: 1;
+        background: radial-gradient(circle, rgba(219,180,76,0.16), rgba(219,180,76,0) 66%); border-radius: 50%; }
+      #b5 .content { position: absolute; inset: 0; z-index: 5; display: flex; flex-direction: column; align-items: center;
+        justify-content: flex-start; padding: 200px 90px 140px; gap: 40px; }
+      #b5-titleplate .plate { font-size: 38px; }
+      #b5-spritebox { position: relative; width: 520px; height: 520px; margin-top: 20px; }
+      #b5-spritebox img.rank { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; }
+      #b5-ring { position: absolute; inset: -30px; border: 6px solid #DBB44C; opacity: 0; border-radius: 4px; }
+      #b5-sflash { position: absolute; inset: -10px; background: #fff; opacity: 0; }
+      #b5-name { position: relative; height: 84px; width: 100%; }
+      #b5-name .plate { position: absolute; left: 50%; transform: translateX(-50%); font-size: 40px; white-space: nowrap; opacity: 0; }
+      #b5-xpbar { display: flex; gap: 10px; margin-top: 6px; }
+      #b5-xpbar i { width: 62px; height: 30px; background: #242842; border: 3px solid #343858; }
+      #b5-float-l { position: absolute; left: 70px; top: 700px; z-index: 6; display: flex; flex-direction: column; gap: 46px; }
+      #b5-float-r { position: absolute; right: 70px; top: 640px; z-index: 6; display: flex; flex-direction: column; gap: 46px; }
+      #b5-float-l img, #b5-float-r img { width: 96px; height: 96px; object-fit: contain; }
+      #b5-hub { position: absolute; left: 60px; bottom: 130px; width: 470px; z-index: 7; transform: rotate(-6deg);
+        border: 6px solid #343858; box-shadow: 0 20px 50px rgba(0,0,0,0.55); }
+      #b5-sub { position: absolute; right: 80px; bottom: 210px; z-index: 7; max-width: 420px; text-align: right;
+        font-weight: 700; font-size: 34px; color: #9298B0; line-height: 1.35; }
+      #b5-sub b { color: #DBB44C; }
+
+      /* =================== B6 — FOR PROFESSORS =================== */
+      #b6 { background: #13111C; }
+      #b6 .content { position: absolute; inset: 0; z-index: 5; display: flex; flex-direction: column; align-items: center;
+        padding: 150px 60px 100px; gap: 36px; }
+      #b6-titleplate .plate { font-size: 38px; }
+      #b6-top { display: flex; width: 100%; gap: 30px; align-items: stretch; height: 760px; }
+      #b6-parchment { width: 470px; background: #E9DCB8; border: 6px solid #A67C20; box-shadow: 0 10px 0 #1a1208;
+        padding: 44px 36px; display: flex; flex-direction: column; gap: 30px; }
+      #b6-parchment .ph { display: flex; align-items: center; gap: 14px; font-family: "Silkscreen", monospace;
+        font-weight: 700; font-size: 28px; color: #4a3a12; }
+      #b6-parchment .ph img { width: 54px; height: 54px; }
+      #b6-parchment .item { font-size: 30px; font-weight: 600; color: #3a2f14; border-bottom: 3px dashed #c9b088; padding-bottom: 12px; }
+      #b6-path { position: relative; flex: 1; }
+      #b6-pathsvg { position: absolute; inset: 0; width: 100%; height: 100%; }
+      .qnode { position: absolute; left: 50%; width: 120px; height: 120px; margin-left: -60px; display: flex; align-items: center;
+        justify-content: center; background: #242842; border: 5px solid #343858; border-radius: 50%; box-shadow: 0 8px 0 #0c0a14; }
+      .qnode img { width: 66px; height: 66px; object-fit: contain; }
+      .qnode.boss { border-color: #A67C20; box-shadow: 0 8px 0 #1a1208, 0 0 34px rgba(219,180,76,0.35); }
+      #b6-analytics { position: relative; width: 900px; height: 560px; border: 8px solid #343858;
+        box-shadow: 0 0 0 8px #0c0a14, 0 24px 60px rgba(0,0,0,0.55); overflow: hidden; background: #1A1D2E; }
+      #b6-analytics > img { width: 100%; height: 100%; object-fit: cover; object-position: center top; opacity: 0.45; }
+      #b6-bars { position: absolute; left: 40px; right: 40px; bottom: 34px; display: flex; flex-direction: column; gap: 20px; z-index: 3; }
+      .grow { display: flex; align-items: center; gap: 18px; background: rgba(19,17,28,0.88); border: 4px solid #343858;
+        padding: 14px 20px; }
+      .grow .gname { font-family: "Silkscreen", monospace; font-weight: 700; font-size: 26px; color: #E8EAF0; width: 210px; }
+      .grow .track { flex: 1; height: 26px; background: #242842; border: 3px solid #343858; position: relative; }
+      .grow .fill { position: absolute; left: 0; top: 0; bottom: 0; width: 0; }
+      .grow .pct { font-family: "Silkscreen", monospace; font-weight: 700; font-size: 26px; width: 96px; text-align: right;
+        font-variant-numeric: tabular-nums; }
+      #b6-live { position: absolute; top: 26px; right: 26px; z-index: 3; display: flex; align-items: center; gap: 12px;
+        font-family: "Silkscreen", monospace; font-weight: 700; font-size: 24px; color: #4ADE80; }
+      #b6-live i { width: 18px; height: 18px; border-radius: 50%; background: #4ADE80; box-shadow: 0 0 16px rgba(74,222,128,0.8); }
+
+      /* =================== B7 — BEYOND THE CLASSROOM =================== */
+      #b7 { background: #13111C; }
+      #b7-tiles { position: absolute; left: 0; right: 0; top: 560px; height: 700px; opacity: 0.16; z-index: 1;
+        background-image: url("assets/devquest/demo/wall-tile-3.png"); background-size: 270px; image-rendering: pixelated; }
+      #b7-warm { position: absolute; bottom: 0; left: 0; right: 0; height: 560px; z-index: 2;
+        background: radial-gradient(ellipse 80% 100% at 50% 100%, rgba(219,180,76,0.16), rgba(19,17,28,0) 65%); }
+      #b7 .content { position: absolute; inset: 0; z-index: 5; display: flex; flex-direction: column; align-items: center;
+        padding: 200px 40px 160px; gap: 70px; }
+      #b7-titleplate .plate { font-size: 38px; }
+      #b7-doors { display: flex; gap: 44px; margin-top: 120px; align-items: flex-end; }
+      .doorcol { display: flex; flex-direction: column; align-items: center; gap: 30px; width: 300px; }
+      .doorcol .dplate { font-family: "Silkscreen", monospace; font-weight: 700; font-size: 27px; padding: 12px 16px;
+        background: #242842; border: 4px solid #343858; box-shadow: 0 6px 0 #0c0a14; white-space: nowrap; }
+      .doorcol .dwrap { position: relative; width: 280px; height: 372px; }
+      .doorcol .dwrap img.door { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+      #d1 .dplate { color: #DBB44C; border-color: #A67C20; }
+      #d2 .dplate { color: #4ADE80; border-color: #2b7a4b; }
+      #d3 .dplate { color: #E8EAF0; }
+      #d2-icons { position: absolute; top: -100px; left: 50%; margin-left: -114px; display: flex; gap: 18px; }
+      #d2-icons img { width: 64px; height: 64px; object-fit: contain; background: #16131f; border: 3px solid #343858; padding: 8px; }
+      #d3-key { position: absolute; top: -104px; left: 50%; margin-left: -165px; display: flex; align-items: center; gap: 12px; }
+      #d3-key img { width: 64px; }
+      #d3-key span { font-family: "Silkscreen", monospace; font-weight: 700; font-size: 22px; color: #DBB44C;
+        background: #16131f; border: 3px solid #A67C20; padding: 8px 12px; white-space: nowrap; }
+      #d3-lock { position: absolute; left: 50%; top: 46%; width: 96px; margin-left: -48px; z-index: 3; }
+      #d3-glow { position: absolute; inset: -30px; border-radius: 50%; z-index: 0; opacity: 0;
+        background: radial-gradient(circle, rgba(74,222,128,0.4), rgba(74,222,128,0) 70%); }
+      #b7-sub { font-weight: 700; font-size: 36px; color: #9298B0; text-align: center; line-height: 1.4; max-width: 800px; }
+      #b7-sub b { color: #E8EAF0; }
+
+      /* =================== B8 — CTA =================== */
+      #b8 { background: #13111C; }
+      #b8-bloom { position: absolute; top: 44%; left: 50%; width: 1300px; height: 1300px; margin: -650px 0 0 -650px; z-index: 1;
+        background: radial-gradient(circle, rgba(219,180,76,0.22), rgba(167,139,250,0.10) 44%, rgba(19,17,28,0) 68%); opacity: 0; }
+      #b8 .content { position: absolute; inset: 0; z-index: 5; display: flex; flex-direction: column; align-items: center;
+        justify-content: center; padding: 200px 80px 240px; gap: 34px; }
+      #b8-duck { width: 400px; margin-bottom: 6px; }
+      #b8-brand { display: flex; align-items: center; gap: 30px; }
+      #b8-logo { width: 150px; }
+      #b8-name { font-weight: 900; font-size: 118px; letter-spacing: -0.02em; color: #E8EAF0; }
+      #b8-tag { font-family: "Silkscreen", monospace; font-weight: 700; font-size: 42px; color: #DBB44C;
+        letter-spacing: 0.18em; text-shadow: 0 0 34px rgba(219,180,76,0.45); }
+      #b8-btn { position: relative; margin-top: 40px; background: #DBB44C; color: #1a1208; border: 4px solid #A67C20;
+        box-shadow: 0 12px 0 #A67C20, 0 26px 60px rgba(219,180,76,0.25); padding: 34px 0;
+        width: 800px; text-align: center; font-family: "Silkscreen", monospace; font-weight: 700; font-size: 34px; line-height: 1.25; white-space: nowrap; }
+      #b8-btn .shinewrap { position: absolute; inset: 0; overflow: hidden; }
+      #b8-btn .shine { position: absolute; top: -20px; bottom: -20px; left: -120px; width: 90px; transform: rotate(18deg);
+        background: rgba(255,255,255,0.35); }
+      #b8-press { position: absolute; bottom: 120px; left: 0; right: 0; text-align: center; z-index: 6;
+        font-family: "Silkscreen", monospace; font-size: 30px; letter-spacing: 0.22em; color: #9298B0; }
+      #b8-confetti { position: absolute; inset: 0; z-index: 7; pointer-events: none; }
+    </style>
+  </head>
+  <body>
+    <div id="stage" data-composition-id="devquest-reel" data-width="1080" data-height="1920" data-start="0" data-duration="58">
+
+      <div id="stars"></div>
+
+      <!-- =============== B1 — HOOK =============== -->
+      <section class="beat" id="b1">
+        <img id="b1-logo" class="px" src="assets/devquest/logo.png" alt="" />
+        <div class="torchglow" style="left: 20px; top: 360px;"></div>
+        <div class="torchglow" style="right: 20px; top: 360px;"></div>
+        <img class="torch px" id="b1-torch-l" src="assets/devquest/demo/torch-lit.png" style="left: 90px; top: 400px;" alt="" />
+        <img class="torch px" id="b1-torch-r" src="assets/devquest/demo/torch-lit.png" style="right: 90px; top: 400px; transform: scaleX(-1);" alt="" />
+        <div class="content">
+          <div id="b1-duckwrap">
+            <div id="b1-glow"></div>
+            <img id="b1-duck" class="px" src="assets/devquest/duck/duck-wizard-sparkles.png" alt="" />
+            <div id="b1-spark"></div>
+          </div>
+          <div id="b1-title">
+            <div class="l1"><span class="kw">WHAT</span> <span class="kw">IF</span> <span class="kw">LEARNING</span></div>
+            <div class="l2"><span class="kw">FELT</span> <span class="kw">LIKE</span> <span class="kw">A</span></div>
+            <div class="l3"><span class="kw">GAME?</span></div>
+          </div>
+        </div>
+        <div id="b1-press">PRESS START</div>
+      </section>
+
+      <!-- =============== B2 — EVERY LESSON IS A QUEST =============== -->
+      <section class="beat" id="b2">
+        <div id="b2-tiles"></div>
+        <div class="torchglow" style="left: -40px; top: 120px;"></div>
+        <div class="torchglow" style="right: -40px; top: 120px;"></div>
+        <img class="torch px" src="assets/devquest/demo/torch-lit.png" style="left: 40px; top: 160px;" alt="" />
+        <img class="torch px" src="assets/devquest/demo/torch-lit.png" style="right: 40px; top: 160px; transform: scaleX(-1);" alt="" />
+        <div class="content">
+          <div id="b2-framewrap">
+            <div id="b2-heroframe">
+              <img id="b2-hero" class="px" data-layout-allow-overflow src="assets/devquest/heroes/hero-system-design.png" alt="" />
+            </div>
+            <div id="b2-lecture">
+              <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>&nbsp; LECTURE_44.MP4</div>
+              <div class="body">
+                <div class="slides"><i></i><i></i><i></i></div>
+                <div class="play"></div>
+                <div class="timeline"><i></i></div>
+                <div class="spd">1.0x</div>
+                <div class="tl-label">0:23 / 2:14:37</div>
+              </div>
+            </div>
+            <div id="b2-chunks"></div>
+          </div>
+          <div id="b2-title">
+            <span class="row"><span class="w">EVERY</span><span class="w">LESSON</span></span>
+            <span class="row"><span class="w">IS</span><span class="w">A</span><span class="w gold">QUEST</span></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- =============== B3 — WORLD OF KNOWLEDGE =============== -->
+      <section class="beat" id="b3">
+        <div id="b3-mapwrap">
+          <img id="b3-map" class="px" src="assets/devquest/world-map.png" alt="" />
+          <svg id="b3-bridges" viewBox="0 0 3440 1920">
+            <polyline id="b3-line" points="1650,1300 1325,980 575,1210" fill="none" stroke="#DBB44C" stroke-width="7"
+              stroke-dasharray="26 20" opacity="0.9" />
+          </svg>
+          <div class="realm-plate" data-layout-allow-overflow id="rp-db" style="left: 1500px; top: 1300px;">
+            <img class="icon px" src="assets/devquest/icons/databases-new.png" alt="" />
+            <div class="tag">DATABASES</div>
+          </div>
+          <div class="realm-plate" data-layout-allow-overflow id="rp-sysdes" style="left: 1140px; top: 980px;">
+            <img class="icon px" src="assets/devquest/icons/architecture-new.png" alt="" />
+            <div class="tag">SYSTEM DESIGN</div>
+          </div>
+          <div class="realm-plate" data-layout-allow-overflow id="rp-python" style="left: 430px; top: 1210px;">
+            <img class="icon" src="assets/devquest/svgs/python.svg" alt="" />
+            <div class="tag">PYTHON</div>
+          </div>
+        </div>
+        <div id="b3-titleplate"><div class="plate gold">WORLD OF KNOWLEDGE</div></div>
+        <div class="gem" style="left: 40px; top: 40px;"></div>
+        <div class="gem g2" style="right: 40px; top: 40px;"></div>
+        <div class="gem g2" style="left: 40px; bottom: 40px;"></div>
+        <div class="gem" style="right: 40px; bottom: 40px;"></div>
+        <div id="b3-sub">Every subject is a world. Every topic — a dungeon.</div>
+      </section>
+
+      <!-- =============== B4 — STUDENT FLOW =============== -->
+      <section class="beat" id="b4">
+        <div id="b4-glow"></div>
+        <div id="b4-tiles"></div>
+        <div id="b4-hud">
+          <div class="hudchip"><img class="px" src="assets/devquest/stats/streak-v2.png" alt="" /><span>STREAK&nbsp;1</span></div>
+          <div class="hudchip"><img class="px" src="assets/devquest/stats/xp.png" alt="" /><span id="b4-xpnum">0</span><span>&nbsp;XP</span></div>
+        </div>
+        <div class="content">
+          <div id="b4-framewrap">
+            <div id="b4-frame" data-layout-allow-overflow>
+              <div id="b4-strip" data-layout-allow-overflow>
+                <img class="px" src="assets/devquest/ui/lesson-code-screen.png" alt="" />
+                <img class="px" src="assets/devquest/ui/quiz-screen.png" alt="" />
+                <img class="px" src="assets/devquest/ui/correct-answer.png" alt="" />
+              </div>
+              <div id="b4-code"><span style="color:#818CF8">&gt;&gt;&gt;</span> <span id="b4-typed"></span></div>
+              <div id="b4-greenflash"></div>
+            </div>
+            <div id="b4-phase">
+              <div class="plate gold" id="b4-ph1">5-MINUTE CHALLENGE</div>
+              <div class="plate" id="b4-ph2" style="color:#818CF8; border-color:#4c519c;">CODE</div>
+              <div class="plate" id="b4-ph3" style="color:#22D3EE; border-color:#16697a;">QUIZ</div>
+              <div class="plate" id="b4-ph4" style="color:#4ADE80; border-color:#2b7a4b;">CORRECT!</div>
+            </div>
+            <div id="b4-confetti"></div>
+          </div>
+          <div id="b4-sub">Code. Quiz. <b>Level up.</b></div>
+        </div>
+        <div id="b4-xpfly"><img class="px" src="assets/devquest/stats/xp.png" alt="" /><span>+15&nbsp;XP</span></div>
+      </section>
+
+      <!-- =============== B5 — RPG PROGRESSION =============== -->
+      <section class="beat" id="b5">
+        <div id="b5-glow"></div>
+        <div class="content">
+          <div id="b5-titleplate"><div class="plate gold">RPG PROGRESSION</div></div>
+          <div id="b5-spritebox">
+            <img class="rank px" id="r1" src="assets/devquest/characters/code-apprentice.png" alt="" />
+            <img class="rank px" id="r2" src="assets/devquest/characters/junior-architect.png" alt="" />
+            <img class="rank px" id="r3" src="assets/devquest/characters/archmage.png" alt="" />
+            <img class="rank px" id="r4" src="assets/devquest/characters/god-tier.png" alt="" />
+            <div id="b5-ring"></div>
+            <div id="b5-sflash"></div>
+          </div>
+          <div id="b5-name">
+            <div class="plate" id="n1">CODE APPRENTICE</div>
+            <div class="plate" id="n2" style="color:#22D3EE;">JUNIOR ARCHITECT</div>
+            <div class="plate" id="n3" style="color:#A78BFA;">ARCHMAGE</div>
+            <div class="plate gold" id="n4">GOD TIER</div>
+          </div>
+          <div id="b5-xpbar">
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          </div>
+        </div>
+        <div id="b5-float-l">
+          <img class="px" id="b5f1" src="assets/devquest/stats/badges.png" alt="" />
+          <img class="px" id="b5f2" src="assets/devquest/stats/xp.png" alt="" />
+        </div>
+        <div id="b5-float-r">
+          <img class="px" id="b5f3" src="assets/devquest/stats/rank.png" alt="" />
+          <img class="px" id="b5f4" src="assets/devquest/stats/streak-v2.png" alt="" />
+        </div>
+        <img id="b5-hub" src="assets/devquest/ui/home-hub.png" alt="" />
+        <div id="b5-sub">Ranks. Badges. <b>Progress you can see.</b></div>
+      </section>
+
+      <!-- =============== B6 — FOR PROFESSORS =============== -->
+      <section class="beat" id="b6">
+        <div class="torchglow" style="left: -60px; top: 60px;"></div>
+        <div class="torchglow" style="right: -60px; top: 60px;"></div>
+        <div class="content">
+          <div id="b6-titleplate"><div class="plate gold">FOR PROFESSORS</div></div>
+          <div id="b6-top">
+            <div id="b6-parchment">
+              <div class="ph"><img class="px" src="assets/devquest/dungeon/scroll-new.png" alt="" /> SYLLABUS</div>
+              <div class="item" id="s-i1">1 · Variables &amp; Types</div>
+              <div class="item" id="s-i2">2 · Control Flow</div>
+              <div class="item" id="s-i3">3 · Functions</div>
+              <div class="item" id="s-i4">4 · Data Structures</div>
+              <div class="item" id="s-i5">5 · Final Project</div>
+            </div>
+            <div id="b6-path">
+              <svg id="b6-pathsvg" viewBox="0 0 460 760">
+                <path id="b6-pline" d="M 230 70 L 230 690" fill="none" stroke="#DBB44C" stroke-width="6"
+                  stroke-dasharray="22 18" opacity="0.85" />
+              </svg>
+              <div class="qnode" id="q1" style="top: 20px;"><img class="px" src="assets/devquest/dungeon/scroll-new.png" alt="" /></div>
+              <div class="qnode" id="q2" style="top: 168px;"><img class="px" src="assets/devquest/dungeon/crystal-question.png" alt="" /></div>
+              <div class="qnode" id="q3" style="top: 316px;"><img class="px" src="assets/devquest/dungeon/scroll-new.png" alt="" /></div>
+              <div class="qnode" id="q4" style="top: 464px;"><img class="px" src="assets/devquest/dungeon/crystal-question.png" alt="" /></div>
+              <div class="qnode boss" id="q5" style="top: 612px;"><img class="px" src="assets/devquest/dungeon/boss-skull-v2.png" alt="" /></div>
+            </div>
+          </div>
+          <div id="b6-analytics">
+            <img class="px" src="assets/devquest/ui/realm-map.png" alt="" />
+            <div id="b6-live"><i></i>LIVE PROGRESS</div>
+            <div id="b6-bars">
+              <div class="grow"><span class="gname">GROUP A</span><span class="track"><span class="fill" id="f1" style="background:#4ADE80"></span></span><span class="pct" id="p1" style="color:#4ADE80">0%</span></div>
+              <div class="grow"><span class="gname">GROUP B</span><span class="track"><span class="fill" id="f2" style="background:#22D3EE"></span></span><span class="pct" id="p2" style="color:#22D3EE">0%</span></div>
+              <div class="grow"><span class="gname">GROUP C</span><span class="track"><span class="fill" id="f3" style="background:#DBB44C"></span></span><span class="pct" id="p3" style="color:#DBB44C">0%</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =============== B7 — BEYOND THE CLASSROOM =============== -->
+      <section class="beat" id="b7">
+        <div id="b7-tiles"></div>
+        <div id="b7-warm"></div>
+        <div class="torchglow" style="left: -40px; top: 300px;"></div>
+        <div class="torchglow" style="right: -40px; top: 300px;"></div>
+        <img class="torch px" src="assets/devquest/demo/torch-lit.png" style="left: 40px; top: 340px;" alt="" />
+        <img class="torch px" src="assets/devquest/demo/torch-lit.png" style="right: 40px; top: 340px; transform: scaleX(-1);" alt="" />
+        <div class="content">
+          <div id="b7-titleplate"><div class="plate gold">BEYOND THE CLASSROOM</div></div>
+          <div id="b7-doors">
+            <div class="doorcol" id="d1">
+              <div class="dwrap"><img class="door px" src="assets/devquest/dungeon/door-completed-new.png" alt="" /></div>
+              <div class="dplate">UNIVERSITIES</div>
+            </div>
+            <div class="doorcol" id="d2">
+              <div class="dwrap">
+                <div id="d2-icons">
+                  <img src="assets/devquest/svgs/docker.svg" alt="" />
+                  <img src="assets/devquest/svgs/kubernetes.svg" alt="" />
+                  <img src="assets/devquest/svgs/redis.svg" alt="" />
+                </div>
+                <img class="door px" src="assets/devquest/dungeon/door-active-new.png" alt="" />
+              </div>
+              <div class="dplate">COMPANIES</div>
+            </div>
+            <div class="doorcol" id="d3">
+              <div class="dwrap">
+                <div id="d3-key"><img class="px" src="assets/devquest/dungeon/scroll-new.png" alt="" /><span>YOUR COURSE</span></div>
+                <div id="d3-glow"></div>
+                <img class="door px" id="d3-locked" src="assets/devquest/dungeon/door-locked-v3.png" alt="" />
+                <img class="door px" id="d3-open" src="assets/devquest/dungeon/door-active-v2.png" alt="" style="opacity: 0;" />
+                <img id="d3-lock" class="px" src="assets/devquest/dungeon/padlock-v2.png" alt="" />
+              </div>
+              <div class="dplate">CREATORS</div>
+            </div>
+          </div>
+          <div id="b7-sub"><span style="display:block">Corporate training. Team onboarding.</span><b style="display:block">Creator courses.</b></div>
+        </div>
+      </section>
+
+      <!-- =============== B8 — CTA =============== -->
+      <section class="beat" id="b8">
+        <div id="b8-bloom"></div>
+        <div class="content">
+          <img id="b8-duck" class="px" src="assets/devquest/duck/duck-wizard-sparkles.png" alt="" />
+          <div id="b8-brand">
+            <img id="b8-logo" class="px" src="assets/devquest/logo.png" alt="" />
+            <div id="b8-name">DevQuest</div>
+          </div>
+          <div id="b8-tag">LEARN BY PLAYING</div>
+          <div id="b8-btn" data-layout-allow-overflow>START YOUR QUEST »<div class="shinewrap" data-layout-ignore><div class="shine"></div></div></div>
+        </div>
+        <div id="b8-confetti"></div>
+        <div id="b8-press">PRESS START</div>
+      </section>
+
+      <!-- global overlays -->
+      <div id="scan"></div>
+      <div id="vig"></div>
+      <div id="flash"></div>
+
+      <!-- =============== AUDIO =============== -->
+      <audio id="vo-1" class="clip" data-start="0.9"  data-duration="auto" data-track-index="2" src="assets/voiceover/devquest/scene-01.wav" data-volume="1"></audio>
+      <audio id="vo-2" class="clip" data-start="5.35"  data-duration="auto" data-track-index="2" src="assets/voiceover/devquest/scene-02.wav" data-volume="1"></audio>
+      <audio id="vo-3" class="clip" data-start="12.65" data-duration="auto" data-track-index="2" src="assets/voiceover/devquest/scene-03.wav" data-volume="1"></audio>
+      <audio id="vo-4" class="clip" data-start="19.0" data-duration="auto" data-track-index="2" src="assets/voiceover/devquest/scene-04.wav" data-volume="1"></audio>
+      <audio id="vo-5" class="clip" data-start="28.25" data-duration="auto" data-track-index="2" src="assets/voiceover/devquest/scene-05.wav" data-volume="1"></audio>
+      <audio id="vo-6" class="clip" data-start="34.65" data-duration="auto" data-track-index="2" src="assets/voiceover/devquest/scene-06.wav" data-volume="1"></audio>
+      <audio id="vo-7" class="clip" data-start="42.55" data-duration="auto" data-track-index="2" src="assets/voiceover/devquest/scene-07.wav" data-volume="1"></audio>
+      <audio id="vo-8" class="clip" data-start="51.4" data-duration="auto" data-track-index="2" src="assets/voiceover/devquest/scene-08.wav" data-volume="1"></audio>
+      <audio id="music" class="clip" data-start="0" data-duration="58" data-track-index="3" src="assets/audio/underscore.mp3" data-volume="0.2"></audio>
+      <audio id="sfx-type" class="clip" data-start="20.3" data-duration="1.6" data-track-index="4" src="assets/audio/typewriter.mp3" data-volume="0.45"></audio>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+        const TOTAL = 58;
+
+        /* Beat starts — mapped to real Kokoro VO durations + silencedetect sentence boundaries */
+        const B = { b1: 0, b2: 5.0, b3: 12.3, b4: 18.6, b5: 27.9, b6: 34.3, b7: 42.2, b8: 51.0 };
+
+        /* deterministic PRNG */
+        function mulberry32(a) {
+          return function () {
+            a |= 0; a = (a + 0x6D2B79F5) | 0;
+            let t = Math.imul(a ^ (a >>> 15), 1 | a);
+            t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+            return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+          };
+        }
+        const rnd = mulberry32(20260711);
+
+        /* ---------- build star field (deterministic) ---------- */
+        const starsEl = document.getElementById("stars");
+        const starPal = ["#9298B0", "#E8EAF0", "#22D3EE", "#DBB44C"];
+        for (let i = 0; i < 64; i++) {
+          const s = document.createElement("div");
+          s.className = "star";
+          const size = 2 + Math.floor(rnd() * 3) * 2;
+          s.style.width = size + "px"; s.style.height = size + "px";
+          s.style.left = Math.floor(rnd() * 1060) + "px";
+          s.style.top = Math.floor(rnd() * 1880) + "px";
+          s.style.background = starPal[Math.floor(rnd() * starPal.length)];
+          starsEl.appendChild(s);
+        }
+        {
+          const cyc = 1.6, reps = Math.ceil(TOTAL / (cyc * 2)) - 1;
+          document.querySelectorAll(".star").forEach((el, i) => {
+            tl.fromTo(el, { opacity: 0.12 }, { opacity: 0.7, duration: cyc, yoyo: true, repeat: reps, ease: "sine.inOut" }, (i % 8) * 0.2);
+          });
+        }
+
+        /* ---------- b1 sparkles ---------- */
+        const sparkEl = document.getElementById("b1-spark");
+        for (let i = 0; i < 12; i++) {
+          const p = document.createElement("div");
+          p.className = "sparkle";
+          const sz = 8 + Math.floor(rnd() * 3) * 4;
+          p.style.width = sz + "px"; p.style.height = sz + "px";
+          p.style.left = 60 + Math.floor(rnd() * 440) + "px";
+          p.style.top = 40 + Math.floor(rnd() * 480) + "px";
+          p.style.background = i % 3 === 0 ? "#22D3EE" : "#DBB44C";
+          sparkEl.appendChild(p);
+        }
+
+        /* ---------- b2 pixel chunks (lecture shatter) ---------- */
+        const chunksEl = document.getElementById("b2-chunks");
+        const chunkShades = ["#2b2b31", "#38383f", "#45454d", "#26262c"];
+        for (let r = 0; r < 6; r++) {
+          for (let c = 0; c < 6; c++) {
+            const k = document.createElement("div");
+            k.className = "chunk";
+            k.style.left = (c * 148 - 4) + "px";
+            k.style.top = (r * 148 - 4) + "px";
+            k.style.background = chunkShades[Math.floor(rnd() * chunkShades.length)];
+            chunksEl.appendChild(k);
+          }
+        }
+
+        /* ---------- b4 confetti + b8 confetti ---------- */
+        const confPal = ["#4ADE80", "#DBB44C", "#22D3EE", "#A78BFA", "#F87171"];
+        const b4conf = document.getElementById("b4-confetti");
+        for (let i = 0; i < 18; i++) {
+          const cf = document.createElement("div");
+          cf.className = "conf";
+          cf.style.left = "440px"; cf.style.top = "500px";
+          cf.style.background = confPal[i % confPal.length];
+          b4conf.appendChild(cf);
+        }
+        const b8conf = document.getElementById("b8-confetti");
+        for (let i = 0; i < 16; i++) {
+          const cf = document.createElement("div");
+          cf.className = "conf";
+          cf.style.left = Math.floor(rnd() * 1040) + "px";
+          cf.style.top = "-30px";
+          cf.style.background = confPal[i % confPal.length];
+          b8conf.appendChild(cf);
+        }
+
+        /* ---------- typed code build (must exist before tweens target it) ---------- */
+        const typed = document.getElementById("b4-typed");
+        'print("Hello, world!")'.split("").forEach((c) => {
+          const sp = document.createElement("span");
+          sp.className = "ch";
+          sp.textContent = c;
+          typed.appendChild(sp);
+        });
+
+        /* ---------- initial hidden state for all entrance-animated elements ----------
+           (sections are hidden, but inner elements must not flash fully-formed
+           between scene-in and their own entrance tween) */
+        gsap.set([
+          "#b1-logo", "#b1-torch-l", "#b1-torch-r", "#b1-duckwrap", "#b1-title .kw", "#b1-press",
+          "#b2-framewrap", "#b2-lecture", "#b2-title .w",
+          "#b3-titleplate .plate", "#b3 .gem", "#rp-db", "#rp-sysdes", "#rp-python", "#b3-sub",
+          "#b4-hud .hudchip", "#b4-framewrap", "#b4-sub", "#b4-phase .plate", "#b4-code",
+          "#b5-titleplate .plate", "#b5-float-l img", "#b5-float-r img", "#b5-hub", "#b5-sub",
+          "#b6-titleplate .plate", "#b6-parchment", "#b6-parchment .item", "#b6 .qnode", "#b6-analytics", "#b6-live", "#b6-bars .grow",
+          "#b7-titleplate .plate", "#b7 .doorcol", "#b7-warm", "#b7-sub", "#d2-icons img", "#d3-key",
+          "#b8-duck", "#b8-brand", "#b8-tag", "#b8-btn", "#b8-press",
+        ], { autoAlpha: 0 });
+        /* entrance tweens on these animate plain `opacity`, so keep visibility intact */
+        gsap.set(["#b1 .torchglow", "#b3-line", "#b5-glow", "#b6-pline"], { opacity: 0 });
+
+        /* ---------- helpers ---------- */
+        const EASE = "power3.out";
+        function show(sel, t, d = 0.45) {
+          tl.fromTo(sel, { autoAlpha: 0 }, { autoAlpha: 1, duration: d, ease: "power2.out" }, t);
+        }
+        /* transition: outgoing container — the transition IS the exit */
+        function zoomOut(sel, t, d = 0.35) {
+          tl.to(sel, { autoAlpha: 0, scale: 1.1, filter: "blur(14px)", duration: d, ease: "power2.in" }, t);
+          tl.set(sel, { visibility: "hidden", filter: "none", scale: 1 }, t + d + 0.01);
+        }
+        function zoomIn(sel, t, d = 0.55) {
+          tl.fromTo(sel, { autoAlpha: 0, scale: 0.9, filter: "blur(16px)" },
+            { autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: d, ease: EASE }, t);
+        }
+        function whipOut(sel, t, d = 0.3) {
+          tl.to(sel, { autoAlpha: 0.2, x: -720, filter: "blur(20px)", duration: d, ease: "power3.in" }, t);
+          tl.set(sel, { visibility: "hidden", autoAlpha: 0, x: 0, filter: "none" }, t + d + 0.01);
+        }
+        function whipIn(sel, t, d = 0.4) {
+          tl.set(sel, { autoAlpha: 1 }, t);
+          tl.fromTo(sel, { x: 720, filter: "blur(20px)" },
+            { x: 0, filter: "blur(0px)", duration: d, ease: "power3.out", immediateRender: false }, t);
+        }
+        function fadeOut(sel, t, d = 0.55) {
+          tl.to(sel, { autoAlpha: 0, filter: "blur(18px)", duration: d, ease: "sine.in" }, t);
+          tl.set(sel, { visibility: "hidden", filter: "none" }, t + d + 0.01);
+        }
+        function fadeIn(sel, t, d = 0.65) {
+          tl.fromTo(sel, { autoAlpha: 0, filter: "blur(18px)" },
+            { autoAlpha: 1, filter: "blur(0px)", duration: d, ease: "sine.out" }, t);
+        }
+        function rise(sel, t, st = 0.09, d = 0.5) {
+          tl.fromTo(sel, { yPercent: 120, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: d, ease: EASE, stagger: st }, t);
+        }
+        function pop(sel, t, d = 0.5) {
+          tl.fromTo(sel, { scale: 0, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: d, ease: "back.out(2)" }, t);
+        }
+        function flash(t, p = 0.28) {
+          tl.to("#flash", { opacity: p, duration: 0.1, yoyo: true, repeat: 1, ease: "power2.inOut" }, t);
+        }
+        function counter(sel, to, t, d, suffix) {
+          const obj = { v: 0 };
+          const el = document.querySelector(sel);
+          tl.to(obj, {
+            v: to, duration: d, ease: "power1.out",
+            onUpdate: () => { el.textContent = Math.round(obj.v) + (suffix || ""); },
+          }, t);
+        }
+
+        /* =================== B1 — HOOK [0 – 5.2] =================== */
+        show("#b1", 0, 0.3);
+        /* torches ignite */
+        tl.fromTo("#b1-torch-l", { scale: 0, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 0.4, ease: "back.out(2.2)" }, B.b1 + 0.15);
+        tl.fromTo("#b1-torch-r", { scale: 0, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 0.4, ease: "back.out(2.2)" }, B.b1 + 0.3);
+        tl.fromTo("#b1 .torchglow", { opacity: 0 }, { opacity: 0.85, duration: 0.5, ease: "sine.out", stagger: 0.15 }, B.b1 + 0.2);
+        tl.fromTo("#b1 .torchglow", { scale: 0.92 }, { scale: 1.06, duration: 0.9, yoyo: true, repeat: 3, ease: "sine.inOut" }, B.b1 + 0.8);
+        /* logo */
+        tl.fromTo("#b1-logo", { y: -60, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.6, ease: "power2.out" }, B.b1 + 0.4);
+        /* duck rises + floats */
+        tl.fromTo("#b1-duckwrap", { y: 90, autoAlpha: 0, scale: 0.86 }, { y: 0, autoAlpha: 1, scale: 1, duration: 0.9, ease: "power3.out" }, B.b1 + 0.5);
+        tl.to("#b1-duck", { y: -16, duration: 1.1, yoyo: true, repeat: 3, ease: "sine.inOut" }, B.b1 + 1.4);
+        tl.fromTo("#b1-glow", { opacity: 0.4 }, { opacity: 1, duration: 1.1, yoyo: true, repeat: 3, ease: "sine.inOut" }, B.b1 + 1.0);
+        /* sparkles orbit-pop */
+        tl.fromTo("#b1-spark .sparkle", { scale: 0, opacity: 0 },
+          { scale: 1, opacity: 0.95, duration: 0.35, ease: "back.out(3)", stagger: 0.05 }, B.b1 + 0.9);
+        tl.to("#b1-spark .sparkle", { y: -26, opacity: 0.25, duration: 1.4, ease: "sine.inOut", stagger: 0.07 }, B.b1 + 1.95);
+        /* title cascade — "GAME?" slams on the spoken word */
+        rise("#b1-title .l1 .kw", B.b1 + 1.1, 0.1);
+        rise("#b1-title .l2 .kw", B.b1 + 1.7, 0.1);
+        tl.fromTo("#b1-title .l3 .kw", { scale: 2.4, autoAlpha: 0, filter: "blur(12px)" },
+          { scale: 1, autoAlpha: 1, filter: "blur(0px)", duration: 0.42, ease: "power4.in", immediateRender: false }, B.b1 + 2.55);
+        flash(B.b1 + 2.95, 0.32);
+        tl.fromTo("#stage", { x: 0 }, { x: 7, duration: 0.05, yoyo: true, repeat: 5, ease: "none" }, B.b1 + 2.95);
+        tl.to("#b1-title .l3 .kw", { textShadow: "0 0 68px rgba(219,180,76,0.85)", duration: 0.7, yoyo: true, repeat: 1, ease: "sine.inOut" }, B.b1 + 3.15);
+        /* press start blink (stepped) */
+        tl.fromTo("#b1-press", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.01 }, B.b1 + 1.2);
+        tl.to("#b1-press", { autoAlpha: 0.15, duration: 0.55, yoyo: true, repeat: 6, ease: "steps(1)" }, B.b1 + 1.3);
+
+        /* --- transition b1 → b2 : glitch cut --- */
+        flash(B.b2 - 0.22, 0.35);
+        tl.to("#stage", { x: -8, duration: 0.04, yoyo: true, repeat: 5, ease: "none" }, B.b2 - 0.24);
+        zoomOut("#b1", B.b2 - 0.3, 0.28);
+
+        /* =================== B2 — QUEST [5.2 – 12.4] =================== */
+        zoomIn("#b2", B.b2 - 0.05, 0.5);
+        tl.fromTo("#b2-framewrap", { y: 60, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.6, ease: "power2.out" }, B.b2 + 0.15);
+        /* boring lecture window shakes… */
+        /* hero adventure scene visible from the start — slow Ken Burns */
+        tl.fromTo("#b2-hero", { scale: 1.0 }, { scale: 1.08, duration: 6.9, ease: "none" }, B.b2 + 0.2);
+        /* boring lecture window CRASHES in on "No boring lectures"… */
+        tl.fromTo("#b2-lecture", { autoAlpha: 1, y: -1400 }, { y: 0, duration: 0.4, ease: "power3.in", immediateRender: false }, B.b2 + 3.3);
+        tl.fromTo("#b2-framewrap", { y: 0 }, { y: 10, duration: 0.06, yoyo: true, repeat: 3, ease: "none" }, B.b2 + 3.72);
+        tl.to("#b2-lecture", { x: 6, duration: 0.06, yoyo: true, repeat: 7, ease: "none" }, B.b2 + 3.85);
+        /* …and shatters into pixels almost immediately */
+        tl.set("#b2-lecture", { autoAlpha: 0 }, B.b2 + 4.35);
+        tl.set("#b2-chunks .chunk", { opacity: 1 }, B.b2 + 4.35);
+        tl.to("#b2-chunks .chunk", {
+          scale: 0, y: 46, rotation: 14, opacity: 0, duration: 0.45, ease: "power2.in",
+          stagger: { each: 0.012, from: "center" },
+        }, B.b2 + 4.4);
+        flash(B.b2 + 4.38, 0.22);
+        /* title rises on "every lesson is a quest" */
+        rise("#b2-title .row .w", B.b2 + 5.0, 0.14);
+        tl.to("#b2-title .w.gold", { textShadow: "0 0 60px rgba(219,180,76,0.9)", duration: 0.8, yoyo: true, repeat: 2, ease: "sine.inOut" }, B.b2 + 5.9);
+        /* key floats */
+        tl.fromTo("#b2 .torchglow", { scale: 0.94 }, { scale: 1.05, duration: 1.0, yoyo: true, repeat: 5, ease: "sine.inOut" }, B.b2 + 0.4);
+
+        /* --- transition b2 → b3 : zoom through --- */
+        zoomOut("#b2", B.b3 - 0.35, 0.35);
+
+        /* =================== B3 — WORLD MAP [12.4 – 19.4] =================== */
+        zoomIn("#b3", B.b3 - 0.05, 0.6);
+        /* camera flight over the map */
+        tl.fromTo("#b3-mapwrap", { x: -1250, scale: 1.14 }, { x: -230, scale: 1.0, duration: 6.0, ease: "power1.inOut" }, B.b3);
+        /* title plate + gems */
+        tl.fromTo("#b3-titleplate .plate", { y: -80, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.55, ease: "back.out(1.6)" }, B.b3 + 0.35);
+        pop("#b3 .gem", B.b3 + 0.5, 0.4);
+        /* bridge line draws */
+        tl.fromTo("#b3-line", { strokeDashoffset: 1800, opacity: 0 }, { strokeDashoffset: 0, opacity: 0.9, duration: 3.4, ease: "power1.inOut" }, B.b3 + 0.7);
+        /* realm plates pop in pan order, on VO phrases */
+        pop("#rp-db", B.b3 + 0.8);
+        pop("#rp-sysdes", B.b3 + 2.3);
+        pop("#rp-python", B.b3 + 3.4);
+        tl.to("#rp-db .tag", { y: -8, duration: 1.0, yoyo: true, repeat: 2, ease: "sine.inOut" }, B.b3 + 1.4);
+        tl.to("#rp-sysdes .tag", { y: -8, duration: 1.0, yoyo: true, repeat: 1, ease: "sine.inOut" }, B.b3 + 2.9);
+        /* subtitle */
+        tl.fromTo("#b3-sub", { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out" }, B.b3 + 4.3);
+
+        /* --- transition b3 → b4 : dive into the realm --- */
+        flash(B.b4 - 0.15, 0.2);
+        zoomOut("#b3", B.b4 - 0.32, 0.32);
+
+        /* =================== B4 — STUDENT FLOW [19.4 – 29.4] =================== */
+        zoomIn("#b4", B.b4 - 0.05, 0.5);
+        tl.fromTo("#b4-hud .hudchip", { y: -70, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.5, ease: "back.out(1.8)", stagger: 0.12 }, B.b4 + 0.2);
+        tl.fromTo("#b4-framewrap", { y: 120, autoAlpha: 0, scale: 0.94 }, { y: 0, autoAlpha: 1, scale: 1, duration: 0.65, ease: "power3.out" }, B.b4 + 0.3);
+        tl.fromTo("#b4-sub", { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out" }, B.b4 + 0.9);
+        /* phase plates — 5-MINUTE first */
+        tl.fromTo("#b4-ph1", { autoAlpha: 0, scale: 0 }, { autoAlpha: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, B.b4 + 1.1);
+        /* CODE — typing (VO "Code." at +3.19) */
+        tl.fromTo("#b4-code", { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out" }, B.b4 + 1.5);
+        tl.fromTo("#b4-typed .ch", { opacity: 0 }, { opacity: 1, duration: 0.01, stagger: 0.055, ease: "none" }, B.b4 + 1.75);
+        tl.set("#b4-ph1", { autoAlpha: 0 }, B.b4 + 3.15);
+        tl.fromTo("#b4-ph2", { autoAlpha: 0, scale: 0 }, { autoAlpha: 1, scale: 1, duration: 0.35, ease: "back.out(2)" }, B.b4 + 3.2);
+        /* QUIZ — whip to screen 2 (VO "Quiz." at +3.81) */
+        tl.to("#b4-strip", { x: -884, duration: 0.42, ease: "power3.inOut" }, B.b4 + 3.75);
+        tl.set("#b4-code", { autoAlpha: 0 }, B.b4 + 3.9);
+        tl.set("#b4-ph2", { autoAlpha: 0 }, B.b4 + 3.75);
+        tl.fromTo("#b4-ph3", { autoAlpha: 0, scale: 0 }, { autoAlpha: 1, scale: 1, duration: 0.35, ease: "back.out(2)" }, B.b4 + 3.95);
+        /* CORRECT — whip to screen 3 (VO "Correct answer" at +4.69), green celebration */
+        tl.to("#b4-strip", { x: -1768, duration: 0.42, ease: "power3.inOut" }, B.b4 + 4.6);
+        tl.set("#b4-ph3", { autoAlpha: 0 }, B.b4 + 4.6);
+        tl.fromTo("#b4-ph4", { autoAlpha: 0, scale: 0 }, { autoAlpha: 1, scale: 1, duration: 0.4, ease: "back.out(2.4)" }, B.b4 + 4.95);
+        tl.fromTo("#b4-greenflash", { opacity: 0 }, { opacity: 0.32, duration: 0.12, yoyo: true, repeat: 1 }, B.b4 + 5.0);
+        flash(B.b4 + 5.05, 0.18);
+        /* confetti burst */
+        document.querySelectorAll("#b4-confetti .conf").forEach((el, i) => {
+          const ang = (i / 18) * Math.PI * 2;
+          const dist = 240 + (i % 4) * 90;
+          tl.fromTo(el, { x: 0, y: 0, opacity: 1, scale: 1 },
+            { x: Math.cos(ang) * dist, y: Math.sin(ang) * dist * 0.8 - 120, opacity: 0, scale: 0.4, rotation: 180 + i * 20,
+              duration: 0.9, ease: "power2.out" }, B.b4 + 5.05);
+        });
+        /* +15 XP flies to HUD counter (VO "XP, streaks, level up") */
+        tl.fromTo("#b4-xpfly", { autoAlpha: 0, scale: 0.4, x: -140, y: 0 }, { autoAlpha: 1, scale: 1, x: -140, y: -40, duration: 0.4, ease: "back.out(2)" }, B.b4 + 5.3);
+        tl.to("#b4-xpfly", { x: 240, y: -640, scale: 0.5, autoAlpha: 0, duration: 0.7, ease: "power2.in" }, B.b4 + 5.9);
+        counter("#b4-xpnum", 15, B.b4 + 6.5, 0.6);
+        tl.fromTo("#b4-hud .hudchip:nth-child(2)", { scale: 1 }, { scale: 1.12, duration: 0.18, yoyo: true, repeat: 1, ease: "power2.out" }, B.b4 + 6.55);
+        /* streak flame bump */
+        tl.fromTo("#b4-hud .hudchip:nth-child(1)", { scale: 1 }, { scale: 1.1, duration: 0.18, yoyo: true, repeat: 1, ease: "power2.out" }, B.b4 + 7.0);
+
+        /* --- transition b4 → b5 : hard-cut pop on the beat --- */
+        zoomOut("#b4", B.b5 - 0.18, 0.18);
+
+        /* =================== B5 — PROGRESSION [29.4 – 36.4] =================== */
+        tl.fromTo("#b5", { autoAlpha: 0, scale: 1.06 }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power2.out" }, B.b5 - 0.02);
+        tl.fromTo("#b5-titleplate .plate", { y: -70, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.5, ease: "back.out(1.7)" }, B.b5 + 0.15);
+        tl.fromTo("#b5-glow", { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 1.0, ease: "sine.out" }, B.b5 + 0.2);
+        /* rank morph chain: r1 → r2 → r3 → r4 */
+        const morphs = [
+          { img: "#r1", name: "#n1", t: B.b5 + 0.6 },
+          { img: "#r2", name: "#n2", t: B.b5 + 2.25 },
+          { img: "#r3", name: "#n3", t: B.b5 + 3.3 },
+          { img: "#r4", name: "#n4", t: B.b5 + 4.3 },
+        ];
+        morphs.forEach((m, i) => {
+          if (i > 0) {
+            tl.set(morphs[i - 1].img, { autoAlpha: 0 }, m.t);
+            tl.set(morphs[i - 1].name, { autoAlpha: 0 }, m.t);
+            tl.fromTo("#b5-sflash", { opacity: 0.55 }, { opacity: 0, duration: 0.3, ease: "power2.out" }, m.t);
+            tl.fromTo("#b5-ring", { scale: 0.6, opacity: 0.9 }, { scale: 1.25, opacity: 0, duration: 0.5, ease: "power2.out" }, m.t);
+          }
+          tl.fromTo(m.img, { autoAlpha: 0, scale: 0.72 }, { autoAlpha: 1, scale: 1, duration: 0.38, ease: "back.out(1.8)" }, m.t + (i ? 0.05 : 0));
+          tl.fromTo(m.name, { autoAlpha: 0, yPercent: 110 }, { autoAlpha: 1, yPercent: 0, duration: 0.4, ease: "power3.out" }, m.t + 0.12);
+          /* xp bar fills with each rank */
+          const upto = [3, 5, 8, 10][i];
+          tl.to("#b5-xpbar i:nth-child(-n+" + upto + ")", { backgroundColor: "#DBB44C", borderColor: "#A67C20", duration: 0.25, stagger: 0.05, ease: "none" }, m.t + 0.2);
+        });
+        flash(B.b5 + 4.35, 0.3);
+        tl.to("#b5-glow", { scale: 1.25, duration: 1.6, ease: "sine.out" }, B.b5 + 4.35);
+        /* floating badges cascade on "ranks, badges" */
+        tl.fromTo("#b5-float-l img, #b5-float-r img", { autoAlpha: 0, scale: 0, y: 50 },
+          { autoAlpha: 1, scale: 1, y: 0, duration: 0.5, ease: "back.out(2.2)", stagger: 0.14 }, B.b5 + 2.3);
+        tl.to("#b5f1, #b5f3", { y: -20, duration: 1.3, yoyo: true, repeat: 1, ease: "sine.inOut" }, B.b5 + 3.0);
+        tl.to("#b5f2, #b5f4", { y: 16, duration: 1.3, yoyo: true, repeat: 1, ease: "sine.inOut" }, B.b5 + 3.2);
+        /* proof card + caption on "progress you can see" */
+        tl.fromTo("#b5-hub", { autoAlpha: 0, y: 160, rotation: -14 }, { autoAlpha: 1, y: 0, rotation: -6, duration: 0.7, ease: "power3.out" }, B.b5 + 3.0);
+        tl.fromTo("#b5-sub", { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out" }, B.b5 + 3.5);
+
+        /* --- transition b5 → b6 : blur crossfade --- */
+        fadeOut("#b5", B.b6 - 0.45, 0.45);
+
+        /* =================== B6 — PROFESSORS [36.4 – 45.4] =================== */
+        fadeIn("#b6", B.b6 - 0.15, 0.55);
+        tl.fromTo("#b6-titleplate .plate", { y: -70, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.5, ease: "back.out(1.7)" }, B.b6 + 0.15);
+        /* parchment unrolls (height reveal) */
+        tl.fromTo("#b6-parchment", { autoAlpha: 0, x: -90 }, { autoAlpha: 1, x: 0, duration: 0.6, ease: "power3.out" }, B.b6 + 0.65);
+        rise("#b6-parchment .item", B.b6 + 1.0, 0.11, 0.45);
+        /* quest path draws + nodes pop ("curriculum into quests") */
+        tl.fromTo("#b6-pline", { strokeDashoffset: 640, opacity: 0 }, { strokeDashoffset: 0, opacity: 0.85, duration: 1.5, ease: "power1.inOut" }, B.b6 + 1.6);
+        ["#q1", "#q2", "#q3", "#q4"].forEach((q, i) => {
+          tl.fromTo(q, { autoAlpha: 0, x: -160, scale: 0.5 }, { autoAlpha: 1, x: 0, scale: 1, duration: 0.45, ease: "back.out(1.9)" }, B.b6 + 1.7 + i * 0.28);
+        });
+        /* boss lands with thud */
+        tl.fromTo("#q5", { autoAlpha: 0, y: -120, scale: 1.4 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.4, ease: "power3.in" }, B.b6 + 3.0);
+        tl.fromTo("#b6-top", { y: 0 }, { y: 6, duration: 0.07, yoyo: true, repeat: 3, ease: "none" }, B.b6 + 3.4);
+        /* analytics card slides + bars fill ("track every student's progress in real time") */
+        tl.fromTo("#b6-analytics", { autoAlpha: 0, y: 140 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: "power3.out" }, B.b6 + 3.4);
+        tl.fromTo("#b6-live", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, B.b6 + 3.8);
+        tl.to("#b6-live i", { opacity: 0.25, duration: 0.5, yoyo: true, repeat: 7, ease: "steps(1)" }, B.b6 + 3.9);
+        const bars = [ { f: "#f1", p: "#p1", v: 78 }, { f: "#f2", p: "#p2", v: 64 }, { f: "#f3", p: "#p3", v: 91 } ];
+        bars.forEach((b, i) => {
+          tl.fromTo(b.f, { width: "0%" }, { width: b.v + "%", duration: 0.9, ease: "power2.out" }, B.b6 + 4.15 + i * 0.25);
+          counter(b.p, b.v, B.b6 + 4.15 + i * 0.25, 0.9, "%");
+        });
+        tl.fromTo("#b6-bars .grow", { autoAlpha: 0, x: 80 }, { autoAlpha: 1, x: 0, duration: 0.45, ease: "power2.out", stagger: 0.12 }, B.b6 + 3.9);
+
+        /* --- transition b6 → b7 : whip pan --- */
+        whipOut("#b6", B.b7 - 0.3);
+
+        /* =================== B7 — BEYOND THE CLASSROOM [45.4 – 53.4] =================== */
+        whipIn("#b7", B.b7 - 0.08);
+        tl.fromTo("#b7-titleplate .plate", { y: -70, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.5, ease: "back.out(1.7)" }, B.b7 + 0.2);
+        /* doors cascade */
+        ["#d1", "#d2", "#d3"].forEach((d, i) => {
+          tl.fromTo(d, { autoAlpha: 0, y: 130, scale: 0.9 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.55, ease: "back.out(1.5)" }, B.b7 + 0.35 + i * 0.22);
+        });
+        tl.fromTo("#b7-warm", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.8, ease: "sine.out" }, B.b7 + 0.5);
+        tl.fromTo("#b7-sub", { autoAlpha: 0, y: 34 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out" }, B.b7 + 1.0);
+        /* spotlight beats per VO phrase */
+        tl.fromTo("#d2", { scale: 1 }, { scale: 1.06, duration: 0.35, yoyo: true, repeat: 1, ease: "power2.inOut" }, B.b7 + 3.2);
+        pop("#d2-icons img", B.b7 + 3.3, 0.4);
+        tl.fromTo("#d2", { scale: 1 }, { scale: 1.04, duration: 0.3, yoyo: true, repeat: 1, ease: "power2.inOut" }, B.b7 + 4.55);
+        tl.fromTo("#d3-key", { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: 0.45, ease: "back.out(2)" }, B.b7 + 5.7);
+        /* padlock shakes, drops — door ignites */
+        tl.to("#d3-lock", { rotation: 10, duration: 0.07, yoyo: true, repeat: 7, ease: "none" }, B.b7 + 6.15);
+        tl.to("#d3-lock", { y: 260, rotation: 40, autoAlpha: 0, duration: 0.55, ease: "power2.in" }, B.b7 + 6.75);
+        tl.set("#d3-locked", { autoAlpha: 0 }, B.b7 + 7.2);
+        tl.set("#d3-open", { autoAlpha: 1 }, B.b7 + 7.2);
+        tl.fromTo("#d3-glow", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1.1, duration: 0.5, ease: "power2.out" }, B.b7 + 7.2);
+        flash(B.b7 + 7.25, 0.22);
+        tl.fromTo("#d3", { scale: 1 }, { scale: 1.07, duration: 0.3, yoyo: true, repeat: 1, ease: "power2.out" }, B.b7 + 7.25);
+        tl.fromTo("#b7 .torchglow", { scale: 0.94 }, { scale: 1.06, duration: 1.0, yoyo: true, repeat: 6, ease: "sine.inOut" }, B.b7 + 0.4);
+
+        /* --- transition b7 → b8 : slow bloom crossfade --- */
+        fadeOut("#b7", B.b8 - 0.55, 0.55);
+
+        /* =================== B8 — CTA [53.4 – 59.5] =================== */
+        fadeIn("#b8", B.b8 - 0.2, 0.6);
+        tl.fromTo("#b8-bloom", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.9, ease: "power2.out" }, B.b8 + 0.05);
+        /* duck + brand slam */
+        tl.fromTo("#b8-duck", { y: 110, autoAlpha: 0, scale: 0.85 }, { y: 0, autoAlpha: 1, scale: 1, duration: 0.6, ease: "power3.out" }, B.b8 + 0.2);
+        tl.to("#b8-duck", { y: -14, duration: 1.2, yoyo: true, repeat: 3, ease: "sine.inOut" }, B.b8 + 1.0);
+        tl.fromTo("#b8-brand", { scale: 1.7, autoAlpha: 0, filter: "blur(10px)" },
+          { scale: 1, autoAlpha: 1, filter: "blur(0px)", duration: 0.45, ease: "power4.in" }, B.b8 + 0.75);
+        flash(B.b8 + 1.2, 0.3);
+        tl.fromTo("#stage", { x: 0 }, { x: 5, duration: 0.05, yoyo: true, repeat: 3, ease: "none" }, B.b8 + 1.2);
+        tl.fromTo("#b8-tag", { autoAlpha: 0, letterSpacing: "0.55em" }, { autoAlpha: 1, letterSpacing: "0.18em", duration: 0.7, ease: "power2.out" }, B.b8 + 1.5);
+        /* button pops on "Start your quest." + pulses + shine sweeps */
+        pop("#b8-btn", B.b8 + 2.6, 0.5);
+        tl.to("#b8-btn", { scale: 1.045, duration: 0.55, yoyo: true, repeat: 5, ease: "sine.inOut" }, B.b8 + 3.3);
+        tl.fromTo("#b8-btn .shine", { x: 0 }, { x: 720, duration: 0.7, ease: "power2.inOut", repeat: 2, repeatDelay: 0.9 }, B.b8 + 3.4);
+        /* confetti drifts down */
+        document.querySelectorAll("#b8-confetti .conf").forEach((el, i) => {
+          tl.fromTo(el, { y: 0, opacity: 0.9, rotation: 0 },
+            { y: 2050, opacity: 0.75, rotation: 140 + (i % 5) * 40, duration: 5.2 + (i % 4) * 0.5, ease: "none" }, B.b8 + 0.4 + (i % 6) * 0.12);
+        });
+        tl.fromTo("#b8-press", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.01 }, B.b8 + 2.0);
+        tl.to("#b8-press", { autoAlpha: 0.15, duration: 0.55, yoyo: true, repeat: 5, ease: "steps(1)" }, B.b8 + 2.1);
+
+        window.__timelines["devquest-reel"] = tl;
+      </script>
+    </div>
+  </body>
+</html>

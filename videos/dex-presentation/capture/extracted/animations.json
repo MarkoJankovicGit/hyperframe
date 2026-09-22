@@ -1,0 +1,52 @@
+{
+  "summary": {
+    "webAnimations": 1,
+    "cssDeclarations": 160,
+    "scrollTargets": 12,
+    "cdpAnimations": 32,
+    "canvases": 7
+  },
+  "namedAnimations": [],
+  "scrollTriggeredElements": 12,
+  "representativeAnimations": [
+    {
+      "type": "CSSAnimation",
+      "playState": "running",
+      "animationName": "tp-typewriter",
+      "targetSelector": "#SR7_1_1-7-2.sr7-layer.my_font",
+      "targetRect": {
+        "x": 360,
+        "y": 315,
+        "width": 916,
+        "height": 59,
+        "top": 315,
+        "right": 1276,
+        "bottom": 374,
+        "left": 360
+      },
+      "keyframes": [
+        {
+          "offset": 0,
+          "easing": "steps(2, start)",
+          "composite": "auto",
+          "visibility": "visible",
+          "computedOffset": 0
+        },
+        {
+          "offset": 1,
+          "easing": "steps(2, start)",
+          "composite": "auto",
+          "visibility": "hidden",
+          "computedOffset": 1
+        }
+      ],
+      "timing": {
+        "duration": 500,
+        "delay": 0,
+        "iterations": null,
+        "easing": "linear",
+        "direction": "normal"
+      }
+    }
+  ]
+}

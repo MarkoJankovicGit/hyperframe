@@ -1,0 +1,85 @@
+{
+  "sceneId": "scene-02",
+  "text": "You don't need another vendor. You need a colleague who builds.",
+  "words": [
+    {
+      "word": "You",
+      "start": 0,
+      "end": 0.151,
+      "startFrame": 0,
+      "endFrame": 5
+    },
+    {
+      "word": "don't",
+      "start": 0.197,
+      "end": 0.36,
+      "startFrame": 6,
+      "endFrame": 11
+    },
+    {
+      "word": "need",
+      "start": 0.406,
+      "end": 0.604,
+      "startFrame": 12,
+      "endFrame": 18
+    },
+    {
+      "word": "another",
+      "start": 0.65,
+      "end": 0.952,
+      "startFrame": 20,
+      "endFrame": 29
+    },
+    {
+      "word": "vendor.",
+      "start": 1.022,
+      "end": 1.451,
+      "startFrame": 31,
+      "endFrame": 44
+    },
+    {
+      "word": "You",
+      "start": 1.533,
+      "end": 1.637,
+      "startFrame": 46,
+      "endFrame": 49
+    },
+    {
+      "word": "need",
+      "start": 1.683,
+      "end": 1.834,
+      "startFrame": 50,
+      "endFrame": 55
+    },
+    {
+      "word": "a",
+      "start": 1.858,
+      "end": 1.892,
+      "startFrame": 56,
+      "endFrame": 57
+    },
+    {
+      "word": "colleague",
+      "start": 1.962,
+      "end": 2.426,
+      "startFrame": 59,
+      "endFrame": 73
+    },
+    {
+      "word": "who",
+      "start": 2.45,
+      "end": 2.589,
+      "startFrame": 74,
+      "endFrame": 78
+    },
+    {
+      "word": "builds.",
+      "start": 2.67,
+      "end": 3.529,
+      "startFrame": 80,
+      "endFrame": 106
+    }
+  ],
+  "durationSeconds": 4.029,
+  "durationFrames": 121
+}

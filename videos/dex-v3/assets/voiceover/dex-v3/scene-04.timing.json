@@ -1,0 +1,71 @@
+{
+  "sceneId": "scene-04",
+  "text": "Custom platforms. The exact tools your team actually needs.",
+  "words": [
+    {
+      "word": "Custom",
+      "start": 0,
+      "end": 0.372,
+      "startFrame": 0,
+      "endFrame": 11
+    },
+    {
+      "word": "platforms.",
+      "start": 0.418,
+      "end": 1.068,
+      "startFrame": 13,
+      "endFrame": 32
+    },
+    {
+      "word": "The",
+      "start": 1.219,
+      "end": 1.358,
+      "startFrame": 37,
+      "endFrame": 41
+    },
+    {
+      "word": "exact",
+      "start": 1.428,
+      "end": 1.904,
+      "startFrame": 43,
+      "endFrame": 57
+    },
+    {
+      "word": "tools",
+      "start": 1.939,
+      "end": 2.206,
+      "startFrame": 58,
+      "endFrame": 66
+    },
+    {
+      "word": "your",
+      "start": 2.241,
+      "end": 2.357,
+      "startFrame": 67,
+      "endFrame": 71
+    },
+    {
+      "word": "team",
+      "start": 2.415,
+      "end": 2.635,
+      "startFrame": 72,
+      "endFrame": 79
+    },
+    {
+      "word": "actually",
+      "start": 2.705,
+      "end": 3.111,
+      "startFrame": 81,
+      "endFrame": 93
+    },
+    {
+      "word": "needs.",
+      "start": 3.181,
+      "end": 3.901,
+      "startFrame": 95,
+      "endFrame": 117
+    }
+  ],
+  "durationSeconds": 4.401,
+  "durationFrames": 132
+}

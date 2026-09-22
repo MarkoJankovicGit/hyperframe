@@ -1,0 +1,127 @@
+{
+  "sceneId": "scene-04",
+  "text": "A modular platform you can shape to fit. Custom development, end to end. Human resources. Document management.",
+  "words": [
+    {
+      "word": "A",
+      "start": 0,
+      "end": 0.081,
+      "startFrame": 0,
+      "endFrame": 2
+    },
+    {
+      "word": "modular",
+      "start": 0.174,
+      "end": 0.615,
+      "startFrame": 5,
+      "endFrame": 18
+    },
+    {
+      "word": "platform",
+      "start": 0.662,
+      "end": 1.138,
+      "startFrame": 20,
+      "endFrame": 34
+    },
+    {
+      "word": "you",
+      "start": 1.184,
+      "end": 1.254,
+      "startFrame": 36,
+      "endFrame": 38
+    },
+    {
+      "word": "can",
+      "start": 1.3,
+      "end": 1.416,
+      "startFrame": 39,
+      "endFrame": 42
+    },
+    {
+      "word": "shape",
+      "start": 1.463,
+      "end": 1.707,
+      "startFrame": 44,
+      "endFrame": 51
+    },
+    {
+      "word": "to",
+      "start": 1.741,
+      "end": 1.8,
+      "startFrame": 52,
+      "endFrame": 54
+    },
+    {
+      "word": "fit.",
+      "start": 1.869,
+      "end": 2.299,
+      "startFrame": 56,
+      "endFrame": 69
+    },
+    {
+      "word": "Custom",
+      "start": 2.543,
+      "end": 2.902,
+      "startFrame": 76,
+      "endFrame": 87
+    },
+    {
+      "word": "development,",
+      "start": 2.961,
+      "end": 3.553,
+      "startFrame": 89,
+      "endFrame": 107
+    },
+    {
+      "word": "end",
+      "start": 3.669,
+      "end": 3.855,
+      "startFrame": 110,
+      "endFrame": 116
+    },
+    {
+      "word": "to",
+      "start": 3.901,
+      "end": 3.971,
+      "startFrame": 117,
+      "endFrame": 119
+    },
+    {
+      "word": "end.",
+      "start": 4.052,
+      "end": 4.435,
+      "startFrame": 122,
+      "endFrame": 133
+    },
+    {
+      "word": "Human",
+      "start": 4.714,
+      "end": 5.016,
+      "startFrame": 141,
+      "endFrame": 150
+    },
+    {
+      "word": "resources.",
+      "start": 5.074,
+      "end": 5.782,
+      "startFrame": 152,
+      "endFrame": 173
+    },
+    {
+      "word": "Document",
+      "start": 5.991,
+      "end": 6.49,
+      "startFrame": 180,
+      "endFrame": 195
+    },
+    {
+      "word": "management.",
+      "start": 6.548,
+      "end": 7.43,
+      "startFrame": 196,
+      "endFrame": 223
+    }
+  ],
+  "durationSeconds": 7.93,
+  "durationFrames": 238
+}

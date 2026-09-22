@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/CustomEase.min.js"></script>
+    <style>
+      /* ===========================================================
+         DEX v2 — LAUNCH · matte black + electric blue/purple
+         Kinetic typography hero · real-UI atmosphere · fast cuts
+         =========================================================== */
+      @font-face { font-family: "Roobert"; src: url("assets/fonts/RoobertTRIAL-Light.woff") format("woff"); font-weight: 300; font-display: block; }
+      @font-face { font-family: "Roobert"; src: url("assets/fonts/RoobertTRIAL-Regular.woff") format("woff"); font-weight: 400; font-display: block; }
+      @font-face { font-family: "Roobert"; src: url("assets/fonts/RoobertTRIAL-Medium.woff") format("woff"); font-weight: 500; font-display: block; }
+      @font-face { font-family: "Roobert"; src: url("assets/fonts/RoobertTRIAL-Bold.woff") format("woff"); font-weight: 700; font-display: block; }
+
+      :root {
+        --bg: #06070A; --ink: #ffffff; --dim: #8a93a6;
+        --blue: #3b82f6; --blue-hi: #5b9dff; --cyan: #22d3ee; --purple: #a855f7; --violet: #8b5cf6;
+        --line: rgba(123,160,255,0.14);
+        --mono: ui-monospace, "SF Mono", "JetBrains Mono", "Cascadia Code", Consolas, monospace;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--bg); color: var(--ink); font-family: "Roobert", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+      #stage { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: hidden; background: var(--bg); }
+
+      /* ---- persistent background (always moving) ---- */
+      #grid { position: absolute; inset: -80px; z-index: 0; pointer-events: none;
+        background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+        background-size: 80px 80px; opacity: 0.6; mask-image: radial-gradient(ellipse 75% 75% at 50% 50%, #000 30%, transparent 78%); -webkit-mask-image: radial-gradient(ellipse 75% 75% at 50% 50%, #000 30%, transparent 78%); }
+      .glow { position: absolute; border-radius: 50%; filter: blur(120px); pointer-events: none; z-index: 0; }
+      #glow-b { width: 1200px; height: 1200px; left: -260px; top: -360px; background: radial-gradient(circle, rgba(59,130,246,0.5), transparent 66%); }
+      #glow-p { width: 1100px; height: 1100px; right: -300px; bottom: -380px; background: radial-gradient(circle, rgba(168,85,247,0.42), transparent 66%); }
+      #scan { position: absolute; inset: 0; z-index: 42; pointer-events: none; opacity: 0.5;
+        background: repeating-linear-gradient(to bottom, rgba(255,255,255,0.025) 0 1px, transparent 1px 3px); }
+      #particles { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+      .pt { position: absolute; border-radius: 50%; background: radial-gradient(circle, rgba(150,190,255,0.9), transparent 70%); }
+      #grain { position: absolute; inset: 0; z-index: 43; pointer-events: none; opacity: 0.06; mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size: 300px 300px; }
+      #vignette { position: absolute; inset: 0; z-index: 44; pointer-events: none; background: radial-gradient(ellipse 85% 80% at 50% 48%, transparent 50%, rgba(0,0,0,0.72) 100%); }
+      #flash { position: absolute; inset: 0; z-index: 60; pointer-events: none; background: #dbe7ff; opacity: 0; }
+
+      /* ---- beat base ---- */
+      .beat { position: absolute; inset: 0; width: 1920px; height: 1080px; z-index: 10; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 90px 130px; opacity: 0; visibility: hidden; }
+      .tag { font-family: var(--mono); font-size: 24px; letter-spacing: 0.36em; text-transform: uppercase; color: var(--blue-hi); }
+      .kln { font-weight: 700; text-transform: uppercase; letter-spacing: -0.035em; line-height: 0.9; color: var(--ink); }
+      .kw { display: inline-block; will-change: transform, opacity; }
+      .grad-b { color: var(--blue-hi); } .grad-p { color: var(--purple); }
+      .stroke { color: transparent; -webkit-text-stroke: 2px rgba(255,255,255,0.32); }
+      .panel { background: linear-gradient(180deg, rgba(18,22,33,0.96), rgba(10,13,20,0.96)); border: 1px solid rgba(123,160,255,0.16); border-radius: 16px; box-shadow: 0 40px 90px -30px rgba(0,0,0,0.8), 0 0 0 1px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05); overflow: hidden; }
+      .winbar { display: flex; align-items: center; gap: 9px; padding: 14px 18px; border-bottom: 1px solid rgba(123,160,255,0.12); }
+      .dot { width: 13px; height: 13px; border-radius: 50%; } .dr { background: #ff5f57; } .dy { background: #febc2e; } .dg { background: #28c840; }
+      .wtitle { margin-left: 12px; font-family: var(--mono); font-size: 19px; color: var(--dim); }
+
+      /* B1 hook */
+      #b1 .b1h { font-size: 150px; }
+      #b1 .b1sub { margin-top: 26px; font-family: var(--mono); font-size: 30px; letter-spacing: 0.16em; color: var(--dim); text-transform: uppercase; }
+      #b1 .b1we { position: absolute; font-size: 150px; opacity: 0; }
+
+      /* B2 build/scale/automate */
+      #b2 .bsa { position: absolute; font-size: 280px; font-weight: 700; letter-spacing: -0.04em; text-transform: uppercase; opacity: 0; }
+
+      /* B3 code editor */
+      #b3 .editor { width: 1280px; height: 700px; display: flex; flex-direction: column; }
+      #b3 .code { flex: 1; padding: 26px 30px; font-family: var(--mono); font-size: 27px; line-height: 1.62; }
+      #b3 .cl { display: block; white-space: pre; opacity: 0; }
+      #b3 .ln { color: #3c4763; margin-right: 26px; }
+      .k { color: #b388ff; } .fn { color: #82b1ff; } .st { color: #84e1bc; } .nm { color: #ffb86c; } .cm { color: #54607a; } .pu { color: #9fb2d4; } .ty { color: #22d3ee; }
+      #b3 .cur { display: inline-block; width: 13px; height: 30px; background: var(--cyan); vertical-align: -4px; }
+
+      /* B4 / B7 / B12 kinetic lines */
+      #b4 .b4a { font-size: 132px; } #b4 .b4b { font-size: 132px; margin-top: 6px; }
+      #b7 .arch { width: 1480px; height: 560px; position: relative; }
+      #b7 .node { position: absolute; top: 50%; transform: translateY(-50%); width: 300px; height: 150px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 8px; }
+      #b7 .node .nt { font-weight: 700; font-size: 30px; } #b7 .node .ns { font-family: var(--mono); font-size: 19px; color: var(--dim); }
+      #b7 .pkt { position: absolute; top: 50%; left: 0; width: 16px; height: 16px; margin-top: -8px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 18px 5px rgba(34,211,238,0.8); opacity: 0; }
+      #b12 .b12a { font-size: 150px; } #b12 .b12b { font-size: 150px; }
+
+      /* B5 terminal */
+      #b5 .term { width: 1240px; height: 600px; }
+      #b5 .tbody { padding: 28px 32px; font-family: var(--mono); font-size: 28px; line-height: 1.7; }
+      #b5 .trow { display: block; white-space: pre; opacity: 0; }
+      #b5 .pmt { color: var(--cyan); } #b5 .ok { color: #28c840; } #b5 .mut { color: var(--dim); }
+      #b5 .tcur { display: inline-block; width: 14px; height: 30px; background: var(--cyan); vertical-align: -4px; }
+
+      /* B6 legacy/ai */
+      #b6 .b6a { font-size: 150px; } #b6 .b6b { font-size: 150px; }
+
+      /* B8 stats */
+      #b8 .b8row { display: flex; gap: 90px; align-items: flex-start; }
+      #b8 .stat { display: flex; flex-direction: column; align-items: center; opacity: 0; }
+      #b8 .stat .n { font-size: 230px; font-weight: 700; line-height: 0.86; letter-spacing: -0.04em; }
+      #b8 .stat .n .pl { color: var(--purple); }
+      #b8 .stat .l { margin-top: 14px; font-family: var(--mono); font-size: 26px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); }
+
+      /* B9 dashboard */
+      #b9 .dash { width: 1500px; height: 640px; padding: 30px; display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: auto 1fr; gap: 26px; }
+      #b9 .mc { padding: 28px 30px; display: flex; flex-direction: column; gap: 10px; }
+      #b9 .mc .ml { font-family: var(--mono); font-size: 22px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); }
+      #b9 .mc .mv { font-size: 78px; font-weight: 700; letter-spacing: -0.02em; }
+      #b9 .mc .mv small { font-size: 34px; color: var(--blue-hi); }
+      #b9 .chart { grid-column: 1 / 4; padding: 24px 30px; position: relative; }
+      #b9 .chart .ct { font-family: var(--mono); font-size: 22px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); }
+
+      /* B10 products */
+      #b10 .prow { display: flex; gap: 30px; }
+      #b10 .pcard { width: 350px; height: 360px; padding: 30px; display: flex; flex-direction: column; gap: 16px; opacity: 0; }
+      #b10 .pcard .pi { width: 70px; height: 70px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 34px; color: #0a0d14; font-weight: 700; }
+      #b10 .pcard .pt2 { margin-top: auto; font-weight: 700; font-size: 36px; line-height: 1.04; }
+      #b10 .pcard .ps { font-family: var(--mono); font-size: 19px; color: var(--dim); }
+
+      /* B11 pipeline */
+      #b11 .pipe { display: flex; align-items: center; gap: 0; }
+      #b11 .stg { width: 300px; height: 150px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; opacity: 0.4; }
+      #b11 .stg .sn { font-weight: 700; font-size: 38px; } #b11 .stg .sc { font-family: var(--mono); font-size: 22px; color: var(--dim); }
+      #b11 .conn { width: 120px; height: 3px; background: rgba(123,160,255,0.2); position: relative; overflow: hidden; }
+      #b11 .conn i { position: absolute; inset: 0; width: 0; background: linear-gradient(90deg, var(--blue), var(--cyan)); }
+      #b11 .check { color: #28c840; }
+
+      /* B13 data flash */
+      #b13 .grid2 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; width: 1500px; }
+      #b13 .fc { padding: 26px; opacity: 0; } #b13 .fc .fl { font-family: var(--mono); font-size: 20px; color: var(--dim); letter-spacing: 0.12em; text-transform: uppercase; }
+      #b13 .fc .fv { font-size: 64px; font-weight: 700; margin-top: 8px; }
+
+      /* B14 leader */
+      #b14 .b14e { font-family: var(--mono); font-size: 26px; letter-spacing: 0.34em; text-transform: uppercase; color: var(--blue-hi); }
+      #b14 .b14h { font-size: 168px; margin-top: 14px; }
+      #b14 .b14p { display: flex; gap: 22px; margin-top: 26px; font-size: 38px; font-weight: 500; }
+      #b14 .b14p span { display: inline-block; } #b14 .b14p .s { color: var(--purple); } #b14 .b14p .d { color: rgba(255,255,255,0.3); }
+
+      /* B15 logo */
+      #b15 .b15bloom { position: absolute; width: 1200px; height: 1200px; left: 50%; top: 50%; margin: -600px 0 0 -600px; background: radial-gradient(circle, rgba(99,102,241,0.5), rgba(59,130,246,0.12) 42%, transparent 66%); filter: blur(30px); opacity: 0; z-index: 11; }
+      #b15 .b15logo { position: relative; z-index: 13; width: 760px; opacity: 0; }
+      #b15 .b15tag { position: relative; z-index: 13; margin-top: 38px; font-family: var(--mono); font-size: 30px; letter-spacing: 0.5em; text-transform: uppercase; color: #aebfe0; opacity: 0; }
+    </style>
+  </head>
+  <body>
+    <div id="stage" data-composition-id="dex-v2" data-width="1920" data-height="1080" data-start="0" data-duration="50">
+      <div id="grid"></div>
+      <div class="glow" id="glow-b"></div>
+      <div class="glow" id="glow-p"></div>
+      <div id="particles"></div>
+
+      <!-- B1 HOOK -->
+      <section class="beat" id="b1">
+        <div class="tag" style="margin-bottom:30px">// SOUTHEAST EUROPE</div>
+        <div class="kln b1h"><span class="kw">SERIOUS</span> <span class="kw grad-b">SOFTWARE</span></div>
+        <div class="b1sub" id="b1sub">the systems behind the region's business — we built it</div>
+      </section>
+
+      <!-- B2 BUILD SCALE AUTOMATE -->
+      <section class="beat" id="b2">
+        <div class="bsa" id="bsa1">BUILD<span class="grad-b">.</span></div>
+        <div class="bsa" id="bsa2">SCALE<span class="grad-p">.</span></div>
+        <div class="bsa" id="bsa3">AUTOMATE<span class="grad-b">.</span></div>
+      </section>
+
+      <!-- B3 CODE EDITOR -->
+      <section class="beat" id="b3">
+        <div class="editor panel">
+          <div class="winbar"><span class="dot dr"></span><span class="dot dy"></span><span class="dot dg"></span><span class="wtitle">automation.service.ts — dex/platform</span></div>
+          <div class="code">
+<span class="cl"><span class="ln">1</span><span class="k">import</span> { <span class="ty">Workflow</span>, <span class="ty">Task</span> } <span class="k">from</span> <span class="st">"@dex/core"</span>;</span>
+<span class="cl"><span class="ln">2</span></span>
+<span class="cl"><span class="ln">3</span><span class="cm">// Automate the work that holds teams back</span></span>
+<span class="cl"><span class="ln">4</span><span class="k">export class</span> <span class="ty">Automation</span> {</span>
+<span class="cl"><span class="ln">5</span>  <span class="fn">run</span>(<span class="pu">flow</span>: <span class="ty">Workflow</span>) {</span>
+<span class="cl"><span class="ln">6</span>    <span class="k">return</span> flow.<span class="fn">tasks</span>.<span class="fn">map</span>(<span class="pu">t</span> =&gt; t.<span class="fn">execute</span>());</span>
+<span class="cl"><span class="ln">7</span>  }</span>
+<span class="cl"><span class="ln">8</span>}<span class="cur" id="b3cur"></span></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- B4 CUSTOM SYSTEMS -->
+      <section class="beat" id="b4">
+        <div class="kln b4a"><span class="kw">CUSTOM</span> <span class="kw grad-b">SYSTEMS</span></div>
+        <div class="kln b4b stroke" id="b4b">ENGINEERED TO LAST</div>
+      </section>
+
+      <!-- B5 TERMINAL -->
+      <section class="beat" id="b5">
+        <div class="term panel">
+          <div class="winbar"><span class="dot dr"></span><span class="dot dy"></span><span class="dot dg"></span><span class="wtitle">~/dex — zsh</span></div>
+          <div class="tbody">
+<span class="trow"><span class="pmt">❯</span> dex deploy --prod<span class="tcur" id="b5cur"></span></span>
+<span class="trow mut" id="t2">  ▸ building services ........ <span class="ok">done</span></span>
+<span class="trow mut" id="t3">  ▸ running 248 tests ........ <span class="ok">passed</span></span>
+<span class="trow mut" id="t4">  ▸ deploying to edge ........ <span class="ok">live</span></span>
+<span class="trow" id="t5"><span class="ok">✓</span> shipped to production in <span class="pmt">1.2s</span></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- B6 LEGACY / AI -->
+      <section class="beat" id="b6">
+        <div class="kln b6a" id="b6a">LEGACY <span class="grad-p">IN.</span></div>
+        <div class="kln b6b" id="b6b">AI <span class="grad-b">OUT.</span></div>
+      </section>
+
+      <!-- B7 ARCHITECTURE -->
+      <section class="beat" id="b7">
+        <div class="arch" id="arch">
+          <svg width="1480" height="560" style="position:absolute;inset:0;pointer-events:none">
+            <line class="aln" x1="300" y1="280" x2="450" y2="280" stroke="rgba(123,160,255,0.4)" stroke-width="2"/>
+            <line class="aln" x1="750" y1="280" x2="900" y2="280" stroke="rgba(123,160,255,0.4)" stroke-width="2"/>
+            <line class="aln" x1="1200" y1="280" x2="1330" y2="280" stroke="rgba(123,160,255,0.4)" stroke-width="2"/>
+          </svg>
+          <div class="node panel" style="left:0"><div class="nt">Client</div><div class="ns">web · mobile</div></div>
+          <div class="node panel" style="left:450px"><div class="nt grad-b">API Gateway</div><div class="ns">auth · routing</div></div>
+          <div class="node panel" style="left:900px"><div class="nt grad-p">Services</div><div class="ns">micro · scalable</div></div>
+          <div class="node panel" style="left:1330px;width:150px"><div class="nt ty">DB</div><div class="ns">secure</div></div>
+          <div class="pkt" id="pkt"></div>
+        </div>
+      </section>
+
+      <!-- B8 STATS -->
+      <section class="beat" id="b8">
+        <div class="b8row">
+          <div class="stat" id="st1"><div class="n"><span class="v" data-to="30">0</span><span class="pl">+</span></div><div class="l">Years</div></div>
+          <div class="stat" id="st2"><div class="n"><span class="v" data-to="100">0</span><span class="pl">+</span></div><div class="l">Experts</div></div>
+          <div class="stat" id="st3"><div class="n"><span class="v" data-to="50">0</span><span class="pl">+</span></div><div class="l">Clients</div></div>
+        </div>
+      </section>
+
+      <!-- B9 DASHBOARD -->
+      <section class="beat" id="b9">
+        <div class="dash panel">
+          <div class="mc panel" style="border-radius:12px"><div class="ml">Uptime</div><div class="mv" id="m1">99.99<small>%</small></div></div>
+          <div class="mc panel" style="border-radius:12px"><div class="ml">Requests / s</div><div class="mv"><span id="m2">0</span><small>k</small></div></div>
+          <div class="mc panel" style="border-radius:12px"><div class="ml">Latency</div><div class="mv"><span id="m3">0</span><small>ms</small></div></div>
+          <div class="chart panel" style="border-radius:12px">
+            <div class="ct">Throughput · live</div>
+            <svg width="1380" height="300" viewBox="0 0 1380 300" preserveAspectRatio="none" style="margin-top:10px">
+              <path id="cArea" d="M0,300 L0,200 L0,300 Z" fill="rgba(59,130,246,0.15)"/>
+              <path id="cLine" d="M0,200 C170,150 250,210 400,150 S700,90 900,140 S1150,80 1380,110" fill="none" stroke="url(#cg)" stroke-width="4" stroke-dasharray="2600" stroke-dashoffset="2600"/>
+              <defs><linearGradient id="cg" x1="0" x2="1"><stop offset="0" stop-color="#3b82f6"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs>
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- B10 PRODUCTS -->
+      <section class="beat" id="b10">
+        <div class="prow">
+          <div class="pcard panel" id="p1"><div class="pi" style="background:var(--blue)">{ }</div><div class="pt2">Platforms</div><div class="ps">modular web framework</div></div>
+          <div class="pcard panel" id="p2"><div class="pi" style="background:var(--cyan)">&lt;/&gt;</div><div class="pt2">Custom Dev</div><div class="ps">end to end</div></div>
+          <div class="pcard panel" id="p3"><div class="pi" style="background:var(--violet)">▤</div><div class="pt2">Document Systems</div><div class="ps">secure DMS</div></div>
+          <div class="pcard panel" id="p4"><div class="pi" style="background:var(--purple)">⟳</div><div class="pt2">Robotic Automation</div><div class="ps">RPA · self-running</div></div>
+        </div>
+      </section>
+
+      <!-- B11 PIPELINE -->
+      <section class="beat" id="b11">
+        <div class="pipe">
+          <div class="stg panel" id="pg1"><div class="sn">Build</div><div class="sc" id="pc1">queued</div></div>
+          <div class="conn"><i id="cn1"></i></div>
+          <div class="stg panel" id="pg2"><div class="sn">Test</div><div class="sc" id="pc2">queued</div></div>
+          <div class="conn"><i id="cn2"></i></div>
+          <div class="stg panel" id="pg3"><div class="sn">Deploy</div><div class="sc" id="pc3">queued</div></div>
+        </div>
+      </section>
+
+      <!-- B12 SERIOUS SYSTEMS -->
+      <section class="beat" id="b12">
+        <div class="kln b12a"><span class="kw">SERIOUS</span> <span class="kw grad-b">SYSTEMS.</span></div>
+        <div class="kln b12b stroke" id="b12b">MODERN EXECUTION.</div>
+      </section>
+
+      <!-- B13 DATA FLASH -->
+      <section class="beat" id="b13">
+        <div class="grid2">
+          <div class="fc panel" id="f1"><div class="fl">Deploys / wk</div><div class="fv grad-b">340</div></div>
+          <div class="fc panel" id="f2"><div class="fl">Pipelines</div><div class="fv">1.2k</div></div>
+          <div class="fc panel" id="f3"><div class="fl">Automations</div><div class="fv grad-p">98%</div></div>
+          <div class="fc panel" id="f4"><div class="fl">Uptime</div><div class="fv ty">99.99%</div></div>
+        </div>
+      </section>
+
+      <!-- B14 LEADER -->
+      <section class="beat" id="b14">
+        <div class="b14e">// THE REGION'S</div>
+        <div class="kln b14h"><span class="kw">LEADER</span></div>
+        <div class="b14p"><span class="s">custom development</span><span class="d">/</span><span class="s">A.I. automation</span></div>
+      </section>
+
+      <!-- B15 LOGO -->
+      <section class="beat" id="b15">
+        <div class="b15bloom"></div>
+        <img class="b15logo" src="assets/dex-logo-white.svg" alt="DEX" />
+        <div class="b15tag">Digital&nbsp;EXperience</div>
+      </section>
+
+      <div id="scan"></div>
+      <div id="grain"></div>
+      <div id="vignette"></div>
+      <div id="flash"></div>
+
+      <!-- VOICEOVER -->
+      <audio id="vo-1" class="clip" data-start="0"    data-duration="auto" data-track-index="2" src="assets/voiceover/dex-v2/scene-01.mp3" data-volume="1"></audio>
+      <audio id="vo-2" class="clip" data-start="3.9"  data-duration="auto" data-track-index="2" src="assets/voiceover/dex-v2/scene-02.mp3" data-volume="1"></audio>
+      <audio id="vo-3" class="clip" data-start="9.4"  data-duration="auto" data-track-index="2" src="assets/voiceover/dex-v2/scene-03.mp3" data-volume="1"></audio>
+      <audio id="vo-4" class="clip" data-start="15.2" data-duration="auto" data-track-index="2" src="assets/voiceover/dex-v2/scene-04.mp3" data-volume="1"></audio>
+      <audio id="vo-5" class="clip" data-start="21.2" data-duration="auto" data-track-index="2" src="assets/voiceover/dex-v2/scene-05.mp3" data-volume="1"></audio>
+      <audio id="vo-6" class="clip" data-start="27.9" data-duration="auto" data-track-index="2" src="assets/voiceover/dex-v2/scene-06.mp3" data-volume="1"></audio>
+      <audio id="vo-7" class="clip" data-start="36.0" data-duration="auto" data-track-index="2" src="assets/voiceover/dex-v2/scene-07.mp3" data-volume="1"></audio>
+      <audio id="vo-8" class="clip" data-start="41.0" data-duration="auto" data-track-index="2" src="assets/voiceover/dex-v2/scene-08.mp3" data-volume="1"></audio>
+      <audio id="vo-9" class="clip" data-start="45.6" data-duration="auto" data-track-index="2" src="assets/voiceover/dex-v2/scene-09.mp3" data-volume="1"></audio>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        if (window.CustomEase) CustomEase.create("xp", "0.19,1,0.22,1");
+        const X = window.CustomEase ? "xp" : "expo.out";
+        const tl = gsap.timeline({ paused: true });
+        const DUR = 50;
+        function mb(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+        const rnd = mb(7);
+
+        /* ambient bg */
+        tl.to("#grid", { backgroundPosition: "80px 160px", duration: DUR, ease: "none" }, 0);
+        tl.to("#glow-b", { x: 120, y: 80, scale: 1.15, duration: DUR, ease: "sine.inOut", yoyo: true, repeat: 1 }, 0);
+        tl.to("#glow-p", { x: -90, y: -60, scale: 1.12, duration: DUR, ease: "sine.inOut", yoyo: true, repeat: 1 }, 0);
+        tl.fromTo("#scan", { backgroundPosition: "0 0" }, { backgroundPosition: "0 120px", duration: 6, ease: "none", repeat: Math.ceil(DUR / 6) }, 0);
+        tl.fromTo("#grain", { backgroundPosition: "0 0" }, { backgroundPosition: "300px 200px", duration: 4, ease: "none", repeat: Math.ceil(DUR / 4) }, 0);
+        const pc = document.getElementById("particles");
+        for (let i = 0; i < 26; i++) { const d = document.createElement("div"); d.className = "pt"; const x = rnd()*1920, y = rnd()*1080, s = 2+rnd()*3, o = 0.08+rnd()*0.22; d.style.cssText = `left:${x}px;top:${y}px;width:${s}px;height:${s}px;opacity:${o}`; pc.appendChild(d); tl.to(d, { y: `-=${70+rnd()*110}`, duration: DUR, ease: "sine.inOut" }, 0); const per = 2+rnd()*2; tl.to(d, { opacity: o*0.2, duration: per, yoyo: true, repeat: Math.ceil(DUR/per), ease: "sine.inOut" }, rnd()*2); }
+
+        /* helpers — fast cuts */
+        function on(s, t) { tl.fromTo(s, { autoAlpha: 0, filter: "blur(10px)" }, { autoAlpha: 1, filter: "blur(0px)", duration: 0.14, ease: "power2.out" }, t); }
+        function off(s, t) { tl.to(s, { autoAlpha: 0, filter: "blur(10px)", duration: 0.12, ease: "power2.in" }, t); tl.set(s, { opacity: 0, visibility: "hidden", filter: "blur(0px)" }, t + 0.12); }
+        // huge word slam
+        function slam(s, t) { tl.fromTo(s, { yPercent: 115, autoAlpha: 0, scale: 1.18, filter: "blur(14px)" }, { yPercent: 0, autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: 0.42, ease: X }, t); }
+        function flash(t, p = 0.4) { tl.to("#flash", { opacity: p, duration: 0.1, yoyo: true, repeat: 1, ease: "power2.inOut" }, t); }
+
+        /* ===== B1 HOOK [0–3.9] ===== */
+        on("#b1", 0.0); flash(0.12, 0.35);
+        tl.fromTo("#b1 .tag", { yPercent: 60, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 0.4, ease: X }, 0.1);
+        tl.fromTo("#b1 .b1h .kw", { yPercent: 120, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 0.5, ease: X, stagger: 0.1 }, 0.25);
+        tl.fromTo("#b1sub", { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.4 }, 0.75);
+        tl.to("#b1 .b1h", { scale: 1.04, duration: 1.7, ease: "power1.inOut" }, 1.4);
+        off("#b1", 3.78);
+
+        /* ===== B2 BUILD SCALE AUTOMATE [3.9–6.5] ===== */
+        on("#b2", 3.9);
+        slam("#bsa1", 3.90); flash(3.95, 0.5);
+        tl.to("#bsa1", { autoAlpha: 0, scale: 0.9, filter: "blur(12px)", duration: 0.2, ease: "power2.in" }, 4.45);
+        slam("#bsa2", 4.515); flash(4.56, 0.5);
+        tl.to("#bsa2", { autoAlpha: 0, scale: 0.9, filter: "blur(12px)", duration: 0.2, ease: "power2.in" }, 4.95);
+        slam("#bsa3", 5.049); flash(5.1, 0.55);
+        off("#b2", 6.38);
+
+        /* ===== B3 CODE EDITOR [6.5–9.4] ===== */
+        on("#b3", 6.5);
+        tl.fromTo("#b3 .editor", { y: 40, autoAlpha: 0, scale: 0.96 }, { y: 0, autoAlpha: 1, scale: 1, duration: 0.35, ease: X }, 6.5);
+        tl.fromTo("#b3 .cl", { autoAlpha: 0, x: -14 }, { autoAlpha: 1, x: 0, duration: 0.12, ease: "none", stagger: 0.16 }, 6.75);
+        tl.to("#b3cur", { opacity: 0, duration: 0.12, yoyo: true, repeat: 14, ease: "steps(1)" }, 6.7);
+        off("#b3", 9.28);
+
+        /* ===== B4 CUSTOM SYSTEMS [9.4–12.3] ===== */
+        on("#b4", 9.4);
+        tl.fromTo("#b4 .b4a .kw", { yPercent: 118, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 0.4, ease: X, stagger: 0.08 }, 9.45);
+        slam("#b4b", 10.0);
+        off("#b4", 12.18);
+
+        /* ===== B5 TERMINAL [12.3–15.2] ===== */
+        on("#b5", 12.3);
+        tl.fromTo("#b5 .term", { y: 40, autoAlpha: 0, scale: 0.96 }, { y: 0, autoAlpha: 1, scale: 1, duration: 0.35, ease: X }, 12.3);
+        tl.to("#b5cur", { opacity: 0, duration: 0.12, yoyo: true, repeat: 8, ease: "steps(1)" }, 12.5);
+        tl.fromTo("#t2", { autoAlpha: 0, x: -10 }, { autoAlpha: 1, x: 0, duration: 0.1 }, 13.1);
+        tl.fromTo("#t3", { autoAlpha: 0, x: -10 }, { autoAlpha: 1, x: 0, duration: 0.1 }, 13.5);
+        tl.fromTo("#t4", { autoAlpha: 0, x: -10 }, { autoAlpha: 1, x: 0, duration: 0.1 }, 13.9);
+        tl.fromTo("#t5", { autoAlpha: 0, scale: 0.9 }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 14.35); flash(14.4, 0.3);
+        off("#b5", 15.08);
+
+        /* ===== B6 LEGACY / AI [15.2–18.3] ===== */
+        on("#b6", 15.2);
+        slam("#b6a", 15.2);
+        slam("#b6b", 16.05); flash(16.1, 0.45);
+        off("#b6", 18.18);
+
+        /* ===== B7 ARCHITECTURE [18.3–21.2] ===== */
+        on("#b7", 18.3);
+        tl.fromTo("#b7 .node", { autoAlpha: 0, y: 26, scale: 0.92 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.3, ease: X, stagger: 0.14 }, 18.35);
+        tl.fromTo("#b7 .aln", { autoAlpha: 0, scaleX: 0.2 }, { autoAlpha: 1, scaleX: 1, transformOrigin: "left center", duration: 0.35, stagger: 0.12 }, 18.9);
+        tl.fromTo("#pkt", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.15 }, 19.4);
+        tl.fromTo("#pkt", { left: 0 }, { left: 1464, duration: 1.4, ease: "power1.inOut" }, 19.4);
+        off("#b7", 21.08);
+
+        /* ===== B8 STATS [21.2–25.0] ===== */
+        on("#b8", 21.2);
+        const stT = [21.2, 22.246, 23.209];
+        ["#st1","#st2","#st3"].forEach((id, i) => {
+          tl.fromTo(id, { autoAlpha: 0, yPercent: 40, scale: 0.85 }, { autoAlpha: 1, yPercent: 0, scale: 1, duration: 0.34, ease: "back.out(1.8)" }, stT[i]);
+          flash(stT[i] + 0.02, 0.35);
+        });
+        document.querySelectorAll("#b8 .v").forEach((el, i) => { const to = +el.getAttribute("data-to"); const o = { n: 0 }; tl.to(o, { n: to, duration: 0.5, ease: "power2.out", onUpdate: () => el.textContent = Math.round(o.n) }, stT[i]); });
+        off("#b8", 24.88);
+
+        /* ===== B9 DASHBOARD [25.0–27.9] ===== */
+        on("#b9", 25.0);
+        tl.fromTo("#b9 .dash", { y: 40, autoAlpha: 0, scale: 0.96 }, { y: 0, autoAlpha: 1, scale: 1, duration: 0.35, ease: X }, 25.0);
+        tl.fromTo("#b9 .mc", { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.25, stagger: 0.1 }, 25.2);
+        { const o2 = { n: 0 }; tl.to(o2, { n: 12.4, duration: 1.0, ease: "power2.out", onUpdate: () => document.getElementById("m2").textContent = o2.n.toFixed(1) }, 25.4); }
+        { const o3 = { n: 0 }; tl.to(o3, { n: 38, duration: 1.0, ease: "power2.out", onUpdate: () => document.getElementById("m3").textContent = Math.round(o3.n) }, 25.4); }
+        tl.fromTo("#cLine", { strokeDashoffset: 2600 }, { strokeDashoffset: 0, duration: 1.6, ease: "power2.out" }, 25.5);
+        off("#b9", 27.78);
+
+        /* ===== B10 PRODUCTS [27.9–33.1] ===== */
+        on("#b10", 27.9);
+        const pT = [27.9, 28.806, 29.885, 31.081];
+        ["#p1","#p2","#p3","#p4"].forEach((id, i) => {
+          tl.fromTo(id, { autoAlpha: 0, y: 60, rotationY: 24, scale: 0.9 }, { autoAlpha: 1, y: 0, rotationY: 0, scale: 1, duration: 0.36, ease: "back.out(1.4)" }, pT[i]);
+          flash(pT[i] + 0.02, 0.28);
+        });
+        off("#b10", 32.98);
+
+        /* ===== B11 PIPELINE [33.1–36.0] ===== */
+        on("#b11", 33.1);
+        tl.fromTo("#b11 .stg", { autoAlpha: 0.4, y: 20 }, { autoAlpha: 0.4, y: 0, duration: 0.2, stagger: 0.05 }, 33.15);
+        function stage(g, c, cn, t) {
+          tl.to(g, { autoAlpha: 1, duration: 0.2 }, t);
+          tl.to(`${g} .sn`, { color: "#28c840", duration: 0.15 }, t);
+          tl.call(() => { document.querySelector(c).innerHTML = '<span class="check">✓</span> done'; }, null, t + 0.1);
+          if (cn) tl.fromTo(cn, { width: "0%" }, { width: "100%", duration: 0.3, ease: "power1.inOut" }, t + 0.15);
+        }
+        stage("#pg1", "#pc1", "#cn1", 33.4);
+        stage("#pg2", "#pc2", "#cn2", 34.2);
+        stage("#pg3", "#pc3", null, 35.0); flash(35.05, 0.3);
+        off("#b11", 35.88);
+
+        /* ===== B12 SERIOUS SYSTEMS [36.0–39.0] ===== */
+        on("#b12", 36.0);
+        tl.fromTo("#b12 .b12a .kw", { yPercent: 118, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 0.4, ease: X, stagger: 0.08 }, 36.05);
+        slam("#b12b", 36.7); flash(36.75, 0.4);
+        off("#b12", 38.88);
+
+        /* ===== B13 DATA FLASH [39.0–41.0] ===== */
+        on("#b13", 39.0);
+        ["#f1","#f2","#f3","#f4"].forEach((id, i) => tl.fromTo(id, { autoAlpha: 0, scale: 0.85, y: 20 }, { autoAlpha: 1, scale: 1, y: 0, duration: 0.22, ease: "back.out(1.6)" }, 39.05 + i * 0.13));
+        off("#b13", 40.88);
+
+        /* ===== B14 LEADER [41.0–45.6] ===== */
+        on("#b14", 41.0);
+        tl.fromTo("#b14 .b14e", { yPercent: 60, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 0.35, ease: X }, 41.05);
+        slam("#b14 .b14h .kw", 41.3); flash(41.35, 0.4);
+        tl.fromTo("#b14 .b14p span", { yPercent: 80, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 0.4, ease: X, stagger: 0.12 }, 42.2);
+        off("#b14", 45.48);
+
+        /* ===== B15 LOGO [45.6–50] ===== */
+        on("#b15", 45.6);
+        tl.fromTo("#b15 .b15bloom", { autoAlpha: 0, scale: 0.5 }, { autoAlpha: 1, scale: 1, duration: 0.6, ease: "power2.out" }, 45.6);
+        tl.fromTo("#b15 .b15logo", { autoAlpha: 0, scale: 1.18, filter: "blur(12px)" }, { autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: 0.55, ease: "back.out(1.6)" }, 45.65); flash(45.7, 0.6);
+        tl.fromTo("#b15 .b15tag", { autoAlpha: 0, letterSpacing: "0.85em" }, { autoAlpha: 1, letterSpacing: "0.5em", duration: 0.6, ease: X }, 46.3);
+        tl.to("#b15 .b15bloom", { scale: 1.1, duration: 2.4, ease: "sine.inOut" }, 46.4);
+
+        window.__timelines["dex-v2"] = tl;
+      </script>
+    </div>
+  </body>
+</html>

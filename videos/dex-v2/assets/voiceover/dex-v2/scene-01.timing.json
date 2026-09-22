@@ -1,0 +1,64 @@
+{
+  "sceneId": "scene-01",
+  "text": "Southeast Europe's most serious software? We built it.",
+  "words": [
+    {
+      "word": "Southeast",
+      "start": 0,
+      "end": 0.522,
+      "startFrame": 0,
+      "endFrame": 16
+    },
+    {
+      "word": "Europe's",
+      "start": 0.592,
+      "end": 0.929,
+      "startFrame": 18,
+      "endFrame": 28
+    },
+    {
+      "word": "most",
+      "start": 0.975,
+      "end": 1.138,
+      "startFrame": 29,
+      "endFrame": 34
+    },
+    {
+      "word": "serious",
+      "start": 1.196,
+      "end": 1.591,
+      "startFrame": 36,
+      "endFrame": 48
+    },
+    {
+      "word": "software?",
+      "start": 1.625,
+      "end": 2.171,
+      "startFrame": 49,
+      "endFrame": 65
+    },
+    {
+      "word": "We",
+      "start": 2.334,
+      "end": 2.473,
+      "startFrame": 70,
+      "endFrame": 74
+    },
+    {
+      "word": "built",
+      "start": 2.531,
+      "end": 2.775,
+      "startFrame": 76,
+      "endFrame": 83
+    },
+    {
+      "word": "it.",
+      "start": 2.833,
+      "end": 3.065,
+      "startFrame": 85,
+      "endFrame": 92
+    }
+  ],
+  "durationSeconds": 3.565,
+  "durationFrames": 107
+}

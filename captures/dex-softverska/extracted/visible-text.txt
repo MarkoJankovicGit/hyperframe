@@ -1,0 +1,51 @@
+[a] Skip to content
+[span] Toggle Navigation
+[span] Softverska rešenja
+[span] Toggle Navigation
+[span] Softverska rešenja
+[h1] Softverska rešenja
+[p] Kada je vaše poslovanje podržano odgovarajućim softverima, ostvarili ste jedan od najvažnijih preduslova za postizanje Vaših ciljeva.
+[h2] Digital Experience Platforma
+[h3] Optimizujte vaše poslovne procese i osigurajte brzo i pouzdano izvršavanje najkompleksnijih zadataka.
+[p] Naša Digital EXperience platforma predstavlja najsavremeniju modularnu web platformu i predstavlja osnov za razvoj i implementaciju različitih poslovnih web aplikacija. DeX platforma kreirana je da može da se prilagodi poslovnim procesima svakom pojedinačnog korisnika, nevezano od tipa korisnika, industrije ili zahteva. Svaki od zahteva sadrži nekoliko zajedničkih celina i modula i koriste se u svakoj vrsti aplikativnog softvera, koji predstavljaju osnovu i „core“ funkcionalnosti same platforme.
+[span] Saznaj više
+[h2] HR Software
+[h3] Softver za Upravljanje Ljudskim Resursima
+[p] Dobrodošli u budućnost upravljanja ljudskim resursima. Naš napredni softver dizajniran je da pojednostavi i unapredi sve aspekte upravljanja podacima o zaposlenima i automatizaciju svih ključnih HR procesa u vašoj organizaciji. Softver podržava vaše stručnjake da efikasno i pouzdano upravljaju podacima i procesima, olakšavajući svakodnevne zadatke i posebne najkompleksinije operacije. Od upravljanja zaposlenima i praćenja učinka do automatizacije procesa i analitike, DeX HR softver pruža sveobuhvatna rešenja koja vam pomažue da budete efikasniji, usklađeni sa svim regulativama i usmereni ka razvoju talenata.
+[span] Saznaj više
+[h2] Custom Software Development
+[h3] Pojednostavite procese i postignite vrhunske rezultate.
+[p] Dobrodošli u svet neslućenih mogućnosti u kojem zajedno osmišljavamo i razvijamo vaša softverska rešenja. U procesima koje gotova softverska rešenja ne mogu da pokriju, naši stručnjaci razvijaju, implementiraju i digitalizuju nove module i platforme. Za vas razvijamo module za finansijsko, operativno, administrativno, pravno i regulatorno poslovanje. Novi moduli i funkcionalnosti mogu da se koriste kao zasebne aplikacije, kao sistemi koji se nadograđaju ili oni koji se integrišu sa drugim sistemima koje već koristite.
+[span] Pored razvoja veb platformi i složenih poslovnih aplikacija, saradjujemo sa brojnim partnerima i implementiramo kompletna ERP rešenja, razvijamo veb sajtove i onlajn prodavnice.
+[span] Saznaj više
+[h2] DMS – Document Management System
+[h3] Dobrodošli u novu eru upravljanja dokumentima.
+[p] Naš napredni sistem za upravljanje dokumentima osmišljen je da poveća efikasnost, sigurnost i transparentnost u rukovanju dokumentima unutar vaše organizacije. Dex softver za upravljanje dokumentima omogućava vašoj kompaniji da digitalizujete, organizujete i sigurno čuvate sve važne poslovne informacije. Uz vašeg digitalnog kolegu, lako možete automatski pratiti verzije dokumenata, kontrolisati pristup, brzo pronalaziti podatke i deliti ih unutar tima.
+[span] Saznaj više
+[h2] Reference
+[p] Naši klijenti dolaze iz različitih industrija i sektora. Posvećeni smo kvalitetu i pouzdanosti, što potvrđuju brojni uspešno realizovani projekti i dugoročna saradnja zasnovana na poverenju.
+[h2] Pridružite se uspehu!
+[p] Naš tim stručnjaka iz različitih industrija posvećen je postizanju vrhunskih rezultata kroz inovativnu digitalnu transformaciju. Olakšajte i unapredite svoje poslovanje uz našu podršku!
+[span] Kontaktiraj
+[span] Hvala na vašoj poruci. Poruka je poslata.
+[span] Došlo je do greške prilikom slanja poruke. Molimo pokušajte ponovo kasnije.
+[h4] Početna
+[a] Partneri
+[a] Reference
+[a] O nama
+[a] Karijera
+[h4] Proizvodi
+[a] Softverska rešenja
+[a] Digital Experience Platforma
+[a] Custom Software Development
+[a] HR Software
+[a] Document Management System (DMS)
+[a] Robotic Process Automation (RPA)
+[h4] Kontakt
+[a] Bulevar maršala Tolbuhina 46
+[a] 11070 Novi Beograd
+[a] +381 11 2120 438
+[a] +381 11 2670 999
+[a] office@dex.rs
+[p] © 2025 DEX | Designed by Stefan Pfister | Zaštita podataka
+[span] Go to Top

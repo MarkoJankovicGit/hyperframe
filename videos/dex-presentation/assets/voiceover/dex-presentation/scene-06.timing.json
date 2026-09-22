@@ -1,0 +1,99 @@
+{
+  "sceneId": "scene-06",
+  "text": "More than a hundred experts. Over fifty clients. Trusted right across the region.",
+  "words": [
+    {
+      "word": "More",
+      "start": 0,
+      "end": 0.244,
+      "startFrame": 0,
+      "endFrame": 7
+    },
+    {
+      "word": "than",
+      "start": 0.279,
+      "end": 0.406,
+      "startFrame": 8,
+      "endFrame": 12
+    },
+    {
+      "word": "a",
+      "start": 0.441,
+      "end": 0.476,
+      "startFrame": 13,
+      "endFrame": 14
+    },
+    {
+      "word": "hundred",
+      "start": 0.569,
+      "end": 0.882,
+      "startFrame": 17,
+      "endFrame": 26
+    },
+    {
+      "word": "experts.",
+      "start": 0.929,
+      "end": 1.544,
+      "startFrame": 28,
+      "endFrame": 46
+    },
+    {
+      "word": "Over",
+      "start": 1.718,
+      "end": 1.962,
+      "startFrame": 52,
+      "endFrame": 59
+    },
+    {
+      "word": "fifty",
+      "start": 2.02,
+      "end": 2.276,
+      "startFrame": 61,
+      "endFrame": 68
+    },
+    {
+      "word": "clients.",
+      "start": 2.322,
+      "end": 2.949,
+      "startFrame": 70,
+      "endFrame": 88
+    },
+    {
+      "word": "Trusted",
+      "start": 3.158,
+      "end": 3.576,
+      "startFrame": 95,
+      "endFrame": 107
+    },
+    {
+      "word": "right",
+      "start": 3.657,
+      "end": 3.866,
+      "startFrame": 110,
+      "endFrame": 116
+    },
+    {
+      "word": "across",
+      "start": 3.889,
+      "end": 4.214,
+      "startFrame": 117,
+      "endFrame": 126
+    },
+    {
+      "word": "the",
+      "start": 4.249,
+      "end": 4.319,
+      "startFrame": 127,
+      "endFrame": 130
+    },
+    {
+      "word": "region.",
+      "start": 4.377,
+      "end": 5.062,
+      "startFrame": 131,
+      "endFrame": 152
+    }
+  ],
+  "durationSeconds": 5.562,
+  "durationFrames": 167
+}

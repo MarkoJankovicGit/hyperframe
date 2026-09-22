@@ -6,6 +6,18 @@
       "runtimeExecutable": "npx",
       "runtimeArgs": ["hyperframes", "preview", "videos/bloom-market-2026-04-28", "--port", "3007"],
       "port": 3007
+    },
+    {
+      "name": "mef-platforma",
+      "runtimeExecutable": "cmd",
+      "runtimeArgs": ["/c", "cd /d C:\\Users\\marko.jankovic\\Desktop\\Personal\\razno\\mef-platforma-app && npm run dev"],
+      "port": 3000
+    },
+    {
+      "name": "static",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "-l", "5180", "."],
+      "port": 5180
     }
   ]
 }

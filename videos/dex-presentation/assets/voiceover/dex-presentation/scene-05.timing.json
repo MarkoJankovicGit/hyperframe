@@ -1,0 +1,127 @@
+{
+  "sceneId": "scene-05",
+  "text": "And robotic process automation — so the repetitive work runs itself, and your people don't have to.",
+  "words": [
+    {
+      "word": "And",
+      "start": 0,
+      "end": 0.209,
+      "startFrame": 0,
+      "endFrame": 6
+    },
+    {
+      "word": "robotic",
+      "start": 0.29,
+      "end": 0.766,
+      "startFrame": 9,
+      "endFrame": 23
+    },
+    {
+      "word": "process",
+      "start": 0.824,
+      "end": 1.347,
+      "startFrame": 25,
+      "endFrame": 40
+    },
+    {
+      "word": "automation",
+      "start": 1.393,
+      "end": 1.974,
+      "startFrame": 42,
+      "endFrame": 59
+    },
+    {
+      "word": "—",
+      "start": 2.09,
+      "end": 2.183,
+      "startFrame": 63,
+      "endFrame": 65
+    },
+    {
+      "word": "so",
+      "start": 2.508,
+      "end": 2.635,
+      "startFrame": 75,
+      "endFrame": 79
+    },
+    {
+      "word": "the",
+      "start": 2.682,
+      "end": 2.752,
+      "startFrame": 80,
+      "endFrame": 83
+    },
+    {
+      "word": "repetitive",
+      "start": 2.821,
+      "end": 3.344,
+      "startFrame": 85,
+      "endFrame": 100
+    },
+    {
+      "word": "work",
+      "start": 3.379,
+      "end": 3.599,
+      "startFrame": 101,
+      "endFrame": 108
+    },
+    {
+      "word": "runs",
+      "start": 3.68,
+      "end": 3.936,
+      "startFrame": 110,
+      "endFrame": 118
+    },
+    {
+      "word": "itself,",
+      "start": 3.994,
+      "end": 4.598,
+      "startFrame": 120,
+      "endFrame": 138
+    },
+    {
+      "word": "and",
+      "start": 4.772,
+      "end": 5.016,
+      "startFrame": 143,
+      "endFrame": 150
+    },
+    {
+      "word": "your",
+      "start": 5.085,
+      "end": 5.201,
+      "startFrame": 153,
+      "endFrame": 156
+    },
+    {
+      "word": "people",
+      "start": 5.236,
+      "end": 5.503,
+      "startFrame": 157,
+      "endFrame": 165
+    },
+    {
+      "word": "don't",
+      "start": 5.538,
+      "end": 5.712,
+      "startFrame": 166,
+      "endFrame": 171
+    },
+    {
+      "word": "have",
+      "start": 5.759,
+      "end": 5.956,
+      "startFrame": 173,
+      "endFrame": 179
+    },
+    {
+      "word": "to.",
+      "start": 6.002,
+      "end": 6.455,
+      "startFrame": 180,
+      "endFrame": 194
+    }
+  ],
+  "durationSeconds": 6.955,
+  "durationFrames": 209
+}

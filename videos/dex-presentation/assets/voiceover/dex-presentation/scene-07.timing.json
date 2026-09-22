@@ -1,0 +1,99 @@
+{
+  "sceneId": "scene-07",
+  "text": "That's what makes us the region's leader in custom development and intelligent automation.",
+  "words": [
+    {
+      "word": "That's",
+      "start": 0,
+      "end": 0.372,
+      "startFrame": 0,
+      "endFrame": 11
+    },
+    {
+      "word": "what",
+      "start": 0.406,
+      "end": 0.546,
+      "startFrame": 12,
+      "endFrame": 16
+    },
+    {
+      "word": "makes",
+      "start": 0.604,
+      "end": 0.824,
+      "startFrame": 18,
+      "endFrame": 25
+    },
+    {
+      "word": "us",
+      "start": 0.871,
+      "end": 0.975,
+      "startFrame": 26,
+      "endFrame": 29
+    },
+    {
+      "word": "the",
+      "start": 1.022,
+      "end": 1.103,
+      "startFrame": 31,
+      "endFrame": 33
+    },
+    {
+      "word": "region's",
+      "start": 1.196,
+      "end": 1.614,
+      "startFrame": 36,
+      "endFrame": 48
+    },
+    {
+      "word": "leader",
+      "start": 1.672,
+      "end": 1.939,
+      "startFrame": 50,
+      "endFrame": 58
+    },
+    {
+      "word": "in",
+      "start": 2.02,
+      "end": 2.136,
+      "startFrame": 61,
+      "endFrame": 64
+    },
+    {
+      "word": "custom",
+      "start": 2.218,
+      "end": 2.566,
+      "startFrame": 67,
+      "endFrame": 77
+    },
+    {
+      "word": "development",
+      "start": 2.624,
+      "end": 3.17,
+      "startFrame": 79,
+      "endFrame": 95
+    },
+    {
+      "word": "and",
+      "start": 3.251,
+      "end": 3.413,
+      "startFrame": 98,
+      "endFrame": 102
+    },
+    {
+      "word": "intelligent",
+      "start": 3.529,
+      "end": 4.203,
+      "startFrame": 106,
+      "endFrame": 126
+    },
+    {
+      "word": "automation.",
+      "start": 4.249,
+      "end": 5.201,
+      "startFrame": 127,
+      "endFrame": 156
+    }
+  ],
+  "durationSeconds": 5.701,
+  "durationFrames": 171
+}

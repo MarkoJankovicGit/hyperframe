@@ -1,0 +1,43 @@
+{
+  "sceneId": "scene-06",
+  "text": "Legacy in. Intelligent systems out.",
+  "words": [
+    {
+      "word": "Legacy",
+      "start": 0,
+      "end": 0.499,
+      "startFrame": 0,
+      "endFrame": 15
+    },
+    {
+      "word": "in.",
+      "start": 0.569,
+      "end": 0.789,
+      "startFrame": 17,
+      "endFrame": 24
+    },
+    {
+      "word": "Intelligent",
+      "start": 0.894,
+      "end": 1.463,
+      "startFrame": 27,
+      "endFrame": 44
+    },
+    {
+      "word": "systems",
+      "start": 1.509,
+      "end": 1.892,
+      "startFrame": 45,
+      "endFrame": 57
+    },
+    {
+      "word": "out.",
+      "start": 1.95,
+      "end": 2.368,
+      "startFrame": 59,
+      "endFrame": 71
+    }
+  ],
+  "durationSeconds": 2.868,
+  "durationFrames": 86
+}

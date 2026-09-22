@@ -1,0 +1,57 @@
+{
+  "sceneId": "scene-06",
+  "text": "Platforms. Custom development. Document systems. Robotic automation.",
+  "words": [
+    {
+      "word": "Platforms.",
+      "start": 0,
+      "end": 0.766,
+      "startFrame": 0,
+      "endFrame": 23
+    },
+    {
+      "word": "Custom",
+      "start": 0.906,
+      "end": 1.254,
+      "startFrame": 27,
+      "endFrame": 38
+    },
+    {
+      "word": "development.",
+      "start": 1.312,
+      "end": 1.892,
+      "startFrame": 39,
+      "endFrame": 57
+    },
+    {
+      "word": "Document",
+      "start": 1.985,
+      "end": 2.496,
+      "startFrame": 60,
+      "endFrame": 75
+    },
+    {
+      "word": "systems.",
+      "start": 2.543,
+      "end": 3.077,
+      "startFrame": 76,
+      "endFrame": 92
+    },
+    {
+      "word": "Robotic",
+      "start": 3.181,
+      "end": 3.657,
+      "startFrame": 95,
+      "endFrame": 110
+    },
+    {
+      "word": "automation.",
+      "start": 3.715,
+      "end": 4.644,
+      "startFrame": 111,
+      "endFrame": 139
+    }
+  ],
+  "durationSeconds": 5.144,
+  "durationFrames": 154
+}

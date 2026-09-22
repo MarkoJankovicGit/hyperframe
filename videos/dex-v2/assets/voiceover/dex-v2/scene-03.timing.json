@@ -1,0 +1,43 @@
+{
+  "sceneId": "scene-03",
+  "text": "Custom systems. Engineered to last.",
+  "words": [
+    {
+      "word": "Custom",
+      "start": 0,
+      "end": 0.418,
+      "startFrame": 0,
+      "endFrame": 13
+    },
+    {
+      "word": "systems.",
+      "start": 0.488,
+      "end": 1.022,
+      "startFrame": 15,
+      "endFrame": 31
+    },
+    {
+      "word": "Engineered",
+      "start": 1.126,
+      "end": 1.602,
+      "startFrame": 34,
+      "endFrame": 48
+    },
+    {
+      "word": "to",
+      "start": 1.637,
+      "end": 1.707,
+      "startFrame": 49,
+      "endFrame": 51
+    },
+    {
+      "word": "last.",
+      "start": 1.788,
+      "end": 2.276,
+      "startFrame": 54,
+      "endFrame": 68
+    }
+  ],
+  "durationSeconds": 2.776,
+  "durationFrames": 83
+}

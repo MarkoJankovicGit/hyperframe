@@ -1,0 +1,78 @@
+{
+  "sceneId": "scene-11",
+  "text": "Serious software — built with you, not just for you.",
+  "words": [
+    {
+      "word": "Serious",
+      "start": 0,
+      "end": 0.499,
+      "startFrame": 0,
+      "endFrame": 15
+    },
+    {
+      "word": "software",
+      "start": 0.534,
+      "end": 1.068,
+      "startFrame": 16,
+      "endFrame": 32
+    },
+    {
+      "word": "—",
+      "start": 1.126,
+      "end": 1.184,
+      "startFrame": 34,
+      "endFrame": 36
+    },
+    {
+      "word": "built",
+      "start": 1.347,
+      "end": 1.579,
+      "startFrame": 40,
+      "endFrame": 47
+    },
+    {
+      "word": "with",
+      "start": 1.614,
+      "end": 1.741,
+      "startFrame": 48,
+      "endFrame": 52
+    },
+    {
+      "word": "you,",
+      "start": 1.788,
+      "end": 2.02,
+      "startFrame": 54,
+      "endFrame": 61
+    },
+    {
+      "word": "not",
+      "start": 2.159,
+      "end": 2.334,
+      "startFrame": 65,
+      "endFrame": 70
+    },
+    {
+      "word": "just",
+      "start": 2.38,
+      "end": 2.554,
+      "startFrame": 71,
+      "endFrame": 77
+    },
+    {
+      "word": "for",
+      "start": 2.589,
+      "end": 2.694,
+      "startFrame": 78,
+      "endFrame": 81
+    },
+    {
+      "word": "you.",
+      "start": 2.74,
+      "end": 3.065,
+      "startFrame": 82,
+      "endFrame": 92
+    }
+  ],
+  "durationSeconds": 3.565,
+  "durationFrames": 107
+}

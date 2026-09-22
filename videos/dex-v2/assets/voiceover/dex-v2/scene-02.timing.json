@@ -1,0 +1,29 @@
+{
+  "sceneId": "scene-02",
+  "text": "Build. Scale. Automate.",
+  "words": [
+    {
+      "word": "Build.",
+      "start": 0,
+      "end": 0.476,
+      "startFrame": 0,
+      "endFrame": 14
+    },
+    {
+      "word": "Scale.",
+      "start": 0.615,
+      "end": 1.103,
+      "startFrame": 18,
+      "endFrame": 33
+    },
+    {
+      "word": "Automate.",
+      "start": 1.149,
+      "end": 1.997,
+      "startFrame": 34,
+      "endFrame": 60
+    }
+  ],
+  "durationSeconds": 2.497,
+  "durationFrames": 75
+}

@@ -1,0 +1,64 @@
+{
+  "sceneId": "scene-05",
+  "text": "Tested, shipped, and live in production — fast.",
+  "words": [
+    {
+      "word": "Tested,",
+      "start": 0,
+      "end": 0.58,
+      "startFrame": 0,
+      "endFrame": 17
+    },
+    {
+      "word": "shipped,",
+      "start": 0.685,
+      "end": 1.045,
+      "startFrame": 21,
+      "endFrame": 31
+    },
+    {
+      "word": "and",
+      "start": 1.068,
+      "end": 1.184,
+      "startFrame": 32,
+      "endFrame": 36
+    },
+    {
+      "word": "live",
+      "start": 1.265,
+      "end": 1.428,
+      "startFrame": 38,
+      "endFrame": 43
+    },
+    {
+      "word": "in",
+      "start": 1.463,
+      "end": 1.509,
+      "startFrame": 44,
+      "endFrame": 45
+    },
+    {
+      "word": "production",
+      "start": 1.544,
+      "end": 2.032,
+      "startFrame": 46,
+      "endFrame": 61
+    },
+    {
+      "word": "—",
+      "start": 2.136,
+      "end": 2.194,
+      "startFrame": 64,
+      "endFrame": 66
+    },
+    {
+      "word": "fast.",
+      "start": 2.392,
+      "end": 3.204,
+      "startFrame": 72,
+      "endFrame": 96
+    }
+  ],
+  "durationSeconds": 3.704,
+  "durationFrames": 111
+}

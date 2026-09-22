@@ -1,0 +1,78 @@
+{
+  "sceneId": "scene-01",
+  "text": "Most software is built for everyone — yours shouldn't be.",
+  "words": [
+    {
+      "word": "Most",
+      "start": 0,
+      "end": 0.29,
+      "startFrame": 0,
+      "endFrame": 9
+    },
+    {
+      "word": "software",
+      "start": 0.337,
+      "end": 0.824,
+      "startFrame": 10,
+      "endFrame": 25
+    },
+    {
+      "word": "is",
+      "start": 0.848,
+      "end": 0.917,
+      "startFrame": 25,
+      "endFrame": 28
+    },
+    {
+      "word": "built",
+      "start": 0.975,
+      "end": 1.173,
+      "startFrame": 29,
+      "endFrame": 35
+    },
+    {
+      "word": "for",
+      "start": 1.219,
+      "end": 1.324,
+      "startFrame": 37,
+      "endFrame": 40
+    },
+    {
+      "word": "everyone",
+      "start": 1.393,
+      "end": 1.869,
+      "startFrame": 42,
+      "endFrame": 56
+    },
+    {
+      "word": "—",
+      "start": 1.939,
+      "end": 2.02,
+      "startFrame": 58,
+      "endFrame": 61
+    },
+    {
+      "word": "yours",
+      "start": 2.183,
+      "end": 2.438,
+      "startFrame": 65,
+      "endFrame": 73
+    },
+    {
+      "word": "shouldn't",
+      "start": 2.473,
+      "end": 2.763,
+      "startFrame": 74,
+      "endFrame": 83
+    },
+    {
+      "word": "be.",
+      "start": 2.81,
+      "end": 3.251,
+      "startFrame": 84,
+      "endFrame": 98
+    }
+  ],
+  "durationSeconds": 3.751,
+  "durationFrames": 113
+}

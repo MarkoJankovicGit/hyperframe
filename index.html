@@ -4,2142 +4,481 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=1080, height=1920" />
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/SplitText.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/MotionPathPlugin.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/CustomEase.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/MorphSVGPlugin.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/DrawSVGPlugin.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/ScrambleTextPlugin.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/Flip.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.137.0/build/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.137.0/examples/js/loaders/GLTFLoader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.137.0/examples/js/loaders/RGBELoader.js"></script>
     <style>
-      /* ============================================================
-         Clean motion design palette — off-white + Bloom purple accent
-         ============================================================ */
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      html,
-      body {
-        width: 1080px;
-        height: 1920px;
-        overflow: hidden;
-        background: #fafafa;
-        color: #0f0f11;
-        font-family: "Outfit", system-ui, sans-serif;
-        font-feature-settings: "ss01", "cv11";
-      }
-
-      /* Subtle dot grid background texture — 1% opacity, NOT neon */
-      #bg-grid {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 1080px;
-        height: 1920px;
-        z-index: 0;
-        pointer-events: none;
-        background-image: radial-gradient(#0f0f11 1px, transparent 1px);
-        background-size: 32px 32px;
-        opacity: 0.05;
-      }
-
-      /* Flash-through-white overlay */
-      #flash-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 1080px;
-        height: 1920px;
-        background: #ffffff;
-        opacity: 0;
-        pointer-events: none;
-        z-index: 60;
-      }
-
-      /* Color dip overlay */
-      #dip-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 1080px;
-        height: 1920px;
-        background: #0f0f11;
-        opacity: 0;
-        pointer-events: none;
-        z-index: 60;
-      }
-
-      /* Scene containers — flat, no effects */
-      .scene {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 1080px;
-        height: 1920px;
-        overflow: hidden;
-        z-index: 2;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 160px 80px;
-        gap: 36px;
-        text-align: center;
-      }
-
-      #scene2,
-      #scene3,
-      #scene4,
-      #scene5,
-      #scene6,
-      #scene7,
-      #scene8,
-      #scene9 {
-        opacity: 0;
-      }
-
-      /* Typography — strong hierarchy, no shadows */
-      .eyebrow {
-        font-size: 38px;
-        font-weight: 600;
-        color: #71717a;
-        letter-spacing: 0.26em;
-        text-transform: uppercase;
-      }
-
-      .hero {
-        font-weight: 800;
-        color: #0f0f11;
-        text-transform: uppercase;
-        letter-spacing: -0.02em;
-        line-height: 0.95;
-      }
-
-      .accent {
-        color: #6d28d9;
-      }
-
-      .muted {
-        color: #71717a;
-      }
-
-      /* Inverted emphasis block — ink bg, off-white text */
-      .ink-block {
-        display: inline-block;
-        background: #0f0f11;
-        color: #fafafa;
-        padding: 0.02em 0.15em 0.06em;
-        line-height: 0.9;
-      }
-
-      .purple-block {
-        display: inline-block;
-        background: #6d28d9;
-        color: #fafafa;
-        padding: 0.02em 0.15em 0.06em;
-        line-height: 0.9;
-      }
-
-      /* ============================================================
-         Scene 1 — Hook
-         ============================================================ */
-      .s1-kicker {
-        font-size: 36px;
-        font-weight: 500;
-        color: #71717a;
-        letter-spacing: 0.22em;
-        text-transform: uppercase;
-      }
-
-      .s1-heading {
-        font-size: 120px;
-        font-weight: 800;
-        color: #0f0f11;
-        text-transform: uppercase;
-        letter-spacing: -0.02em;
-        line-height: 0.95;
-      }
-
-      .s1-heading .stripe {
-        display: block;
-        white-space: nowrap;
-      }
-
-      .s1-question {
-        font-size: 92px;
-        font-weight: 500;
-        color: #71717a;
-        margin-top: 28px;
-      }
-
-      .s1-false {
-        font-size: 260px;
-        font-weight: 900;
-        letter-spacing: -0.045em;
-        line-height: 0.9;
-        margin-top: 40px;
-      }
-
-      /* Scene 1 full-screen ink overlay for the false! beat */
-      #s1-ink {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 1080px;
-        height: 1920px;
-        background: #0f0f11;
-        z-index: 5;
-        opacity: 0;
-        pointer-events: none;
-      }
-
-      #s1-false-white {
-        position: absolute;
-        top: 50%;
-        left: 0;
-        right: 0;
-        transform: translateY(-50%);
-        z-index: 6;
-        font-size: 320px;
-        font-weight: 900;
-        color: #fafafa;
-        text-transform: uppercase;
-        letter-spacing: -0.05em;
-        text-align: center;
-        opacity: 0;
-      }
-
-      /* ============================================================
-         Scene 2 — It opens. It closes.
-         ============================================================ */
-      .s2-clock {
-        position: relative;
-        width: 420px;
-        height: 420px;
-        border: 3px solid #0f0f11;
-        border-radius: 50%;
-      }
-
-      .s2-clock::after {
-        content: "";
-        position: absolute;
-        inset: 20px;
-        border: 1px solid rgba(15, 15, 17, 0.15);
-        border-radius: 50%;
-      }
-
-      .s2-hand {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        background: #0f0f11;
-        border-radius: 2px;
-        transform-origin: 50% 100%;
-      }
-
-      .s2-hand.hour {
-        width: 6px;
-        height: 100px;
-        margin-left: -3px;
-        margin-top: -100px;
-      }
-
-      .s2-hand.minute {
-        width: 4px;
-        height: 160px;
-        margin-left: -2px;
-        margin-top: -160px;
-        background: #6d28d9;
-      }
-
-      .s2-pivot {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        width: 14px;
-        height: 14px;
-        margin-left: -7px;
-        margin-top: -7px;
-        background: #0f0f11;
-        border-radius: 50%;
-      }
-
-      .s2-lines {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        align-items: flex-start;
-        margin-top: 56px;
-      }
-
-      .s2-line {
-        font-size: 92px;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: -0.01em;
-        color: #0f0f11;
-        line-height: 1;
-      }
-
-      .s2-line .accent {
-        color: #6d28d9;
-      }
-
-      /* ============================================================
-         Scene 3 — US markets: NYSE & Nasdaq
-         ============================================================ */
-      .s3-eyebrow {
-        font-size: 38px;
-        font-weight: 600;
-        color: #71717a;
-        letter-spacing: 0.22em;
-        text-transform: uppercase;
-      }
-
-      .s3-title {
-        font-size: 104px;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: -0.015em;
-        line-height: 0.9;
-      }
-
-      .s3-cards {
-        display: flex;
-        flex-direction: column;
-        gap: 32px;
-        margin-top: 48px;
-        width: 860px;
-      }
-
-      .s3-card {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 52px 56px;
-        border: 1px solid #e4e4e7;
-        border-radius: 28px;
-        background: #fff;
-        text-align: left;
-        gap: 14px;
-        box-shadow: 0 3px 16px rgba(15, 15, 17, 0.05);
-        position: relative;
-      }
-
-      .s3-card .tag {
-        font-size: 36px;
-        font-weight: 600;
-        color: #71717a;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-      }
-
-      .s3-card .name {
-        font-size: 120px;
-        font-weight: 800;
-        color: #0f0f11;
-        letter-spacing: -0.01em;
-        line-height: 1;
-      }
-
-      .s3-card .sub {
-        font-size: 38px;
-        font-weight: 500;
-        color: #71717a;
-        letter-spacing: 0.02em;
-        margin-top: 4px;
-      }
-
-      .s3-card .dot {
-        position: absolute;
-        top: 52px;
-        right: 56px;
-        width: 16px;
-        height: 16px;
-        border-radius: 50%;
-        background: #6d28d9;
-      }
-
-      /* ============================================================
-         Scene 4 — Hours
-         ============================================================ */
-      .s4-eyebrow {
-        font-size: 38px;
-        font-weight: 600;
-        color: #71717a;
-        letter-spacing: 0.26em;
-        text-transform: uppercase;
-      }
-
-      .s4-primary {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 16px;
-      }
-
-      .s4-row {
-        display: flex;
-        align-items: center;
-        gap: 24px;
-      }
-
-      .s4-time {
-        font-size: 200px;
-        font-weight: 800;
-        letter-spacing: -0.04em;
-        line-height: 0.9;
-        color: #0f0f11;
-        font-variant-numeric: tabular-nums;
-      }
-
-      .s4-dash {
-        width: 60px;
-        height: 6px;
-        background: #0f0f11;
-        border-radius: 3px;
-      }
-
-      .s4-zone {
-        font-size: 42px;
-        font-weight: 700;
-        color: #0f0f11;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        margin-top: 20px;
-      }
-
-      .s4-stats {
-        display: flex;
-        flex-direction: column;
-        gap: 32px;
-        margin-top: 48px;
-        align-items: center;
-      }
-
-      .s4-hrs {
-        display: inline-flex;
-        align-items: baseline;
-        gap: 16px;
-      }
-
-      .s4-hrs .num {
-        font-size: 120px;
-        font-weight: 800;
-        color: #6d28d9;
-        letter-spacing: -0.04em;
-        line-height: 0.9;
-        font-variant-numeric: tabular-nums;
-      }
-
-      .s4-hrs .label {
-        font-size: 42px;
-        font-weight: 700;
-        color: #71717a;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-      }
-
-      .s4-weekdays {
-        display: flex;
-        gap: 14px;
-      }
-
-      .s4-weekdays .day {
-        width: 84px;
-        height: 84px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 18px;
-        background: #f4f4f5;
-        border: 1px solid #e4e4e7;
-        font-size: 44px;
-        font-weight: 800;
-        color: #0f0f11;
-      }
-
-      .s4-pacific {
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-        margin-top: 48px;
-        padding-top: 32px;
-        border-top: 1px solid #e4e4e7;
-        width: 580px;
-      }
-
-      .s4-pacific .label {
-        font-size: 36px;
-        font-weight: 600;
-        color: #71717a;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-      }
-
-      .s4-pacific .value {
-        font-size: 52px;
-        font-weight: 700;
-        color: #0f0f11;
-        font-variant-numeric: tabular-nums;
-        letter-spacing: -0.01em;
-      }
-
-      /* ============================================================
-         Scene 5 — Extended hours (24h timeline)
-         ============================================================ */
-      .s5-title {
-        font-size: 80px;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: -0.01em;
-        line-height: 0.95;
-      }
-
-      .s5-sub {
-        font-size: 38px;
-        font-weight: 600;
-        color: #71717a;
-        letter-spacing: 0.22em;
-        text-transform: uppercase;
-        margin-bottom: 32px;
-      }
-
-      /* Vertical stack — 3 time blocks, top to bottom */
-      .s5-stack {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        margin-top: 48px;
-        width: 860px;
-      }
-
-      .s5-band {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 24px;
-        padding: 30px 36px;
-        border-radius: 22px;
-        transform-origin: 0% 50%;
-        white-space: nowrap;
-      }
-
-      .s5-band.pre,
-      .s5-band.after {
-        background: #f4f4f5;
-        border: 1px solid #e4e4e7;
-      }
-
-      .s5-band.regular {
-        background: #6d28d9;
-        color: #fafafa;
-        padding: 38px 36px;
-      }
-
-      .s5-band .label {
-        font-size: 40px;
-        font-weight: 800;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        color: #0f0f11;
-      }
-
-      .s5-band.regular .label {
-        color: #fafafa;
-        font-size: 44px;
-      }
-
-      .s5-band .time {
-        font-size: 38px;
-        font-weight: 700;
-        color: #71717a;
-        font-variant-numeric: tabular-nums;
-        letter-spacing: -0.01em;
-      }
-
-      .s5-band.regular .time {
-        color: rgba(255, 255, 255, 0.9);
-        font-size: 40px;
-      }
-
-      .s5-summary {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 36px;
-        width: 860px;
-      }
-
-      .s5-total {
-        display: inline-flex;
-        align-items: baseline;
-        gap: 14px;
-      }
-
-      .s5-total .big {
-        font-size: 88px;
-        font-weight: 800;
-        color: #0f0f11;
-        letter-spacing: -0.03em;
-        line-height: 0.9;
-        font-variant-numeric: tabular-nums;
-      }
-
-      .s5-total .unit {
-        font-size: 36px;
-        font-weight: 700;
-        color: #6d28d9;
-        letter-spacing: 0.12em;
-      }
-
-      .s5-total .label {
-        font-size: 32px;
-        font-weight: 600;
-        color: #71717a;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        margin-left: 8px;
-      }
-
-      .s5-weekend {
-        display: inline-flex;
-        align-items: center;
-        gap: 12px;
-        padding: 16px 24px;
-        border-radius: 999px;
-        background: #f4f4f5;
-        border: 1px solid #e4e4e7;
-        font-size: 32px;
-        font-weight: 700;
-        color: #71717a;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-      }
-
-      .s5-weekend .dot {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background: #71717a;
-      }
-
-      /* ============================================================
-         Scene 6 — Thin liquidity
-         ============================================================ */
-      .s6-eyebrow {
-        font-size: 38px;
-        font-weight: 600;
-        color: #71717a;
-        letter-spacing: 0.22em;
-        text-transform: uppercase;
-      }
-
-      .s6-title {
-        font-size: 130px;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: -0.02em;
-        line-height: 0.9;
-      }
-
-      .s6-title .accent {
-        color: #6d28d9;
-      }
-
-      .s6-body {
-        font-size: 42px;
-        font-weight: 500;
-        color: #71717a;
-        line-height: 1.3;
-        max-width: 900px;
-        margin-top: 32px;
-      }
-
-      .s6-lane {
-        position: absolute;
-        top: 72%;
-        left: 60px;
-        right: 60px;
-        height: 3px;
-        background: #e4e4e7;
-      }
-
-      .s6-lane-active {
-        position: absolute;
-        top: 72%;
-        left: 60px;
-        width: 0;
-        height: 3px;
-        background: #6d28d9;
-      }
-
-      .s6-order {
-        position: absolute;
-        top: calc(72% - 44px);
-        left: 60px;
-        display: inline-flex;
-        align-items: center;
-        gap: 14px;
-        padding: 14px 28px 14px 14px;
-        border-radius: 18px;
-        background: #fff;
-        border: 2px solid #6d28d9;
-        font-size: 34px;
-        font-weight: 700;
-        color: #6d28d9;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        font-variant-numeric: tabular-nums;
-        box-shadow: 0 4px 16px rgba(109, 40, 217, 0.12);
-      }
-
-      .s6-order img {
-        width: 72px;
-        height: 72px;
-        border-radius: 50%;
-        object-fit: contain;
-        padding: 16px;
-        background: #0f0f11;
-        display: block;
-        flex-shrink: 0;
-      }
-
-      /* ============================================================
-         Scene 7 — Missed the close, fills at open
-         ============================================================ */
-      .s7-status {
-        display: inline-flex;
-        gap: 16px;
-        align-items: center;
-        padding: 20px 36px;
-        border-radius: 999px;
-        border: 1px solid #e4e4e7;
-        background: #fff;
-        font-size: 38px;
-        font-weight: 700;
-        color: #71717a;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        box-shadow: 0 2px 8px rgba(15, 15, 17, 0.04);
-      }
-
-      .s7-status .dot {
-        width: 14px;
-        height: 14px;
-        border-radius: 50%;
-        background: #71717a;
-      }
-
-      .s7-status.live {
-        color: #fafafa;
-        background: #6d28d9;
-        border-color: #6d28d9;
-      }
-
-      .s7-status.live .dot {
-        background: #fafafa;
-      }
-
-      .s7-main {
-        font-size: 112px;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: -0.02em;
-        line-height: 0.95;
-        color: #0f0f11;
-        margin-top: 32px;
-      }
-
-      .s7-main .accent {
-        color: #6d28d9;
-      }
-
-      .s7-sub {
-        font-size: 30px;
-        color: #71717a;
-        letter-spacing: 0.02em;
-        max-width: 820px;
-        line-height: 1.35;
-        margin-top: 28px;
-      }
-
-      /* ============================================================
-         Scene 8 — Dotted globe (canvas) + LSE callout
-         ============================================================ */
-      #scene8 {
-        padding: 140px 80px;
-      }
-
-      .s8-header {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .s8-kicker {
-        font-size: 38px;
-        font-weight: 600;
-        color: #71717a;
-        letter-spacing: 0.24em;
-        text-transform: uppercase;
-      }
-
-      .s8-title {
-        font-size: 80px;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: -0.015em;
-        line-height: 0.95;
-      }
-
-      #globe-wrap {
-        position: relative;
-        width: 780px;
-        height: 780px;
-        margin-top: 40px;
-      }
-
-      #globe-canvas {
-        width: 780px;
-        height: 780px;
-        display: block;
-      }
-
-      #s8-connector {
-        margin-top: 16px;
-        display: block;
-      }
-
-      .s8-callout {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 6px;
-        margin-top: 16px;
-      }
-
-      .s8-callout .tag {
-        font-size: 22px;
-        color: #71717a;
-        letter-spacing: 0.26em;
-        text-transform: uppercase;
-        font-weight: 600;
-      }
-
-      .s8-callout .name {
-        font-size: 72px;
-        font-weight: 800;
-        color: #0f0f11;
-        letter-spacing: -0.01em;
-        line-height: 1;
-      }
-
-      .s8-callout .hours {
-        font-size: 44px;
-        font-weight: 700;
-        color: #6d28d9;
-        font-variant-numeric: tabular-nums;
-        letter-spacing: -0.005em;
-      }
-
-      .s8-chip {
-        display: inline-flex;
-        align-items: center;
-        gap: 14px;
-        padding: 14px 26px;
-        border-radius: 999px;
-        background: #6d28d9;
-        color: #fafafa;
-        margin-top: 28px;
-        font-size: 32px;
-        font-weight: 700;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        box-shadow: 0 4px 24px rgba(109, 40, 217, 0.3);
-      }
-
-      .s8-chip .dot {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background: #c4b5fd;
-      }
-
-      .s8-chip .time {
-        font-size: 28px;
-        font-weight: 500;
-        color: rgba(255, 255, 255, 0.85);
-        font-variant-numeric: tabular-nums;
-        letter-spacing: 0.06em;
-        text-transform: none;
-      }
-
-      /* ============================================================
-         Scene 9 — CTA: Bloom
-         ============================================================ */
-      #scene9 {
-        padding-bottom: 240px;
-        position: relative;
-      }
-
-      #cash-canvas {
-        position: absolute;
-        top: 200px;
-        left: 50%;
-        width: 600px;
-        height: 400px;
-        margin-left: -300px;
-        z-index: 1;
-        pointer-events: none;
-      }
-
-      .s9-logo {
-        width: 140px;
-        height: 140px;
-        position: relative;
-        z-index: 2;
-      }
-
-      .s9-eyebrow {
-        font-size: 32px;
-        font-weight: 600;
-        color: #71717a;
-        letter-spacing: 0.28em;
-        text-transform: uppercase;
-        margin-top: 20px;
-      }
-
-      .s9-bloom {
-        font-size: 240px;
-        font-weight: 900;
-        letter-spacing: -0.045em;
-        line-height: 0.9;
-        color: #0f0f11;
-        margin-top: 12px;
-      }
-
-      .s9-bloom .accent {
-        color: #6d28d9;
-      }
-
-      .s9-sub {
-        font-size: 28px;
-        color: #71717a;
-        letter-spacing: 0.22em;
-        text-transform: uppercase;
-        margin-top: 36px;
-      }
-
-      /* ============================================================
-         Grain overlay — subtle texture across entire video
-         ============================================================ */
-      #grain-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 50;
-      }
-
-      #grain-overlay .grain-texture {
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-        opacity: 0.08;
-        animation: hf-grain-noise 0.5s steps(1) infinite;
-      }
-
-      @keyframes hf-grain-noise {
-        0%, 100% { transform: translate(0, 0); }
-        10% { transform: translate(-5%, -5%); }
-        20% { transform: translate(-10%, 5%); }
-        30% { transform: translate(5%, -10%); }
-        40% { transform: translate(-5%, 15%); }
-        50% { transform: translate(-10%, 5%); }
-        60% { transform: translate(15%, 0); }
-        70% { transform: translate(0, 10%); }
-        80% { transform: translate(-15%, 0); }
-        90% { transform: translate(10%, 5%); }
-      }
-
-      /* ============================================================
-         Shimmer sweep — light pass across hero headlines
-         ============================================================ */
-      .shimmer-sweep-target {
-        position: relative;
-      }
-
-      .shimmer-sweep-target .shimmer-mask {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        background: linear-gradient(
-          var(--shimmer-angle, 120deg),
-          transparent 0%,
-          transparent calc(var(--shimmer-pos, -20%) - var(--shimmer-width, 20%) / 2),
-          var(--shimmer-color, rgba(124, 58, 237, 0.35)) var(--shimmer-pos, -20%),
-          transparent calc(var(--shimmer-pos, -20%) + var(--shimmer-width, 20%) / 2),
-          transparent 100%
-        );
-        mix-blend-mode: overlay;
-      }
-
-      #s1-heading,
-      #s5-title,
-      #s9-sub {
-        --shimmer-color: rgba(124, 58, 237, 0.35);
-      }
-
-      .s9-rule {
-        width: 120px;
-        height: 3px;
-        background: #6d28d9;
-        border-radius: 2px;
-        margin-top: 24px;
-      }
-
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #0A0A0B; color: #F2F2F0;
+        font-family: "Space Grotesk", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+      .mono { font-family: "Space Mono", monospace; }
+      .sil { background: linear-gradient(120deg, #FFFFFF 0%, #C7C7CD 50%, #8C8C93 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      .tnum { font-variant-numeric: tabular-nums; }
+
+      #bgfx { position: absolute; inset: 0; z-index: 0; overflow: hidden; background: #0A0A0B; }
+      #studio { position: absolute; width: 1300px; height: 1300px; left: -110px; top: -300px;
+        background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0) 70%); }
+      #floor { position: absolute; left: 0; right: 0; bottom: -300px; height: 760px;
+        background: radial-gradient(ellipse 70% 60% at 50% 100%, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0) 70%); }
+      .grain-svg { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.05; mix-blend-mode: overlay; pointer-events: none; }
+      #vignette { position: absolute; inset: 0; background: radial-gradient(ellipse 90% 80% at 50% 46%, rgba(10,10,11,0) 42%, rgba(4,4,5,0.86) 100%); }
+
+      .scene { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; justify-content: center; padding: 0 72px; opacity: 0; }
+      #s1 { opacity: 1; }
+      .scene-inner { position: relative; z-index: 3; width: 100%; }
+      .eyebrow { font-family: "Space Mono", monospace; font-size: 22px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: #9C9CA1; }
+      .corner { position: absolute; top: 70px; left: 72px; z-index: 5; display: flex; align-items: center; gap: 14px; }
+      .corner .chip { width: 56px; height: 56px; border-radius: 14px; background: #F2F2F0; display: grid; place-items: center; overflow: hidden;
+        box-shadow: 0 0 0 1px rgba(255,255,255,0.12), 0 10px 26px rgba(0,0,0,0.5); }
+      .corner .chip img { width: 80%; }
+      .corner .wm { font-size: 27px; font-weight: 700; letter-spacing: -0.02em; }
+
+      /* S1 — one command */
+      #s1 { justify-content: center; }
+      .s1-eyebrow { text-align: center; }
+      .term { margin-top: 44px; border-radius: 28px; background: #141416; border: 1px solid #2C2C30; overflow: hidden;
+        box-shadow: 0 50px 110px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.06); }
+      .term-bar { display: flex; align-items: center; gap: 12px; padding: 22px 30px; background: #1A1A1D; border-bottom: 1px solid #2C2C30; }
+      .term-bar .td { width: 16px; height: 16px; border-radius: 50%; background: #3A3A40; }
+      .term-bar .tt { margin-left: 14px; font-family: "Space Mono", monospace; font-size: 21px; color: #8B8B91; letter-spacing: 0.06em; }
+      .term-body { padding: 38px 44px 40px; }
+      .cmdline { font-family: "Space Mono", monospace; font-size: 30px; line-height: 1.62; color: #E6E6E9; }
+      .cmdline .pr { color: #8C8C93; margin-right: 14px; }
+      .cmdline .tch { opacity: 0; }
+      #caret { display: inline-block; width: 15px; height: 34px; background: #F2F2F0; margin-left: 6px; vertical-align: -5px; opacity: 0; }
+      .tchips { display: flex; gap: 14px; margin-top: 30px; flex-wrap: wrap; }
+      .tchip { font-family: "Space Mono", monospace; font-size: 23px; color: #C9C9CE; background: #202024; border: 1px solid #3A3A40; padding: 12px 22px; border-radius: 999px; }
+      .s1-low { margin-top: 66px; text-align: center; }
+      .s1-pre { font-size: 46px; font-weight: 400; color: #9C9CA1; letter-spacing: -0.01em; }
+      .s1-big { font-size: 116px; font-weight: 700; letter-spacing: -0.045em; line-height: 1.02; margin-top: 6px; }
+
+      /* S2 — knowledge base */
+      #s2 { justify-content: center; }
+      .s2-top { text-align: center; margin-bottom: 44px; }
+      .s2-head { font-size: 62px; font-weight: 700; letter-spacing: -0.03em; margin-top: 12px; }
+      .kb-stage { position: relative; height: 560px; }
+      .kb-rows { display: flex; flex-direction: column; gap: 16px; }
+      .kbr { display: flex; align-items: center; gap: 26px; padding: 24px 32px; border-radius: 24px; background: #161618; border: 1px solid #2C2C30; }
+      .kbr .knum { font-family: "Space Mono", monospace; font-size: 23px; font-weight: 700; color: #8B8B91; width: 66px; flex: none; }
+      .kbr .kt { font-size: 34px; font-weight: 700; letter-spacing: -0.02em; }
+      .kbr .kd { font-family: "Space Mono", monospace; font-size: 21px; color: #9C9CA1; margin-top: 4px; }
+      #scanline { position: absolute; left: 6px; right: 6px; top: 0; height: 3px; border-radius: 2px; opacity: 0;
+        background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.75) 50%, rgba(255,255,255,0) 100%); }
+      .kb-strat { position: absolute; left: 50%; margin-left: -395px; top: 92px; width: 790px; padding: 46px 50px; border-radius: 30px;
+        background: #1B1B1F; border: 1px solid #5A5A62; overflow: hidden; opacity: 0;
+        box-shadow: 0 60px 130px rgba(0,0,0,0.72), 0 0 0 1px rgba(255,255,255,0.05), inset 0 1px 0 rgba(255,255,255,0.1); }
+      .kb-strat .stag { font-family: "Space Mono", monospace; font-size: 22px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #9C9CA1; }
+      .kb-strat .stitle { font-size: 64px; font-weight: 700; letter-spacing: -0.03em; margin: 14px 0 20px; }
+      .kb-strat .srow { display: flex; align-items: center; gap: 16px; font-family: "Space Mono", monospace; font-size: 24px; color: #D7D7DB; margin-top: 12px; }
+      .kb-strat .srow .dot { width: 9px; height: 9px; border-radius: 50%; background: #F2F2F0; flex: none; }
+      .kb-strat .sheen { position: absolute; top: -30%; left: -70%; width: 46%; height: 160%; transform: skewX(-18deg);
+        background: linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.14) 50%, rgba(255,255,255,0) 100%); }
+
+      /* S3 — generation */
+      #s3 { justify-content: center; }
+      .s3-top { text-align: center; margin-bottom: 40px; }
+      .s3-head { font-size: 60px; font-weight: 700; letter-spacing: -0.03em; margin-top: 12px; }
+      .node { display: flex; align-items: center; gap: 28px; padding: 30px 38px; border-radius: 26px; background: #161618; border: 1px solid #2C2C30; }
+      .node.hero { border-color: #5A5A62; background: #1B1B1F; box-shadow: 0 40px 90px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.08); }
+      .node .glyph { width: 88px; height: 88px; border-radius: 22px; background: #F2F2F0; color: #0A0A0B; flex: none; display: grid; place-items: center;
+        font-family: "Space Mono", monospace; font-weight: 700; font-size: 38px; }
+      .node .glyph.cl { background: #FFFFFF; }
+      .node .glyph.hg { background: #D9F32A; overflow: hidden; }
+      .node .glyph.hg img { width: 100%; height: 100%; object-fit: cover; display: block; }
+      .node .nt { font-size: 44px; font-weight: 700; letter-spacing: -0.02em; }
+      .node .ns { font-family: "Space Mono", monospace; font-size: 21px; letter-spacing: 0.16em; text-transform: uppercase; color: #9C9CA1; margin-top: 6px; }
+      .conn { position: relative; height: 116px; display: grid; place-items: center; }
+      .conn .cline { position: absolute; left: 50%; top: 8px; bottom: 8px; width: 3px; margin-left: -1.5px;
+        background: repeating-linear-gradient(180deg, #4A4A50 0px, #4A4A50 8px, rgba(74,74,80,0) 8px, rgba(74,74,80,0) 16px); }
+      .conn .mcp { position: relative; z-index: 2; font-family: "Space Mono", monospace; font-size: 22px; font-weight: 700; letter-spacing: 0.22em;
+        color: #F2F2F0; background: #202024; border: 1px solid #4A4A50; padding: 12px 26px; border-radius: 999px; }
+      .conn .mdot { position: absolute; left: 50%; top: 4px; width: 9px; height: 9px; margin-left: -4.5px; border-radius: 50%; background: #F2F2F0; opacity: 0; }
+      .gchips { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 34px; }
+      .gchip { font-family: "Space Mono", monospace; font-size: 26px; font-weight: 700; color: #E2E2E4; background: #1C1C20; border: 1px solid #3A3A40;
+        padding: 22px 20px; border-radius: 18px; text-align: center; letter-spacing: 0.02em; }
+      .ebar { margin-top: 34px; padding: 26px 32px 30px; border-radius: 22px; background: #161618; border: 1px solid #2C2C30; opacity: 0; }
+      .ebar .erow { display: flex; justify-content: space-between; align-items: baseline; font-family: "Space Mono", monospace; }
+      .ebar .el { font-size: 24px; font-weight: 700; letter-spacing: 0.18em; color: #F2F2F0; }
+      .ebar .er { font-size: 21px; color: #9C9CA1; }
+      .ebar .etrack { height: 7px; border-radius: 4px; background: #2C2C30; margin-top: 20px; overflow: hidden; }
+      .ebar .etrack i { display: block; height: 100%; width: 100%; background: linear-gradient(90deg, #FFFFFF 0%, #B8B8BE 100%); transform: scaleX(0); transform-origin: left; }
+
+      /* S4 — output */
+      #s4 { justify-content: center; }
+      .s4-top { text-align: center; margin-bottom: 46px; }
+      .s4-head { font-size: 66px; font-weight: 700; letter-spacing: -0.03em; margin-top: 12px; }
+      .minirow { display: flex; gap: 36px; justify-content: center; }
+      .minicol { display: flex; flex-direction: column; align-items: center; }
+      .mini { width: 288px; height: 610px; border-radius: 46px; padding: 10px; background: linear-gradient(155deg, #46464b 0%, #1a1a1d 38%, #0c0c0e 100%);
+        box-shadow: 0 40px 90px rgba(0,0,0,0.68), inset 0 0 2px rgba(255,255,255,0.35); }
+      .mini .mscr { position: relative; width: 100%; height: 100%; border-radius: 38px; overflow: hidden; background: #000; }
+      .mini .mscr video { width: 100%; height: 100%; object-fit: cover; }
+      .mini .isl { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); width: 84px; height: 24px; background: #000; border-radius: 13px; z-index: 3; }
+      .mini .pcov { position: absolute; inset: 0; z-index: 4; background: #050506; }
+      .mlab { font-family: "Space Mono", monospace; font-size: 21px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #9C9CA1; margin-top: 20px; }
+      .platrow { display: flex; gap: 22px; margin-top: 52px; justify-content: center; align-items: center; }
+      .slogo { display: flex; align-items: center; gap: 14px; background: #1C1C20; border: 1px solid #3A3A40; padding: 14px 26px 14px 20px; border-radius: 18px; }
+      .slogo svg { display: block; }
+      .slogo span { font-family: "Space Mono", monospace; font-size: 24px; color: #E2E2E4; font-weight: 700; }
+
+      /* S5m — two models */
+      #s5m { justify-content: center; }
+      .s5m-top { text-align: center; margin-bottom: 40px; }
+      .s5m-head { font-size: 62px; font-weight: 700; letter-spacing: -0.03em; margin-top: 12px; }
+      .model-row { display: flex; flex-direction: column; gap: 26px; }
+      .mcard { position: relative; padding: 38px 44px; border-radius: 30px; background: #161618; border: 1px solid #2C2C30; overflow: hidden; }
+      .mcard.hero { border-color: #4A4A50; background: #1A1A1D; box-shadow: 0 40px 90px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.07); }
+      .mcard .mtag { font-family: "Space Mono", monospace; font-size: 22px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #9C9CA1; }
+      .mcard .mtitle { font-size: 52px; font-weight: 700; letter-spacing: -0.03em; margin: 14px 0 14px; }
+      .mcard .mdesc { font-size: 29px; color: #B9B9BE; font-weight: 400; line-height: 1.4; }
+      .mcard .mrow { display: flex; align-items: center; gap: 16px; margin-top: 18px; font-size: 26px; color: #E2E2E4; }
+      .mcard .mrow .dot { width: 10px; height: 10px; border-radius: 50%; background: #F2F2F0; flex: none; }
+      .s5m-foot { margin-top: 36px; text-align: center; font-family: "Space Mono", monospace; font-size: 25px; letter-spacing: 0.12em; text-transform: uppercase; color: #9C9CA1; }
+      .s5m-foot b { color: #F2F2F0; }
+
+      /* S6 — CTA */
+      #s6 { align-items: center; text-align: center; }
+      .badge-wrap { position: relative; display: grid; place-items: center; margin-bottom: 46px; }
+      .badge-glow { position: absolute; width: 480px; height: 480px; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0) 64%); filter: blur(10px); }
+      .logo-badge { position: relative; width: 290px; height: 290px; border-radius: 58px; background: #F2F2F0; display: grid; place-items: center; overflow: hidden;
+        box-shadow: 0 0 0 1px rgba(255,255,255,0.14), 0 40px 90px rgba(0,0,0,0.6); }
+      .logo-badge img { width: 78%; }
+      .logo-badge .sheen { position: absolute; top: -20%; left: -60%; width: 50%; height: 140%; background: linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.85) 50%, rgba(255,255,255,0) 100%); transform: skewX(-18deg); }
+      .wordmark { font-size: 122px; font-weight: 700; letter-spacing: -0.045em; line-height: 1; }
+      .s5-tag { font-family: "Space Mono", monospace; font-size: 25px; font-weight: 700; letter-spacing: 0.36em; text-transform: uppercase; color: #9C9CA1; margin-top: 28px; }
+      .s5-url { font-family: "Space Mono", monospace; font-size: 34px; color: #E2E2E4; margin-top: 54px; }
+      .cta-btn { margin-top: 40px; display: inline-flex; align-items: center; gap: 18px; font-size: 40px; font-weight: 700; color: #0A0A0B; background: #F2F2F0; padding: 28px 58px; border-radius: 999px; box-shadow: 0 24px 60px rgba(0,0,0,0.5); }
     </style>
   </head>
   <body>
-    <div
-      id="root"
-      data-composition-id="main"
-      data-start="0"
-      data-duration="75"
-      data-width="1080"
-      data-height="1920"
-    >
-      <div id="bg-grid"></div>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="37.2" data-width="1080" data-height="1920">
 
-      <!-- Film grain overlay -->
-      <div id="grain-overlay">
-        <div class="grain-texture"></div>
+      <div id="bgfx">
+        <div id="studio" data-layout-ignore></div>
+        <div id="floor" data-layout-ignore></div>
+        <svg class="grain-svg" id="grain" data-layout-ignore><filter id="gr"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#gr)"/></svg>
+        <div id="vignette"></div>
       </div>
 
-      <!-- Transition overlays -->
-      <div id="flash-overlay"></div>
-      <div id="dip-overlay"></div>
-
-      <!-- ============================================================
-           Scene 1 — Hook
-           ============================================================ -->
-      <div id="scene1" class="scene">
-        <div class="s1-kicker" id="s1-kicker">One might think…</div>
-        <div class="s1-heading shimmer-sweep-target" id="s1-heading">
-          <span class="stripe">THE MARKET</span>
-          <span class="stripe"><span class="accent">NEVER</span> CLOSES</span>
-        </div>
-      </div>
-
-      <!-- Full-screen ink overlay + FALSE. reveal (above scene 1) -->
-      <div id="s1-ink"></div>
-      <div id="s1-false-white">FALSE.</div>
-
-      <!-- ============================================================
-           Scene 2 — It opens. It closes.
-           ============================================================ -->
-      <div id="scene2" class="scene">
-        <div class="s2-clock" id="s2-clock">
-          <div class="s2-hand hour" id="s2-hour"></div>
-          <div class="s2-hand minute" id="s2-minute"></div>
-          <div class="s2-pivot"></div>
-        </div>
-        <div class="s2-lines">
-          <div class="s2-line" id="s2-opens">IT <span class="accent">OPENS.</span></div>
-          <div class="s2-line" id="s2-closes">IT <span class="accent">CLOSES.</span></div>
-        </div>
-      </div>
-
-      <!-- ============================================================
-           Scene 3 — US markets
-           ============================================================ -->
-      <div id="scene3" class="scene">
-        <div class="s3-eyebrow" id="s3-eyebrow">ON A SCHEDULE · LIKE ANY BUSINESS</div>
-        <div class="s3-title" id="s3-title">
-          U.S. <span class="accent">MARKETS</span>
-        </div>
-        <div class="s3-cards">
-          <div class="s3-card" id="s3-nyse">
-            <div class="name">NYSE</div>
-            <div class="sub">New York · 1792</div>
-            <div class="dot"></div>
+      <!-- S1 — one command -->
+      <div id="s1" class="scene">
+        <div class="scene-inner">
+          <div class="s1-eyebrow eyebrow" id="s1-eye">The 3DM process &middot; e-commerce</div>
+          <div class="term" id="term">
+            <div class="term-bar"><span class="td"></span><span class="td"></span><span class="td"></span><span class="tt">3dm-engine — new campaign</span></div>
+            <div class="term-body">
+              <div class="cmdline"><span class="pr">›</span><span id="cmdtext"></span><span id="caret"></span></div>
+              <div class="tchips">
+                <span class="tchip" id="tc1">+ product-photos / 6 files</span>
+                <span class="tchip" id="tc2">+ brand-kit.zip</span>
+              </div>
+            </div>
           </div>
-          <div class="s3-card" id="s3-nasdaq">
-            <div class="name">NASDAQ</div>
-            <div class="sub">Electronic · 1971</div>
-            <div class="dot"></div>
+          <div class="s1-low" data-layout-allow-overflow>
+            <div class="s1-pre" id="s1-pre">It starts with</div>
+            <div class="s1-big" id="s1-big"><span class="sil">ONE COMMAND.</span></div>
           </div>
         </div>
       </div>
 
-      <!-- ============================================================
-           Scene 4 — Hours
-           ============================================================ -->
-      <div id="scene4" class="scene">
-        <div class="s4-eyebrow" id="s4-eyebrow">REGULAR SESSION</div>
-        <div class="s4-primary">
-          <div class="s4-row">
-            <div class="s4-time" id="s4-open">9:30</div>
-            <div class="s4-dash" id="s4-dash"></div>
-            <div class="s4-time" id="s4-close">4:00</div>
+      <!-- S2 — knowledge base -->
+      <div id="s2" class="scene">
+        <div class="corner s-corner"><div class="chip"><img src="assets/logos/logo-kocka.png" alt="3DM"/></div><div class="wm">3<span class="sil">DM</span></div></div>
+        <div class="scene-inner">
+          <div class="s2-top">
+            <div class="eyebrow" id="s2-eye">Step 01 &middot; Knowledge base</div>
+            <div class="s2-head" id="s2-head">We learn your market <span class="sil">first.</span></div>
           </div>
-          <div class="s4-zone" id="s4-zone">EASTERN</div>
-        </div>
-        <div class="s4-stats">
-          <div class="s4-hrs" id="s4-hrs">
-            <span class="num">6.5</span>
-            <span class="label">HOURS</span>
-          </div>
-          <div class="s4-weekdays" id="s4-weekdays">
-            <span class="day">M</span>
-            <span class="day">T</span>
-            <span class="day">W</span>
-            <span class="day">T</span>
-            <span class="day">F</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- ============================================================
-           Scene 5 — Extended hours
-           ============================================================ -->
-      <div id="scene5" class="scene">
-        <div class="s5-sub" id="s5-sub">EXTENDED HOURS</div>
-        <div class="s5-title shimmer-sweep-target" id="s5-title">
-          <span class="accent">BEFORE</span> &amp; <span class="accent">AFTER</span><br />
-          THE BELL
-        </div>
-        <div class="s5-stack" id="s5-track">
-          <div class="s5-band pre" id="s5-pre">
-            <div class="label">PRE-MARKET</div>
-            <div class="time">4:00 A — 9:30 A</div>
-          </div>
-          <div class="s5-band regular" id="s5-regular">
-            <div class="label">REGULAR SESSION</div>
-            <div class="time">9:30 A — 4:00 P</div>
-          </div>
-          <div class="s5-band after" id="s5-after">
-            <div class="label">AFTER-HOURS</div>
-            <div class="time">4:00 P — 8:00 P</div>
-          </div>
-        </div>
-        <div class="s5-summary">
-          <div class="s5-total" id="s5-total">
-            <span class="big" id="s5-total-num">0</span>
-            <span class="unit">HRS</span>
-            <span class="label">TOTAL WINDOW</span>
-          </div>
-          <div class="s5-weekend" id="s5-weekend">
-            <span class="dot"></span>
-            <span>SAT · SUN CLOSED</span>
+          <div class="kb-stage">
+            <div class="kb-rows">
+              <div class="kbr" id="kb1"><span class="knum">01</span><div><div class="kt">Brand</div><div class="kd">voice &middot; products &middot; past campaigns</div></div></div>
+              <div class="kbr" id="kb2"><span class="knum">02</span><div><div class="kt">Competitor ads</div><div class="kd">Meta Ad Library &middot; top ads by niche</div></div></div>
+              <div class="kbr" id="kb3"><span class="knum">03</span><div><div class="kt">Trends</div><div class="kd">TikTok &middot; Instagram &middot; YouTube signals</div></div></div>
+              <div class="kbr" id="kb4"><span class="knum">04</span><div><div class="kt">Audience psychology</div><div class="kd">pain points &middot; desires &middot; triggers</div></div></div>
+            </div>
+            <div id="scanline" data-layout-ignore></div>
+            <div class="kb-strat" id="kbs">
+              <div class="stag">Output &middot; strategy.md</div>
+              <div class="stitle">The winning <span class="sil">strategy.</span></div>
+              <div class="srow"><span class="dot"></span>Hooks, angles &amp; formats that convert</div>
+              <div class="srow"><span class="dot"></span>Scripts &amp; scene-by-scene plans</div>
+              <div class="sheen" id="kbs-sheen" data-layout-ignore></div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- ============================================================
-           Scene 6 — Thin liquidity
-           ============================================================ -->
-      <div id="scene6" class="scene">
-        <div class="s6-eyebrow" id="s6-eyebrow">DURING EXTENDED HOURS</div>
-        <div class="s6-title" id="s6-title">
-          <span class="accent">THINNER</span><br />
-          LIQUIDITY
-        </div>
-        <div class="s6-body" id="s6-body">
-          Fewer traders. Wider spreads.
-        </div>
-        <div class="s6-lane" id="s6-lane"></div>
-        <div class="s6-lane-active" id="s6-lane-active"></div>
-        <div class="s6-order" id="s6-order">
-          <img src="assets/logos/AAPL.png" alt="" crossorigin="anonymous" />
-          <span>BUY · 1×AAPL</span>
-        </div>
-      </div>
-
-      <!-- ============================================================
-           Scene 7 — Missed the close
-           ============================================================ -->
-      <div id="scene7" class="scene">
-        <div class="s7-status" id="s7-status">
-          <span class="dot"></span>
-          <span id="s7-status-label">MARKETS CLOSED</span>
-        </div>
-        <div class="s7-main" id="s7-main">
-          FILLS AT <span class="accent">OPEN.</span>
-        </div>
-      </div>
-
-      <!-- ============================================================
-           Scene 8 — Globe (canvas dotted) + LSE
-           ============================================================ -->
-      <div id="scene8" class="scene">
-        <div class="s8-header">
-          <div class="s8-kicker" id="s8-kicker">ACROSS THE GLOBE</div>
-          <div class="s8-title" id="s8-title">EVERY TIMEZONE, <span class="accent">ITS MARKET.</span></div>
-        </div>
-        <div class="s8-chip" id="s8-chip">
-          <span class="dot"></span>
-          <span class="city" id="s8-chip-city">TOKYO</span>
-          <span class="time" id="s8-chip-time">09:15 JST</span>
-        </div>
-        <div id="globe-wrap">
-          <canvas id="globe-canvas" width="1560" height="1560"></canvas>
-        </div>
-        <!-- DrawSVG connector — draws downward from globe to callout on word "London" -->
-        <svg id="s8-connector" width="6" height="120" viewBox="0 0 6 120">
-          <line
-            x1="3"
-            y1="0"
-            x2="3"
-            y2="120"
-            stroke="#6d28d9"
-            stroke-width="3"
-            stroke-linecap="round"
-          />
-        </svg>
-        <div class="s8-callout">
-          <div class="tag" id="s8-tag">LONDON STOCK EXCHANGE</div>
-          <div class="name" id="s8-name">LSE</div>
-          <div class="hours" id="s8-hours">8:00 — 16:30 GMT</div>
+      <!-- S3 — generation -->
+      <div id="s3" class="scene">
+        <div class="corner s-corner"><div class="chip"><img src="assets/logos/logo-kocka.png" alt="3DM"/></div><div class="wm">3<span class="sil">DM</span></div></div>
+        <div class="scene-inner">
+          <div class="s3-top">
+            <div class="eyebrow" id="s3-eye">Step 02 &middot; Generation</div>
+            <div class="s3-head" id="s3-head">Claude directs. <span class="sil">Higgsfield renders.</span></div>
+          </div>
+          <div class="node" id="nd1">
+            <div class="glyph cl"><svg width="52" height="52" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#D97757" d="m4.7144 15.9555 4.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608 1.5179.1032 2.2767.1578 1.6514.0972 2.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973 9.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686 1.9064 1.4754 2.4893 1.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335 6.6997 0l.9957.1336.419.3642.6192 1.4147 1.0018 2.2282 1.5543 3.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853 1.8517-.5586 2.9021-.3643 1.9429h.2125l.2429-.2429.9835-1.3053 1.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759 1.1293-.34 1.1657-1.0625 1.3478-.8804 1.1414-1.2628 1.7-.7893 1.36.0729.1093.1882-.0183 2.8535-.607 1.5421-.2794 1.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607 1.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929 1.0686 2.0035 1.8092 2.5075 2.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496 2.3436 3.5214.1214 1.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38 17.959l-1.1414-1.9428-.1397.079-.674 7.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328 1.9672-2.1796 2.9446-1.7243 1.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889 2.386-3.0357 1.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385 4.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429 1.9064-1.3114Z"/></svg></div>
+            <div><div class="nt">Claude</div><div class="ns">Strategist &middot; Director</div></div>
+          </div>
+          <div class="conn" id="conn">
+            <div class="cline" data-layout-ignore></div>
+            <div class="mdot" id="md1" data-layout-ignore></div>
+            <div class="mdot" id="md2" data-layout-ignore></div>
+            <div class="mdot" id="md3" data-layout-ignore></div>
+            <div class="mcp" id="mcp">MCP</div>
+          </div>
+          <div class="node hero" id="nd2">
+            <div class="glyph hg"><img src="assets/logos/higgsfield.png" alt="Higgsfield"/></div>
+            <div><div class="nt">Higgsfield</div><div class="ns">AI video engine</div></div>
+          </div>
+          <div class="gchips">
+            <div class="gchip" id="gc1">Scenes</div>
+            <div class="gchip" id="gc2">Product shots</div>
+            <div class="gchip" id="gc3">Voiceover</div>
+            <div class="gchip" id="gc4">Music</div>
+          </div>
+          <div class="ebar" id="ebar">
+            <div class="erow"><span class="el">EDIT &amp; POLISH</span><span class="er">cuts &middot; captions &middot; grade</span></div>
+            <div class="etrack"><i id="efill"></i></div>
+          </div>
         </div>
       </div>
 
-      <!-- ============================================================
-           Scene 9 — CTA
-           ============================================================ -->
-      <div id="scene9" class="scene">
-        <canvas id="cash-canvas" width="1200" height="800"></canvas>
-        <img
-          id="s9-logo"
-          class="s9-logo"
-          src="assets/bloom-logo.png"
-          alt=""
-          crossorigin="anonymous"
-        />
-        <div class="s9-eyebrow" id="s9-eyebrow">START INVESTING ON</div>
-        <div class="s9-bloom" id="s9-bloom">
-          <span class="accent">BLOOM</span>
+      <!-- S4 — output -->
+      <div id="s4" class="scene">
+        <div class="corner s-corner"><div class="chip"><img src="assets/logos/logo-kocka.png" alt="3DM"/></div><div class="wm">3<span class="sil">DM</span></div></div>
+        <div class="scene-inner">
+          <div class="s4-top">
+            <div class="eyebrow" id="s4-eye">Step 03 &middot; Publish</div>
+            <div class="s4-head" id="s4-head">Ready to <span class="sil">post.</span></div>
+          </div>
+          <div class="minirow">
+            <div class="minicol" id="mp1"><div class="mini"><div class="mscr"><video id="v1" class="clip" data-start="23.35" data-duration="3.6" data-track-index="0" src="assets/videos/prod-fashion.mp4" muted playsinline></video><div class="isl"></div><div class="pcov"></div></div></div><div class="mlab">Fashion</div></div>
+            <div class="minicol" id="mp2"><div class="mini"><div class="mscr"><video id="v2" class="clip" data-start="23.35" data-duration="3.6" data-media-start="3" data-track-index="1" src="assets/videos/prod-watch.mp4" muted playsinline></video><div class="isl"></div><div class="pcov"></div></div></div><div class="mlab">Product</div></div>
+            <div class="minicol" id="mp3"><div class="mini"><div class="mscr"><video id="v3" class="clip" data-start="23.35" data-duration="3.6" data-media-start="2" data-track-index="2" src="assets/videos/prod-unbox.mp4" muted playsinline></video><div class="isl"></div><div class="pcov"></div></div></div><div class="mlab">Unboxing</div></div>
+          </div>
+          <div class="platrow">
+            <div class="slogo" id="lg-ig"><svg width="36" height="36" viewBox="0 0 40 40"><rect x="3" y="3" width="34" height="34" rx="10" fill="none" stroke="#F2F2F0" stroke-width="3"/><circle cx="20" cy="20" r="8" fill="none" stroke="#F2F2F0" stroke-width="3"/><circle cx="29.6" cy="10.4" r="2.5" fill="#F2F2F0"/></svg><span>Instagram</span></div>
+            <div class="slogo" id="lg-tt"><svg width="32" height="36" viewBox="0 0 40 44"><path d="M27 3 c1.6 5.2 5.3 8.3 10 8.8 v6.2 c-3.7 0-7.2-1.2-10-3.1 v12.4 a12 12 0 1 1 -12-12 c1 0 2 .1 3 .4 v6.4 a6 6 0 1 0 3 5.2 V3 z" fill="#F2F2F0"/></svg><span>TikTok</span></div>
+            <div class="slogo" id="lg-yt"><svg width="44" height="32" viewBox="0 0 48 34"><rect x="1" y="1" width="46" height="32" rx="9" fill="#F2F2F0"/><path d="M19 9 L34 17 L19 25 Z" fill="#0A0A0B"/></svg><span>YouTube</span></div>
+          </div>
         </div>
-        <div class="s9-rule" id="s9-rule"></div>
-        <div class="s9-sub shimmer-sweep-target" id="s9-sub">Know the hours. Own the market.</div>
       </div>
 
-      <!-- ============================================================
-           Voiceover tracks
-           ============================================================ -->
-      <audio id="vo1" data-start="0" data-duration="5.469" data-track-index="10" data-volume="1" src="assets/voiceover/scene-01-hook.mp3"></audio>
-      <audio id="vo2" data-start="5.469" data-duration="3.054" data-track-index="10" data-volume="1" src="assets/voiceover/scene-02-opens-closes.mp3"></audio>
-      <audio id="vo3" data-start="8.523" data-duration="8.07" data-track-index="10" data-volume="1" src="assets/voiceover/scene-03-schedule.mp3"></audio>
-      <audio id="vo4" data-start="16.593" data-duration="9.742" data-track-index="10" data-volume="1" src="assets/voiceover/scene-04-hours.mp3"></audio>
-      <audio id="vo5" data-start="26.335" data-duration="12.342" data-track-index="10" data-volume="1" src="assets/voiceover/scene-05-extended.mp3"></audio>
-      <audio id="vo6" data-start="38.677" data-duration="8.255" data-track-index="10" data-volume="1" src="assets/voiceover/scene-06-caveat.mp3"></audio>
-      <audio id="vo7" data-start="46.932" data-duration="7.512" data-track-index="10" data-volume="1" src="assets/voiceover/scene-07-missed.mp3"></audio>
-      <audio id="vo8" data-start="54.444" data-duration="11.738" data-track-index="10" data-volume="1" src="assets/voiceover/scene-08-international.mp3"></audio>
-      <audio id="vo9" data-start="66.182" data-duration="8.72" data-track-index="10" data-volume="1" src="assets/voiceover/scene-09-cta.mp3"></audio>
+      <!-- S5m — two models -->
+      <div id="s5m" class="scene">
+        <div class="corner s-corner"><div class="chip"><img src="assets/logos/logo-kocka.png" alt="3DM"/></div><div class="wm">3<span class="sil">DM</span></div></div>
+        <div class="scene-inner">
+          <div class="s5m-top">
+            <div class="eyebrow" id="s5m-eye">Two ways to work with us</div>
+            <div class="s5m-head" id="s5m-head">Your engine, <span class="sil">or your studio.</span></div>
+          </div>
+          <div class="model-row">
+            <div class="mcard hero" id="mc1">
+              <div class="mtag">01 &middot; AI Process Enablement</div>
+              <div class="mtitle">The engine, <span class="sil">in your company</span></div>
+              <div class="mdesc">We build and install the full AI video process inside your team.</div>
+              <div class="mrow" id="mc1r1"><span class="dot"></span>Research &#8594; strategy &#8594; generation, automated</div>
+              <div class="mrow" id="mc1r2"><span class="dot"></span>One-time setup &mdash; you own it</div>
+            </div>
+            <div class="mcard" id="mc2">
+              <div class="mtag">02 &middot; AI Video Production</div>
+              <div class="mtitle">Done <span class="sil">for you</span></div>
+              <div class="mdesc">Our studio produces your videos, end to end.</div>
+              <div class="mrow" id="mc2r1"><span class="dot"></span>Product, motion &amp; social ads</div>
+              <div class="mrow" id="mc2r2"><span class="dot"></span>Ready to post, delivered in days</div>
+            </div>
+          </div>
+          <div class="s5m-foot" id="s5m-foot">Two models &middot; one goal &mdash; <b>your videos, shipped</b></div>
+        </div>
+      </div>
+
+      <!-- S6 — CTA -->
+      <div id="s6" class="scene">
+        <div class="scene-inner" style="display:flex;flex-direction:column;align-items:center;">
+          <div class="badge-wrap">
+            <div class="badge-glow" id="s6-glow" data-layout-ignore></div>
+            <div class="logo-badge" id="s6-badge"><img src="assets/logos/logo-kocka.png" alt="3DM" /><div class="sheen" id="s6-sheen" data-layout-ignore></div></div>
+          </div>
+          <div class="wordmark" id="s6-wm">3DM <span class="sil">Studio</span></div>
+          <div class="s5-tag" id="s6-tag">Your videos &middot; on autopilot</div>
+          <div class="s5-url" id="s6-url">studio.3dmsolutions.com</div>
+          <div class="cta-btn" id="s6-btn">Start with one command &#8594;</div>
+        </div>
+      </div>
+
+      <!-- Voiceover -->
+      <audio id="vo1" class="clip" data-start="0.35"  data-duration="5.516" data-track-index="20" data-volume="1" src="assets/voiceover/3dm-process/scene-01.mp3"></audio>
+      <audio id="vo2" class="clip" data-start="5.95"  data-duration="8.952" data-track-index="20" data-volume="1" src="assets/voiceover/3dm-process/scene-02.mp3"></audio>
+      <audio id="vo3" class="clip" data-start="15.05" data-duration="8.488" data-track-index="20" data-volume="1" src="assets/voiceover/3dm-process/scene-03.mp3"></audio>
+      <audio id="vo4" class="clip" data-start="23.6"  data-duration="3.35"  data-track-index="20" data-volume="1" src="assets/voiceover/3dm-process/scene-04.mp3"></audio>
+      <audio id="vo4b" class="clip" data-start="27.1" data-duration="6.537" data-track-index="20" data-volume="1" src="assets/voiceover/3dm-process/scene-04b.mp3"></audio>
+      <audio id="vo5" class="clip" data-start="33.7"  data-duration="3.45"  data-track-index="20" data-volume="1" src="assets/voiceover/3dm-process/scene-05.mp3"></audio>
+
+      <audio id="music" class="clip" data-start="0" data-duration="37.2" data-track-index="21" data-volume="0.18" src="assets/audio/3dm-music.mp3"></audio>
+
+      <!-- Transition whooshes -->
+      <audio id="wh1" class="clip" data-start="5.57"  data-duration="0.7" data-track-index="22" data-volume="0.24" src="sound-effects/flash-whoosh-swoosh-3-SBA-300463407.mp3"></audio>
+      <audio id="wh2" class="clip" data-start="14.67" data-duration="0.7" data-track-index="22" data-volume="0.24" src="sound-effects/flash-whoosh-swoosh-3-SBA-300463407.mp3"></audio>
+      <audio id="wh3" class="clip" data-start="23.17" data-duration="0.7" data-track-index="22" data-volume="0.24" src="sound-effects/flash-whoosh-swoosh-3-SBA-300463407.mp3"></audio>
+      <audio id="wh4" class="clip" data-start="26.72" data-duration="0.7" data-track-index="22" data-volume="0.24" src="sound-effects/flash-whoosh-swoosh-3-SBA-300463407.mp3"></audio>
+      <audio id="wh5" class="clip" data-start="33.32" data-duration="0.7" data-track-index="22" data-volume="0.24" src="sound-effects/flash-whoosh-swoosh-3-SBA-300463407.mp3"></audio>
+
+      <!-- Scene accents -->
+      <audio id="ac1" class="clip" data-start="0.35"  data-duration="0.6" data-track-index="23" data-volume="0.11" src="sound-effects/data-reveal-sound-6460.mp3"></audio>
+      <audio id="ac2" class="clip" data-start="5.95"  data-duration="0.6" data-track-index="23" data-volume="0.11" src="sound-effects/data-reveal-sound-6460.mp3"></audio>
+      <audio id="ac3" class="clip" data-start="15.05" data-duration="0.6" data-track-index="23" data-volume="0.11" src="sound-effects/data-reveal-sound-6460.mp3"></audio>
+      <audio id="ac4" class="clip" data-start="23.65" data-duration="0.6" data-track-index="23" data-volume="0.11" src="sound-effects/data-reveal-sound-6460.mp3"></audio>
+      <audio id="ac5" class="clip" data-start="27.15" data-duration="0.6" data-track-index="23" data-volume="0.11" src="sound-effects/data-reveal-sound-6460.mp3"></audio>
+      <audio id="ac6" class="clip" data-start="33.8"  data-duration="0.6" data-track-index="23" data-volume="0.13" src="sound-effects/digital-bell-ding-demo-309885.mp3"></audio>
+
+      <!-- S1 fx -->
+      <audio id="tw"  class="clip" data-start="1.1"  data-duration="2.2" data-track-index="24" data-volume="0.13" src="sound-effects/typewriter.mp3"></audio>
+      <audio id="im1" class="clip" data-start="3.55" data-duration="0.6" data-track-index="24" data-volume="0.3"  src="sound-effects/flash-whoosh-swoosh-7-SBA-300462861.mp3"></audio>
+      <audio id="im2" class="clip" data-start="4.25" data-duration="0.6" data-track-index="24" data-volume="0.3"  src="sound-effects/flash-whoosh-swoosh-7-SBA-300462861.mp3"></audio>
+
+      <!-- S2 rows + strategy -->
+      <audio id="rs1" class="clip" data-start="7.95"  data-duration="0.5" data-track-index="25" data-volume="0.12" src="sound-effects/micro-air-swoosh_G18j6H4u.mp3"></audio>
+      <audio id="rs2" class="clip" data-start="8.72"  data-duration="0.5" data-track-index="25" data-volume="0.12" src="sound-effects/micro-air-swoosh_G18j6H4u.mp3"></audio>
+      <audio id="rs3" class="clip" data-start="9.95"  data-duration="0.5" data-track-index="25" data-volume="0.12" src="sound-effects/micro-air-swoosh_G18j6H4u.mp3"></audio>
+      <audio id="rs4" class="clip" data-start="10.75" data-duration="0.5" data-track-index="25" data-volume="0.12" src="sound-effects/micro-air-swoosh_G18j6H4u.mp3"></audio>
+      <audio id="rsd" class="clip" data-start="12.45" data-duration="0.7" data-track-index="25" data-volume="0.2"  src="sound-effects/digital-bell-ding-demo-309885.mp3"></audio>
+
+      <!-- S3 fx -->
+      <audio id="eb1" class="clip" data-start="15.5"  data-duration="0.7" data-track-index="26" data-volume="0.15" src="sound-effects/digital-beeping-151921.mp3"></audio>
+      <audio id="es0" class="clip" data-start="16.7"  data-duration="0.5" data-track-index="26" data-volume="0.15" src="sound-effects/micro-air-swoosh_G18j6H4u.mp3"></audio>
+      <audio id="es1" class="clip" data-start="18.34" data-duration="0.4" data-track-index="26" data-volume="0.12" src="sound-effects/micro-air-swoosh_G18j6H4u.mp3"></audio>
+      <audio id="es2" class="clip" data-start="18.85" data-duration="0.4" data-track-index="26" data-volume="0.12" src="sound-effects/micro-air-swoosh_G18j6H4u.mp3"></audio>
+      <audio id="es3" class="clip" data-start="19.7"  data-duration="0.4" data-track-index="26" data-volume="0.12" src="sound-effects/micro-air-swoosh_G18j6H4u.mp3"></audio>
+      <audio id="es4" class="clip" data-start="20.55" data-duration="0.4" data-track-index="26" data-volume="0.12" src="sound-effects/micro-air-swoosh_G18j6H4u.mp3"></audio>
+      <audio id="es5" class="clip" data-start="21.5"  data-duration="0.5" data-track-index="26" data-volume="0.1"  src="sound-effects/micro-air-swoosh_G18j6H4u.mp3"></audio>
+
+      <!-- S4 fx -->
+      <audio id="pp1" class="clip" data-start="23.85" data-duration="0.4" data-track-index="27" data-volume="0.14" src="sound-effects/micro-air-swoosh_G18j6H4u.mp3"></audio>
+      <audio id="pp2" class="clip" data-start="24.3"  data-duration="0.4" data-track-index="27" data-volume="0.14" src="sound-effects/micro-air-swoosh_G18j6H4u.mp3"></audio>
+      <audio id="pp3" class="clip" data-start="24.75" data-duration="0.4" data-track-index="27" data-volume="0.14" src="sound-effects/micro-air-swoosh_G18j6H4u.mp3"></audio>
+      <audio id="pld" class="clip" data-start="25.75" data-duration="0.6" data-track-index="27" data-volume="0.15" src="sound-effects/digital-bell-ding-demo-309885.mp3"></audio>
+      <audio id="mcs1" class="clip" data-start="28.3"  data-duration="0.5" data-track-index="27" data-volume="0.14" src="sound-effects/micro-air-swoosh_G18j6H4u.mp3"></audio>
+      <audio id="mcs2" class="clip" data-start="30.75" data-duration="0.5" data-track-index="27" data-volume="0.14" src="sound-effects/micro-air-swoosh_G18j6H4u.mp3"></audio>
+
+      <audio id="riser" class="clip" data-start="32.95" data-duration="1.1" data-track-index="29" data-volume="0.3" src="sound-effects/sci-fi-weapon-projectile-flyby-plasma-03-233857.mp3"></audio>
     </div>
 
-    <!-- ============================================================
-         Dotted globe (2D canvas, deterministic)
-         ============================================================ -->
-    <script>
-      (function () {
-        const canvas = document.getElementById("globe-canvas");
-        const ctx = canvas.getContext("2d");
-        // Canvas rendered at 2x for crispness
-        ctx.scale(2, 2);
-
-        const R = 380; // radius in CSS pixels
-        const cx = 390;
-        const cy = 390;
-
-        // Fibonacci sphere distribution — evenly spaced dots on sphere
-        function fibSphere(count) {
-          const points = [];
-          const phi = Math.PI * (Math.sqrt(5) - 1);
-          for (let i = 0; i < count; i++) {
-            const y = 1 - (i / (count - 1)) * 2;
-            const r = Math.sqrt(1 - y * y);
-            const theta = phi * i;
-            points.push([Math.cos(theta) * r, y, Math.sin(theta) * r]);
-          }
-          return points;
-        }
-
-        const dots = fibSphere(800);
-
-        // City hubs — [lat, lon, name]
-        const hubs = [
-          [40.7, -74.0, "NYSE"],
-          [51.5, -0.1, "LSE"],
-          [35.7, 139.7, "TSE"],
-          [22.3, 114.2, "HKEX"],
-          [-33.9, 151.2, "ASX"],
-          [1.3, 103.8, "SGX"],
-          [-23.5, -46.6, "B3"],
-        ];
-
-        function latLonToXYZ(lat, lon) {
-          const phi = ((90 - lat) * Math.PI) / 180;
-          const theta = ((lon + 180) * Math.PI) / 180;
-          return [
-            -Math.sin(phi) * Math.cos(theta),
-            Math.cos(phi),
-            Math.sin(phi) * Math.sin(theta),
-          ];
-        }
-
-        function rotateY([x, y, z], a) {
-          const c = Math.cos(a),
-            s = Math.sin(a);
-          return [x * c + z * s, y, -x * s + z * c];
-        }
-
-        function rotateX([x, y, z], a) {
-          const c = Math.cos(a),
-            s = Math.sin(a);
-          return [x, y * c - z * s, y * s + z * c];
-        }
-
-        window.__renderGlobe = function (compTime) {
-          const localT = compTime - 54.444;
-          const rotY = localT * 0.22;
-          const tiltX = -0.35;
-
-          ctx.clearRect(0, 0, 780, 780);
-
-          // Render dots (back-to-front by z)
-          const projected = dots.map((p) => {
-            const p2 = rotateY(rotateX(p, tiltX), rotY);
-            return p2;
-          });
-
-          // Sort ascending z — draw back first
-          const order = projected
-            .map((p, i) => [i, p[2]])
-            .sort((a, b) => a[1] - b[1]);
-
-          for (const [i] of order) {
-            const [x, y, z] = projected[i];
-            if (z < -0.05) continue; // hide far side
-            const px = cx + x * R;
-            const py = cy + y * R;
-            // Depth fade
-            const alpha = 0.25 + Math.max(0, z) * 0.55;
-            ctx.fillStyle = `rgba(15, 15, 17, ${alpha.toFixed(3)})`;
-            ctx.beginPath();
-            ctx.arc(px, py, 2.3, 0, Math.PI * 2);
-            ctx.fill();
-          }
-
-          // Render hubs on top with purple ring
-          for (let i = 0; i < hubs.length; i++) {
-            const [lat, lon] = hubs[i];
-            const v = rotateY(rotateX(latLonToXYZ(lat, lon), tiltX), rotY);
-            if (v[2] < -0.02) continue;
-            const px = cx + v[0] * R;
-            const py = cy + v[1] * R;
-            // Pulse phase based on time (deterministic)
-            const pulse = 0.5 + 0.5 * Math.sin(localT * 1.4 + i * 1.1);
-            // Outer ring
-            ctx.strokeStyle = `rgba(109, 40, 217, ${0.25 + pulse * 0.4})`;
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.arc(px, py, 10 + pulse * 8, 0, Math.PI * 2);
-            ctx.stroke();
-            // Solid dot
-            ctx.fillStyle = "#6d28d9";
-            ctx.beginPath();
-            ctx.arc(px, py, 5, 0, Math.PI * 2);
-            ctx.fill();
-            // Extra emphasis on LSE when its callout beat is live (>=60.45s)
-            if (hubs[i][2] === "LSE" && compTime >= 60.45) {
-              ctx.fillStyle = "#fafafa";
-              ctx.beginPath();
-              ctx.arc(px, py, 2.4, 0, Math.PI * 2);
-              ctx.fill();
-              ctx.strokeStyle = "#6d28d9";
-              ctx.lineWidth = 3;
-              ctx.beginPath();
-              ctx.arc(px, py, 18, 0, Math.PI * 2);
-              ctx.stroke();
-            }
-          }
-        };
-
-        // Prime first frame
-        window.__renderGlobe(54.444);
-      })();
-    </script>
-
-    <!-- ============================================================
-         Three.js cash stack — scene 9 hero element
-         Loads from Poly Pizza CDN (CC-BY J-Toastie)
-         ============================================================ -->
-    <script>
-      (function () {
-        const canvas = document.getElementById("cash-canvas");
-        const renderer = new THREE.WebGLRenderer({
-          canvas,
-          alpha: true,
-          antialias: true,
-        });
-        renderer.setPixelRatio(2);
-        renderer.setSize(600, 400, false);
-        renderer.setClearColor(0x000000, 0);
-        // PBR-correct color pipeline
-        renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        renderer.toneMappingExposure = 1.2;
-        renderer.outputEncoding = THREE.sRGBEncoding;
-
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(35, 600 / 400, 0.1, 50);
-        camera.position.set(0, 2.2, 6);
-        camera.lookAt(0, 0, 0);
-
-        // Three-point lighting + hemisphere ambient
-        const key = new THREE.DirectionalLight(0xffffff, 2.5);
-        key.position.set(5, 5, 5);
-        scene.add(key);
-        const fill = new THREE.DirectionalLight(0xc4b5fd, 0.8);
-        fill.position.set(-5, 3, 2);
-        scene.add(fill);
-        const rim = new THREE.DirectionalLight(0xffffff, 1.5);
-        rim.position.set(0, 3, -8);
-        scene.add(rim);
-        scene.add(new THREE.HemisphereLight(0xddddff, 0x332211, 0.3));
-
-        // PBR gold material — the "signature financeguypeter look"
-        const goldMaterial = new THREE.MeshPhysicalMaterial({
-          color: 0xffcc44,
-          metalness: 1.0,
-          roughness: 0.18,
-          clearcoat: 1.0,
-          clearcoatRoughness: 0.1,
-          envMapIntensity: 1.4,
-        });
-
-        // Load HDR environment for proper metallic reflections (async)
-        const pmrem = new THREE.PMREMGenerator(renderer);
-        pmrem.compileEquirectangularShader();
-        new THREE.RGBELoader()
-          .setDataType(THREE.HalfFloatType)
-          .load(
-            "https://threejs.org/examples/textures/equirectangular/venice_sunset_1k.hdr",
-            function (tex) {
-              const env = pmrem.fromEquirectangular(tex).texture;
-              scene.environment = env;
-              tex.dispose();
-              pmrem.dispose();
-            },
-            undefined,
-            function (err) {
-              console.warn("HDR env load failed; gold will look flat:", err);
-            },
-          );
-
-        let cashModel = null;
-
-        const loader = new THREE.GLTFLoader();
-        loader.load(
-          "https://static.poly.pizza/f71a571e-7b09-47e5-9124-2636460582ec.glb",
-          function (gltf) {
-            cashModel = gltf.scene;
-            // Override every mesh's material with the gold PBR recipe
-            cashModel.traverse(function (child) {
-              if (child.isMesh) {
-                child.material = goldMaterial;
-              }
-            });
-            // Center + scale to fit frame
-            const box = new THREE.Box3().setFromObject(cashModel);
-            const size = box.getSize(new THREE.Vector3());
-            const center = box.getCenter(new THREE.Vector3());
-            cashModel.position.sub(center);
-            const scale = 2.4 / Math.max(size.x, size.y, size.z);
-            cashModel.scale.setScalar(scale);
-            scene.add(cashModel);
-          },
-          undefined,
-          function (err) {
-            console.error("Cash stack load failed:", err);
-          },
-        );
-
-        // Scene 9 starts at 66.18s; cash stack active entire scene
-        window.__renderCash = function (compTime) {
-          if (!cashModel) {
-            renderer.render(scene, camera);
-            return;
-          }
-          const localT = Math.max(0, compTime - 66.18);
-          // Gentle Y rotation + slight tilt breathing
-          cashModel.rotation.y = localT * 0.7;
-          cashModel.rotation.x = -0.08 + Math.sin(localT * 0.9) * 0.06;
-          cashModel.position.y = Math.sin(localT * 0.8) * 0.08;
-          renderer.render(scene, camera);
-        };
-
-        // Prime the first frame so canvas isn't blank before loader resolves
-        renderer.render(scene, camera);
-      })();
-    </script>
-
-    <!-- ============================================================
-         Main GSAP timeline — every beat tied to a real VO word
-         ============================================================ -->
     <script>
       window.__timelines = window.__timelines || {};
+      gsap.registerPlugin(CustomEase);
+      CustomEase.create("brand", "M0,0 C0.16,0 0.18,1 1,1");
 
-      // Register GSAP plugins (auto-registers when loaded via CDN, but explicit
-      // registration removes any linter/tree-shake ambiguity)
-      gsap.registerPlugin(
-        SplitText,
-        MotionPathPlugin,
-        CustomEase,
-        MorphSVGPlugin,
-        DrawSVGPlugin,
-        ScrambleTextPlugin,
-        Flip,
-      );
-
-      // Auto-inject shimmer masks into targets
-      document.querySelectorAll(".shimmer-sweep-target").forEach((el) => {
-        if (!el.querySelector(".shimmer-mask")) {
-          const mask = document.createElement("div");
-          mask.className = "shimmer-mask";
-          el.appendChild(mask);
-        }
-      });
-
-      // Signature ease — one consistent curve for the hero entrances
-      CustomEase.create("bloom", "M0,0 C0.18,0 0.2,1 1,1");
+      /* typed command — built synchronously before timeline */
+      const CMD = "Create 3 video ads for our new sneaker drop.\nTarget women 18–35, premium summer vibe.";
+      let cmdHtml = "";
+      for (const ch of CMD) cmdHtml += ch === "\n" ? "<br/>" : '<span class="tch">' + (ch === " " ? "&nbsp;" : ch) + "</span>";
+      document.getElementById("cmdtext").innerHTML = cmdHtml;
 
       const tl = gsap.timeline({ paused: true });
 
-      // Word-level timestamp lookup (abs seconds, from timing.json)
-      // Key = sceneIndex + "." + lowercaseWordWithoutPunct
-      // Only the words we need as animation hooks — hand-picked from timing.json
-      const W = {
-        // Scene 1
-        s1_might: 0.20,
-        s1_market: 1.25,
-        s1_never: 2.38,
-        s1_closes: 2.68,
-        s1_but: 3.34,
-        s1_false: 4.16,
-        // Scene 2
-        s2_the: 5.47,
-        s2_opens: 6.76,
-        s2_closes: 7.33,
-        // Scene 3
-        s3_us: 8.52,
-        s3_markets: 9.00,
-        s3_schedule: 10.03,
-        s3_newyork: 13.29,
-        s3_exchange: 14.07,
-        s3_nasdaq: 15.05,
-        // Scene 4
-        s4_both: 16.59,
-        s4_930a: 18.39,
-        s4_eastern1: 19.31,
-        s4_400p: 19.98,
-        s4_630a: 22.89,
-        s4_pacific: 23.68,
-        s4_100p: 24.39,
-        // Scene 5
-        s5_in: 26.34,
-        s5_extended: 28.30,
-        s5_400a: 30.45,
-        s5_premarket: 33.35,
-        s5_4pm: 34.90,
-        s5_afterhours: 37.12,
-        // Scene 6
-        s6_during: 38.68,
-        s6_less: 42.88,
-        s6_orders: 44.32,
-        s6_longer: 45.35,
-        s6_fill: 45.79,
-        // Scene 7
-        s7_wanted: 46.93,
-        s7_closed: 49.53,
-        s7_dont: 50.37,
-        s7_order: 51.43,
-        s7_opens: 53.09,
-        s7_again: 53.36,
-        // Scene 8
-        s8_in: 54.44,
-        s8_other: 54.68,
-        s8_countries: 54.94,
-        s8_timezones: 58.28,
-        s8_london: 60.45,
-        s8_exchange: 61.18,
-        s8_800: 62.47,
-        s8_430: 64.13,
-        s8_gmt: 64.59,
-        // Scene 9
-        s9_understanding: 66.18,
-        s9_market: 67.18,
-        s9_now: 70.78,
-        s9_instantly: 73.44,
-      };
+      /* ambient background */
+      tl.to("#studio", { x: 60, y: 60, scale: 1.1, duration: 18.6, ease: "sine.inOut", yoyo: true, repeat: 1 }, 0);
+      tl.to("#floor", { opacity: 0.6, duration: 7.44, ease: "sine.inOut", yoyo: true, repeat: 4 }, 0);
+      tl.to("#grain rect", { attr: { x: 8 }, duration: 0.25, ease: "none", repeat: 148, yoyo: true }, 0);
 
-      // Transition helpers — varied transitions matched to scene energy
-      function crossfade(outId, inId, t, dur) {
-        dur = dur || 0.4;
-        tl.to(outId, { opacity: 0, duration: dur, ease: "sine.inOut" }, t);
-        tl.set(outId, { opacity: 0, visibility: "hidden" }, t + dur);
-        tl.to(inId, { opacity: 1, duration: dur, ease: "sine.inOut" }, t);
+      function go(prev, next, ws, fromX) {
+        const s = ws - 0.18;
+        tl.to(prev, { opacity: 0, duration: 0.3, ease: "power2.inOut" }, s);
+        tl.set(next, { opacity: 1 }, s);
+        tl.fromTo(next, { xPercent: (fromX == null ? 6 : fromX), scale: 1.025 }, { xPercent: 0, scale: 1, duration: 0.46, ease: "power3.out" }, s);
       }
+      function drift(sel, ws, dur) { tl.fromTo(sel + " .scene-inner", { scale: 1.0 }, { scale: 1.03, duration: dur, ease: "none" }, ws); }
 
-      function flashTransition(outId, inId, t) {
-        var dur = 0.45;
-        tl.to("#flash-overlay", { opacity: 1, duration: 0.15, ease: "power2.in", overwrite: "auto" }, t);
-        tl.to(outId, { opacity: 0, duration: 0.1 }, t + 0.05);
-        tl.set(outId, { opacity: 0, visibility: "hidden" }, t + dur);
-        tl.set(inId, { opacity: 1 }, t + 0.15);
-        tl.to("#flash-overlay", { opacity: 0, duration: 0.25, ease: "power2.out", overwrite: "auto" }, t + 0.15);
+      /* ============ S1 · one command (0 – 5.75) ============ */
+      drift("#s1", 0, 5.75);
+      tl.from("#s1-eye", { y: 14, opacity: 0, duration: 0.4, ease: "power2.out" }, 0.4);
+      tl.fromTo("#term", { y: 60, opacity: 0, scale: 0.95 }, { y: 0, opacity: 1, scale: 1, duration: 0.55, ease: "power3.out" }, 0.7);
+      tl.to(".tch", { opacity: 1, duration: 0.02, stagger: 0.024, ease: "none" }, 1.15);
+      tl.set("#caret", { opacity: 1 }, 3.25);
+      tl.to("#caret", { opacity: 0, duration: 0.38, ease: "steps(1)", yoyo: true, repeat: 5 }, 3.45);
+      tl.fromTo("#tc1", { scale: 0.6, opacity: 0, y: 12 }, { scale: 1, opacity: 1, y: 0, duration: 0.4, ease: "back.out(2)" }, 3.3);
+      tl.fromTo("#tc2", { scale: 0.6, opacity: 0, y: 12 }, { scale: 1, opacity: 1, y: 0, duration: 0.4, ease: "back.out(2)" }, 3.5);
+      tl.from("#s1-pre", { y: 20, opacity: 0, duration: 0.45, ease: "power2.out" }, 3.6);
+      tl.fromTo("#s1-big", { scale: 1.35, opacity: 0, y: 16 }, { scale: 1, opacity: 1, y: 0, duration: 0.38, ease: "power3.out" }, 4.28);
+
+      /* ============ S2 · knowledge base (5.75 – 14.85) ============ */
+      go("#s1", "#s2", 5.75);
+      drift("#s2", 5.75, 9.1);
+      tl.from("#s2 .s-corner", { y: -12, opacity: 0, duration: 0.4, ease: "power2.out" }, 5.9);
+      tl.from("#s2-eye", { y: 14, opacity: 0, duration: 0.4, ease: "power2.out" }, 5.9);
+      tl.from("#s2-head", { y: 24, opacity: 0, duration: 0.5, ease: "power3.out" }, 6.05);
+      const kbT = [7.95, 8.72, 9.95, 10.75];
+      for (let i = 0; i < 4; i++) {
+        tl.fromTo("#kb" + (i + 1), { x: -46, opacity: 0, filter: "blur(5px)" }, { x: 0, opacity: 1, filter: "blur(0px)", duration: 0.45, ease: "power3.out" }, kbT[i]);
       }
+      tl.fromTo("#scanline", { opacity: 0 }, { opacity: 0.7, duration: 0.3, ease: "power2.out" }, 8.0);
+      tl.fromTo("#scanline", { y: 0 }, { y: 430, duration: 3.45, ease: "none" }, 8.3);
+      tl.to("#scanline", { opacity: 0, duration: 0.3, ease: "power2.in" }, 11.75);
+      tl.to(".kbr", { scale: 0.94, opacity: 0.16, filter: "blur(5px)", duration: 0.45, ease: "power2.inOut", stagger: 0.04 }, 12.15);
+      tl.fromTo("#kbs", { y: 70, opacity: 0, scale: 0.9, filter: "blur(8px)" }, { y: 0, opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.55, ease: "back.out(1.4)" }, 12.4);
+      tl.fromTo("#kbs-sheen", { x: -420 }, { x: 1260, duration: 0.9, ease: "power2.inOut" }, 13.15);
 
-      function blurCrossfade(outId, inId, t, dur) {
-        dur = dur || 0.4;
-        tl.to(outId, { filter: "blur(10px)", scale: 1.03, opacity: 0, duration: dur, ease: "power2.inOut" }, t);
-        tl.set(outId, { opacity: 0, visibility: "hidden" }, t + dur);
-        tl.fromTo(inId, { filter: "blur(10px)", scale: 0.97, opacity: 0 }, { filter: "blur(0px)", scale: 1, opacity: 1, duration: dur, ease: "power2.inOut" }, t);
+      /* ============ S3 · generation (14.85 – 23.35) ============ */
+      go("#s2", "#s3", 14.85);
+      drift("#s3", 14.85, 8.5);
+      tl.from("#s3 .s-corner", { y: -12, opacity: 0, duration: 0.4, ease: "power2.out" }, 15.0);
+      tl.from("#s3-eye", { y: 14, opacity: 0, duration: 0.4, ease: "power2.out" }, 15.0);
+      tl.from("#s3-head", { y: 24, opacity: 0, duration: 0.5, ease: "power3.out" }, 15.15);
+      tl.fromTo("#nd1", { y: 44, opacity: 0, scale: 0.94 }, { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.5)" }, 15.5);
+      tl.from("#conn .cline", { scaleY: 0, transformOrigin: "top", duration: 0.45, ease: "power2.inOut" }, 16.05);
+      tl.fromTo("#mcp", { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.42, ease: "back.out(2)" }, 16.2);
+      tl.fromTo("#nd2", { y: 44, opacity: 0, scale: 0.94 }, { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.5)" }, 16.68);
+      const mdS = [16.4, 16.69, 16.98];
+      for (let i = 0; i < 3; i++) {
+        tl.set("#md" + (i + 1), { opacity: 0.85 }, mdS[i]);
+        tl.fromTo("#md" + (i + 1), { y: 0 }, { y: 100, duration: 0.86, ease: "none", repeat: 7 }, mdS[i]);
       }
-
-      function focusPull(outId, inId, t, dur) {
-        dur = dur || 0.4;
-        tl.to(outId, { filter: "blur(15px)", duration: dur, ease: "power1.in" }, t);
-        tl.to(outId, { opacity: 0, duration: dur * 0.6, ease: "power2.in" }, t + dur * 0.4);
-        tl.set(outId, { opacity: 0, visibility: "hidden" }, t + dur);
-        tl.set(inId, { opacity: 1 }, t + dur * 0.4);
-        tl.fromTo(inId, { opacity: 0 }, { opacity: 1, duration: dur * 0.6, ease: "power2.out" }, t + dur * 0.4);
+      const gcT = [18.34, 18.85, 19.7, 20.55];
+      const gcE = ["back.out(1.8)", "power3.out", "back.out(1.8)", "power3.out"];
+      for (let i = 0; i < 4; i++) {
+        tl.fromTo("#gc" + (i + 1), { scale: 0.6, opacity: 0, y: 18 }, { scale: 1, opacity: 1, y: 0, duration: 0.42, ease: gcE[i] }, gcT[i]);
       }
+      tl.fromTo("#ebar", { y: 36, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 21.25);
+      tl.fromTo("#efill", { scaleX: 0 }, { scaleX: 1, duration: 1.45, ease: "power1.inOut" }, 21.5);
 
-      function colorDip(outId, inId, t, dur) {
-        dur = dur || 0.4;
-        var half = dur * 0.5;
-        tl.to(outId, { opacity: 0, duration: half, ease: "power2.in" }, t);
-        tl.set("#dip-overlay", { opacity: 1 }, t + half);
-        tl.set(inId, { opacity: 1 }, t + half);
-        tl.to("#dip-overlay", { opacity: 0, duration: half, ease: "power2.out" }, t + half + 0.02);
-        tl.fromTo(inId, { opacity: 0 }, { opacity: 1, duration: half, ease: "power2.out" }, t + half + 0.02);
-        tl.set(outId, { opacity: 0, visibility: "hidden" }, t + dur);
+      /* ============ S4 · publish (23.35 – 26.9) ============ */
+      go("#s3", "#s4", 23.35);
+      drift("#s4", 23.35, 3.55);
+      tl.from("#s4 .s-corner", { y: -12, opacity: 0, duration: 0.4, ease: "power2.out" }, 23.5);
+      tl.from("#s4-eye", { y: 14, opacity: 0, duration: 0.4, ease: "power2.out" }, 23.5);
+      tl.from("#s4-head", { y: 24, opacity: 0, duration: 0.5, ease: "power3.out" }, 23.65);
+      const mpT = [23.8, 24.25, 24.7];
+      for (let i = 0; i < 3; i++) {
+        tl.fromTo("#mp" + (i + 1), { y: 90, opacity: 0, scale: 0.86 }, { y: 0, opacity: 1, scale: 1, duration: 0.55, ease: "back.out(1.5)" }, mpT[i]);
       }
+      tl.to(".pcov", { opacity: 0, duration: 0.35, stagger: 0.35, ease: "power2.out" }, 24.55);
+      tl.from(".platrow .slogo", { scale: 0.4, opacity: 0, duration: 0.4, stagger: 0.16, ease: "back.out(2)" }, 25.7);
 
-      function scalePush(outId, inId, t, dur) {
-        dur = dur || 0.4;
-        tl.to(outId, { scale: 0.95, opacity: 0, duration: dur, ease: "power2.inOut" }, t);
-        tl.set(outId, { opacity: 0, visibility: "hidden" }, t + dur);
-        tl.fromTo(inId, { scale: 1.05, opacity: 0 }, { scale: 1, opacity: 1, duration: dur, ease: "power2.inOut" }, t);
-      }
+      /* ============ S5m · two models (26.9 – 33.5) ============ */
+      go("#s4", "#s5m", 26.9);
+      drift("#s5m", 26.9, 6.6);
+      tl.from("#s5m .s-corner", { y: -12, opacity: 0, duration: 0.4, ease: "power2.out" }, 27.0);
+      tl.from("#s5m-eye", { y: 14, opacity: 0, duration: 0.4, ease: "power2.out" }, 27.05);
+      tl.from("#s5m-head", { y: 24, opacity: 0, duration: 0.5, ease: "power3.out" }, 27.2);
+      tl.fromTo("#mc1", { y: 60, opacity: 0, scale: 0.95 }, { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.4)" }, 28.3);
+      tl.from("#mc1r1", { x: -20, opacity: 0, duration: 0.38, ease: "power2.out" }, 28.95);
+      tl.from("#mc1r2", { x: -20, opacity: 0, duration: 0.38, ease: "power2.out" }, 29.25);
+      tl.fromTo("#mc2", { y: 60, opacity: 0, scale: 0.95 }, { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.4)" }, 30.75);
+      tl.from("#mc2r1", { x: -20, opacity: 0, duration: 0.38, ease: "power2.out" }, 31.4);
+      tl.from("#mc2r2", { x: -20, opacity: 0, duration: 0.38, ease: "power2.out" }, 31.7);
+      tl.from("#s5m-foot", { y: 16, opacity: 0, duration: 0.45, ease: "power2.out" }, 32.4);
 
-      function blurDissolve(outId, inId, t, dur) {
-        dur = dur || 0.4;
-        tl.to(outId, { filter: "blur(8px)", opacity: 0, duration: dur, ease: "power2.inOut" }, t);
-        tl.set(outId, { opacity: 0, visibility: "hidden" }, t + dur);
-        tl.fromTo(inId, { filter: "blur(8px)", opacity: 0 }, { filter: "blur(0px)", opacity: 1, duration: dur, ease: "power2.inOut" }, t);
-      }
-
-      function zoomDissolve(outId, inId, t, dur) {
-        dur = dur || 0.45;
-        tl.to(outId, { scale: 1.08, filter: "blur(6px)", opacity: 0, duration: dur, ease: "power2.inOut" }, t);
-        tl.set(outId, { opacity: 0, visibility: "hidden" }, t + dur);
-        tl.fromTo(inId, { scale: 0.92, opacity: 0 }, { scale: 1, opacity: 1, duration: dur, ease: "power2.inOut" }, t);
-      }
-
-      // 3D tick loop — deterministic render from timeline position (globe + cash stack)
-      const clock = { t: 0 };
-      tl.to(
-        clock,
-        {
-          t: 75,
-          duration: 75,
-          ease: "none",
-          onUpdate: () => {
-            window.__renderGlobe?.(clock.t);
-            window.__renderCash?.(clock.t);
-          },
-        },
-        0,
-      );
-
-      // ========== SCENE 1 (0.00 – 5.47s) ==========
-      // SplitText per-stripe — include "words" so word boundaries stay atomic
-      const s1Stripe1 = new SplitText("#s1-heading .stripe:first-child", {
-        type: "words, chars",
-      });
-      const s1Stripe2 = new SplitText("#s1-heading .stripe:last-child", {
-        type: "words, chars",
-      });
-
-      tl.from("#s1-kicker", { y: 20, opacity: 0, duration: 0.5, ease: "power2.out" }, W.s1_might);
-      // "THE MARKET" — chars cascade up on word "market" using signature ease
-      tl.from(
-        s1Stripe1.chars,
-        { y: 50, opacity: 0, duration: 0.55, ease: "bloom", stagger: 0.025 },
-        W.s1_market,
-      );
-      // "NEVER CLOSES" — chars cascade up on word "never"
-      tl.from(
-        s1Stripe2.chars,
-        { y: 50, opacity: 0, duration: 0.55, ease: "bloom", stagger: 0.025 },
-        W.s1_never,
-      );
-
-      // BIG FALSE. beat — full-screen ink flash on word "false"
-      tl.to("#s1-ink", { opacity: 1, duration: 0.12, ease: "power2.out" }, W.s1_false - 0.05);
-      tl.fromTo(
-        "#s1-false-white",
-        { opacity: 0, scale: 0.7 },
-        { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.8)" },
-        W.s1_false,
-      );
-
-      // Transition 1 → 2 (flash cut — high energy hook to calm clock)
-      tl.to("#s1-ink", { opacity: 0, duration: 0.2, ease: "power2.in" }, 5.1);
-      tl.to("#s1-false-white", { opacity: 0, duration: 0.2, ease: "power2.in" }, 5.1);
-      flashTransition("#scene1", "#scene2", 5.1);
-
-      // ========== SCENE 2 (5.47 – 8.52s) ==========
-      tl.from(
-        "#s2-clock",
-        { scale: 0.85, opacity: 0, duration: 0.6, ease: "power3.out" },
-        W.s2_the,
-      );
-      // Hands wind from 12
-      tl.from(
-        "#s2-hour",
-        { rotation: -180, transformOrigin: "50% 100%", duration: 1.1, ease: "power3.out" },
-        W.s2_the + 0.05,
-      );
-      tl.from(
-        "#s2-minute",
-        { rotation: -360, transformOrigin: "50% 100%", duration: 1.1, ease: "power3.out" },
-        W.s2_the + 0.05,
-      );
-      tl.from(
-        "#s2-opens",
-        { x: -40, opacity: 0, duration: 0.5, ease: "power3.out" },
-        W.s2_opens - 0.05,
-      );
-      tl.from(
-        "#s2-closes",
-        { x: -40, opacity: 0, duration: 0.5, ease: "power3.out" },
-        W.s2_closes - 0.05,
-      );
-
-      blurCrossfade("#scene2", "#scene3", 8.3, 0.4);
-
-      // ========== SCENE 3 (8.52 – 16.59s) ==========
-      tl.from(
-        "#s3-eyebrow",
-        { y: 20, opacity: 0, duration: 0.5, ease: "power2.out" },
-        W.s3_us + 0.1,
-      );
-      tl.from(
-        "#s3-title",
-        { y: 30, opacity: 0, duration: 0.6, ease: "power3.out" },
-        W.s3_markets + 0.1,
-      );
-      // NYSE card on "New York"
-      tl.from(
-        "#s3-nyse",
-        { y: 30, opacity: 0, duration: 0.6, ease: "power3.out" },
-        W.s3_newyork - 0.1,
-      );
-      // NASDAQ card on "Nasdaq"
-      tl.from(
-        "#s3-nasdaq",
-        { y: 30, opacity: 0, duration: 0.6, ease: "power3.out" },
-        W.s3_nasdaq - 0.15,
-      );
-
-      focusPull("#scene3", "#scene4", 16.35, 0.4);
-
-      // ========== SCENE 4 (16.59 – 26.34s) ==========
-      tl.from(
-        "#s4-eyebrow",
-        { y: 20, opacity: 0, duration: 0.5, ease: "power2.out" },
-        W.s4_both + 0.05,
-      );
-      tl.from(
-        "#s4-open",
-        { y: 30, opacity: 0, duration: 0.55, ease: "power3.out" },
-        W.s4_930a - 0.1,
-      );
-      tl.from(
-        "#s4-dash",
-        { scaleX: 0, transformOrigin: "0% 50%", duration: 0.35, ease: "power2.out" },
-        W.s4_930a + 0.4,
-      );
-      tl.from(
-        "#s4-close",
-        { y: 30, opacity: 0, duration: 0.55, ease: "power3.out" },
-        W.s4_400p - 0.1,
-      );
-      tl.from(
-        "#s4-zone",
-        { y: 16, opacity: 0, duration: 0.45, ease: "power2.out" },
-        W.s4_eastern1 + 0.15,
-      );
-      // "6.5 HOURS" duration badge — lands on word "weekdays" (~21.5s)
-      tl.from(
-        "#s4-hrs",
-        { y: 30, scale: 0.85, opacity: 0, duration: 0.6, ease: "back.out(1.6)" },
-        21.4,
-      );
-      // Weekday strip M-F drops in on "weekdays" with a pop
-      tl.from(
-        "#s4-weekdays .day",
-        { y: 24, opacity: 0, duration: 0.4, ease: "power3.out", stagger: 0.09 },
-        22.0,
-      );
-      // Highlight the current day (W) briefly on "That's" (~22.5s)
-      tl.to(
-        "#s4-weekdays .day:nth-child(3)",
-        { backgroundColor: "#6d28d9", color: "#fafafa", duration: 0.3, ease: "power2.out" },
-        22.7,
-      );
-
-      colorDip("#scene4", "#scene5", 26.1, 0.4);
-
-      // ========== SCENE 5 (26.34 – 38.68s) ==========
-      tl.from(
-        "#s5-sub",
-        { y: 16, opacity: 0, duration: 0.5, ease: "power2.out" },
-        W.s5_in + 0.1,
-      );
-      tl.from(
-        "#s5-title",
-        { y: 30, opacity: 0, duration: 0.6, ease: "power3.out" },
-        W.s5_extended - 0.1,
-      );
-      // Regular (middle) band lands first on "extended hours"
-      tl.from(
-        "#s5-regular",
-        { y: 24, opacity: 0, duration: 0.55, ease: "power3.out" },
-        W.s5_extended + 0.4,
-      );
-      // Pre-market block drops in ABOVE regular on "4:00am"
-      tl.from(
-        "#s5-pre",
-        { y: -24, opacity: 0, duration: 0.55, ease: "power3.out" },
-        W.s5_400a - 0.1,
-      );
-      // After-hours block slides in BELOW regular on "4pm"
-      tl.from(
-        "#s5-after",
-        { y: 24, opacity: 0, duration: 0.55, ease: "power3.out" },
-        W.s5_4pm - 0.1,
-      );
-      // 16 HRS total badge — fills the dead air after all bands are placed
-      tl.from(
-        "#s5-total",
-        { y: 24, opacity: 0, duration: 0.6, ease: "power3.out" },
-        35.6,
-      );
-      // The "16" counts up from 0 — clean data-reveal
-      const s5Counter = { val: 0 };
-      tl.to(
-        s5Counter,
-        {
-          val: 16,
-          duration: 1.0,
-          ease: "power2.out",
-          snap: { val: 1 },
-          onUpdate: () => {
-            const el = document.getElementById("s5-total-num");
-            if (el) el.textContent = Math.round(s5Counter.val);
-          },
-        },
-        35.8,
-      );
-      // Weekend pill slides in from right
-      tl.from(
-        "#s5-weekend",
-        { x: 30, opacity: 0, duration: 0.6, ease: "power3.out" },
-        37.2,
-      );
-
-      scalePush("#scene5", "#scene6", 38.4, 0.4);
-
-      // ========== SCENE 6 (38.68 – 46.93s) ==========
-      tl.from(
-        "#s6-eyebrow",
-        { y: 16, opacity: 0, duration: 0.5, ease: "power2.out" },
-        W.s6_during + 0.05,
-      );
-      tl.from(
-        "#s6-title",
-        { y: 30, opacity: 0, duration: 0.6, ease: "power3.out" },
-        W.s6_less - 0.2,
-      );
-      tl.from(
-        "#s6-body",
-        { y: 20, opacity: 0, duration: 0.5, ease: "power2.out" },
-        W.s6_less + 0.2,
-      );
-      tl.fromTo(
-        "#s6-lane",
-        { opacity: 0, scaleX: 0, transformOrigin: "0% 50%" },
-        { opacity: 1, scaleX: 1, duration: 0.7, ease: "power2.inOut" },
-        W.s6_orders - 0.2,
-      );
-      // Order token fades in then drifts along a gentle curved path
-      tl.fromTo(
-        "#s6-order",
-        { opacity: 0 },
-        { opacity: 1, duration: 0.4, ease: "power2.out" },
-        W.s6_orders,
-      );
-      tl.to(
-        "#s6-order",
-        {
-          motionPath: {
-            path: [
-              { x: 0, y: 0 },
-              { x: 200, y: -36 },
-              { x: 420, y: 24 },
-              { x: 620, y: -12 },
-            ],
-            curviness: 1.5,
-            autoRotate: false,
-          },
-          duration: 2.4,
-          ease: "sine.inOut",
-        },
-        W.s6_orders,
-      );
-      tl.fromTo(
-        "#s6-lane-active",
-        { width: 0 },
-        { width: 620, duration: 2.4, ease: "sine.inOut" },
-        W.s6_orders,
-      );
-
-      flashTransition("#scene6", "#scene7", 46.65);
-
-      // ========== SCENE 7 (46.93 – 54.44s) ==========
-      tl.from(
-        "#s7-status",
-        { y: 16, opacity: 0, duration: 0.5, ease: "power2.out" },
-        W.s7_wanted + 0.1,
-      );
-      tl.from(
-        "#s7-main",
-        { y: 30, opacity: 0, duration: 0.6, ease: "power3.out" },
-        W.s7_order - 0.15,
-      );
-
-      // Status flips to LIVE on word "opens"
-      tl.call(
-        () => {
-          const el = document.getElementById("s7-status");
-          const lbl = document.getElementById("s7-status-label");
-          if (el) el.className = "s7-status live";
-          if (lbl) lbl.textContent = "MARKETS OPEN";
-        },
-        null,
-        W.s7_opens,
-      );
-      tl.fromTo(
-        "#s7-status",
-        { scale: 1 },
-        { scale: 1.08, duration: 0.22, ease: "power2.out", yoyo: true, repeat: 1 },
-        W.s7_opens,
-      );
-
-      blurDissolve("#scene7", "#scene8", 54.2, 0.45);
-
-      // ========== SCENE 8 (54.44 – 66.18s) ==========
-      tl.from(
-        "#s8-kicker",
-        { y: 16, opacity: 0, duration: 0.5, ease: "power2.out" },
-        W.s8_in + 0.1,
-      );
-      tl.from(
-        "#s8-title",
-        { y: 24, opacity: 0, duration: 0.6, ease: "power3.out" },
-        W.s8_countries - 0.05,
-      );
-      tl.from(
-        "#globe-wrap",
-        { scale: 0.85, opacity: 0, duration: 0.9, ease: "power3.out" },
-        W.s8_countries + 0.2,
-      );
-      // OPEN-NOW chip: rotates Tokyo → Hong Kong → London (follows the sun)
-      tl.from(
-        "#s8-chip",
-        { y: 16, scale: 0.85, opacity: 0, duration: 0.5, ease: "back.out(1.7)" },
-        56.0,
-      );
-      // ScrambleText: TOKYO → HONG KONG (city + time scramble in parallel)
-      tl.to(
-        "#s8-chip-city",
-        {
-          scrambleText: { text: "HONG KONG", chars: "upperCase", speed: 0.6 },
-          duration: 0.55,
-          ease: "none",
-        },
-        58.0,
-      );
-      tl.to(
-        "#s8-chip-time",
-        {
-          scrambleText: { text: "14:00 HKT", chars: "0123456789:HKTUPPER", speed: 0.6 },
-          duration: 0.55,
-          ease: "none",
-        },
-        58.0,
-      );
-      tl.fromTo(
-        "#s8-chip",
-        { scale: 1 },
-        { scale: 1.06, duration: 0.18, ease: "power2.out", yoyo: true, repeat: 1 },
-        58.0,
-      );
-      // ScrambleText: HONG KONG → LONDON
-      tl.to(
-        "#s8-chip-city",
-        {
-          scrambleText: { text: "LONDON", chars: "upperCase", speed: 0.6 },
-          duration: 0.55,
-          ease: "none",
-        },
-        60.45,
-      );
-      tl.to(
-        "#s8-chip-time",
-        {
-          scrambleText: { text: "08:00 GMT", chars: "0123456789:GMT", speed: 0.6 },
-          duration: 0.55,
-          ease: "none",
-        },
-        60.45,
-      );
-      tl.fromTo(
-        "#s8-chip",
-        { scale: 1 },
-        { scale: 1.08, duration: 0.22, ease: "power2.out", yoyo: true, repeat: 1 },
-        60.45,
-      );
-      // Chip dims when full LSE callout takes over below
-      tl.to(
-        "#s8-chip",
-        { opacity: 0.35, duration: 0.5, ease: "sine.inOut" },
-        62.4,
-      );
-      // Connector line draws down from globe — tethers globe to LSE callout
-      tl.fromTo(
-        "#s8-connector line",
-        { drawSVG: "0%" },
-        { drawSVG: "100%", duration: 0.55, ease: "power2.inOut" },
-        W.s8_london - 0.25,
-      );
-      // London callout on word "London"
-      tl.from(
-        "#s8-tag",
-        { y: 12, opacity: 0, duration: 0.4, ease: "power2.out" },
-        W.s8_london - 0.1,
-      );
-      tl.from(
-        "#s8-name",
-        { y: 16, opacity: 0, duration: 0.5, ease: "power3.out" },
-        W.s8_london + 0.05,
-      );
-      tl.from(
-        "#s8-hours",
-        { y: 16, opacity: 0, duration: 0.5, ease: "power3.out" },
-        W.s8_800 - 0.1,
-      );
-
-      zoomDissolve("#scene8", "#scene9", 65.9, 0.45);
-
-      // ========== SCENE 9 (66.18 – 74.90s) — FINAL ==========
-      tl.from(
-        "#s9-logo",
-        { scale: 0.7, opacity: 0, duration: 0.7, ease: "back.out(1.6)" },
-        W.s9_understanding + 0.1,
-      );
-      tl.from(
-        "#s9-eyebrow",
-        { y: 16, opacity: 0, duration: 0.5, ease: "power2.out" },
-        W.s9_understanding + 0.6,
-      );
-      // BLOOM — letters cascade with gentle bounce
-      const s9Bloom = new SplitText("#s9-bloom .accent", { type: "chars" });
-      tl.from(
-        s9Bloom.chars,
-        {
-          y: 80,
-          opacity: 0,
-          scale: 0.6,
-          duration: 0.6,
-          ease: "back.out(2.2)",
-          stagger: 0.06,
-        },
-        W.s9_now - 0.3,
-      );
-      tl.fromTo(
-        "#s9-rule",
-        { width: 0 },
-        { width: 120, duration: 0.5, ease: "power2.out" },
-        W.s9_now + 0.5,
-      );
-      tl.from(
-        "#s9-sub",
-        { y: 16, opacity: 0, duration: 0.5, ease: "power2.out" },
-        W.s9_now + 0.8,
-      );
-
-      // Shimmer sweeps on hero headlines
-      tl.fromTo(
-        "#s1-heading",
-        { "--shimmer-pos": "-20%" },
-        { "--shimmer-pos": "120%", duration: 1.0, ease: "power2.inOut" },
-        W.s1_market + 0.6,
-      );
-      tl.fromTo(
-        "#s5-title",
-        { "--shimmer-pos": "-20%" },
-        { "--shimmer-pos": "120%", duration: 1.0, ease: "power2.inOut" },
-        W.s5_extended + 0.5,
-      );
-      tl.fromTo(
-        "#s9-sub",
-        { "--shimmer-pos": "-20%" },
-        { "--shimmer-pos": "120%", duration: 0.8, ease: "power2.inOut" },
-        W.s9_now + 1.3,
-      );
-
-      // Final fade-out (allowed on last scene)
-      tl.to(
-        ["#s9-logo", "#s9-eyebrow", "#s9-bloom", "#s9-rule", "#s9-sub", "#grain-overlay"],
-        { opacity: 0, duration: 0.6, ease: "sine.inOut" },
-        73.9,
-      );
-      tl.set(
-        ["#s9-logo", "#s9-eyebrow", "#s9-bloom", "#s9-rule", "#s9-sub"],
-        { opacity: 0, visibility: "hidden" },
-        74.5,
-      );
+      /* ============ S6 · CTA (33.5 – 37.2) ============ */
+      go("#s5m", "#s6", 33.5);
+      tl.fromTo("#s6-badge", { scale: 0.5, opacity: 0, rotation: -6 }, { scale: 1, opacity: 1, rotation: 0, duration: 0.7, ease: "back.out(1.8)" }, 33.6);
+      tl.fromTo("#s6-glow", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.8, ease: "power2.out" }, 33.6);
+      tl.to("#s6-glow", { scale: 1.14, duration: 1.3, ease: "sine.inOut", yoyo: true, repeat: 1 }, 34.6);
+      tl.fromTo("#s6-sheen", { x: -260 }, { x: 580, duration: 0.85, ease: "power2.inOut" }, 34.2);
+      tl.from("#s6-wm", { y: 42, opacity: 0, duration: 0.55, ease: "brand" }, 33.95);
+      tl.from("#s6-tag", { y: 18, opacity: 0, duration: 0.45, ease: "power2.out" }, 34.35);
+      tl.from("#s6-url", { y: 18, opacity: 0, duration: 0.5, ease: "power2.out" }, 35.1);
+      tl.fromTo("#s6-btn", { y: 24, opacity: 0, scale: 0.9 }, { y: 0, opacity: 1, scale: 1, duration: 0.55, ease: "back.out(1.8)" }, 35.45);
+      tl.to("#s6-btn", { scale: 1.04, duration: 0.55, ease: "sine.inOut", yoyo: true, repeat: 1 }, 36.0);
+      tl.to("#s6 .scene-inner", { opacity: 0, duration: 0.45, ease: "power2.in" }, 36.7);
 
       window.__timelines["main"] = tl;
     </script>

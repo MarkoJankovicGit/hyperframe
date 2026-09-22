@@ -1,0 +1,1110 @@
+[
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-Logo-black.svg",
+    "type": "Image",
+    "contexts": [
+      "img[src]"
+    ],
+    "notes": null,
+    "aboveFold": true
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-Logo-white-HighRes.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]",
+      "img[srcset]"
+    ],
+    "notes": "DeX-Logo-white-HighRes",
+    "description": "DeX-Logo-white-HighRes",
+    "aboveFold": true
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-Logo-white-HighRes-200x69.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": "DeX-Logo-white-HighRes",
+    "description": "DeX-Logo-white-HighRes",
+    "aboveFold": true
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-Logo-white-HighRes-400x137.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": "DeX-Logo-white-HighRes",
+    "description": "DeX-Logo-white-HighRes",
+    "aboveFold": true
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-Logo-white-HighRes-600x206.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": "DeX-Logo-white-HighRes",
+    "description": "DeX-Logo-white-HighRes",
+    "aboveFold": true
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-Logo-white-HighRes-800x274.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": "DeX-Logo-white-HighRes",
+    "description": "DeX-Logo-white-HighRes",
+    "aboveFold": true
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DigitalExperiencePlatforma.jpg",
+    "type": "Image",
+    "contexts": [
+      "img[src]",
+      "img[srcset]"
+    ],
+    "notes": null,
+    "description": "Thinking woman concept. Imagination. Creative.",
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": true
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DigitalExperiencePlatforma-200x113.jpg",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "description": "Thinking woman concept. Imagination. Creative.",
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": true
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DigitalExperiencePlatforma-400x225.jpg",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "description": "Thinking woman concept. Imagination. Creative.",
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": true
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DigitalExperiencePlatforma-600x338.jpg",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "description": "Thinking woman concept. Imagination. Creative.",
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": true
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DigitalExperiencePlatforma-800x450.jpg",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "description": "Thinking woman concept. Imagination. Creative.",
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": true
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/hr.jpg",
+    "type": "Image",
+    "contexts": [
+      "img[src]",
+      "img[srcset]"
+    ],
+    "notes": null,
+    "description": "hr",
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/hr-200x113.jpg",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "description": "hr",
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/hr-400x225.jpg",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "description": "hr",
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/hr-600x338.jpg",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "description": "hr",
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/hr-800x450.jpg",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "description": "hr",
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/dex-custom-software-dev.jpg",
+    "type": "Image",
+    "contexts": [
+      "img[src]",
+      "img[srcset]"
+    ],
+    "notes": "dex-custom-software-dev",
+    "description": "dex-custom-software-dev",
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/dex-custom-software-dev-200x113.jpg",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": "dex-custom-software-dev",
+    "description": "dex-custom-software-dev",
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/dex-custom-software-dev-400x225.jpg",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": "dex-custom-software-dev",
+    "description": "dex-custom-software-dev",
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/dex-custom-software-dev-600x338.jpg",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": "dex-custom-software-dev",
+    "description": "dex-custom-software-dev",
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/dex-custom-software-dev-800x450.jpg",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": "dex-custom-software-dev",
+    "description": "dex-custom-software-dev",
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/dms.jpg",
+    "type": "Image",
+    "contexts": [
+      "img[src]",
+      "img[srcset]"
+    ],
+    "notes": null,
+    "description": "dms",
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/dms-200x113.jpg",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "description": "dms",
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/dms-400x225.jpg",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "description": "dms",
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/dms-600x338.jpg",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "description": "dms",
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/dms-800x450.jpg",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "description": "dms",
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-References-ailo.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]",
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-References-ailo-200x72.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-References-ailo-400x144.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-References-ailo-600x215.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/antares.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]",
+      "img[srcset]"
+    ],
+    "notes": "antares",
+    "description": "antares",
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/antares-200x42.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": "antares",
+    "description": "antares",
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-References-mtel-bih.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]",
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-References-mtel-bih-200x72.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-References-mtel-bih-400x144.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-References-mtel-bih-600x215.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-References_e-uprava.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]",
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-References_e-uprava-200x72.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-References_e-uprava-400x144.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-References_e-uprava-600x215.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/privredna-komora-srb.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]",
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/privredna-komora-srb-200x75.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-References-Sokoj.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]",
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-References-Sokoj-200x72.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-References-Sokoj-400x144.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-References-Sokoj-600x215.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-References-eps.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]",
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-References-eps-200x72.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-References-eps-400x144.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-References-eps-600x215.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/mup-e1692989463605.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]"
+    ],
+    "notes": null,
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-References-protent.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]",
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-References-protent-200x72.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-References-protent-400x144.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-References-protent-600x215.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": null,
+    "nearestHeading": "Softverska rešenja",
+    "sectionClasses": "full-width",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-Logo_with_Subline-white-HighRes.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]",
+      "img[srcset]"
+    ],
+    "notes": "DeX-Logo_with_Subline-white",
+    "description": "DeX-Logo_with_Subline-white",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-Logo_with_Subline-white-HighRes-200x106.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": "DeX-Logo_with_Subline-white",
+    "description": "DeX-Logo_with_Subline-white",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-Logo_with_Subline-white-HighRes-400x213.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": "DeX-Logo_with_Subline-white",
+    "description": "DeX-Logo_with_Subline-white",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-Logo_with_Subline-white-HighRes-600x319.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": "DeX-Logo_with_Subline-white",
+    "description": "DeX-Logo_with_Subline-white",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-Logo_with_Subline-white-HighRes-800x426.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": "DeX-Logo_with_Subline-white",
+    "description": "DeX-Logo_with_Subline-white",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/sfoftware-vid.mp4",
+    "type": "Video",
+    "contexts": [
+      "video source[src]"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/cropped-DeX-Emblem-black-HighRes-32x32.png",
+    "type": "Icon",
+    "contexts": [
+      "link[rel=\"icon\"]"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/cropped-DeX-Emblem-black-HighRes-192x192.png",
+    "type": "Icon",
+    "contexts": [
+      "link[rel=\"icon\"]"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/cropped-DeX-Emblem-black-HighRes-180x180.png",
+    "type": "Icon",
+    "contexts": [
+      "link[rel=\"apple-touch-icon\"]"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/RoobertTRIAL-Regular.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/RoobertTRIAL-Regular.woff",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/RoobertTRIAL-Regular.ttf",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/RoobertTRIAL-Light.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/RoobertTRIAL-Light.woff",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/RoobertTRIAL-Light.ttf",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/RoobertTRIAL-Medium.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/RoobertTRIAL-Medium.woff",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/RoobertTRIAL-Medium.ttf",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/RoobertTRIAL-Bold.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/RoobertTRIAL-Bold.woff",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/RoobertTRIAL-Bold.ttf",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/RoobertTRIAL-Regular-1.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/RoobertTRIAL-Regular-1.woff",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/RoobertTRIAL-Regular-1.ttf",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/themes/Avada/assets/images/patterns/pattern1.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/themes/Avada/includes/lib/assets/fonts/icomoon/awb-icons.woff",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/themes/Avada/includes/lib/assets/fonts/icomoon/awb-icons.ttf",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/themes/Avada/includes/lib/assets/fonts/fontawesome/webfonts/fa-brands-400.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/themes/Avada/includes/lib/assets/fonts/fontawesome/webfonts/fa-brands-400.woff",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/themes/Avada/includes/lib/assets/fonts/fontawesome/webfonts/fa-brands-400.ttf",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/themes/Avada/includes/lib/assets/fonts/fontawesome/webfonts/fa-regular-400.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/themes/Avada/includes/lib/assets/fonts/fontawesome/webfonts/fa-regular-400.woff",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/themes/Avada/includes/lib/assets/fonts/fontawesome/webfonts/fa-regular-400.ttf",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/themes/Avada/includes/lib/assets/fonts/fontawesome/webfonts/fa-solid-900.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/themes/Avada/includes/lib/assets/fonts/fontawesome/webfonts/fa-solid-900.woff",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/themes/Avada/includes/lib/assets/fonts/fontawesome/webfonts/fa-solid-900.ttf",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/mejs-controls-dark.svg",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/closedhand.cur",
+    "type": "Other",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/preloader.gif",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/caption-bg.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/social-bg.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/alert.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/buttons.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/fullscreen-icon-64.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/fullscreen-hover-icon-64.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/x-mark-icon-64.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/x-mark-hover-icon-64.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/arrow-next-icon-64.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/arrow-next-hover-icon-64.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/arrow-prev-icon-64.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/arrow-prev-hover-icon-64.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/play-icon-64.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/play-hover-icon-64.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/pause-icon-64.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/pause-hover-icon-64.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/thumb-overlay-play.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/arrows_vertical.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/arrows_horizontal.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  }
+]

@@ -1,0 +1,43 @@
+{
+  "sceneId": "scene-04",
+  "text": "Legacy in. Intelligent automation out.",
+  "words": [
+    {
+      "word": "Legacy",
+      "start": 0,
+      "end": 0.476,
+      "startFrame": 0,
+      "endFrame": 14
+    },
+    {
+      "word": "in.",
+      "start": 0.557,
+      "end": 0.801,
+      "startFrame": 17,
+      "endFrame": 24
+    },
+    {
+      "word": "Intelligent",
+      "start": 0.894,
+      "end": 1.474,
+      "startFrame": 27,
+      "endFrame": 44
+    },
+    {
+      "word": "automation",
+      "start": 1.509,
+      "end": 2.055,
+      "startFrame": 45,
+      "endFrame": 62
+    },
+    {
+      "word": "out.",
+      "start": 2.136,
+      "end": 2.508,
+      "startFrame": 64,
+      "endFrame": 75
+    }
+  ],
+  "durationSeconds": 3.008,
+  "durationFrames": 90
+}

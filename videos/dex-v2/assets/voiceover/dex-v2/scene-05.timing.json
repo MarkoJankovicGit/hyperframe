@@ -1,0 +1,57 @@
+{
+  "sceneId": "scene-05",
+  "text": "Thirty years. A hundred experts. Fifty clients.",
+  "words": [
+    {
+      "word": "Thirty",
+      "start": 0,
+      "end": 0.36,
+      "startFrame": 0,
+      "endFrame": 11
+    },
+    {
+      "word": "years.",
+      "start": 0.418,
+      "end": 0.801,
+      "startFrame": 13,
+      "endFrame": 24
+    },
+    {
+      "word": "A",
+      "start": 0.906,
+      "end": 0.975,
+      "startFrame": 27,
+      "endFrame": 29
+    },
+    {
+      "word": "hundred",
+      "start": 1.045,
+      "end": 1.312,
+      "startFrame": 31,
+      "endFrame": 39
+    },
+    {
+      "word": "experts.",
+      "start": 1.358,
+      "end": 1.904,
+      "startFrame": 41,
+      "endFrame": 57
+    },
+    {
+      "word": "Fifty",
+      "start": 2.009,
+      "end": 2.31,
+      "startFrame": 60,
+      "endFrame": 69
+    },
+    {
+      "word": "clients.",
+      "start": 2.357,
+      "end": 3.204,
+      "startFrame": 71,
+      "endFrame": 96
+    }
+  ],
+  "durationSeconds": 3.704,
+  "durationFrames": 111
+}

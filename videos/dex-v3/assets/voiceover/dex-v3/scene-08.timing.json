@@ -1,0 +1,36 @@
+{
+  "sceneId": "scene-08",
+  "text": "DEX. Your digital colleague.",
+  "words": [
+    {
+      "word": "DEX.",
+      "start": 0,
+      "end": 0.639,
+      "startFrame": 0,
+      "endFrame": 19
+    },
+    {
+      "word": "Your",
+      "start": 0.789,
+      "end": 0.952,
+      "startFrame": 24,
+      "endFrame": 29
+    },
+    {
+      "word": "digital",
+      "start": 0.998,
+      "end": 1.324,
+      "startFrame": 30,
+      "endFrame": 40
+    },
+    {
+      "word": "colleague.",
+      "start": 1.382,
+      "end": 1.95,
+      "startFrame": 41,
+      "endFrame": 59
+    }
+  ],
+  "durationSeconds": 2.45,
+  "durationFrames": 74
+}

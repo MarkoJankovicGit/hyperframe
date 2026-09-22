@@ -1,0 +1,99 @@
+{
+  "sceneId": "scene-01",
+  "text": "Every ambitious team hits a wall — where off-the-shelf software just stops fitting.",
+  "words": [
+    {
+      "word": "Every",
+      "start": 0,
+      "end": 0.383,
+      "startFrame": 0,
+      "endFrame": 11
+    },
+    {
+      "word": "ambitious",
+      "start": 0.441,
+      "end": 0.929,
+      "startFrame": 13,
+      "endFrame": 28
+    },
+    {
+      "word": "team",
+      "start": 0.975,
+      "end": 1.219,
+      "startFrame": 29,
+      "endFrame": 37
+    },
+    {
+      "word": "hits",
+      "start": 1.289,
+      "end": 1.474,
+      "startFrame": 39,
+      "endFrame": 44
+    },
+    {
+      "word": "a",
+      "start": 1.509,
+      "end": 1.533,
+      "startFrame": 45,
+      "endFrame": 46
+    },
+    {
+      "word": "wall",
+      "start": 1.591,
+      "end": 1.858,
+      "startFrame": 48,
+      "endFrame": 56
+    },
+    {
+      "word": "—",
+      "start": 1.974,
+      "end": 2.02,
+      "startFrame": 59,
+      "endFrame": 61
+    },
+    {
+      "word": "where",
+      "start": 2.09,
+      "end": 2.322,
+      "startFrame": 63,
+      "endFrame": 70
+    },
+    {
+      "word": "off-the-shelf",
+      "start": 2.38,
+      "end": 2.984,
+      "startFrame": 71,
+      "endFrame": 90
+    },
+    {
+      "word": "software",
+      "start": 3.042,
+      "end": 3.553,
+      "startFrame": 91,
+      "endFrame": 107
+    },
+    {
+      "word": "just",
+      "start": 3.611,
+      "end": 3.831,
+      "startFrame": 108,
+      "endFrame": 115
+    },
+    {
+      "word": "stops",
+      "start": 3.866,
+      "end": 4.203,
+      "startFrame": 116,
+      "endFrame": 126
+    },
+    {
+      "word": "fitting.",
+      "start": 4.249,
+      "end": 4.923,
+      "startFrame": 127,
+      "endFrame": 148
+    }
+  ],
+  "durationSeconds": 5.423,
+  "durationFrames": 163
+}

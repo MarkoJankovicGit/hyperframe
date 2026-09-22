@@ -1,0 +1,64 @@
+# DESIGN.md — 3DM LLC · AI Video Production Studio (sales video)
+
+Visual identity for the 3DM sales highlight video (`3dm-sales.html`). Premium B2B,
+dark "AI studio" mood: deep near-black violet canvas, electric purple energy, restrained
+chrome. Confident, fast, expensive-looking. Built fresh — no slide images.
+
+## Style Prompt
+
+A high-end AI/tech sales film. Near-black canvas tinted violet, lit by localized purple
+glows that breathe in the dark. Big confident display type in a modern geometric grotesk,
+data and prices set in a monospace "machine voice." Electric violet→magenta gradient
+reserved for the brand mark and one hero word per scene. Motion is decisive and smooth —
+fast snappy entrances, slick directional transitions, animated counters that race up.
+Feels like a product reveal from a premium software company.
+
+## Colors — PREMIUM MONOCHROME (no color; restraint = premium)
+
+Bright violet/magenta read as "AI template". This brand is **monochrome**: deep black,
+off-white, grays, with a metallic *silver* gradient for emphasis. No neon, no hue.
+
+| Role                | Hex       | Use                                                        |
+| ------------------- | --------- | ---------------------------------------------------------- |
+| Canvas (bg)         | `#0A0A0B` | Base background, all scenes (true near-black)              |
+| Panel / card        | `#161618` | Raised cards, dashboards                                   |
+| Panel 2             | `#1C1C1F` | Inner panels                                               |
+| Foreground          | `#F2F2F0` | Primary text (warm off-white)                              |
+| Muted               | `#9C9CA1` | Secondary text                                             |
+| Dim                 | `#6A6A70` | Tertiary labels                                            |
+| Hairline            | `#2C2C30` | Borders, dividers (neutral gray)                           |
+| Platinum highlight  | `#D8DEE6` | Tiny cool highlights / active states (sparingly)          |
+
+- **Silver emphasis gradient:** `linear-gradient(120deg,#FFFFFF 0%,#B8B8BE 55%,#88888F 100%)`
+  — used on the 3DM mark and one hero word per scene. Never on body text.
+- Glows are **white/neutral**, never colored: `rgba(255,255,255,0.0x)` → zero-alpha white.
+- Background = near-black + one soft white studio light + film grain + vignette. No grid, no color.
+
+## Typography
+
+- **Display / headlines:** `Space Grotesk`, weight 700 (and 500 for sub-heads). Modern
+  geometric grotesk = the AI/software register. Tracking `-0.02em` to `-0.04em`.
+- **Data / prices / labels:** `Space Mono`, weight 400/700. The "machine voice" for every
+  number (€20, 10x, 80%, +186%, 0:15). Sans + mono pairing (proportional vs monospaced) —
+  same DNA, different rhythm = deliberate tension, sanctioned register switch.
+- Body min 22px, data labels min 18px, headlines 64px+. `font-variant-numeric: tabular-nums`
+  on all stacked numbers. On this dark canvas use body weight 350–400 and +0.05 line-height.
+
+## Motion
+
+- Energy: **Medium→High**. Entrances 0.3–0.55s, vary eases (`power3.out`, `expo.out`,
+  `back.out(1.6)`, `power2.out`). Counters race with `power2.out` over 0.8–1.2s.
+- Transitions: primary = **push slide** (editorial, "next point"); accents = **whip/zoom
+  through** at climax (the numbers), **blur crossfade** for the outro. CSS-based.
+- Persistent background per scene: 2–3 breathing radial violet glows + faint dot grid +
+  one slow-drifting ghost word. Decoratives always have ambient motion.
+
+## What NOT to Do
+
+- No slide images from the source deck — everything native HTML/SVG/CSS.
+- No gradient on body text — gradient is brand-mark + one hero word only.
+- No pure `#000`/`#fff` — canvas is violet-black, text is cool off-white.
+- No `transparent` keyword in gradients/glows — use zero-alpha of the target color.
+- No banned fonts (Inter, Poppins, Outfit, Sora, Syne…). No two-sans pairing.
+- No identical repeated card grids with equal weight — lead the eye; one hero element wins.
+- No exit animations except the final scene — transitions handle the handoff.

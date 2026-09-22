@@ -1,0 +1,43 @@
+# Asset Descriptions
+
+One line per file. Read this instead of opening every image individually.
+
+- dex-custom-software-dev-400x225.jpg — 22KB, "dex-custom-software-dev", section: "Softverska rešenja"
+- dex-custom-software-dev-600x338.jpg — 45KB, "dex-custom-software-dev", section: "Softverska rešenja"
+- dex-custom-software-dev-800x450.jpg — 73KB, "dex-custom-software-dev", section: "Softverska rešenja"
+- dex-logo-black.svg — 1KB, dex logo black
+- dex-logo-white-highres-600x206.png — 13KB, dex logo white highres 600x206
+- dex-logo-white-highres-800x274.png — 19KB, dex logo white highres 800x274
+- dex-logo-white-highres.png — 17KB, dex logo white highres
+- dex-logo-with-subline-white-highres-400x.png — 15KB, dex logo with subline white highres 400x
+- dex-logo-with-subline-white-highres-600x.png — 23KB, dex logo with subline white highres 600x
+- dex-logo-with-subline-white-highres-800x.png — 33KB, dex logo with subline white highres 800x
+- dex-logo-with-subline-white-highres.png — 28KB, dex logo with subline white highres
+- dex-references-ailo-600x215.png — 13KB, dex references ailo 600x215
+- dex-references-ailo.png — 18KB, dex references ailo
+- dex-references-e-uprava-600x215.png — 13KB, dex references e uprava 600x215
+- dex-references-e-uprava.png — 23KB, dex references e uprava
+- dex-references-eps-400x144.png — 11KB, dex references eps 400x144
+- dex-references-eps-600x215.png — 19KB, dex references eps 600x215
+- dex-references-eps.png — 29KB, dex references eps
+- dex-references-mtel-bih-600x215.png — 11KB, dex references mtel bih 600x215
+- dex-references-mtel-bih.png — 15KB, dex references mtel bih
+- dex-references-protent-600x215.png — 11KB, dex references protent 600x215
+- dex-references-protent.png — 17KB, dex references protent
+- dex-references-sokoj-400x144.png — 13KB, dex references sokoj 400x144
+- dex-references-sokoj-600x215.png — 22KB, dex references sokoj 600x215
+- dex-references-sokoj.png — 36KB, dex references sokoj
+- digitalexperienceplatforma-400x225.jpg — 26KB, digitalexperienceplatforma 400x225
+- digitalexperienceplatforma-600x338.jpg — 48KB, digitalexperienceplatforma 600x338
+- digitalexperienceplatforma-800x450.jpg — 72KB, digitalexperienceplatforma 800x450
+- digitalexperienceplatforma.jpg — 95KB, digitalexperienceplatforma
+- dms-400x225.jpg — 19KB, "dms", section: "Softverska rešenja"
+- dms-600x338.jpg — 37KB, "dms", section: "Softverska rešenja"
+- dms-800x450.jpg — 58KB, "dms", section: "Softverska rešenja"
+- dms.jpg — 138KB, "dms", section: "Softverska rešenja"
+- favicon.png — 1KB, favicon
+- hr-400x225.jpg — 21KB, "hr", section: "Softverska rešenja"
+- hr-800x450.jpg — 64KB, "hr", section: "Softverska rešenja"
+- image-8.jpg — 188KB, image 8
+- mejs-controls-dark.svg — 4KB, mejs controls dark
+- preloader.gif — 17KB, preloader

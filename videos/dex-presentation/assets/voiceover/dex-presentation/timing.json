@@ -1,0 +1,899 @@
+[
+  {
+    "sceneId": "scene-01",
+    "text": "Behind Southeast Europe's most demanding software — the banks, the institutions, the enterprises — you'll often find the same name.",
+    "words": [
+      {
+        "word": "Behind",
+        "start": 0,
+        "end": 0.488,
+        "startFrame": 0,
+        "endFrame": 15
+      },
+      {
+        "word": "Southeast",
+        "start": 0.58,
+        "end": 1.138,
+        "startFrame": 17,
+        "endFrame": 34
+      },
+      {
+        "word": "Europe's",
+        "start": 1.207,
+        "end": 1.567,
+        "startFrame": 36,
+        "endFrame": 47
+      },
+      {
+        "word": "most",
+        "start": 1.625,
+        "end": 1.811,
+        "startFrame": 49,
+        "endFrame": 54
+      },
+      {
+        "word": "demanding",
+        "start": 1.858,
+        "end": 2.438,
+        "startFrame": 56,
+        "endFrame": 73
+      },
+      {
+        "word": "software",
+        "start": 2.508,
+        "end": 3.111,
+        "startFrame": 75,
+        "endFrame": 93
+      },
+      {
+        "word": "—",
+        "start": 3.146,
+        "end": 3.239,
+        "startFrame": 94,
+        "endFrame": 97
+      },
+      {
+        "word": "the",
+        "start": 3.367,
+        "end": 3.471,
+        "startFrame": 101,
+        "endFrame": 104
+      },
+      {
+        "word": "banks,",
+        "start": 3.553,
+        "end": 4.029,
+        "startFrame": 107,
+        "endFrame": 121
+      },
+      {
+        "word": "the",
+        "start": 4.075,
+        "end": 4.18,
+        "startFrame": 122,
+        "endFrame": 125
+      },
+      {
+        "word": "institutions,",
+        "start": 4.238,
+        "end": 5.108,
+        "startFrame": 127,
+        "endFrame": 153
+      },
+      {
+        "word": "the",
+        "start": 5.155,
+        "end": 5.271,
+        "startFrame": 155,
+        "endFrame": 158
+      },
+      {
+        "word": "enterprises",
+        "start": 5.341,
+        "end": 6.107,
+        "startFrame": 160,
+        "endFrame": 183
+      },
+      {
+        "word": "—",
+        "start": 6.281,
+        "end": 6.339,
+        "startFrame": 188,
+        "endFrame": 190
+      },
+      {
+        "word": "you'll",
+        "start": 6.49,
+        "end": 6.699,
+        "startFrame": 195,
+        "endFrame": 201
+      },
+      {
+        "word": "often",
+        "start": 6.769,
+        "end": 7.059,
+        "startFrame": 203,
+        "endFrame": 212
+      },
+      {
+        "word": "find",
+        "start": 7.117,
+        "end": 7.384,
+        "startFrame": 214,
+        "endFrame": 222
+      },
+      {
+        "word": "the",
+        "start": 7.43,
+        "end": 7.512,
+        "startFrame": 223,
+        "endFrame": 225
+      },
+      {
+        "word": "same",
+        "start": 7.581,
+        "end": 7.93,
+        "startFrame": 227,
+        "endFrame": 238
+      },
+      {
+        "word": "name.",
+        "start": 7.988,
+        "end": 8.638,
+        "startFrame": 240,
+        "endFrame": 259
+      }
+    ],
+    "durationSeconds": 9.138,
+    "durationFrames": 274
+  },
+  {
+    "sceneId": "scene-02",
+    "text": "DEX. Digital Experience.",
+    "words": [
+      {
+        "word": "DEX.",
+        "start": 0,
+        "end": 0.673,
+        "startFrame": 0,
+        "endFrame": 20
+      },
+      {
+        "word": "Digital",
+        "start": 0.917,
+        "end": 1.312,
+        "startFrame": 28,
+        "endFrame": 39
+      },
+      {
+        "word": "Experience.",
+        "start": 1.37,
+        "end": 2.136,
+        "startFrame": 41,
+        "endFrame": 64
+      }
+    ],
+    "durationSeconds": 2.636,
+    "durationFrames": 79
+  },
+  {
+    "sceneId": "scene-03",
+    "text": "For three decades, we've engineered the systems that run serious business — innovative software, built to automate the work that holds companies back.",
+    "words": [
+      {
+        "word": "For",
+        "start": 0,
+        "end": 0.197,
+        "startFrame": 0,
+        "endFrame": 6
+      },
+      {
+        "word": "three",
+        "start": 0.267,
+        "end": 0.546,
+        "startFrame": 8,
+        "endFrame": 16
+      },
+      {
+        "word": "decades,",
+        "start": 0.604,
+        "end": 1.08,
+        "startFrame": 18,
+        "endFrame": 32
+      },
+      {
+        "word": "we've",
+        "start": 1.126,
+        "end": 1.37,
+        "startFrame": 34,
+        "endFrame": 41
+      },
+      {
+        "word": "engineered",
+        "start": 1.428,
+        "end": 1.927,
+        "startFrame": 43,
+        "endFrame": 58
+      },
+      {
+        "word": "the",
+        "start": 1.962,
+        "end": 2.032,
+        "startFrame": 59,
+        "endFrame": 61
+      },
+      {
+        "word": "systems",
+        "start": 2.078,
+        "end": 2.519,
+        "startFrame": 62,
+        "endFrame": 76
+      },
+      {
+        "word": "that",
+        "start": 2.554,
+        "end": 2.682,
+        "startFrame": 77,
+        "endFrame": 80
+      },
+      {
+        "word": "run",
+        "start": 2.763,
+        "end": 2.972,
+        "startFrame": 83,
+        "endFrame": 89
+      },
+      {
+        "word": "serious",
+        "start": 3.065,
+        "end": 3.506,
+        "startFrame": 92,
+        "endFrame": 105
+      },
+      {
+        "word": "business",
+        "start": 3.564,
+        "end": 4.063,
+        "startFrame": 107,
+        "endFrame": 122
+      },
+      {
+        "word": "—",
+        "start": 4.214,
+        "end": 4.272,
+        "startFrame": 126,
+        "endFrame": 128
+      },
+      {
+        "word": "innovative",
+        "start": 4.598,
+        "end": 5.108,
+        "startFrame": 138,
+        "endFrame": 153
+      },
+      {
+        "word": "software,",
+        "start": 5.143,
+        "end": 5.747,
+        "startFrame": 154,
+        "endFrame": 172
+      },
+      {
+        "word": "built",
+        "start": 6.072,
+        "end": 6.42,
+        "startFrame": 182,
+        "endFrame": 193
+      },
+      {
+        "word": "to",
+        "start": 6.467,
+        "end": 6.56,
+        "startFrame": 194,
+        "endFrame": 197
+      },
+      {
+        "word": "automate",
+        "start": 6.653,
+        "end": 7.129,
+        "startFrame": 200,
+        "endFrame": 214
+      },
+      {
+        "word": "the",
+        "start": 7.152,
+        "end": 7.221,
+        "startFrame": 215,
+        "endFrame": 217
+      },
+      {
+        "word": "work",
+        "start": 7.279,
+        "end": 7.546,
+        "startFrame": 218,
+        "endFrame": 226
+      },
+      {
+        "word": "that",
+        "start": 7.605,
+        "end": 7.744,
+        "startFrame": 228,
+        "endFrame": 232
+      },
+      {
+        "word": "holds",
+        "start": 7.802,
+        "end": 8.092,
+        "startFrame": 234,
+        "endFrame": 243
+      },
+      {
+        "word": "companies",
+        "start": 8.15,
+        "end": 8.557,
+        "startFrame": 245,
+        "endFrame": 257
+      },
+      {
+        "word": "back.",
+        "start": 8.626,
+        "end": 9.381,
+        "startFrame": 259,
+        "endFrame": 281
+      }
+    ],
+    "durationSeconds": 9.881,
+    "durationFrames": 296
+  },
+  {
+    "sceneId": "scene-04",
+    "text": "A modular platform you can shape to fit. Custom development, end to end. Human resources. Document management.",
+    "words": [
+      {
+        "word": "A",
+        "start": 0,
+        "end": 0.081,
+        "startFrame": 0,
+        "endFrame": 2
+      },
+      {
+        "word": "modular",
+        "start": 0.174,
+        "end": 0.615,
+        "startFrame": 5,
+        "endFrame": 18
+      },
+      {
+        "word": "platform",
+        "start": 0.662,
+        "end": 1.138,
+        "startFrame": 20,
+        "endFrame": 34
+      },
+      {
+        "word": "you",
+        "start": 1.184,
+        "end": 1.254,
+        "startFrame": 36,
+        "endFrame": 38
+      },
+      {
+        "word": "can",
+        "start": 1.3,
+        "end": 1.416,
+        "startFrame": 39,
+        "endFrame": 42
+      },
+      {
+        "word": "shape",
+        "start": 1.463,
+        "end": 1.707,
+        "startFrame": 44,
+        "endFrame": 51
+      },
+      {
+        "word": "to",
+        "start": 1.741,
+        "end": 1.8,
+        "startFrame": 52,
+        "endFrame": 54
+      },
+      {
+        "word": "fit.",
+        "start": 1.869,
+        "end": 2.299,
+        "startFrame": 56,
+        "endFrame": 69
+      },
+      {
+        "word": "Custom",
+        "start": 2.543,
+        "end": 2.902,
+        "startFrame": 76,
+        "endFrame": 87
+      },
+      {
+        "word": "development,",
+        "start": 2.961,
+        "end": 3.553,
+        "startFrame": 89,
+        "endFrame": 107
+      },
+      {
+        "word": "end",
+        "start": 3.669,
+        "end": 3.855,
+        "startFrame": 110,
+        "endFrame": 116
+      },
+      {
+        "word": "to",
+        "start": 3.901,
+        "end": 3.971,
+        "startFrame": 117,
+        "endFrame": 119
+      },
+      {
+        "word": "end.",
+        "start": 4.052,
+        "end": 4.435,
+        "startFrame": 122,
+        "endFrame": 133
+      },
+      {
+        "word": "Human",
+        "start": 4.714,
+        "end": 5.016,
+        "startFrame": 141,
+        "endFrame": 150
+      },
+      {
+        "word": "resources.",
+        "start": 5.074,
+        "end": 5.782,
+        "startFrame": 152,
+        "endFrame": 173
+      },
+      {
+        "word": "Document",
+        "start": 5.991,
+        "end": 6.49,
+        "startFrame": 180,
+        "endFrame": 195
+      },
+      {
+        "word": "management.",
+        "start": 6.548,
+        "end": 7.43,
+        "startFrame": 196,
+        "endFrame": 223
+      }
+    ],
+    "durationSeconds": 7.93,
+    "durationFrames": 238
+  },
+  {
+    "sceneId": "scene-05",
+    "text": "And robotic process automation — so the repetitive work runs itself, and your people don't have to.",
+    "words": [
+      {
+        "word": "And",
+        "start": 0,
+        "end": 0.209,
+        "startFrame": 0,
+        "endFrame": 6
+      },
+      {
+        "word": "robotic",
+        "start": 0.29,
+        "end": 0.766,
+        "startFrame": 9,
+        "endFrame": 23
+      },
+      {
+        "word": "process",
+        "start": 0.824,
+        "end": 1.347,
+        "startFrame": 25,
+        "endFrame": 40
+      },
+      {
+        "word": "automation",
+        "start": 1.393,
+        "end": 1.974,
+        "startFrame": 42,
+        "endFrame": 59
+      },
+      {
+        "word": "—",
+        "start": 2.09,
+        "end": 2.183,
+        "startFrame": 63,
+        "endFrame": 65
+      },
+      {
+        "word": "so",
+        "start": 2.508,
+        "end": 2.635,
+        "startFrame": 75,
+        "endFrame": 79
+      },
+      {
+        "word": "the",
+        "start": 2.682,
+        "end": 2.752,
+        "startFrame": 80,
+        "endFrame": 83
+      },
+      {
+        "word": "repetitive",
+        "start": 2.821,
+        "end": 3.344,
+        "startFrame": 85,
+        "endFrame": 100
+      },
+      {
+        "word": "work",
+        "start": 3.379,
+        "end": 3.599,
+        "startFrame": 101,
+        "endFrame": 108
+      },
+      {
+        "word": "runs",
+        "start": 3.68,
+        "end": 3.936,
+        "startFrame": 110,
+        "endFrame": 118
+      },
+      {
+        "word": "itself,",
+        "start": 3.994,
+        "end": 4.598,
+        "startFrame": 120,
+        "endFrame": 138
+      },
+      {
+        "word": "and",
+        "start": 4.772,
+        "end": 5.016,
+        "startFrame": 143,
+        "endFrame": 150
+      },
+      {
+        "word": "your",
+        "start": 5.085,
+        "end": 5.201,
+        "startFrame": 153,
+        "endFrame": 156
+      },
+      {
+        "word": "people",
+        "start": 5.236,
+        "end": 5.503,
+        "startFrame": 157,
+        "endFrame": 165
+      },
+      {
+        "word": "don't",
+        "start": 5.538,
+        "end": 5.712,
+        "startFrame": 166,
+        "endFrame": 171
+      },
+      {
+        "word": "have",
+        "start": 5.759,
+        "end": 5.956,
+        "startFrame": 173,
+        "endFrame": 179
+      },
+      {
+        "word": "to.",
+        "start": 6.002,
+        "end": 6.455,
+        "startFrame": 180,
+        "endFrame": 194
+      }
+    ],
+    "durationSeconds": 6.955,
+    "durationFrames": 209
+  },
+  {
+    "sceneId": "scene-06",
+    "text": "More than a hundred experts. Over fifty clients. Trusted right across the region.",
+    "words": [
+      {
+        "word": "More",
+        "start": 0,
+        "end": 0.244,
+        "startFrame": 0,
+        "endFrame": 7
+      },
+      {
+        "word": "than",
+        "start": 0.279,
+        "end": 0.406,
+        "startFrame": 8,
+        "endFrame": 12
+      },
+      {
+        "word": "a",
+        "start": 0.441,
+        "end": 0.476,
+        "startFrame": 13,
+        "endFrame": 14
+      },
+      {
+        "word": "hundred",
+        "start": 0.569,
+        "end": 0.882,
+        "startFrame": 17,
+        "endFrame": 26
+      },
+      {
+        "word": "experts.",
+        "start": 0.929,
+        "end": 1.544,
+        "startFrame": 28,
+        "endFrame": 46
+      },
+      {
+        "word": "Over",
+        "start": 1.718,
+        "end": 1.962,
+        "startFrame": 52,
+        "endFrame": 59
+      },
+      {
+        "word": "fifty",
+        "start": 2.02,
+        "end": 2.276,
+        "startFrame": 61,
+        "endFrame": 68
+      },
+      {
+        "word": "clients.",
+        "start": 2.322,
+        "end": 2.949,
+        "startFrame": 70,
+        "endFrame": 88
+      },
+      {
+        "word": "Trusted",
+        "start": 3.158,
+        "end": 3.576,
+        "startFrame": 95,
+        "endFrame": 107
+      },
+      {
+        "word": "right",
+        "start": 3.657,
+        "end": 3.866,
+        "startFrame": 110,
+        "endFrame": 116
+      },
+      {
+        "word": "across",
+        "start": 3.889,
+        "end": 4.214,
+        "startFrame": 117,
+        "endFrame": 126
+      },
+      {
+        "word": "the",
+        "start": 4.249,
+        "end": 4.319,
+        "startFrame": 127,
+        "endFrame": 130
+      },
+      {
+        "word": "region.",
+        "start": 4.377,
+        "end": 5.062,
+        "startFrame": 131,
+        "endFrame": 152
+      }
+    ],
+    "durationSeconds": 5.562,
+    "durationFrames": 167
+  },
+  {
+    "sceneId": "scene-07",
+    "text": "That's what makes us the region's leader in custom development and intelligent automation.",
+    "words": [
+      {
+        "word": "That's",
+        "start": 0,
+        "end": 0.372,
+        "startFrame": 0,
+        "endFrame": 11
+      },
+      {
+        "word": "what",
+        "start": 0.406,
+        "end": 0.546,
+        "startFrame": 12,
+        "endFrame": 16
+      },
+      {
+        "word": "makes",
+        "start": 0.604,
+        "end": 0.824,
+        "startFrame": 18,
+        "endFrame": 25
+      },
+      {
+        "word": "us",
+        "start": 0.871,
+        "end": 0.975,
+        "startFrame": 26,
+        "endFrame": 29
+      },
+      {
+        "word": "the",
+        "start": 1.022,
+        "end": 1.103,
+        "startFrame": 31,
+        "endFrame": 33
+      },
+      {
+        "word": "region's",
+        "start": 1.196,
+        "end": 1.614,
+        "startFrame": 36,
+        "endFrame": 48
+      },
+      {
+        "word": "leader",
+        "start": 1.672,
+        "end": 1.939,
+        "startFrame": 50,
+        "endFrame": 58
+      },
+      {
+        "word": "in",
+        "start": 2.02,
+        "end": 2.136,
+        "startFrame": 61,
+        "endFrame": 64
+      },
+      {
+        "word": "custom",
+        "start": 2.218,
+        "end": 2.566,
+        "startFrame": 67,
+        "endFrame": 77
+      },
+      {
+        "word": "development",
+        "start": 2.624,
+        "end": 3.17,
+        "startFrame": 79,
+        "endFrame": 95
+      },
+      {
+        "word": "and",
+        "start": 3.251,
+        "end": 3.413,
+        "startFrame": 98,
+        "endFrame": 102
+      },
+      {
+        "word": "intelligent",
+        "start": 3.529,
+        "end": 4.203,
+        "startFrame": 106,
+        "endFrame": 126
+      },
+      {
+        "word": "automation.",
+        "start": 4.249,
+        "end": 5.201,
+        "startFrame": 127,
+        "endFrame": 156
+      }
+    ],
+    "durationSeconds": 5.701,
+    "durationFrames": 171
+  },
+  {
+    "sceneId": "scene-08",
+    "text": "We don't just deliver software. We become your digital colleague. DEX. Digital Experience.",
+    "words": [
+      {
+        "word": "We",
+        "start": 0,
+        "end": 0.139,
+        "startFrame": 0,
+        "endFrame": 4
+      },
+      {
+        "word": "don't",
+        "start": 0.174,
+        "end": 0.302,
+        "startFrame": 5,
+        "endFrame": 9
+      },
+      {
+        "word": "just",
+        "start": 0.337,
+        "end": 0.488,
+        "startFrame": 10,
+        "endFrame": 15
+      },
+      {
+        "word": "deliver",
+        "start": 0.522,
+        "end": 0.859,
+        "startFrame": 16,
+        "endFrame": 26
+      },
+      {
+        "word": "software.",
+        "start": 0.917,
+        "end": 1.486,
+        "startFrame": 28,
+        "endFrame": 45
+      },
+      {
+        "word": "We",
+        "start": 1.556,
+        "end": 1.66,
+        "startFrame": 47,
+        "endFrame": 50
+      },
+      {
+        "word": "become",
+        "start": 1.73,
+        "end": 1.985,
+        "startFrame": 52,
+        "endFrame": 60
+      },
+      {
+        "word": "your",
+        "start": 2.02,
+        "end": 2.125,
+        "startFrame": 61,
+        "endFrame": 64
+      },
+      {
+        "word": "digital",
+        "start": 2.171,
+        "end": 2.496,
+        "startFrame": 65,
+        "endFrame": 75
+      },
+      {
+        "word": "colleague.",
+        "start": 2.554,
+        "end": 3.03,
+        "startFrame": 77,
+        "endFrame": 91
+      },
+      {
+        "word": "DEX.",
+        "start": 3.204,
+        "end": 3.785,
+        "startFrame": 96,
+        "endFrame": 114
+      },
+      {
+        "word": "Digital",
+        "start": 3.901,
+        "end": 4.284,
+        "startFrame": 117,
+        "endFrame": 129
+      },
+      {
+        "word": "Experience.",
+        "start": 4.342,
+        "end": 5.387,
+        "startFrame": 130,
+        "endFrame": 162
+      }
+    ],
+    "durationSeconds": 5.887,
+    "durationFrames": 177
+  }
+]

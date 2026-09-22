@@ -1,0 +1,99 @@
+{
+  "sceneId": "scene-04",
+  "text": "Custom systems, engineered to fit your business — not the other way around.",
+  "words": [
+    {
+      "word": "Custom",
+      "start": 0,
+      "end": 0.453,
+      "startFrame": 0,
+      "endFrame": 14
+    },
+    {
+      "word": "systems,",
+      "start": 0.534,
+      "end": 1.138,
+      "startFrame": 16,
+      "endFrame": 34
+    },
+    {
+      "word": "engineered",
+      "start": 1.335,
+      "end": 1.869,
+      "startFrame": 40,
+      "endFrame": 56
+    },
+    {
+      "word": "to",
+      "start": 1.916,
+      "end": 1.985,
+      "startFrame": 57,
+      "endFrame": 60
+    },
+    {
+      "word": "fit",
+      "start": 2.043,
+      "end": 2.194,
+      "startFrame": 61,
+      "endFrame": 66
+    },
+    {
+      "word": "your",
+      "start": 2.241,
+      "end": 2.345,
+      "startFrame": 67,
+      "endFrame": 70
+    },
+    {
+      "word": "business",
+      "start": 2.392,
+      "end": 2.868,
+      "startFrame": 72,
+      "endFrame": 86
+    },
+    {
+      "word": "—",
+      "start": 3.03,
+      "end": 3.077,
+      "startFrame": 91,
+      "endFrame": 92
+    },
+    {
+      "word": "not",
+      "start": 3.379,
+      "end": 3.564,
+      "startFrame": 101,
+      "endFrame": 107
+    },
+    {
+      "word": "the",
+      "start": 3.599,
+      "end": 3.68,
+      "startFrame": 108,
+      "endFrame": 110
+    },
+    {
+      "word": "other",
+      "start": 3.727,
+      "end": 3.889,
+      "startFrame": 112,
+      "endFrame": 117
+    },
+    {
+      "word": "way",
+      "start": 3.936,
+      "end": 4.04,
+      "startFrame": 118,
+      "endFrame": 121
+    },
+    {
+      "word": "around.",
+      "start": 4.087,
+      "end": 4.83,
+      "startFrame": 123,
+      "endFrame": 145
+    }
+  ],
+  "durationSeconds": 5.33,
+  "durationFrames": 160
+}

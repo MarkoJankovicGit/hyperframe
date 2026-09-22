@@ -1,0 +1,92 @@
+{
+  "sceneId": "scene-06",
+  "text": "From the first conversation to a system you rely on every day.",
+  "words": [
+    {
+      "word": "From",
+      "start": 0,
+      "end": 0.221,
+      "startFrame": 0,
+      "endFrame": 7
+    },
+    {
+      "word": "the",
+      "start": 0.267,
+      "end": 0.337,
+      "startFrame": 8,
+      "endFrame": 10
+    },
+    {
+      "word": "first",
+      "start": 0.395,
+      "end": 0.639,
+      "startFrame": 12,
+      "endFrame": 19
+    },
+    {
+      "word": "conversation",
+      "start": 0.685,
+      "end": 1.324,
+      "startFrame": 21,
+      "endFrame": 40
+    },
+    {
+      "word": "to",
+      "start": 1.37,
+      "end": 1.451,
+      "startFrame": 41,
+      "endFrame": 44
+    },
+    {
+      "word": "a",
+      "start": 1.533,
+      "end": 1.567,
+      "startFrame": 46,
+      "endFrame": 47
+    },
+    {
+      "word": "system",
+      "start": 1.625,
+      "end": 1.95,
+      "startFrame": 49,
+      "endFrame": 59
+    },
+    {
+      "word": "you",
+      "start": 2.009,
+      "end": 2.09,
+      "startFrame": 60,
+      "endFrame": 63
+    },
+    {
+      "word": "rely",
+      "start": 2.159,
+      "end": 2.461,
+      "startFrame": 65,
+      "endFrame": 74
+    },
+    {
+      "word": "on",
+      "start": 2.554,
+      "end": 2.705,
+      "startFrame": 77,
+      "endFrame": 81
+    },
+    {
+      "word": "every",
+      "start": 2.833,
+      "end": 3.146,
+      "startFrame": 85,
+      "endFrame": 94
+    },
+    {
+      "word": "day.",
+      "start": 3.216,
+      "end": 3.762,
+      "startFrame": 96,
+      "endFrame": 113
+    }
+  ],
+  "durationSeconds": 4.2620000000000005,
+  "durationFrames": 128
+}

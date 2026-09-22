@@ -1,0 +1,29 @@
+{
+  "sceneId": "scene-09",
+  "text": "DEX. Digital Experience.",
+  "words": [
+    {
+      "word": "DEX.",
+      "start": 0,
+      "end": 0.511,
+      "startFrame": 0,
+      "endFrame": 15
+    },
+    {
+      "word": "Digital",
+      "start": 0.673,
+      "end": 1.057,
+      "startFrame": 20,
+      "endFrame": 32
+    },
+    {
+      "word": "Experience.",
+      "start": 1.126,
+      "end": 1.904,
+      "startFrame": 34,
+      "endFrame": 57
+    }
+  ],
+  "durationSeconds": 2.404,
+  "durationFrames": 72
+}

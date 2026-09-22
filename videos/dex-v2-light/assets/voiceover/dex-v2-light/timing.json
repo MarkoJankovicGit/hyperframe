@@ -1,0 +1,897 @@
+[
+  {
+    "sceneId": "scene-01",
+    "text": "Most software is built for everyone — yours shouldn't be.",
+    "words": [
+      {
+        "word": "Most",
+        "start": 0,
+        "end": 0.29,
+        "startFrame": 0,
+        "endFrame": 9
+      },
+      {
+        "word": "software",
+        "start": 0.337,
+        "end": 0.824,
+        "startFrame": 10,
+        "endFrame": 25
+      },
+      {
+        "word": "is",
+        "start": 0.848,
+        "end": 0.917,
+        "startFrame": 25,
+        "endFrame": 28
+      },
+      {
+        "word": "built",
+        "start": 0.975,
+        "end": 1.173,
+        "startFrame": 29,
+        "endFrame": 35
+      },
+      {
+        "word": "for",
+        "start": 1.219,
+        "end": 1.324,
+        "startFrame": 37,
+        "endFrame": 40
+      },
+      {
+        "word": "everyone",
+        "start": 1.393,
+        "end": 1.869,
+        "startFrame": 42,
+        "endFrame": 56
+      },
+      {
+        "word": "—",
+        "start": 1.939,
+        "end": 2.02,
+        "startFrame": 58,
+        "endFrame": 61
+      },
+      {
+        "word": "yours",
+        "start": 2.183,
+        "end": 2.438,
+        "startFrame": 65,
+        "endFrame": 73
+      },
+      {
+        "word": "shouldn't",
+        "start": 2.473,
+        "end": 2.763,
+        "startFrame": 74,
+        "endFrame": 83
+      },
+      {
+        "word": "be.",
+        "start": 2.81,
+        "end": 3.251,
+        "startFrame": 84,
+        "endFrame": 98
+      }
+    ],
+    "durationSeconds": 3.751,
+    "durationFrames": 113
+  },
+  {
+    "sceneId": "scene-02",
+    "text": "Build. Scale. Automate.",
+    "words": [
+      {
+        "word": "Build.",
+        "start": 0,
+        "end": 0.476,
+        "startFrame": 0,
+        "endFrame": 14
+      },
+      {
+        "word": "Scale.",
+        "start": 0.615,
+        "end": 1.115,
+        "startFrame": 18,
+        "endFrame": 33
+      },
+      {
+        "word": "Automate.",
+        "start": 1.219,
+        "end": 2.043,
+        "startFrame": 37,
+        "endFrame": 61
+      }
+    ],
+    "durationSeconds": 2.543,
+    "durationFrames": 76
+  },
+  {
+    "sceneId": "scene-03",
+    "text": "We write it from scratch, shaped around how your team actually works.",
+    "words": [
+      {
+        "word": "We",
+        "start": 0,
+        "end": 0.163,
+        "startFrame": 0,
+        "endFrame": 5
+      },
+      {
+        "word": "write",
+        "start": 0.221,
+        "end": 0.418,
+        "startFrame": 7,
+        "endFrame": 13
+      },
+      {
+        "word": "it",
+        "start": 0.441,
+        "end": 0.499,
+        "startFrame": 13,
+        "endFrame": 15
+      },
+      {
+        "word": "from",
+        "start": 0.534,
+        "end": 0.662,
+        "startFrame": 16,
+        "endFrame": 20
+      },
+      {
+        "word": "scratch,",
+        "start": 0.731,
+        "end": 1.231,
+        "startFrame": 22,
+        "endFrame": 37
+      },
+      {
+        "word": "shaped",
+        "start": 1.393,
+        "end": 1.683,
+        "startFrame": 42,
+        "endFrame": 50
+      },
+      {
+        "word": "around",
+        "start": 1.718,
+        "end": 1.997,
+        "startFrame": 52,
+        "endFrame": 60
+      },
+      {
+        "word": "how",
+        "start": 2.078,
+        "end": 2.218,
+        "startFrame": 62,
+        "endFrame": 67
+      },
+      {
+        "word": "your",
+        "start": 2.287,
+        "end": 2.415,
+        "startFrame": 69,
+        "endFrame": 72
+      },
+      {
+        "word": "team",
+        "start": 2.461,
+        "end": 2.694,
+        "startFrame": 74,
+        "endFrame": 81
+      },
+      {
+        "word": "actually",
+        "start": 2.775,
+        "end": 3.193,
+        "startFrame": 83,
+        "endFrame": 96
+      },
+      {
+        "word": "works.",
+        "start": 3.251,
+        "end": 3.947,
+        "startFrame": 98,
+        "endFrame": 118
+      }
+    ],
+    "durationSeconds": 4.447,
+    "durationFrames": 133
+  },
+  {
+    "sceneId": "scene-04",
+    "text": "Custom systems, engineered to fit your business — not the other way around.",
+    "words": [
+      {
+        "word": "Custom",
+        "start": 0,
+        "end": 0.453,
+        "startFrame": 0,
+        "endFrame": 14
+      },
+      {
+        "word": "systems,",
+        "start": 0.534,
+        "end": 1.138,
+        "startFrame": 16,
+        "endFrame": 34
+      },
+      {
+        "word": "engineered",
+        "start": 1.335,
+        "end": 1.869,
+        "startFrame": 40,
+        "endFrame": 56
+      },
+      {
+        "word": "to",
+        "start": 1.916,
+        "end": 1.985,
+        "startFrame": 57,
+        "endFrame": 60
+      },
+      {
+        "word": "fit",
+        "start": 2.043,
+        "end": 2.194,
+        "startFrame": 61,
+        "endFrame": 66
+      },
+      {
+        "word": "your",
+        "start": 2.241,
+        "end": 2.345,
+        "startFrame": 67,
+        "endFrame": 70
+      },
+      {
+        "word": "business",
+        "start": 2.392,
+        "end": 2.868,
+        "startFrame": 72,
+        "endFrame": 86
+      },
+      {
+        "word": "—",
+        "start": 3.03,
+        "end": 3.077,
+        "startFrame": 91,
+        "endFrame": 92
+      },
+      {
+        "word": "not",
+        "start": 3.379,
+        "end": 3.564,
+        "startFrame": 101,
+        "endFrame": 107
+      },
+      {
+        "word": "the",
+        "start": 3.599,
+        "end": 3.68,
+        "startFrame": 108,
+        "endFrame": 110
+      },
+      {
+        "word": "other",
+        "start": 3.727,
+        "end": 3.889,
+        "startFrame": 112,
+        "endFrame": 117
+      },
+      {
+        "word": "way",
+        "start": 3.936,
+        "end": 4.04,
+        "startFrame": 118,
+        "endFrame": 121
+      },
+      {
+        "word": "around.",
+        "start": 4.087,
+        "end": 4.83,
+        "startFrame": 123,
+        "endFrame": 145
+      }
+    ],
+    "durationSeconds": 5.33,
+    "durationFrames": 160
+  },
+  {
+    "sceneId": "scene-05",
+    "text": "Tested, shipped, and live in production — fast.",
+    "words": [
+      {
+        "word": "Tested,",
+        "start": 0,
+        "end": 0.58,
+        "startFrame": 0,
+        "endFrame": 17
+      },
+      {
+        "word": "shipped,",
+        "start": 0.685,
+        "end": 1.045,
+        "startFrame": 21,
+        "endFrame": 31
+      },
+      {
+        "word": "and",
+        "start": 1.068,
+        "end": 1.184,
+        "startFrame": 32,
+        "endFrame": 36
+      },
+      {
+        "word": "live",
+        "start": 1.265,
+        "end": 1.428,
+        "startFrame": 38,
+        "endFrame": 43
+      },
+      {
+        "word": "in",
+        "start": 1.463,
+        "end": 1.509,
+        "startFrame": 44,
+        "endFrame": 45
+      },
+      {
+        "word": "production",
+        "start": 1.544,
+        "end": 2.032,
+        "startFrame": 46,
+        "endFrame": 61
+      },
+      {
+        "word": "—",
+        "start": 2.136,
+        "end": 2.194,
+        "startFrame": 64,
+        "endFrame": 66
+      },
+      {
+        "word": "fast.",
+        "start": 2.392,
+        "end": 3.204,
+        "startFrame": 72,
+        "endFrame": 96
+      }
+    ],
+    "durationSeconds": 3.704,
+    "durationFrames": 111
+  },
+  {
+    "sceneId": "scene-06",
+    "text": "Legacy in. Intelligent systems out.",
+    "words": [
+      {
+        "word": "Legacy",
+        "start": 0,
+        "end": 0.499,
+        "startFrame": 0,
+        "endFrame": 15
+      },
+      {
+        "word": "in.",
+        "start": 0.569,
+        "end": 0.789,
+        "startFrame": 17,
+        "endFrame": 24
+      },
+      {
+        "word": "Intelligent",
+        "start": 0.894,
+        "end": 1.463,
+        "startFrame": 27,
+        "endFrame": 44
+      },
+      {
+        "word": "systems",
+        "start": 1.509,
+        "end": 1.892,
+        "startFrame": 45,
+        "endFrame": 57
+      },
+      {
+        "word": "out.",
+        "start": 1.95,
+        "end": 2.368,
+        "startFrame": 59,
+        "endFrame": 71
+      }
+    ],
+    "durationSeconds": 2.868,
+    "durationFrames": 86
+  },
+  {
+    "sceneId": "scene-07",
+    "text": "Architecture that scales with you, from one user to a million.",
+    "words": [
+      {
+        "word": "Architecture",
+        "start": 0,
+        "end": 0.615,
+        "startFrame": 0,
+        "endFrame": 18
+      },
+      {
+        "word": "that",
+        "start": 0.65,
+        "end": 0.766,
+        "startFrame": 20,
+        "endFrame": 23
+      },
+      {
+        "word": "scales",
+        "start": 0.824,
+        "end": 1.196,
+        "startFrame": 25,
+        "endFrame": 36
+      },
+      {
+        "word": "with",
+        "start": 1.231,
+        "end": 1.37,
+        "startFrame": 37,
+        "endFrame": 41
+      },
+      {
+        "word": "you,",
+        "start": 1.416,
+        "end": 1.649,
+        "startFrame": 42,
+        "endFrame": 49
+      },
+      {
+        "word": "from",
+        "start": 1.695,
+        "end": 1.869,
+        "startFrame": 51,
+        "endFrame": 56
+      },
+      {
+        "word": "one",
+        "start": 1.95,
+        "end": 2.125,
+        "startFrame": 59,
+        "endFrame": 64
+      },
+      {
+        "word": "user",
+        "start": 2.183,
+        "end": 2.485,
+        "startFrame": 65,
+        "endFrame": 75
+      },
+      {
+        "word": "to",
+        "start": 2.554,
+        "end": 2.659,
+        "startFrame": 77,
+        "endFrame": 80
+      },
+      {
+        "word": "a",
+        "start": 2.74,
+        "end": 2.763,
+        "startFrame": 82,
+        "endFrame": 83
+      },
+      {
+        "word": "million.",
+        "start": 2.844,
+        "end": 3.437,
+        "startFrame": 85,
+        "endFrame": 103
+      }
+    ],
+    "durationSeconds": 3.937,
+    "durationFrames": 118
+  },
+  {
+    "sceneId": "scene-08",
+    "text": "Not a product you adapt to. A system built around you.",
+    "words": [
+      {
+        "word": "Not",
+        "start": 0,
+        "end": 0.279,
+        "startFrame": 0,
+        "endFrame": 8
+      },
+      {
+        "word": "a",
+        "start": 0.313,
+        "end": 0.337,
+        "startFrame": 9,
+        "endFrame": 10
+      },
+      {
+        "word": "product",
+        "start": 0.383,
+        "end": 0.778,
+        "startFrame": 11,
+        "endFrame": 23
+      },
+      {
+        "word": "you",
+        "start": 0.813,
+        "end": 0.894,
+        "startFrame": 24,
+        "endFrame": 27
+      },
+      {
+        "word": "adapt",
+        "start": 0.952,
+        "end": 1.289,
+        "startFrame": 29,
+        "endFrame": 39
+      },
+      {
+        "word": "to.",
+        "start": 1.324,
+        "end": 1.602,
+        "startFrame": 40,
+        "endFrame": 48
+      },
+      {
+        "word": "A",
+        "start": 1.869,
+        "end": 1.939,
+        "startFrame": 56,
+        "endFrame": 58
+      },
+      {
+        "word": "system",
+        "start": 2.043,
+        "end": 2.415,
+        "startFrame": 61,
+        "endFrame": 72
+      },
+      {
+        "word": "built",
+        "start": 2.485,
+        "end": 2.728,
+        "startFrame": 75,
+        "endFrame": 82
+      },
+      {
+        "word": "around",
+        "start": 2.775,
+        "end": 3.1,
+        "startFrame": 83,
+        "endFrame": 93
+      },
+      {
+        "word": "you.",
+        "start": 3.158,
+        "end": 3.622,
+        "startFrame": 95,
+        "endFrame": 109
+      }
+    ],
+    "durationSeconds": 4.122,
+    "durationFrames": 124
+  },
+  {
+    "sceneId": "scene-09",
+    "text": "Platforms, custom development, document systems, and automation.",
+    "words": [
+      {
+        "word": "Platforms,",
+        "start": 0,
+        "end": 0.801,
+        "startFrame": 0,
+        "endFrame": 24
+      },
+      {
+        "word": "custom",
+        "start": 0.906,
+        "end": 1.219,
+        "startFrame": 27,
+        "endFrame": 37
+      },
+      {
+        "word": "development,",
+        "start": 1.277,
+        "end": 1.834,
+        "startFrame": 38,
+        "endFrame": 55
+      },
+      {
+        "word": "document",
+        "start": 1.939,
+        "end": 2.403,
+        "startFrame": 58,
+        "endFrame": 72
+      },
+      {
+        "word": "systems,",
+        "start": 2.45,
+        "end": 2.937,
+        "startFrame": 74,
+        "endFrame": 88
+      },
+      {
+        "word": "and",
+        "start": 2.972,
+        "end": 3.146,
+        "startFrame": 89,
+        "endFrame": 94
+      },
+      {
+        "word": "automation.",
+        "start": 3.193,
+        "end": 3.947,
+        "startFrame": 96,
+        "endFrame": 118
+      }
+    ],
+    "durationSeconds": 4.447,
+    "durationFrames": 133
+  },
+  {
+    "sceneId": "scene-10",
+    "text": "From the first commit to production, every release is rock solid.",
+    "words": [
+      {
+        "word": "From",
+        "start": 0,
+        "end": 0.232,
+        "startFrame": 0,
+        "endFrame": 7
+      },
+      {
+        "word": "the",
+        "start": 0.279,
+        "end": 0.348,
+        "startFrame": 8,
+        "endFrame": 10
+      },
+      {
+        "word": "first",
+        "start": 0.441,
+        "end": 0.743,
+        "startFrame": 13,
+        "endFrame": 22
+      },
+      {
+        "word": "commit",
+        "start": 0.778,
+        "end": 1.033,
+        "startFrame": 23,
+        "endFrame": 31
+      },
+      {
+        "word": "to",
+        "start": 1.08,
+        "end": 1.138,
+        "startFrame": 32,
+        "endFrame": 34
+      },
+      {
+        "word": "production,",
+        "start": 1.184,
+        "end": 1.8,
+        "startFrame": 36,
+        "endFrame": 54
+      },
+      {
+        "word": "every",
+        "start": 1.939,
+        "end": 2.287,
+        "startFrame": 58,
+        "endFrame": 69
+      },
+      {
+        "word": "release",
+        "start": 2.368,
+        "end": 2.798,
+        "startFrame": 71,
+        "endFrame": 84
+      },
+      {
+        "word": "is",
+        "start": 2.856,
+        "end": 2.995,
+        "startFrame": 86,
+        "endFrame": 90
+      },
+      {
+        "word": "rock",
+        "start": 3.1,
+        "end": 3.367,
+        "startFrame": 93,
+        "endFrame": 101
+      },
+      {
+        "word": "solid.",
+        "start": 3.448,
+        "end": 4.18,
+        "startFrame": 103,
+        "endFrame": 125
+      }
+    ],
+    "durationSeconds": 4.68,
+    "durationFrames": 140
+  },
+  {
+    "sceneId": "scene-11",
+    "text": "Serious software — built with you, not just for you.",
+    "words": [
+      {
+        "word": "Serious",
+        "start": 0,
+        "end": 0.499,
+        "startFrame": 0,
+        "endFrame": 15
+      },
+      {
+        "word": "software",
+        "start": 0.534,
+        "end": 1.068,
+        "startFrame": 16,
+        "endFrame": 32
+      },
+      {
+        "word": "—",
+        "start": 1.126,
+        "end": 1.184,
+        "startFrame": 34,
+        "endFrame": 36
+      },
+      {
+        "word": "built",
+        "start": 1.347,
+        "end": 1.579,
+        "startFrame": 40,
+        "endFrame": 47
+      },
+      {
+        "word": "with",
+        "start": 1.614,
+        "end": 1.741,
+        "startFrame": 48,
+        "endFrame": 52
+      },
+      {
+        "word": "you,",
+        "start": 1.788,
+        "end": 2.02,
+        "startFrame": 54,
+        "endFrame": 61
+      },
+      {
+        "word": "not",
+        "start": 2.159,
+        "end": 2.334,
+        "startFrame": 65,
+        "endFrame": 70
+      },
+      {
+        "word": "just",
+        "start": 2.38,
+        "end": 2.554,
+        "startFrame": 71,
+        "endFrame": 77
+      },
+      {
+        "word": "for",
+        "start": 2.589,
+        "end": 2.694,
+        "startFrame": 78,
+        "endFrame": 81
+      },
+      {
+        "word": "you.",
+        "start": 2.74,
+        "end": 3.065,
+        "startFrame": 82,
+        "endFrame": 92
+      }
+    ],
+    "durationSeconds": 3.565,
+    "durationFrames": 107
+  },
+  {
+    "sceneId": "scene-12",
+    "text": "Your partner for custom development and intelligent automation.",
+    "words": [
+      {
+        "word": "Your",
+        "start": 0,
+        "end": 0.221,
+        "startFrame": 0,
+        "endFrame": 7
+      },
+      {
+        "word": "partner",
+        "start": 0.29,
+        "end": 0.639,
+        "startFrame": 9,
+        "endFrame": 19
+      },
+      {
+        "word": "for",
+        "start": 0.697,
+        "end": 0.801,
+        "startFrame": 21,
+        "endFrame": 24
+      },
+      {
+        "word": "custom",
+        "start": 0.871,
+        "end": 1.184,
+        "startFrame": 26,
+        "endFrame": 36
+      },
+      {
+        "word": "development",
+        "start": 1.254,
+        "end": 1.765,
+        "startFrame": 38,
+        "endFrame": 53
+      },
+      {
+        "word": "and",
+        "start": 1.834,
+        "end": 2.02,
+        "startFrame": 55,
+        "endFrame": 61
+      },
+      {
+        "word": "intelligent",
+        "start": 2.078,
+        "end": 2.601,
+        "startFrame": 62,
+        "endFrame": 78
+      },
+      {
+        "word": "automation.",
+        "start": 2.635,
+        "end": 3.529,
+        "startFrame": 79,
+        "endFrame": 106
+      }
+    ],
+    "durationSeconds": 4.029,
+    "durationFrames": 121
+  },
+  {
+    "sceneId": "scene-13",
+    "text": "DEX. Your digital colleague.",
+    "words": [
+      {
+        "word": "DEX.",
+        "start": 0,
+        "end": 0.546,
+        "startFrame": 0,
+        "endFrame": 16
+      },
+      {
+        "word": "Your",
+        "start": 0.685,
+        "end": 0.848,
+        "startFrame": 21,
+        "endFrame": 25
+      },
+      {
+        "word": "digital",
+        "start": 0.906,
+        "end": 1.242,
+        "startFrame": 27,
+        "endFrame": 37
+      },
+      {
+        "word": "colleague.",
+        "start": 1.3,
+        "end": 1.95,
+        "startFrame": 39,
+        "endFrame": 59
+      }
+    ],
+    "durationSeconds": 2.45,
+    "durationFrames": 74
+  }
+]

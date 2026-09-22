@@ -1,0 +1,50 @@
+{
+  "sceneId": "scene-07",
+  "text": "Your ideas. Our craft. Built together.",
+  "words": [
+    {
+      "word": "Your",
+      "start": 0,
+      "end": 0.221,
+      "startFrame": 0,
+      "endFrame": 7
+    },
+    {
+      "word": "ideas.",
+      "start": 0.29,
+      "end": 0.848,
+      "startFrame": 9,
+      "endFrame": 25
+    },
+    {
+      "word": "Our",
+      "start": 0.917,
+      "end": 1.068,
+      "startFrame": 28,
+      "endFrame": 32
+    },
+    {
+      "word": "craft.",
+      "start": 1.126,
+      "end": 1.579,
+      "startFrame": 34,
+      "endFrame": 47
+    },
+    {
+      "word": "Built",
+      "start": 1.614,
+      "end": 1.834,
+      "startFrame": 48,
+      "endFrame": 55
+    },
+    {
+      "word": "together.",
+      "start": 1.869,
+      "end": 2.461,
+      "startFrame": 56,
+      "endFrame": 74
+    }
+  ],
+  "durationSeconds": 2.961,
+  "durationFrames": 89
+}

@@ -1,0 +1,85 @@
+{
+  "sceneId": "scene-10",
+  "text": "From the first commit to production, every release is rock solid.",
+  "words": [
+    {
+      "word": "From",
+      "start": 0,
+      "end": 0.232,
+      "startFrame": 0,
+      "endFrame": 7
+    },
+    {
+      "word": "the",
+      "start": 0.279,
+      "end": 0.348,
+      "startFrame": 8,
+      "endFrame": 10
+    },
+    {
+      "word": "first",
+      "start": 0.441,
+      "end": 0.743,
+      "startFrame": 13,
+      "endFrame": 22
+    },
+    {
+      "word": "commit",
+      "start": 0.778,
+      "end": 1.033,
+      "startFrame": 23,
+      "endFrame": 31
+    },
+    {
+      "word": "to",
+      "start": 1.08,
+      "end": 1.138,
+      "startFrame": 32,
+      "endFrame": 34
+    },
+    {
+      "word": "production,",
+      "start": 1.184,
+      "end": 1.8,
+      "startFrame": 36,
+      "endFrame": 54
+    },
+    {
+      "word": "every",
+      "start": 1.939,
+      "end": 2.287,
+      "startFrame": 58,
+      "endFrame": 69
+    },
+    {
+      "word": "release",
+      "start": 2.368,
+      "end": 2.798,
+      "startFrame": 71,
+      "endFrame": 84
+    },
+    {
+      "word": "is",
+      "start": 2.856,
+      "end": 2.995,
+      "startFrame": 86,
+      "endFrame": 90
+    },
+    {
+      "word": "rock",
+      "start": 3.1,
+      "end": 3.367,
+      "startFrame": 93,
+      "endFrame": 101
+    },
+    {
+      "word": "solid.",
+      "start": 3.448,
+      "end": 4.18,
+      "startFrame": 103,
+      "endFrame": 125
+    }
+  ],
+  "durationSeconds": 4.68,
+  "durationFrames": 140
+}

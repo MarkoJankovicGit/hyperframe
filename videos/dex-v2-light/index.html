@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/CustomEase.min.js"></script>
+    <style>
+      /* ===========================================================
+         DEX v2.1b — LIGHT · white + navy + orange #FF6900
+         Dense VO · dynamic background · aggressive per-letter kinetics
+         =========================================================== */
+      @font-face { font-family: "Roobert"; src: url("assets/fonts/RoobertTRIAL-Light.woff") format("woff"); font-weight: 300; font-display: block; }
+      @font-face { font-family: "Roobert"; src: url("assets/fonts/RoobertTRIAL-Regular.woff") format("woff"); font-weight: 400; font-display: block; }
+      @font-face { font-family: "Roobert"; src: url("assets/fonts/RoobertTRIAL-Medium.woff") format("woff"); font-weight: 500; font-display: block; }
+      @font-face { font-family: "Roobert"; src: url("assets/fonts/RoobertTRIAL-Bold.woff") format("woff"); font-weight: 700; font-display: block; }
+
+      :root { --bg:#F3F5F8; --card:#FFFFFF; --ink:#161B26; --navy:#1F2739; --orange:#FF6900; --orange-dk:#C2410C;
+        --blue:#2353A8; --dim:#6B7384; --line:rgba(31,39,57,0.12);
+        --mono: ui-monospace, "SF Mono", "JetBrains Mono", Consolas, monospace; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--bg); color: var(--ink); font-family: "Roobert", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+      #stage { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: hidden; background: var(--bg); }
+
+      /* dynamic background */
+      #grid { position: absolute; inset: -120px; z-index: 0; pointer-events: none;
+        background-image: radial-gradient(rgba(31,39,57,0.5) 1px, transparent 1px); background-size: 44px 44px; opacity: 0.06; }
+      .blob { position: absolute; border-radius: 50%; filter: blur(110px); z-index: 0; pointer-events: none; }
+      #blob-o { width: 1000px; height: 1000px; background: radial-gradient(circle, rgba(255,105,0,0.16), transparent 66%); left: 60%; top: 30%; }
+      #blob-n { width: 950px; height: 950px; background: radial-gradient(circle, rgba(35,83,168,0.13), transparent 66%); left: -10%; top: -10%; }
+      #blob-o2 { width: 760px; height: 760px; background: radial-gradient(circle, rgba(255,105,0,0.10), transparent 66%); left: 5%; top: 60%; }
+      #sweep { position: absolute; top: -30%; left: -40%; width: 520px; height: 160%; z-index: 0; pointer-events: none; transform: skewX(-16deg);
+        background: linear-gradient(100deg, transparent, rgba(255,255,255,0.6), transparent); filter: blur(8px); }
+      #particles { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+      .pt { position: absolute; border-radius: 50%; background: rgba(31,39,57,0.5); }
+      #flash { position: absolute; inset: 0; z-index: 60; pointer-events: none; background: var(--navy); opacity: 0; }
+
+      .beat { position: absolute; inset: 0; width: 1920px; height: 1080px; z-index: 10; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 90px 130px; opacity: 0; visibility: hidden; }
+      .beat.left { align-items: flex-start; text-align: left; }
+      .tag { font-family: var(--mono); font-size: 24px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--orange); }
+      .kln { font-weight: 700; text-transform: uppercase; letter-spacing: -0.035em; line-height: 0.94; color: var(--navy); }
+      .kw { display: inline-block; }
+      .ltr { display: inline-block; will-change: transform, opacity; }
+      .o { color: var(--orange); } .b { color: var(--blue); }
+      .sub { margin-top: 24px; font-weight: 300; font-size: 33px; color: var(--dim); }
+      .line { width: 0; height: 3px; background: var(--orange); margin-top: 22px; border-radius: 2px; }
+
+      .panel { background: var(--card); border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 30px 70px -34px rgba(31,39,57,0.35), 0 2px 8px rgba(31,39,57,0.06); overflow: hidden; }
+      .winbar { display: flex; align-items: center; gap: 9px; padding: 15px 20px; border-bottom: 1px solid var(--line); background: #F7F8FB; }
+      .dot { width: 12px; height: 12px; border-radius: 50%; } .dr{background:#ff5f57} .dy{background:#febc2e} .dg{background:#28c840}
+      .wtitle { margin-left: 12px; font-family: var(--mono); font-size: 18px; color: var(--dim); }
+
+      #b1 .h { font-size: 90px; } #b1 .h2 { font-size: 114px; margin-top: 10px; }
+      #b2 .bsa { position: absolute; font-size: 280px; font-weight: 700; letter-spacing: -0.04em; opacity: 0; color: var(--navy); }
+      #b3 .editor { width: 1240px; height: 600px; display: flex; flex-direction: column; }
+      #b3 .code { flex: 1; padding: 24px 30px; font-family: var(--mono); font-size: 26px; line-height: 1.58; color: #2A2F3A; }
+      #b3 .cl { display: block; white-space: pre; opacity: 0; }
+      #b3 .ln { color: #B8BFCB; margin-right: 24px; }
+      .k{color:#1F2739;font-weight:700} .fn{color:#2353A8} .st{color:#C2410C} .nm{color:#C2410C} .cm{color:#9AA3B2} .ty{color:#C2410C} .pu{color:#3A4150}
+      #b3 .cur { display: inline-block; width: 12px; height: 26px; background: var(--orange); vertical-align: -3px; }
+      #b4 .h { font-size: 146px; }
+      #b5 .term { width: 1180px; height: 560px; }
+      #b5 .tbody { padding: 24px 32px; font-family: var(--mono); font-size: 25px; line-height: 1.62; color: #2A2F3A; }
+      #b5 .trow { display: block; white-space: pre; opacity: 0; }
+      #b5 .pmt { color: var(--orange); } #b5 .ok { color: var(--orange); font-weight: 700; } #b5 .mut { color: var(--dim); }
+      #b5 .tcur { display: inline-block; width: 13px; height: 26px; background: var(--orange); vertical-align: -3px; }
+      #b6 { gap: 18px; }
+      #b6 .b6-title { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+      #b6 .h { font-size: 64px; line-height: 1.05; }
+      #b6 .b6-loop { position: relative; width: 1000px; height: 480px; margin-top: 6px; }
+      #b6 .chip { position: absolute; top: 213px; padding: 16px 28px; border-radius: 14px; font-family: var(--mono); font-size: 22px; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0; }
+      #b6 .chip.legacy { left: 4px; background: #E5E7EC; color: #6B7384; border: 1px solid #D1D5DC; }
+      #b6 .chip.intelligent { right: 4px; background: var(--navy); color: #fff; border: 1px solid var(--navy); box-shadow: 0 8px 24px -10px rgba(255,105,0,0.5); }
+      #b7 .arch { width: 1480px; height: 400px; position: relative; }
+      #b7 .node { position: absolute; top: 50%; transform: translateY(-50%); width: 300px; height: 138px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 8px; }
+      #b7 .node .nt { font-weight: 700; font-size: 30px; color: var(--navy); } #b7 .node .ns { font-family: var(--mono); font-size: 18px; color: var(--dim); }
+      #b7 .pkt { position: absolute; top: 50%; left: 0; width: 16px; height: 16px; margin-top: -8px; border-radius: 50%; background: var(--orange); opacity: 0; }
+      /* B8 centered */
+      #b8 { flex-direction: column; justify-content: center; align-items: center; gap: 34px; text-align: center; }
+      #b8 .fit { width: 320px; height: 320px; border-radius: 26px; overflow: hidden; background: #fff; border: 1px solid var(--line); box-shadow: 0 36px 80px -34px rgba(31,39,57,0.4), 0 2px 8px rgba(31,39,57,0.06); }
+      #b8 .fit img { width: 100%; height: 100%; object-fit: contain; }
+      #b8 .h { font-size: 120px; } #b8 .sub { margin-top: 16px; }
+      #b9 .prow { display: flex; gap: 30px; }
+      #b9 .pcard { width: 350px; height: 320px; padding: 30px; display: flex; flex-direction: column; gap: 14px; opacity: 0; }
+      #b9 .pcard .pi { width: 64px; height: 64px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 28px; color: #fff; font-weight: 700; background: var(--navy); }
+      #b9 .pcard .pi.o { background: var(--orange); }
+      #b9 .pcard .pt2 { margin-top: auto; font-weight: 700; font-size: 33px; line-height: 1.05; color: var(--navy); }
+      #b9 .pcard .ps { font-family: var(--mono); font-size: 18px; color: var(--dim); }
+      #b10 .pipe { width: 1240px; position: relative; border-radius: 24px; overflow: hidden; background: #fff; border: 1px solid var(--line); box-shadow: 0 30px 70px -34px rgba(31,39,57,0.35), 0 2px 8px rgba(31,39,57,0.06); }
+      #b10 .pipe img { width: 100%; display: block; }
+      #b10 .ptop { position: absolute; top: 88px; left: 0; right: 0; text-align: center; font-family: var(--mono); font-size: 26px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--orange); }
+      #b11 .h { font-size: 134px; }
+      #b12 .h { font-size: 146px; }
+      #b12 .pillars { display: flex; gap: 24px; margin-top: 26px; font-size: 34px; font-weight: 500; color: var(--navy); }
+      #b12 .pillars .o { color: var(--orange); } #b12 .pillars .d { color: rgba(31,39,57,0.3); }
+      #b13 .logo { width: 720px; opacity: 0; }
+      #b13 .ltag { margin-top: 36px; font-family: var(--mono); font-size: 28px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--orange); opacity: 0; }
+    </style>
+  </head>
+  <body>
+    <div id="stage" data-composition-id="dex-v2-light" data-width="1920" data-height="1080" data-start="0" data-duration="46">
+      <div id="grid"></div>
+      <div class="blob" id="blob-n"></div>
+      <div class="blob" id="blob-o"></div>
+      <div class="blob" id="blob-o2"></div>
+      <div id="particles"></div>
+      <div id="sweep"></div>
+
+      <section class="beat" id="b1">
+        <div class="tag" style="margin-bottom:28px">// DEX — DIGITAL EXPERIENCE</div>
+        <div class="kln h" id="b1a"><span class="kw">MOST SOFTWARE IS</span><br /><span class="kw">BUILT FOR EVERYONE.</span></div>
+        <div class="kln h2 o" id="b1b"><span class="kw">YOURS SHOULDN'T BE.</span></div>
+      </section>
+
+      <section class="beat" id="b2">
+        <div class="bsa" id="bsa1">BUILD<span class="o">.</span></div>
+        <div class="bsa" id="bsa2">SCALE<span class="o">.</span></div>
+        <div class="bsa" id="bsa3">AUTOMATE<span class="o">.</span></div>
+      </section>
+
+      <section class="beat" id="b3">
+        <div class="editor panel">
+          <div class="winbar"><span class="dot dr"></span><span class="dot dy"></span><span class="dot dg"></span><span class="wtitle">platform.service.ts — dex</span></div>
+          <div class="code">
+<span class="cl"><span class="ln">1</span><span class="k">import</span> { <span class="ty">Platform</span>, <span class="ty">Module</span> } <span class="k">from</span> <span class="st">"@dex/core"</span>;</span>
+<span class="cl"><span class="ln">2</span></span>
+<span class="cl"><span class="ln">3</span><span class="cm">// shaped around how you work</span></span>
+<span class="cl"><span class="ln">4</span><span class="k">export class</span> <span class="ty">CustomSystem</span> {</span>
+<span class="cl"><span class="ln">5</span>  <span class="fn">build</span>(<span class="pu">spec</span>: <span class="ty">Spec</span>) {</span>
+<span class="cl"><span class="ln">6</span>    <span class="k">return</span> spec.modules.<span class="fn">map</span>(<span class="pu">m</span> =&gt; m.<span class="fn">fit</span>(<span class="nm">this</span>));</span>
+<span class="cl"><span class="ln">7</span>  }</span>
+<span class="cl"><span class="ln">8</span>}<span class="cur" id="b3cur"></span></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="beat" id="b4">
+        <div class="kln h" id="b4h"><span class="kw">CUSTOM</span> <span class="kw o">SYSTEMS</span></div>
+        <div class="sub" id="b4sub">engineered to fit your business — not the other way around</div>
+      </section>
+
+      <section class="beat" id="b5">
+        <div class="term panel">
+          <div class="winbar"><span class="dot dr"></span><span class="dot dy"></span><span class="dot dg"></span><span class="wtitle">~/dex — zsh</span></div>
+          <div class="tbody">
+<span class="trow" id="tcmd"><span class="pmt">❯</span> dex deliver<span class="tcur" id="b5cur"></span></span>
+<span class="trow mut" id="t1">  ▸ business analysis ......... <span class="ok">done</span></span>
+<span class="trow mut" id="t2">  ▸ requirements .............. <span class="ok">defined</span></span>
+<span class="trow mut" id="t3">  ▸ development ............... <span class="ok">built</span></span>
+<span class="trow mut" id="t4">  ▸ testing ................... <span class="ok">passed</span></span>
+<span class="trow mut" id="t5">  ▸ deploy .................... <span class="ok">live</span></span>
+<span class="trow" id="t6"><span class="ok">✓</span> delivered to production</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="beat" id="b6">
+        <div class="b6-title">
+          <div class="kln h" id="b6a"><span class="kw">LEGACY</span> <span class="kw o">IN.</span></div>
+          <div class="kln h" id="b6b"><span class="kw">INTELLIGENT SYSTEMS</span> <span class="kw o">OUT.</span></div>
+        </div>
+        <div class="b6-loop">
+          <svg width="1000" height="480" viewBox="0 0 1000 480">
+            <line id="b6arrL" x1="100" y1="240" x2="300" y2="240" stroke="rgba(31,39,57,0.4)" stroke-width="3" stroke-dasharray="6 8" opacity="0"/>
+            <line id="b6arrR" x1="700" y1="240" x2="900" y2="240" stroke="#FF6900" stroke-width="3" stroke-dasharray="6 8" opacity="0"/>
+            <circle id="b6ring" cx="500" cy="240" r="170" fill="none" stroke="#1F2739" stroke-width="3" stroke-dasharray="1069" stroke-dashoffset="1069"/>
+            <circle id="b6coreGlow" cx="500" cy="240" r="100" fill="#FF6900" opacity="0"/>
+            <circle id="b6core" cx="500" cy="240" r="58" fill="#FF6900"/>
+            <g id="b6coreI">
+              <rect x="480" y="220" width="40" height="40" rx="7" fill="#FFFFFF" opacity="0.95"/>
+              <circle cx="500" cy="240" r="5" fill="#FF6900"/>
+              <rect x="486" y="238" width="6" height="4" fill="#FF6900"/>
+              <rect x="508" y="238" width="6" height="4" fill="#FF6900"/>
+              <rect x="498" y="226" width="4" height="6" fill="#FF6900"/>
+              <rect x="498" y="248" width="4" height="6" fill="#FF6900"/>
+            </g>
+            <g id="b6orbit"><circle cx="500" cy="70" r="10" fill="#1F2739"/></g>
+          </svg>
+          <div class="chip legacy" id="b6chL">LEGACY</div>
+          <div class="chip intelligent" id="b6chR">INTELLIGENT</div>
+        </div>
+      </section>
+
+      <section class="beat" id="b7">
+        <div class="arch" id="arch">
+          <svg width="1480" height="400" style="position:absolute;inset:0;pointer-events:none">
+            <line class="aln" x1="300" y1="200" x2="450" y2="200" stroke="rgba(31,39,57,0.3)" stroke-width="2"/>
+            <line class="aln" x1="750" y1="200" x2="900" y2="200" stroke="rgba(31,39,57,0.3)" stroke-width="2"/>
+            <line class="aln" x1="1200" y1="200" x2="1330" y2="200" stroke="rgba(31,39,57,0.3)" stroke-width="2"/>
+          </svg>
+          <div class="node panel" style="left:0"><div class="nt">Client</div><div class="ns">web · mobile</div></div>
+          <div class="node panel" style="left:450px"><div class="nt o">API Gateway</div><div class="ns">auth · routing</div></div>
+          <div class="node panel" style="left:900px"><div class="nt">Services</div><div class="ns">modular · scalable</div></div>
+          <div class="node panel" style="left:1330px;width:150px"><div class="nt o">DB</div><div class="ns">secure</div></div>
+          <div class="pkt" id="pkt"></div>
+        </div>
+      </section>
+
+      <section class="beat" id="b8">
+        <div class="fit" id="b8fit"><img src="assets/cine/fit.png" alt="" /></div>
+        <div class="kln h" id="b8h"><span class="kw">BUILT</span> <span class="kw o">AROUND YOU</span></div>
+        <div class="sub" id="b8sub">not a product you adapt to</div>
+      </section>
+
+      <section class="beat" id="b9">
+        <div class="prow">
+          <div class="pcard panel" id="p1"><div class="pi">{ }</div><div class="pt2">Platforms</div><div class="ps">modular web</div></div>
+          <div class="pcard panel" id="p2"><div class="pi o">&lt;/&gt;</div><div class="pt2">Custom Dev</div><div class="ps">end to end</div></div>
+          <div class="pcard panel" id="p3"><div class="pi">▤</div><div class="pt2">Document Systems</div><div class="ps">secure DMS</div></div>
+          <div class="pcard panel" id="p4"><div class="pi o">⟳</div><div class="pt2">Automation</div><div class="ps">RPA · self-running</div></div>
+        </div>
+      </section>
+
+      <section class="beat" id="b10">
+        <div class="ptop" id="b10top">From commit to production</div>
+        <div class="pipe"><img src="assets/cine/pipeline.png" alt="" id="pipeimg" /></div>
+      </section>
+
+      <section class="beat" id="b11">
+        <div class="kln h" id="b11h"><span class="kw">SERIOUS</span> <span class="kw o">SOFTWARE</span></div>
+        <div class="sub" id="b11sub">built with you — not just for you</div>
+      </section>
+
+      <section class="beat" id="b12">
+        <div class="kln h" id="b12h"><span class="kw">YOUR</span> <span class="kw o">PARTNER</span></div>
+        <div class="pillars"><span>custom development</span><span class="d">·</span><span>intelligent automation</span></div>
+      </section>
+
+      <section class="beat" id="b13">
+        <img class="logo" id="b13logo" src="assets/dex-logo-navy.svg" alt="DEX" />
+        <div class="ltag">Your Digital Colleague</div>
+      </section>
+
+      <div id="flash"></div>
+
+      <audio id="vo-1"  class="clip" data-start="0"    data-duration="auto" data-track-index="2" src="assets/voiceover/dex-v2-light/scene-01.mp3" data-volume="1"></audio>
+      <audio id="vo-2"  class="clip" data-start="3.4"  data-duration="auto" data-track-index="2" src="assets/voiceover/dex-v2-light/scene-02.mp3" data-volume="1"></audio>
+      <audio id="vo-3"  class="clip" data-start="5.6"  data-duration="auto" data-track-index="2" src="assets/voiceover/dex-v2-light/scene-03.mp3" data-volume="1"></audio>
+      <audio id="vo-4"  class="clip" data-start="9.7"  data-duration="auto" data-track-index="2" src="assets/voiceover/dex-v2-light/scene-04.mp3" data-volume="1"></audio>
+      <audio id="vo-5"  class="clip" data-start="14.7" data-duration="auto" data-track-index="2" src="assets/voiceover/dex-v2-light/scene-05.mp3" data-volume="1"></audio>
+      <audio id="vo-6"  class="clip" data-start="18.0" data-duration="auto" data-track-index="2" src="assets/voiceover/dex-v2-light/scene-06.mp3" data-volume="1"></audio>
+      <audio id="vo-7"  class="clip" data-start="20.5" data-duration="auto" data-track-index="2" src="assets/voiceover/dex-v2-light/scene-07.mp3" data-volume="1"></audio>
+      <audio id="vo-8"  class="clip" data-start="24.1" data-duration="auto" data-track-index="2" src="assets/voiceover/dex-v2-light/scene-08.mp3" data-volume="1"></audio>
+      <audio id="vo-9"  class="clip" data-start="27.9" data-duration="auto" data-track-index="2" src="assets/voiceover/dex-v2-light/scene-09.mp3" data-volume="1"></audio>
+      <audio id="vo-10" class="clip" data-start="32.0" data-duration="auto" data-track-index="2" src="assets/voiceover/dex-v2-light/scene-10.mp3" data-volume="1"></audio>
+      <audio id="vo-11" class="clip" data-start="36.3" data-duration="auto" data-track-index="2" src="assets/voiceover/dex-v2-light/scene-11.mp3" data-volume="1"></audio>
+      <audio id="vo-12" class="clip" data-start="39.5" data-duration="auto" data-track-index="2" src="assets/voiceover/dex-v2-light/scene-12.mp3" data-volume="1"></audio>
+      <audio id="vo-13" class="clip" data-start="43.2" data-duration="auto" data-track-index="2" src="assets/voiceover/dex-v2-light/scene-13.mp3" data-volume="1"></audio>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        if (window.CustomEase) CustomEase.create("xp", "0.19,1,0.22,1");
+        const X = window.CustomEase ? "xp" : "expo.out";
+        const tl = gsap.timeline({ paused: true });
+        const DUR = 46;
+        function mb(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+        const rnd = mb(11);
+
+        // split .kw into per-letter .ltr (preserves color spans)
+        function letters(id) {
+          const el = document.getElementById(id);
+          el.querySelectorAll(".kw").forEach((w) => {
+            const t = w.textContent; w.textContent = "";
+            [...t].forEach((c) => { const s = document.createElement("span"); s.className = "ltr"; s.textContent = c === " " ? " " : c; w.appendChild(s); });
+          });
+          return el.querySelectorAll(".ltr");
+        }
+        const Lb1a = letters("b1a"), Lb1b = letters("b1b"), Lb4 = letters("b4h"), Lb6a = letters("b6a"), Lb6b = letters("b6b"), Lb8 = letters("b8h"), Lb11 = letters("b11h"), Lb12 = letters("b12h");
+
+        /* ---- dynamic background ---- */
+        tl.fromTo("#grid", { backgroundPosition: "0 0", scale: 1.0 }, { backgroundPosition: "120px 220px", scale: 1.08, duration: DUR, ease: "none" }, 0);
+        tl.to("#blob-o", { x: -260, y: 160, duration: DUR, ease: "sine.inOut", yoyo: true, repeat: 1 }, 0);
+        tl.to("#blob-n", { x: 220, y: 140, duration: DUR, ease: "sine.inOut", yoyo: true, repeat: 1 }, 0);
+        tl.to("#blob-o2", { x: 180, y: -160, duration: DUR, ease: "sine.inOut", yoyo: true, repeat: 1 }, 0);
+        // repeating diagonal light sweep
+        tl.fromTo("#sweep", { left: "-45%" }, { left: "135%", duration: 5.5, ease: "power1.inOut", repeat: Math.ceil(DUR / 5.5) }, 0);
+        // particles
+        const pc = document.getElementById("particles");
+        for (let i = 0; i < 22; i++) { const d = document.createElement("div"); d.className = "pt"; const x = rnd()*1920, y = rnd()*1080, s = 2+rnd()*3, o = 0.1+rnd()*0.2; d.style.cssText = `left:${x}px;top:${y}px;width:${s}px;height:${s}px;opacity:${o}`; pc.appendChild(d); tl.to(d, { y: `-=${60+rnd()*100}`, x: `+=${-40+rnd()*80}`, duration: DUR, ease: "sine.inOut" }, 0); const per = 1.8+rnd()*1.8; tl.to(d, { opacity: o*0.2, duration: per, yoyo: true, repeat: Math.ceil(DUR/per), ease: "sine.inOut" }, rnd()*2); }
+
+        // helpers
+        function on(s, t) { tl.fromTo(s, { autoAlpha: 0, filter: "blur(8px)" }, { autoAlpha: 1, filter: "blur(0px)", duration: 0.16, ease: "power2.out" }, t); }
+        function off(s, t) { tl.to(s, { autoAlpha: 0, filter: "blur(8px)", duration: 0.12, ease: "power2.in" }, t); tl.set(s, { opacity: 0, visibility: "hidden", filter: "blur(0px)" }, t + 0.12); }
+        // AGGRESSIVE per-letter in
+        function ltrIn(arr, t, stg = 0.032) { tl.fromTo(arr, { yPercent: 130, autoAlpha: 0, scale: 1.55, rotationZ: -12, filter: "blur(7px)" }, { yPercent: 0, autoAlpha: 1, scale: 1, rotationZ: 0, filter: "blur(0px)", duration: 0.4, ease: "back.out(2.4)", stagger: stg }, t); }
+        function slam(s, t) { tl.fromTo(s, { yPercent: 120, autoAlpha: 0, scale: 1.2, filter: "blur(10px)" }, { yPercent: 0, autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: 0.4, ease: X }, t); }
+        function pop(t, p = 0.12) { tl.to("#flash", { opacity: p, duration: 0.09, yoyo: true, repeat: 1, ease: "power2.inOut" }, t); }
+
+        /* B1 [0–3.4] */
+        on("#b1", 0.0); pop(0.1, 0.08);
+        tl.fromTo("#b1 .tag", { yPercent: 50, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 0.35, ease: X }, 0.1);
+        ltrIn(Lb1a, 0.3, 0.022);
+        ltrIn(Lb1b, 1.7, 0.03); pop(1.75, 0.1);
+        off("#b1", 3.28);
+
+        /* B2 BSA [3.4–5.6] */
+        on("#b2", 3.4);
+        slam("#bsa1", 3.4); pop(3.45, 0.14);
+        tl.to("#bsa1", { autoAlpha: 0, scale: 0.88, filter: "blur(10px)", duration: 0.18, ease: "power2.in" }, 3.95);
+        slam("#bsa2", 4.05); pop(4.1, 0.14);
+        tl.to("#bsa2", { autoAlpha: 0, scale: 0.88, filter: "blur(10px)", duration: 0.18, ease: "power2.in" }, 4.6);
+        slam("#bsa3", 4.7); pop(4.75, 0.16);
+        off("#b2", 5.48);
+
+        /* B3 editor [5.6–9.7] */
+        on("#b3", 5.6);
+        tl.fromTo("#b3 .editor", { y: 34, autoAlpha: 0, scale: 0.97 }, { y: 0, autoAlpha: 1, scale: 1, duration: 0.3, ease: X }, 5.6);
+        tl.fromTo("#b3 .cl", { autoAlpha: 0, x: -12 }, { autoAlpha: 1, x: 0, duration: 0.1, stagger: 0.13 }, 5.85);
+        tl.to("#b3cur", { opacity: 0, duration: 0.12, yoyo: true, repeat: 14, ease: "steps(1)" }, 5.9);
+        off("#b3", 9.58);
+
+        /* B4 custom [9.7–14.7] */
+        on("#b4", 9.7);
+        ltrIn(Lb4, 9.8, 0.03);
+        tl.fromTo("#b4sub", { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: X }, 10.5);
+        off("#b4", 14.58);
+
+        /* B5 terminal — DEX delivery process types out [14.7–18.0] */
+        on("#b5", 14.7);
+        tl.fromTo("#b5 .term", { y: 34, autoAlpha: 0, scale: 0.97 }, { y: 0, autoAlpha: 1, scale: 1, duration: 0.3, ease: X }, 14.7);
+        tl.fromTo("#tcmd", { autoAlpha: 0, x: -10 }, { autoAlpha: 1, x: 0, duration: 0.18, ease: "power2.out" }, 14.85);
+        tl.to("#b5cur", { opacity: 0, duration: 0.12, yoyo: true, repeat: 4, ease: "steps(1)" }, 14.9);
+        ["#t1", "#t2", "#t3", "#t4", "#t5"].forEach((id, i) => tl.fromTo(id, { autoAlpha: 0, x: -12 }, { autoAlpha: 1, x: 0, duration: 0.12, ease: "power2.out" }, 15.0 + i * 0.32));
+        tl.fromTo("#t6", { autoAlpha: 0, scale: 0.9 }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 16.7); pop(16.75, 0.1);
+        off("#b5", 17.88);
+
+        /* B6 legacy refinery loop [18.0–20.5] */
+        on("#b6", 18.0);
+        ltrIn(Lb6a, 18.0, 0.028);
+        // ring + core fade in
+        tl.fromTo("#b6ring", { strokeDashoffset: 1069 }, { strokeDashoffset: 0, duration: 0.6, ease: "power2.out" }, 18.15);
+        gsap.set("#b6core", { scale: 0, transformOrigin: "500px 240px" });
+        gsap.set("#b6coreI", { autoAlpha: 0 });
+        tl.to("#b6core", { scale: 1, duration: 0.4, ease: "back.out(2)" }, 18.25);
+        tl.to("#b6coreI", { autoAlpha: 1, duration: 0.3 }, 18.4);
+        // token orbits the ring
+        tl.fromTo("#b6orbit", { rotation: 0, transformOrigin: "500px 240px" }, { rotation: 540, transformOrigin: "500px 240px", duration: 2.0, ease: "power1.inOut" }, 18.5);
+        // legacy chip enters from left, then gets sucked into the ring
+        tl.fromTo("#b6chL", { x: -160, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.32, ease: "power3.out" }, 18.55);
+        tl.fromTo("#b6arrL", { opacity: 0, scaleX: 0, transformOrigin: "100px 240px" }, { opacity: 1, scaleX: 1, duration: 0.3, ease: "power2.out" }, 18.7);
+        tl.to("#b6chL", { x: 240, autoAlpha: 0, scale: 0.6, duration: 0.45, ease: "power2.in" }, 19.0);
+        // core pulses (processing)
+        tl.fromTo("#b6coreGlow", { opacity: 0, scale: 0.5, transformOrigin: "500px 240px" }, { opacity: 0.7, scale: 1.4, duration: 0.5, ease: "power2.out" }, 19.15); pop(19.2, 0.1);
+        tl.to("#b6coreGlow", { opacity: 0, scale: 1.7, duration: 0.5, ease: "power2.in", overwrite: "auto" }, 19.65);
+        tl.fromTo("#b6core", { scale: 1 }, { scale: 1.15, duration: 0.18, yoyo: true, repeat: 1, ease: "power2.inOut", overwrite: "auto" }, 19.2);
+        // right arrow + intelligent chip emerges from the ring
+        tl.fromTo("#b6arrR", { opacity: 0, scaleX: 0, transformOrigin: "700px 240px" }, { opacity: 1, scaleX: 1, duration: 0.3, ease: "power2.out" }, 19.4);
+        tl.fromTo("#b6chR", { x: -180, autoAlpha: 0, scale: 0.75 }, { x: 0, autoAlpha: 1, scale: 1, duration: 0.45, ease: "back.out(1.6)" }, 19.45); pop(19.5, 0.12);
+        // INTELLIGENT SYSTEMS OUT. per-letter
+        ltrIn(Lb6b, 19.6, 0.022);
+        off("#b6", 20.38);
+
+        /* B7 arch [20.5–24.1] */
+        on("#b7", 20.5);
+        tl.fromTo("#b7 .node", { autoAlpha: 0, y: 22, scale: 0.92 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.26, ease: "back.out(1.5)", stagger: 0.12 }, 20.6);
+        tl.fromTo("#b7 .aln", { autoAlpha: 0, scaleX: 0.2 }, { autoAlpha: 1, scaleX: 1, transformOrigin: "left center", duration: 0.28, stagger: 0.1 }, 21.1);
+        tl.fromTo("#pkt", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.15 }, 21.6);
+        tl.fromTo("#pkt", { left: 0 }, { left: 1464, duration: 1.7, ease: "power1.inOut" }, 21.6);
+        off("#b7", 23.98);
+
+        /* B8 BUILT AROUND YOU — centered, animated image + per-letter [24.1–27.9] */
+        on("#b8", 24.1);
+        tl.fromTo("#b8fit", { autoAlpha: 0, scale: 0.35, rotationZ: -16, y: 30 }, { autoAlpha: 1, scale: 1, rotationZ: 0, y: 0, duration: 0.55, ease: "back.out(2.2)" }, 24.15);
+        tl.to("#b8fit", { scale: 0.94, duration: 0.1, yoyo: true, repeat: 1, ease: "power2.inOut" }, 24.72); pop(24.74, 0.12); // click
+        tl.to("#b8fit", { rotationZ: 3, duration: 1.7, ease: "sine.inOut", yoyo: true, repeat: 1 }, 25.0); // gentle settle
+        ltrIn(Lb8, 24.7, 0.034);
+        tl.fromTo("#b8sub", { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: X }, 25.7);
+        off("#b8", 27.78);
+
+        /* B9 products [27.9–32.0] */
+        on("#b9", 27.9);
+        const pT = [27.95, 28.85, 29.75, 30.65];
+        ["#p1","#p2","#p3","#p4"].forEach((id, i) => { tl.fromTo(id, { autoAlpha: 0, y: 56, rotationY: 20, scale: 0.92 }, { autoAlpha: 1, y: 0, rotationY: 0, scale: 1, duration: 0.32, ease: "back.out(1.4)" }, pT[i]); tl.to(id, { y: -14, duration: 0.36, ease: "power2.out", yoyo: true, repeat: 1 }, pT[i] + 0.32); });
+        off("#b9", 31.88);
+
+        /* B10 pipeline [32.0–36.3] */
+        on("#b10", 32.0);
+        tl.fromTo("#b10top", { autoAlpha: 0, y: -14 }, { autoAlpha: 1, y: 0, duration: 0.4 }, 32.1);
+        tl.fromTo("#pipeimg", { autoAlpha: 0, scale: 0.9, y: 22 }, { autoAlpha: 1, scale: 1, y: 0, duration: 0.5, ease: "back.out(1.2)" }, 32.15);
+        tl.to("#pipeimg", { scale: 1.05, duration: 3.4, ease: "sine.inOut", overwrite: "auto" }, 32.7);
+        off("#b10", 36.18);
+
+        /* B11 serious [36.3–39.5] */
+        on("#b11", 36.3);
+        ltrIn(Lb11, 36.35, 0.03); pop(36.5, 0.12);
+        tl.fromTo("#b11sub", { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: X }, 37.1);
+        off("#b11", 39.38);
+
+        /* B12 partner [39.5–43.2] */
+        on("#b12", 39.5);
+        ltrIn(Lb12, 39.55, 0.03);
+        tl.fromTo("#b12 .pillars span", { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.45, ease: X, stagger: 0.13 }, 40.3);
+        off("#b12", 43.08);
+
+        /* B13 logo [43.2–46] */
+        on("#b13", 43.2);
+        tl.fromTo("#b13logo", { autoAlpha: 0, scale: 1.12, filter: "blur(10px)" }, { autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: 0.55, ease: "back.out(1.5)" }, 43.3); pop(43.4, 0.14);
+        tl.fromTo("#b13 .ltag", { autoAlpha: 0, letterSpacing: "0.7em" }, { autoAlpha: 1, letterSpacing: "0.4em", duration: 0.6, ease: X }, 43.9);
+
+        window.__timelines["dex-v2-light"] = tl;
+      </script>
+    </div>
+  </body>
+</html>

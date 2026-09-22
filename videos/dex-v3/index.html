@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/CustomEase.min.js"></script>
+    <style>
+      /* ===========================================================
+         DEX v3 — "Your Digital Colleague"
+         Cinematic / emotional-energetic · dark + warm amber + brand blue
+         Real cinematic photography (Higgsfield) + kinetic typography
+         =========================================================== */
+      @font-face { font-family: "Roobert"; src: url("assets/fonts/RoobertTRIAL-Light.woff") format("woff"); font-weight: 300; font-display: block; }
+      @font-face { font-family: "Roobert"; src: url("assets/fonts/RoobertTRIAL-Regular.woff") format("woff"); font-weight: 400; font-display: block; }
+      @font-face { font-family: "Roobert"; src: url("assets/fonts/RoobertTRIAL-Medium.woff") format("woff"); font-weight: 500; font-display: block; }
+      @font-face { font-family: "Roobert"; src: url("assets/fonts/RoobertTRIAL-Bold.woff") format("woff"); font-weight: 700; font-display: block; }
+
+      :root { --bg:#0A0C10; --ink:#fff; --dim:#aeb6c4; --amber:#F2A55A; --amber-hi:#FFC182; --blue:#88A7DB; --purple:#a855f7;
+        --mono: ui-monospace, "SF Mono", "JetBrains Mono", Consolas, monospace; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--bg); color: var(--ink); font-family: "Roobert", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+      #stage { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: hidden; background: var(--bg); }
+
+      .beat { position: absolute; inset: 0; width: 1920px; height: 1080px; z-index: 10; opacity: 0; visibility: hidden; }
+      .cine { position: absolute; inset: 0; overflow: hidden; z-index: 1; }
+      .cine img { width: 100%; height: 100%; object-fit: cover; display: block; }
+      .ov { position: absolute; inset: 0; z-index: 2; pointer-events: none;
+        background: radial-gradient(ellipse 72% 64% at 50% 52%, rgba(8,10,16,0.50), transparent 72%), linear-gradient(180deg, rgba(8,10,16,0.55) 0%, rgba(8,10,16,0.2) 38%, rgba(8,10,16,0.82) 100%); }
+      .content { position: absolute; inset: 0; z-index: 3; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 110px 150px; text-align: center; }
+      .content.left { align-items: flex-start; text-align: left; padding: 110px 170px; }
+
+      .tag { font-family: var(--mono); font-size: 24px; letter-spacing: 0.34em; text-transform: uppercase; color: var(--amber-hi); }
+      .kln { font-weight: 700; text-transform: uppercase; letter-spacing: -0.03em; line-height: 0.96; color: var(--ink); text-shadow: 0 6px 40px rgba(0,0,0,0.5); }
+      .kw { display: inline-block; will-change: transform, opacity; }
+      .amber { color: var(--amber); } .blue { color: var(--blue); }
+      .sub { margin-top: 26px; font-weight: 300; font-size: 34px; color: rgba(255,255,255,0.82); letter-spacing: 0.01em; text-shadow: 0 4px 24px rgba(0,0,0,0.6); }
+      .line { width: 0; height: 2px; background: linear-gradient(90deg, var(--amber), transparent); margin-top: 26px; }
+
+      #b1 .h, #b2 .h, #b6 .h { font-size: 132px; }
+      #b3 .h { font-size: 140px; } #b4 .h { font-size: 150px; } #b5 .h { font-size: 168px; } #b7 .h { font-size: 132px; }
+      #b1 .topbar { position: absolute; top: 70px; left: 0; right: 0; text-align: center; z-index: 3; }
+
+      /* global atmosphere */
+      #grain { position: absolute; inset: 0; z-index: 43; pointer-events: none; opacity: 0.06; mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size: 300px 300px; }
+      #vig { position: absolute; inset: 0; z-index: 44; pointer-events: none; background: radial-gradient(ellipse 88% 84% at 50% 48%, transparent 54%, rgba(0,0,0,0.6) 100%); }
+      #flash { position: absolute; inset: 0; z-index: 60; pointer-events: none; background: #fff; opacity: 0; }
+      #bars { position: absolute; inset: 0; z-index: 45; pointer-events: none; }
+      #bars::before, #bars::after { content: ""; position: absolute; left: 0; right: 0; height: 64px; background: #05060A; }
+      #bars::before { top: 0; } #bars::after { bottom: 0; }
+
+      /* B8 logo */
+      #b8 { background: var(--bg); }
+      #b8 .bloom { position: absolute; width: 1200px; height: 1200px; left: 50%; top: 50%; margin: -600px 0 0 -600px; background: radial-gradient(circle, rgba(242,165,90,0.28), rgba(136,167,219,0.12) 42%, transparent 66%); filter: blur(34px); opacity: 0; z-index: 1; }
+      #b8 .logo { position: absolute; z-index: 3; width: 740px; left: 50%; top: 50%; margin: -150px 0 0 -370px; opacity: 0; }
+      #b8 .ltag { position: absolute; z-index: 3; top: 50%; left: 0; right: 0; margin-top: 120px; text-align: center; font-family: var(--mono); font-size: 28px; letter-spacing: 0.42em; text-transform: uppercase; color: var(--amber-hi); opacity: 0; }
+    </style>
+  </head>
+  <body>
+    <div id="stage" data-composition-id="dex-v3" data-width="1920" data-height="1080" data-start="0" data-duration="42">
+
+      <!-- B1 — COLD OPEN + PROBLEM (dev at night) -->
+      <section class="beat" id="b1">
+        <div class="cine"><img id="b1img" src="assets/cine/dev-night.png" alt="" /></div>
+        <div class="ov"></div>
+        <div class="topbar"><span class="tag" id="b1tag">// DEX — DIGITAL EXPERIENCE</span></div>
+        <div class="content">
+          <div class="kln h"><span class="kw">WHEN THE</span> <span class="kw amber">SOFTWARE</span><br /><span class="kw">STOPS FITTING</span></div>
+        </div>
+      </section>
+
+      <!-- B2 — THE TURN (engineer) -->
+      <section class="beat" id="b2">
+        <div class="cine"><img src="assets/cine/engineer.png" alt="" /></div>
+        <div class="ov"></div>
+        <div class="content">
+          <div class="kln h" id="b2a">NOT ANOTHER VENDOR.</div>
+          <div class="kln h" id="b2b"><span class="kw">A</span> <span class="kw amber">COLLEAGUE</span> <span class="kw">WHO BUILDS.</span></div>
+        </div>
+      </section>
+
+      <!-- B3 — HOW WE WORK (colleagues -> hands) -->
+      <section class="beat" id="b3">
+        <div class="cine"><img id="b3a" src="assets/cine/colleagues.png" alt="" /></div>
+        <div class="cine" style="opacity:0"><img id="b3b" src="assets/cine/hands.png" alt="" /></div>
+        <div class="ov"></div>
+        <div class="content">
+          <div class="kln h" id="b3t1"><span class="kw">WE BUILD IT</span> <span class="kw blue">WITH YOU</span></div>
+          <div class="kln h" id="b3t2" style="opacity:0">LINE BY LINE.</div>
+        </div>
+      </section>
+
+      <!-- B4 — WHAT WE BUILD (workspace) -->
+      <section class="beat" id="b4">
+        <div class="cine"><img src="assets/cine/workspace.png" alt="" /></div>
+        <div class="ov"></div>
+        <div class="content left">
+          <div class="kln h"><span class="kw">CUSTOM</span><br /><span class="kw blue">PLATFORMS</span></div>
+          <div class="sub" id="b4sub">the exact tools your team actually needs</div>
+        </div>
+      </section>
+
+      <!-- B5 — AI / TIME BACK (calm) -->
+      <section class="beat" id="b5">
+        <div class="cine"><img src="assets/cine/calm.png" alt="" /></div>
+        <div class="ov"></div>
+        <div class="content">
+          <div class="kln h"><span class="kw">IT RUNS</span> <span class="kw amber">ITSELF.</span></div>
+          <div class="sub" id="b5sub">your people get their time back</div>
+        </div>
+      </section>
+
+      <!-- B6 — JOURNEY (callback) -->
+      <section class="beat" id="b6">
+        <div class="cine"><img src="assets/cine/dev-night-b.png" alt="" /></div>
+        <div class="ov"></div>
+        <div class="content">
+          <div class="kln h"><span class="kw">FROM FIRST HELLO</span><br /><span class="kw amber">TO SYSTEMS YOU TRUST</span></div>
+        </div>
+      </section>
+
+      <!-- B7 — PROMISE (dark) -->
+      <section class="beat" id="b7" style="background:#0A0C10">
+        <div class="ov" style="background:radial-gradient(ellipse 70% 60% at 50% 50%, rgba(242,165,90,0.10), transparent 70%)"></div>
+        <div class="content">
+          <div class="kln h" id="b7a"><span class="kw">YOUR IDEAS.</span> <span class="kw blue">OUR CRAFT.</span></div>
+          <div class="kln h" id="b7b"><span class="kw amber">BUILT TOGETHER.</span></div>
+        </div>
+      </section>
+
+      <!-- B8 — LOGO CLOSE -->
+      <section class="beat" id="b8">
+        <div class="bloom"></div>
+        <img class="logo" src="assets/dex-logo-white.svg" alt="DEX" />
+        <div class="ltag">Your Digital Colleague</div>
+      </section>
+
+      <div id="bars"></div>
+      <div id="grain"></div>
+      <div id="vig"></div>
+      <div id="flash"></div>
+
+      <!-- VOICEOVER -->
+      <audio id="vo-1" class="clip" data-start="3.0"  data-duration="auto" data-track-index="2" src="assets/voiceover/dex-v3/scene-01.mp3" data-volume="1"></audio>
+      <audio id="vo-2" class="clip" data-start="8.6"  data-duration="auto" data-track-index="2" src="assets/voiceover/dex-v3/scene-02.mp3" data-volume="1"></audio>
+      <audio id="vo-3" class="clip" data-start="12.8" data-duration="auto" data-track-index="2" src="assets/voiceover/dex-v3/scene-03.mp3" data-volume="1"></audio>
+      <audio id="vo-4" class="clip" data-start="18.0" data-duration="auto" data-track-index="2" src="assets/voiceover/dex-v3/scene-04.mp3" data-volume="1"></audio>
+      <audio id="vo-5" class="clip" data-start="22.6" data-duration="auto" data-track-index="2" src="assets/voiceover/dex-v3/scene-05.mp3" data-volume="1"></audio>
+      <audio id="vo-6" class="clip" data-start="27.8" data-duration="auto" data-track-index="2" src="assets/voiceover/dex-v3/scene-06.mp3" data-volume="1"></audio>
+      <audio id="vo-7" class="clip" data-start="32.3" data-duration="auto" data-track-index="2" src="assets/voiceover/dex-v3/scene-07.mp3" data-volume="1"></audio>
+      <audio id="vo-8" class="clip" data-start="35.5" data-duration="auto" data-track-index="2" src="assets/voiceover/dex-v3/scene-08.mp3" data-volume="1"></audio>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        if (window.CustomEase) CustomEase.create("xp", "0.19,1,0.22,1");
+        const X = window.CustomEase ? "xp" : "expo.out";
+        const tl = gsap.timeline({ paused: true });
+
+        // ambient grain drift
+        tl.fromTo("#grain", { backgroundPosition: "0 0" }, { backgroundPosition: "300px 200px", duration: 4, ease: "none", repeat: 11 }, 0);
+
+        // helpers
+        function on(s, t, d = 0.45) { tl.fromTo(s, { autoAlpha: 0 }, { autoAlpha: 1, duration: d, ease: "power2.out" }, t); }
+        function off(s, t, d = 0.4) { tl.to(s, { autoAlpha: 0, duration: d, ease: "power2.in" }, t); tl.set(s, { opacity: 0, visibility: "hidden" }, t + d); }
+        function kb(s, t, d, from = 1.06, to = 1.16) { tl.fromTo(s, { scale: from }, { scale: to, duration: d, ease: "none" }, t); }
+        function rise(s, t, st = 0.08) { tl.fromTo(s, { yPercent: 118, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 0.5, ease: X, stagger: st }, t); }
+        function slam(s, t) { tl.fromTo(s, { yPercent: 115, autoAlpha: 0, scale: 1.12, filter: "blur(10px)" }, { yPercent: 0, autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: 0.45, ease: X }, t); }
+        function flash(t, p = 0.3) { tl.to("#flash", { opacity: p, duration: 0.12, yoyo: true, repeat: 1, ease: "power2.inOut" }, t); }
+
+        /* B1 — cold open + problem [0–8.45] */
+        on("#b1", 0.0, 0.7); kb("#b1img", 0.0, 8.7, 1.05, 1.2);
+        tl.fromTo("#b1tag", { autoAlpha: 0, letterSpacing: "0.6em" }, { autoAlpha: 1, letterSpacing: "0.34em", duration: 0.9, ease: X }, 0.4);
+        rise("#b1 .h .kw", 3.0, 0.12);
+        off("#b1", 8.05, 0.5);
+
+        /* B2 — the turn [8.6–12.65] */
+        on("#b2", 8.6); kb("#b2 img", 8.6, 4.4);
+        slam("#b2a", 8.7);
+        tl.to("#b2a", { autoAlpha: 0.25, scale: 0.96, duration: 0.4 }, 9.9);
+        rise("#b2b .kw", 10.0, 0.09); flash(11.1, 0.26);
+        off("#b2", 12.25, 0.4);
+
+        /* B3 — how we work [12.8–17.85] */
+        on("#b3", 12.8); kb("#b3a", 12.8, 2.7); kb("#b3b", 15.2, 2.8);
+        rise("#b3t1 .kw", 12.95, 0.1);
+        // cut to hands at ~15.2
+        tl.to("#b3a", { autoAlpha: 0, duration: 0.35 }, 15.05);
+        tl.to("#b3t1", { autoAlpha: 0, y: -24, duration: 0.3 }, 15.0);
+        tl.fromTo("#b3b", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.35 }, 15.2); flash(15.2, 0.22);
+        slam("#b3t2", 15.35);
+        off("#b3", 17.45, 0.4);
+
+        /* B4 — what we build [18.0–22.45] */
+        on("#b4", 18.0); kb("#b4 img", 18.0, 4.6);
+        rise("#b4 .h .kw", 18.2, 0.12);
+        tl.fromTo("#b4sub", { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: X }, 19.1);
+        tl.fromTo("#b4 .line", { width: 0 }, { width: 340, duration: 0.7, ease: "power2.out" }, 18.9);
+        off("#b4", 22.05, 0.4);
+
+        /* B5 — time back [22.6–27.6] */
+        on("#b5", 22.6); kb("#b5 img", 22.6, 5.2, 1.08, 1.0); // gentle pull-back = calm
+        rise("#b5 .h .kw", 22.75, 0.1); flash(24.1, 0.24);
+        tl.fromTo("#b5sub", { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: X }, 23.9);
+        off("#b5", 27.2, 0.4);
+
+        /* B6 — journey [27.8–32.15] */
+        on("#b6", 27.8); kb("#b6 img", 27.8, 4.6);
+        rise("#b6 .h .kw", 27.95, 0.12);
+        off("#b6", 31.75, 0.4);
+
+        /* B7 — promise [32.3–35.35] */
+        on("#b7", 32.3, 0.4);
+        rise("#b7a .kw", 32.4, 0.09);
+        slam("#b7b .kw", 34.0); flash(34.05, 0.34);
+        off("#b7", 34.95, 0.4);
+
+        /* B8 — logo close [35.5–42] */
+        on("#b8", 35.5, 0.5);
+        tl.fromTo("#b8 .bloom", { autoAlpha: 0, scale: 0.55 }, { autoAlpha: 1, scale: 1, duration: 0.8, ease: "power2.out" }, 35.6);
+        tl.fromTo("#b8 .logo", { autoAlpha: 0, scale: 1.14, filter: "blur(12px)" }, { autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: 0.7, ease: "back.out(1.5)" }, 35.7); flash(35.8, 0.4);
+        tl.fromTo("#b8 .ltag", { autoAlpha: 0, letterSpacing: "0.7em" }, { autoAlpha: 1, letterSpacing: "0.42em", duration: 0.8, ease: X }, 36.5);
+        tl.to("#b8 .bloom", { scale: 1.1, duration: 3.2, ease: "sine.inOut" }, 36.6);
+
+        window.__timelines["dex-v3"] = tl;
+      </script>
+    </div>
+  </body>
+</html>

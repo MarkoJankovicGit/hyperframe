@@ -1,0 +1,431 @@
+[
+  {
+    "sceneId": "scene-01",
+    "text": "Southeast Europe's most serious software? We built it.",
+    "words": [
+      {
+        "word": "Southeast",
+        "start": 0,
+        "end": 0.522,
+        "startFrame": 0,
+        "endFrame": 16
+      },
+      {
+        "word": "Europe's",
+        "start": 0.592,
+        "end": 0.929,
+        "startFrame": 18,
+        "endFrame": 28
+      },
+      {
+        "word": "most",
+        "start": 0.975,
+        "end": 1.138,
+        "startFrame": 29,
+        "endFrame": 34
+      },
+      {
+        "word": "serious",
+        "start": 1.196,
+        "end": 1.591,
+        "startFrame": 36,
+        "endFrame": 48
+      },
+      {
+        "word": "software?",
+        "start": 1.625,
+        "end": 2.171,
+        "startFrame": 49,
+        "endFrame": 65
+      },
+      {
+        "word": "We",
+        "start": 2.334,
+        "end": 2.473,
+        "startFrame": 70,
+        "endFrame": 74
+      },
+      {
+        "word": "built",
+        "start": 2.531,
+        "end": 2.775,
+        "startFrame": 76,
+        "endFrame": 83
+      },
+      {
+        "word": "it.",
+        "start": 2.833,
+        "end": 3.065,
+        "startFrame": 85,
+        "endFrame": 92
+      }
+    ],
+    "durationSeconds": 3.565,
+    "durationFrames": 107
+  },
+  {
+    "sceneId": "scene-02",
+    "text": "Build. Scale. Automate.",
+    "words": [
+      {
+        "word": "Build.",
+        "start": 0,
+        "end": 0.476,
+        "startFrame": 0,
+        "endFrame": 14
+      },
+      {
+        "word": "Scale.",
+        "start": 0.615,
+        "end": 1.103,
+        "startFrame": 18,
+        "endFrame": 33
+      },
+      {
+        "word": "Automate.",
+        "start": 1.149,
+        "end": 1.997,
+        "startFrame": 34,
+        "endFrame": 60
+      }
+    ],
+    "durationSeconds": 2.497,
+    "durationFrames": 75
+  },
+  {
+    "sceneId": "scene-03",
+    "text": "Custom systems. Engineered to last.",
+    "words": [
+      {
+        "word": "Custom",
+        "start": 0,
+        "end": 0.418,
+        "startFrame": 0,
+        "endFrame": 13
+      },
+      {
+        "word": "systems.",
+        "start": 0.488,
+        "end": 1.022,
+        "startFrame": 15,
+        "endFrame": 31
+      },
+      {
+        "word": "Engineered",
+        "start": 1.126,
+        "end": 1.602,
+        "startFrame": 34,
+        "endFrame": 48
+      },
+      {
+        "word": "to",
+        "start": 1.637,
+        "end": 1.707,
+        "startFrame": 49,
+        "endFrame": 51
+      },
+      {
+        "word": "last.",
+        "start": 1.788,
+        "end": 2.276,
+        "startFrame": 54,
+        "endFrame": 68
+      }
+    ],
+    "durationSeconds": 2.776,
+    "durationFrames": 83
+  },
+  {
+    "sceneId": "scene-04",
+    "text": "Legacy in. Intelligent automation out.",
+    "words": [
+      {
+        "word": "Legacy",
+        "start": 0,
+        "end": 0.476,
+        "startFrame": 0,
+        "endFrame": 14
+      },
+      {
+        "word": "in.",
+        "start": 0.557,
+        "end": 0.801,
+        "startFrame": 17,
+        "endFrame": 24
+      },
+      {
+        "word": "Intelligent",
+        "start": 0.894,
+        "end": 1.474,
+        "startFrame": 27,
+        "endFrame": 44
+      },
+      {
+        "word": "automation",
+        "start": 1.509,
+        "end": 2.055,
+        "startFrame": 45,
+        "endFrame": 62
+      },
+      {
+        "word": "out.",
+        "start": 2.136,
+        "end": 2.508,
+        "startFrame": 64,
+        "endFrame": 75
+      }
+    ],
+    "durationSeconds": 3.008,
+    "durationFrames": 90
+  },
+  {
+    "sceneId": "scene-05",
+    "text": "Thirty years. A hundred experts. Fifty clients.",
+    "words": [
+      {
+        "word": "Thirty",
+        "start": 0,
+        "end": 0.36,
+        "startFrame": 0,
+        "endFrame": 11
+      },
+      {
+        "word": "years.",
+        "start": 0.418,
+        "end": 0.801,
+        "startFrame": 13,
+        "endFrame": 24
+      },
+      {
+        "word": "A",
+        "start": 0.906,
+        "end": 0.975,
+        "startFrame": 27,
+        "endFrame": 29
+      },
+      {
+        "word": "hundred",
+        "start": 1.045,
+        "end": 1.312,
+        "startFrame": 31,
+        "endFrame": 39
+      },
+      {
+        "word": "experts.",
+        "start": 1.358,
+        "end": 1.904,
+        "startFrame": 41,
+        "endFrame": 57
+      },
+      {
+        "word": "Fifty",
+        "start": 2.009,
+        "end": 2.31,
+        "startFrame": 60,
+        "endFrame": 69
+      },
+      {
+        "word": "clients.",
+        "start": 2.357,
+        "end": 3.204,
+        "startFrame": 71,
+        "endFrame": 96
+      }
+    ],
+    "durationSeconds": 3.704,
+    "durationFrames": 111
+  },
+  {
+    "sceneId": "scene-06",
+    "text": "Platforms. Custom development. Document systems. Robotic automation.",
+    "words": [
+      {
+        "word": "Platforms.",
+        "start": 0,
+        "end": 0.766,
+        "startFrame": 0,
+        "endFrame": 23
+      },
+      {
+        "word": "Custom",
+        "start": 0.906,
+        "end": 1.254,
+        "startFrame": 27,
+        "endFrame": 38
+      },
+      {
+        "word": "development.",
+        "start": 1.312,
+        "end": 1.892,
+        "startFrame": 39,
+        "endFrame": 57
+      },
+      {
+        "word": "Document",
+        "start": 1.985,
+        "end": 2.496,
+        "startFrame": 60,
+        "endFrame": 75
+      },
+      {
+        "word": "systems.",
+        "start": 2.543,
+        "end": 3.077,
+        "startFrame": 76,
+        "endFrame": 92
+      },
+      {
+        "word": "Robotic",
+        "start": 3.181,
+        "end": 3.657,
+        "startFrame": 95,
+        "endFrame": 110
+      },
+      {
+        "word": "automation.",
+        "start": 3.715,
+        "end": 4.644,
+        "startFrame": 111,
+        "endFrame": 139
+      }
+    ],
+    "durationSeconds": 5.144,
+    "durationFrames": 154
+  },
+  {
+    "sceneId": "scene-07",
+    "text": "Serious systems. Modern execution.",
+    "words": [
+      {
+        "word": "Serious",
+        "start": 0,
+        "end": 0.476,
+        "startFrame": 0,
+        "endFrame": 14
+      },
+      {
+        "word": "systems.",
+        "start": 0.511,
+        "end": 1.057,
+        "startFrame": 15,
+        "endFrame": 32
+      },
+      {
+        "word": "Modern",
+        "start": 1.196,
+        "end": 1.521,
+        "startFrame": 36,
+        "endFrame": 46
+      },
+      {
+        "word": "execution.",
+        "start": 1.567,
+        "end": 2.415,
+        "startFrame": 47,
+        "endFrame": 72
+      }
+    ],
+    "durationSeconds": 2.915,
+    "durationFrames": 87
+  },
+  {
+    "sceneId": "scene-08",
+    "text": "The region's leader in custom development and A.I. automation.",
+    "words": [
+      {
+        "word": "The",
+        "start": 0,
+        "end": 0.151,
+        "startFrame": 0,
+        "endFrame": 5
+      },
+      {
+        "word": "region's",
+        "start": 0.244,
+        "end": 0.65,
+        "startFrame": 7,
+        "endFrame": 20
+      },
+      {
+        "word": "leader",
+        "start": 0.72,
+        "end": 0.998,
+        "startFrame": 22,
+        "endFrame": 30
+      },
+      {
+        "word": "in",
+        "start": 1.068,
+        "end": 1.149,
+        "startFrame": 32,
+        "endFrame": 34
+      },
+      {
+        "word": "custom",
+        "start": 1.219,
+        "end": 1.544,
+        "startFrame": 37,
+        "endFrame": 46
+      },
+      {
+        "word": "development",
+        "start": 1.602,
+        "end": 2.125,
+        "startFrame": 48,
+        "endFrame": 64
+      },
+      {
+        "word": "and",
+        "start": 2.183,
+        "end": 2.334,
+        "startFrame": 65,
+        "endFrame": 70
+      },
+      {
+        "word": "A.I.",
+        "start": 2.426,
+        "end": 2.926,
+        "startFrame": 73,
+        "endFrame": 88
+      },
+      {
+        "word": "automation.",
+        "start": 2.961,
+        "end": 3.947,
+        "startFrame": 89,
+        "endFrame": 118
+      }
+    ],
+    "durationSeconds": 4.447,
+    "durationFrames": 133
+  },
+  {
+    "sceneId": "scene-09",
+    "text": "DEX. Digital Experience.",
+    "words": [
+      {
+        "word": "DEX.",
+        "start": 0,
+        "end": 0.511,
+        "startFrame": 0,
+        "endFrame": 15
+      },
+      {
+        "word": "Digital",
+        "start": 0.673,
+        "end": 1.057,
+        "startFrame": 20,
+        "endFrame": 32
+      },
+      {
+        "word": "Experience.",
+        "start": 1.126,
+        "end": 1.904,
+        "startFrame": 34,
+        "endFrame": 57
+      }
+    ],
+    "durationSeconds": 2.404,
+    "durationFrames": 72
+  }
+]

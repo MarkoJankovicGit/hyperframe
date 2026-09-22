@@ -1,0 +1,85 @@
+{
+  "sceneId": "scene-08",
+  "text": "Not a product you adapt to. A system built around you.",
+  "words": [
+    {
+      "word": "Not",
+      "start": 0,
+      "end": 0.279,
+      "startFrame": 0,
+      "endFrame": 8
+    },
+    {
+      "word": "a",
+      "start": 0.313,
+      "end": 0.337,
+      "startFrame": 9,
+      "endFrame": 10
+    },
+    {
+      "word": "product",
+      "start": 0.383,
+      "end": 0.778,
+      "startFrame": 11,
+      "endFrame": 23
+    },
+    {
+      "word": "you",
+      "start": 0.813,
+      "end": 0.894,
+      "startFrame": 24,
+      "endFrame": 27
+    },
+    {
+      "word": "adapt",
+      "start": 0.952,
+      "end": 1.289,
+      "startFrame": 29,
+      "endFrame": 39
+    },
+    {
+      "word": "to.",
+      "start": 1.324,
+      "end": 1.602,
+      "startFrame": 40,
+      "endFrame": 48
+    },
+    {
+      "word": "A",
+      "start": 1.869,
+      "end": 1.939,
+      "startFrame": 56,
+      "endFrame": 58
+    },
+    {
+      "word": "system",
+      "start": 2.043,
+      "end": 2.415,
+      "startFrame": 61,
+      "endFrame": 72
+    },
+    {
+      "word": "built",
+      "start": 2.485,
+      "end": 2.728,
+      "startFrame": 75,
+      "endFrame": 82
+    },
+    {
+      "word": "around",
+      "start": 2.775,
+      "end": 3.1,
+      "startFrame": 83,
+      "endFrame": 93
+    },
+    {
+      "word": "you.",
+      "start": 3.158,
+      "end": 3.622,
+      "startFrame": 95,
+      "endFrame": 109
+    }
+  ],
+  "durationSeconds": 4.122,
+  "durationFrames": 124
+}

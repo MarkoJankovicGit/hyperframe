@@ -198,7 +198,9 @@ async function generateScene(scene: Scene): Promise<SceneTiming> {
 }
 
 // --- Concurrency limiter ---
-const MAX_CONCURRENT = 4;
+// 1 = serial. ElevenLabs returns 409 "already_running" when multiple requests hit
+// the same voice concurrently, so parallel scene generation must stay disabled.
+const MAX_CONCURRENT = 1;
 
 async function runWithConcurrency<T>(
   items: T[],

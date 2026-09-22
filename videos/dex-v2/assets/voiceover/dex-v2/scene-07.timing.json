@@ -1,0 +1,36 @@
+{
+  "sceneId": "scene-07",
+  "text": "Serious systems. Modern execution.",
+  "words": [
+    {
+      "word": "Serious",
+      "start": 0,
+      "end": 0.476,
+      "startFrame": 0,
+      "endFrame": 14
+    },
+    {
+      "word": "systems.",
+      "start": 0.511,
+      "end": 1.057,
+      "startFrame": 15,
+      "endFrame": 32
+    },
+    {
+      "word": "Modern",
+      "start": 1.196,
+      "end": 1.521,
+      "startFrame": 36,
+      "endFrame": 46
+    },
+    {
+      "word": "execution.",
+      "start": 1.567,
+      "end": 2.415,
+      "startFrame": 47,
+      "endFrame": 72
+    }
+  ],
+  "durationSeconds": 2.915,
+  "durationFrames": 87
+}

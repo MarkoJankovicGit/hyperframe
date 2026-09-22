@@ -1,0 +1,675 @@
+[
+  {
+    "sceneId": "scene-01",
+    "text": "Every ambitious team hits a wall — where off-the-shelf software just stops fitting.",
+    "words": [
+      {
+        "word": "Every",
+        "start": 0,
+        "end": 0.383,
+        "startFrame": 0,
+        "endFrame": 11
+      },
+      {
+        "word": "ambitious",
+        "start": 0.441,
+        "end": 0.929,
+        "startFrame": 13,
+        "endFrame": 28
+      },
+      {
+        "word": "team",
+        "start": 0.975,
+        "end": 1.219,
+        "startFrame": 29,
+        "endFrame": 37
+      },
+      {
+        "word": "hits",
+        "start": 1.289,
+        "end": 1.474,
+        "startFrame": 39,
+        "endFrame": 44
+      },
+      {
+        "word": "a",
+        "start": 1.509,
+        "end": 1.533,
+        "startFrame": 45,
+        "endFrame": 46
+      },
+      {
+        "word": "wall",
+        "start": 1.591,
+        "end": 1.858,
+        "startFrame": 48,
+        "endFrame": 56
+      },
+      {
+        "word": "—",
+        "start": 1.974,
+        "end": 2.02,
+        "startFrame": 59,
+        "endFrame": 61
+      },
+      {
+        "word": "where",
+        "start": 2.09,
+        "end": 2.322,
+        "startFrame": 63,
+        "endFrame": 70
+      },
+      {
+        "word": "off-the-shelf",
+        "start": 2.38,
+        "end": 2.984,
+        "startFrame": 71,
+        "endFrame": 90
+      },
+      {
+        "word": "software",
+        "start": 3.042,
+        "end": 3.553,
+        "startFrame": 91,
+        "endFrame": 107
+      },
+      {
+        "word": "just",
+        "start": 3.611,
+        "end": 3.831,
+        "startFrame": 108,
+        "endFrame": 115
+      },
+      {
+        "word": "stops",
+        "start": 3.866,
+        "end": 4.203,
+        "startFrame": 116,
+        "endFrame": 126
+      },
+      {
+        "word": "fitting.",
+        "start": 4.249,
+        "end": 4.923,
+        "startFrame": 127,
+        "endFrame": 148
+      }
+    ],
+    "durationSeconds": 5.423,
+    "durationFrames": 163
+  },
+  {
+    "sceneId": "scene-02",
+    "text": "You don't need another vendor. You need a colleague who builds.",
+    "words": [
+      {
+        "word": "You",
+        "start": 0,
+        "end": 0.151,
+        "startFrame": 0,
+        "endFrame": 5
+      },
+      {
+        "word": "don't",
+        "start": 0.197,
+        "end": 0.36,
+        "startFrame": 6,
+        "endFrame": 11
+      },
+      {
+        "word": "need",
+        "start": 0.406,
+        "end": 0.604,
+        "startFrame": 12,
+        "endFrame": 18
+      },
+      {
+        "word": "another",
+        "start": 0.65,
+        "end": 0.952,
+        "startFrame": 20,
+        "endFrame": 29
+      },
+      {
+        "word": "vendor.",
+        "start": 1.022,
+        "end": 1.451,
+        "startFrame": 31,
+        "endFrame": 44
+      },
+      {
+        "word": "You",
+        "start": 1.533,
+        "end": 1.637,
+        "startFrame": 46,
+        "endFrame": 49
+      },
+      {
+        "word": "need",
+        "start": 1.683,
+        "end": 1.834,
+        "startFrame": 50,
+        "endFrame": 55
+      },
+      {
+        "word": "a",
+        "start": 1.858,
+        "end": 1.892,
+        "startFrame": 56,
+        "endFrame": 57
+      },
+      {
+        "word": "colleague",
+        "start": 1.962,
+        "end": 2.426,
+        "startFrame": 59,
+        "endFrame": 73
+      },
+      {
+        "word": "who",
+        "start": 2.45,
+        "end": 2.589,
+        "startFrame": 74,
+        "endFrame": 78
+      },
+      {
+        "word": "builds.",
+        "start": 2.67,
+        "end": 3.529,
+        "startFrame": 80,
+        "endFrame": 106
+      }
+    ],
+    "durationSeconds": 4.029,
+    "durationFrames": 121
+  },
+  {
+    "sceneId": "scene-03",
+    "text": "We sit with you. We learn how you work. Then we build it — line by line.",
+    "words": [
+      {
+        "word": "We",
+        "start": 0,
+        "end": 0.163,
+        "startFrame": 0,
+        "endFrame": 5
+      },
+      {
+        "word": "sit",
+        "start": 0.221,
+        "end": 0.395,
+        "startFrame": 7,
+        "endFrame": 12
+      },
+      {
+        "word": "with",
+        "start": 0.441,
+        "end": 0.569,
+        "startFrame": 13,
+        "endFrame": 17
+      },
+      {
+        "word": "you.",
+        "start": 0.615,
+        "end": 0.848,
+        "startFrame": 18,
+        "endFrame": 25
+      },
+      {
+        "word": "We",
+        "start": 0.998,
+        "end": 1.138,
+        "startFrame": 30,
+        "endFrame": 34
+      },
+      {
+        "word": "learn",
+        "start": 1.196,
+        "end": 1.393,
+        "startFrame": 36,
+        "endFrame": 42
+      },
+      {
+        "word": "how",
+        "start": 1.44,
+        "end": 1.544,
+        "startFrame": 43,
+        "endFrame": 46
+      },
+      {
+        "word": "you",
+        "start": 1.602,
+        "end": 1.695,
+        "startFrame": 48,
+        "endFrame": 51
+      },
+      {
+        "word": "work.",
+        "start": 1.765,
+        "end": 2.148,
+        "startFrame": 53,
+        "endFrame": 64
+      },
+      {
+        "word": "Then",
+        "start": 2.322,
+        "end": 2.496,
+        "startFrame": 70,
+        "endFrame": 75
+      },
+      {
+        "word": "we",
+        "start": 2.543,
+        "end": 2.635,
+        "startFrame": 76,
+        "endFrame": 79
+      },
+      {
+        "word": "build",
+        "start": 2.705,
+        "end": 2.961,
+        "startFrame": 81,
+        "endFrame": 89
+      },
+      {
+        "word": "it",
+        "start": 3.019,
+        "end": 3.111,
+        "startFrame": 91,
+        "endFrame": 93
+      },
+      {
+        "word": "—",
+        "start": 3.181,
+        "end": 3.228,
+        "startFrame": 95,
+        "endFrame": 97
+      },
+      {
+        "word": "line",
+        "start": 3.344,
+        "end": 3.611,
+        "startFrame": 100,
+        "endFrame": 108
+      },
+      {
+        "word": "by",
+        "start": 3.646,
+        "end": 3.762,
+        "startFrame": 109,
+        "endFrame": 113
+      },
+      {
+        "word": "line.",
+        "start": 3.843,
+        "end": 4.505,
+        "startFrame": 115,
+        "endFrame": 135
+      }
+    ],
+    "durationSeconds": 5.005,
+    "durationFrames": 150
+  },
+  {
+    "sceneId": "scene-04",
+    "text": "Custom platforms. The exact tools your team actually needs.",
+    "words": [
+      {
+        "word": "Custom",
+        "start": 0,
+        "end": 0.372,
+        "startFrame": 0,
+        "endFrame": 11
+      },
+      {
+        "word": "platforms.",
+        "start": 0.418,
+        "end": 1.068,
+        "startFrame": 13,
+        "endFrame": 32
+      },
+      {
+        "word": "The",
+        "start": 1.219,
+        "end": 1.358,
+        "startFrame": 37,
+        "endFrame": 41
+      },
+      {
+        "word": "exact",
+        "start": 1.428,
+        "end": 1.904,
+        "startFrame": 43,
+        "endFrame": 57
+      },
+      {
+        "word": "tools",
+        "start": 1.939,
+        "end": 2.206,
+        "startFrame": 58,
+        "endFrame": 66
+      },
+      {
+        "word": "your",
+        "start": 2.241,
+        "end": 2.357,
+        "startFrame": 67,
+        "endFrame": 71
+      },
+      {
+        "word": "team",
+        "start": 2.415,
+        "end": 2.635,
+        "startFrame": 72,
+        "endFrame": 79
+      },
+      {
+        "word": "actually",
+        "start": 2.705,
+        "end": 3.111,
+        "startFrame": 81,
+        "endFrame": 93
+      },
+      {
+        "word": "needs.",
+        "start": 3.181,
+        "end": 3.901,
+        "startFrame": 95,
+        "endFrame": 117
+      }
+    ],
+    "durationSeconds": 4.401,
+    "durationFrames": 132
+  },
+  {
+    "sceneId": "scene-05",
+    "text": "And the repetitive work? It runs itself — so your people get their time back.",
+    "words": [
+      {
+        "word": "And",
+        "start": 0,
+        "end": 0.197,
+        "startFrame": 0,
+        "endFrame": 6
+      },
+      {
+        "word": "the",
+        "start": 0.244,
+        "end": 0.313,
+        "startFrame": 7,
+        "endFrame": 9
+      },
+      {
+        "word": "repetitive",
+        "start": 0.372,
+        "end": 0.848,
+        "startFrame": 11,
+        "endFrame": 25
+      },
+      {
+        "word": "work?",
+        "start": 0.882,
+        "end": 1.242,
+        "startFrame": 26,
+        "endFrame": 37
+      },
+      {
+        "word": "It",
+        "start": 1.393,
+        "end": 1.509,
+        "startFrame": 42,
+        "endFrame": 45
+      },
+      {
+        "word": "runs",
+        "start": 1.567,
+        "end": 1.788,
+        "startFrame": 47,
+        "endFrame": 54
+      },
+      {
+        "word": "itself",
+        "start": 1.834,
+        "end": 2.206,
+        "startFrame": 55,
+        "endFrame": 66
+      },
+      {
+        "word": "—",
+        "start": 2.38,
+        "end": 2.45,
+        "startFrame": 71,
+        "endFrame": 74
+      },
+      {
+        "word": "so",
+        "start": 2.659,
+        "end": 2.763,
+        "startFrame": 80,
+        "endFrame": 83
+      },
+      {
+        "word": "your",
+        "start": 2.821,
+        "end": 2.937,
+        "startFrame": 85,
+        "endFrame": 88
+      },
+      {
+        "word": "people",
+        "start": 2.984,
+        "end": 3.251,
+        "startFrame": 90,
+        "endFrame": 98
+      },
+      {
+        "word": "get",
+        "start": 3.286,
+        "end": 3.402,
+        "startFrame": 99,
+        "endFrame": 102
+      },
+      {
+        "word": "their",
+        "start": 3.437,
+        "end": 3.576,
+        "startFrame": 103,
+        "endFrame": 107
+      },
+      {
+        "word": "time",
+        "start": 3.622,
+        "end": 3.866,
+        "startFrame": 109,
+        "endFrame": 116
+      },
+      {
+        "word": "back.",
+        "start": 3.901,
+        "end": 4.458,
+        "startFrame": 117,
+        "endFrame": 134
+      }
+    ],
+    "durationSeconds": 4.958,
+    "durationFrames": 149
+  },
+  {
+    "sceneId": "scene-06",
+    "text": "From the first conversation to a system you rely on every day.",
+    "words": [
+      {
+        "word": "From",
+        "start": 0,
+        "end": 0.221,
+        "startFrame": 0,
+        "endFrame": 7
+      },
+      {
+        "word": "the",
+        "start": 0.267,
+        "end": 0.337,
+        "startFrame": 8,
+        "endFrame": 10
+      },
+      {
+        "word": "first",
+        "start": 0.395,
+        "end": 0.639,
+        "startFrame": 12,
+        "endFrame": 19
+      },
+      {
+        "word": "conversation",
+        "start": 0.685,
+        "end": 1.324,
+        "startFrame": 21,
+        "endFrame": 40
+      },
+      {
+        "word": "to",
+        "start": 1.37,
+        "end": 1.451,
+        "startFrame": 41,
+        "endFrame": 44
+      },
+      {
+        "word": "a",
+        "start": 1.533,
+        "end": 1.567,
+        "startFrame": 46,
+        "endFrame": 47
+      },
+      {
+        "word": "system",
+        "start": 1.625,
+        "end": 1.95,
+        "startFrame": 49,
+        "endFrame": 59
+      },
+      {
+        "word": "you",
+        "start": 2.009,
+        "end": 2.09,
+        "startFrame": 60,
+        "endFrame": 63
+      },
+      {
+        "word": "rely",
+        "start": 2.159,
+        "end": 2.461,
+        "startFrame": 65,
+        "endFrame": 74
+      },
+      {
+        "word": "on",
+        "start": 2.554,
+        "end": 2.705,
+        "startFrame": 77,
+        "endFrame": 81
+      },
+      {
+        "word": "every",
+        "start": 2.833,
+        "end": 3.146,
+        "startFrame": 85,
+        "endFrame": 94
+      },
+      {
+        "word": "day.",
+        "start": 3.216,
+        "end": 3.762,
+        "startFrame": 96,
+        "endFrame": 113
+      }
+    ],
+    "durationSeconds": 4.2620000000000005,
+    "durationFrames": 128
+  },
+  {
+    "sceneId": "scene-07",
+    "text": "Your ideas. Our craft. Built together.",
+    "words": [
+      {
+        "word": "Your",
+        "start": 0,
+        "end": 0.221,
+        "startFrame": 0,
+        "endFrame": 7
+      },
+      {
+        "word": "ideas.",
+        "start": 0.29,
+        "end": 0.848,
+        "startFrame": 9,
+        "endFrame": 25
+      },
+      {
+        "word": "Our",
+        "start": 0.917,
+        "end": 1.068,
+        "startFrame": 28,
+        "endFrame": 32
+      },
+      {
+        "word": "craft.",
+        "start": 1.126,
+        "end": 1.579,
+        "startFrame": 34,
+        "endFrame": 47
+      },
+      {
+        "word": "Built",
+        "start": 1.614,
+        "end": 1.834,
+        "startFrame": 48,
+        "endFrame": 55
+      },
+      {
+        "word": "together.",
+        "start": 1.869,
+        "end": 2.461,
+        "startFrame": 56,
+        "endFrame": 74
+      }
+    ],
+    "durationSeconds": 2.961,
+    "durationFrames": 89
+  },
+  {
+    "sceneId": "scene-08",
+    "text": "DEX. Your digital colleague.",
+    "words": [
+      {
+        "word": "DEX.",
+        "start": 0,
+        "end": 0.639,
+        "startFrame": 0,
+        "endFrame": 19
+      },
+      {
+        "word": "Your",
+        "start": 0.789,
+        "end": 0.952,
+        "startFrame": 24,
+        "endFrame": 29
+      },
+      {
+        "word": "digital",
+        "start": 0.998,
+        "end": 1.324,
+        "startFrame": 30,
+        "endFrame": 40
+      },
+      {
+        "word": "colleague.",
+        "start": 1.382,
+        "end": 1.95,
+        "startFrame": 41,
+        "endFrame": 59
+      }
+    ],
+    "durationSeconds": 2.45,
+    "durationFrames": 74
+  }
+]

@@ -1,0 +1,671 @@
+[
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-Logo-black.svg",
+    "type": "Image",
+    "contexts": [
+      "img[src]"
+    ],
+    "notes": null,
+    "aboveFold": true
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/team.jpg",
+    "type": "Image",
+    "contexts": [
+      "img[src]",
+      "img[srcset]"
+    ],
+    "notes": "team",
+    "description": "team",
+    "nearestHeading": "O nama",
+    "sectionClasses": "full-width",
+    "aboveFold": true
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/team-200x120.jpg",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": "team",
+    "description": "team",
+    "nearestHeading": "O nama",
+    "sectionClasses": "full-width",
+    "aboveFold": true
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/team-400x241.jpg",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": "team",
+    "description": "team",
+    "nearestHeading": "O nama",
+    "sectionClasses": "full-width",
+    "aboveFold": true
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/team-600x361.jpg",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": "team",
+    "description": "team",
+    "nearestHeading": "O nama",
+    "sectionClasses": "full-width",
+    "aboveFold": true
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/team-800x482.jpg",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": "team",
+    "description": "team",
+    "nearestHeading": "O nama",
+    "sectionClasses": "full-width",
+    "aboveFold": true
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/team-1200x723.jpg",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": "team",
+    "description": "team",
+    "nearestHeading": "O nama",
+    "sectionClasses": "full-width",
+    "aboveFold": true
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-Logo_with_Subline-white-HighRes.png",
+    "type": "Image",
+    "contexts": [
+      "img[src]",
+      "img[srcset]"
+    ],
+    "notes": "DeX-Logo_with_Subline-white",
+    "description": "DeX-Logo_with_Subline-white",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-Logo_with_Subline-white-HighRes-200x106.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": "DeX-Logo_with_Subline-white",
+    "description": "DeX-Logo_with_Subline-white",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-Logo_with_Subline-white-HighRes-400x213.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": "DeX-Logo_with_Subline-white",
+    "description": "DeX-Logo_with_Subline-white",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-Logo_with_Subline-white-HighRes-600x319.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": "DeX-Logo_with_Subline-white",
+    "description": "DeX-Logo_with_Subline-white",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-Logo_with_Subline-white-HighRes-800x426.png",
+    "type": "Image",
+    "contexts": [
+      "img[srcset]"
+    ],
+    "notes": "DeX-Logo_with_Subline-white",
+    "description": "DeX-Logo_with_Subline-white",
+    "aboveFold": false
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/cropped-DeX-Emblem-black-HighRes-32x32.png",
+    "type": "Icon",
+    "contexts": [
+      "link[rel=\"icon\"]"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/cropped-DeX-Emblem-black-HighRes-192x192.png",
+    "type": "Icon",
+    "contexts": [
+      "link[rel=\"icon\"]"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/cropped-DeX-Emblem-black-HighRes-180x180.png",
+    "type": "Icon",
+    "contexts": [
+      "link[rel=\"apple-touch-icon\"]"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/RoobertTRIAL-Regular.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/RoobertTRIAL-Regular.woff",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/RoobertTRIAL-Regular.ttf",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/RoobertTRIAL-Light.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/RoobertTRIAL-Light.woff",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/RoobertTRIAL-Light.ttf",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/RoobertTRIAL-Medium.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/RoobertTRIAL-Medium.woff",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/RoobertTRIAL-Medium.ttf",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/RoobertTRIAL-Bold.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/RoobertTRIAL-Bold.woff",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/RoobertTRIAL-Bold.ttf",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/RoobertTRIAL-Regular-1.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/RoobertTRIAL-Regular-1.woff",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/RoobertTRIAL-Regular-1.ttf",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/themes/Avada/assets/images/patterns/pattern1.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/themes/Avada/includes/lib/assets/fonts/icomoon/awb-icons.woff",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/themes/Avada/includes/lib/assets/fonts/icomoon/awb-icons.ttf",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/themes/Avada/includes/lib/assets/fonts/fontawesome/webfonts/fa-brands-400.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/themes/Avada/includes/lib/assets/fonts/fontawesome/webfonts/fa-brands-400.woff",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/themes/Avada/includes/lib/assets/fonts/fontawesome/webfonts/fa-brands-400.ttf",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/themes/Avada/includes/lib/assets/fonts/fontawesome/webfonts/fa-regular-400.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/themes/Avada/includes/lib/assets/fonts/fontawesome/webfonts/fa-regular-400.woff",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/themes/Avada/includes/lib/assets/fonts/fontawesome/webfonts/fa-regular-400.ttf",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/themes/Avada/includes/lib/assets/fonts/fontawesome/webfonts/fa-solid-900.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/themes/Avada/includes/lib/assets/fonts/fontawesome/webfonts/fa-solid-900.woff",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/themes/Avada/includes/lib/assets/fonts/fontawesome/webfonts/fa-solid-900.ttf",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/mejs-controls-dark.svg",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/closedhand.cur",
+    "type": "Other",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/preloader.gif",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/caption-bg.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/social-bg.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/alert.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/buttons.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/fullscreen-icon-64.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/fullscreen-hover-icon-64.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/x-mark-icon-64.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/x-mark-hover-icon-64.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/arrow-next-icon-64.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/arrow-next-hover-icon-64.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/arrow-prev-icon-64.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/arrow-prev-hover-icon-64.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/play-icon-64.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/play-hover-icon-64.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/pause-icon-64.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/pause-hover-icon-64.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/thumb-overlay-play.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/arrows_vertical.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/plugins/fusion-builder/assets/images/iLightbox/metro-white-skin/arrows_horizontal.png",
+    "type": "Background",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://gl-recht.at/wp-content/uploads/2023/03/soehne-web-leicht.woff",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/fonts/fontawesome-webfont.woff2?v=4.7.0",
+    "type": "Other",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/fonts/fontawesome-webfont.woff?v=4.7.0",
+    "type": "Other",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/fonts/fontawesome-webfont.ttf?v=4.7.0",
+    "type": "Other",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/dex-hero-logo-transparent.png",
+    "type": "Other",
+    "contexts": [
+      "html inline style url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/ExperiencePlattform.png",
+    "type": "Other",
+    "contexts": [
+      "html inline style url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/Optimization.png",
+    "type": "Other",
+    "contexts": [
+      "html inline style url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/Developement.png",
+    "type": "Other",
+    "contexts": [
+      "html inline style url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-DMS.png",
+    "type": "Other",
+    "contexts": [
+      "html inline style url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/Automation.png",
+    "type": "Other",
+    "contexts": [
+      "html inline style url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/dex-partner-oracle.png",
+    "type": "Other",
+    "contexts": [
+      "html inline style url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/dex-partner-m-i-systems-group.png",
+    "type": "Other",
+    "contexts": [
+      "html inline style url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/dex-partner-robotiqAi.png",
+    "type": "Other",
+    "contexts": [
+      "html inline style url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/dex-partner-ingram.png",
+    "type": "Other",
+    "contexts": [
+      "html inline style url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "https://dex.rs/wp-content/uploads/DeX-References-TerraCore.png",
+    "type": "Other",
+    "contexts": [
+      "html inline style url()"
+    ],
+    "notes": null
+  }
+]

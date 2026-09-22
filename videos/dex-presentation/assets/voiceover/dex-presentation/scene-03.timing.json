@@ -1,0 +1,169 @@
+{
+  "sceneId": "scene-03",
+  "text": "For three decades, we've engineered the systems that run serious business — innovative software, built to automate the work that holds companies back.",
+  "words": [
+    {
+      "word": "For",
+      "start": 0,
+      "end": 0.197,
+      "startFrame": 0,
+      "endFrame": 6
+    },
+    {
+      "word": "three",
+      "start": 0.267,
+      "end": 0.546,
+      "startFrame": 8,
+      "endFrame": 16
+    },
+    {
+      "word": "decades,",
+      "start": 0.604,
+      "end": 1.08,
+      "startFrame": 18,
+      "endFrame": 32
+    },
+    {
+      "word": "we've",
+      "start": 1.126,
+      "end": 1.37,
+      "startFrame": 34,
+      "endFrame": 41
+    },
+    {
+      "word": "engineered",
+      "start": 1.428,
+      "end": 1.927,
+      "startFrame": 43,
+      "endFrame": 58
+    },
+    {
+      "word": "the",
+      "start": 1.962,
+      "end": 2.032,
+      "startFrame": 59,
+      "endFrame": 61
+    },
+    {
+      "word": "systems",
+      "start": 2.078,
+      "end": 2.519,
+      "startFrame": 62,
+      "endFrame": 76
+    },
+    {
+      "word": "that",
+      "start": 2.554,
+      "end": 2.682,
+      "startFrame": 77,
+      "endFrame": 80
+    },
+    {
+      "word": "run",
+      "start": 2.763,
+      "end": 2.972,
+      "startFrame": 83,
+      "endFrame": 89
+    },
+    {
+      "word": "serious",
+      "start": 3.065,
+      "end": 3.506,
+      "startFrame": 92,
+      "endFrame": 105
+    },
+    {
+      "word": "business",
+      "start": 3.564,
+      "end": 4.063,
+      "startFrame": 107,
+      "endFrame": 122
+    },
+    {
+      "word": "—",
+      "start": 4.214,
+      "end": 4.272,
+      "startFrame": 126,
+      "endFrame": 128
+    },
+    {
+      "word": "innovative",
+      "start": 4.598,
+      "end": 5.108,
+      "startFrame": 138,
+      "endFrame": 153
+    },
+    {
+      "word": "software,",
+      "start": 5.143,
+      "end": 5.747,
+      "startFrame": 154,
+      "endFrame": 172
+    },
+    {
+      "word": "built",
+      "start": 6.072,
+      "end": 6.42,
+      "startFrame": 182,
+      "endFrame": 193
+    },
+    {
+      "word": "to",
+      "start": 6.467,
+      "end": 6.56,
+      "startFrame": 194,
+      "endFrame": 197
+    },
+    {
+      "word": "automate",
+      "start": 6.653,
+      "end": 7.129,
+      "startFrame": 200,
+      "endFrame": 214
+    },
+    {
+      "word": "the",
+      "start": 7.152,
+      "end": 7.221,
+      "startFrame": 215,
+      "endFrame": 217
+    },
+    {
+      "word": "work",
+      "start": 7.279,
+      "end": 7.546,
+      "startFrame": 218,
+      "endFrame": 226
+    },
+    {
+      "word": "that",
+      "start": 7.605,
+      "end": 7.744,
+      "startFrame": 228,
+      "endFrame": 232
+    },
+    {
+      "word": "holds",
+      "start": 7.802,
+      "end": 8.092,
+      "startFrame": 234,
+      "endFrame": 243
+    },
+    {
+      "word": "companies",
+      "start": 8.15,
+      "end": 8.557,
+      "startFrame": 245,
+      "endFrame": 257
+    },
+    {
+      "word": "back.",
+      "start": 8.626,
+      "end": 9.381,
+      "startFrame": 259,
+      "endFrame": 281
+    }
+  ],
+  "durationSeconds": 9.881,
+  "durationFrames": 296
+}
