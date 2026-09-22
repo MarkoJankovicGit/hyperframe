@@ -70,14 +70,15 @@
     .app-tile i { width:51px; height:51px; display:grid; place-items:center; border-radius:17px; background:var(--peach); color:var(--navy); font-size:24px; font-style:normal; font-weight:900; }
     .app-tile span { font-size:17px; line-height:1.1; font-weight:800; }
     .app-tile:nth-child(3n+1) i { background:var(--lilac); }.app-tile:nth-child(3n+2) i { background:var(--mint); }.app-tile:nth-child(3n) i { background:var(--sky); }
-    .t1 { left:462px; top:720px; }.t2 { left:690px; top:802px; }.t3 { left:784px; top:1025px; }.t4 { left:675px; top:1245px; }.t5 { left:454px; top:1325px; }.t6 { left:225px; top:1240px; }.t7 { left:135px; top:1020px; }.t8 { left:228px; top:800px; }.t9 { left:64px; top:685px; }.t10 { left:790px; top:675px; }
+    .t1 { left:462px; top:720px; }.t2 { left:690px; top:802px; }.t3 { left:774px; top:1025px; }.t4 { left:675px; top:1245px; }.t5 { left:454px; top:1325px; }.t6 { left:225px; top:1240px; }.t7 { left:135px; top:1020px; }.t8 { left:228px; top:800px; }.t9 { left:64px; top:685px; }.t10 { left:780px; top:675px; }
     .final-message { position:absolute; z-index:25; left:72px; right:72px; top:610px; opacity:0; visibility:hidden; text-align:center; }
     .final-message small { color:var(--coral); font-size:20px; font-weight:850; letter-spacing:.12em; text-transform:uppercase; }
     .final-message h2 { margin:25px 0 0; font-size:78px; line-height:1.02; letter-spacing:-.06em; }
     .final-message h2 span { display:block; }.final-message h2 .accent { color:var(--coral); }
     .final-message p { max-width:760px; margin:28px auto 0; color:var(--muted); font-size:28px; line-height:1.42; }
-    .next-dot { width:22px; height:22px; margin:54px auto 0; border-radius:50%; background:var(--coral); box-shadow:0 0 0 18px rgba(242,105,115,.12),0 0 0 42px rgba(242,105,115,.05); }
-    .note { position:absolute; z-index:30; left:0; right:0; bottom:46px; opacity:0; color:rgba(36,52,95,.5); text-align:center; font-size:16px; font-weight:700; }
+    .next-dot { position:relative; width:22px; height:22px; margin:54px auto 0; border-radius:50%; background:var(--coral); }
+    .next-ring { position:absolute; left:50%; top:50%; width:22px; height:22px; margin:-11px 0 0 -11px; border:2px solid rgba(242,105,115,.45); border-radius:50%; pointer-events:none; }
+    .note { position:absolute; z-index:30; left:0; right:0; bottom:86px; opacity:0; color:rgba(36,52,95,.5); text-align:center; font-size:16px; font-weight:700; }
     .clip { position:absolute; width:1px; height:1px; opacity:0; pointer-events:none; }
   </style>
 </head>
@@ -99,7 +100,7 @@
     <div class="ring"></div>
     <div class="app-tile t1"><i>○</i><span>Trudnoća</span></div><div class="app-tile t2"><i>☾</i><span>San</span></div><div class="app-tile t3"><i>↗</i><span>Razvoj</span></div><div class="app-tile t4"><i>＋</i><span>Ishrana</span></div><div class="app-tile t5"><i>◉</i><span>Lekovi</span></div><div class="app-tile t6"><i>□</i><span>Pregledi</span></div><div class="app-tile t7"><i>✎</i><span>Beleške</span></div><div class="app-tile t8"><i>⌁</i><span>Dokumenti</span></div><div class="app-tile t9"><i>♡</i><span>Zajednica</span></div><div class="app-tile t10"><i>✦</i><span>AI pitanja</span></div>
   </section>
-  <section class="final-message"><small>Jedna jasna potreba</small><h2><span>Ne još jedna aplikacija.</span><span class="accent">Jedno mesto.</span></h2><p>Podrška koja pamti kontekst i prati porodicu kroz svaku fazu.</p><div class="next-dot"></div></section>
+  <section class="final-message"><small>Jedna jasna potreba</small><h2><span>Ne još jedna aplikacija.</span><span class="accent">Jedno mesto.</span></h2><p>Podrška koja pamti kontekst i prati porodicu kroz svaku fazu.</p><div class="next-dot"><i class="next-ring ring-one"></i><i class="next-ring ring-two"></i></div></section>
   <p class="note">Brojevi u ovoj internoj verziji predstavljaju radni scenario istraživanja.</p>
   <div id="driver" class="clip" data-start="0" data-duration="7" data-track-index="0"></div>
 </main>
@@ -111,6 +112,7 @@
   tl.set(".app-tile", { opacity:0, scale:.35, x:0, y:0, rotation:-8 });
   tl.set(".ring", { opacity:0, scale:.55 });
   tl.set(".next-dot", { scale:0 });
+  tl.set(".next-ring", { scale:0, opacity:0 });
   tl.fromTo(".header", { opacity:0, y:-18 }, { opacity:1, y:0, duration:.55 }, .08);
   tl.fromTo(".kicker", { opacity:0, x:-26 }, { opacity:1, x:0, duration:.55 }, .25);
   tl.fromTo(".intro h1 span", { opacity:0, y:46, filter:"blur(12px)" }, { opacity:1, y:0, filter:"blur(0px)", duration:.7, stagger:.09, ease:"expo.out" }, .38);
@@ -133,16 +135,17 @@
   tl.to(".ring", { opacity:1, scale:1, duration:.75, ease:"power2.out" }, 3.48);
   tl.fromTo(".app-tile", { opacity:0, scale:.35, rotation:-8 }, { opacity:1, scale:1, rotation:0, duration:.58, stagger:.045, ease:"back.out(1.8)" }, 3.64);
   tl.fromTo(".ecosystem-number", { scale:.7 }, { scale:1, duration:.55, ease:"back.out(2)" }, 3.72);
-  tl.to(".ring", { rotation:9, duration:1.15, ease:"sine.inOut" }, 4.25);
-  tl.to(".ecosystem-copy", { opacity:0, scale:.9, duration:.38 }, 5.12);
-  tl.to(".note", { opacity:0, duration:.3 }, 5.08);
-  tl.to(".ring", { opacity:.18, scale:1.16, duration:.55 }, 5.08);
-  tl.to(".app-tile", { opacity:.14, scale:.82, duration:.42, stagger:.02 }, 5.08);
-  tl.fromTo(".final-message", { autoAlpha:0, y:45 }, { autoAlpha:1, y:0, duration:.65, ease:"expo.out" }, 5.28);
-  tl.fromTo(".final-message h2 span", { opacity:0, y:35, filter:"blur(9px)" }, { opacity:1, y:0, filter:"blur(0px)", duration:.55, stagger:.09 }, 5.42);
-  tl.fromTo(".final-message p", { opacity:0, y:18 }, { opacity:1, y:0, duration:.45 }, 5.78);
-  tl.to(".next-dot", { scale:1, duration:.48, ease:"back.out(2.5)" }, 5.94);
-  tl.to(".next-dot", { scale:1.35, boxShadow:"0 0 0 34px rgba(242,105,115,.08), 0 0 0 74px rgba(242,105,115,.025)", duration:.85, ease:"sine.inOut" }, 6.18);
+  tl.to(".ring", { rotation:9, duration:.8, ease:"sine.inOut" }, 4.0);
+  tl.to(".ecosystem-copy", { opacity:0, scale:.9, duration:.34 }, 4.78);
+  tl.to(".note", { opacity:0, duration:.28 }, 4.76);
+  tl.to(".ring", { opacity:.14, scale:1.16, duration:.5 }, 4.76);
+  tl.to(".app-tile", { opacity:.12, scale:.82, duration:.38, stagger:.015 }, 4.76);
+  tl.fromTo(".final-message", { autoAlpha:0, y:40 }, { autoAlpha:1, y:0, duration:.55, ease:"expo.out" }, 4.92);
+  tl.fromTo(".final-message h2 span", { opacity:0, y:30, filter:"blur(8px)" }, { opacity:1, y:0, filter:"blur(0px)", duration:.45, stagger:.07 }, 5.02);
+  tl.fromTo(".final-message p", { opacity:0, y:16 }, { opacity:1, y:0, duration:.38 }, 5.2);
+  tl.to(".next-dot", { scale:1, duration:.42, ease:"back.out(2.5)" }, 5.42);
+  tl.fromTo(".ring-one", { scale:.8, opacity:.65 }, { scale:3.8, opacity:0, duration:1.0, ease:"power2.out" }, 5.62);
+  tl.fromTo(".ring-two", { scale:.8, opacity:.45 }, { scale:5.8, opacity:0, duration:1.12, ease:"power2.out" }, 5.82);
   window.__timelines["mamin-vodic-research-intro"] = tl;
   tl.seek(0);
 </script>
