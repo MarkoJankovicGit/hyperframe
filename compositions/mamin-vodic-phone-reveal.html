@@ -24,7 +24,7 @@
     .headline span { display:block; }
     .headline .accent { color:var(--coral); }
     .subhead { position:absolute; z-index:4; top:335px; left:160px; right:160px; margin:0; color:var(--muted); font-size:25px; line-height:1.45; text-align:center; font-weight:560; }
-    .stage { position:absolute; left:50%; top:930px; width:760px; height:1160px; transform-style:preserve-3d; }
+    .stage { position:absolute; left:50%; top:1010px; width:760px; height:1160px; transform-style:preserve-3d; }
     .halo { position:absolute; left:50%; top:52%; width:780px; height:780px; margin:-390px 0 0 -390px; border-radius:50%; background:radial-gradient(circle,rgba(242,105,115,.18),rgba(242,105,115,.04) 48%,transparent 70%); transform:translateZ(-120px); }
     .orbit { position:absolute; left:50%; top:50%; width:690px; height:690px; margin:-345px 0 0 -345px; border:1px solid rgba(36,52,95,.10); border-radius:50%; transform:translateZ(-80px) rotateX(68deg); }
     .orbit::before,.orbit::after { content:""; position:absolute; inset:58px; border:1px dashed rgba(242,105,115,.17); border-radius:50%; }
@@ -41,7 +41,7 @@
     .status { position:absolute; z-index:25; top:24px; left:36px; right:34px; display:flex; justify-content:space-between; color:var(--navy); font-size:14px; font-weight:800; }
     .status-icons { letter-spacing:2px; }
     .screen-panel { position:absolute; inset:0; padding:76px 26px 88px; background:#fffaf7; transform:translateX(0); }
-    .screen-panel[data-screen="prati"],.screen-panel[data-screen="otkrij"] { opacity:0; transform:translateX(100%); }
+    .screen-panel[data-screen="prati"],.screen-panel[data-screen="otkrij"] { opacity:0; }
     .home-hero { position:relative; overflow:hidden; margin:-76px -26px 22px; padding:92px 28px 34px; min-height:265px; color:white; background:linear-gradient(145deg,#263861,#344f83); }
     .home-hero::before { content:""; position:absolute; width:240px; height:240px; border-radius:50%; right:-70px; top:48px; border:34px solid rgba(255,255,255,.07); box-shadow:0 0 0 28px rgba(242,105,115,.08); }
     .date { position:relative; z-index:1; font-size:13px; font-weight:800; letter-spacing:.13em; text-transform:uppercase; opacity:.7; }
@@ -86,7 +86,7 @@
     .tab { position:relative; display:grid; justify-items:center; gap:5px; color:#9b9eaa; font-size:12px; font-weight:750; }
     .tab b { width:26px; height:23px; display:grid; place-items:center; font-size:19px; }
     .tab.active { color:var(--navy); }
-    .tab-indicator { position:absolute; left:76px; bottom:7px; width:24px; height:4px; border-radius:4px; background:var(--coral); }
+    .tab-indicator { position:absolute; left:70.67px; bottom:7px; width:24px; height:4px; border-radius:4px; background:var(--coral); }
     .screen-flash { position:absolute; z-index:50; inset:0; pointer-events:none; background:linear-gradient(105deg,transparent 25%,rgba(255,255,255,.58) 48%,transparent 70%); transform:translateX(-140%); }
     .feature-badge { position:absolute; z-index:8; display:flex; align-items:center; gap:12px; min-width:205px; padding:15px 18px; border:1px solid rgba(36,52,95,.10); border-radius:20px; background:rgba(255,255,255,.90); box-shadow:0 18px 45px rgba(36,52,95,.13); backdrop-filter:blur(12px); color:var(--navy); font-size:15px; font-weight:800; }
     .feature-badge i { width:14px; height:14px; border-radius:50%; background:var(--coral); box-shadow:0 0 0 7px rgba(242,105,115,.12); }
@@ -99,7 +99,7 @@
   </style>
 </head>
 <body>
-<main id="root">
+<main id="root" data-composition-id="mamin-vodic-phone-reveal" data-width="1080" data-height="1920" data-start="0" data-duration="8" data-root="true">
   <div class="grain"></div><div class="orb orb-a"></div><div class="orb orb-b"></div>
   <div class="eyebrow"><span><i></i>Finalni demo aplikacije</span></div>
   <h1 class="headline"><span>Podrška je sada</span><span class="accent">na jednom mestu.</span></h1>
@@ -146,6 +146,7 @@
     <div class="brand"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M20 76V27c0-7 8-11 13-6l17 17 17-17c5-5 13-1 13 6v49" fill="none" stroke="#24345f" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><circle class="brand-dot" cx="50" cy="78" r="8" fill="#f26973"/></svg><span class="brand-copy"><strong>Mamin vodič</strong><span>Podrška koja raste sa porodicom.</span></span></div>
     <span class="proof">Demo je spreman</span>
   </footer>
+  <div id="driver" class="clip" data-start="0" data-duration="8" data-track-index="0"></div>
 </main>
 <script>
   window.__timelines = window.__timelines || {};
@@ -153,6 +154,7 @@
   const panels = gsap.utils.toArray(".screen-panel");
   const tabs = gsap.utils.toArray(".tab");
   tl.set(".stage", { xPercent: -50, yPercent: -50 });
+  tl.set([panels[1], panels[2]], { xPercent: 100 });
   tl.set(".phone-wrap", { rotationY: 28, rotationX: 8, rotationZ: -3, scale: 0.68, opacity: 0, transformPerspective: 1900, transformOrigin: "50% 50%" });
   tl.set([".eyebrow", ".headline span", ".subhead", ".footer"], { opacity: 0 });
   tl.set(".feature-badge", { opacity: 0, scale: 0.82 });
@@ -176,7 +178,7 @@
     tl.set(".screen-flash", { xPercent: -140 }, at + 0.8);
     tl.to(tabs[fromIndex], { color: "#9b9eaa", duration: 0.28 }, at + 0.18);
     tl.to(tabs[toIndex], { color: "#24345f", duration: 0.28 }, at + 0.18);
-    tl.to(".tab-indicator", { x: 176 * toIndex, duration: 0.46, ease: "power3.inOut" }, at + 0.12);
+    tl.to(".tab-indicator", { x: (496 / 3) * toIndex, duration: 0.46, ease: "power3.inOut" }, at + 0.12);
   }
   switchScreen(0, 1, 3.0);
   tl.fromTo(".badge-b", { x: 36 }, { opacity: 1, scale: 1, x: 0, duration: 0.52 }, 3.28);
