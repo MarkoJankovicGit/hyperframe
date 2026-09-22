@@ -8,6 +8,22 @@
     <style>
       * { box-sizing: border-box; }
       html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; }
+      @font-face {
+        font-family: "Manrope";
+        src: url("../assets/fonts/manrope-latin-ext-wght-normal.woff2") format("woff2");
+        font-style: normal;
+        font-weight: 200 800;
+        font-display: block;
+        unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+      @font-face {
+        font-family: "Manrope";
+        src: url("../assets/fonts/manrope-latin-wght-normal.woff2") format("woff2");
+        font-style: normal;
+        font-weight: 200 800;
+        font-display: block;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
       body { background: #fff8f2; font-family: "Manrope", "Inter", system-ui, sans-serif; }
 
       #root {
@@ -158,9 +174,10 @@
         stroke-dasharray: 230;
         stroke-dashoffset: 230;
       }
-      .brand-dot { fill: #f26973; transform-origin: 50px 78px; transform: scale(0); }
+      .brand-dot { fill: #f26973; }
       .brand-name { margin-top: 24px; font-size: 76px; font-weight: 850; line-height: 1; letter-spacing: -0.055em; }
       .brand-tagline { margin-top: 26px; color: rgba(36, 52, 95, 0.67); font-size: 28px; line-height: 1.32; font-weight: 650; text-align: center; }
+      .brand-tagline span { display: block; }
 
       .microcopy {
         position: absolute;
@@ -187,7 +204,7 @@
         <article class="app-card" data-x="-335" data-y="-500" data-r="-7">
           <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 11c0 5.6-7 10-7 10Z"/><path d="M9 12h6"/></svg></div><div class="card-copy"><div class="card-title">Trudnoća</div><div class="card-sub">Nedelje i promene</div></div>
         </article>
-        <article class="app-card" data-x="10" data-y="-620" data-r="5">
+        <article class="app-card" data-x="10" data-y="-500" data-r="5">
           <div class="card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M9.5 10h.01M14.5 10h.01M9 15c2 1.4 4 1.4 6 0"/></svg></div><div class="card-copy"><div class="card-title">Razvoj bebe</div><div class="card-sub">Faze i prekretnice</div></div>
         </article>
         <article class="app-card" data-x="335" data-y="-470" data-r="8">
@@ -224,7 +241,7 @@
             <circle class="brand-dot" cx="50" cy="78" r="9" />
           </svg>
           <div class="brand-name">Mamin vodič</div>
-          <div class="brand-tagline">Jedno mesto za svakodnevnu<br />podršku porodici.</div>
+          <div class="brand-tagline"><span>Jedno mesto za svakodnevnu</span><span>podršku porodici.</span></div>
         </div>
       </div>
       <div class="microcopy">PROJEKAT ZA 2027 · INTERAKTIVNI DEMO</div>
@@ -235,6 +252,8 @@
       window.__timelines = window.__timelines || {};
       var tl = gsap.timeline({ paused: true });
       var cards = gsap.utils.toArray(".app-card");
+
+      tl.set(".brand-dot", { scale: 0, svgOrigin: "50 78" }, 0);
 
       cards.forEach(function (card, index) {
         var x = Number(card.dataset.x);
@@ -262,7 +281,7 @@
       tl.to(".coral-orb", { scale: 7.4, opacity: 0.08, duration: 0.72, ease: "power3.out" }, 5.12);
       tl.set(".brand-reveal", { opacity: 1 }, 5.16);
       tl.to(".brand-m", { strokeDashoffset: 0, duration: 0.92, ease: "power2.inOut" }, 5.16);
-      tl.to(".brand-dot", { scale: 1, duration: 0.42, ease: "back.out(2)" }, 5.78);
+      tl.to(".brand-dot", { scale: 1, svgOrigin: "50 78", duration: 0.42, ease: "back.out(2)" }, 5.78);
       tl.fromTo(".brand-name", { y: 26, opacity: 0, filter: "blur(8px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.62, ease: "power3.out" }, 5.76);
       tl.fromTo(".brand-tagline", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.58, ease: "power3.out" }, 6.08);
       tl.to(".microcopy", { opacity: 1, duration: 0.5, ease: "power2.out" }, 6.35);
