@@ -39,3 +39,7 @@ assets/voiceover/
 *.tgz
 *.7z
 *.rar
+
+# Mixkit SFX: license forbids redistributing files standalone; keep local only
+sound-effects/mamin-vodic/*mixkit*
+sound-effects/mamin-vodic/audition.mp3

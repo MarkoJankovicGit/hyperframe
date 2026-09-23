@@ -1,0 +1,43 @@
+{
+  "duration": 66.5,
+  "dir": "sound-effects/mamin-vodic",
+  "note": "Master times. Scene offsets: community 0, research 13.7, collapse 28.4, phone 34.1, timeline 49.8, cta 57.5. Each cue is tied to the animation beat named in 'at'.",
+  "cues": [
+    { "t": 2.37,  "file": "whoosh-air_mixkit-1489.mp3", "gain": -15, "len": 1.4, "at": "community photo 1" },
+    { "t": 4.47,  "file": "whoosh-air_mixkit-1489.mp3", "gain": -17, "len": 1.4, "at": "community photo 2" },
+    { "t": 6.57,  "file": "whoosh-air_mixkit-1489.mp3", "gain": -17, "len": 1.4, "at": "community photo 3" },
+    { "t": 8.67,  "file": "whoosh-air_mixkit-1489.mp3", "gain": -17, "len": 1.4, "at": "community photo 4" },
+
+    { "t": 14.75, "file": "pop-long_mixkit-2358.mp3", "gain": -16, "at": "research 195 circle" },
+    { "t": 17.35, "file": "sweep-harp_mixkit-2628.mp3", "gain": -19, "len": 1.8, "fade": 0.8, "at": "research donut draw" },
+    { "t": 21.05, "file": "pop-light_mixkit-3005.mp3", "gain": -18, "at": "area 01" },
+    { "t": 21.32, "file": "pop-light_mixkit-3005.mp3", "gain": -19, "at": "area 02" },
+    { "t": 21.59, "file": "pop-light_mixkit-3005.mp3", "gain": -19, "at": "area 03" },
+    { "t": 21.86, "file": "pop-light_mixkit-3005.mp3", "gain": -20, "at": "area 04" },
+    { "t": 22.13, "file": "pop-light_mixkit-3005.mp3", "gain": -20, "at": "area 05" },
+    { "t": 22.40, "file": "pop-light_mixkit-3005.mp3", "gain": -21, "at": "area 06" },
+    { "t": 22.67, "file": "pop-light_mixkit-3005.mp3", "gain": -21, "at": "area 07" },
+    { "t": 22.94, "file": "pop-light_mixkit-3005.mp3", "gain": -22, "at": "area 08" },
+    { "t": 23.21, "file": "pop-light_mixkit-3005.mp3", "gain": -22, "at": "area 09" },
+    { "t": 23.48, "file": "pop-light_mixkit-3005.mp3", "gain": -23, "at": "area 10" },
+
+    { "t": 30.72, "file": "swoosh-vacuum_mixkit-1465.mp3", "gain": -15, "at": "collapse: tools pulled in" },
+    { "t": 31.22, "file": "pop-long_mixkit-2358.mp3", "gain": -17, "at": "collapse: coral orb" },
+    { "t": 31.88, "file": "chime-relaxing-bell_mixkit-3109.mp3", "gain": -12, "at": "'Treba im jedno povezano mesto'" },
+
+    { "t": 36.65, "file": "paper-flip_freesound-615337-cc0.mp3", "gain": -19, "at": "journey: food cards" },
+    { "t": 38.47, "file": "tick-tock-timer_mixkit-1046.mp3", "gain": -16, "len": 1.5, "fade": 0.2, "at": "journey: contraction timer counts" },
+    { "t": 41.90, "file": "bell-of-promise_mixkit-930.mp3", "gain": -9, "len": 5.2, "fade": 2.0, "at": "journey: 'A onda - Luka je stigao'" },
+    { "t": 44.85, "file": "heartbeat-soft_freesound-784657-cc0.mp3", "gain": 2, "at": "journey: heart pulse 1" },
+    { "t": 45.45, "file": "heartbeat-soft_freesound-784657-cc0.mp3", "gain": 0, "at": "journey: heart pulse 2" },
+    { "t": 48.14, "file": "fairy-glow_mixkit-870.mp3", "gain": -19, "len": 2.2, "fade": 1.0, "at": "journey: growth path draws" },
+
+    { "t": 50.10, "file": "paper-flip_freesound-615337-cc0.mp3", "gain": -16, "at": "timeline: demo card" },
+    { "t": 52.55, "file": "paper-flip_freesound-615337-cc0.mp3", "gain": -16, "at": "timeline: 6 months" },
+    { "t": 54.95, "file": "paper-flip_freesound-615337-cc0.mp3", "gain": -16, "at": "timeline: 12 months" },
+
+    { "t": 59.75, "file": "whoosh-air_mixkit-1489.mp3", "gain": -18, "len": 1.4, "at": "cta: partners" },
+    { "t": 62.87, "file": "whoosh-air_mixkit-1489.mp3", "gain": -18, "len": 1.4, "at": "cta: testers" },
+    { "t": 65.34, "file": "chime-relaxing-bell_mixkit-3109.mp3", "gain": -10, "at": "cta: final logo (same motif as 31.88)" }
+  ]
+}
