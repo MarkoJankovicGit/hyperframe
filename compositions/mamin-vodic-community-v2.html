@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1080, height=1920" />
+  <title>MAMINSAN — 10 godina uz mame</title>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <style>
+    *{box-sizing:border-box}html,body{margin:0;width:1080px;height:1920px;overflow:hidden}
+    @font-face{font-family:Manrope;src:url("../assets/fonts/manrope-latin-ext-wght-normal.woff2") format("woff2");font-weight:200 800;font-display:block}@font-face{font-family:Manrope;src:url("../assets/fonts/manrope-latin-wght-normal.woff2") format("woff2");font-weight:200 800;font-display:block}
+    :root{--navy:#24345f;--coral:#f26973;--cream:#fff8f2;--muted:#73798a}
+    body{font-family:Manrope,system-ui,sans-serif;color:var(--navy);background:var(--cream)}
+    #root{position:relative;width:1080px;height:1920px;overflow:hidden;background:radial-gradient(circle at 15% 15%,#ffe3d5 0,transparent 30%),linear-gradient(180deg,#fffaf6,#fff4ec)}
+    .header{position:absolute;z-index:50;top:76px;left:76px;right:76px;display:flex;align-items:center;justify-content:space-between}.brand{display:flex;align-items:center;gap:17px}.sun{width:51px;height:51px;border:14px solid var(--coral);border-radius:50%;box-shadow:0 0 0 10px rgba(242,105,115,.12)}.brand b{font-size:27px;letter-spacing:.12em}.brand small{display:block;margin-top:4px;color:var(--muted);font-size:15px;font-weight:700}.year{padding:13px 18px;border:1px solid rgba(36,52,95,.12);border-radius:999px;background:rgba(255,255,255,.75);font-size:16px;font-weight:800}
+    .intro,.outro{position:absolute;z-index:30;left:74px;right:74px;top:260px;text-align:center}.eyebrow{color:var(--coral);font-size:22px;font-weight:850;letter-spacing:.12em;text-transform:uppercase}.intro h1,.outro h2{margin:31px 0 0;font-size:112px;line-height:.94;letter-spacing:-.065em}.intro h1 span,.outro h2 span{display:block}.accent{color:var(--coral)}.intro p,.outro p{max-width:800px;margin:34px auto 0;color:var(--muted);font-size:32px;line-height:1.42;font-weight:560}
+    .photo-stage{position:absolute;z-index:12;left:72px;right:72px;top:300px;bottom:170px;perspective:1600px}.photo-card{position:absolute;inset:0;overflow:hidden;border-radius:56px;background-color:#e9e2dc;background-position:center;background-size:cover;box-shadow:0 42px 100px rgba(36,52,95,.25);opacity:0}.photo-card::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,19,39,.03) 32%,rgba(12,19,39,.78) 100%)}.photo-card::after{content:"";position:absolute;inset:0;border:1px solid rgba(255,255,255,.38);border-radius:56px}.photo-1{background-image:linear-gradient(140deg,#eadff3,#ffd9cb),url("../assets/mamin-vodic/workshops/workshop-01.jpg")}.photo-2{background-image:linear-gradient(140deg,#dbeee6,#eee6f7),url("../assets/mamin-vodic/workshops/workshop-02.jpg")}.photo-3{background-image:linear-gradient(140deg,#fde0d1,#e1ecf5),url("../assets/mamin-vodic/workshops/workshop-03.jpg")}.photo-4{background-image:linear-gradient(140deg,#e6e0f2,#f8dccf),url("../assets/mamin-vodic/workshops/workshop-04.jpg")}
+    .photo-1{background-image:url("../assets/mamin-vodic/workshops/workshop-01.jpg"),linear-gradient(140deg,#eadff3,#ffd9cb)}.photo-2{background-image:url("../assets/mamin-vodic/workshops/workshop-02.jpg"),linear-gradient(140deg,#dbeee6,#eee6f7)}.photo-3{background-image:url("../assets/mamin-vodic/workshops/workshop-03.jpg"),linear-gradient(140deg,#fde0d1,#e1ecf5)}.photo-4{background-image:url("../assets/mamin-vodic/workshops/workshop-04.jpg"),linear-gradient(140deg,#e6e0f2,#f8dccf)}
+    .photo-copy{position:absolute;z-index:4;left:54px;right:54px;bottom:60px;color:white}.photo-copy small{font-size:20px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;opacity:.76}.photo-copy h2{margin:14px 0 0;max-width:760px;font-size:76px;line-height:1.02;letter-spacing:-.055em;text-shadow:0 4px 25px rgba(0,0,0,.22)}.photo-copy p{margin:18px 0 0;max-width:720px;font-size:29px;line-height:1.38;font-weight:600;color:rgba(255,255,255,.85)}
+    .dots{position:absolute;z-index:40;left:0;right:0;bottom:105px;display:flex;justify-content:center;gap:12px}.dots i{width:12px;height:12px;border-radius:50%;background:rgba(36,52,95,.18)}.dots i:first-child{width:34px;border-radius:9px;background:var(--coral)}
+    .outro{top:530px;opacity:0;visibility:hidden}.outro .mark{width:88px;height:88px;margin:0 auto 40px}.mark path{fill:none;stroke:var(--navy);stroke-width:16;stroke-linecap:round;stroke-linejoin:round}.mark circle{fill:var(--coral)}.clip{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  </style>
+</head>
+<body>
+<main id="root" data-composition-id="mamin-vodic-community-v2" data-width="1080" data-height="1920" data-start="0" data-duration="12" data-root="true">
+  <header class="header"><div class="brand"><span class="sun"></span><span><b>MAMINSAN</b><small>Škola za trudnice i mame</small></span></div><span class="year">10 godina zajednice</span></header>
+  <section class="intro"><span class="eyebrow">Iskustvo koje ne počinje aplikacijom</span><h1><span>10 godina</span><span class="accent">uz mame.</span></h1><p>Slušamo pitanja, potrebe i stvarni život porodica.</p></section>
+  <section class="photo-stage">
+    <article class="photo-card photo-1"><div class="photo-copy"><small>Radionice</small><h2>Znanje koje se deli uživo.</h2><p>Razgovori sa trudnicama i mamama širom zajednice.</p></div></article>
+    <article class="photo-card photo-2"><div class="photo-copy"><small>Paneli</small><h2>Teme koje porodice zaista otvaraju.</h2></div></article>
+    <article class="photo-card photo-3"><div class="photo-copy"><small>Grupe podrške</small><h2>Pitanja koja ne staju u jedan pregled.</h2></div></article>
+    <article class="photo-card photo-4"><div class="photo-copy"><small>Zajednica</small><h2>Iskustvo hiljada žena.</h2></div></article>
+  </section>
+  <div class="dots"><i></i><i></i><i></i><i></i></div>
+  <section class="outro"><svg class="mark" viewBox="0 0 100 100"><path d="M18,84 V44 A16,16 0 0 1 50,44 V58 M50,44 A16,16 0 0 1 82,44 V84"/><circle cx="50" cy="78" r="9"/></svg><span class="eyebrow">Sledeći korak</span><h2><span>Iz tih razgovora</span><span class="accent">nastaje Mamin vodič.</span></h2><p>Proizvod zasnovan na potrebama zajednice, ne na pretpostavkama.</p></section>
+  <div id="driver" class="clip" data-start="0" data-duration="12" data-track-index="0"></div>
+</main>
+<script>
+  window.__timelines=window.__timelines||{};
+  const tl=gsap.timeline({paused:true,defaults:{ease:"power3.out"}});
+  const cards=gsap.utils.toArray(".photo-card"),dots=gsap.utils.toArray(".dots i");
+  tl.set(".photo-stage,.dots",{autoAlpha:0});tl.set(".outro",{autoAlpha:0});
+  tl.fromTo(".header",{opacity:0,y:-18},{opacity:1,y:0,duration:.55},.08);
+  tl.fromTo(".intro .eyebrow",{opacity:0,y:18},{opacity:1,y:0,duration:.5},.25);
+  tl.fromTo(".intro h1 span",{opacity:0,y:46,filter:"blur(10px)"},{opacity:1,y:0,filter:"blur(0px)",duration:.72,stagger:.1,ease:"expo.out"},.4);
+  tl.fromTo(".intro p",{opacity:0,y:22},{opacity:1,y:0,duration:.5},.9);
+  tl.to(".intro",{autoAlpha:0,y:-36,duration:.42,ease:"power2.in"},2.12);
+  tl.set(".photo-stage,.dots",{autoAlpha:1},2.42);
+  const starts=[2.42,4.12,5.82,7.52];
+  starts.forEach((at,i)=>{tl.fromTo(cards[i],{opacity:0,x:72,scale:1.055,rotationY:-3},{opacity:1,x:0,scale:1,rotationY:0,duration:.5,ease:"expo.out"},at);tl.fromTo(cards[i].querySelector(".photo-copy"),{opacity:0,y:30},{opacity:1,y:0,duration:.52},at+.22);tl.set(dots,{width:12,backgroundColor:"rgba(36,52,95,.18)"},at);tl.set(dots[i],{width:34,backgroundColor:"#f26973"},at);if(i<3)tl.to(cards[i],{opacity:0,x:-42,scale:.98,duration:.4,ease:"power2.in"},starts[i+1]-.12);});
+  tl.to(".photo-stage,.dots",{autoAlpha:0,scale:.96,duration:.45,ease:"power2.in"},9.18);
+  tl.fromTo(".outro",{autoAlpha:0,y:44},{autoAlpha:1,y:0,duration:.62,ease:"expo.out"},9.5);
+  tl.fromTo(".outro h2 span",{opacity:0,y:32,filter:"blur(8px)"},{opacity:1,y:0,filter:"blur(0px)",duration:.5,stagger:.08},9.68);
+  tl.fromTo(".outro p",{opacity:0,y:18},{opacity:1,y:0,duration:.42},10.18);
+  window.__timelines["mamin-vodic-community-v2"]=tl;tl.seek(0);
+</script>
+</body>
+</html>
