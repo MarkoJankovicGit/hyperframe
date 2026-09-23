@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=1080, height=1920"/>
+<title>Mamin vodič — od rasutih alata do jednog mesta</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+*{box-sizing:border-box}html,body{margin:0;width:1080px;height:1920px;overflow:hidden}
+@font-face{font-family:Manrope;src:url("../assets/fonts/manrope-latin-ext-wght-normal.woff2") format("woff2");font-weight:200 800;font-display:block}@font-face{font-family:Manrope;src:url("../assets/fonts/manrope-latin-wght-normal.woff2") format("woff2");font-weight:200 800;font-display:block}
+:root{--navy:#24345f;--coral:#f26973;--cream:#fff8f2;--muted:#717789}
+body{font-family:Manrope,system-ui,sans-serif;color:var(--navy);background:var(--cream)}
+#root{position:relative;width:1080px;height:1920px;overflow:hidden;background:radial-gradient(circle at 84% 14%,#eee7f7 0,transparent 30%),radial-gradient(circle at 8% 82%,#ffe1d3 0,transparent 31%),#fff8f2}
+.header{position:absolute;top:78px;left:78px;right:78px;display:flex;justify-content:space-between;align-items:center;z-index:20}.label{display:flex;align-items:center;gap:14px;font-size:20px;font-weight:850;letter-spacing:.11em;text-transform:uppercase}.label i{width:12px;height:12px;border-radius:50%;background:var(--coral);box-shadow:0 0 0 8px rgba(242,105,115,.12)}.step{font-size:17px;font-weight:800;color:var(--muted)}
+.copy{position:absolute;z-index:12;left:74px;right:74px;top:230px;text-align:center}.copy h1,.solution h2{margin:0;font-size:94px;line-height:.98;letter-spacing:-.065em}.copy h1 span,.solution h2 span{display:block}.accent{color:var(--coral)}.copy p,.solution p{max-width:780px;margin:28px auto 0;font-size:31px;line-height:1.4;color:var(--muted);font-weight:620}
+.grid{position:absolute;z-index:8;left:76px;right:76px;top:690px;display:grid;grid-template-columns:1fr 1fr;gap:16px}.tool{height:126px;display:flex;align-items:center;gap:20px;padding:20px 25px;border-radius:28px;background:rgba(255,255,255,.94);border:1px solid rgba(36,52,95,.1);box-shadow:0 16px 42px rgba(36,52,95,.08)}.tool i{width:62px;height:62px;display:grid;place-items:center;border-radius:20px;background:#ffe4d7;color:var(--navy);font-style:normal;font-size:28px;font-weight:900}.tool:nth-child(3n+2) i{background:#eee7f7}.tool b{font-size:26px}.tool small{display:block;margin-top:5px;color:var(--muted);font-size:17px;font-weight:700}
+.orb{position:absolute;z-index:15;left:50%;top:50%;width:92px;height:92px;margin:-46px;border-radius:50%;background:var(--coral);box-shadow:0 0 0 20px rgba(242,105,115,.12),0 28px 80px rgba(242,105,115,.34);opacity:0}
+.solution{position:absolute;z-index:18;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;opacity:0;visibility:hidden}.solution-inner{width:900px}.mark{display:block;width:170px;height:170px;margin:0 auto 38px}.mark path{fill:none;stroke:var(--navy);stroke-width:16;stroke-linecap:round;stroke-linejoin:round}.mark circle{fill:var(--coral)}
+.footer{position:absolute;left:0;right:0;bottom:82px;text-align:center;color:var(--muted);font-size:21px;font-weight:800;letter-spacing:.09em}.clip{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+</style>
+</head>
+<body>
+<main id="root" data-composition-id="mamin-vodic-app-collapse-v2" data-width="1080" data-height="1920" data-start="0" data-duration="6" data-root="true">
+<header class="header"><span class="label"><i></i>Šta nam je istraživanje pokazalo</span><span class="step">PROBLEM → REŠENJE</span></header>
+<section class="copy"><h1><span>Ne treba im</span><span class="accent">još jedna aplikacija.</span></h1><p>Treba povezati ono što danas vode na deset različitih mesta.</p></section>
+<section class="grid">
+<article class="tool"><i>○</i><span><b>Trudnoća</b><small>Nedelje i promene</small></span></article><article class="tool"><i>☾</i><span><b>San</b><small>Ritam i beleške</small></span></article>
+<article class="tool"><i>↗</i><span><b>Razvoj</b><small>Faze i prekretnice</small></span></article><article class="tool"><i>＋</i><span><b>Ishrana</b><small>Obroci i raspored</small></span></article>
+<article class="tool"><i>◉</i><span><b>Lekovi</b><small>Doze i podsetnici</small></span></article><article class="tool"><i>□</i><span><b>Pregledi</b><small>Termini i kalendar</small></span></article>
+<article class="tool"><i>✎</i><span><b>Beleške</b><small>Sve važno pri ruci</small></span></article><article class="tool"><i>⌁</i><span><b>Dokumenti</b><small>Jedno sigurno mesto</small></span></article>
+<article class="tool"><i>♡</i><span><b>Zajednica</b><small>Iskustvo i podrška</small></span></article><article class="tool"><i>✦</i><span><b>AI pitanja</b><small>Savet uz kontekst</small></span></article>
+</section>
+<div class="orb"></div>
+<section class="solution"><div class="solution-inner"><svg class="mark" viewBox="0 0 100 100"><path d="M18,84 V44 A16,16 0 0 1 50,44 V58 M50,44 A16,16 0 0 1 82,44 V84"/><circle cx="50" cy="78" r="9"/></svg><h2><span>Treba im</span><span class="accent">jedno povezano mesto.</span></h2><p>Mamin vodič objedinjuje svakodnevnu podršku porodici.</p></div></section>
+<footer class="footer">MAMIN VODIČ · INTERAKTIVNI DEMO</footer>
+<div id="driver" class="clip" data-start="0" data-duration="6" data-track-index="0"></div>
+</main>
+<script>
+window.__timelines=window.__timelines||{};const tl=gsap.timeline({paused:true,defaults:{ease:"power3.out"}});const tools=gsap.utils.toArray(".tool");
+tl.set(".solution",{autoAlpha:0});tl.set(".orb",{opacity:0,scale:.2});tl.set(".mark circle",{scale:0,svgOrigin:"50 78"});
+tl.fromTo(".header",{opacity:0,y:-15},{opacity:1,y:0,duration:.45},.05);tl.fromTo(".copy h1 span",{opacity:0,y:38,filter:"blur(9px)"},{opacity:1,y:0,filter:"blur(0px)",duration:.58,stagger:.08},.15);tl.fromTo(".copy p",{opacity:0,y:18},{opacity:1,y:0,duration:.42},.62);
+tl.fromTo(tools,{opacity:0,y:35,scale:.94},{opacity:1,y:0,scale:1,duration:.36,stagger:.055},.72);
+tl.to(".copy",{opacity:0,y:-30,duration:.34,ease:"power2.in"},2.25);
+tools.forEach((item,i)=>{const side=i%2===0?-1:1;tl.to(item,{x:side*80,y:(4.5-i)*18,rotation:side*18,scale:.1,opacity:0,filter:"blur(9px)",duration:.62,ease:"power4.in"},2.35+i*.035)});
+tl.to(".orb",{opacity:1,scale:1,duration:.42,ease:"back.out(2)"},2.82);tl.to(".orb",{scale:8,opacity:.07,duration:.62,ease:"power3.out"},3.12);
+tl.fromTo(".solution",{autoAlpha:0,y:42},{autoAlpha:1,y:0,duration:.58,ease:"expo.out"},3.12);tl.fromTo(".mark path",{strokeDasharray:230,strokeDashoffset:230},{strokeDashoffset:0,duration:.78,ease:"power2.inOut"},3.18);tl.to(".mark circle",{scale:1,duration:.35,ease:"back.out(2.3)"},3.7);
+tl.fromTo(".solution h2 span",{opacity:0,y:30,filter:"blur(8px)"},{opacity:1,y:0,filter:"blur(0px)",duration:.46,stagger:.08},3.48);tl.fromTo(".solution p",{opacity:0,y:15},{opacity:1,y:0,duration:.4},4.12);
+window.__timelines["mamin-vodic-app-collapse-v2"]=tl;tl.seek(0);
+</script>
+</body></html>
