@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1080, height=1920" />
+  <title>Mamin vodič 2027 — prvi video preview</title>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <style>
+    * { box-sizing:border-box; }
+    html, body { margin:0; width:1080px; height:1920px; overflow:hidden; background:#fff8f2; }
+    #root { position:relative; width:1080px; height:1920px; overflow:hidden; background:#fff8f2; }
+    .scene-clip { position:absolute; inset:0; width:1080px; height:1920px; opacity:0; overflow:hidden; }
+    #research { opacity:1; }
+  </style>
+</head>
+<body>
+  <main id="root" data-composition-id="mamin-vodic-2027-preview" data-width="1080" data-height="1920" data-start="0" data-duration="29.10" data-root="true">
+    <div id="research" class="clip scene-clip"
+         data-composition-src="../../compositions/mamin-vodic-research-intro.html"
+         data-composition-id="mamin-vodic-research-intro"
+         data-width="1080" data-height="1920"
+         data-start="0" data-duration="7" data-track-index="1"></div>
+
+    <div id="collapse" class="clip scene-clip"
+         data-composition-src="../../compositions/mamin-vodic-app-collapse.html"
+         data-composition-id="mamin-vodic-app-collapse"
+         data-width="1080" data-height="1920"
+         data-start="6.70" data-duration="8" data-track-index="2"></div>
+
+    <div id="phone" class="clip scene-clip"
+         data-composition-src="../../compositions/mamin-vodic-phone-reveal.html"
+         data-composition-id="mamin-vodic-phone-reveal"
+         data-width="1080" data-height="1920"
+         data-start="14.40" data-duration="8" data-track-index="1"></div>
+
+    <div id="timeline" class="clip scene-clip"
+         data-composition-src="../../compositions/mamin-vodic-development-timeline.html"
+         data-composition-id="mamin-vodic-development-timeline"
+         data-width="1080" data-height="1920"
+         data-start="22.10" data-duration="7" data-track-index="2"></div>
+  </main>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused:true });
+    tl.set("#research", { opacity:1 }, 0);
+    tl.set(["#collapse", "#phone", "#timeline"], { opacity:0 }, 0);
+    tl.to("#research", { opacity:0, duration:.3, ease:"power1.inOut" }, 6.7);
+    tl.to("#collapse", { opacity:1, duration:.3, ease:"power1.inOut" }, 6.7);
+    tl.to("#collapse", { opacity:0, duration:.3, ease:"power1.inOut" }, 14.4);
+    tl.to("#phone", { opacity:1, duration:.3, ease:"power1.inOut" }, 14.4);
+    tl.to("#phone", { opacity:0, duration:.3, ease:"power1.inOut" }, 22.1);
+    tl.to("#timeline", { opacity:1, duration:.3, ease:"power1.inOut" }, 22.1);
+    window.__timelines["mamin-vodic-2027-preview"] = tl;
+    tl.seek(0);
+  </script>
+</body>
+</html>

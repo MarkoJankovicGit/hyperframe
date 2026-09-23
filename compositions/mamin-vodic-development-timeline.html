@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="sr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Mamin vodič — plan razvoja</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; }
+      @font-face {
+        font-family: "Manrope";
+        src: url("../assets/fonts/manrope-latin-ext-wght-normal.woff2") format("woff2");
+        font-style: normal;
+        font-weight: 200 800;
+        font-display: block;
+        unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+      @font-face {
+        font-family: "Manrope";
+        src: url("../assets/fonts/manrope-latin-wght-normal.woff2") format("woff2");
+        font-style: normal;
+        font-weight: 200 800;
+        font-display: block;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+      body { background: #fff8f2; font-family: "Manrope", "Inter", system-ui, sans-serif; }
+
+      #root {
+        position: relative;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        color: #24345f;
+        background:
+          radial-gradient(circle at 84% 10%, rgba(255, 220, 203, 0.9), rgba(255, 220, 203, 0) 34%),
+          radial-gradient(circle at 10% 88%, rgba(232, 224, 245, 0.85), rgba(232, 224, 245, 0) 38%),
+          #fff8f2;
+      }
+
+      .shape { position: absolute; border-radius: 50%; pointer-events: none; }
+      .shape-a { width: 560px; height: 560px; right: -250px; top: 380px; background: rgba(255, 220, 203, 0.55); filter: blur(4px); }
+      .shape-b { width: 420px; height: 420px; left: -210px; top: 1060px; background: rgba(242, 105, 115, 0.08); filter: blur(3px); }
+      .shape-c { width: 300px; height: 300px; right: 90px; bottom: -120px; background: rgba(232, 224, 245, 0.9); filter: blur(2px); }
+      .shape-ring { width: 760px; height: 760px; right: -420px; top: 920px; border: 2px solid rgba(36, 52, 95, 0.06); }
+
+      .header {
+        position: absolute;
+        left: 96px;
+        top: 118px;
+        width: 888px;
+      }
+      .logo { display: block; width: 84px; height: 84px; overflow: visible; }
+      .logo-m {
+        fill: none;
+        stroke: #24345f;
+        stroke-width: 16;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-dasharray: 230;
+        stroke-dashoffset: 0;
+      }
+      .logo-dot { fill: #f26973; }
+
+      .title {
+        margin: 34px 0 0;
+        font-size: 92px;
+        line-height: 1.02;
+        font-weight: 800;
+        letter-spacing: -0.045em;
+      }
+      .title-mask { display: block; overflow: hidden; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+      .title-line { display: block; }
+      .title-line.accent { color: #f26973; }
+
+      .timeline {
+        position: absolute;
+        left: 72px;
+        top: 540px;
+        width: 936px;
+        height: 1040px;
+      }
+      .track {
+        position: absolute;
+        left: 76px;
+        top: 0;
+        width: 4px;
+        height: 1040px;
+        margin-left: -2px;
+        border-radius: 4px;
+        background: repeating-linear-gradient(to bottom, rgba(36, 52, 95, 0.16) 0 10px, rgba(36, 52, 95, 0) 10px 22px);
+      }
+      .fill {
+        position: absolute;
+        left: 76px;
+        top: 0;
+        width: 8px;
+        height: 1040px;
+        margin-left: -4px;
+        border-radius: 8px;
+        background: linear-gradient(to bottom, rgba(242, 105, 115, 0.35), #f26973 18%, #f26973);
+        transform-origin: 50% 0%;
+        transform: scaleY(1);
+      }
+      .head {
+        position: absolute;
+        left: 76px;
+        top: 0;
+        width: 26px;
+        height: 26px;
+        margin: -13px 0 0 -13px;
+        border-radius: 50%;
+        background: #f26973;
+        box-shadow: 0 0 0 10px rgba(242, 105, 115, 0.16), 0 10px 34px rgba(242, 105, 115, 0.45);
+      }
+
+      .stage {
+        position: absolute;
+        left: 0;
+        width: 936px;
+        height: 260px;
+        display: flex;
+        align-items: center;
+      }
+      .stage-1 { top: 0; }
+      .stage-2 { top: 260px; }
+      .stage-3 { top: 520px; }
+      .stage-4 { top: 780px; }
+
+      .node {
+        position: relative;
+        flex: 0 0 152px;
+        height: 64px;
+      }
+      .station, .dot, .pulse {
+        position: absolute;
+        left: 76px;
+        top: 32px;
+        border-radius: 50%;
+      }
+      .station { width: 30px; height: 30px; margin: -15px 0 0 -15px; background: #fff8f2; border: 3px solid rgba(36, 52, 95, 0.2); }
+      .dot { width: 34px; height: 34px; margin: -17px 0 0 -17px; background: #fff; border: 7px solid #f26973; box-shadow: 0 8px 22px rgba(242, 105, 115, 0.3); }
+      .pulse { width: 34px; height: 34px; margin: -17px 0 0 -17px; border: 3px solid #f26973; opacity: 0; }
+      .stage-1 .dot { width: 50px; height: 50px; margin: -25px 0 0 -25px; background: #f26973; border: 8px solid #fff; box-shadow: 0 0 0 4px #f26973, 0 12px 34px rgba(242, 105, 115, 0.5); }
+      .stage-1 .pulse { width: 50px; height: 50px; margin: -25px 0 0 -25px; }
+
+      .card {
+        flex: 1 1 auto;
+        min-height: 206px;
+        padding: 30px 38px 32px;
+        border-radius: 34px;
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid rgba(36, 52, 95, 0.08);
+        box-shadow: 0 18px 50px rgba(36, 52, 95, 0.09), inset 0 1px rgba(255, 255, 255, 0.95);
+        will-change: transform, opacity, filter;
+      }
+      .stage-1 .card {
+        background: #24345f;
+        border-color: #24345f;
+        color: #fff8f2;
+        box-shadow: 0 30px 70px rgba(36, 52, 95, 0.32), 0 0 0 6px rgba(242, 105, 115, 0.18);
+      }
+
+      .label {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        height: 42px;
+        padding: 0 18px;
+        border-radius: 999px;
+        font-size: 21px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        font-variant-numeric: tabular-nums;
+      }
+      .stage-1 .label { background: #f26973; color: #fff8f2; }
+      .stage-2 .label { background: #ffdccb; color: #24345f; }
+      .stage-3 .label, .stage-4 .label { background: #e8e0f5; color: #24345f; }
+      .live { position: relative; width: 12px; height: 12px; border-radius: 50%; background: #fff8f2; }
+      .live-ring { position: absolute; inset: -5px; border-radius: 50%; border: 2px solid #fff8f2; opacity: 0; }
+
+      .stage-title {
+        margin-top: 16px;
+        font-size: 46px;
+        line-height: 1.08;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+      }
+      .stage-sub {
+        margin-top: 8px;
+        font-size: 28px;
+        line-height: 1.25;
+        font-weight: 650;
+        color: rgba(36, 52, 95, 0.72);
+      }
+      .stage-1 .stage-sub { color: rgba(255, 248, 242, 0.8); }
+
+      .footnote {
+        position: absolute;
+        left: 96px;
+        top: 1640px;
+        width: 888px;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        color: rgba(36, 52, 95, 0.74);
+        font-size: 27px;
+        line-height: 1.3;
+        font-weight: 700;
+      }
+      .footnote-mark { flex: 0 0 10px; width: 10px; height: 10px; border-radius: 50%; background: #f26973; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="mamin-vodic-development-timeline" data-width="1080" data-height="1920" data-start="0" data-duration="7" data-root="true">
+      <div class="shape shape-a"></div>
+      <div class="shape shape-b"></div>
+      <div class="shape shape-c"></div>
+      <div class="shape shape-ring"></div>
+
+      <header class="header">
+        <svg class="logo" viewBox="0 0 100 100" aria-label="Mamin vodič">
+          <path class="logo-m" d="M18,84 V44 A16,16 0 0 1 50,44 V58 M50,44 A16,16 0 0 1 82,44 V84" />
+          <circle class="logo-dot" cx="50" cy="78" r="9" />
+        </svg>
+        <h1 class="title" data-layout-allow-overflow>
+          <span class="title-mask"><span class="title-line">Plan razvoja</span></span>
+          <span class="title-mask"><span class="title-line accent">Maminog vodiča</span></span>
+        </h1>
+      </header>
+
+      <div class="timeline">
+        <div class="track"></div>
+        <div class="fill"></div>
+
+        <div class="stage stage-1">
+          <div class="node"><div class="station"></div><div class="pulse"></div><div class="dot"></div></div>
+          <div class="card">
+            <div class="label"><span class="live"><span class="live-ring"></span></span>Danas</div>
+            <div class="stage-title">Demo je spreman</div>
+            <div class="stage-sub">Interaktivni prototip</div>
+          </div>
+        </div>
+
+        <div class="stage stage-2">
+          <div class="node"><div class="station"></div><div class="pulse"></div><div class="dot"></div></div>
+          <div class="card">
+            <div class="label">Sledeće</div>
+            <div class="stage-title">Testiranje sa zajednicom</div>
+            <div class="stage-sub">100 mama + 50 trudnica</div>
+          </div>
+        </div>
+
+        <div class="stage stage-3">
+          <div class="node"><div class="station"></div><div class="pulse"></div><div class="dot"></div></div>
+          <div class="card">
+            <div class="label">6 meseci</div>
+            <div class="stage-title">Web aplikacija</div>
+            <div class="stage-sub">Od početka finansiranog razvoja</div>
+          </div>
+        </div>
+
+        <div class="stage stage-4">
+          <div class="node"><div class="station"></div><div class="pulse"></div><div class="dot"></div></div>
+          <div class="card">
+            <div class="label">12 meseci</div>
+            <div class="stage-title">iOS i Android</div>
+            <div class="stage-sub">Mobilna aplikacija</div>
+          </div>
+        </div>
+
+        <div class="head"></div>
+      </div>
+
+      <div class="footnote"><span class="footnote-mark"></span><span>Rokovi se računaju od početka finansiranog razvoja.</span></div>
+
+      <div id="driver" class="clip" data-start="0" data-duration="7" data-track-index="0"></div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      var LINE = 1040;
+      var ROW = 260;
+      var stops = [0.5, 1.1, 2.45, 3.8, 5.15, 5.8];
+      var targets = [0, ROW * 0.5, ROW * 1.5, ROW * 2.5, ROW * 3.5, LINE];
+      var segEases = ["power2.out", "power2.inOut", "power2.inOut", "power2.inOut", "power1.out"];
+
+      tl.fromTo(".shape-a", { y: 40 }, { y: -70, duration: 7, ease: "none" }, 0);
+      tl.fromTo(".shape-b", { y: -30 }, { y: 60, duration: 7, ease: "none" }, 0);
+      tl.fromTo(".shape-c", { x: 20, y: 30 }, { x: -30, y: -50, duration: 7, ease: "none" }, 0);
+      tl.fromTo(".shape-ring", { y: 50, rotation: -6 }, { y: -40, rotation: 4, duration: 7, ease: "none" }, 0);
+
+      tl.fromTo(".logo-m", { strokeDashoffset: 230 }, { strokeDashoffset: 0, duration: 0.7, ease: "power2.inOut" }, 0.05);
+      tl.fromTo(".logo-dot", { scale: 0, svgOrigin: "50 78" }, { scale: 1, svgOrigin: "50 78", duration: 0.4, ease: "back.out(2.2)" }, 0.5);
+      tl.fromTo(".title-line", { yPercent: 110 }, { yPercent: 0, duration: 0.62, stagger: 0.12, ease: "expo.out" }, 0.06);
+
+      tl.fromTo(".track", { opacity: 0, scaleY: 0.96, transformOrigin: "50% 0%" }, { opacity: 1, scaleY: 1, duration: 0.6, ease: "power2.out" }, 0.3);
+      tl.fromTo(".station", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, stagger: 0.07, ease: "back.out(1.8)" }, 0.36);
+
+      tl.set(".fill", { scaleY: 0 }, 0);
+      tl.set(".head", { y: 0, opacity: 0 }, 0);
+      tl.to(".head", { opacity: 1, duration: 0.2, ease: "power1.out" }, stops[0]);
+      for (var s = 0; s < 5; s++) {
+        var dur = stops[s + 1] - stops[s];
+        tl.to(".fill", { scaleY: targets[s + 1] / LINE, duration: dur, ease: segEases[s] }, stops[s]);
+        tl.to(".head", { y: targets[s + 1], duration: dur, ease: segEases[s] }, stops[s]);
+      }
+      tl.to(".head", { opacity: 0, scale: 0.4, duration: 0.3, ease: "power2.in" }, 5.72);
+
+      var cardEases = ["expo.out", "power3.out", "power4.out", "power3.out"];
+      gsap.utils.toArray(".stage").forEach(function (stage, i) {
+        var at = stops[i + 1];
+        var card = stage.querySelector(".card");
+        var dot = stage.querySelector(".dot");
+        var pulse = stage.querySelector(".pulse");
+        var copy = stage.querySelectorAll(".label, .stage-title, .stage-sub");
+        var calm = i === 0 ? 1 : 0.94;
+
+        tl.fromTo(dot, { scale: 0 }, { scale: 1, duration: 0.45, ease: "back.out(2.6)" }, at - 0.04);
+        tl.fromTo(pulse, { scale: 1, opacity: 0.75 }, { scale: i === 0 ? 3.2 : 2.5, opacity: 0, duration: 0.8, ease: "power2.out", immediateRender: false }, at);
+
+        tl.fromTo(card,
+          { opacity: 0, x: -24, y: 36, z: -260, rotationX: 16, scale: 0.9, transformPerspective: 1400, transformOrigin: "0% 50%", filter: "blur(14px)" },
+          { opacity: calm, x: 0, y: 0, z: 0, rotationX: 0, scale: 1, filter: "blur(0px)", duration: 0.8, ease: cardEases[i] },
+          at - 0.14);
+        tl.fromTo(copy,
+          { y: 14, filter: "blur(6px)" },
+          { y: 0, filter: "blur(0px)", duration: 0.55, stagger: 0.06, ease: "power2.out" },
+          at + 0.02);
+      });
+
+      tl.fromTo(".live-ring", { scale: 0.6, opacity: 0.9 }, { scale: 1.45, opacity: 0, duration: 1.1, ease: "power1.out", repeat: 3, repeatDelay: 0.25 }, 1.4);
+
+      tl.fromTo(".stage-1 .card",
+        { boxShadow: "0 30px 70px rgba(36, 52, 95, 0.32), 0 0 0 6px rgba(242, 105, 115, 0.18)" },
+        { boxShadow: "0 34px 80px rgba(36, 52, 95, 0.36), 0 0 0 12px rgba(242, 105, 115, 0.24)", duration: 0.9, ease: "sine.inOut", immediateRender: false },
+        5.9);
+
+      tl.fromTo(".footnote", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 5.4);
+      tl.fromTo(".timeline", { scale: 1 }, { scale: 1.012, transformOrigin: "50% 40%", duration: 1.2, ease: "sine.inOut" }, 5.8);
+
+      window.__timelines["mamin-vodic-development-timeline"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
