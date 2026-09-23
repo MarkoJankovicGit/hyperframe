@@ -41,7 +41,7 @@ tl.fromTo(".header",{opacity:0,y:-15},{opacity:1,y:0,duration:.45},.05);tl.fromT
 tl.fromTo(tools,{opacity:0,y:35,scale:.94},{opacity:1,y:0,scale:1,duration:.36,stagger:.055},.72);
 tl.to(".copy",{opacity:0,y:-30,duration:.34,ease:"power2.in"},2.25);
 tools.forEach((item,i)=>{const side=i%2===0?-1:1;tl.to(item,{x:side*80,y:(4.5-i)*18,rotation:side*18,scale:.1,opacity:0,filter:"blur(9px)",duration:.62,ease:"power4.in"},2.35+i*.035)});
-tl.to(".orb",{opacity:1,scale:1,duration:.42,ease:"back.out(2)"},2.82);tl.to(".orb",{scale:8,opacity:.07,duration:.62,ease:"power3.out"},3.12);
+tl.to(".orb",{opacity:1,scale:1,duration:.3,ease:"back.out(2)"},2.82);tl.to(".orb",{scale:8,opacity:.07,duration:.62,ease:"power3.out"},3.12);
 tl.fromTo(".solution",{autoAlpha:0,y:42},{autoAlpha:1,y:0,duration:.58,ease:"expo.out"},3.12);tl.fromTo(".mark path",{strokeDasharray:230,strokeDashoffset:230},{strokeDashoffset:0,duration:.78,ease:"power2.inOut"},3.18);tl.to(".mark circle",{scale:1,duration:.35,ease:"back.out(2.3)"},3.7);
 tl.fromTo(".solution h2 span",{opacity:0,y:30,filter:"blur(8px)"},{opacity:1,y:0,filter:"blur(0px)",duration:.46,stagger:.08},3.48);tl.fromTo(".solution p",{opacity:0,y:15},{opacity:1,y:0,duration:.4},4.12);
 window.__timelines["mamin-vodic-app-collapse-v2"]=tl;tl.seek(0);
